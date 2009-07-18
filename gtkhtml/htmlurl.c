@@ -498,18 +498,18 @@ html_url_append_path (const HTMLURL *url,
 	tmppath = g_strdup(url->path);
 
 	/* Cut the path at the first '?' */
-	if((ptr = strchr(tmppath, '?')))
+	if ((ptr = strchr(tmppath, '?')))
 		*ptr = 0;
 
 	i = strlen(tmppath);
 
 	/* Remove first '/' from the right */
-	while(i && tmppath[i-1] != '/')
+	while (i && tmppath[i-1] != '/')
 		i--;
 
-	if(i)
+	if (i)
 		tmppath[i] = 0;
-	else if(strlen(tmppath) > 1)
+	else if (strlen(tmppath) > 1)
 		tmppath[i] = 0;
 
 	new_path = concat_dir_and_file (tmppath, path);

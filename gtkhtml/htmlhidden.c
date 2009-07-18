@@ -33,7 +33,7 @@ encode (HTMLEmbedded *e, const gchar *codepage)
 	GString *encoding = g_string_new ("");
 	gchar *ptr;
 
-	if(strlen (e->name)) {
+	if (strlen (e->name)) {
 		ptr = html_embedded_encode_string (e->name, codepage);
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);

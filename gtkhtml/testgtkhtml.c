@@ -618,7 +618,7 @@ entry_goto_url(GtkWidget *widget, gpointer data)
 	tmpurl = g_strdup (gtk_entry_get_text (GTK_ENTRY (widget)));
 
 	/* Add "http://" if no protocol is specified */
-	if(strchr(tmpurl, ':')) {
+	if (strchr(tmpurl, ':')) {
 		on_set_base (NULL, tmpurl, NULL);
 		goto_url (tmpurl, 0);
 	} else {
@@ -645,13 +645,13 @@ back_cb (GtkWidget *widget, gpointer data)
 
 	go_position++;
 
-	if((item = g_list_nth_data(go_list, go_position))) {
+	if ((item = g_list_nth_data(go_list, go_position))) {
 
 		goto_url(item->url, 1);
 		gtk_widget_set_sensitive(popup_menu_forward, TRUE);
 		gtk_widget_set_sensitive(toolbar_forward, TRUE);
 
-		if(go_position == (g_list_length(go_list) - 1)) {
+		if (go_position == (g_list_length(go_list) - 1)) {
 
 			gtk_widget_set_sensitive(popup_menu_back, FALSE);
 			gtk_widget_set_sensitive(toolbar_back, FALSE);
@@ -668,14 +668,14 @@ forward_cb (GtkWidget *widget, gpointer data)
 
 	go_position--;
 
-	if((go_position >= 0) && (item = g_list_nth_data(go_list, go_position))) {
+	if ((go_position >= 0) && (item = g_list_nth_data(go_list, go_position))) {
 
 		goto_url(item->url, 1);
 
 		gtk_widget_set_sensitive(popup_menu_back, TRUE);
 		gtk_widget_set_sensitive(toolbar_back, TRUE);
 
-		if(go_position == 0) {
+		if (go_position == 0) {
 			gtk_widget_set_sensitive(popup_menu_forward, FALSE);
 			gtk_widget_set_sensitive(toolbar_forward, FALSE);
 		}
@@ -688,7 +688,7 @@ reload_cb (GtkWidget *widget, gpointer data)
 {
 	go_item *item;
 
-	if((item = g_list_nth_data(go_list, go_position))) {
+	if ((item = g_list_nth_data(go_list, go_position))) {
 
 		goto_url(item->url, 1);
 	}
@@ -762,7 +762,7 @@ static void
 on_redirect (GtkHTML *html, const gchar *url, gint delay, gpointer data) {
 	g_print("Redirecting to '%s' in %d seconds\n", url, delay);
 
-	if(redirect_timerId == 0) {
+	if (redirect_timerId == 0) {
 
 		redirect_url = g_strdup(url);
 
@@ -776,7 +776,7 @@ on_submit (GtkHTML *html, const gchar *method, const gchar *action, const gchar 
 
 	g_print("submitting '%s' to '%s' using method '%s'\n", encoding, action, method);
 
-	if(g_ascii_strcasecmp(method, "GET") == 0) {
+	if (g_ascii_strcasecmp(method, "GET") == 0) {
 
 		tmpstr = g_string_append_c (tmpstr, '?');
 		tmpstr = g_string_append (tmpstr, encoding);
@@ -929,7 +929,7 @@ parse_href (const gchar *s)
 	gchar *tmp;
 	HTMLURL *tmpurl;
 
-	if(s == NULL || *s == 0)
+	if (s == NULL || *s == 0)
 		return g_strdup ("");
 
 	if (s[0] == '#') {
@@ -970,7 +970,7 @@ parse_href (const gchar *s)
 			}
 		} else {
 			html_url_destroy (tmpurl);
-			if(baseURL) {
+			if (baseURL) {
 				tmpurl = html_url_append_path (baseURL, s);
 				retval = html_url_to_string (tmpurl);
 				html_url_destroy (tmpurl);
@@ -995,19 +995,19 @@ go_list_cb (GtkWidget *widget, gpointer data)
 
 		go_position = GPOINTER_TO_INT(data);
 
-		if((item = g_list_nth_data(go_list, go_position))) {
+		if ((item = g_list_nth_data(go_list, go_position))) {
 
 			goto_url(item->url, 1);
 			num = g_list_length(go_list);
 
-			if(go_position == 0 || num < 2) {
+			if (go_position == 0 || num < 2) {
 				gtk_widget_set_sensitive(popup_menu_forward, FALSE);
 				gtk_widget_set_sensitive(toolbar_forward, FALSE);
 			} else {
 				gtk_widget_set_sensitive(popup_menu_forward, TRUE);
 				gtk_widget_set_sensitive(toolbar_forward, TRUE);
 			}
-			if(go_position == (num - 1) || num < 2) {
+			if (go_position == (num - 1) || num < 2) {
 				gtk_widget_set_sensitive(popup_menu_back, FALSE);
 				gtk_widget_set_sensitive(toolbar_back, FALSE);
 			} else {
@@ -1021,7 +1021,7 @@ go_list_cb (GtkWidget *widget, gpointer data)
 static void remove_go_list(gpointer data, gpointer user_data) {
 	go_item *item = (go_item *)data;
 
-	if(item->widget)
+	if (item->widget)
 		gtk_widget_destroy(item->widget);
 
 	item->widget = NULL;
@@ -1039,7 +1039,7 @@ goto_url(const gchar *url, gint back_or_forward)
 	soup_session_abort (session);
 
 	/* Remove any pending redirection */
-	if(redirect_timerId) {
+	if (redirect_timerId) {
 		g_source_remove(redirect_timerId);
 
 		redirect_timerId = 0;
@@ -1055,18 +1055,18 @@ goto_url(const gchar *url, gint back_or_forward)
 	on_set_base (NULL, full_url, NULL);
 	url_requested (html, url, html_stream_handle, NULL);
 
-	if(!back_or_forward) {
-		if(go_position) {
+	if (!back_or_forward) {
+		if (go_position) {
 			/* Removes "Forward entries"*/
 			tmp = go_position;
-			while(tmp) {
+			while (tmp) {
 				item = g_list_nth_data(go_list, --tmp);
 				go_list = g_list_remove(go_list, item);
-				if(item->url)
+				if (item->url)
 					g_free(item->url);
-				if(item->title)
+				if (item->title)
 					g_free(item->title);
-				if(item->url)
+				if (item->url)
 					gtk_widget_destroy(item->widget);
 				g_free(item);
 			}
@@ -1075,14 +1075,14 @@ goto_url(const gchar *url, gint back_or_forward)
 
 		/* Removes old entries if the list is to big */
 		tmp = g_list_length(go_list);
-		while(tmp > MAX_GO_ENTRIES) {
+		while (tmp > MAX_GO_ENTRIES) {
 			item = g_list_nth_data(go_list, MAX_GO_ENTRIES);
 
-			if(item->url)
+			if (item->url)
 				g_free(item->url);
-			if(item->title)
+			if (item->title)
 				g_free(item->title);
-			if(item->url)
+			if (item->url)
 				gtk_widget_destroy(item->widget);
 			g_free(item);
 
@@ -1105,7 +1105,7 @@ goto_url(const gchar *url, gint back_or_forward)
 		tmp = g_list_length(go_list);
 		group = NULL;
 
-		for(i=0;i<tmp;i++) {
+		for (i=0;i<tmp;i++) {
 
 			item = g_list_nth_data(go_list, i);
 			item->widget = gtk_radio_menu_item_new_with_label(group, item->url);
@@ -1115,14 +1115,14 @@ goto_url(const gchar *url, gint back_or_forward)
 
 			group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(item->widget));
 
-			if(i == 0)
+			if (i == 0)
 				gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item->widget), TRUE);
 
 			gtk_widget_show(item->widget);
 
 		}
 		/* Enable the "Back" button if there are more then one url in the list */
-		if(g_list_length(go_list) > 1) {
+		if (g_list_length(go_list) > 1) {
 
 			gtk_widget_set_sensitive(popup_menu_back, TRUE);
 			gtk_widget_set_sensitive(toolbar_back, TRUE);
@@ -1133,7 +1133,7 @@ goto_url(const gchar *url, gint back_or_forward)
 		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item->widget), TRUE);
 	}
 
-	if(redirect_url) {
+	if (redirect_url) {
 
 		g_free(redirect_url);
 		redirect_url = NULL;

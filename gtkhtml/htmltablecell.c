@@ -450,7 +450,7 @@ void
 html_table_cell_set_bg_pixmap (HTMLTableCell *cell,
 				    HTMLImagePointer *imagePtr)
 {
-	if(imagePtr) {
+	if (imagePtr) {
 		cell->have_bgPixmap = TRUE;
 		cell->bgPixmap = imagePtr;
 	}

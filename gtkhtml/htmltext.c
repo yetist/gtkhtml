@@ -1245,7 +1245,7 @@ html_text_prepare_attrs (HTMLText *text, HTMLPainter *painter)
 
 			link = (Link *) l->data;
 
-			if(link->is_visited == FALSE)
+			if (link->is_visited == FALSE)
 				link_color = html_colorset_get_color (e->settings->color_set, HTMLLinkColor);
 			else
 				link_color = html_colorset_get_color (e->settings->color_set, HTMLVLinkColor);

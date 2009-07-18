@@ -2813,7 +2813,7 @@ element_parse_meta (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		} else if (g_ascii_strncasecmp(token, "content=", 8) == 0) {
 			const gchar *content;
 			content = token + 8;
-			if(contenttype)
+			if (contenttype)
 			{
 				contenttype = 0;
 				html_engine_set_content_type(e, content);
@@ -2832,7 +2832,7 @@ element_parse_meta (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				}
 
 				g_signal_emit (e, signals [REDIRECT], 0, refresh_url, refresh_delay);
-				if(refresh_url)
+				if (refresh_url)
 					g_free(refresh_url);
 			}
 		}
@@ -4923,7 +4923,7 @@ html_engine_timer_event (HTMLEngine *e)
 
  out:
 	if (!retval) {
-		if(e->updateTimer != 0) {
+		if (e->updateTimer != 0) {
 			g_source_remove (e->updateTimer);
 			html_engine_update_event (e);
 		}

@@ -131,7 +131,7 @@ html_form_submit (HTMLForm *form)
 	while (i) {
 		ptr = html_embedded_encode (HTML_EMBEDDED (i->data), codepage);
 		if (strlen (ptr)) {
-			if(!first)
+			if (!first)
 				encoding = g_string_append_c (encoding, '&');
 			else
 				first = FALSE;

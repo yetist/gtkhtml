@@ -99,7 +99,7 @@ begin (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2)
 
 	set_clip_rectangle (painter, 0, 0, 0, 0);
 
-	if (gdk_painter->double_buffer){
+	if (gdk_painter->double_buffer) {
 		const gint width = x2 - x1 + 1;
 		const gint height = y2 - y1 + 1;
 
@@ -113,7 +113,7 @@ begin (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2)
 		gdk_painter->x2 = x2;
 		gdk_painter->y2 = y2;
 
-		if (gdk_painter->set_background){
+		if (gdk_painter->set_background) {
 			gdk_gc_set_background (gdk_painter->gc, &gdk_painter->background);
 			gdk_painter->set_background = FALSE;
 		}
@@ -162,7 +162,7 @@ clear (HTMLPainter *painter)
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
-	if (! gdk_painter->double_buffer){
+	if (! gdk_painter->double_buffer) {
 		gdk_window_clear (gdk_painter->window);
 	} else {
 		if (gdk_painter->pixmap != NULL)

@@ -299,10 +299,10 @@ html_tokenizer_finalize (GObject *obj)
 
 	html_tokenizer_reset (t);
 
-	if(is_valid_g_iconv (t->priv->iconv_cd))
+	if (is_valid_g_iconv (t->priv->iconv_cd))
 		g_iconv_close (t->priv->iconv_cd);
 
-	if(t->priv->content_type)
+	if (t->priv->content_type)
 		g_free(t->priv->content_type);
 
 	g_free (t->priv);
@@ -483,7 +483,7 @@ html_tokenizer_convert_entity (gchar *token)
 					} else {
 						value = html_entity_parse (read_pos, strlen (read_pos));
 					}
-					if(value != INVALID_ENTITY_CHARACTER_MARKER){
+					if (value != INVALID_ENTITY_CHARACTER_MARKER) {
 						write_pos += g_unichar_to_utf8 (value, write_pos);
 						read_pos += (count_chars + 1);
 					} else {
@@ -679,13 +679,13 @@ static const gchar *
 get_encoding_from_content_type(const gchar * content_type)
 {
 	gchar * charset;
-	if(content_type)
+	if (content_type)
 	{
 		charset =  g_strrstr (content_type, "charset=");
-		if(charset != NULL)
+		if (charset != NULL)
 			return charset + strlen ("charset=");
 		charset =  g_strrstr (content_type, "encoding=");
-		if(charset != NULL)
+		if (charset != NULL)
 			return charset + strlen ("encoding=");
 
 	}
@@ -695,11 +695,11 @@ get_encoding_from_content_type(const gchar * content_type)
 GIConv
 generate_iconv_from(const gchar * content_type)
 {
-	if(content_type)
-		if(!charset_is_utf8(content_type))
+	if (content_type)
+		if (!charset_is_utf8(content_type))
 		{
 			const gchar * encoding = get_encoding_from_content_type (content_type);
-			if(encoding)
+			if (encoding)
 				return g_iconv_open ("utf-8", encoding);
 		}
 	return NULL;
@@ -708,11 +708,11 @@ generate_iconv_from(const gchar * content_type)
 GIConv
 generate_iconv_to(const gchar * content_type)
 {
-	if(content_type)
-		if(!charset_is_utf8 (content_type))
+	if (content_type)
+		if (!charset_is_utf8 (content_type))
 		{
 			const gchar * encoding = get_encoding_from_content_type (content_type);
-			if(encoding)
+			if (encoding)
 				return g_iconv_open (encoding, "utf-8");
 		}
 	return NULL;
@@ -731,7 +731,7 @@ static void
 html_tokenizer_real_change (HTMLTokenizer *t, const gchar *content_type)
 {
 	struct _HTMLTokenizerPrivate *p;
-	if(!is_text (content_type))
+	if (!is_text (content_type))
 		return;
 
 	p = t->priv;
@@ -739,12 +739,12 @@ html_tokenizer_real_change (HTMLTokenizer *t, const gchar *content_type)
 	if (!p->enableconvert)
 		return;
 
-	if(p->content_type)
+	if (p->content_type)
 		g_free(p->content_type);
 
 	p->content_type = g_ascii_strdown ( content_type, -1);
 
-	if(is_valid_g_iconv (p->iconv_cd))
+	if (is_valid_g_iconv (p->iconv_cd))
 		g_iconv_close (p->iconv_cd);
 
 	p->iconv_cd = generate_iconv_from (p->content_type);
@@ -843,16 +843,18 @@ html_tokenizer_append_token (HTMLTokenizer *t, const gchar *string, gint len)
 	}
 }
 
-static void add_byte (HTMLTokenizer *t, const gchar **c)
+static void
+add_byte (HTMLTokenizer *t, const gchar **c)
 {
 	add_char (t,**c);
 	(*c) ++;
 }
 
 static void
-add_char(HTMLTokenizer *t, gchar c){
+add_char (HTMLTokenizer *t, gchar c)
+{
 	struct _HTMLTokenizerPrivate *p = t->priv;
-	if(c!='\0')
+	if (c!='\0')
 	{
 		*(p->dest) = c;
 		p->dest ++;
@@ -1536,7 +1538,7 @@ html_tokenizer_get_content_type(HTMLTokenizer *t)
 
 	klass = HTML_TOKENIZER_CLASS (G_OBJECT_GET_CLASS (t));
 
-	if(klass->get_content_type)
+	if (klass->get_content_type)
 		return  klass->get_content_type(t);
 
 	g_warning ("No get_content_type method defined.");
@@ -1553,7 +1555,7 @@ html_tokenizer_get_engine_type (HTMLTokenizer *t)
 
 	klass = HTML_TOKENIZER_CLASS (G_OBJECT_GET_CLASS (t));
 
-	if(klass->get_engine_type)
+	if (klass->get_engine_type)
 		return  klass->get_engine_type(t);
 
 	g_warning ("No get_engine_type method defined.");

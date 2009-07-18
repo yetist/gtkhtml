@@ -54,7 +54,7 @@ encode (HTMLEmbedded *e, const gchar *codepage)
 	GString *encoding = g_string_new ("");
 	gchar *ptr;
 
-	if(strlen (e->name) && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (e->widget))) {
+	if (strlen (e->name) && gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (e->widget))) {
 
 		ptr = html_embedded_encode_string (e->name, codepage);
 		encoding = g_string_append (encoding, ptr);

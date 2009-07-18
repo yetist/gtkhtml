@@ -107,11 +107,11 @@ destroy (HTMLObject *o)
 	d (printf ("destroy embedded %p\n", o));
 	element = HTML_EMBEDDED (o);
 
-	if(element->name)
+	if (element->name)
 		g_free(element->name);
-	if(element->value)
+	if (element->value)
 		g_free(element->value);
-	if(element->widget) {
+	if (element->widget) {
 		GtkWidget *parent;
 
 		gtk_widget_hide (element->widget);
@@ -243,7 +243,7 @@ html_embedded_encode_string (const gchar *before, const gchar *codepage)
 		guchar c;
 
 	    GIConv iconv_cd = generate_iconv_to (codepage);
-	    if( is_valid_g_iconv (iconv_cd))
+	    if ( is_valid_g_iconv (iconv_cd))
 	    {
 		str= convert_text_encoding(iconv_cd, before);
 		g_iconv_close(iconv_cd);

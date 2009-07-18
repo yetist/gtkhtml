@@ -1057,7 +1057,8 @@ html_image_factory_types (GtkHTMLStream *stream,
 }
 
 static void
-update_or_redraw (HTMLImagePointer *ip){
+update_or_redraw (HTMLImagePointer *ip)
+{
 	GSList *list;
 	gboolean update = FALSE;
 
@@ -1262,7 +1263,7 @@ cleanup_images (gpointer key, gpointer value, gpointer free_everything)
 	HTMLImagePointer *ip = value;
 
 	/* free_everything means: NULL only clean, non-NULL free */
-	if (free_everything){
+	if (free_everything) {
 		if (ip->interests != NULL) {
 			g_slist_free (ip->interests);
 			ip->interests = NULL;
@@ -1270,7 +1271,7 @@ cleanup_images (gpointer key, gpointer value, gpointer free_everything)
 	}
 
 	/* clean only if this image is not used anymore */
-	if (!ip->interests){
+	if (!ip->interests) {
 		html_image_pointer_unref (ip);
 		ip->factory = NULL;
 		return TRUE;

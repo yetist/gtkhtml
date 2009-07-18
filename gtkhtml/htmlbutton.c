@@ -69,7 +69,7 @@ encode (HTMLEmbedded *e,const gchar *codepage)
 	GString *encoding = g_string_new ("");
 	gchar *ptr;
 
-	if(strlen (e->name) && (HTML_BUTTON(e)->successful)) {
+	if (strlen (e->name) && (HTML_BUTTON(e)->successful)) {
 		ptr = html_embedded_encode_string (e->name, codepage);
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
@@ -127,10 +127,10 @@ html_button_init (HTMLButton *button,
 
 	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass), parent, name, value);
 
-	if( strlen (element->value)) {
+	if ( strlen (element->value)) {
 		widget = gtk_button_new_with_label (element->value);
 	} else {
-		switch(type) {
+		switch (type) {
 		case BUTTON_NORMAL:
 			widget = gtk_button_new ();
 			break;

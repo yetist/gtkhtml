@@ -2703,7 +2703,7 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
         case DND_TARGET_TYPE_MOZILLA_URL  :
 		break;
         case DND_TARGET_TYPE_TEXT_URI_LIST:
-		if(!HTML_IS_PLAIN_PAINTER (engine->painter)) {
+		if (!HTML_IS_PLAIN_PAINTER (engine->painter)) {
                  HTMLObject *obj;
                  gint list_len, len;
                  gchar *uri;

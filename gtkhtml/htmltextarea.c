@@ -68,7 +68,7 @@ encode (HTMLEmbedded *e, const gchar *codepage)
 	GString *encoding = g_string_new ("");
 	gchar *encoded_str, *utf8_str, *gtk_text;
 
-	if(strlen (e->name)) {
+	if (strlen (e->name)) {
 		GtkTextIter first, last;
 
 		utf8_str = html_embedded_encode_string (e->name, codepage);
