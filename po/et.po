@@ -15,9 +15,9 @@ msgstr ""
 "Project-Id-Version: gtkhtml HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gtkhtml&component=general\n"
-"POT-Creation-Date: 2009-06-19 14:53+0000\n"
-"PO-Revision-Date: 2009-06-25 00:53+0300\n"
-"Last-Translator: Mattias Põldaru <mahfiaz gmail com>\n"
+"POT-Creation-Date: 2009-07-02 16:41+0000\n"
+"PO-Revision-Date: 2009-07-20 14:56+0300\n"
+"Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -743,38 +743,27 @@ msgstr "Maagilised tujunäod"
 msgid "Convert emoticons to images as you type"
 msgstr "Sisestamise ajal tujunägude automaatne teisendamine piltideks"
 
-msgid "<b>Alignment &amp; Behavior</b>"
-msgstr "<b>Joondus ja käitumine</b>"
+#, no-c-format
+msgid "%"
+msgstr "%"
 
-msgid "<b>Alignment</b>"
-msgstr "<b>Joondus</b>"
+msgid "Alignment"
+msgstr "Joondus"
 
-msgid "<b>Background Image</b>"
-msgstr "<b>Taustapilt</b>"
+msgid "Alignment & Behavior"
+msgstr "Joondus ja käitumine"
 
-msgid "<b>Background</b>"
-msgstr "<b>Taust</b>"
+msgid "Background"
+msgstr "Taust"
 
-msgid "<b>Colors</b>"
-msgstr "<b>Värvused</b>"
+msgid "Background Image"
+msgstr "Taustapilt"
 
-msgid "<b>General</b>"
-msgstr "<b>Üldine</b>"
+msgid "Blue Ink"
+msgstr "Sinise tindiga"
 
-msgid "<b>Layout</b>"
-msgstr "<b>Paigutus</b>"
-
-msgid "<b>Link</b>"
-msgstr "<b>Viit</b>"
-
-msgid "<b>Scope</b>"
-msgstr "<b>Ulatus</b>"
-
-msgid "<b>Size</b>"
-msgstr "<b>Suurus</b>"
-
-msgid "<b>Style</b>"
-msgstr "<b>Laad</b>"
+msgid "Bottom"
+msgstr "All"
 
 msgid "C_ell"
 msgstr "_Lahter"
@@ -794,17 +783,35 @@ msgstr "_Tõstutundlik"
 msgid "Cell Properties"
 msgstr "Lahtri omadused"
 
+msgid "Center"
+msgstr "Keskel"
+
 msgid "Co_lor:"
 msgstr "_Värvus:"
 
 msgid "Col_umn"
 msgstr "_Veerg"
 
+msgid "Colors"
+msgstr "Värvused"
+
 msgid "Column Span:"
 msgstr "Veeru ulatus:"
 
+msgid "Confidential"
+msgstr "Salajane"
+
+msgid "Draft"
+msgstr "Mustand"
+
 msgid "Find"
 msgstr "Otsimine"
+
+msgid "General"
+msgstr "Üldine"
+
+msgid "Graph Paper"
+msgstr "Ruuduline paber"
 
 msgid "Hea_der Style"
 msgstr "_Päise laad"
@@ -815,44 +822,38 @@ msgstr "_Pilt:"
 msgid "Image Properties"
 msgstr "Pildi omadused"
 
-msgid ""
-"Left\n"
-"Center\n"
-"Right"
-msgstr ""
-"Vasakul\n"
-"Keskel\n"
-"Paremal"
+msgid "Layout"
+msgstr "Paigutus"
+
+msgid "Left"
+msgstr "Vasakul"
+
+msgid "Link"
+msgstr "Viit"
 
 msgid "Link Properties"
 msgstr "Viida omadused"
 
-msgid ""
-"None\n"
-"Perforated Paper\n"
-"Blue Ink\n"
-"Paper\n"
-"Ribbon\n"
-"Midnight\n"
-"Confidential\n"
-"Draft\n"
-"Graph Paper"
-msgstr ""
-"Puudub\n"
-"Perforeeritud paber\n"
-"Sinise tindiga\n"
-"Paber\n"
-"Kummiriba\n"
-"Kesköö\n"
-"Salajane\n"
-"Mustand\n"
-"Ruuduline paber"
+msgid "Middle"
+msgstr "Keskel"
+
+msgid "Midnight"
+msgstr "Kesköö"
+
+msgid "None"
+msgstr "Puudub"
 
 msgid "Page Properties"
 msgstr "Lehekülje omadused"
 
+msgid "Paper"
+msgstr "Paber"
+
 msgid "Paragraph Properties"
 msgstr "Lõigu omadused"
+
+msgid "Perforated Paper"
+msgstr "Perforeeritud paber"
 
 msgid "R_eplace:"
 msgstr "_Asenda:"
@@ -863,6 +864,12 @@ msgstr "Asendamine"
 msgid "Replace Confirmation"
 msgstr "Asendamise kinnitus"
 
+msgid "Ribbon"
+msgstr "Kummiriba"
+
+msgid "Right"
+msgstr "Paremal"
+
 msgid "Row Span:"
 msgstr "Rea ulatus:"
 
@@ -871,6 +878,9 @@ msgstr "Vahejoone omadused"
 
 msgid "S_haded"
 msgstr "_Varjutatud"
+
+msgid "Scope"
+msgstr ""
 
 msgid "Search _backwards"
 msgstr "Otsi _tahapoole"
@@ -881,6 +891,12 @@ msgstr "Vali pilt"
 msgid "Si_ze:"
 msgstr "_Suurus:"
 
+msgid "Size"
+msgstr "Suurus"
+
+msgid "Style"
+msgstr "Laad"
+
 msgid "T_emplate:"
 msgstr "_Mall:"
 
@@ -890,14 +906,8 @@ msgstr "Tabeli omadused"
 msgid "Text Properties"
 msgstr "Teksti omadused"
 
-msgid ""
-"Top\n"
-"Middle\n"
-"Bottom"
-msgstr ""
-"Üleval\n"
-"Keskel\n"
-"All"
+msgid "Top"
+msgstr "Üleval"
 
 msgid "Width:"
 msgstr "Laius:"
@@ -977,26 +987,11 @@ msgstr "_X-polsterdus:"
 msgid "_Y-Padding:"
 msgstr "_Y-polsterdus:"
 
+msgid "follow"
+msgstr ""
+
 msgid "px"
 msgstr "px"
-
-#, no-c-format
-msgid ""
-"px\n"
-"%"
-msgstr ""
-"px\n"
-"%"
-
-#, no-c-format
-msgid ""
-"px\n"
-"%\n"
-"follow"
-msgstr ""
-"px\n"
-"%\n"
-"tuletatud"
 
 msgid "Language"
 msgstr "Keel"
@@ -1171,12 +1166,3 @@ msgstr "Printimise vaikimisi kirjatüüpi pole võimalik eraldada"
 
 msgid "GtkHTML Test"
 msgstr "GtkHTML test"
-
-#~ msgid "Print pre_view"
-#~ msgstr "Printimise eel_vaade"
-
-#~ msgid "Print preview"
-#~ msgstr "Printimise eelvaade"
-
-#~ msgid "GtkHTML Test Application"
-#~ msgstr "GtkHTML-i testrakendus"
