@@ -1,3 +1,17 @@
+GtkHTML-3.27.5 2009-07-27
+-------------------------
+
+Bug Fixes:
+	Bug #584243 - Crash when replacing a mispelled word (Milan Crha)
+
+Other Fixes:
+	Fix some build tool warnings. (Matthew Barnes)
+
+Translations:
+	Ivar Smolin (et)
+	Yaron Sharabani (he)
+	Chao-Hsiung Liao (zh_HK and zh_TW)
+
 GtkHTML-3.27.4 2009-07-13
 -------------------------
 
