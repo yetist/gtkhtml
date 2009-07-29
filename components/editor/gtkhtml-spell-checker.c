@@ -343,7 +343,7 @@ gtkhtml_spell_checker_get_suggestions (GtkhtmlSpellChecker *checker,
 
 	g_free (suggestions);
 
-	return g_list_sort (list, (GCompareFunc) g_utf8_collate);
+	return list;
 }
 
 void
