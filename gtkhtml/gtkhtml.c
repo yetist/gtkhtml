@@ -5544,17 +5544,17 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		break;
 	case GTK_HTML_COMMAND_KILL_WORD:
 	case GTK_HTML_COMMAND_KILL_WORD_BACKWARD:
-		html_engine_disable_selection (e);
-		html_engine_edit_selection_updater_schedule (e->selection_updater);
-		html_engine_set_mark (html->engine);
+		html_engine_block_selection (e);
+		html_engine_set_mark (e);
+		html_engine_update_selection_if_necessary (e);
+		html_engine_freeze (e);
 		rv = com_type == GTK_HTML_COMMAND_KILL_WORD
-			? html_engine_forward_word (html->engine)
-			: html_engine_backward_word (html->engine);
-		html_engine_edit_selection_updater_update_now (e->selection_updater);
-		html_draw_queue_clear (e->draw_queue);
+			? html_engine_forward_word (e)
+			: html_engine_backward_word (e);
 		if (rv)
-			gtk_html_cut (html);
-		html_engine_disable_selection (e);
+			html_engine_delete (e);
+		html_engine_unblock_selection (e);
+		html_engine_thaw (e);
 		break;
 	case GTK_HTML_COMMAND_SAVE_DATA_ON:
 		html->engine->save_data = TRUE;
