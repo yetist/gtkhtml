@@ -27,8 +27,6 @@ MAINTAINERCLEANFILES =				\
 	$(srcdir)/mkinstalldirs
 
 EXTRA_DIST =					\
-	gtkhtml.spec.in				\
-	gtkhtml.spec                            \
 	gtkhtml-zip.in				\
 	COPYING.LIB				\
 	BUGS					\

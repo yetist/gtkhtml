@@ -268,7 +268,6 @@ dnl **************
 
 AC_OUTPUT([
 Makefile
-gtkhtml.spec
 gtkhtml-zip
 po/Makefile.in
 gtkhtml/Makefile
