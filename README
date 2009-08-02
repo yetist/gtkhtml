@@ -1,10 +1,7 @@
 Licensing
 ---------
 
-        The library (src/) is released under the LGPL
-        The component (components/) is released under the GPL
-
-        GAL is only employed by the component, and not the library
+        The library is released under the LGPL
 
 What is GtkHTML?
 ----------------
@@ -16,38 +13,46 @@ being developed independently.
 Mailing list
 ------------
 
-There is a GtkHTML mailing list. It is intended to be used by GtkHTML
-hackers and developers using GtkHTML library. If you think you have
-found bug, please report it there.
+GtkHTML is currently maintained by the Evolution team and no longer
+has its own mailing list.  The best place to ask GtkHTML questions
+is on the "evolution-hackers" mailing list.
 
-You could subscribe to this list on:
+You can subscribe to this list at:
 
-	http://lists.ximian.com/mailman/listinfo/gtkhtml
+        http://mail.gnome.org/mailman/listinfo/evolution-hackers
 
-You could report bug by sending bug report to:
+You can also report GtkHTML bugs by filing a report at:
 
-	gtkhtml@ximian.com
+        http://bugzilla.gnome.org/enter_bug.cgi?product=GtkHtml
 
-Please don't send subscription requests to the list. Use above
-mentioned URL or send it to gtkhtml-request@ximian.com.
+NOTICE: While GtkHTML is still being maintained, it is no longer being
+        actively developed and is not recommended for new applications.
+        Consider WebKit/GTK+ or Gecko instead.
 
 Requirements
 ------------
 
-In order to compile GtkHTML, you need libgnome[ui] 1.112.1 (or later),
-Bonobo 1.112.1 (or later), gnome-print 2.2.0 (or later) and GAL 2.1.0 (or
-later).
-
-Optionally you may want to install GConf 1.0.7 (or later).
+In order to compile GtkHTML, you need:
+       gail >= 1.1
+       GTK+ >= 2.16
+       enchant
+       GConf
+       iso-codes >= 0.49
+       gnome-icon-theme >= 2.22
 
 If you want to try the test program `testgtkhtml', you also need
-glibwww 0.2 or later.  GLibWWW is available from:
-
-    ftp://www.gnome.org/pub/GNOME/unstable/sources/glibwww/
+libsoup-2.4 or later.
 
 To try it out, run testgtkhtml in the source directory, i.e:
 
-    cd src
+    cd gtkhtml
     ./testgtkhtml
 
 WARNING: testgtkhtml's URL fetching code is very buggy.
+
+You can also test GtkHTML's simple HTML editor widget:
+
+    cd components/editor
+    ./gtkhtml-editor-test
+
+The editor widget is used in Evolution's mail composer.
