@@ -1670,7 +1670,7 @@ static void
 element_parse_frameset (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 {
 	HTMLElement *element;
-	HTMLObject *set;
+	HTMLObject *frame;
 	gchar *value = NULL;
 	gchar *rows  = NULL;
 	gchar *cols  = NULL;
@@ -1699,15 +1699,15 @@ element_parse_frameset (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	e->leftBorder = 0;
 	e->rightBorder = 0;
 
-	set = html_frameset_new (e->widget, rows, cols);
+	frame = html_frameset_new (e->widget, rows, cols);
 
 	if (html_stack_is_empty (e->frame_stack)) {
-		append_element (e, clue, set);
+		append_element (e, clue, frame);
 	} else {
-		html_frameset_append (html_stack_top (e->frame_stack), set);
+		html_frameset_append (html_stack_top (e->frame_stack), frame);
 	}
 
-	html_stack_push (e->frame_stack, set);
+	html_stack_push (e->frame_stack, frame);
 	push_block (e, "frameset", DISPLAY_NONE, block_end_frameset, 0, 0);
 }
 
@@ -2490,8 +2490,15 @@ element_parse_frame (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 #endif
 
 	frame = html_frame_new (GTK_WIDGET (e->widget), src, -1 , -1, FALSE);
-	if (!html_frameset_append (html_stack_top (e->frame_stack), frame))
-		html_object_destroy (frame);
+	if (html_stack_is_empty (e->frame_stack)) {
+		append_element (e, clue, frame);
+	} else {
+		if (!html_frameset_append (html_stack_top (e->frame_stack), frame)) {
+			html_element_free (element);
+			html_object_destroy (frame);
+			return;
+		}
+	}
 
 	if (margin_height > 0)
 		html_frame_set_margin_height (HTML_FRAME (frame), margin_height);
