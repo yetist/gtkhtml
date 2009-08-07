@@ -6435,6 +6435,26 @@ gtk_html_set_tokenizer (GtkHTML *html, HTMLTokenizer *tokenizer)
 	html_engine_set_tokenizer (html->engine, tokenizer);
 }
 
+gboolean
+gtk_html_get_cursor_pos (GtkHTML *html, gint *position, gint *offset)
+{
+	gboolean read = FALSE;
+
+	g_return_val_if_fail (html != NULL, FALSE);
+	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
+
+	if (html->engine && html->engine->cursor) {
+		read = TRUE;
+
+		if (position)
+			*position = html->engine->cursor->position;
+		if (offset)
+			*offset = html->engine->cursor->offset;
+	}
+
+	return read;
+}
+
 gchar *
 gtk_html_filename_from_uri (const gchar *uri)
 {

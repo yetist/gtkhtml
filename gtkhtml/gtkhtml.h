@@ -332,6 +332,8 @@ gchar *                     gtk_html_get_cursor_image_src          (GtkHTML     
 void                       gtk_html_set_tokenizer                 (GtkHTML                   *html,
 								   HTMLTokenizer             *tokenizer);
 
+gboolean		   gtk_html_get_cursor_pos		  (GtkHTML *html, gint *position, gint *offset);
+
 /* DEPRECATED */
 #if 1
 gboolean                   gtk_html_build_with_gconf              (void);
