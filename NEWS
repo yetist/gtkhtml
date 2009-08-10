@@ -1,3 +1,19 @@
+GtkHTML-3.27.90 2009-08-10
+--------------------------
+
+Bug Fixes:
+	#586076 - [external-editor] Pass cursor pos to vim - new API (Milan Crha)
+	#589039 - Error in frameset append (Denis Pauk)
+	#340212 - Using Ctrl+Backspace copies to clipboard (Robin Stocker)
+	
+Other Fixes:
+	Enforce including only top-level GLib and GTK+ headers. (Matthew Barnes)
+
+Translations:
+	Kjartan Maraas (nb)
+	fujianwzh (zh_CN)
+	Daniel Nylander (sv)
+
 GtkHTML-3.27.5 2009-07-27
 -------------------------
 
