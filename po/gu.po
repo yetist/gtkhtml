@@ -5,8 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.gu\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gtkhtml&component=general\n"
-"POT-Creation-Date: 2009-01-12 04:53+0000\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gtkhtml&component=general\n"
+"POT-Creation-Date: 2009-04-16 02:29+0000\n"
 "PO-Revision-Date: 2009-03-15 11:19+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
@@ -14,7 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms:  nplurals=2; plural=(n!=1);\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -296,7 +298,6 @@ msgstr "મૂળભૂત"
 
 #: ../components/editor/gtkhtml-color-combo.c:744
 #: ../components/editor/gtkhtml-color-state.c:237
-#| msgid "Transparent"
 msgid "Default is transparent"
 msgstr "પારદર્શક મૂળભૂત છે"
 
@@ -342,7 +343,6 @@ msgstr "રંગની સ્થિતિ"
 #. the internal values for a GtkHtml color combination box.
 #.
 #: ../components/editor/gtkhtml-color-combo.c:790
-#| msgid "State of the color combo"
 msgid "The state of a color combo box"
 msgstr "રંગ કમ્બો બોક્સની સ્થિતિ"
 
@@ -389,108 +389,118 @@ msgstr "ક્રિયા"
 msgid "A GtkRadioAction"
 msgstr "GtkRadioAction"
 
-#: ../components/editor/gtkhtml-face-chooser.c:26
+#. Translators: :-)
+#: ../components/editor/gtkhtml-face-chooser.c:27
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
 msgid "_Smile"
 msgstr "હસો (_S)"
 
-#: ../components/editor/gtkhtml-face-chooser.c:27
-#| msgid "S_haded"
+#. Translators: :-(
+#: ../components/editor/gtkhtml-face-chooser.c:29
 msgid "S_ad"
 msgstr "નિરાશ (_a)"
 
-#: ../components/editor/gtkhtml-face-chooser.c:28
+#. Translators: ;-)
+#: ../components/editor/gtkhtml-face-chooser.c:31
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:160
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
 msgid "_Wink"
 msgstr "આંખ મારે (_W)"
 
-#: ../components/editor/gtkhtml-face-chooser.c:29
+#. Translators: :-P
+#: ../components/editor/gtkhtml-face-chooser.c:33
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
 msgid "Ton_gue"
 msgstr "જીભ (_g)"
 
-#: ../components/editor/gtkhtml-face-chooser.c:30
-#| msgid "_Laughing"
+#. Translators: :-))
+#: ../components/editor/gtkhtml-face-chooser.c:35
 msgid "Laug_h"
 msgstr "હસતું (_h)"
 
-#: ../components/editor/gtkhtml-face-chooser.c:31
-#| msgid "_Plain Text"
+#. Translators: :-|
+#: ../components/editor/gtkhtml-face-chooser.c:37
 msgid "_Plain"
 msgstr "સરળ (_P)"
 
-#: ../components/editor/gtkhtml-face-chooser.c:32
+#. Translators: :-!
+#: ../components/editor/gtkhtml-face-chooser.c:39
 msgid "Smi_rk"
 msgstr "બનાવટી હંસી (_r)"
 
-#: ../components/editor/gtkhtml-face-chooser.c:33
+#. Translators: :"-)
+#: ../components/editor/gtkhtml-face-chooser.c:41
 msgid "_Embarrassed"
 msgstr "શરમિંદા થવુ"
 
-#: ../components/editor/gtkhtml-face-chooser.c:34
-#| msgid "_Smile"
+#. Translators: :-D
+#: ../components/editor/gtkhtml-face-chooser.c:43
 msgid "_Big Smile"
 msgstr "મોટી હસી (_S)"
 
-#: ../components/editor/gtkhtml-face-chooser.c:35
-#| msgid "Underline"
+#. Translators: :-/
+#: ../components/editor/gtkhtml-face-chooser.c:45
 msgid "Uncer_tain"
 msgstr "અચોક્કસ (_t)"
 
-#: ../components/editor/gtkhtml-face-chooser.c:36
-#| msgid "Sur_prised"
+#. Translators: :-O
+#: ../components/editor/gtkhtml-face-chooser.c:47
 msgid "S_urprise"
 msgstr "નવાઈ (_u)"
 
-#: ../components/editor/gtkhtml-face-chooser.c:37
-#| msgid "Su_rprised"
+#. Translators: :-S
+#: ../components/editor/gtkhtml-face-chooser.c:49
 msgid "W_orried"
 msgstr "ગભરાયેલ (_o)"
 
-#: ../components/editor/gtkhtml-face-chooser.c:38
+#. Translators: :-*
+#: ../components/editor/gtkhtml-face-chooser.c:51
 msgid "_Kiss"
 msgstr "ચુંબન (_K)"
 
-#: ../components/editor/gtkhtml-face-chooser.c:39
-#| msgid "gray"
+#. Translators: X-(
+#: ../components/editor/gtkhtml-face-chooser.c:53
 msgid "A_ngry"
 msgstr "ગુસ્સે (_n)"
 
-#: ../components/editor/gtkhtml-face-chooser.c:40
+#. Translators: B-)
+#: ../components/editor/gtkhtml-face-chooser.c:55
 msgid "_Cool"
 msgstr "ઠંડું (_C):"
 
-#: ../components/editor/gtkhtml-face-chooser.c:41
-#| msgid "_Angel"
+#. Translators: O:-)
+#: ../components/editor/gtkhtml-face-chooser.c:57
 msgid "Ange_l"
 msgstr "દેવદૂત (_l)"
 
-#: ../components/editor/gtkhtml-face-chooser.c:42
+#. Translators: :'(
+#: ../components/editor/gtkhtml-face-chooser.c:59
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
 msgid "Cr_ying"
 msgstr "રડી રહ્યું છે (_y)"
 
-#: ../components/editor/gtkhtml-face-chooser.c:43
+#. Translators: :-Q
+#: ../components/editor/gtkhtml-face-chooser.c:61
 #: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
 #: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
 msgid "S_ick"
 msgstr "માંદુ (_i)"
 
-#: ../components/editor/gtkhtml-face-chooser.c:44
-#| msgid "red"
+#. Translators: |-)
+#: ../components/editor/gtkhtml-face-chooser.c:63
 msgid "Tire_d"
 msgstr "થાકેલ (_d)"
 
-#: ../components/editor/gtkhtml-face-chooser.c:45
-#| msgid "_Devilish"
+#. Translators: >:-)
+#: ../components/editor/gtkhtml-face-chooser.c:65
 msgid "De_vilish"
 msgstr "શેતાની (_v)"
 
-#: ../components/editor/gtkhtml-face-chooser.c:46
+#. Translators: :-(|)
+#: ../components/editor/gtkhtml-face-chooser.c:67
 msgid "_Monkey"
 msgstr "વાંદરો (_M)"
 
@@ -1073,7 +1083,6 @@ msgid "Add Word To"
 msgstr "માં શબ્દ ઉમેરો"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1938
-#| msgid "Suggestions for \"%s\""
 msgid "More Suggestions"
 msgstr "વધુ સૂચનો"
 
@@ -1082,7 +1091,6 @@ msgid "_Emoticon"
 msgstr "લાગણીશીલ ચિહ્ન (_E)"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2106
-#| msgid "Insert Link"
 msgid "Insert Emoticon"
 msgstr "ચહેરાઓ દાખલ કરો"
 
@@ -1135,59 +1143,59 @@ msgid "Automatic"
 msgstr "આપોઆપ"
 
 #: ../components/editor/gtkhtml-editor-private.c:608
-#| msgid "Could not load glade file."
 msgid "Could not open the link."
 msgstr "કડી ખોલી શક્યા નહિં."
 
-#: ../components/editor/gtkhtml-editor.c:716
+#: ../components/editor/gtkhtml-editor.c:750
 msgid "Current Folder"
 msgstr "હાલનું ફોલ્ડર"
 
-#: ../components/editor/gtkhtml-editor.c:717
+#: ../components/editor/gtkhtml-editor.c:751
 msgid "The initial folder for file chooser dialogs"
 msgstr "ફાઇલ પસંદ કરનાર સંવાદો માટે શરૂઆતનાં ફ્લોડર"
 
-#: ../components/editor/gtkhtml-editor.c:727
+#: ../components/editor/gtkhtml-editor.c:761
 msgid "Filename"
 msgstr "ફાઇલનામ"
 
-#: ../components/editor/gtkhtml-editor.c:728
+#: ../components/editor/gtkhtml-editor.c:762
 msgid "The filename to use when saving"
 msgstr "જ્યારે સંગ્રહ કરી રહ્યા હોય ત્યારે વાપરવામાં આવતી ફાઇલનામ"
 
-#: ../components/editor/gtkhtml-editor.c:738
+#: ../components/editor/gtkhtml-editor.c:772
 msgid "HTML Mode"
 msgstr "HTML સ્થિતિ"
 
-#: ../components/editor/gtkhtml-editor.c:739
+#: ../components/editor/gtkhtml-editor.c:773
 msgid "Edit HTML or plain text"
 msgstr "HTML અથવા સરળ લખાણમાં ફેરફાર કરો"
 
-#: ../components/editor/gtkhtml-editor.c:749
+#: ../components/editor/gtkhtml-editor.c:783
 msgid "Inline Spelling"
 msgstr "ઇનલાઇન જોડણી"
 
-#: ../components/editor/gtkhtml-editor.c:750
+#: ../components/editor/gtkhtml-editor.c:784
 msgid "Check your spelling as you type"
 msgstr "તમે ટાઇપ કરી છે તેવી તમારી જોડણી ને ચકાસો"
 
-#: ../components/editor/gtkhtml-editor.c:760
+#: ../components/editor/gtkhtml-editor.c:794
 msgid "Magic Links"
 msgstr "જાદુ કડીઓ"
 
-#: ../components/editor/gtkhtml-editor.c:761
+#: ../components/editor/gtkhtml-editor.c:795
 msgid "Make URIs clickable as you type"
 msgstr "તમે ટાઇપ કરી છે તેવી URIs ક્લિકેબલ બનાવો"
 
-#: ../components/editor/gtkhtml-editor.c:771
+#: ../components/editor/gtkhtml-editor.c:805
 msgid "Magic Smileys"
 msgstr "જાદુ સ્માઇલો"
 
-#: ../components/editor/gtkhtml-editor.c:772
+#: ../components/editor/gtkhtml-editor.c:806
 msgid "Convert emoticons to images as you type"
 msgstr "તમે ટાઇપ કર્યા છે તેવા લાગણીશીલ ચિહ્નને ચિત્રોમાં બદલો"
 
 #: ../components/editor/gtkhtml-editor.glade.h:1
+#, fuzzy
 msgid "<b>Alignment &amp; Behavior</b>"
 msgstr "<b>ગોઠવણી &amp; વર્તણૂક</b>"
 
@@ -1215,8 +1223,9 @@ msgstr "<b>સામાન્ય</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:7
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:13
+#, fuzzy
 msgid "<b>Layout</b>"
-msgstr "<b>દેખાવ</b>"
+msgstr "<b>પાશ્વ ભાગ</b>"
 
 #: ../components/editor/gtkhtml-editor.glade.h:8
 msgid "<b>Link</b>"
@@ -1554,7 +1563,7 @@ msgstr ""
 
 #: ../components/editor/gtkhtml-editor.glade.h:92
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:84
-#, no-c-format
+#, fuzzy, no-c-format
 msgid ""
 "px\n"
 "%\n"
@@ -2192,10 +2201,12 @@ msgid "None"
 msgstr "કંઈ નહિં"
 
 #: ../components/html-editor/body.c:72
+#, fuzzy
 msgid "Perforated paper"
 msgstr "છિદ્રવાળું કાગળ"
 
 #: ../components/html-editor/body.c:80
+#, fuzzy
 msgid "Blue ink"
 msgstr "ભૂરી શાહી"
 
@@ -2220,6 +2231,7 @@ msgid "Draft"
 msgstr "ડ્રાફ્ટ"
 
 #: ../components/html-editor/body.c:128
+#, fuzzy
 msgid "Graph paper"
 msgstr "ગ્રાફ પેપર"
 
@@ -2243,8 +2255,8 @@ msgstr "પાશ્વ ભાગની ચિત્ર ફાઈલનો પ�
 msgid "Template"
 msgstr "ટેમ્પ્લેટ"
 
-#: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
-#: ../components/html-editor/link.c:215 ../components/html-editor/rule.c:179
+#: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:344
+#: ../components/html-editor/link.c:214 ../components/html-editor/rule.c:179
 #: ../components/html-editor/table.c:229
 #: ../components/html-editor/template.c:287
 #: ../components/html-editor/text.c:168
@@ -2417,8 +2429,9 @@ msgid "Shade"
 msgstr "પડછાયો"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
+#, fuzzy
 msgid "Size:"
-msgstr "માપ:"
+msgstr "માપ (_z):"
 
 #: ../components/html-editor/gtkhtml-editor-properties.glade.h:56
 msgid "Vertical:"
@@ -2428,11 +2441,11 @@ msgstr "ઊભુ:"
 msgid "xxxxxxxxxxxxxx"
 msgstr "xxxxxxxxxxxxxx"
 
-#: ../components/html-editor/link.c:227
+#: ../components/html-editor/link.c:226
 msgid "URL:"
 msgstr "URL:"
 
-#: ../components/html-editor/link.c:231
+#: ../components/html-editor/link.c:230
 msgid "Description:"
 msgstr "વર્ણન:"
 
@@ -2709,83 +2722,83 @@ msgstr ""
 "ફેરફાર થયેલ ઓબ્જેક્ટ દસ્તાવેજમાંથી દૂર થઈ ગયો છે.\n"
 "તમારા ફેરફારો લાગુ પાડી શકતા નથી."
 
-#: ../gtkhtml/gtkhtml.c:3033
+#: ../gtkhtml/gtkhtml.c:3032
 msgid "Editable"
 msgstr "ફેરફાર કરી શકાય તેવું"
 
-#: ../gtkhtml/gtkhtml.c:3034
+#: ../gtkhtml/gtkhtml.c:3033
 msgid "Whether the html can be edited"
 msgstr "શું html માં ફેરફાર કરી શકાશે"
 
-#: ../gtkhtml/gtkhtml.c:3040
+#: ../gtkhtml/gtkhtml.c:3039
 msgid "Document Title"
 msgstr "દસ્તાવેજનું શીર્ષક"
 
-#: ../gtkhtml/gtkhtml.c:3041
+#: ../gtkhtml/gtkhtml.c:3040
 msgid "The title of the current document"
 msgstr "વર્તમાન દસ્તાવેજનું શીર્ષક"
 
-#: ../gtkhtml/gtkhtml.c:3047
+#: ../gtkhtml/gtkhtml.c:3046
 msgid "Document Base"
 msgstr "દસ્તાવેજનો આધાર"
 
-#: ../gtkhtml/gtkhtml.c:3048
+#: ../gtkhtml/gtkhtml.c:3047
 msgid "The base URL for relative references"
 msgstr "સંબંધિત સંદર્ભો માટે આધારભૂત URL"
 
-#: ../gtkhtml/gtkhtml.c:3054
+#: ../gtkhtml/gtkhtml.c:3053
 msgid "Target Base"
 msgstr "લક્ષ્ય આધાર"
 
-#: ../gtkhtml/gtkhtml.c:3055
+#: ../gtkhtml/gtkhtml.c:3054
 msgid "The base URL of the target frame"
 msgstr "લક્ષ્ય ચોકઠા માટે આધાર URL"
 
-#: ../gtkhtml/gtkhtml.c:3064
+#: ../gtkhtml/gtkhtml.c:3063
 msgid "Fixed Width Font"
 msgstr "ચોક્કસ પહોળાઈના ફોન્ટ"
 
-#: ../gtkhtml/gtkhtml.c:3065
+#: ../gtkhtml/gtkhtml.c:3064
 msgid "The Monospace font to use for typewriter text"
 msgstr "ટાઈપરાઈટર લખાણ માટે વપરાતા મોનોસ્પેસ ફોન્ટ"
 
-#: ../gtkhtml/gtkhtml.c:3071
+#: ../gtkhtml/gtkhtml.c:3070
 msgid "New Link Color"
 msgstr "નવી કડીનો રંગ"
 
-#: ../gtkhtml/gtkhtml.c:3072
+#: ../gtkhtml/gtkhtml.c:3071
 msgid "The color of new link elements"
 msgstr "નવી કડીના ભાગોનો રંગ"
 
-#: ../gtkhtml/gtkhtml.c:3077
+#: ../gtkhtml/gtkhtml.c:3076
 msgid "Visited Link Color"
 msgstr "મુલાકાત લીધેલ કડીનો રંગ"
 
-#: ../gtkhtml/gtkhtml.c:3078
+#: ../gtkhtml/gtkhtml.c:3077
 msgid "The color of visited link elements"
 msgstr "મુલાકાત લીધેલ કડીના ભાગોનો રંગ"
 
-#: ../gtkhtml/gtkhtml.c:3083
+#: ../gtkhtml/gtkhtml.c:3082
 msgid "Active Link Color"
 msgstr "સક્રિય કડીનો રંગ"
 
-#: ../gtkhtml/gtkhtml.c:3084
+#: ../gtkhtml/gtkhtml.c:3083
 msgid "The color of active link elements"
 msgstr "સક્રિય કડીના ભાગોનો રંગ"
 
-#: ../gtkhtml/gtkhtml.c:3089
+#: ../gtkhtml/gtkhtml.c:3088
 msgid "Spelling Error Color"
 msgstr "જોડણી ભૂલનો રંગ"
 
-#: ../gtkhtml/gtkhtml.c:3090
+#: ../gtkhtml/gtkhtml.c:3089
 msgid "The color of the spelling error markers"
 msgstr "જોડણી ભૂલ દર્શાવનારનો રંગ"
 
-#: ../gtkhtml/gtkhtml.c:3095
+#: ../gtkhtml/gtkhtml.c:3094
 msgid "Cite Quotation Color"
 msgstr "સાઈટ અવતરણ રંગ"
 
-#: ../gtkhtml/gtkhtml.c:3096
+#: ../gtkhtml/gtkhtml.c:3095
 msgid "The color of the cited text"
 msgstr "સાઈટ થયેલ લખાણનો રંગ"
 
@@ -2818,3 +2831,22 @@ msgstr "છાપનનું પૂર્વદર્શન"
 msgid "GtkHTML Test Application"
 msgstr "GtkHTML ચકાસણી કાર્યક્રમ"
 
+#, fuzzy
+#~| msgid "<b>Alignment &amp; Behavior</b>"
+#~ msgid "Alignment & Behavior"
+#~ msgstr "<b>ગોઠવણી &amp; વર્તણૂક</b>"
+
+#, fuzzy
+#~| msgid "_Background:"
+#~ msgid "Background"
+#~ msgstr "પાશ્વ ભાગ (_B):"
+
+#, fuzzy
+#~| msgid "<b>Layout</b>"
+#~ msgid "Layout"
+#~ msgstr "<b>દેખાવ</b>"
+
+#, fuzzy
+#~| msgid "Size:"
+#~ msgid "Size"
+#~ msgstr "માપ:"
