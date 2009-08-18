@@ -8,10 +8,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml gnome-2-28\n"
+"Project-Id-Version: gtkhtml master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-18 13:34+0300\n"
-"PO-Revision-Date: 2009-08-18 13:34+0300\n"
+"POT-Creation-Date: 2009-08-18 13:37+0300\n"
+"PO-Revision-Date: 2009-08-18 13:37+0300\n"
 "Last-Translator: Yavor Doganov <yavor@gnu.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
