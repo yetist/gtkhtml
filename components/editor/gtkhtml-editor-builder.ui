@@ -768,6 +768,7 @@
     <property name="destroy_with_parent">True</property>
     <property name="icon_name">gtk-find</property>
     <signal handler="gtk_widget_hide_on_delete" name="delete_event"/>
+    <signal handler="gtk_widget_grab_focus" name="show" object="find-entry"/>
     <child>
       <object class="GtkVBox" id="find-vbox">
         <property name="visible">True</property>
@@ -900,6 +901,7 @@
     <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
     <property name="destroy_with_parent">True</property>
     <signal handler="gtk_widget_hide_on_delete" name="delete_event"/>
+    <signal handler="gtk_widget_grab_focus" name="show" object="replace-entry"/>
     <child>
       <object class="GtkVBox" id="replace-vbox">
         <property name="visible">True</property>
