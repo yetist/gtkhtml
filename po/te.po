@@ -1,21 +1,24 @@
-# translation of te.po to Telugu
+# translation of gtkhtml.gnome-2-26.te.po to Telugu
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Krishna Babu K <kkrothap@redhat.com>, 2008.
+# Krishna Babu K <kkrothap@redhat.com>, 2008, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: te\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-09 07:58+0000\n"
-"PO-Revision-Date: 2008-09-09 17:45+0530\n"
+"Project-Id-Version: gtkhtml.gnome-2-26.te\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gtkhtml&component=general\n"
+"POT-Creation-Date: 2009-08-28 10:35+0000\n"
+"PO-Revision-Date: 2009-05-15 13:08+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
+"\n"
 
 #: ../a11y/image.c:151
 #, c-format
@@ -27,322 +30,290 @@ msgstr "URL %s, పరిసంభందిత పాఠ్యము %s"
 msgid "URL is %s"
 msgstr "URL %s"
 
-#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:126
+#: ../a11y/object.c:51 ../a11y/object.c:60 ../a11y/text.c:125
 msgid "grab focus"
 msgstr "దృష్టిని లాగుము"
 
-#: ../a11y/object.c:259
+#: ../a11y/object.c:253
 msgid "Panel containing HTML"
 msgstr "ఫలకం HTML ను కలిగిఉంది"
 
-#: ../components/editor/gtkhtml-color-combo.c:78
-#: ../components/html-editor/gi-color-palette.c:555
+#: ../components/editor/gtkhtml-color-combo.c:79
 msgid "black"
 msgstr "నలుపు"
 
-#: ../components/editor/gtkhtml-color-combo.c:79
-#: ../components/html-editor/gi-color-palette.c:556
+#: ../components/editor/gtkhtml-color-combo.c:80
 msgid "light brown"
 msgstr "లేత కపిలవర్ణం"
 
-#: ../components/editor/gtkhtml-color-combo.c:80
-#: ../components/html-editor/gi-color-palette.c:557
+#: ../components/editor/gtkhtml-color-combo.c:81
 msgid "brown gold"
 msgstr "బంగారు కపిలవర్ణం"
 
-#: ../components/editor/gtkhtml-color-combo.c:81
-#: ../components/html-editor/gi-color-palette.c:558
+#: ../components/editor/gtkhtml-color-combo.c:82
 msgid "dark green #2"
 msgstr "ముదురు పచ్చ #2"
 
-#: ../components/editor/gtkhtml-color-combo.c:82
-#: ../components/html-editor/gi-color-palette.c:559
+#: ../components/editor/gtkhtml-color-combo.c:83
 msgid "navy"
 msgstr "లేత బులుగు"
 
-#: ../components/editor/gtkhtml-color-combo.c:83
-#: ../components/html-editor/gi-color-palette.c:560
-#: ../components/html-editor/gi-color-palette.c:616
+#: ../components/editor/gtkhtml-color-combo.c:84
 msgid "dark blue"
 msgstr "ముదురు బులుగు"
 
-#: ../components/editor/gtkhtml-color-combo.c:84
-#: ../components/html-editor/gi-color-palette.c:561
+#: ../components/editor/gtkhtml-color-combo.c:85
 msgid "purple #2"
 msgstr "ఎరుపురంగు #2"
 
-#: ../components/editor/gtkhtml-color-combo.c:85
-#: ../components/html-editor/gi-color-palette.c:562
+#: ../components/editor/gtkhtml-color-combo.c:86
 msgid "very dark gray"
 msgstr "ముదురు ఊదా ‌వర్ణము"
 
-#: ../components/editor/gtkhtml-color-combo.c:87
-#: ../components/html-editor/gi-color-palette.c:565
-#: ../components/html-editor/gi-color-palette.c:621
+#: ../components/editor/gtkhtml-color-combo.c:88
 msgid "dark red"
 msgstr "ముదురు ఎరుపు"
 
-#: ../components/editor/gtkhtml-color-combo.c:88
-#: ../components/html-editor/gi-color-palette.c:566
+#: ../components/editor/gtkhtml-color-combo.c:89
 msgid "red-orange"
 msgstr "ఎరుపు-కాషాయ"
 
-#: ../components/editor/gtkhtml-color-combo.c:89
-#: ../components/html-editor/gi-color-palette.c:567
+#: ../components/editor/gtkhtml-color-combo.c:90
 msgid "gold"
 msgstr "బంగారు"
 
-#: ../components/editor/gtkhtml-color-combo.c:90
-#: ../components/html-editor/gi-color-palette.c:568
+#: ../components/editor/gtkhtml-color-combo.c:91
 msgid "dark green"
 msgstr "ముదురు పచ్చ"
 
-#: ../components/editor/gtkhtml-color-combo.c:91
-#: ../components/html-editor/gi-color-palette.c:569
-#: ../components/html-editor/gi-color-palette.c:622
+#: ../components/editor/gtkhtml-color-combo.c:92
 msgid "dull blue"
 msgstr "మాసిన బులుగు"
 
-#: ../components/editor/gtkhtml-color-combo.c:92
-#: ../components/html-editor/gi-color-palette.c:570
-#: ../components/html-editor/gi-color-palette.c:623
+#: ../components/editor/gtkhtml-color-combo.c:93
 msgid "blue"
 msgstr "బులుగు"
 
-#: ../components/editor/gtkhtml-color-combo.c:93
-#: ../components/html-editor/gi-color-palette.c:571
+#: ../components/editor/gtkhtml-color-combo.c:94
 msgid "dull purple"
 msgstr "మాసిన ఎరుపు"
 
-#: ../components/editor/gtkhtml-color-combo.c:94
-#: ../components/html-editor/gi-color-palette.c:572
+#: ../components/editor/gtkhtml-color-combo.c:95
 msgid "dark grey"
 msgstr "ముదురు ఊదా"
 
-#: ../components/editor/gtkhtml-color-combo.c:96
-#: ../components/html-editor/gi-color-palette.c:575
+#: ../components/editor/gtkhtml-color-combo.c:97
 msgid "red"
 msgstr "ఎరుపు"
 
-#: ../components/editor/gtkhtml-color-combo.c:97
-#: ../components/html-editor/gi-color-palette.c:576
+#: ../components/editor/gtkhtml-color-combo.c:98
 msgid "orange"
 msgstr "కాషాయం"
 
-#: ../components/editor/gtkhtml-color-combo.c:98
-#: ../components/html-editor/gi-color-palette.c:577
+#: ../components/editor/gtkhtml-color-combo.c:99
 msgid "lime"
 msgstr "నిమ్మపసుపు"
 
-#: ../components/editor/gtkhtml-color-combo.c:99
-#: ../components/html-editor/gi-color-palette.c:578
+#: ../components/editor/gtkhtml-color-combo.c:100
 msgid "dull green"
 msgstr "మాసిన పచ్చ"
 
-#: ../components/editor/gtkhtml-color-combo.c:100
-#: ../components/html-editor/gi-color-palette.c:579
+#: ../components/editor/gtkhtml-color-combo.c:101
 msgid "dull blue #2"
 msgstr "మాసిన బులుబు #2"
 
-#: ../components/editor/gtkhtml-color-combo.c:101
-#: ../components/html-editor/gi-color-palette.c:580
+#: ../components/editor/gtkhtml-color-combo.c:102
 msgid "sky blue #2"
 msgstr "ఆకాశపు బులుగు #2"
 
-#: ../components/editor/gtkhtml-color-combo.c:102
-#: ../components/html-editor/gi-color-palette.c:581
-#: ../components/html-editor/gi-color-palette.c:620
+#: ../components/editor/gtkhtml-color-combo.c:103
 msgid "purple"
 msgstr "ఎరుపు"
 
-#: ../components/editor/gtkhtml-color-combo.c:103
-#: ../components/html-editor/gi-color-palette.c:582
+#: ../components/editor/gtkhtml-color-combo.c:104
 msgid "gray"
 msgstr "ఊదా"
 
-#: ../components/editor/gtkhtml-color-combo.c:105
-#: ../components/html-editor/gi-color-palette.c:585
-#: ../components/html-editor/gi-color-palette.c:617
+#: ../components/editor/gtkhtml-color-combo.c:106
 msgid "magenta"
 msgstr "లేత ఎరుపు"
 
-#: ../components/editor/gtkhtml-color-combo.c:106
-#: ../components/html-editor/gi-color-palette.c:586
+#: ../components/editor/gtkhtml-color-combo.c:107
 msgid "bright orange"
 msgstr "ముదురు కాషాయం"
 
-#: ../components/editor/gtkhtml-color-combo.c:107
-#: ../components/html-editor/gi-color-palette.c:587
-#: ../components/html-editor/gi-color-palette.c:618
+#: ../components/editor/gtkhtml-color-combo.c:108
 msgid "yellow"
 msgstr "పసుపు"
 
-#: ../components/editor/gtkhtml-color-combo.c:108
-#: ../components/html-editor/gi-color-palette.c:588
+#: ../components/editor/gtkhtml-color-combo.c:109
 msgid "green"
 msgstr "పచ్చ"
 
-#: ../components/editor/gtkhtml-color-combo.c:109
-#: ../components/html-editor/gi-color-palette.c:589
-#: ../components/html-editor/gi-color-palette.c:619
+#: ../components/editor/gtkhtml-color-combo.c:110
 msgid "cyan"
 msgstr "సియాన్"
 
-#: ../components/editor/gtkhtml-color-combo.c:110
-#: ../components/html-editor/gi-color-palette.c:590
+#: ../components/editor/gtkhtml-color-combo.c:111
 msgid "bright blue"
 msgstr "ముదురు బులుగు"
 
-#: ../components/editor/gtkhtml-color-combo.c:111
-#: ../components/html-editor/gi-color-palette.c:591
-#: ../components/html-editor/gi-color-palette.c:608
+#: ../components/editor/gtkhtml-color-combo.c:112
 msgid "red purple"
 msgstr "ఎరుపు వంకాయ"
 
-#: ../components/editor/gtkhtml-color-combo.c:112
-#: ../components/html-editor/gi-color-palette.c:592
+#: ../components/editor/gtkhtml-color-combo.c:113
 msgid "light grey"
 msgstr "లేత ఊదా"
 
-#: ../components/editor/gtkhtml-color-combo.c:114
-#: ../components/html-editor/gi-color-palette.c:595
-#: ../components/html-editor/gi-color-palette.c:612
+#: ../components/editor/gtkhtml-color-combo.c:115
 msgid "pink"
 msgstr "ముదురుగులాబి"
 
-#: ../components/editor/gtkhtml-color-combo.c:115
-#: ../components/html-editor/gi-color-palette.c:596
+#: ../components/editor/gtkhtml-color-combo.c:116
 msgid "light orange"
 msgstr "లేత కాషాయం"
 
-#: ../components/editor/gtkhtml-color-combo.c:116
-#: ../components/html-editor/gi-color-palette.c:597
-#: ../components/html-editor/gi-color-palette.c:609
+#: ../components/editor/gtkhtml-color-combo.c:117
 msgid "light yellow"
 msgstr "లేత పసుపు"
 
-#: ../components/editor/gtkhtml-color-combo.c:117
-#: ../components/html-editor/gi-color-palette.c:598
+#: ../components/editor/gtkhtml-color-combo.c:118
 msgid "light green"
 msgstr "లేత పచ్చ"
 
-#: ../components/editor/gtkhtml-color-combo.c:118
-#: ../components/html-editor/gi-color-palette.c:599
+#: ../components/editor/gtkhtml-color-combo.c:119
 msgid "light cyan"
 msgstr "లేత సియాన్"
 
-#: ../components/editor/gtkhtml-color-combo.c:119
-#: ../components/html-editor/gi-color-palette.c:600
-#: ../components/html-editor/gi-color-palette.c:610
+#: ../components/editor/gtkhtml-color-combo.c:120
 msgid "light blue"
 msgstr "లేత బులుగు"
 
-#: ../components/editor/gtkhtml-color-combo.c:120
-#: ../components/html-editor/gi-color-palette.c:601
-#: ../components/html-editor/gi-color-palette.c:614
+#: ../components/editor/gtkhtml-color-combo.c:121
 msgid "light purple"
 msgstr "లేత ఎరుపు"
 
-#: ../components/editor/gtkhtml-color-combo.c:121
-#: ../components/html-editor/gi-color-palette.c:602
+#: ../components/editor/gtkhtml-color-combo.c:122
 msgid "white"
 msgstr "తెలుపు"
 
-#: ../components/editor/gtkhtml-color-combo.c:269
-#: ../components/html-editor/gi-color-palette.c:422
+#: ../components/editor/gtkhtml-color-combo.c:274
 msgid "Choose Custom Color"
 msgstr "మలుచుకున్న వర్ణము ను ఎంపికచేయుము"
 
-#: ../components/editor/gtkhtml-color-combo.c:693
-#: ../components/editor/gtkhtml-color-state.c:190
+#: ../components/editor/gtkhtml-color-combo.c:711
+#: ../components/editor/gtkhtml-color-state.c:205
 msgid "Current color"
 msgstr "ప్రస్తుత వర్ణము"
 
-#: ../components/editor/gtkhtml-color-combo.c:694
+#: ../components/editor/gtkhtml-color-combo.c:712
 msgid "The currently selected color"
 msgstr "ప్రస్తుతం ఎంపికచేసిన వర్ణము"
 
-#: ../components/editor/gtkhtml-color-combo.c:703
-#: ../components/editor/gtkhtml-color-state.c:200
+#: ../components/editor/gtkhtml-color-combo.c:721
+#: ../components/editor/gtkhtml-color-state.c:215
 msgid "Default color"
 msgstr "అప్రమేయ వర్ణము"
 
-#: ../components/editor/gtkhtml-color-combo.c:704
+#: ../components/editor/gtkhtml-color-combo.c:722
 msgid "The color associated with the default button"
 msgstr "అప్రమేయ బటన్‌తో కలిసివున్న వర్ణము"
 
-#: ../components/editor/gtkhtml-color-combo.c:714
-#: ../components/editor/gtkhtml-color-state.c:211
+#: ../components/editor/gtkhtml-color-combo.c:732
+#: ../components/editor/gtkhtml-color-state.c:226
 msgid "Default label"
 msgstr "అప్రమేయ లేబుల్"
 
-#: ../components/editor/gtkhtml-color-combo.c:715
+#: ../components/editor/gtkhtml-color-combo.c:733
 msgid "The label for the default button"
 msgstr "అప్రమేయ బటన్‌కు లేబుల్"
 
-#: ../components/editor/gtkhtml-color-combo.c:716
-#: ../components/editor/gtkhtml-color-state.c:213
+#: ../components/editor/gtkhtml-color-combo.c:734
+#: ../components/editor/gtkhtml-color-state.c:228
 msgid "Default"
 msgstr "అప్రమేయ"
 
-#: ../components/editor/gtkhtml-color-combo.c:725
-#: ../components/editor/gtkhtml-color-state.c:222
+#: ../components/editor/gtkhtml-color-combo.c:743
+#: ../components/editor/gtkhtml-color-state.c:237
+msgid "Default is transparent"
+msgstr "పారదర్శకం అనునది అప్రమేయం"
+
+#: ../components/editor/gtkhtml-color-combo.c:744
+#: ../components/editor/gtkhtml-color-state.c:238
+msgid "Whether the default color is transparent"
+msgstr "అప్రమేయ వర్ణము పారదర్శకం కావాలా"
+
+#: ../components/editor/gtkhtml-color-combo.c:754
+#: ../components/editor/gtkhtml-color-state.c:248
 msgid "Color palette"
 msgstr "వర్ణము పాలెట్"
 
-#: ../components/editor/gtkhtml-color-combo.c:726
-#: ../components/editor/gtkhtml-color-state.c:223
+#: ../components/editor/gtkhtml-color-combo.c:755
+#: ../components/editor/gtkhtml-color-state.c:249
 msgid "Custom color palette"
 msgstr "మలుచుకున్న వర్ణము పాలెట్"
 
-#: ../components/editor/gtkhtml-color-combo.c:735
+#. Translators: This is the nickname for a
+#. * GtkhtmlColorCombo property named "popup-shown",
+#. * based on a similar property in GtkComboBox.
+#: ../components/editor/gtkhtml-color-combo.c:767
 msgid "Popup shown"
 msgstr "పాప్అప్ చూపబడింది"
 
-#: ../components/editor/gtkhtml-color-combo.c:736
+#. Translators: This is the blurb for a
+#. * GtkhtmlColorCombo property named "popup-shown",
+#. * based on a similar property in GtkComboBox.
+#: ../components/editor/gtkhtml-color-combo.c:771
 msgid "Whether the combo's dropdown is shown"
 msgstr "కాంబోయొక్క డ్రాప్‌డౌన్ చూపబడాలా"
 
-#: ../components/editor/gtkhtml-color-combo.c:745
+#. Translators: This is the nickname for a
+#. GtkHtmlColorCombo property named "state". It holds all
+#. the internal values for a GtkHtml color combination box.
+#.
+#: ../components/editor/gtkhtml-color-combo.c:784
 msgid "Color state"
 msgstr "వర్ణము స్థితి"
 
-#: ../components/editor/gtkhtml-color-combo.c:746
-msgid "State of the color combo"
-msgstr "వర్ణము మిళితంయొక్క స్థితి"
+#. Translators: This is the blurb for a
+#. GtkHtmlColorCombo property named "state". It holds all
+#. the internal values for a GtkHtml color combination box.
+#.
+#: ../components/editor/gtkhtml-color-combo.c:789
+msgid "The state of a color combo box"
+msgstr "వర్ణము మిళిత పెట్టెయొక్క స్థితి"
 
-#. This is the default custom color
-#: ../components/editor/gtkhtml-color-combo.c:928
-#: ../components/html-editor/gi-color-palette.c:374
+#: ../components/editor/gtkhtml-color-combo.c:971
 msgid "custom"
 msgstr "మలుచుకున్న"
 
-#: ../components/editor/gtkhtml-color-combo.c:936
+#: ../components/editor/gtkhtml-color-combo.c:979
 msgid "Custom Color..."
 msgstr "మలుచుకున్న వర్ణము..."
 
-#: ../components/editor/gtkhtml-color-state.c:191
-#: ../components/editor/gtkhtml-color-swatch.c:178
+#: ../components/editor/gtkhtml-color-state.c:206
+#: ../components/editor/gtkhtml-color-swatch.c:183
 msgid "The current color"
 msgstr "ప్రస్తుత వర్ణము"
 
-#: ../components/editor/gtkhtml-color-state.c:201
+#: ../components/editor/gtkhtml-color-state.c:216
 msgid "The default color"
 msgstr "అప్రమేయ వర్ణము"
 
-#: ../components/editor/gtkhtml-color-state.c:212
+#: ../components/editor/gtkhtml-color-state.c:227
 msgid "Description of the default color"
 msgstr "అప్రమేయ వర్ణముయొక్క వివరణ"
 
-#: ../components/editor/gtkhtml-color-swatch.c:177
+#: ../components/editor/gtkhtml-color-swatch.c:182
 msgid "Color"
 msgstr "వర్ణము"
 
-#: ../components/editor/gtkhtml-color-swatch.c:187
+#: ../components/editor/gtkhtml-color-swatch.c:192
 msgid "Frame Shadow"
 msgstr "చట్రము నీడ"
 
-#: ../components/editor/gtkhtml-color-swatch.c:188
+#: ../components/editor/gtkhtml-color-swatch.c:193
 msgid "Appearance of the frame border"
 msgstr "చట్రము సరిహద్దుయొక్క కనిపించువిధము"
 
@@ -354,1144 +325,1014 @@ msgstr "చర్య"
 msgid "A GtkRadioAction"
 msgstr "A GtkRadioAction"
 
-#: ../components/editor/gtkhtml-editor-actions.c:633
-#: ../components/html-editor/menubar.c:348
+#. Translators: :-)
+#: ../components/editor/gtkhtml-face-chooser.c:34
+msgid "_Smile"
+msgstr "చిరునవ్వు(_S)"
+
+#. Translators: :-(
+#: ../components/editor/gtkhtml-face-chooser.c:36
+msgid "S_ad"
+msgstr "విచారకరమైన (_a)"
+
+#. Translators: ;-)
+#: ../components/editor/gtkhtml-face-chooser.c:38
+msgid "_Wink"
+msgstr "కనుసైగ (_W)"
+
+#. Translators: :-P
+#: ../components/editor/gtkhtml-face-chooser.c:40
+msgid "Ton_gue"
+msgstr "నాలుక (_g)"
+
+#. Translators: :-))
+#: ../components/editor/gtkhtml-face-chooser.c:42
+msgid "Laug_h"
+msgstr "నవ్వుతున్న (_h)"
+
+#. Translators: :-|
+#: ../components/editor/gtkhtml-face-chooser.c:44
+msgid "_Plain"
+msgstr "సాదా (_P)"
+
+#. Translators: :-!
+#: ../components/editor/gtkhtml-face-chooser.c:46
+msgid "Smi_rk"
+msgstr "యికిలింపు (_r)"
+
+#. Translators: :"-)
+#: ../components/editor/gtkhtml-face-chooser.c:48
+msgid "_Embarrassed"
+msgstr "అసౌకర్యస్థితి (_E)"
+
+#. Translators: :-D
+#: ../components/editor/gtkhtml-face-chooser.c:50
+msgid "_Big Smile"
+msgstr "పెద్ద నవ్వు (_B)"
+
+#. Translators: :-/
+#: ../components/editor/gtkhtml-face-chooser.c:52
+msgid "Uncer_tain"
+msgstr "అనిశ్చితి (_t)"
+
+#. Translators: :-O
+#: ../components/editor/gtkhtml-face-chooser.c:54
+msgid "S_urprise"
+msgstr "ఆశ్ఛర్యము (_u)"
+
+#. Translators: :-S
+#: ../components/editor/gtkhtml-face-chooser.c:56
+msgid "W_orried"
+msgstr "భాదపడుతున్న (_o)"
+
+#. Translators: :-*
+#: ../components/editor/gtkhtml-face-chooser.c:58
+msgid "_Kiss"
+msgstr "ముద్దు (_K)"
+
+#. Translators: X-(
+#: ../components/editor/gtkhtml-face-chooser.c:60
+msgid "A_ngry"
+msgstr "కోపము (_n)"
+
+#. Translators: B-)
+#: ../components/editor/gtkhtml-face-chooser.c:62
+msgid "_Cool"
+msgstr "చల్లని (_C)"
+
+#. Translators: O:-)
+#: ../components/editor/gtkhtml-face-chooser.c:64
+msgid "Ange_l"
+msgstr "దేవత (_l)"
+
+#. Translators: :'(
+#: ../components/editor/gtkhtml-face-chooser.c:66
+msgid "Cr_ying"
+msgstr "రోధించుట (_y)"
+
+#. Translators: :-Q
+#: ../components/editor/gtkhtml-face-chooser.c:68
+msgid "S_ick"
+msgstr "నలత (_i)"
+
+#. Translators: |-)
+#: ../components/editor/gtkhtml-face-chooser.c:70
+msgid "Tire_d"
+msgstr "అలసిన (_d)"
+
+#. Translators: >:-)
+#: ../components/editor/gtkhtml-face-chooser.c:72
+msgid "De_vilish"
+msgstr "రాక్షసత్వం (_v)"
+
+#. Translators: :-(|)
+#: ../components/editor/gtkhtml-face-chooser.c:74
+msgid "_Monkey"
+msgstr "కోతి (_M)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:632
 msgid "Insert HTML File"
 msgstr "HTML దస్త్రం ను చేర్చుము"
 
-#: ../components/editor/gtkhtml-editor-actions.c:642
-#: ../components/editor/gtkhtml-editor-actions.c:1760
+#: ../components/editor/gtkhtml-editor-actions.c:641
+#: ../components/editor/gtkhtml-editor-actions.c:1542
 msgid "Insert Image"
 msgstr "ప్రతిబింబమును చేర్చుము"
 
-#: ../components/editor/gtkhtml-editor-actions.c:808
-#: ../components/html-editor/menubar.c:348
+#: ../components/editor/gtkhtml-editor-actions.c:688
 msgid "Insert Text File"
 msgstr "పాఠ్య దస్త్రమును చేర్చుము"
 
 #. Replace Button
-#: ../components/editor/gtkhtml-editor-actions.c:1269
+#: ../components/editor/gtkhtml-editor-actions.c:1177
 #: ../components/editor/gtkhtml-spell-dialog.c:522
-#: ../components/html-editor/replace.c:85
 msgid "_Replace"
 msgstr "పునఃస్థాపించు (_R)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1276
-#: ../components/html-editor/replace.c:82
+#: ../components/editor/gtkhtml-editor-actions.c:1184
 msgid "Replace _All"
 msgstr "అన్నింటిని పునఃస్థాపించుము (_A)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1290
-#: ../components/html-editor/replace.c:83
+#: ../components/editor/gtkhtml-editor-actions.c:1198
 msgid "_Next"
 msgstr "తరువాతి (_N)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1297
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+#: ../components/editor/gtkhtml-editor-actions.c:1205
 msgid "_Copy"
 msgstr "నకలు (_C)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1304
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
+#: ../components/editor/gtkhtml-editor-actions.c:1212
 msgid "Cu_t"
 msgstr "కట్ (_t)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1318
+#: ../components/editor/gtkhtml-editor-actions.c:1226
 msgid "Find A_gain"
 msgstr "మరలా కనుగొనుము (_g)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1332
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+#: ../components/editor/gtkhtml-editor-actions.c:1240
 msgid "_Increase Indent"
 msgstr "ఖాళీ పెంచుము (_I)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1334
+#: ../components/editor/gtkhtml-editor-actions.c:1242
 msgid "Increase Indent"
 msgstr "మధ్యఖాళీని పెంచుము"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1339
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+#: ../components/editor/gtkhtml-editor-actions.c:1247
 msgid "_HTML File..."
 msgstr "HTML దస్త్రం(_H)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1346
-msgid "_Angel"
-msgstr "దేవత (_A)"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1353
-msgid "_Cool"
-msgstr "చల్లని (_C)"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1360
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
-msgid "Cr_ying"
-msgstr "రోధించుట (_y)"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1367
-msgid "_Devilish"
-msgstr "రాక్షసత్వం (_D)"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1374
-msgid "_Embarrassed"
-msgstr "అసౌకర్యస్థితి (_E)"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1381
-msgid "_Kiss"
-msgstr "ముద్దు (_K)"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1388
-msgid "_Monkey"
-msgstr "కోతి (_M)"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1395
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
-msgid "_Indifferent"
-msgstr "భిన్నముకాని (_I)"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1402
-msgid "_Tongue"
-msgstr "నాలుక (_T)"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1409
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
-msgid "_Frown"
-msgstr "చిరాకు (_F)"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1416
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
-msgid "_Smile"
-msgstr "చిరునవ్వు(_S)"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1423
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
-msgid "_Laughing"
-msgstr "నవ్వుతున్న (_L)"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1430
-msgid "Smi_rk"
-msgstr "యికిలింపు (_r)"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1437
-msgid "Sur_prised"
-msgstr "ఆశ్ఛర్యమైన (_p)"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1444
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:160
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
-msgid "_Wink"
-msgstr "కనుసైగ (_W)"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1451
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
-msgid "_Undecided"
-msgstr "నిర్ధారణకాని (_U)"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1458
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-msgid "S_ick"
-msgstr "నలత (_i)"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1465
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+#: ../components/editor/gtkhtml-editor-actions.c:1254
 msgid "Te_xt File..."
 msgstr "పాఠ్యము దస్త్రము (_x)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1472
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+#: ../components/editor/gtkhtml-editor-actions.c:1261
 msgid "_Paste"
 msgstr "అతికించు (_P)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1479
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
-#: ../components/html-editor/popup.c:446
+#: ../components/editor/gtkhtml-editor-actions.c:1268
 msgid "Paste _Quotation"
 msgstr "ప్రశ్నను అతికించు (_Q)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1486
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+#: ../components/editor/gtkhtml-editor-actions.c:1275
 msgid "_Redo"
 msgstr "మళ్ళీచేయి (_R)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1493
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+#: ../components/editor/gtkhtml-editor-actions.c:1282
 msgid "Select _All"
 msgstr "అన్నిటిని ఎంచుకొనుము (_A)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1500
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+#: ../components/editor/gtkhtml-editor-actions.c:1289
 msgid "_Find..."
 msgstr "కనుగొనుము(_F)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1507
+#: ../components/editor/gtkhtml-editor-actions.c:1296
 msgid "Re_place..."
 msgstr "పునఃస్థాపన (_p)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1514
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
+#: ../components/editor/gtkhtml-editor-actions.c:1303
 msgid "Check _Spelling..."
 msgstr "స్పెల్లింగ్ ను పరిశీలించుము (_S)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1521
-#: ../components/editor/gtkhtml-editor.glade.h:77
-#: ../components/html-editor/utils.c:205
+#: ../components/editor/gtkhtml-editor-actions.c:1310
+#: ../components/editor/gtkhtml-editor-builder.ui.h:79
 msgid "_Test URL..."
 msgstr "URL ను పరిశీలించుము (_T)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1528
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:159
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
+#: ../components/editor/gtkhtml-editor-actions.c:1317
 msgid "_Undo"
 msgstr "చేయవద్దు (_U)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1535
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+#: ../components/editor/gtkhtml-editor-actions.c:1324
 msgid "_Decrease Indent"
 msgstr "ఖాళీని తగ్గించుము (_D)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1537
+#: ../components/editor/gtkhtml-editor-actions.c:1326
 msgid "Decrease Indent"
 msgstr "మధ్యఖాళిని తగ్గించుము"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1542
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:161
+#: ../components/editor/gtkhtml-editor-actions.c:1331
 msgid "_Wrap Lines"
 msgstr "పంక్తులను విడగొట్టుము (_W)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1551
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+#: ../components/editor/gtkhtml-editor-actions.c:1340
 msgid "_Edit"
 msgstr "సరిచేయు(_E)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1558
-#: ../components/editor/main.c:324
+#: ../components/editor/gtkhtml-editor-actions.c:1347
+#: ../components/editor/main.c:327
 msgid "_File"
 msgstr "దస్త్రము (_F)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1565
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
+#: ../components/editor/gtkhtml-editor-actions.c:1354
 msgid "For_mat"
 msgstr "రూపలావణ్యం (_m)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1572
+#: ../components/editor/gtkhtml-editor-actions.c:1361
 msgid "_Paragraph Style"
 msgstr "పరిచ్ఛేదము శైలి (_P)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1579
-msgid "_Emoticon"
-msgstr "భావప్రతిమ (_E)"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1586
+#: ../components/editor/gtkhtml-editor-actions.c:1368
 msgid "_Insert"
 msgstr "చేర్చుము (_I)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1593
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+#: ../components/editor/gtkhtml-editor-actions.c:1375
 msgid "_Alignment"
 msgstr "సర్దబాటు (_A)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1600
-#: ../components/html-editor/spellchecker.c:424
+#: ../components/editor/gtkhtml-editor-actions.c:1382
 msgid "Current _Languages"
 msgstr "ప్రస్తుత భాషలు (_L)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1607
-#: ../components/editor/main.c:355
+#: ../components/editor/gtkhtml-editor-actions.c:1389
+#: ../components/editor/main.c:358
 msgid "_View"
 msgstr "దర్శనం (_V)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1617
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#: ../components/editor/gtkhtml-editor-actions.c:1399
 msgid "_Center"
 msgstr "మధ్య (_C)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1619
+#: ../components/editor/gtkhtml-editor-actions.c:1401
 msgid "Center Alignment"
 msgstr "మధ్యకు సర్దుబాటు"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1624
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+#: ../components/editor/gtkhtml-editor-actions.c:1406
 msgid "_Left"
 msgstr "ఎడమ (_L)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1626
+#: ../components/editor/gtkhtml-editor-actions.c:1408
 msgid "Left Alignment"
 msgstr "ఎడమ సర్దుబాటు"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1631
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+#: ../components/editor/gtkhtml-editor-actions.c:1413
 msgid "_Right"
 msgstr "కుడి (_R)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1633
+#: ../components/editor/gtkhtml-editor-actions.c:1415
 msgid "Right Alignment"
 msgstr "కుడి సర్దుబాటు"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1641
+#: ../components/editor/gtkhtml-editor-actions.c:1423
 msgid "_HTML"
 msgstr "_HTML"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1643
+#: ../components/editor/gtkhtml-editor-actions.c:1425
 msgid "HTML editing mode"
 msgstr "HTML సరికూర్పు రీతి"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1648
+#: ../components/editor/gtkhtml-editor-actions.c:1430
 msgid "Plain _Text"
 msgstr "సాదా పాఠ్యము (_T)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1650
+#: ../components/editor/gtkhtml-editor-actions.c:1432
 msgid "Plain text editing mode"
 msgstr "సాదా పాఠ్యము సరికూర్పు రీతి"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1658
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+#: ../components/editor/gtkhtml-editor-actions.c:1440
 msgid "_Normal"
 msgstr "సాధారణ (_N)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1665
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
+#: ../components/editor/gtkhtml-editor-actions.c:1447
 msgid "Header _1"
 msgstr "పీఠిక _1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1672
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
+#: ../components/editor/gtkhtml-editor-actions.c:1454
 msgid "Header _2"
 msgstr "పీఠిక _2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1679
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+#: ../components/editor/gtkhtml-editor-actions.c:1461
 msgid "Header _3"
 msgstr "పీఠిక _3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1686
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+#: ../components/editor/gtkhtml-editor-actions.c:1468
 msgid "Header _4"
 msgstr "పీఠిక _4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1693
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+#: ../components/editor/gtkhtml-editor-actions.c:1475
 msgid "Header _5"
 msgstr "పీఠిక _5"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1700
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+#: ../components/editor/gtkhtml-editor-actions.c:1482
 msgid "Header _6"
 msgstr "పీఠిక _6"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1707
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
+#: ../components/editor/gtkhtml-editor-actions.c:1489
 msgid "A_ddress"
 msgstr "చిరునామా (_d)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1714
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+#: ../components/editor/gtkhtml-editor-actions.c:1496
 msgid "_Preformatted"
 msgstr "ముదంగారూపీకరించిన (_P)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1721
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+#: ../components/editor/gtkhtml-editor-actions.c:1503
 msgid "_Bulleted List"
 msgstr "బుల్లెటెడ్ జాబితా (_B)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1728
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+#: ../components/editor/gtkhtml-editor-actions.c:1510
 msgid "_Roman Numeral List"
 msgstr "రోమన్ సాంఖ్యక జాబితా (_R)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1735
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+#: ../components/editor/gtkhtml-editor-actions.c:1517
 msgid "Numbered _List"
 msgstr "సంఖ్యల జాబితా (_L)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1742
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+#: ../components/editor/gtkhtml-editor-actions.c:1524
 msgid "_Alphabetical List"
 msgstr "అక్షరమాల జాబితా (_A)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1758
-#: ../components/editor/gtkhtml-editor-actions.c:1793
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+#: ../components/editor/gtkhtml-editor-actions.c:1540
+#: ../components/editor/gtkhtml-editor-actions.c:1575
 msgid "_Image..."
 msgstr "ప్రతిబింబము (_I)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1765
-#: ../components/editor/gtkhtml-editor-actions.c:1800
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+#: ../components/editor/gtkhtml-editor-actions.c:1547
+#: ../components/editor/gtkhtml-editor-actions.c:1582
 msgid "_Link..."
 msgstr "లింకు (_L)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1767
+#: ../components/editor/gtkhtml-editor-actions.c:1549
 msgid "Insert Link"
 msgstr "లింకు చేర్చుము"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1772
-#: ../components/editor/gtkhtml-editor-actions.c:1814
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+#: ../components/editor/gtkhtml-editor-actions.c:1554
+#: ../components/editor/gtkhtml-editor-actions.c:1596
 msgid "_Rule..."
 msgstr "రూల్ (_R)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1774
+#: ../components/editor/gtkhtml-editor-actions.c:1556
 msgid "Insert Rule"
 msgstr "రూల్‌ను చేర్చుము"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1779
-#: ../components/editor/gtkhtml-editor-actions.c:1821
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
+#: ../components/editor/gtkhtml-editor-actions.c:1561
+#: ../components/editor/gtkhtml-editor-actions.c:1603
 msgid "_Table..."
 msgstr "పట్టిక (_T)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1781
+#: ../components/editor/gtkhtml-editor-actions.c:1563
 msgid "Insert Table"
 msgstr "పట్టికను చేర్చుము"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1786
+#: ../components/editor/gtkhtml-editor-actions.c:1568
 msgid "_Cell..."
 msgstr "అర (_C)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1807
+#: ../components/editor/gtkhtml-editor-actions.c:1589
 msgid "Pa_ge..."
 msgstr "పేజీ (_g)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1830
+#: ../components/editor/gtkhtml-editor-actions.c:1612
 msgid "Font _Size"
 msgstr "ఫాంట్ పరిమాణము (_S)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1837
+#: ../components/editor/gtkhtml-editor-actions.c:1619
 msgid "_Font Style"
 msgstr "ఫాంట్ శైలి (_F)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1847
-#: ../components/editor/gtkhtml-editor.glade.h:58
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
+#: ../components/editor/gtkhtml-editor-actions.c:1629
+#: ../components/editor/gtkhtml-editor-builder.ui.h:60
 msgid "_Bold"
 msgstr "బోల్డ్‍ (_B)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1849
-#: ../components/html-editor/toolbar.c:441
+#: ../components/editor/gtkhtml-editor-actions.c:1631
 msgid "Bold"
 msgstr "మందం"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1855
-#: ../components/editor/gtkhtml-editor.glade.h:65
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
+#: ../components/editor/gtkhtml-editor-actions.c:1637
+#: ../components/editor/gtkhtml-editor-builder.ui.h:67
 msgid "_Italic"
 msgstr "ఇటాలిక్ (_I)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1857
-#: ../components/html-editor/toolbar.c:444
+#: ../components/editor/gtkhtml-editor-actions.c:1639
 msgid "Italic"
 msgstr "ఇటాలిక్"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1863
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+#: ../components/editor/gtkhtml-editor-actions.c:1645
 msgid "_Plain Text"
 msgstr "సాదా పాఠ్యము (_P)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1865
+#: ../components/editor/gtkhtml-editor-actions.c:1647
 msgid "Plain Text"
 msgstr "సాదారణ పాఠ్యము"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1871
-#: ../components/editor/gtkhtml-editor.glade.h:74
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
+#: ../components/editor/gtkhtml-editor-actions.c:1653
+#: ../components/editor/gtkhtml-editor-builder.ui.h:76
 msgid "_Strikethrough"
 msgstr "కొట్టివేయుము (_S)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1873
+#: ../components/editor/gtkhtml-editor-actions.c:1655
 msgid "Strikethrough"
 msgstr "కొట్టివేత"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1879
-#: ../components/editor/gtkhtml-editor.glade.h:80
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
+#: ../components/editor/gtkhtml-editor-actions.c:1661
+#: ../components/editor/gtkhtml-editor-builder.ui.h:82
 msgid "_Underline"
 msgstr "క్రిందగీత (_U)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1881
-#: ../components/html-editor/toolbar.c:447
+#: ../components/editor/gtkhtml-editor-actions.c:1663
 msgid "Underline"
 msgstr "క్రిందిగీత"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1890
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
+#: ../components/editor/gtkhtml-editor-actions.c:1672
 msgid "-2"
 msgstr "-2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1897
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
+#: ../components/editor/gtkhtml-editor-actions.c:1679
 msgid "-1"
 msgstr "-1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1904
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
+#: ../components/editor/gtkhtml-editor-actions.c:1686
 msgid "+0"
 msgstr "+0"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1911
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
+#: ../components/editor/gtkhtml-editor-actions.c:1693
 msgid "+1"
 msgstr "+1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1918
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
+#: ../components/editor/gtkhtml-editor-actions.c:1700
 msgid "+2"
 msgstr "+2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1925
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
+#: ../components/editor/gtkhtml-editor-actions.c:1707
 msgid "+3"
 msgstr "+3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1932
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
+#: ../components/editor/gtkhtml-editor-actions.c:1714
 msgid "+4"
 msgstr "+4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1951
+#: ../components/editor/gtkhtml-editor-actions.c:1733
 msgid "Cell Contents"
 msgstr "అర సారములు"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1958
-#: ../components/html-editor/popup.c:523
+#: ../components/editor/gtkhtml-editor-actions.c:1740
 msgid "Column"
 msgstr "నిలువువరుస"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1965
-#: ../components/html-editor/popup.c:522
+#: ../components/editor/gtkhtml-editor-actions.c:1747
 msgid "Row"
 msgstr "అడ్డువరుస"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1972
-#: ../components/editor/gtkhtml-editor-actions.c:2055
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
-#: ../components/html-editor/menubar.c:217
-#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
-#: ../components/html-editor/popup.c:521
+#: ../components/editor/gtkhtml-editor-actions.c:1754
+#: ../components/editor/gtkhtml-editor-actions.c:1837
 msgid "Table"
 msgstr "పట్టిక"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1981
+#: ../components/editor/gtkhtml-editor-actions.c:1763
 msgid "Table Delete"
 msgstr "పట్టిక తొలగించు"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1988
-#: ../components/html-editor/popup.c:584
+#: ../components/editor/gtkhtml-editor-actions.c:1770
 msgid "Input Methods"
 msgstr "ఎగుబడి పద్దతులు"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1995
+#: ../components/editor/gtkhtml-editor-actions.c:1777
 msgid "Table Insert"
 msgstr "పట్టిక చేర్పు"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2002
-#: ../components/html-editor/editor-control-factory.c:187
-#: ../components/html-editor/popup.c:191 ../components/html-editor/popup.c:268
+#: ../components/editor/gtkhtml-editor-actions.c:1784
 msgid "Properties"
 msgstr "లక్షణాలు"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2020
+#: ../components/editor/gtkhtml-editor-actions.c:1802
 msgid "Column After"
 msgstr "నిలువువరుస తర్వాత"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2027
+#: ../components/editor/gtkhtml-editor-actions.c:1809
 msgid "Column Before"
 msgstr "నిలువువరుస ముందు"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2034
-#: ../components/html-editor/popup.c:450
+#: ../components/editor/gtkhtml-editor-actions.c:1816
 msgid "Insert _Link"
 msgstr "లింకును చేర్చుము (_L)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2041
+#: ../components/editor/gtkhtml-editor-actions.c:1823
 msgid "Row Above"
 msgstr "అడ్డవరుస పైన"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2048
+#: ../components/editor/gtkhtml-editor-actions.c:1830
 msgid "Row Below"
 msgstr "అడ్డవరుస క్రింద"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2062
+#: ../components/editor/gtkhtml-editor-actions.c:1844
 msgid "Cell..."
 msgstr "అర..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2069
+#: ../components/editor/gtkhtml-editor-actions.c:1851
 msgid "Image..."
 msgstr "ప్రతిబింబము..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2076
+#: ../components/editor/gtkhtml-editor-actions.c:1858
 msgid "Link..."
 msgstr "లింకు..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2083
+#: ../components/editor/gtkhtml-editor-actions.c:1865
 msgid "Page..."
 msgstr "పుట..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2090
+#: ../components/editor/gtkhtml-editor-actions.c:1872
 msgid "Paragraph..."
 msgstr "పరిచ్ఛేదము..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2097
+#: ../components/editor/gtkhtml-editor-actions.c:1879
 msgid "Rule..."
 msgstr "రూల్..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2104
+#: ../components/editor/gtkhtml-editor-actions.c:1886
 msgid "Table..."
 msgstr "పట్టిక..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2111
+#: ../components/editor/gtkhtml-editor-actions.c:1893
 msgid "Text..."
 msgstr "పాఠ్యము..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2118
-#: ../components/html-editor/popup.c:457
+#: ../components/editor/gtkhtml-editor-actions.c:1900
 msgid "Remove Link"
 msgstr "లింకును తీసివేయుము"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2135
-#: ../components/html-editor/popup.c:578
+#: ../components/editor/gtkhtml-editor-actions.c:1917
 msgid "Add Word to Dictionary"
 msgstr "పదమును నిఘంటువుకు కలుపుము"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2142
-#: ../components/html-editor/popup.c:559
+#: ../components/editor/gtkhtml-editor-actions.c:1924
 msgid "Ignore Misspelled Word"
 msgstr "తప్పుగాస్పెల్ చేసిన పదమును వదిలివేయుము"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2149
+#: ../components/editor/gtkhtml-editor-actions.c:1931
 msgid "Add Word To"
 msgstr "పదము దీనికి జతచేయుము"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2367
+#: ../components/editor/gtkhtml-editor-actions.c:1940
+msgid "More Suggestions"
+msgstr "మరిన్ని సూచనలు"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2107
+msgid "_Emoticon"
+msgstr "భావప్రతిమ (_E)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2108
+msgid "Insert Emoticon"
+msgstr "భావమును చేర్చుము"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2169
 msgid "_Find"
 msgstr "కనుగొనుము (_F)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2370
+#: ../components/editor/gtkhtml-editor-actions.c:2172
 msgid "Re_place"
 msgstr "పునఃస్థాపించు (_p)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2373
+#: ../components/editor/gtkhtml-editor-actions.c:2175
 msgid "_Image"
 msgstr "ప్రతిబింబము (_I)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2376
+#: ../components/editor/gtkhtml-editor-actions.c:2178
 msgid "_Link"
 msgstr "లింకు (_L)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2379
+#: ../components/editor/gtkhtml-editor-actions.c:2181
 msgid "_Rule"
 msgstr "రూల్ (_R)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2382
-#: ../components/editor/gtkhtml-editor.glade.h:76
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
+#: ../components/editor/gtkhtml-editor-actions.c:2184
+#: ../components/editor/gtkhtml-editor-builder.ui.h:78
 msgid "_Table"
 msgstr "పట్టిక (_T)"
 
-#: ../components/editor/gtkhtml-editor-private.c:253
+#: ../components/editor/gtkhtml-editor-private.c:264
 msgid "Paragraph Style"
 msgstr "పరిచ్ఛేదము శైలి"
 
-#: ../components/editor/gtkhtml-editor-private.c:267
+#: ../components/editor/gtkhtml-editor-private.c:278
 msgid "Editing Mode"
 msgstr "సరికూర్పు రీతి"
 
-#: ../components/editor/gtkhtml-editor-private.c:279
+#: ../components/editor/gtkhtml-editor-private.c:290
 msgid "Font Color"
 msgstr "ఫాంట్ వర్ణము"
 
-#: ../components/editor/gtkhtml-editor-private.c:289
+#: ../components/editor/gtkhtml-editor-private.c:300
 msgid "Font Size"
 msgstr "ఫాంట్ పరిమాణం"
 
-#: ../components/editor/gtkhtml-editor-private.c:316
-#: ../components/html-editor/body.c:237 ../components/html-editor/text.c:171
-#: ../components/html-editor/toolbar.c:199
+#: ../components/editor/gtkhtml-editor-private.c:327
 msgid "Automatic"
 msgstr "స్వయం చాలకం"
 
-#: ../components/editor/gtkhtml-editor.c:702
+#: ../components/editor/gtkhtml-editor-private.c:599
+msgid "Could not open the link."
+msgstr "లింకును తెరువలేక పోయింది."
+
+#: ../components/editor/gtkhtml-editor.c:754
 msgid "Current Folder"
 msgstr "ప్రస్తుత సంచయం"
 
-#: ../components/editor/gtkhtml-editor.c:703
+#: ../components/editor/gtkhtml-editor.c:755
 msgid "The initial folder for file chooser dialogs"
 msgstr "ఫైల్ చూజర్ డైలాగ్స్‍‌కు ప్రారంభ సంచయం"
 
-#: ../components/editor/gtkhtml-editor.c:713
+#: ../components/editor/gtkhtml-editor.c:765
 msgid "Filename"
 msgstr "దస్త్రమునామము"
 
-#: ../components/editor/gtkhtml-editor.c:714
+#: ../components/editor/gtkhtml-editor.c:766
 msgid "The filename to use when saving"
 msgstr "దాయునపుడు వుపయోగించుటకు దస్త్రమునామము"
 
-#: ../components/editor/gtkhtml-editor.c:724
+#: ../components/editor/gtkhtml-editor.c:776
 msgid "HTML Mode"
 msgstr "HTML రీతి"
 
-#: ../components/editor/gtkhtml-editor.c:725
+#: ../components/editor/gtkhtml-editor.c:777
 msgid "Edit HTML or plain text"
 msgstr "HTML లేదా సాదా పాఠ్యమును సరికూర్చుము"
 
-#: ../components/editor/gtkhtml-editor.c:735
+#: ../components/editor/gtkhtml-editor.c:787
 msgid "Inline Spelling"
 msgstr "ఇన్‌లైన్ స్పెల్లింగ్"
 
-#: ../components/editor/gtkhtml-editor.c:736
+#: ../components/editor/gtkhtml-editor.c:788
 msgid "Check your spelling as you type"
 msgstr "మీరు టైపుచేసిన విధంగా మీస్పెల్లింగ్‌ను పరిశీలించుకొనుము"
 
-#: ../components/editor/gtkhtml-editor.c:746
+#: ../components/editor/gtkhtml-editor.c:798
 msgid "Magic Links"
 msgstr "గారడీ లింకులు"
 
-#: ../components/editor/gtkhtml-editor.c:747
+#: ../components/editor/gtkhtml-editor.c:799
 msgid "Make URIs clickable as you type"
 msgstr "మీరు టైపుచేసిన విధంగా URIలు నొక్కబడునట్లు చేయుము"
 
-#: ../components/editor/gtkhtml-editor.c:757
+#: ../components/editor/gtkhtml-editor.c:809
 msgid "Magic Smileys"
 msgstr "గారడీ నవ్వులు"
 
-#: ../components/editor/gtkhtml-editor.c:758
+#: ../components/editor/gtkhtml-editor.c:810
 msgid "Convert emoticons to images as you type"
 msgstr "మీరు టైపుచేసిన విధంగా భావప్రతిమలను ప్రతిబింబములకు మార్చుము"
 
-#: ../components/editor/gtkhtml-editor.glade.h:1
-msgid "<b>Alignment &amp; Behavior</b>"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:2
+#, no-c-format
+msgid "%"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:3
+msgid "Alignment"
+msgstr "సర్దుబాటు"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:4
+#, fuzzy
+msgid "Alignment & Behavior"
 msgstr "<b>సర్దబాటు &amp; ప్రవర్తన</b>"
 
-#: ../components/editor/gtkhtml-editor.glade.h:2
-msgid "<b>Alignment</b>"
-msgstr "<b>సర్దబాటు</b>"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:5
+#, fuzzy
+msgid "Background"
+msgstr "బ్యాక్‌గ్రౌండ్ (_B):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:3
-msgid "<b>Background Image</b>"
-msgstr "<b>బ్యాక్‌గ్రౌండ్ ప్రతిబింబము</b>"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:6
+msgid "Background Image"
+msgstr "బ్యాక్‌గ్రౌండ్ ప్రతిబింబము"
 
-#: ../components/editor/gtkhtml-editor.glade.h:4
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
-msgid "<b>Background</b>"
-msgstr "<b>బ్యాక్‌గ్రౌండ్</b>"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:7
+#, fuzzy
+msgid "Blue Ink"
+msgstr "బులుగు సిరా"
 
-#: ../components/editor/gtkhtml-editor.glade.h:5
-msgid "<b>Colors</b>"
-msgstr "<b>వర్ణములు</b>"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:8
+msgid "Bottom"
+msgstr ""
 
-#: ../components/editor/gtkhtml-editor.glade.h:6
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
-msgid "<b>General</b>"
-msgstr "<b>సాదారణ</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:7
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:13
-msgid "<b>Layout</b>"
-msgstr "<b>వాస్తు</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:8
-msgid "<b>Link</b>"
-msgstr "<b>లింకు</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:9
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
-msgid "<b>Scope</b>"
-msgstr "<b>వ్యాప్తి</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:10
-msgid "<b>Size</b>"
-msgstr "<b>పరిమాణము</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:11
-msgid "<b>Style</b>"
-msgstr "<b>శైలి</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:12
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
+#: ../components/editor/gtkhtml-editor-builder.ui.h:9
 msgid "C_ell"
 msgstr "అర (_e)"
 
-#: ../components/editor/gtkhtml-editor.glade.h:13
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:24
+#: ../components/editor/gtkhtml-editor-builder.ui.h:10
 msgid "C_olor:"
 msgstr "వర్ణము (_o):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:14
+#: ../components/editor/gtkhtml-editor-builder.ui.h:11
 msgid "C_olumns:"
 msgstr "నిలువువరుసలు (_o):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:15
-#: ../components/html-editor/body.c:286
+#: ../components/editor/gtkhtml-editor-builder.ui.h:12
 msgid "C_ustom:"
 msgstr "మలుచుకున్న (_u):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:16
-#: ../components/html-editor/replace.c:180
-#: ../components/html-editor/search.c:116
+#: ../components/editor/gtkhtml-editor-builder.ui.h:13
 msgid "Case _sensitive"
 msgstr "చిన్నపెద్దబడి తేడా (_s)"
 
-#: ../components/editor/gtkhtml-editor.glade.h:17
+#: ../components/editor/gtkhtml-editor-builder.ui.h:14
 msgid "Cell Properties"
 msgstr "అర లక్షణాలు"
 
-#: ../components/editor/gtkhtml-editor.glade.h:18
+#: ../components/editor/gtkhtml-editor-builder.ui.h:15
+msgid "Center"
+msgstr "మధ్య"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:16
 msgid "Co_lor:"
 msgstr "వర్ణము (_l):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:19
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:26
+#: ../components/editor/gtkhtml-editor-builder.ui.h:17
 msgid "Col_umn"
 msgstr "నిలువువరుస (_u)"
 
-#: ../components/editor/gtkhtml-editor.glade.h:20
+#: ../components/editor/gtkhtml-editor-builder.ui.h:18
+msgid "Colors"
+msgstr "వర్ణములు"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:19
 msgid "Column Span:"
 msgstr "నిలువువరుస స్పాన్:"
 
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/editor/gtkhtml-editor.glade.h:21
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
-#: ../components/html-editor/search.c:110
-#: ../components/html-editor/search.c:171
+#: ../components/editor/gtkhtml-editor-builder.ui.h:20
+msgid "Confidential"
+msgstr "గోప్యమైన"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:21
+msgid "Draft"
+msgstr "డ్రాఫ్ట్‍"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:22
 msgid "Find"
 msgstr "కనుగొనుము"
 
-#: ../components/editor/gtkhtml-editor.glade.h:22
+#: ../components/editor/gtkhtml-editor-builder.ui.h:23
+msgid "General"
+msgstr "సాధారణ"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:24
+#, fuzzy
+msgid "Graph Paper"
+msgstr "రేఖాచిత్ర కాగితం"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:25
 msgid "Hea_der Style"
 msgstr "పీఠిక శైలి (_d)"
 
-#: ../components/editor/gtkhtml-editor.glade.h:23
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
+#: ../components/editor/gtkhtml-editor-builder.ui.h:26
 msgid "I_mage:"
 msgstr "చిత్రము (_m):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:24
+#: ../components/editor/gtkhtml-editor-builder.ui.h:27
 msgid "Image Properties"
 msgstr "ప్రతిబింబము లక్షణాలు"
 
-#: ../components/editor/gtkhtml-editor.glade.h:25
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
-msgid ""
-"Left\n"
-"Center\n"
-"Right"
-msgstr ""
-"ఎడమ\n"
-"మధ్య\n"
-"కుడి"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:28
+#, fuzzy
+msgid "Layout"
+msgstr "<b>వాస్తు</b>"
 
-#: ../components/editor/gtkhtml-editor.glade.h:28
+#: ../components/editor/gtkhtml-editor-builder.ui.h:29
+msgid "Left"
+msgstr "ఎడమ"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:30
+msgid "Link"
+msgstr "అనుసంధానం"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:31
 msgid "Link Properties"
 msgstr "లింకు లక్షణాలు"
 
-#: ../components/editor/gtkhtml-editor.glade.h:29
-msgid ""
-"None\n"
-"Perforated Paper\n"
-"Blue Ink\n"
-"Paper\n"
-"Ribbon\n"
-"Midnight\n"
-"Confidential\n"
-"Draft\n"
-"Graph Paper"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:32
+msgid "Middle"
 msgstr ""
-"ఏదీకాదు\n"
-"బెజ్జములున్న కాగితం\n"
-"నీలము సిరా\n"
-"కాగితం\n"
-"రిబ్బన్\n"
-"అర్ధరాత్రి\n"
-"అతిరహస్యము\n"
-"డ్రాఫ్ట్‍\n"
-"రేఖాచిత్ర కాగితం"
 
-#: ../components/editor/gtkhtml-editor.glade.h:38
+#: ../components/editor/gtkhtml-editor-builder.ui.h:33
+msgid "Midnight"
+msgstr "అర్ధరాత్రి"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:34
+msgid "None"
+msgstr "ఏదీకాదు"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:35
 msgid "Page Properties"
 msgstr "పుట లక్షణాలు"
 
-#: ../components/editor/gtkhtml-editor.glade.h:39
+#: ../components/editor/gtkhtml-editor-builder.ui.h:36
+msgid "Paper"
+msgstr "కాగితం"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:37
 msgid "Paragraph Properties"
 msgstr "పరిచ్ఛేదము లక్షణాలు"
 
-#: ../components/editor/gtkhtml-editor.glade.h:40
-#: ../components/html-editor/replace.c:190
+#: ../components/editor/gtkhtml-editor-builder.ui.h:38
+#, fuzzy
+msgid "Perforated Paper"
+msgstr "ముందుగారూపీకరించిన కాగితం"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:39
 msgid "R_eplace:"
 msgstr "పునఃస్థాపించుము (_e):"
 
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/editor/gtkhtml-editor.glade.h:41
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: ../components/html-editor/replace.c:171
-#: ../components/html-editor/replace.c:236
+#: ../components/editor/gtkhtml-editor-builder.ui.h:40
 msgid "Replace"
 msgstr "పునఃస్థాపించు"
 
-#: ../components/editor/gtkhtml-editor.glade.h:42
+#: ../components/editor/gtkhtml-editor-builder.ui.h:41
 msgid "Replace Confirmation"
 msgstr "నిర్ధారణను పునఃస్థాపించుము"
 
-#: ../components/editor/gtkhtml-editor.glade.h:43
+#: ../components/editor/gtkhtml-editor-builder.ui.h:42
+msgid "Ribbon"
+msgstr "రిబ్బన్"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:43
+msgid "Right"
+msgstr "కుడి"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:44
 msgid "Row Span:"
 msgstr "అడ్డువరుస స్పాన్:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:44
+#: ../components/editor/gtkhtml-editor-builder.ui.h:45
 msgid "Rule Properties"
 msgstr "రూల్ లక్షణములు"
 
-#: ../components/editor/gtkhtml-editor.glade.h:45
+#: ../components/editor/gtkhtml-editor-builder.ui.h:46
 msgid "S_haded"
 msgstr "పాలిపోయిన (_h)"
 
-#: ../components/editor/gtkhtml-editor.glade.h:46
+#: ../components/editor/gtkhtml-editor-builder.ui.h:47
+msgid "Scope"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:48
 msgid "Search _backwards"
 msgstr "వెనుకకు శోధించుము (_b)"
 
-#: ../components/editor/gtkhtml-editor.glade.h:47
+#: ../components/editor/gtkhtml-editor-builder.ui.h:49
 msgid "Select An Image"
 msgstr "ప్రతిబింబమును ఎంపికచేయుము"
 
-#: ../components/editor/gtkhtml-editor.glade.h:48
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
+#: ../components/editor/gtkhtml-editor-builder.ui.h:50
 msgid "Si_ze:"
 msgstr "పరిమాణ (_z):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:49
-#: ../components/html-editor/body.c:282
+#: ../components/editor/gtkhtml-editor-builder.ui.h:51
+#, fuzzy
+msgid "Size"
+msgstr "పరిమాణము:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:52
+msgid "Style"
+msgstr "శైలి"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:53
 msgid "T_emplate:"
 msgstr "మాదిరి (_e):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:50
+#: ../components/editor/gtkhtml-editor-builder.ui.h:54
 msgid "Table Properties"
 msgstr "పట్టిక లక్షణములు"
 
-#: ../components/editor/gtkhtml-editor.glade.h:51
+#: ../components/editor/gtkhtml-editor-builder.ui.h:55
 msgid "Text Properties"
 msgstr "పాఠ్యము లక్షణములు"
 
-#: ../components/editor/gtkhtml-editor.glade.h:52
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
-msgid ""
-"Top\n"
-"Middle\n"
-"Bottom"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:56
+msgid "Top"
 msgstr ""
-"పైన\n"
-"మద్యన\n"
-"క్రిందన"
 
-#: ../components/editor/gtkhtml-editor.glade.h:55
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
+#: ../components/editor/gtkhtml-editor-builder.ui.h:57
 msgid "Width:"
 msgstr "వెడల్పు:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:56
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
+#: ../components/editor/gtkhtml-editor-builder.ui.h:58
 msgid "_Alignment:"
 msgstr "సర్దుబాటు (_A):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:57
-#: ../components/html-editor/body.c:252
+#: ../components/editor/gtkhtml-editor-builder.ui.h:59
 msgid "_Background:"
 msgstr "బ్యాక్‌గ్రౌండ్ (_B):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:59
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
+#: ../components/editor/gtkhtml-editor-builder.ui.h:61
 msgid "_Border:"
 msgstr "హద్దు (_B):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:60
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
+#: ../components/editor/gtkhtml-editor-builder.ui.h:62
 msgid "_Color:"
 msgstr "వర్ణము (_C):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:61
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
+#: ../components/editor/gtkhtml-editor-builder.ui.h:63
 msgid "_Description:"
 msgstr "వివరణ (_D):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:62
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:63
+#: ../components/editor/gtkhtml-editor-builder.ui.h:64
 msgid "_Height:"
 msgstr "ఎత్తు (_H):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:63
+#: ../components/editor/gtkhtml-editor-builder.ui.h:65
 msgid "_Horizontal:"
 msgstr "అడ్డముగా (_H):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:64
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
+#: ../components/editor/gtkhtml-editor-builder.ui.h:66
 msgid "_Image:"
 msgstr "ప్రతిబింబము (_I):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:66
-#: ../components/html-editor/body.c:251
+#: ../components/editor/gtkhtml-editor-builder.ui.h:68
 msgid "_Link:"
 msgstr "లింకు (_L):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:67
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
+#: ../components/editor/gtkhtml-editor-builder.ui.h:69
 msgid "_Padding:"
 msgstr "పాడింగ్ (_P):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:68
+#: ../components/editor/gtkhtml-editor-builder.ui.h:70
 msgid "_Regular expression"
 msgstr "సాదారణ సమీకరణం (_R)"
 
-#: ../components/editor/gtkhtml-editor.glade.h:69
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
+#: ../components/editor/gtkhtml-editor-builder.ui.h:71
 msgid "_Row"
 msgstr "అడ్డువరుస (_R)"
 
-#: ../components/editor/gtkhtml-editor.glade.h:70
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
+#: ../components/editor/gtkhtml-editor-builder.ui.h:72
 msgid "_Rows:"
 msgstr "అడ్డువరుసలు (_R):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:71
+#: ../components/editor/gtkhtml-editor-builder.ui.h:73
 msgid "_Size:"
 msgstr "పరిమాణం (_S):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:72
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
+#: ../components/editor/gtkhtml-editor-builder.ui.h:74
 msgid "_Source:"
 msgstr "మూలం (_S):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:73
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
+#: ../components/editor/gtkhtml-editor-builder.ui.h:75
 msgid "_Spacing:"
 msgstr "ఖాళీ (_S):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:75
-#: ../components/html-editor/paragraph.c:69
+#: ../components/editor/gtkhtml-editor-builder.ui.h:77
 msgid "_Style:"
 msgstr "అక్షరశైలి (_S):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:78
-#: ../components/html-editor/body.c:250
+#: ../components/editor/gtkhtml-editor-builder.ui.h:80
 msgid "_Text:"
 msgstr "పాఠ్యము (_T):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:79
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
+#: ../components/editor/gtkhtml-editor-builder.ui.h:81
 msgid "_URL:"
 msgstr "_URL:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:81
+#: ../components/editor/gtkhtml-editor-builder.ui.h:83
 msgid "_Vertical:"
 msgstr "నిలువుగా (_V):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:82
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
+#: ../components/editor/gtkhtml-editor-builder.ui.h:84
 msgid "_Width:"
 msgstr "వెడల్పు (_W):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:83
-#: ../components/html-editor/replace.c:194
+#: ../components/editor/gtkhtml-editor-builder.ui.h:85
 msgid "_With:"
 msgstr "వెడల్పు (_W):"
 
-#: ../components/editor/gtkhtml-editor.glade.h:84
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:76
+#: ../components/editor/gtkhtml-editor-builder.ui.h:86
 msgid "_Wrap Text"
 msgstr "పాఠ్యమును విడగొట్టుము (_W)"
 
-#: ../components/editor/gtkhtml-editor.glade.h:85
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
+#: ../components/editor/gtkhtml-editor-builder.ui.h:87
 msgid "_X-Padding:"
 msgstr "_X-పాడింగ్:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:86
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
+#: ../components/editor/gtkhtml-editor-builder.ui.h:88
 msgid "_Y-Padding:"
 msgstr "_Y-పాడింగ్:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:87
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
-msgid "px"
-msgstr "px"
-
-#: ../components/editor/gtkhtml-editor.glade.h:89
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
-#, no-c-format
-msgid ""
-"px\n"
-"%"
-msgstr ""
-"px\n"
-"%"
-
-#: ../components/editor/gtkhtml-editor.glade.h:92
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:84
-#, no-c-format
-msgid ""
-"px\n"
-"%\n"
-"follow"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:89
+#, fuzzy
+msgid "follow"
 msgstr ""
 "px\n"
 "%\n"
 "అనుసరించు"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:90
+msgid "px"
+msgstr "px"
 
 #: ../components/editor/gtkhtml-spell-checker.c:200
 msgid "Language"
@@ -1549,7 +1390,7 @@ msgid "_Add Word"
 msgstr "పదమును జతచేయి (_A)"
 
 #. Translators: %s is the language ISO code.
-#: ../components/editor/gtkhtml-spell-language.c:180
+#: ../components/editor/gtkhtml-spell-language.c:184
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
@@ -1557,8 +1398,8 @@ msgstr "తెలియని (%s)"
 
 #. Translators: The first %s is the language name, and the
 #. * second is the country name. Example: "French (France)"
-#: ../components/editor/gtkhtml-spell-language.c:195
-#: ../components/editor/gtkhtml-spell-language.c:200
+#: ../components/editor/gtkhtml-spell-language.c:199
+#: ../components/editor/gtkhtml-spell-language.c:204
 #, c-format
 msgctxt "language"
 msgid "%s (%s)"
@@ -1566,7 +1407,7 @@ msgstr "%s (%s)"
 
 #. Translators: This refers to the default language used
 #. * by the spell checker.
-#: ../components/editor/gtkhtml-spell-language.c:385
+#: ../components/editor/gtkhtml-spell-language.c:389
 msgctxt "language"
 msgid "Default"
 msgstr "అప్రమేయ"
@@ -1579,1156 +1420,823 @@ msgstr "ఇలా దాయుము"
 msgid "Untitled document"
 msgstr "శీర్షికలేని పత్రము"
 
-#: ../components/editor/main.c:268
+#: ../components/editor/main.c:271
 msgid "HTML Output"
 msgstr "HTML అవుట్‌పుట్"
 
-#: ../components/editor/main.c:275
+#: ../components/editor/main.c:278
 msgid "HTML Source"
 msgstr "HTML మూలం"
 
-#: ../components/editor/main.c:282
+#: ../components/editor/main.c:285
 msgid "Plain Source"
 msgstr "సాదా మూలం"
 
-#: ../components/editor/main.c:289
+#: ../components/editor/main.c:292
 msgid "_Print..."
 msgstr "ముద్రించు (_P)..."
 
-#: ../components/editor/main.c:296
+#: ../components/editor/main.c:299
 msgid "Print Pre_view"
 msgstr "ముద్రణ ఉపదర్శనం (_v)"
 
-#: ../components/editor/main.c:303
+#: ../components/editor/main.c:306
 msgid "_Quit"
 msgstr "నిష్క్రమించు (_Q)"
 
-#: ../components/editor/main.c:310
+#: ../components/editor/main.c:313
 msgid "_Save"
 msgstr "దాయు (_S)"
 
-#: ../components/editor/main.c:317
+#: ../components/editor/main.c:320
 msgid "Save _As..."
 msgstr "ఇలా దాయుము (_A)..."
 
-#: ../components/editor/main.c:334
+#: ../components/editor/main.c:337
 msgid "HTML _Output"
 msgstr "HTML అవుట్‌పుట్ (_O)"
 
-#: ../components/editor/main.c:341
+#: ../components/editor/main.c:344
 msgid "_HTML Source"
 msgstr "_HTML మూలం"
 
-#: ../components/editor/main.c:348
+#: ../components/editor/main.c:351
 msgid "_Plain Source"
 msgstr "సాదా మూలం (_P)"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
-#: ../components/html-editor/paragraph-style.c:56
-msgid "Alphabetical List"
-msgstr "అక్షరమాల జాబితా"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
-#: ../components/html-editor/paragraph-style.c:47
-msgid "Bulleted List"
-msgstr "బుల్లెటెడ్ జాబితా"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
-#: ../components/html-editor/toolbar.c:415
-msgid "Center justifies the paragraphs"
-msgstr "పరిచ్ఛేదాన్ని మధ్య అనునది నిర్ణయిస్తుంది"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
-msgid "Check spelling of the document"
-msgstr "పత్రము యొక్క స్పెల్లింగ్ ను పరిశీలించుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
-msgid "Copy"
-msgstr "నకలు"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
-msgid "Copy selection to clipboard"
-msgstr "ఎంపికను క్లిప్ పలకానికి నకలు తీయుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
-msgid "Copy the selection"
-msgstr "ఎంపికను నకలు తీయుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
-msgid "Cut"
-msgstr "కోయుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
-msgid "Cut selection to clipboard"
-msgstr "ఎంపికను క్లిప్‌బోర్డుకు కత్తిరించుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
-msgid "Cut the selection"
-msgstr "ఎంపికచేసినదాన్ని కత్తిరించుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-msgid "Emoti_con"
-msgstr "భావముతెల్పుప్రతిమ (_c)"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
-msgid "Find _Again"
-msgstr "మరలా కనుగొనుము (_A)"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
-msgid "Find again"
-msgstr "మరలా కనుగొనుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
-msgid "Find and Replace"
-msgstr "కనుగొనుము మరియు పునఃస్థాపించుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
-msgid "Find and replace"
-msgstr "కనుగొనుము మరియు పునఃస్థాపించుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
-msgid "I_nsert"
-msgstr "చేర్చుము (_n)"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-#: ../components/html-editor/editor-control-factory.c:197
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:35
-#: ../components/html-editor/popup.c:211
-msgid "Image"
-msgstr "ప్రతిబింబము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-msgid "Insert Crying emoticon into document..."
-msgstr "పత్రములోనికి రోధిస్తున్న భావముగలప్రతిమను చేర్చుము..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
-msgid "Insert Frown emoticon into document..."
-msgstr "చిరాకు భావముగలప్రతిమను పత్రములోనికి చేర్చుము..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
-msgid "Insert HTML file into document..."
-msgstr "పత్రములోనికి HTML దస్త్రమును చేర్చుము..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
-msgid "Insert HTML link into document..."
-msgstr "పత్రములోనికి HTML లింకును చేర్చుము..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
-msgid "Insert HTML template into document..."
-msgstr "పత్రములోనికి HTML మాదిరిని చేర్చుము..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
-msgid "Insert Indifferent emoticon into document..."
-msgstr "పత్రములోనికి భేధములేని భావముగలప్రతిమ ను చేర్చుము..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-msgid "Insert Laughing emoticon into document..."
-msgstr "పత్రములోనికి నవ్వుతున్న భావముగలప్రతిమను చేర్చుము..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
-msgid "Insert Oh no! emoticon into document..."
-msgstr "పత్రములోనికి ఒహ్ వద్దు! భావముగలప్రతిమ ను చేర్చుము..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
-msgid "Insert Sick emoticon into document..."
-msgstr "పత్రములోనికి నలత భావముగలప్రతిమ ను ప్రవేశపెట్టండి..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
-msgid "Insert Smile emoticon into document..."
-msgstr "పత్రములోనికి చిరునవ్వు భావముగలప్రతిమను చేర్చుము..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-msgid "Insert Surprised emoticon into document..."
-msgstr "పత్రములోనికి ఆశ్చర్య భావముగలప్రతిమ ను చేర్చుము..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
-msgid "Insert Tongue emoticon into document..."
-msgstr "పత్రములోనికి నాలుకచూపిన భావముగలప్రతిమ ను చేర్చుము..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
-msgid "Insert Undecided emoticon into document..."
-msgstr "పత్రములోనికి మీమాంస భావముగలప్రతిమ ను చేర్చుము..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
-msgid "Insert Wink emoticon into document..."
-msgstr "పత్రములోనికి కనుసైగ భావముగలప్రతిమ ను చేర్చుము..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
-#: ../components/html-editor/menubar.c:129
-msgid "Insert image"
-msgstr "ప్రతిబింబమును చేర్చుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
-msgid "Insert image into document..."
-msgstr "పత్రములోనికి ప్రతిబింబమును చేర్చుము..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
-msgid "Insert link"
-msgstr "లింకును చేర్చుము..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
-msgid "Insert rule"
-msgstr "నియమాన్ని చేర్చుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
-msgid "Insert rule into document..."
-msgstr "పత్రములోనికి నియమాన్ని చేర్చుము..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-msgid "Insert table"
-msgstr "పట్టికను చేర్చుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-msgid "Insert table into document..."
-msgstr "పత్రములోనికి పట్టికను చేర్చుము..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
-msgid "Insert text file into document..."
-msgstr "పత్రములోనికి పాఠ్యపు దస్త్రాన్ని చేర్చుము..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
-#: ../components/html-editor/toolbar.c:412
-msgid "Left justifies the paragraphs"
-msgstr "పరిచ్ఛేదాన్ని ఎడమవైపుకు సర్దబాటుచేయుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
-#: ../components/html-editor/menubar.c:174
-#: ../components/html-editor/popup.c:111 ../components/html-editor/popup.c:205
-#: ../components/html-editor/popup.c:271
-msgid "Link"
-msgstr "అనుసంధానం"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
-msgid "Make the current Paragraph style Normal"
-msgstr "ప్రస్తుత పరిచ్ఛేదము యొక్క శైలి ని సాదారణము చేయుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
-msgid "Make the current Paragraph style Preformat"
-msgstr "ప్రస్తుత పరిచ్ఛేద శైలిని ముందుగారూపీకరించుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
-msgid "Make the current paragraph a bulleted list"
-msgstr "ప్రస్తుత పరిచ్ఛేదమును బుల్లెటెడ్ జాబితా చేయుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
-msgid "Make the current paragraph a list with roman numerals"
-msgstr "ప్రస్తుత పరిచ్ఛేదమును రొమన్ సంఖ్యల తో జాబితా చేయుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
-msgid "Make the current paragraph a numbered list"
-msgstr "ప్రస్తుత పరిచ్ఛేదమును సంఖ్యల జాబితా చేయుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
-msgid "Make the current paragraph an H1 header"
-msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక H1 పీఠిక చేయుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
-msgid "Make the current paragraph an H2 header"
-msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక H2 పీఠిక చేయుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
-msgid "Make the current paragraph an H3 header"
-msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక H3 పీఠిక చేయుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
-msgid "Make the current paragraph an H4 header"
-msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక H4 పీఠిక చేయుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
-msgid "Make the current paragraph an H5 header"
-msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక H5 పీఠిక చేయుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
-msgid "Make the current paragraph an H6 header"
-msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక H6 పీఠిక చేయుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
-msgid "Make the current paragraph an address"
-msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక చిరునామా చేయుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
-msgid "Make the current paragraph an alphabetical list"
-msgstr "ప్రస్తుత పరిచ్ఛేదమును అక్షరమాల జాబితా చేయుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
-#: ../components/html-editor/paragraph-style.c:41
-msgid "Normal"
-msgstr "సాదారణ"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
-#: ../components/html-editor/paragraph-style.c:50
-msgid "Numbered List"
-msgstr "సంఖ్యల జాబితా"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
-msgid "Oh _No!"
-msgstr "ఓహ్ వద్దు (_N)!"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
-msgid "Paste"
-msgstr "అతికించు"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
-msgid "Paste from clipboard"
-msgstr "క్లిప్ పలకం నుండి అతికించుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
-msgid "Paste the clipboard"
-msgstr "క్లిప్ పలకాన్ని అతికించుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
-msgid "Paste the clipboard as a quotation"
-msgstr "క్లిప్‌బోర్డును ఒక కొటేషన్ వలె అతికించు"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-#: ../components/html-editor/paragraph-style.c:44
-msgid "Preformat"
-msgstr "ముందుగారూపీకరించిన"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
-msgid "Redo"
-msgstr "మళ్ళీచేయి"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
-msgid "Redo previously undone change"
-msgstr "గతంలో రద్దుచేసిన మార్పును మళ్ళీచేయి"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
-msgid "Redo the undone action"
-msgstr "రద్దుచేసిన చర్యను మళ్ళీచేయి"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
-#: ../components/html-editor/toolbar.c:418
-msgid "Right justifies the paragraphs"
-msgstr "పరిచ్ఛేదమును కుడివైపు సర్దబాటుచేయుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-msgid "Roman Numeral List"
-msgstr "రోమన్ సాంఖ్యక జాబితా"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
-#: ../components/html-editor/editor-control-factory.c:215
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:46
-#: ../components/html-editor/menubar.c:193
-#: ../components/html-editor/popup.c:229
-msgid "Rule"
-msgstr "నియమం"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
-msgid "Select the entire contents of the document"
-msgstr "పత్రము యొక్క అన్ని విషములను ఎంపికచేయుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
-#: ../components/html-editor/toolbar.c:450
-msgid "Strikeout"
-msgstr "కొట్టిపారేయుము"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
-msgid "Su_rprised"
-msgstr "అశ్చముచెందిన (_r)"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
-msgid "Subscript"
-msgstr "ఉపలిపి"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
-msgid "Superscript"
-msgstr "ఉచ్ఛలిపి"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
-msgid "Te_mplate..."
-msgstr "మాదిరి (_m)..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
-msgid "Ton_gue"
-msgstr "నాలుక (_g)"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
-#: ../components/html-editor/toolbar.c:439
-msgid "Typewriter"
-msgstr "టైపుచేయునది"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
-msgid "Undo"
-msgstr "చేయవద్దు"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
-msgid "Undo previous changes"
-msgstr "గంతంలో చేసిన మార్పులను రద్దుచేయి"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
-msgid "Undo the last action"
-msgstr "చినరి చర్యను రద్దుచేయి"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
-msgid "_Font Size"
-msgstr "ఫాంటు పరిమాణం (_F)"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
-msgid "_Heading"
-msgstr "హెడ్డింగ్ (_H)"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
-msgid "_Page..."
-msgstr "పుట (_P)..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
-msgid "_Paragraph..."
-msgstr "పరిచ్ఛేదము (_P)..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
-msgid "_Replace..."
-msgstr "పునఃస్థాపించుము (_R)..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
-msgid "_Style"
-msgstr "శైలి (_S)"
-
-#.
-#. <submenu name="BackgroundColor" _label="Background Color">
-#. <menuitem name="ColorRed" verb="" _label="Red"/>
-#. <menuitem name="ColorOrange" verb="" _label="Orange"/>
-#. <menuitem name="ColorYellow" verb="" _label="Yellow"/>
-#. <menuitem name="ColorGreen" verb="" _label="Green"/>
-#. <menuitem name="ColorBlue" verb="" _label="Blue"/>
-#. <menuitem name="ColorPurple" verb="" _label="Purple"/>
-#. <menuitem name="etc" verb="" _label="etc..."/>
-#.
-#. <separator/>
-#.
-#. <menuitem name="Other" verb="" _label="Other..."/>
-#. </submenu>
-#.
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:156
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:156
-msgid "_Text..."
-msgstr "పాఠ్యము (_T)..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
-msgid "GNOME HTML Editor"
-msgstr "GNOME HTML కూర్పరి"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:2
-msgid "GNOME HTML Editor Control"
-msgstr "GNOME HTML కూర్పరి నియంత్రిక"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
-msgid "GNOME HTML Editor Factory"
-msgstr "GNOME HTML కూర్పరి ఫాక్టరి"
-
-#: ../components/html-editor/body.c:64
-msgid "None"
-msgstr "ఏదీకాదు"
-
-#: ../components/html-editor/body.c:72
-msgid "Perforated paper"
-msgstr "ముందుగారూపీకరించిన కాగితం"
-
-#: ../components/html-editor/body.c:80
-msgid "Blue ink"
-msgstr "బులుగు సిరా"
-
-#: ../components/html-editor/body.c:88
-msgid "Paper"
-msgstr "కాగితం"
-
-#: ../components/html-editor/body.c:96
-msgid "Ribbon"
-msgstr "రిబ్బన్"
-
-#: ../components/html-editor/body.c:104
-msgid "Midnight"
-msgstr "అర్ధరాత్రి"
-
-#: ../components/html-editor/body.c:112
-msgid "Confidential"
-msgstr "గోప్యమైన"
-
-#: ../components/html-editor/body.c:120
-msgid "Draft"
-msgstr "డ్రాఫ్ట్‍"
-
-#: ../components/html-editor/body.c:128
-msgid "Graph paper"
-msgstr "రేఖాచిత్ర కాగితం"
-
-#: ../components/html-editor/body.c:254
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:27
-msgid "Colors"
-msgstr "వర్ణములు"
-
-#: ../components/html-editor/body.c:256 ../components/html-editor/body.c:288
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:22
-msgid "Background Image"
-msgstr "బ్యాక్‌గ్రౌండ్ ప్రతిబింబము"
-
-#: ../components/html-editor/body.c:267
-msgid "Background Image File Path"
-msgstr "బ్యాక్‌గ్రౌండ్ ప్రతిబింబపు దస్త్రం పాత్"
-
-#: ../components/html-editor/body.c:275
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
-#: ../components/html-editor/menubar.c:239
-msgid "Template"
-msgstr "మాదిరి"
-
-#: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
-#: ../components/html-editor/link.c:215 ../components/html-editor/rule.c:179
-#: ../components/html-editor/table.c:229
-#: ../components/html-editor/template.c:287
-#: ../components/html-editor/text.c:168
-msgid "Could not load glade file."
-msgstr "గ్లేడ్ దస్త్రాన్ని నింపలేకపోయింది."
-
-#: ../components/html-editor/cell.c:346 ../components/html-editor/table.c:233
-msgid "Transparent"
-msgstr "పారదర్శకం"
-
-#: ../components/html-editor/editor-control-factory.c:205
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: ../components/html-editor/menubar.c:425
-#: ../components/html-editor/popup.c:199
-msgid "Text"
-msgstr "పాఠ్యము"
-
-#: ../components/html-editor/editor-control-factory.c:224
-#: ../components/html-editor/menubar.c:442
-#: ../components/html-editor/popup.c:217
-msgid "Paragraph"
-msgstr "పరిచ్ఛేదము"
-
-#: ../components/html-editor/editor-control-factory.c:228
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:44
-#: ../components/html-editor/menubar.c:408
-#: ../components/html-editor/popup.c:223
-msgid "Page"
-msgstr "పుట"
-
-#: ../components/html-editor/gi-color-combo.c:189
-msgid "color preview"
-msgstr "వర్ణము ఉపదర్శనం"
-
-#. "Custom" color - we'll pop up a GtkColorDialog
-#: ../components/html-editor/gi-color-palette.c:414
-msgid "Custom Color:"
-msgstr "మలుచుకున్న వర్ణము:"
-
-#: ../components/html-editor/gi-color-palette.c:607
-msgid "purplish blue"
-msgstr "వంకాయ బులుగు"
-
-#: ../components/html-editor/gi-color-palette.c:611
-msgid "dark purple"
-msgstr "ముదురు వంకాయ"
-
-#: ../components/html-editor/gi-color-palette.c:613
-msgid "sky blue"
-msgstr "అకాశపు బులుగు"
-
-#. set the a11y name
-#: ../components/html-editor/gi-combo-box.c:411
-msgid "Popup"
-msgstr "పాప్అప్"
-
-#: ../components/html-editor/gnome-gtkhtml-editor.c:74
-msgid "GtkHTML Editor Control"
-msgstr "GtkHTML కూర్పరి నియంత్రిక"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:1
-msgid "    "
-msgstr "    "
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:2
-msgid "*"
-msgstr "*"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:3
-msgid ""
-"-2\n"
-"-1\n"
-"Standard\n"
-"+1\n"
-"+2\n"
-"+3\n"
-"+4"
-msgstr ""
-"-2\n"
-"-1\n"
-"ప్రామాణిక\n"
-"+1\n"
-"+2\n"
-"+3\n"
-"+4"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:10
-msgid "<b>Alignment &amp; Behaviour</b>"
-msgstr "<b>సర్దుబాటు &amp; ప్రవర్తన</b>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:15
-msgid "<span weight=\"bold\">General</span>"
-msgstr "<span weight=\"bold\">సాదారణ</span>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:16
-msgid "<span weight=\"bold\">Layout</span>"
-msgstr "<span weight=\"bold\">వాస్తు</span>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:17
-msgid "<span weight=\"bold\">Link</span>"
-msgstr "<span weight=\"bold\">లింకు</span>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:18
-msgid "<span weight=\"bold\">Size</span>"
-msgstr "<span weight=\"bold\">పరిమాణం</span>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:19
-msgid "<span weight=\"bold\">Style</span>"
-msgstr "<span weight=\"bold\">శైలి</span>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:20
-msgid "<span weight=\"bold\">Template</span>"
-msgstr "<span weight=\"bold\">మాదిరి</span>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:21
-msgid "Alignment:"
-msgstr "సర్దుబాటు:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:25
-#: ../components/html-editor/popup.c:241
-msgid "Cell"
-msgstr "అర"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
-msgid "Colu_mns:"
-msgstr "నిలువువరుసలు (_m):"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:29
-msgid "Column span:"
-msgstr "నిలువువరుస స్పాన్:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:30
-msgid "Enable"
-msgstr "చేతనం"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:31
-msgid "Hea_der style"
-msgstr "పీఠిక శైలి (_d)"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:32
-msgid "Horizontal alignment:"
-msgstr "అడ్డముగా సర్దుబాటు:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:33
-msgid "Horizontal:"
-msgstr "అడ్డముగా:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:39
-msgid ""
-"Left\n"
-"Center\n"
-"Right\n"
-"None"
-msgstr ""
-"ఎడమ\n"
-"మధ్య\n"
-"కుడి\n"
-"ఏదీకాదు"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
-msgid "Link properties"
-msgstr "లింకు లక్షణాలు"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
-msgid "Row span:"
-msgstr "అడ్డువరుస స్పాన్:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
-msgid "Shade"
-msgstr "ఛాయ"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
-msgid "Size:"
-msgstr "పరిమాణము:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:56
-msgid "Vertical:"
-msgstr "నిట్టనిలువు:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:87
-msgid "xxxxxxxxxxxxxx"
-msgstr "xxxxxxxxxxxxxx"
-
-#: ../components/html-editor/link.c:227
-msgid "URL:"
-msgstr "URL:"
-
-#: ../components/html-editor/link.c:231
-msgid "Description:"
-msgstr "వివరణ:"
-
-#: ../components/html-editor/menubar.c:171
-#: ../components/html-editor/menubar.c:190
-#: ../components/html-editor/menubar.c:214
-#: ../components/html-editor/menubar.c:236
-#: ../components/html-editor/popup.c:108
-msgid "Insert"
-msgstr "చేర్చుము"
-
-#: ../components/html-editor/menubar.c:323
-#, c-format
-msgid "Error loading file '%s': %s"
-msgstr "దస్త్రం '%s' ను నింపుటలో దోషం: %s"
-
-#: ../components/html-editor/menubar.c:405
-#: ../components/html-editor/menubar.c:422
-#: ../components/html-editor/menubar.c:439
-msgid "Format"
-msgstr "ఫార్మెట్"
-
-#: ../components/html-editor/paragraph.c:72
-msgid "General"
-msgstr "సాధారణ"
-
-#: ../components/html-editor/paragraph.c:87
-msgid "Left"
-msgstr "ఎడమ"
-
-#: ../components/html-editor/paragraph.c:88
-#: ../components/html-editor/toolbar.c:415
-msgid "Center"
-msgstr "మధ్య"
-
-#: ../components/html-editor/paragraph.c:89
-msgid "Right"
-msgstr "కుడి"
-
-#: ../components/html-editor/paragraph.c:91
-msgid "Alignment"
-msgstr "సర్దుబాటు"
-
-#: ../components/html-editor/paragraph-style.c:53
-msgid "Roman List"
-msgstr "రోమన్ జాబితా"
-
-#: ../components/html-editor/paragraph-style.c:59
-msgid "Header 1"
-msgstr "పీఠిక 1"
-
-#: ../components/html-editor/paragraph-style.c:62
-msgid "Header 2"
-msgstr "పీఠిక 2"
-
-#: ../components/html-editor/paragraph-style.c:65
-msgid "Header 3"
-msgstr "పీఠిక 3"
-
-#: ../components/html-editor/paragraph-style.c:68
-msgid "Header 4"
-msgstr "పీఠిక 4"
-
-#: ../components/html-editor/paragraph-style.c:71
-msgid "Header 5"
-msgstr "పీఠిక 5"
-
-#: ../components/html-editor/paragraph-style.c:74
-msgid "Header 6"
-msgstr "పీఠిక 6"
-
-#: ../components/html-editor/paragraph-style.c:77
-msgid "Address"
-msgstr "చిరునామా"
-
-#: ../components/html-editor/popup.c:464
-msgid "Style"
-msgstr "శైలి"
-
-#: ../components/html-editor/popup.c:467
-msgid "Text Style..."
-msgstr "పాఠ్యము శైలి..."
-
-#: ../components/html-editor/popup.c:469 ../components/html-editor/popup.c:475
-#: ../components/html-editor/popup.c:485
-msgid "Paragraph Style..."
-msgstr "పరిచ్ఛేదము శైలి..."
-
-#: ../components/html-editor/popup.c:473
-msgid "Link Style..."
-msgstr "లింకు శైలి..."
-
-#: ../components/html-editor/popup.c:479
-msgid "Rule Style..."
-msgstr "నియమం శైలి..."
-
-#: ../components/html-editor/popup.c:483
-msgid "Image Style..."
-msgstr "ప్రతిబింబము శైలి..."
-
-#: ../components/html-editor/popup.c:494
-msgid "Cell Style..."
-msgstr "అర శైలి..."
-
-#: ../components/html-editor/popup.c:497
-msgid "Table Style..."
-msgstr "పట్టిక శైలి..."
-
-#: ../components/html-editor/popup.c:503
-msgid "Page Style..."
-msgstr "పుట శైలి..."
-
-#: ../components/html-editor/popup.c:508
-msgid "Table insert"
-msgstr "పట్టికను చేర్చుము"
-
-#: ../components/html-editor/popup.c:511
-msgid "Row above"
-msgstr "అడ్డువరుస పైన"
-
-#: ../components/html-editor/popup.c:512
-msgid "Row below"
-msgstr "అడ్డువరుస క్రింద"
-
-#: ../components/html-editor/popup.c:514
-msgid "Column before"
-msgstr "నిలువువరుస ముందు"
-
-#: ../components/html-editor/popup.c:515
-msgid "Column after"
-msgstr "నిలువువరుస తర్వాత"
-
-#: ../components/html-editor/popup.c:520
-msgid "Table delete"
-msgstr "పట్టిక ను తొలగించు"
-
-#: ../components/html-editor/popup.c:524
-msgid "Cell contents"
-msgstr "అర సారములు"
-
-#: ../components/html-editor/popup.c:564
-msgid "Add Word to"
-msgstr "పదమును దీనికి జతచేయుము"
-
-#. Translators: %s is the language name.
-#: ../components/html-editor/popup.c:569
-#, c-format
-msgid "%s Dictionary"
-msgstr "%s నిఘంటువు"
-
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/html-editor/replace.c:81
-msgid "Replace confirmation"
-msgstr "నిర్ధారణను పునఃస్థాపించుము"
-
-#: ../components/html-editor/replace.c:179
-msgid "Search _backward"
-msgstr "వెనుకకు వెతుకుము (_b)"
-
-#: ../components/html-editor/search.c:115
-msgid "_Backward"
-msgstr "వెనుకకు (_B)"
-
-#: ../components/html-editor/search.c:117
-msgid "_Regular Expression"
-msgstr "రెగ్యులర్ ఎక్సప్రెషన్ (_R)"
-
-#: ../components/html-editor/search.c:121
-msgid "Input the words you want to search here"
-msgstr "మీరు ఇక్కడ శోధించాలని అనుకున్న పదాలను ప్రవేశపెట్టండి"
-
-#: ../components/html-editor/spellchecker.c:116
-msgid ""
-"Unable to add word to dictionary,\n"
-"language settings are broken.\n"
-msgstr ""
-"పదాన్ని నిఘంటువుకు జతచేయలేకపోతోంది,\n"
-"భాషా అమర్పులు చెడినవి.\n"
-
-#: ../components/html-editor/spellchecker.c:322
-msgid "No misspelled word found"
-msgstr "ఏ తప్పుగాస్పెల్ చేసిన పదం కనబడలేదు"
-
-#: ../components/html-editor/spellchecker.c:329
-msgid "Spell checker"
-msgstr "స్పెల్ పరిశీలకి"
-
-#: ../components/html-editor/template.c:90
-msgid "Note"
-msgstr "గమనిక"
-
-#: ../components/html-editor/template.c:101
-#: ../components/html-editor/template.c:121
-msgid "Place your text here"
-msgstr "మీ పాఠ్యమును ఇచట ఉంచుము"
-
-#: ../components/html-editor/template.c:104
-msgid "Image frame"
-msgstr "ప్రతిబింబము చట్రం"
-
-#: ../components/html-editor/template.c:296
-msgid "Template Labels"
-msgstr "మాదిరి లేబుళ్ళు"
-
-#: ../components/html-editor/test-html-editor-control.c:263
-msgid "Open file..."
-msgstr "దస్త్రమును తెరువుము..."
-
-#: ../components/html-editor/test-html-editor-control.c:270
-msgid "Save file as..."
-msgstr "దస్త్రాన్ని ఇలా దాయుము..."
-
-#: ../components/html-editor/test-html-editor-control.c:542
-msgid "GtkHTML Editor Test Container"
-msgstr "GtkHTML కూర్పరి పరిశీలన చేయునది"
-
-#: ../components/html-editor/toolbar.c:412
-msgid "Left align"
-msgstr "ఎడమ సర్దుబాటు"
-
-#: ../components/html-editor/toolbar.c:418
-msgid "Right align"
-msgstr "కుడి సర్దుబాటు"
-
-#: ../components/html-editor/toolbar.c:439
-msgid "Toggle typewriter font style"
-msgstr "టైపుచేయుదాని ఫాంటు శైలిమద్య మారుము"
-
-#: ../components/html-editor/toolbar.c:441
-msgid "Makes the text bold"
-msgstr "పాఠ్యము బోల్డ్ గా చేయుము"
-
-#: ../components/html-editor/toolbar.c:444
-msgid "Makes the text italic"
-msgstr "పాఠ్యమును ఇటాలిక్ చేయుము"
-
-#: ../components/html-editor/toolbar.c:447
-msgid "Underlines the text"
-msgstr "పాఠ్యము క్రింద గీతఉంచుము"
-
-#: ../components/html-editor/toolbar.c:450
-msgid "Strikes out the text"
-msgstr "పాఠ్యమును కొట్టివేయుము"
-
-#: ../components/html-editor/toolbar.c:460
-msgid "Unindent"
-msgstr "క్రమములేని"
-
-#: ../components/html-editor/toolbar.c:460
-msgid "Indents the paragraphs less"
-msgstr "పరిచ్ఛేదములను తక్కువ ఖాళీలకు క్రమముచేయుము"
-
-#: ../components/html-editor/toolbar.c:463
-msgid "Indent"
-msgstr "క్రమము"
-
-#: ../components/html-editor/toolbar.c:463
-msgid "Indents the paragraphs more"
-msgstr "పరిచ్ఛేదములను ఎక్కువఖాళీ లకు క్రమముచేయుము"
-
-#: ../components/html-editor/toolbar.c:540
-msgid "Text Color"
-msgstr "పాఠ్యము వర్ణము"
-
-#: ../components/html-editor/utils.c:132
-msgid "Sample"
-msgstr "మచ్చుకు"
-
-#: ../components/html-editor/utils.c:248
-msgid ""
-"The edited object was removed from the document.\n"
-"Cannot apply your changes."
-msgstr ""
-"సరికూర్చబడిన ఆబ్జక్టు పత్రమునుండి తీసివేయబడింది.\n"
-"మీ మార్పులను ఆపాదించలేము."
-
-#: ../gtkhtml/gtkhtml.c:2927
+#: ../gtkhtml/gtkhtml.c:3073
 msgid "Editable"
 msgstr "సరిచేయగలిగినది"
 
-#: ../gtkhtml/gtkhtml.c:2928
+#: ../gtkhtml/gtkhtml.c:3074
 msgid "Whether the html can be edited"
 msgstr "html సరికూర్చబడునా"
 
-#: ../gtkhtml/gtkhtml.c:2934
+#: ../gtkhtml/gtkhtml.c:3080
 msgid "Document Title"
 msgstr "పత్రము శీర్షిక"
 
-#: ../gtkhtml/gtkhtml.c:2935
+#: ../gtkhtml/gtkhtml.c:3081
 msgid "The title of the current document"
 msgstr "ప్రస్తుత పత్రము యొక్క శీర్షిక"
 
-#: ../gtkhtml/gtkhtml.c:2941
+#: ../gtkhtml/gtkhtml.c:3087
 msgid "Document Base"
 msgstr "పత్రము ఆధారం"
 
-#: ../gtkhtml/gtkhtml.c:2942
+#: ../gtkhtml/gtkhtml.c:3088
 msgid "The base URL for relative references"
 msgstr "సారూప్యమైన సంప్రదింపులకు ఆధార URL"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:3094
 msgid "Target Base"
 msgstr "లక్ష్యపు ఆధారం"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:3095
 msgid "The base URL of the target frame"
 msgstr "లక్ష్యపు చట్రం యొక్క ఆధార URL"
 
-#: ../gtkhtml/gtkhtml.c:2958
+#: ../gtkhtml/gtkhtml.c:3103
 msgid "Fixed Width Font"
 msgstr "నిర్ధరిత వెడల్పు ఫాంటు"
 
-#: ../gtkhtml/gtkhtml.c:2959
+#: ../gtkhtml/gtkhtml.c:3104
 msgid "The Monospace font to use for typewriter text"
 msgstr "టైపుచేయు పాఠ్యముకు ఉపయోగపడు మోనోస్పేస్ ఫాంటు"
 
-#: ../gtkhtml/gtkhtml.c:2965
+#: ../gtkhtml/gtkhtml.c:3110
 msgid "New Link Color"
 msgstr "కొత్త లింకు వర్ణము"
 
-#: ../gtkhtml/gtkhtml.c:2966
+#: ../gtkhtml/gtkhtml.c:3111
 msgid "The color of new link elements"
 msgstr "కొత్త లింకు మూలకాల వర్ణము"
 
-#: ../gtkhtml/gtkhtml.c:2971
+#: ../gtkhtml/gtkhtml.c:3116
 msgid "Visited Link Color"
 msgstr "దర్శించిన లింకు వర్ణము"
 
-#: ../gtkhtml/gtkhtml.c:2972
+#: ../gtkhtml/gtkhtml.c:3117
 msgid "The color of visited link elements"
 msgstr "దర్శించిన లింకు మూలకాల యొక్క వర్ణము"
 
-#: ../gtkhtml/gtkhtml.c:2977
+#: ../gtkhtml/gtkhtml.c:3122
 msgid "Active Link Color"
 msgstr "లింకు వర్ణమును క్రియాశీలంచేయుము"
 
-#: ../gtkhtml/gtkhtml.c:2978
+#: ../gtkhtml/gtkhtml.c:3123
 msgid "The color of active link elements"
 msgstr "క్రియాశీల లింకు మూలకాల యొక్క వర్ణము"
 
-#: ../gtkhtml/gtkhtml.c:2983
+#: ../gtkhtml/gtkhtml.c:3128
 msgid "Spelling Error Color"
 msgstr "దోషపు వర్ణమును స్పెల్‌చేస్తోంది"
 
-#: ../gtkhtml/gtkhtml.c:2984
+#: ../gtkhtml/gtkhtml.c:3129
 msgid "The color of the spelling error markers"
 msgstr "స్పెల్లింగ్ దోషపు గుర్తులయొక్క వర్ణము"
 
-#: ../gtkhtml/gtkhtml.c:2989
+#: ../gtkhtml/gtkhtml.c:3134
 msgid "Cite Quotation Color"
 msgstr "సైట్ కొటేషన్ వర్ణము"
 
-#: ../gtkhtml/gtkhtml.c:2990
+#: ../gtkhtml/gtkhtml.c:3135
 msgid "The color of the cited text"
 msgstr "సైట్ పాఠ్యము యొక్క వర్ణము"
 
-#: ../gtkhtml/htmlbutton.c:139
+#: ../gtkhtml/htmlbutton.c:138
 msgid "Submit Query"
 msgstr "ప్రశ్నను ప్రవేశపెట్టుము"
 
-#: ../gtkhtml/htmlbutton.c:142
+#: ../gtkhtml/htmlbutton.c:141
 msgid "Reset"
 msgstr "తిరిగిఅమర్చుము"
 
 #. TODO2 dialog instead of warning
-#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:310
+#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:309
 msgid "Cannot allocate default font for printing"
 msgstr "ముద్రణ కొరకు అప్రమేయ ఫాంటును సమకూర్చలేము"
 
-#: ../gtkhtml/test.c:365
+#: ../gtkhtml/test.c:364
 msgid "GtkHTML Test"
 msgstr "GtkHTML పరిశీలన"
 
-#: ../gtkhtml/testgtkhtml.c:114
-msgid "Print pre_view"
-msgstr "ముద్రణ ఉపదర్శనం (_v)"
+#~ msgid "_Indifferent"
+#~ msgstr "భిన్నముకాని (_I)"
 
-#: ../gtkhtml/testgtkhtml.c:114
-msgid "Print preview"
-msgstr "ముద్రణ ఉపదర్శనం"
+#, fuzzy
+#~ msgid "_Tongue"
+#~ msgstr "నాలుక (_g)"
 
-#: ../gtkhtml/testgtkhtml.c:1019
-msgid "GtkHTML Test Application"
-msgstr "GtkHTML పరిశీలన అనువర్తనం"
+#~ msgid "_Frown"
+#~ msgstr "చిరాకు (_F)"
 
+#~ msgid "_Undecided"
+#~ msgstr "నిర్ధారణకాని (_U)"
+
+#~ msgid "<b>Alignment</b>"
+#~ msgstr "<b>సర్దబాటు</b>"
+
+#~ msgid "<b>Background Image</b>"
+#~ msgstr "<b>బ్యాక్‌గ్రౌండ్ ప్రతిబింబము</b>"
+
+#~ msgid "<b>Background</b>"
+#~ msgstr "<b>బ్యాక్‌గ్రౌండ్</b>"
+
+#~ msgid "<b>Colors</b>"
+#~ msgstr "<b>వర్ణములు</b>"
+
+#~ msgid "<b>General</b>"
+#~ msgstr "<b>సాదారణ</b>"
+
+#~ msgid "<b>Link</b>"
+#~ msgstr "<b>లింకు</b>"
+
+#~ msgid "<b>Scope</b>"
+#~ msgstr "<b>వ్యాప్తి</b>"
+
+#~ msgid "<b>Size</b>"
+#~ msgstr "<b>పరిమాణము</b>"
+
+#~ msgid "<b>Style</b>"
+#~ msgstr "<b>శైలి</b>"
+
+#~ msgid ""
+#~ "Left\n"
+#~ "Center\n"
+#~ "Right"
+#~ msgstr ""
+#~ "ఎడమ\n"
+#~ "మధ్య\n"
+#~ "కుడి"
+
+#~ msgid ""
+#~ "None\n"
+#~ "Perforated Paper\n"
+#~ "Blue Ink\n"
+#~ "Paper\n"
+#~ "Ribbon\n"
+#~ "Midnight\n"
+#~ "Confidential\n"
+#~ "Draft\n"
+#~ "Graph Paper"
+#~ msgstr ""
+#~ "ఏదీకాదు\n"
+#~ "బెజ్జములున్న కాగితం\n"
+#~ "నీలము సిరా\n"
+#~ "కాగితం\n"
+#~ "రిబ్బన్\n"
+#~ "అర్ధరాత్రి\n"
+#~ "అతిరహస్యము\n"
+#~ "డ్రాఫ్ట్‍\n"
+#~ "రేఖాచిత్ర కాగితం"
+
+#~ msgid ""
+#~ "Top\n"
+#~ "Middle\n"
+#~ "Bottom"
+#~ msgstr ""
+#~ "పైన\n"
+#~ "మద్యన\n"
+#~ "క్రిందన"
+
+#~ msgid ""
+#~ "px\n"
+#~ "%"
+#~ msgstr ""
+#~ "px\n"
+#~ "%"
+
+#~ msgid "Alphabetical List"
+#~ msgstr "అక్షరమాల జాబితా"
+
+#~ msgid "Bulleted List"
+#~ msgstr "బుల్లెటెడ్ జాబితా"
+
+#~ msgid "Center justifies the paragraphs"
+#~ msgstr "పరిచ్ఛేదాన్ని మధ్య అనునది నిర్ణయిస్తుంది"
+
+#~ msgid "Check spelling of the document"
+#~ msgstr "పత్రము యొక్క స్పెల్లింగ్ ను పరిశీలించుము"
+
+#~ msgid "Copy"
+#~ msgstr "నకలు"
+
+#~ msgid "Copy selection to clipboard"
+#~ msgstr "ఎంపికను క్లిప్ పలకానికి నకలు తీయుము"
+
+#~ msgid "Copy the selection"
+#~ msgstr "ఎంపికను నకలు తీయుము"
+
+#~ msgid "Cut"
+#~ msgstr "కోయుము"
+
+#~ msgid "Cut selection to clipboard"
+#~ msgstr "ఎంపికను క్లిప్‌బోర్డుకు కత్తిరించుము"
+
+#~ msgid "Cut the selection"
+#~ msgstr "ఎంపికచేసినదాన్ని కత్తిరించుము"
+
+#~ msgid "Emoti_con"
+#~ msgstr "భావముతెల్పుప్రతిమ (_c)"
+
+#~ msgid "Find _Again"
+#~ msgstr "మరలా కనుగొనుము (_A)"
+
+#~ msgid "Find again"
+#~ msgstr "మరలా కనుగొనుము"
+
+#~ msgid "Find and Replace"
+#~ msgstr "కనుగొనుము మరియు పునఃస్థాపించుము"
+
+#~ msgid "Find and replace"
+#~ msgstr "కనుగొనుము మరియు పునఃస్థాపించుము"
+
+#~ msgid "I_nsert"
+#~ msgstr "చేర్చుము (_n)"
+
+#~ msgid "Image"
+#~ msgstr "ప్రతిబింబము"
+
+#~ msgid "Insert Crying emoticon into document..."
+#~ msgstr "పత్రములోనికి రోధిస్తున్న భావముగలప్రతిమను చేర్చుము..."
+
+#~ msgid "Insert Frown emoticon into document..."
+#~ msgstr "చిరాకు భావముగలప్రతిమను పత్రములోనికి చేర్చుము..."
+
+#~ msgid "Insert HTML file into document..."
+#~ msgstr "పత్రములోనికి HTML దస్త్రమును చేర్చుము..."
+
+#~ msgid "Insert HTML link into document..."
+#~ msgstr "పత్రములోనికి HTML లింకును చేర్చుము..."
+
+#~ msgid "Insert HTML template into document..."
+#~ msgstr "పత్రములోనికి HTML మాదిరిని చేర్చుము..."
+
+#~ msgid "Insert Indifferent emoticon into document..."
+#~ msgstr "పత్రములోనికి భేధములేని భావముగలప్రతిమ ను చేర్చుము..."
+
+#~ msgid "Insert Laughing emoticon into document..."
+#~ msgstr "పత్రములోనికి నవ్వుతున్న భావముగలప్రతిమను చేర్చుము..."
+
+#~ msgid "Insert Oh no! emoticon into document..."
+#~ msgstr "పత్రములోనికి ఒహ్ వద్దు! భావముగలప్రతిమ ను చేర్చుము..."
+
+#~ msgid "Insert Sick emoticon into document..."
+#~ msgstr "పత్రములోనికి నలత భావముగలప్రతిమ ను ప్రవేశపెట్టండి..."
+
+#~ msgid "Insert Smile emoticon into document..."
+#~ msgstr "పత్రములోనికి చిరునవ్వు భావముగలప్రతిమను చేర్చుము..."
+
+#~ msgid "Insert Surprised emoticon into document..."
+#~ msgstr "పత్రములోనికి ఆశ్చర్య భావముగలప్రతిమ ను చేర్చుము..."
+
+#~ msgid "Insert Tongue emoticon into document..."
+#~ msgstr "పత్రములోనికి నాలుకచూపిన భావముగలప్రతిమ ను చేర్చుము..."
+
+#~ msgid "Insert Undecided emoticon into document..."
+#~ msgstr "పత్రములోనికి మీమాంస భావముగలప్రతిమ ను చేర్చుము..."
+
+#~ msgid "Insert Wink emoticon into document..."
+#~ msgstr "పత్రములోనికి కనుసైగ భావముగలప్రతిమ ను చేర్చుము..."
+
+#~ msgid "Insert image"
+#~ msgstr "ప్రతిబింబమును చేర్చుము"
+
+#~ msgid "Insert image into document..."
+#~ msgstr "పత్రములోనికి ప్రతిబింబమును చేర్చుము..."
+
+#~ msgid "Insert link"
+#~ msgstr "లింకును చేర్చుము..."
+
+#~ msgid "Insert rule"
+#~ msgstr "నియమాన్ని చేర్చుము"
+
+#~ msgid "Insert rule into document..."
+#~ msgstr "పత్రములోనికి నియమాన్ని చేర్చుము..."
+
+#~ msgid "Insert table"
+#~ msgstr "పట్టికను చేర్చుము"
+
+#~ msgid "Insert table into document..."
+#~ msgstr "పత్రములోనికి పట్టికను చేర్చుము..."
+
+#~ msgid "Insert text file into document..."
+#~ msgstr "పత్రములోనికి పాఠ్యపు దస్త్రాన్ని చేర్చుము..."
+
+#~ msgid "Left justifies the paragraphs"
+#~ msgstr "పరిచ్ఛేదాన్ని ఎడమవైపుకు సర్దబాటుచేయుము"
+
+#~ msgid "Make the current Paragraph style Normal"
+#~ msgstr "ప్రస్తుత పరిచ్ఛేదము యొక్క శైలి ని సాదారణము చేయుము"
+
+#~ msgid "Make the current Paragraph style Preformat"
+#~ msgstr "ప్రస్తుత పరిచ్ఛేద శైలిని ముందుగారూపీకరించుము"
+
+#~ msgid "Make the current paragraph a bulleted list"
+#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును బుల్లెటెడ్ జాబితా చేయుము"
+
+#~ msgid "Make the current paragraph a list with roman numerals"
+#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును రొమన్ సంఖ్యల తో జాబితా చేయుము"
+
+#~ msgid "Make the current paragraph a numbered list"
+#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును సంఖ్యల జాబితా చేయుము"
+
+#~ msgid "Make the current paragraph an H1 header"
+#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక H1 పీఠిక చేయుము"
+
+#~ msgid "Make the current paragraph an H2 header"
+#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక H2 పీఠిక చేయుము"
+
+#~ msgid "Make the current paragraph an H3 header"
+#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక H3 పీఠిక చేయుము"
+
+#~ msgid "Make the current paragraph an H4 header"
+#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక H4 పీఠిక చేయుము"
+
+#~ msgid "Make the current paragraph an H5 header"
+#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక H5 పీఠిక చేయుము"
+
+#~ msgid "Make the current paragraph an H6 header"
+#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక H6 పీఠిక చేయుము"
+
+#~ msgid "Make the current paragraph an address"
+#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక చిరునామా చేయుము"
+
+#~ msgid "Make the current paragraph an alphabetical list"
+#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును అక్షరమాల జాబితా చేయుము"
+
+#~ msgid "Normal"
+#~ msgstr "సాదారణ"
+
+#~ msgid "Numbered List"
+#~ msgstr "సంఖ్యల జాబితా"
+
+#~ msgid "Oh _No!"
+#~ msgstr "ఓహ్ వద్దు (_N)!"
+
+#~ msgid "Paste"
+#~ msgstr "అతికించు"
+
+#~ msgid "Paste from clipboard"
+#~ msgstr "క్లిప్ పలకం నుండి అతికించుము"
+
+#~ msgid "Paste the clipboard"
+#~ msgstr "క్లిప్ పలకాన్ని అతికించుము"
+
+#~ msgid "Paste the clipboard as a quotation"
+#~ msgstr "క్లిప్‌బోర్డును ఒక కొటేషన్ వలె అతికించు"
+
+#~ msgid "Preformat"
+#~ msgstr "ముందుగారూపీకరించిన"
+
+#~ msgid "Redo"
+#~ msgstr "మళ్ళీచేయి"
+
+#~ msgid "Redo previously undone change"
+#~ msgstr "గతంలో రద్దుచేసిన మార్పును మళ్ళీచేయి"
+
+#~ msgid "Redo the undone action"
+#~ msgstr "రద్దుచేసిన చర్యను మళ్ళీచేయి"
+
+#~ msgid "Right justifies the paragraphs"
+#~ msgstr "పరిచ్ఛేదమును కుడివైపు సర్దబాటుచేయుము"
+
+#~ msgid "Roman Numeral List"
+#~ msgstr "రోమన్ సాంఖ్యక జాబితా"
+
+#~ msgid "Rule"
+#~ msgstr "నియమం"
+
+#~ msgid "Select the entire contents of the document"
+#~ msgstr "పత్రము యొక్క అన్ని విషములను ఎంపికచేయుము"
+
+#~ msgid "Strikeout"
+#~ msgstr "కొట్టిపారేయుము"
+
+#~ msgid "Subscript"
+#~ msgstr "ఉపలిపి"
+
+#~ msgid "Superscript"
+#~ msgstr "ఉచ్ఛలిపి"
+
+#~ msgid "Te_mplate..."
+#~ msgstr "మాదిరి (_m)..."
+
+#~ msgid "Typewriter"
+#~ msgstr "టైపుచేయునది"
+
+#~ msgid "Undo"
+#~ msgstr "చేయవద్దు"
+
+#~ msgid "Undo previous changes"
+#~ msgstr "గంతంలో చేసిన మార్పులను రద్దుచేయి"
+
+#~ msgid "Undo the last action"
+#~ msgstr "చినరి చర్యను రద్దుచేయి"
+
+#~ msgid "_Font Size"
+#~ msgstr "ఫాంటు పరిమాణం (_F)"
+
+#~ msgid "_Heading"
+#~ msgstr "హెడ్డింగ్ (_H)"
+
+#~ msgid "_Page..."
+#~ msgstr "పుట (_P)..."
+
+#~ msgid "_Paragraph..."
+#~ msgstr "పరిచ్ఛేదము (_P)..."
+
+#~ msgid "_Replace..."
+#~ msgstr "పునఃస్థాపించుము (_R)..."
+
+#~ msgid "_Style"
+#~ msgstr "శైలి (_S)"
+
+#~ msgid "_Text..."
+#~ msgstr "పాఠ్యము (_T)..."
+
+#~ msgid "GNOME HTML Editor"
+#~ msgstr "GNOME HTML కూర్పరి"
+
+#~ msgid "GNOME HTML Editor Control"
+#~ msgstr "GNOME HTML కూర్పరి నియంత్రిక"
+
+#~ msgid "GNOME HTML Editor Factory"
+#~ msgstr "GNOME HTML కూర్పరి ఫాక్టరి"
+
+#~ msgid "Background Image File Path"
+#~ msgstr "బ్యాక్‌గ్రౌండ్ ప్రతిబింబపు దస్త్రం పాత్"
+
+#~ msgid "Template"
+#~ msgstr "మాదిరి"
+
+#~ msgid "Text"
+#~ msgstr "పాఠ్యము"
+
+#~ msgid "Paragraph"
+#~ msgstr "పరిచ్ఛేదము"
+
+#~ msgid "Page"
+#~ msgstr "పుట"
+
+#~ msgid "color preview"
+#~ msgstr "వర్ణము ఉపదర్శనం"
+
+#~ msgid "Custom Color:"
+#~ msgstr "మలుచుకున్న వర్ణము:"
+
+#~ msgid "purplish blue"
+#~ msgstr "వంకాయ బులుగు"
+
+#~ msgid "dark purple"
+#~ msgstr "ముదురు వంకాయ"
+
+#~ msgid "sky blue"
+#~ msgstr "అకాశపు బులుగు"
+
+#~ msgid "Popup"
+#~ msgstr "పాప్అప్"
+
+#~ msgid "GtkHTML Editor Control"
+#~ msgstr "GtkHTML కూర్పరి నియంత్రిక"
+
+#~ msgid "    "
+#~ msgstr "    "
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid ""
+#~ "-2\n"
+#~ "-1\n"
+#~ "Standard\n"
+#~ "+1\n"
+#~ "+2\n"
+#~ "+3\n"
+#~ "+4"
+#~ msgstr ""
+#~ "-2\n"
+#~ "-1\n"
+#~ "ప్రామాణిక\n"
+#~ "+1\n"
+#~ "+2\n"
+#~ "+3\n"
+#~ "+4"
+
+#~ msgid "<b>Alignment &amp; Behaviour</b>"
+#~ msgstr "<b>సర్దుబాటు &amp; ప్రవర్తన</b>"
+
+#~ msgid "<span weight=\"bold\">General</span>"
+#~ msgstr "<span weight=\"bold\">సాదారణ</span>"
+
+#~ msgid "<span weight=\"bold\">Layout</span>"
+#~ msgstr "<span weight=\"bold\">వాస్తు</span>"
+
+#~ msgid "<span weight=\"bold\">Link</span>"
+#~ msgstr "<span weight=\"bold\">లింకు</span>"
+
+#~ msgid "<span weight=\"bold\">Size</span>"
+#~ msgstr "<span weight=\"bold\">పరిమాణం</span>"
+
+#~ msgid "<span weight=\"bold\">Style</span>"
+#~ msgstr "<span weight=\"bold\">శైలి</span>"
+
+#~ msgid "<span weight=\"bold\">Template</span>"
+#~ msgstr "<span weight=\"bold\">మాదిరి</span>"
+
+#~ msgid "Alignment:"
+#~ msgstr "సర్దుబాటు:"
+
+#~ msgid "Cell"
+#~ msgstr "అర"
+
+#~ msgid "Colu_mns:"
+#~ msgstr "నిలువువరుసలు (_m):"
+
+#~ msgid "Column span:"
+#~ msgstr "నిలువువరుస స్పాన్:"
+
+#~ msgid "Enable"
+#~ msgstr "చేతనం"
+
+#~ msgid "Hea_der style"
+#~ msgstr "పీఠిక శైలి (_d)"
+
+#~ msgid "Horizontal alignment:"
+#~ msgstr "అడ్డముగా సర్దుబాటు:"
+
+#~ msgid "Horizontal:"
+#~ msgstr "అడ్డముగా:"
+
+#~ msgid ""
+#~ "Left\n"
+#~ "Center\n"
+#~ "Right\n"
+#~ "None"
+#~ msgstr ""
+#~ "ఎడమ\n"
+#~ "మధ్య\n"
+#~ "కుడి\n"
+#~ "ఏదీకాదు"
+
+#~ msgid "Link properties"
+#~ msgstr "లింకు లక్షణాలు"
+
+#~ msgid "Row span:"
+#~ msgstr "అడ్డువరుస స్పాన్:"
+
+#~ msgid "Shade"
+#~ msgstr "ఛాయ"
+
+#~ msgid "Vertical:"
+#~ msgstr "నిట్టనిలువు:"
+
+#~ msgid "xxxxxxxxxxxxxx"
+#~ msgstr "xxxxxxxxxxxxxx"
+
+#~ msgid "URL:"
+#~ msgstr "URL:"
+
+#~ msgid "Description:"
+#~ msgstr "వివరణ:"
+
+#~ msgid "Insert"
+#~ msgstr "చేర్చుము"
+
+#~ msgid "Error loading file '%s': %s"
+#~ msgstr "దస్త్రం '%s' ను నింపుటలో దోషం: %s"
+
+#~ msgid "Format"
+#~ msgstr "ఫార్మెట్"
+
+#~ msgid "Roman List"
+#~ msgstr "రోమన్ జాబితా"
+
+#~ msgid "Header 1"
+#~ msgstr "పీఠిక 1"
+
+#~ msgid "Header 2"
+#~ msgstr "పీఠిక 2"
+
+#~ msgid "Header 3"
+#~ msgstr "పీఠిక 3"
+
+#~ msgid "Header 4"
+#~ msgstr "పీఠిక 4"
+
+#~ msgid "Header 5"
+#~ msgstr "పీఠిక 5"
+
+#~ msgid "Header 6"
+#~ msgstr "పీఠిక 6"
+
+#~ msgid "Address"
+#~ msgstr "చిరునామా"
+
+#~ msgid "Text Style..."
+#~ msgstr "పాఠ్యము శైలి..."
+
+#~ msgid "Paragraph Style..."
+#~ msgstr "పరిచ్ఛేదము శైలి..."
+
+#~ msgid "Link Style..."
+#~ msgstr "లింకు శైలి..."
+
+#~ msgid "Rule Style..."
+#~ msgstr "నియమం శైలి..."
+
+#~ msgid "Image Style..."
+#~ msgstr "ప్రతిబింబము శైలి..."
+
+#~ msgid "Cell Style..."
+#~ msgstr "అర శైలి..."
+
+#~ msgid "Table Style..."
+#~ msgstr "పట్టిక శైలి..."
+
+#~ msgid "Page Style..."
+#~ msgstr "పుట శైలి..."
+
+#~ msgid "Table insert"
+#~ msgstr "పట్టికను చేర్చుము"
+
+#~ msgid "Row above"
+#~ msgstr "అడ్డువరుస పైన"
+
+#~ msgid "Row below"
+#~ msgstr "అడ్డువరుస క్రింద"
+
+#~ msgid "Column before"
+#~ msgstr "నిలువువరుస ముందు"
+
+#~ msgid "Column after"
+#~ msgstr "నిలువువరుస తర్వాత"
+
+#~ msgid "Table delete"
+#~ msgstr "పట్టిక ను తొలగించు"
+
+#~ msgid "Cell contents"
+#~ msgstr "అర సారములు"
+
+#~ msgid "Add Word to"
+#~ msgstr "పదమును దీనికి జతచేయుము"
+
+#~ msgid "%s Dictionary"
+#~ msgstr "%s నిఘంటువు"
+
+#~ msgid "Replace confirmation"
+#~ msgstr "నిర్ధారణను పునఃస్థాపించుము"
+
+#~ msgid "Search _backward"
+#~ msgstr "వెనుకకు వెతుకుము (_b)"
+
+#~ msgid "_Backward"
+#~ msgstr "వెనుకకు (_B)"
+
+#~ msgid "_Regular Expression"
+#~ msgstr "రెగ్యులర్ ఎక్సప్రెషన్ (_R)"
+
+#~ msgid "Input the words you want to search here"
+#~ msgstr "మీరు ఇక్కడ శోధించాలని అనుకున్న పదాలను ప్రవేశపెట్టండి"
+
+#~ msgid ""
+#~ "Unable to add word to dictionary,\n"
+#~ "language settings are broken.\n"
+#~ msgstr ""
+#~ "పదాన్ని నిఘంటువుకు జతచేయలేకపోతోంది,\n"
+#~ "భాషా అమర్పులు చెడినవి.\n"
+
+#~ msgid "No misspelled word found"
+#~ msgstr "ఏ తప్పుగాస్పెల్ చేసిన పదం కనబడలేదు"
+
+#~ msgid "Spell checker"
+#~ msgstr "స్పెల్ పరిశీలకి"
+
+#~ msgid "Note"
+#~ msgstr "గమనిక"
+
+#~ msgid "Place your text here"
+#~ msgstr "మీ పాఠ్యమును ఇచట ఉంచుము"
+
+#~ msgid "Image frame"
+#~ msgstr "ప్రతిబింబము చట్రం"
+
+#~ msgid "Template Labels"
+#~ msgstr "మాదిరి లేబుళ్ళు"
+
+#~ msgid "Open file..."
+#~ msgstr "దస్త్రమును తెరువుము..."
+
+#~ msgid "Save file as..."
+#~ msgstr "దస్త్రాన్ని ఇలా దాయుము..."
+
+#~ msgid "GtkHTML Editor Test Container"
+#~ msgstr "GtkHTML కూర్పరి పరిశీలన చేయునది"
+
+#~ msgid "Left align"
+#~ msgstr "ఎడమ సర్దుబాటు"
+
+#~ msgid "Right align"
+#~ msgstr "కుడి సర్దుబాటు"
+
+#~ msgid "Toggle typewriter font style"
+#~ msgstr "టైపుచేయుదాని ఫాంటు శైలిమద్య మారుము"
+
+#~ msgid "Makes the text bold"
+#~ msgstr "పాఠ్యము బోల్డ్ గా చేయుము"
+
+#~ msgid "Makes the text italic"
+#~ msgstr "పాఠ్యమును ఇటాలిక్ చేయుము"
+
+#~ msgid "Underlines the text"
+#~ msgstr "పాఠ్యము క్రింద గీతఉంచుము"
+
+#~ msgid "Strikes out the text"
+#~ msgstr "పాఠ్యమును కొట్టివేయుము"
+
+#~ msgid "Unindent"
+#~ msgstr "క్రమములేని"
+
+#~ msgid "Indents the paragraphs less"
+#~ msgstr "పరిచ్ఛేదములను తక్కువ ఖాళీలకు క్రమముచేయుము"
+
+#~ msgid "Indent"
+#~ msgstr "క్రమము"
+
+#~ msgid "Indents the paragraphs more"
+#~ msgstr "పరిచ్ఛేదములను ఎక్కువఖాళీ లకు క్రమముచేయుము"
+
+#~ msgid "Text Color"
+#~ msgstr "పాఠ్యము వర్ణము"
+
+#~ msgid "Sample"
+#~ msgstr "మచ్చుకు"
+
+#~ msgid ""
+#~ "The edited object was removed from the document.\n"
+#~ "Cannot apply your changes."
+#~ msgstr ""
+#~ "సరికూర్చబడిన ఆబ్జక్టు పత్రమునుండి తీసివేయబడింది.\n"
+#~ "మీ మార్పులను ఆపాదించలేము."
+
+#~ msgid "Print pre_view"
+#~ msgstr "ముద్రణ ఉపదర్శనం (_v)"
+
+#~ msgid "Print preview"
+#~ msgstr "ముద్రణ ఉపదర్శనం"
+
+#~ msgid "GtkHTML Test Application"
+#~ msgstr "GtkHTML పరిశీలన అనువర్తనం"
+
+#~ msgid "Su_rprised"
+#~ msgstr "అశ్చముచెందిన (_r)"
+
+#~ msgid "_Laughing"
+#~ msgstr "నవ్వుతున్న (_L)"
+
+#~ msgid "Could not load glade file."
+#~ msgstr "గ్లేడ్ దస్త్రాన్ని నింపలేకపోయింది."
+
+#~ msgid "Transparent"
+#~ msgstr "పారదర్శకం"
