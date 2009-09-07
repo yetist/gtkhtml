@@ -1,3 +1,19 @@
+GtkHTML-3.27.02 2009-09-07
+--------------------------
+
+Bug Fixes:
+	#593570 - Text entry not focused when find dialog shown
+                  (Matthew Barnes)
+
+Translations:
+	Jamil Ahmed (bn)
+	Runa Bhattacharjee (bn_IN)
+	Gil Forcada (ca)
+	Carles Ferrando (ca@valencia)
+	Inaki Larranaga (eu)
+	Duarte Loreto (pt)
+	Krishnababu K (te)
+
 GtkHTML-3.37.91 2009-08-24
 --------------------------
 
