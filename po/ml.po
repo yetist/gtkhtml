@@ -1,4 +1,4 @@
-# translation of gtkhtml.HEAD.ml.po to Malayalam
+# translation of gtkhtml.gnome-2-28.ml.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) 2003-2008 gtkhtml'S COPYRIGHT HOLDER.
 #
@@ -10,16 +10,16 @@
 # പ്രവീണ്‍ അരിമ്പ്രത്തൊടിയില്‍ <pravi.a@gmail.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml.HEAD.ml\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-09 04:09+0000\n"
-"PO-Revision-Date: 2008-09-08 23:40-0500\n"
-"Last-Translator: പ്രവീണ്‍ അരിമ്പ്രത്തൊടിയില്‍ <pravi.a@gmail.com>\n"
-"Language-Team: Malayalam <smc-discuss@googlegroups.com>\n"
+"Project-Id-Version: gtkhtml.gnome-2-28.ml\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gtkhtml&component=general\n"
+"POT-Creation-Date: 2009-08-11 14:04+0000\n"
+"PO-Revision-Date: 2009-09-12 23:10+0530\n"
+"Last-Translator: \n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 0.2\n"
+"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Malayalam\n"
 "X-Poedit-Country: INDIA\n"
@@ -34,322 +34,292 @@ msgstr "URL %s ആണ്, %s ആണ് പകരമുള്ള പദാവല�
 msgid "URL is %s"
 msgstr "URL %s ആണ്"
 
-#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:126
+#: ../a11y/object.c:51 ../a11y/object.c:60 ../a11y/text.c:125
 msgid "grab focus"
 msgstr "ഫോക്കസ് കരസ്ഥമാക്കുക"
 
-#: ../a11y/object.c:259
+#: ../a11y/object.c:253
 msgid "Panel containing HTML"
 msgstr "HTML അടങ്ങുന്ന പാനല്‍"
 
-#: ../components/editor/gtkhtml-color-combo.c:78
-#: ../components/html-editor/gi-color-palette.c:555
+#: ../components/editor/gtkhtml-color-combo.c:79
 msgid "black"
 msgstr "കറുപ്പ്"
 
-#: ../components/editor/gtkhtml-color-combo.c:79
-#: ../components/html-editor/gi-color-palette.c:556
+#: ../components/editor/gtkhtml-color-combo.c:80
 msgid "light brown"
 msgstr "ഇളം ബ്രൌണ്‍"
 
-#: ../components/editor/gtkhtml-color-combo.c:80
-#: ../components/html-editor/gi-color-palette.c:557
+#: ../components/editor/gtkhtml-color-combo.c:81
 msgid "brown gold"
 msgstr "ബ്രൌണ്‍ കലര്‍ന്ന സ്വര്‍ണ്ണനിറം"
 
-#: ../components/editor/gtkhtml-color-combo.c:81
-#: ../components/html-editor/gi-color-palette.c:558
+#: ../components/editor/gtkhtml-color-combo.c:82
 msgid "dark green #2"
 msgstr "കടും പച്ച #2"
 
-#: ../components/editor/gtkhtml-color-combo.c:82
-#: ../components/html-editor/gi-color-palette.c:559
+#: ../components/editor/gtkhtml-color-combo.c:83
 msgid "navy"
 msgstr "നേവി"
 
-#: ../components/editor/gtkhtml-color-combo.c:83
-#: ../components/html-editor/gi-color-palette.c:560
-#: ../components/html-editor/gi-color-palette.c:616
+#: ../components/editor/gtkhtml-color-combo.c:84
 msgid "dark blue"
 msgstr "കടും നീല"
 
-#: ../components/editor/gtkhtml-color-combo.c:84
-#: ../components/html-editor/gi-color-palette.c:561
+#: ../components/editor/gtkhtml-color-combo.c:85
 msgid "purple #2"
 msgstr "പര്‍പ്പിള്‍ #2"
 
-#: ../components/editor/gtkhtml-color-combo.c:85
-#: ../components/html-editor/gi-color-palette.c:562
+#: ../components/editor/gtkhtml-color-combo.c:86
 msgid "very dark gray"
 msgstr "വളരെ കടും ഗ്രേ"
 
-#: ../components/editor/gtkhtml-color-combo.c:87
-#: ../components/html-editor/gi-color-palette.c:565
-#: ../components/html-editor/gi-color-palette.c:621
+#: ../components/editor/gtkhtml-color-combo.c:88
 msgid "dark red"
 msgstr "കടും ചുവപ്പ്"
 
-#: ../components/editor/gtkhtml-color-combo.c:88
-#: ../components/html-editor/gi-color-palette.c:566
+#: ../components/editor/gtkhtml-color-combo.c:89
 msgid "red-orange"
 msgstr "ചുവപ്പു കലര്‍ന്ന ഓറഞ്ച് നിറം"
 
-#: ../components/editor/gtkhtml-color-combo.c:89
-#: ../components/html-editor/gi-color-palette.c:567
+#: ../components/editor/gtkhtml-color-combo.c:90
 msgid "gold"
 msgstr "സ്വര്‍ണ്ണനിറം"
 
-#: ../components/editor/gtkhtml-color-combo.c:90
-#: ../components/html-editor/gi-color-palette.c:568
+#: ../components/editor/gtkhtml-color-combo.c:91
 msgid "dark green"
 msgstr "കടും പച്ച"
 
-#: ../components/editor/gtkhtml-color-combo.c:91
-#: ../components/html-editor/gi-color-palette.c:569
-#: ../components/html-editor/gi-color-palette.c:622
+#: ../components/editor/gtkhtml-color-combo.c:92
 msgid "dull blue"
 msgstr "മങ്ങിയ നീല"
 
-#: ../components/editor/gtkhtml-color-combo.c:92
-#: ../components/html-editor/gi-color-palette.c:570
-#: ../components/html-editor/gi-color-palette.c:623
+#: ../components/editor/gtkhtml-color-combo.c:93
 msgid "blue"
 msgstr "നീല"
 
-#: ../components/editor/gtkhtml-color-combo.c:93
-#: ../components/html-editor/gi-color-palette.c:571
+#: ../components/editor/gtkhtml-color-combo.c:94
 msgid "dull purple"
 msgstr "മങ്ങിയ പര്‍പ്പിള്‍"
 
-#: ../components/editor/gtkhtml-color-combo.c:94
-#: ../components/html-editor/gi-color-palette.c:572
+#: ../components/editor/gtkhtml-color-combo.c:95
 msgid "dark grey"
 msgstr "കടും ഗ്രേ"
 
-#: ../components/editor/gtkhtml-color-combo.c:96
-#: ../components/html-editor/gi-color-palette.c:575
+#: ../components/editor/gtkhtml-color-combo.c:97
 msgid "red"
 msgstr "ചുവപ്പ്"
 
-#: ../components/editor/gtkhtml-color-combo.c:97
-#: ../components/html-editor/gi-color-palette.c:576
+#: ../components/editor/gtkhtml-color-combo.c:98
 msgid "orange"
 msgstr "ഓറഞ്ച്"
 
-#: ../components/editor/gtkhtml-color-combo.c:98
-#: ../components/html-editor/gi-color-palette.c:577
+#: ../components/editor/gtkhtml-color-combo.c:99
 msgid "lime"
 msgstr "നാരങ്ങ"
 
-#: ../components/editor/gtkhtml-color-combo.c:99
-#: ../components/html-editor/gi-color-palette.c:578
+#: ../components/editor/gtkhtml-color-combo.c:100
 msgid "dull green"
 msgstr "മങ്ങിയ പച്ച"
 
-#: ../components/editor/gtkhtml-color-combo.c:100
-#: ../components/html-editor/gi-color-palette.c:579
+#: ../components/editor/gtkhtml-color-combo.c:101
 msgid "dull blue #2"
 msgstr "മങ്ങിയ നീല #2"
 
-#: ../components/editor/gtkhtml-color-combo.c:101
-#: ../components/html-editor/gi-color-palette.c:580
+#: ../components/editor/gtkhtml-color-combo.c:102
 msgid "sky blue #2"
 msgstr "ആകാശ നീല #2"
 
-#: ../components/editor/gtkhtml-color-combo.c:102
-#: ../components/html-editor/gi-color-palette.c:581
-#: ../components/html-editor/gi-color-palette.c:620
+#: ../components/editor/gtkhtml-color-combo.c:103
 msgid "purple"
 msgstr "പര്‍പ്പിള്‍"
 
-#: ../components/editor/gtkhtml-color-combo.c:103
-#: ../components/html-editor/gi-color-palette.c:582
+#: ../components/editor/gtkhtml-color-combo.c:104
 msgid "gray"
 msgstr "ഗ്രേ"
 
-#: ../components/editor/gtkhtml-color-combo.c:105
-#: ../components/html-editor/gi-color-palette.c:585
-#: ../components/html-editor/gi-color-palette.c:617
+#: ../components/editor/gtkhtml-color-combo.c:106
 msgid "magenta"
 msgstr "മജന്ത"
 
-#: ../components/editor/gtkhtml-color-combo.c:106
-#: ../components/html-editor/gi-color-palette.c:586
+#: ../components/editor/gtkhtml-color-combo.c:107
 msgid "bright orange"
 msgstr "തെളിച്ചമുളള ഓറഞ്ച്"
 
-#: ../components/editor/gtkhtml-color-combo.c:107
-#: ../components/html-editor/gi-color-palette.c:587
-#: ../components/html-editor/gi-color-palette.c:618
+#: ../components/editor/gtkhtml-color-combo.c:108
 msgid "yellow"
 msgstr "മഞ്ഞ"
 
-#: ../components/editor/gtkhtml-color-combo.c:108
-#: ../components/html-editor/gi-color-palette.c:588
+#: ../components/editor/gtkhtml-color-combo.c:109
 msgid "green"
 msgstr "പച്ച"
 
-#: ../components/editor/gtkhtml-color-combo.c:109
-#: ../components/html-editor/gi-color-palette.c:589
-#: ../components/html-editor/gi-color-palette.c:619
+#: ../components/editor/gtkhtml-color-combo.c:110
 msgid "cyan"
 msgstr "സിയാന്‍"
 
-#: ../components/editor/gtkhtml-color-combo.c:110
-#: ../components/html-editor/gi-color-palette.c:590
+#: ../components/editor/gtkhtml-color-combo.c:111
 msgid "bright blue"
 msgstr "തെളിച്ചമുളള നീല നിറം"
 
-#: ../components/editor/gtkhtml-color-combo.c:111
-#: ../components/html-editor/gi-color-palette.c:591
-#: ../components/html-editor/gi-color-palette.c:608
+#: ../components/editor/gtkhtml-color-combo.c:112
 msgid "red purple"
 msgstr "ചുവപ്പ് കലര്‍ന്ന പര്‍പ്പിള്‍ നിറം"
 
-#: ../components/editor/gtkhtml-color-combo.c:112
-#: ../components/html-editor/gi-color-palette.c:592
+#: ../components/editor/gtkhtml-color-combo.c:113
 msgid "light grey"
 msgstr "ഇളം ഗ്രേ"
 
-#: ../components/editor/gtkhtml-color-combo.c:114
-#: ../components/html-editor/gi-color-palette.c:595
-#: ../components/html-editor/gi-color-palette.c:612
+#: ../components/editor/gtkhtml-color-combo.c:115
 msgid "pink"
 msgstr "പിങ്ക്"
 
-#: ../components/editor/gtkhtml-color-combo.c:115
-#: ../components/html-editor/gi-color-palette.c:596
+#: ../components/editor/gtkhtml-color-combo.c:116
 msgid "light orange"
 msgstr "ഇളം ഓറഞ്ച്"
 
-#: ../components/editor/gtkhtml-color-combo.c:116
-#: ../components/html-editor/gi-color-palette.c:597
-#: ../components/html-editor/gi-color-palette.c:609
+#: ../components/editor/gtkhtml-color-combo.c:117
 msgid "light yellow"
 msgstr "ഇളം മഞ്ഞ"
 
-#: ../components/editor/gtkhtml-color-combo.c:117
-#: ../components/html-editor/gi-color-palette.c:598
+#: ../components/editor/gtkhtml-color-combo.c:118
 msgid "light green"
 msgstr "ഇളം പച്ച"
 
-#: ../components/editor/gtkhtml-color-combo.c:118
-#: ../components/html-editor/gi-color-palette.c:599
+#: ../components/editor/gtkhtml-color-combo.c:119
 msgid "light cyan"
 msgstr "ഇളം സിയാന്‍"
 
-#: ../components/editor/gtkhtml-color-combo.c:119
-#: ../components/html-editor/gi-color-palette.c:600
-#: ../components/html-editor/gi-color-palette.c:610
+#: ../components/editor/gtkhtml-color-combo.c:120
 msgid "light blue"
 msgstr "ഇളം നീല"
 
-#: ../components/editor/gtkhtml-color-combo.c:120
-#: ../components/html-editor/gi-color-palette.c:601
-#: ../components/html-editor/gi-color-palette.c:614
+#: ../components/editor/gtkhtml-color-combo.c:121
 msgid "light purple"
 msgstr "ഇളം പര്‍പ്പിള്‍"
 
-#: ../components/editor/gtkhtml-color-combo.c:121
-#: ../components/html-editor/gi-color-palette.c:602
+#: ../components/editor/gtkhtml-color-combo.c:122
 msgid "white"
 msgstr "വെള്ള നിറം"
 
-#: ../components/editor/gtkhtml-color-combo.c:269
-#: ../components/html-editor/gi-color-palette.c:422
+#: ../components/editor/gtkhtml-color-combo.c:274
 msgid "Choose Custom Color"
 msgstr "ഇഷ്ടമുളള നിറം തെരഞ്ഞെടുക്കുക"
 
-#: ../components/editor/gtkhtml-color-combo.c:693
-#: ../components/editor/gtkhtml-color-state.c:190
+#: ../components/editor/gtkhtml-color-combo.c:711
+#: ../components/editor/gtkhtml-color-state.c:205
 msgid "Current color"
 msgstr "നിലവിലുള്ള  നിറം:"
 
-#: ../components/editor/gtkhtml-color-combo.c:694
+#: ../components/editor/gtkhtml-color-combo.c:712
 msgid "The currently selected color"
 msgstr "നിലവില്‍ തിരഞ്ഞെടുത്തിരിക്കുന്ന നിറം"
 
-#: ../components/editor/gtkhtml-color-combo.c:703
-#: ../components/editor/gtkhtml-color-state.c:200
+#: ../components/editor/gtkhtml-color-combo.c:721
+#: ../components/editor/gtkhtml-color-state.c:215
 msgid "Default color"
 msgstr "സഹജമായ നിറം"
 
-#: ../components/editor/gtkhtml-color-combo.c:704
+#: ../components/editor/gtkhtml-color-combo.c:722
 msgid "The color associated with the default button"
 msgstr "സഹജമായ ബട്ടനുമായ് ബന്ധപ്പെട്ട നിറം"
 
-#: ../components/editor/gtkhtml-color-combo.c:714
-#: ../components/editor/gtkhtml-color-state.c:211
+#: ../components/editor/gtkhtml-color-combo.c:732
+#: ../components/editor/gtkhtml-color-state.c:226
 msgid "Default label"
 msgstr "സഹജമായ പേരു്"
 
-#: ../components/editor/gtkhtml-color-combo.c:715
+#: ../components/editor/gtkhtml-color-combo.c:733
 msgid "The label for the default button"
 msgstr "ബട്ടനുള്ള സഹജമായ പേരു്)"
 
-#: ../components/editor/gtkhtml-color-combo.c:716
-#: ../components/editor/gtkhtml-color-state.c:213
+#: ../components/editor/gtkhtml-color-combo.c:734
+#: ../components/editor/gtkhtml-color-state.c:228
 msgid "Default"
 msgstr "സഹജമായ"
 
-#: ../components/editor/gtkhtml-color-combo.c:725
-#: ../components/editor/gtkhtml-color-state.c:222
+#: ../components/editor/gtkhtml-color-combo.c:743
+#: ../components/editor/gtkhtml-color-state.c:237
+#| msgid "Transparent"
+msgid "Default is transparent"
+msgstr "സ്വതവേ സുതാര്യം"
+
+#: ../components/editor/gtkhtml-color-combo.c:744
+#: ../components/editor/gtkhtml-color-state.c:238
+msgid "Whether the default color is transparent"
+msgstr "സ്വതവേയുള്ള നിറം സുതാര്യമാണോ എന്നു്"
+
+#: ../components/editor/gtkhtml-color-combo.c:754
+#: ../components/editor/gtkhtml-color-state.c:248
 msgid "Color palette"
 msgstr "നിറങ്ങളുടെ തിരഞ്ഞെടുക്കല്‍ പാളി"
 
-#: ../components/editor/gtkhtml-color-combo.c:726
-#: ../components/editor/gtkhtml-color-state.c:223
+#: ../components/editor/gtkhtml-color-combo.c:755
+#: ../components/editor/gtkhtml-color-state.c:249
 msgid "Custom color palette"
 msgstr "ഇഷ്ടമുളള നിറത്തിന്റെ പാളി:"
 
-#: ../components/editor/gtkhtml-color-combo.c:735
+#. Translators: This is the nickname for a
+#. * GtkhtmlColorCombo property named "popup-shown",
+#. * based on a similar property in GtkComboBox.
+#: ../components/editor/gtkhtml-color-combo.c:767
 msgid "Popup shown"
 msgstr "കാണിച്ചിരിക്കുന്ന പോപ്പപ്പ്"
 
-#: ../components/editor/gtkhtml-color-combo.c:736
+#. Translators: This is the blurb for a
+#. * GtkhtmlColorCombo property named "popup-shown",
+#. * based on a similar property in GtkComboBox.
+#: ../components/editor/gtkhtml-color-combo.c:771
 msgid "Whether the combo's dropdown is shown"
 msgstr "കൂട്ടത്തിന്റെ ഡ്രോപ്ഡൗണ്‍ കാണിച്ചിട്ടുണ്ടോ എന്ന്"
 
-#: ../components/editor/gtkhtml-color-combo.c:745
+#. Translators: This is the nickname for a
+#. GtkHtmlColorCombo property named "state". It holds all
+#. the internal values for a GtkHtml color combination box.
+#.
+#: ../components/editor/gtkhtml-color-combo.c:784
 msgid "Color state"
 msgstr "നിറങ്ങളുടെ ദശ"
 
-#: ../components/editor/gtkhtml-color-combo.c:746
-msgid "State of the color combo"
-msgstr "വര്‍ണ കൂട്ടങ്ങളുടെ ദശ"
+#. Translators: This is the blurb for a
+#. GtkHtmlColorCombo property named "state". It holds all
+#. the internal values for a GtkHtml color combination box.
+#.
+#: ../components/editor/gtkhtml-color-combo.c:789
+#| msgid "State of the color combo"
+msgid "The state of a color combo box"
+msgstr "വര്‍ണ കോംബോ ബോക്സിന്റെ അവസ്ഥ"
 
-#. This is the default custom color
-#: ../components/editor/gtkhtml-color-combo.c:928
-#: ../components/html-editor/gi-color-palette.c:374
+#: ../components/editor/gtkhtml-color-combo.c:971
 msgid "custom"
 msgstr "ഇഷ്ടമുളള രീതിയില്‍ സജ്ജമാക്കുക"
 
-#: ../components/editor/gtkhtml-color-combo.c:936
+#: ../components/editor/gtkhtml-color-combo.c:979
 msgid "Custom Color..."
 msgstr "ഇഷ്ടമുളള നിറം..."
 
-#: ../components/editor/gtkhtml-color-state.c:191
-#: ../components/editor/gtkhtml-color-swatch.c:178
+#: ../components/editor/gtkhtml-color-state.c:206
+#: ../components/editor/gtkhtml-color-swatch.c:183
 msgid "The current color"
 msgstr "നിലവിലുള്ള നിറം"
 
-#: ../components/editor/gtkhtml-color-state.c:201
+#: ../components/editor/gtkhtml-color-state.c:216
 msgid "The default color"
 msgstr "സഹജമായ നിറം"
 
-#: ../components/editor/gtkhtml-color-state.c:212
+#: ../components/editor/gtkhtml-color-state.c:227
 msgid "Description of the default color"
 msgstr "സഹജമായ നിറത്തിന്റെ വിശധീകരണം"
 
-#: ../components/editor/gtkhtml-color-swatch.c:177
+#: ../components/editor/gtkhtml-color-swatch.c:182
 msgid "Color"
 msgstr "നിറം"
 
-#: ../components/editor/gtkhtml-color-swatch.c:187
+#: ../components/editor/gtkhtml-color-swatch.c:192
 msgid "Frame Shadow"
 msgstr "ഫ്രേം മറ"
 
-#: ../components/editor/gtkhtml-color-swatch.c:188
+#: ../components/editor/gtkhtml-color-swatch.c:193
 msgid "Appearance of the frame border"
 msgstr "ഫ്രേം പരിധിയുടെ അവതരണം"
 
@@ -361,1144 +331,1028 @@ msgstr "നടപടി"
 msgid "A GtkRadioAction"
 msgstr "ഒരു ജി.റ്റി.കെ.റേഡിയൊനടപടി"
 
-#: ../components/editor/gtkhtml-editor-actions.c:633
-#: ../components/html-editor/menubar.c:348
+#. Translators: :-)
+#: ../components/editor/gtkhtml-face-chooser.c:34
+msgid "_Smile"
+msgstr "_പുഞ്ചിരിക്കുക"
+
+#. Translators: :-(
+#: ../components/editor/gtkhtml-face-chooser.c:36
+#| msgid "S_haded"
+msgid "S_ad"
+msgstr "_സങ്കടം"
+
+#. Translators: ;-)
+#: ../components/editor/gtkhtml-face-chooser.c:38
+msgid "_Wink"
+msgstr "_കണ്ണിറുക്കുക"
+
+#. Translators: :-P
+#: ../components/editor/gtkhtml-face-chooser.c:40
+msgid "Ton_gue"
+msgstr "നാക്ക് കാണിക്കുക"
+
+#. Translators: :-))
+#: ../components/editor/gtkhtml-face-chooser.c:42
+#| msgid "_Laughing"
+msgid "Laug_h"
+msgstr "_ചിരി"
+
+#. Translators: :-|
+#: ../components/editor/gtkhtml-face-chooser.c:44
+#| msgid "_Plain Text"
+msgid "_Plain"
+msgstr "_സാധാരണ"
+
+#. Translators: :-!
+#: ../components/editor/gtkhtml-face-chooser.c:46
+msgid "Smi_rk"
+msgstr "_കള്ള ചിരി ചിരിക്കുക"
+
+#. Translators: :"-)
+#: ../components/editor/gtkhtml-face-chooser.c:48
+msgid "_Embarrassed"
+msgstr "_മാനംകെട്ട്"
+
+#. Translators: :-D
+#: ../components/editor/gtkhtml-face-chooser.c:50
+#| msgid "_Smile"
+msgid "_Big Smile"
+msgstr "_പുഞ്ചിരിക്കുക"
+
+#. Translators: :-/
+#: ../components/editor/gtkhtml-face-chooser.c:52
+#| msgid "Underline"
+msgid "Uncer_tain"
+msgstr "_നിശ്ചയമില്ലാത്ത"
+
+#. Translators: :-O
+#: ../components/editor/gtkhtml-face-chooser.c:54
+#| msgid "Sur_prised"
+msgid "S_urprise"
+msgstr "_അതിശയഭാവം"
+
+#. Translators: :-S
+#: ../components/editor/gtkhtml-face-chooser.c:56
+#| msgid "Su_rprised"
+msgid "W_orried"
+msgstr "_വിഷമം"
+
+#. Translators: :-*
+#: ../components/editor/gtkhtml-face-chooser.c:58
+msgid "_Kiss"
+msgstr "_ഉമ്മ കൊടുക്കുക"
+
+#. Translators: X-(
+#: ../components/editor/gtkhtml-face-chooser.c:60
+#| msgid "gray"
+msgid "A_ngry"
+msgstr "_ദേഷ്യം"
+
+#. Translators: B-)
+#: ../components/editor/gtkhtml-face-chooser.c:62
+msgid "_Cool"
+msgstr "_അടിപൊളി"
+
+#. Translators: O:-)
+#: ../components/editor/gtkhtml-face-chooser.c:64
+#| msgid "_Angel"
+msgid "Ange_l"
+msgstr "_മാലാഖ"
+
+#. Translators: :'(
+#: ../components/editor/gtkhtml-face-chooser.c:66
+msgid "Cr_ying"
+msgstr "ക_രയുന്നു"
+
+#. Translators: :-Q
+#: ../components/editor/gtkhtml-face-chooser.c:68
+msgid "S_ick"
+msgstr "_അസുഖം"
+
+#. Translators: |-)
+#: ../components/editor/gtkhtml-face-chooser.c:70
+#| msgid "red"
+msgid "Tire_d"
+msgstr "_ക്ഷീണം"
+
+#. Translators: >:-)
+#: ../components/editor/gtkhtml-face-chooser.c:72
+#| msgid "_Devilish"
+msgid "De_vilish"
+msgstr "_പിശാചു്"
+
+#. Translators: :-(|)
+#: ../components/editor/gtkhtml-face-chooser.c:74
+msgid "_Monkey"
+msgstr "_കുരങ്ങന്‍"
+
+#: ../components/editor/gtkhtml-editor-actions.c:632
 msgid "Insert HTML File"
 msgstr "HTML ഫയല്‍ ഇടയില്‍ ചേര്‍ക്കുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:642
-#: ../components/editor/gtkhtml-editor-actions.c:1760
+#: ../components/editor/gtkhtml-editor-actions.c:641
+#: ../components/editor/gtkhtml-editor-actions.c:1542
 msgid "Insert Image"
 msgstr "ചിത്രം ചേര്‍ക്കുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:808
-#: ../components/html-editor/menubar.c:348
+#: ../components/editor/gtkhtml-editor-actions.c:688
 msgid "Insert Text File"
 msgstr "പദാവലികളുടെ ഫയല്‍ ഇടയില്‍ ചേര്‍ക്കുക"
 
 #. Replace Button
-#: ../components/editor/gtkhtml-editor-actions.c:1269
+#: ../components/editor/gtkhtml-editor-actions.c:1177
 #: ../components/editor/gtkhtml-spell-dialog.c:522
-#: ../components/html-editor/replace.c:85
 msgid "_Replace"
 msgstr "_മാറ്റിയെഴുതുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1276
-#: ../components/html-editor/replace.c:82
+#: ../components/editor/gtkhtml-editor-actions.c:1184
 msgid "Replace _All"
 msgstr "_എല്ലാം മാറ്റിയെഴുതുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1290
-#: ../components/html-editor/replace.c:83
+#: ../components/editor/gtkhtml-editor-actions.c:1198
 msgid "_Next"
 msgstr "_അടുത്തത്"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1297
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+#: ../components/editor/gtkhtml-editor-actions.c:1205
 msgid "_Copy"
 msgstr "_പകര്‍ത്തുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1304
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
+#: ../components/editor/gtkhtml-editor-actions.c:1212
 msgid "Cu_t"
 msgstr "_മുറിക്കുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1318
+#: ../components/editor/gtkhtml-editor-actions.c:1226
 msgid "Find A_gain"
 msgstr "_അടുത്തത് കണ്ടെത്തുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1332
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+#: ../components/editor/gtkhtml-editor-actions.c:1240
 msgid "_Increase Indent"
 msgstr "ഇന്‍ഡെന്റ് _കൂട്ടുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1334
+#: ../components/editor/gtkhtml-editor-actions.c:1242
 msgid "Increase Indent"
 msgstr "ഇന്‍ഡെന്റ് കൂട്ടുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1339
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+#: ../components/editor/gtkhtml-editor-actions.c:1247
 msgid "_HTML File..."
 msgstr "_HTML ഫയല്‍..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1346
-msgid "_Angel"
-msgstr "_മാലാഖ"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1353
-msgid "_Cool"
-msgstr "_അടിപൊളി"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1360
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
-msgid "Cr_ying"
-msgstr "ക_രയുന്നു"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1367
-msgid "_Devilish"
-msgstr "_പിശാചു്"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1374
-msgid "_Embarrassed"
-msgstr "_മാനംകെട്ട്"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1381
-msgid "_Kiss"
-msgstr "_ഉമ്മ കൊടുക്കുക"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1388
-msgid "_Monkey"
-msgstr "_കുരങ്ങന്‍"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1395
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
-msgid "_Indifferent"
-msgstr "_നിസ്സംഗ ഭാവം"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1402
-msgid "_Tongue"
-msgstr "_നാക്ക് കാണിക്കുക"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1409
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
-msgid "_Frown"
-msgstr "_കോപ ഭാവം"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1416
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
-msgid "_Smile"
-msgstr "_പുഞ്ചിരിക്കുക"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1423
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
-msgid "_Laughing"
-msgstr "_ചിരിക്കുന്ന"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1430
-msgid "Smi_rk"
-msgstr "_കള്ള ചിരി ചിരിക്കുക"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1437
-msgid "Sur_prised"
-msgstr "_അതിശയഭാവം"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1444
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:160
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
-msgid "_Wink"
-msgstr "_കണ്ണിറുക്കുക"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1451
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
-msgid "_Undecided"
-msgstr "_തീരുമാനിച്ചില്ല"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1458
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
-msgid "S_ick"
-msgstr "_അസുഖം"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1465
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+#: ../components/editor/gtkhtml-editor-actions.c:1254
 msgid "Te_xt File..."
 msgstr "_പദാവലി ഫയല്‍..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1472
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+#: ../components/editor/gtkhtml-editor-actions.c:1261
 msgid "_Paste"
 msgstr "_ഒട്ടിയ്ക്കുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1479
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
-#: ../components/html-editor/popup.c:446
+#: ../components/editor/gtkhtml-editor-actions.c:1268
 msgid "Paste _Quotation"
 msgstr "_ഉദ്ധരണി ഒട്ടിക്കുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1486
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+#: ../components/editor/gtkhtml-editor-actions.c:1275
 msgid "_Redo"
 msgstr "വീ_ണ്ടും"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1493
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+#: ../components/editor/gtkhtml-editor-actions.c:1282
 msgid "Select _All"
 msgstr "_എല്ലാം തെരഞ്ഞെടുക്കുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1500
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+#: ../components/editor/gtkhtml-editor-actions.c:1289
 msgid "_Find..."
 msgstr "_കണ്ടെത്തുക..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1507
+#: ../components/editor/gtkhtml-editor-actions.c:1296
 msgid "Re_place..."
 msgstr "_മാറ്റിയെഴുതുക..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1514
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
+#: ../components/editor/gtkhtml-editor-actions.c:1303
 msgid "Check _Spelling..."
 msgstr "_അക്ഷരത്തെറ്റ് പരിശോധന..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1521
-#: ../components/editor/gtkhtml-editor.glade.h:77
-#: ../components/html-editor/utils.c:205
+#: ../components/editor/gtkhtml-editor-actions.c:1310
+#: ../components/editor/gtkhtml-editor-builder.ui.h:79
 msgid "_Test URL..."
 msgstr "URL _പരീക്ഷിക്കുക..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1528
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:159
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
+#: ../components/editor/gtkhtml-editor-actions.c:1317
 msgid "_Undo"
 msgstr "_വേണ്ട"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1535
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+#: ../components/editor/gtkhtml-editor-actions.c:1324
 msgid "_Decrease Indent"
 msgstr "_ഇന്‍ഡെന്റ് കുറയ്ക്കുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1537
+#: ../components/editor/gtkhtml-editor-actions.c:1326
 msgid "Decrease Indent"
 msgstr "ഇന്‍ഡെന്റ് കുറയ്ക്കുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1542
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:161
+#: ../components/editor/gtkhtml-editor-actions.c:1331
 msgid "_Wrap Lines"
 msgstr "വരികള്‍ _ഒതുക്കുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1551
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+#: ../components/editor/gtkhtml-editor-actions.c:1340
 msgid "_Edit"
 msgstr "_ചിട്ട"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1558
-#: ../components/editor/main.c:324
+#: ../components/editor/gtkhtml-editor-actions.c:1347
+#: ../components/editor/main.c:327
 msgid "_File"
 msgstr "_ഫയല്‍"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1565
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
+#: ../components/editor/gtkhtml-editor-actions.c:1354
 msgid "For_mat"
 msgstr "_ഫോര്‍മാറ്റ്"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1572
+#: ../components/editor/gtkhtml-editor-actions.c:1361
 msgid "_Paragraph Style"
 msgstr "_ഖണ്ഡികയുടെ ശൈലി..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1579
-msgid "_Emoticon"
-msgstr "_വികാരചിഹ്നങ്ങള്‍"
-
-#: ../components/editor/gtkhtml-editor-actions.c:1586
+#: ../components/editor/gtkhtml-editor-actions.c:1368
 msgid "_Insert"
 msgstr "_ഇടയ്ക്ക് ചേര്‍ക്കുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1593
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+#: ../components/editor/gtkhtml-editor-actions.c:1375
 msgid "_Alignment"
 msgstr "_ക്രമീകരണം"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1600
-#: ../components/html-editor/spellchecker.c:424
+#: ../components/editor/gtkhtml-editor-actions.c:1382
 msgid "Current _Languages"
 msgstr "നിലവിലുളള _ഭാഷകള്‍"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1607
-#: ../components/editor/main.c:355
+#: ../components/editor/gtkhtml-editor-actions.c:1389
+#: ../components/editor/main.c:358
 msgid "_View"
 msgstr "_‌കാണുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1617
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#: ../components/editor/gtkhtml-editor-actions.c:1399
 msgid "_Center"
 msgstr "_മദ്ധ്യത്തില്‍ ആക്കുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1619
+#: ../components/editor/gtkhtml-editor-actions.c:1401
 msgid "Center Alignment"
 msgstr "നടുക്ക് ക്രമീകരണം"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1624
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+#: ../components/editor/gtkhtml-editor-actions.c:1406
 msgid "_Left"
 msgstr "_ഇടത്"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1626
+#: ../components/editor/gtkhtml-editor-actions.c:1408
 msgid "Left Alignment"
 msgstr "ഇടത് ക്രമീകരണം"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1631
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+#: ../components/editor/gtkhtml-editor-actions.c:1413
 msgid "_Right"
 msgstr "_വലത്"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1633
+#: ../components/editor/gtkhtml-editor-actions.c:1415
 msgid "Right Alignment"
 msgstr "വലത് ക്രമീകരണം"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1641
+#: ../components/editor/gtkhtml-editor-actions.c:1423
 msgid "_HTML"
 msgstr "_‌എച്ച്.ടി.എം.എല്‍"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1643
+#: ../components/editor/gtkhtml-editor-actions.c:1425
 msgid "HTML editing mode"
 msgstr "‌എച്ച്.ടി.എം.എല്‍ മാറ്റം വരുത്താനുള്ള ദശ"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1648
+#: ../components/editor/gtkhtml-editor-actions.c:1430
 msgid "Plain _Text"
 msgstr "_പദാവലി മാത്രം"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1650
+#: ../components/editor/gtkhtml-editor-actions.c:1432
 msgid "Plain text editing mode"
 msgstr "വെറും പദാവലി മാറ്റാനുള്ള ദശ"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1658
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+#: ../components/editor/gtkhtml-editor-actions.c:1440
 msgid "_Normal"
 msgstr "_സാധാരണ"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1665
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
+#: ../components/editor/gtkhtml-editor-actions.c:1447
 msgid "Header _1"
 msgstr "തലക്കെട്ട് _1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1672
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
+#: ../components/editor/gtkhtml-editor-actions.c:1454
 msgid "Header _2"
 msgstr "തലക്കെട്ട് _2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1679
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+#: ../components/editor/gtkhtml-editor-actions.c:1461
 msgid "Header _3"
 msgstr "തലക്കെട്ട് _3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1686
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+#: ../components/editor/gtkhtml-editor-actions.c:1468
 msgid "Header _4"
 msgstr "തലക്കെട്ട് _4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1693
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+#: ../components/editor/gtkhtml-editor-actions.c:1475
 msgid "Header _5"
 msgstr "തലക്കെട്ട് _5"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1700
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+#: ../components/editor/gtkhtml-editor-actions.c:1482
 msgid "Header _6"
 msgstr "തലക്കെട്ട് _6"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1707
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
+#: ../components/editor/gtkhtml-editor-actions.c:1489
 msgid "A_ddress"
 msgstr "_വിലാസം"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1714
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+#: ../components/editor/gtkhtml-editor-actions.c:1496
 msgid "_Preformatted"
 msgstr "_പ്രീഫോര്‍മാറ്റഡ്"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1721
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+#: ../components/editor/gtkhtml-editor-actions.c:1503
 msgid "_Bulleted List"
 msgstr "_എണ്ണി ചിട്ടപ്പെടുത്തിയ നാമാവലി"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1728
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+#: ../components/editor/gtkhtml-editor-actions.c:1510
 msgid "_Roman Numeral List"
 msgstr "_റോമന്‍ അക്കങ്ങളുടെ നാമാവലി"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1735
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+#: ../components/editor/gtkhtml-editor-actions.c:1517
 msgid "Numbered _List"
 msgstr "_സംഖ്യാ നാമാവലി"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1742
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+#: ../components/editor/gtkhtml-editor-actions.c:1524
 msgid "_Alphabetical List"
 msgstr "_അകാരാദിക്രമത്തിലുള്ള നാമാവലി"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1758
-#: ../components/editor/gtkhtml-editor-actions.c:1793
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+#: ../components/editor/gtkhtml-editor-actions.c:1540
+#: ../components/editor/gtkhtml-editor-actions.c:1575
 msgid "_Image..."
 msgstr "_ചിത്രം..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1765
-#: ../components/editor/gtkhtml-editor-actions.c:1800
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+#: ../components/editor/gtkhtml-editor-actions.c:1547
+#: ../components/editor/gtkhtml-editor-actions.c:1582
 msgid "_Link..."
 msgstr "_കണ്ണി..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1767
+#: ../components/editor/gtkhtml-editor-actions.c:1549
 msgid "Insert Link"
 msgstr "കണ്ണി ഇടയ്ക്ക് ചേര്‍ക്കുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1772
-#: ../components/editor/gtkhtml-editor-actions.c:1814
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+#: ../components/editor/gtkhtml-editor-actions.c:1554
+#: ../components/editor/gtkhtml-editor-actions.c:1596
 msgid "_Rule..."
 msgstr "_നിയമം..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1774
+#: ../components/editor/gtkhtml-editor-actions.c:1556
 msgid "Insert Rule"
 msgstr "നിയമം ഇടയില്‍ ചേര്‍ക്കുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1779
-#: ../components/editor/gtkhtml-editor-actions.c:1821
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
+#: ../components/editor/gtkhtml-editor-actions.c:1561
+#: ../components/editor/gtkhtml-editor-actions.c:1603
 msgid "_Table..."
 msgstr "_പട്ടിക..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1781
+#: ../components/editor/gtkhtml-editor-actions.c:1563
 msgid "Insert Table"
 msgstr "പട്ടിക ഇടയില്‍ ചേര്‍ക്കുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1786
+#: ../components/editor/gtkhtml-editor-actions.c:1568
 msgid "_Cell..."
 msgstr "_കളം..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1807
+#: ../components/editor/gtkhtml-editor-actions.c:1589
 msgid "Pa_ge..."
 msgstr "_താള്‍..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1830
+#: ../components/editor/gtkhtml-editor-actions.c:1612
 msgid "Font _Size"
 msgstr "അക്ഷരത്തിന്റെ വലിപ്പം"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1837
+#: ../components/editor/gtkhtml-editor-actions.c:1619
 msgid "_Font Style"
 msgstr "_അക്ഷരത്തിന്റെ ശൈലി"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1847
-#: ../components/editor/gtkhtml-editor.glade.h:58
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
+#: ../components/editor/gtkhtml-editor-actions.c:1629
+#: ../components/editor/gtkhtml-editor-builder.ui.h:60
 msgid "_Bold"
 msgstr "_കട്ടിയായ"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1849
-#: ../components/html-editor/toolbar.c:441
+#: ../components/editor/gtkhtml-editor-actions.c:1631
 msgid "Bold"
 msgstr "കട്ടിയായ"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1855
-#: ../components/editor/gtkhtml-editor.glade.h:65
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
+#: ../components/editor/gtkhtml-editor-actions.c:1637
+#: ../components/editor/gtkhtml-editor-builder.ui.h:67
 msgid "_Italic"
 msgstr "_ചരിവുളളതാക്കുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1857
-#: ../components/html-editor/toolbar.c:444
+#: ../components/editor/gtkhtml-editor-actions.c:1639
 msgid "Italic"
 msgstr "ചരിഞ്ഞ"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1863
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+#: ../components/editor/gtkhtml-editor-actions.c:1645
 msgid "_Plain Text"
 msgstr "_പദാവലി മാത്രം"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1865
+#: ../components/editor/gtkhtml-editor-actions.c:1647
 msgid "Plain Text"
 msgstr "പദാവലി മാത്രം"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1871
-#: ../components/editor/gtkhtml-editor.glade.h:74
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
+#: ../components/editor/gtkhtml-editor-actions.c:1653
+#: ../components/editor/gtkhtml-editor-builder.ui.h:76
 msgid "_Strikethrough"
 msgstr "_വെട്ടിയിടുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1873
+#: ../components/editor/gtkhtml-editor-actions.c:1655
 msgid "Strikethrough"
 msgstr "വെട്ടിയിടുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1879
-#: ../components/editor/gtkhtml-editor.glade.h:80
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
+#: ../components/editor/gtkhtml-editor-actions.c:1661
+#: ../components/editor/gtkhtml-editor-builder.ui.h:82
 msgid "_Underline"
 msgstr "_അടി വരയിടുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1881
-#: ../components/html-editor/toolbar.c:447
+#: ../components/editor/gtkhtml-editor-actions.c:1663
 msgid "Underline"
 msgstr "അടി വരയിടുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1890
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
+#: ../components/editor/gtkhtml-editor-actions.c:1672
 msgid "-2"
 msgstr "-2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1897
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
+#: ../components/editor/gtkhtml-editor-actions.c:1679
 msgid "-1"
 msgstr "-1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1904
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
+#: ../components/editor/gtkhtml-editor-actions.c:1686
 msgid "+0"
 msgstr "+0"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1911
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
+#: ../components/editor/gtkhtml-editor-actions.c:1693
 msgid "+1"
 msgstr "+1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1918
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
+#: ../components/editor/gtkhtml-editor-actions.c:1700
 msgid "+2"
 msgstr "+2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1925
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
+#: ../components/editor/gtkhtml-editor-actions.c:1707
 msgid "+3"
 msgstr "+3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1932
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
+#: ../components/editor/gtkhtml-editor-actions.c:1714
 msgid "+4"
 msgstr "+4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1951
+#: ../components/editor/gtkhtml-editor-actions.c:1733
 msgid "Cell Contents"
 msgstr "കളത്തിലുള്ള വിവരങ്ങള്‍"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1958
-#: ../components/html-editor/popup.c:523
+#: ../components/editor/gtkhtml-editor-actions.c:1740
 msgid "Column"
 msgstr "നിര"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1965
-#: ../components/html-editor/popup.c:522
+#: ../components/editor/gtkhtml-editor-actions.c:1747
 msgid "Row"
 msgstr "വരി"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1972
-#: ../components/editor/gtkhtml-editor-actions.c:2055
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
-#: ../components/html-editor/menubar.c:217
-#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
-#: ../components/html-editor/popup.c:521
+#: ../components/editor/gtkhtml-editor-actions.c:1754
+#: ../components/editor/gtkhtml-editor-actions.c:1837
 msgid "Table"
 msgstr "പട്ടിക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1981
+#: ../components/editor/gtkhtml-editor-actions.c:1763
 msgid "Table Delete"
 msgstr "പട്ടിക നീക്കം ചെയ്യുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1988
-#: ../components/html-editor/popup.c:584
+#: ../components/editor/gtkhtml-editor-actions.c:1770
 msgid "Input Methods"
 msgstr "നിവേശക രീതികള്‍"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1995
+#: ../components/editor/gtkhtml-editor-actions.c:1777
 msgid "Table Insert"
 msgstr "പട്ടിക ഇടയ്ക്ക് ചേര്‍ക്കുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2002
-#: ../components/html-editor/editor-control-factory.c:187
-#: ../components/html-editor/popup.c:191 ../components/html-editor/popup.c:268
+#: ../components/editor/gtkhtml-editor-actions.c:1784
 msgid "Properties"
 msgstr "ഗുണഗണങ്ങള്‍"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2020
+#: ../components/editor/gtkhtml-editor-actions.c:1802
 msgid "Column After"
 msgstr "ശേഷമുളള നിര"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2027
+#: ../components/editor/gtkhtml-editor-actions.c:1809
 msgid "Column Before"
 msgstr "മുമ്പുളള നിര"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2034
-#: ../components/html-editor/popup.c:450
+#: ../components/editor/gtkhtml-editor-actions.c:1816
 msgid "Insert _Link"
 msgstr "_കണ്ണി ഇടയ്ക്ക് ചേര്‍ക്കുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2041
+#: ../components/editor/gtkhtml-editor-actions.c:1823
 msgid "Row Above"
 msgstr "മുകളില്‍ ഉളള വരി"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2048
+#: ../components/editor/gtkhtml-editor-actions.c:1830
 msgid "Row Below"
 msgstr "താഴെ ഉളള വരി"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2062
+#: ../components/editor/gtkhtml-editor-actions.c:1844
 msgid "Cell..."
 msgstr "കളം..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:2069
+#: ../components/editor/gtkhtml-editor-actions.c:1851
 msgid "Image..."
 msgstr "ചിത്രം... "
 
-#: ../components/editor/gtkhtml-editor-actions.c:2076
+#: ../components/editor/gtkhtml-editor-actions.c:1858
 msgid "Link..."
 msgstr "കണ്ണ്... "
 
-#: ../components/editor/gtkhtml-editor-actions.c:2083
+#: ../components/editor/gtkhtml-editor-actions.c:1865
 msgid "Page..."
 msgstr "താള്‍... "
 
-#: ../components/editor/gtkhtml-editor-actions.c:2090
+#: ../components/editor/gtkhtml-editor-actions.c:1872
 msgid "Paragraph..."
 msgstr "ഖണ്ഡിക... "
 
-#: ../components/editor/gtkhtml-editor-actions.c:2097
+#: ../components/editor/gtkhtml-editor-actions.c:1879
 msgid "Rule..."
 msgstr "നിയമം... "
 
-#: ../components/editor/gtkhtml-editor-actions.c:2104
+#: ../components/editor/gtkhtml-editor-actions.c:1886
 msgid "Table..."
 msgstr "പട്ടിക... "
 
-#: ../components/editor/gtkhtml-editor-actions.c:2111
+#: ../components/editor/gtkhtml-editor-actions.c:1893
 msgid "Text..."
 msgstr "പദാവലി... "
 
-#: ../components/editor/gtkhtml-editor-actions.c:2118
-#: ../components/html-editor/popup.c:457
+#: ../components/editor/gtkhtml-editor-actions.c:1900
 msgid "Remove Link"
 msgstr "കണ്ണി നീക്കം ചെയ്യുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2135
-#: ../components/html-editor/popup.c:578
+#: ../components/editor/gtkhtml-editor-actions.c:1917
 msgid "Add Word to Dictionary"
 msgstr "നിഘണ്ടുവിലേക്ക് വാക്ക് ചേര്‍ക്കുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2142
-#: ../components/html-editor/popup.c:559
+#: ../components/editor/gtkhtml-editor-actions.c:1924
 msgid "Ignore Misspelled Word"
 msgstr "അക്ഷരത്തെറ്റുളള വാക്കുകള്‍ അവഗണിക്കുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2149
+#: ../components/editor/gtkhtml-editor-actions.c:1931
 msgid "Add Word To"
 msgstr "വാക്ക് ചേര്‍ക്കുക "
 
-#: ../components/editor/gtkhtml-editor-actions.c:2367
+#: ../components/editor/gtkhtml-editor-actions.c:1940
+#| msgid "Suggestions for \"%s\""
+msgid "More Suggestions"
+msgstr "കൂടുതല്‍ നിര്‍ദ്ദേശങ്ങള്‍"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2107
+msgid "_Emoticon"
+msgstr "_വികാരചിഹ്നങ്ങള്‍"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2108
+#| msgid "Insert Link"
+msgid "Insert Emoticon"
+msgstr "ഇമോട്ടിക്കോണ്‍ ചേര്‍ക്കുക"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2169
 msgid "_Find"
 msgstr "_കണ്ടെത്തുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2370
+#: ../components/editor/gtkhtml-editor-actions.c:2172
 msgid "Re_place"
 msgstr "_മാറ്റിയെഴുതുക"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2373
+#: ../components/editor/gtkhtml-editor-actions.c:2175
 msgid "_Image"
 msgstr "_ചിത്രം"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2376
+#: ../components/editor/gtkhtml-editor-actions.c:2178
 msgid "_Link"
 msgstr "_കണ്ണി"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2379
+#: ../components/editor/gtkhtml-editor-actions.c:2181
 msgid "_Rule"
 msgstr "_നിയമം"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2382
-#: ../components/editor/gtkhtml-editor.glade.h:76
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
+#: ../components/editor/gtkhtml-editor-actions.c:2184
+#: ../components/editor/gtkhtml-editor-builder.ui.h:78
 msgid "_Table"
 msgstr "_പട്ടിക"
 
-#: ../components/editor/gtkhtml-editor-private.c:253
+#: ../components/editor/gtkhtml-editor-private.c:264
 msgid "Paragraph Style"
 msgstr "ഖണ്ഡികയുടെ ശൈലി"
 
-#: ../components/editor/gtkhtml-editor-private.c:267
+#: ../components/editor/gtkhtml-editor-private.c:278
 msgid "Editing Mode"
 msgstr "മാറ്റം വരുത്താനുള്ള ദശ"
 
-#: ../components/editor/gtkhtml-editor-private.c:279
+#: ../components/editor/gtkhtml-editor-private.c:290
 msgid "Font Color"
 msgstr "അക്ഷരത്തിന്റെ നിറങ്ങള്‍"
 
-#: ../components/editor/gtkhtml-editor-private.c:289
+#: ../components/editor/gtkhtml-editor-private.c:300
 msgid "Font Size"
 msgstr "അക്ഷരത്തിന്റെ വലിപ്പം "
 
-#: ../components/editor/gtkhtml-editor-private.c:316
-#: ../components/html-editor/body.c:237 ../components/html-editor/text.c:171
-#: ../components/html-editor/toolbar.c:199
+#: ../components/editor/gtkhtml-editor-private.c:327
 msgid "Automatic"
 msgstr "തനിയെയുള്ള"
 
-#: ../components/editor/gtkhtml-editor.c:702
+#: ../components/editor/gtkhtml-editor-private.c:599
+#| msgid "Could not load glade file."
+msgid "Could not open the link."
+msgstr "കണ്ണി തുറക്കുവാന്‍ സാധ്യമല്ല."
+
+#: ../components/editor/gtkhtml-editor.c:754
 msgid "Current Folder"
 msgstr "നിലവിലുള്ള അറ"
 
-#: ../components/editor/gtkhtml-editor.c:703
+#: ../components/editor/gtkhtml-editor.c:755
 msgid "The initial folder for file chooser dialogs"
 msgstr "ഫയല്‍ തിരഞ്ഞെടുക്കല്‍ സംഭാഷണങ്ങള്‍ക്ക് ആരംഭത്തിലുള്ള അറ"
 
-#: ../components/editor/gtkhtml-editor.c:713
+#: ../components/editor/gtkhtml-editor.c:765
 msgid "Filename"
 msgstr "ഫയലിന്റെ പേര്"
 
-#: ../components/editor/gtkhtml-editor.c:714
+#: ../components/editor/gtkhtml-editor.c:766
 msgid "The filename to use when saving"
 msgstr "ഫയല്‍ സൂക്ഷിക്കാന്‍ ഉപയോഗിക്കേണ്ട പേര്"
 
-#: ../components/editor/gtkhtml-editor.c:724
+#: ../components/editor/gtkhtml-editor.c:776
 msgid "HTML Mode"
 msgstr "‌എച്ച്.ടി.എം.എല്‍  ദശ"
 
-#: ../components/editor/gtkhtml-editor.c:725
+#: ../components/editor/gtkhtml-editor.c:777
 msgid "Edit HTML or plain text"
 msgstr "എച്ച്.ടി.എം.എലോ വെറും പദാവലികളോ മാറ്റം വരുത്തുക"
 
-#: ../components/editor/gtkhtml-editor.c:735
+#: ../components/editor/gtkhtml-editor.c:787
 msgid "Inline Spelling"
 msgstr "വരിക്കുള്ളില്‍  അക്ഷരത്തെറ്റ് പരിശോധന"
 
-#: ../components/editor/gtkhtml-editor.c:736
+#: ../components/editor/gtkhtml-editor.c:788
 msgid "Check your spelling as you type"
 msgstr "രേഖയിലെ അക്ഷരത്തെറ്റ് പരിശോധിക്കുക ടൈപ് ചെയ്യുമ്പോള്‍"
 
-#: ../components/editor/gtkhtml-editor.c:746
+#: ../components/editor/gtkhtml-editor.c:798
 msgid "Magic Links"
 msgstr "മാന്ത്രികക്കണ്ണികള്‍"
 
-#: ../components/editor/gtkhtml-editor.c:747
+#: ../components/editor/gtkhtml-editor.c:799
 msgid "Make URIs clickable as you type"
 msgstr "യു.ആര്‍.എലുകള്‍ ടൈപ് ചെയ്യുമ്പോള്‍ ക്ലിക്ക് ചെയ്യാവുന്നയാക്കി മാറ്റുക"
 
-#: ../components/editor/gtkhtml-editor.c:757
+#: ../components/editor/gtkhtml-editor.c:809
 msgid "Magic Smileys"
 msgstr "മാന്ത്രിക ചിരിചിത്രങ്ങള്‍"
 
-#: ../components/editor/gtkhtml-editor.c:758
+#: ../components/editor/gtkhtml-editor.c:810
 msgid "Convert emoticons to images as you type"
 msgstr "വികാരചിഹ്നങ്ങള്‍ ടൈപ്പ് ചെയ്യുമ്പോള്‍ ചിത്രങ്ങളാക്കി മാറ്റുക"
 
-#: ../components/editor/gtkhtml-editor.glade.h:1
-msgid "<b>Alignment &amp; Behavior</b>"
-msgstr "<b>സ്ഥാന ക്രമീകരണം &amp; പെരുമാറ്റം</b>"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:2
+#, no-c-format
+msgid "%"
+msgstr "%"
 
-#: ../components/editor/gtkhtml-editor.glade.h:2
-msgid "<b>Alignment</b>"
-msgstr "<b>സ്ഥാന ക്രമീകരണം</b>"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:3
+msgid "Alignment"
+msgstr "ക്രമീകരണം"
 
-#: ../components/editor/gtkhtml-editor.glade.h:3
-msgid "<b>Background Image</b>"
-msgstr "<b>പശ്ചാത്തലം ചിത്രം</b>"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:4
+#| msgid "<b>Alignment &amp; Behavior</b>"
+msgid "Alignment & Behavior"
+msgstr "സ്ഥാന ക്രമീകരണവും പെരുമാറ്റവും"
 
-#: ../components/editor/gtkhtml-editor.glade.h:4
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
-msgid "<b>Background</b>"
-msgstr "<b>പശ്ചാത്തലം</b>"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:5
+#| msgid "_Background:"
+msgid "Background"
+msgstr "പശ്ചാത്തലം"
 
-#: ../components/editor/gtkhtml-editor.glade.h:5
-msgid "<b>Colors</b>"
-msgstr "<b>നിറങ്ങള്‍</b>"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:6
+msgid "Background Image"
+msgstr "പശ്ചാത്തല ചിത്രം"
 
-#: ../components/editor/gtkhtml-editor.glade.h:6
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
-msgid "<b>General</b>"
-msgstr "<b>സാധാരണയായ</b>"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:7
+#| msgid "Blue ink"
+msgid "Blue Ink"
+msgstr "നീല മഷി"
 
-#: ../components/editor/gtkhtml-editor.glade.h:7
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:13
-msgid "<b>Layout</b>"
-msgstr "<b>വിന്യാസം</b>"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:8
+msgid "Bottom"
+msgstr "താഴെ"
 
-#: ../components/editor/gtkhtml-editor.glade.h:8
-msgid "<b>Link</b>"
-msgstr "<b>കണ്ണി</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:9
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
-msgid "<b>Scope</b>"
-msgstr "<b>പരിധി</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:10
-msgid "<b>Size</b>"
-msgstr "<b>വലിപ്പം</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:11
-msgid "<b>Style</b>"
-msgstr "<b>ശൈലി</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:12
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
+#: ../components/editor/gtkhtml-editor-builder.ui.h:9
 msgid "C_ell"
 msgstr "_കളം"
 
-#: ../components/editor/gtkhtml-editor.glade.h:13
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:24
+#: ../components/editor/gtkhtml-editor-builder.ui.h:10
 msgid "C_olor:"
 msgstr "_നിറം:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:14
+#: ../components/editor/gtkhtml-editor-builder.ui.h:11
 msgid "C_olumns:"
 msgstr "_നിരകള്‍ :"
 
-#: ../components/editor/gtkhtml-editor.glade.h:15
-#: ../components/html-editor/body.c:286
+#: ../components/editor/gtkhtml-editor-builder.ui.h:12
 msgid "C_ustom:"
 msgstr "_ഇഷ്ടമുളള രീതിയില്‍ സജ്ജമാക്കുക:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:16
-#: ../components/html-editor/replace.c:180
-#: ../components/html-editor/search.c:116
+#: ../components/editor/gtkhtml-editor-builder.ui.h:13
 msgid "Case _sensitive"
 msgstr "വലിയക്ഷരചെറിയക്ഷര_വ്യത്യാസമുള്ള"
 
-#: ../components/editor/gtkhtml-editor.glade.h:17
+#: ../components/editor/gtkhtml-editor-builder.ui.h:14
 msgid "Cell Properties"
 msgstr "കളത്തിന്റെ ഗുണഗണങ്ങള്‍"
 
-#: ../components/editor/gtkhtml-editor.glade.h:18
+#: ../components/editor/gtkhtml-editor-builder.ui.h:15
+msgid "Center"
+msgstr "മദ്ധ്യത്തില്‍"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:16
 msgid "Co_lor:"
 msgstr "_നിറം:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:19
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:26
+#: ../components/editor/gtkhtml-editor-builder.ui.h:17
 msgid "Col_umn"
 msgstr "_നിര"
 
-#: ../components/editor/gtkhtml-editor.glade.h:20
+#: ../components/editor/gtkhtml-editor-builder.ui.h:18
+msgid "Colors"
+msgstr "നിറങ്ങള്‍"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:19
 msgid "Column Span:"
 msgstr "നിരയുടെ വീതി: "
 
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/editor/gtkhtml-editor.glade.h:21
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
-#: ../components/html-editor/search.c:110
-#: ../components/html-editor/search.c:171
+#: ../components/editor/gtkhtml-editor-builder.ui.h:20
+msgid "Confidential"
+msgstr "രഹസ്യ സ്വഭാവമുളള"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:21
+msgid "Draft"
+msgstr "പൂര്‍ത്തിയാകാത്തത്"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:22
 msgid "Find"
 msgstr "കണ്ടെത്തുക"
 
-#: ../components/editor/gtkhtml-editor.glade.h:22
+#: ../components/editor/gtkhtml-editor-builder.ui.h:23
+msgid "General"
+msgstr "സാധാരണയായ"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:24
+#| msgid "Graph paper"
+msgid "Graph Paper"
+msgstr "ഗ്രാഫ് പേപ്പര്‍"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:25
 msgid "Hea_der Style"
 msgstr "_തലക്കെട്ടിന്റെ ശൈലി"
 
-#: ../components/editor/gtkhtml-editor.glade.h:23
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
+#: ../components/editor/gtkhtml-editor-builder.ui.h:26
 msgid "I_mage:"
 msgstr "_ചിത്രം:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:24
+#: ../components/editor/gtkhtml-editor-builder.ui.h:27
 msgid "Image Properties"
 msgstr "ചിത്രത്തിന്റെ ഗുണഗണങ്ങള്‍"
 
-#: ../components/editor/gtkhtml-editor.glade.h:25
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
-msgid ""
-"Left\n"
-"Center\n"
-"Right"
-msgstr ""
-"ഇടത്ത്\n"
-"മദ്ധ്യത്തില്‍\n"
-"വലത്ത്"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:28
+#| msgid "<b>Layout</b>"
+msgid "Layout"
+msgstr "വിന്യാസം"
 
-#: ../components/editor/gtkhtml-editor.glade.h:28
+#: ../components/editor/gtkhtml-editor-builder.ui.h:29
+msgid "Left"
+msgstr "ഇടത്"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:30
+msgid "Link"
+msgstr "കണ്ണി"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:31
 msgid "Link Properties"
 msgstr "കണ്ണിയുടെ ഗുണഗണങ്ങള്‍"
 
-#: ../components/editor/gtkhtml-editor.glade.h:29
-msgid ""
-"None\n"
-"Perforated Paper\n"
-"Blue Ink\n"
-"Paper\n"
-"Ribbon\n"
-"Midnight\n"
-"Confidential\n"
-"Draft\n"
-"Graph Paper"
-msgstr ""
-"ഒന്നും അല്ല\n"
-"കുഴികളുള്ള പേപ്പര്‍\n"
-"നീല മഷി\n"
-"പേപ്പര്‍\n"
-"റിബണ്‍\n"
-"അര്‍ദ്ധരാത്രി\n"
-"രഹസ്യമായത്\n"
-"ഡ്രാഫ്ട്\n"
-"ഗ്രാഫ് പേപ്പര്‍"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:32
+msgid "Middle"
+msgstr "നടുവില്‍"
 
-#: ../components/editor/gtkhtml-editor.glade.h:38
+#: ../components/editor/gtkhtml-editor-builder.ui.h:33
+msgid "Midnight"
+msgstr "പാതിരാത്രി"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:34
+msgid "None"
+msgstr "ഒന്നുമില്ല"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:35
 msgid "Page Properties"
 msgstr "താളിന്റെ ഗുണഗണങ്ങള്‍"
 
-#: ../components/editor/gtkhtml-editor.glade.h:39
+#: ../components/editor/gtkhtml-editor-builder.ui.h:36
+msgid "Paper"
+msgstr "കടലാസ്"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:37
 msgid "Paragraph Properties"
 msgstr "ഖണ്ഡികയുടെ ഗുണഗണങ്ങള്‍"
 
-#: ../components/editor/gtkhtml-editor.glade.h:40
-#: ../components/html-editor/replace.c:190
+#: ../components/editor/gtkhtml-editor-builder.ui.h:38
+#| msgid "Perforated paper"
+msgid "Perforated Paper"
+msgstr "പ്രിഫൊറേറ്റഡ് പേപ്പര്‍"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:39
 msgid "R_eplace:"
 msgstr "_മാറ്റിയെഴുതുക:"
 
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/editor/gtkhtml-editor.glade.h:41
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: ../components/html-editor/replace.c:171
-#: ../components/html-editor/replace.c:236
+#: ../components/editor/gtkhtml-editor-builder.ui.h:40
 msgid "Replace"
 msgstr "മാറ്റിയെഴുതുക"
 
-#: ../components/editor/gtkhtml-editor.glade.h:42
+#: ../components/editor/gtkhtml-editor-builder.ui.h:41
 msgid "Replace Confirmation"
 msgstr "മാറ്റം ഉറപ്പ് വരുത്തുക "
 
-#: ../components/editor/gtkhtml-editor.glade.h:43
+#: ../components/editor/gtkhtml-editor-builder.ui.h:42
+msgid "Ribbon"
+msgstr "റിബണ്‍"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:43
+msgid "Right"
+msgstr "വലത്"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:44
 msgid "Row Span:"
 msgstr "വരിയുടെ അളവ്:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:44
+#: ../components/editor/gtkhtml-editor-builder.ui.h:45
 msgid "Rule Properties"
 msgstr "നിയമ ഗുണഗണങ്ങള്‍"
 
-#: ../components/editor/gtkhtml-editor.glade.h:45
+#: ../components/editor/gtkhtml-editor-builder.ui.h:46
 msgid "S_haded"
 msgstr "_മറഞ്ഞിരിക്കുന്നത്"
 
-#: ../components/editor/gtkhtml-editor.glade.h:46
+#: ../components/editor/gtkhtml-editor-builder.ui.h:47
+msgid "Scope"
+msgstr "സാധ്യത"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:48
 msgid "Search _backwards"
 msgstr "_പുറകോട്ട് തിരയുക"
 
-#: ../components/editor/gtkhtml-editor.glade.h:47
+#: ../components/editor/gtkhtml-editor-builder.ui.h:49
 msgid "Select An Image"
 msgstr "ഒരു ചിത്രം തെരഞ്ഞെടുക്കുക"
 
-#: ../components/editor/gtkhtml-editor.glade.h:48
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
+#: ../components/editor/gtkhtml-editor-builder.ui.h:50
 msgid "Si_ze:"
 msgstr "_വലിപ്പം:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:49
-#: ../components/html-editor/body.c:282
+#: ../components/editor/gtkhtml-editor-builder.ui.h:51
+#| msgid "Size:"
+msgid "Size"
+msgstr "വലിപ്പം"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:52
+msgid "Style"
+msgstr "ശൈലി"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:53
 msgid "T_emplate:"
 msgstr "_ടെംപ്ളേറ്റ്:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:50
+#: ../components/editor/gtkhtml-editor-builder.ui.h:54
 msgid "Table Properties"
 msgstr "പട്ടികയുടെ ഗുണഗണങ്ങള്‍"
 
-#: ../components/editor/gtkhtml-editor.glade.h:51
+#: ../components/editor/gtkhtml-editor-builder.ui.h:55
 msgid "Text Properties"
 msgstr "പദാവലിയുടെ ഗുണഗണങ്ങള്‍"
 
-#: ../components/editor/gtkhtml-editor.glade.h:52
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
-msgid ""
-"Top\n"
-"Middle\n"
-"Bottom"
-msgstr ""
-"മുകള്‍\n"
-"മദ്ധ്യം\n"
-"താഴെ"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:56
+msgid "Top"
+msgstr "മുകളില്‍"
 
-#: ../components/editor/gtkhtml-editor.glade.h:55
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
+#: ../components/editor/gtkhtml-editor-builder.ui.h:57
 msgid "Width:"
 msgstr "വീതി:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:56
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
+#: ../components/editor/gtkhtml-editor-builder.ui.h:58
 msgid "_Alignment:"
 msgstr "_ക്രമീകരണം:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:57
-#: ../components/html-editor/body.c:252
+#: ../components/editor/gtkhtml-editor-builder.ui.h:59
 msgid "_Background:"
 msgstr "_പശ്ചാത്തലം:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:59
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
+#: ../components/editor/gtkhtml-editor-builder.ui.h:61
 msgid "_Border:"
 msgstr "_അരിക്:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:60
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
+#: ../components/editor/gtkhtml-editor-builder.ui.h:62
 msgid "_Color:"
 msgstr "_നിറം:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:61
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
+#: ../components/editor/gtkhtml-editor-builder.ui.h:63
 msgid "_Description:"
 msgstr "_വിവരണം:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:62
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:63
+#: ../components/editor/gtkhtml-editor-builder.ui.h:64
 msgid "_Height:"
 msgstr "_ഉയരം:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:63
+#: ../components/editor/gtkhtml-editor-builder.ui.h:65
 msgid "_Horizontal:"
 msgstr "_കുറുകെയുള്ള:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:64
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
+#: ../components/editor/gtkhtml-editor-builder.ui.h:66
 msgid "_Image:"
 msgstr "_ചിത്രം:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:66
-#: ../components/html-editor/body.c:251
+#: ../components/editor/gtkhtml-editor-builder.ui.h:68
 msgid "_Link:"
 msgstr "_കണ്ണി:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:67
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
+#: ../components/editor/gtkhtml-editor-builder.ui.h:69
 msgid "_Padding:"
 msgstr "_പാഡിങ്:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:68
+#: ../components/editor/gtkhtml-editor-builder.ui.h:70
 msgid "_Regular expression"
 msgstr "_റെഗുലര്‍ എക്സ്പ്രഷന്‍"
 
-#: ../components/editor/gtkhtml-editor.glade.h:69
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
+#: ../components/editor/gtkhtml-editor-builder.ui.h:71
 msgid "_Row"
 msgstr "_വരി"
 
-#: ../components/editor/gtkhtml-editor.glade.h:70
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
+#: ../components/editor/gtkhtml-editor-builder.ui.h:72
 msgid "_Rows:"
 msgstr "_വരികള്‍:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:71
+#: ../components/editor/gtkhtml-editor-builder.ui.h:73
 msgid "_Size:"
 msgstr "_വലിപ്പം:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:72
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
+#: ../components/editor/gtkhtml-editor-builder.ui.h:74
 msgid "_Source:"
 msgstr "_ഉറവിടം:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:73
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
+#: ../components/editor/gtkhtml-editor-builder.ui.h:75
 msgid "_Spacing:"
 msgstr "_വിടവുകള്‍:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:75
-#: ../components/html-editor/paragraph.c:69
+#: ../components/editor/gtkhtml-editor-builder.ui.h:77
 msgid "_Style:"
 msgstr "_ശൈലി:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:78
-#: ../components/html-editor/body.c:250
+#: ../components/editor/gtkhtml-editor-builder.ui.h:80
 msgid "_Text:"
 msgstr "_പദാവലി:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:79
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
+#: ../components/editor/gtkhtml-editor-builder.ui.h:81
 msgid "_URL:"
 msgstr "_URL:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:81
+#: ../components/editor/gtkhtml-editor-builder.ui.h:83
 msgid "_Vertical:"
 msgstr "_നേരെയുളള:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:82
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
+#: ../components/editor/gtkhtml-editor-builder.ui.h:84
 msgid "_Width:"
 msgstr "_വീതി:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:83
-#: ../components/html-editor/replace.c:194
+#: ../components/editor/gtkhtml-editor-builder.ui.h:85
 msgid "_With:"
 msgstr "_ഒപ്പം:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:84
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:76
+#: ../components/editor/gtkhtml-editor-builder.ui.h:86
 msgid "_Wrap Text"
 msgstr "പദാവലി _ഒതുക്കുക"
 
-#: ../components/editor/gtkhtml-editor.glade.h:85
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
+#: ../components/editor/gtkhtml-editor-builder.ui.h:87
 msgid "_X-Padding:"
 msgstr "_X-പാഡിങ്:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:86
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
+#: ../components/editor/gtkhtml-editor-builder.ui.h:88
 msgid "_Y-Padding:"
 msgstr "_Y-പാഡിങ്:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:87
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
+#: ../components/editor/gtkhtml-editor-builder.ui.h:89
+#| msgid ""
+#| "px\n"
+#| "%\n"
+#| "follow"
+msgid "follow"
+msgstr "follow"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:90
 msgid "px"
 msgstr "px"
-
-#: ../components/editor/gtkhtml-editor.glade.h:89
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
-#, no-c-format
-msgid ""
-"px\n"
-"%"
-msgstr ""
-"px\n"
-"%"
-
-#: ../components/editor/gtkhtml-editor.glade.h:92
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:84
-#, no-c-format
-msgid ""
-"px\n"
-"%\n"
-"follow"
-msgstr ""
-"px\n"
-"%\n"
-"follow"
 
 #: ../components/editor/gtkhtml-spell-checker.c:200
 msgid "Language"
@@ -1556,7 +1410,7 @@ msgid "_Add Word"
 msgstr "_വാക്ക് ചേര്‍ക്കുക"
 
 #. Translators: %s is the language ISO code.
-#: ../components/editor/gtkhtml-spell-language.c:180
+#: ../components/editor/gtkhtml-spell-language.c:184
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
@@ -1564,8 +1418,8 @@ msgstr "അറിയാത്തതു് (%s)"
 
 #. Translators: The first %s is the language name, and the
 #. * second is the country name. Example: "French (France)"
-#: ../components/editor/gtkhtml-spell-language.c:195
-#: ../components/editor/gtkhtml-spell-language.c:200
+#: ../components/editor/gtkhtml-spell-language.c:199
+#: ../components/editor/gtkhtml-spell-language.c:204
 #, c-format
 msgctxt "language"
 msgid "%s (%s)"
@@ -1573,7 +1427,7 @@ msgstr "%s (%s)"
 
 #. Translators: This refers to the default language used
 #. * by the spell checker.
-#: ../components/editor/gtkhtml-spell-language.c:385
+#: ../components/editor/gtkhtml-spell-language.c:389
 msgctxt "language"
 msgid "Default"
 msgstr "സഹജമായ"
@@ -1586,1204 +1440,144 @@ msgstr "പേര് മാറ്റി സൂക്ഷിക്കുക"
 msgid "Untitled document"
 msgstr "പേരില്ലാത്ത കുറിപ്പ്"
 
-#: ../components/editor/main.c:268
+#: ../components/editor/main.c:271
 msgid "HTML Output"
 msgstr "എച്ച്.ടി.എം.എല്‍ ഔട്പുട്ട്"
 
-#: ../components/editor/main.c:275
+#: ../components/editor/main.c:278
 msgid "HTML Source"
 msgstr "എച്ച്.ടി.എം.എല്‍ ഉറവിടം:"
 
-#: ../components/editor/main.c:282
+#: ../components/editor/main.c:285
 msgid "Plain Source"
 msgstr "വെറും ഉറവിടം മാത്രം"
 
-#: ../components/editor/main.c:289
+#: ../components/editor/main.c:292
 msgid "_Print..."
 msgstr "_അച്ചടിയ്ക്കുക..."
 
-#: ../components/editor/main.c:296
+#: ../components/editor/main.c:299
 msgid "Print Pre_view"
 msgstr "അച്ചടിയ്ക്കുന്നതിനു് മുമ്പു് _കണ്ടുനോക്കുക "
 
-#: ../components/editor/main.c:303
+#: ../components/editor/main.c:306
 msgid "_Quit"
 msgstr "_പുറത്തുകടക്കുക "
 
-#: ../components/editor/main.c:310
+#: ../components/editor/main.c:313
 msgid "_Save"
 msgstr "_സൂക്ഷിക്കുക"
 
-#: ../components/editor/main.c:317
+#: ../components/editor/main.c:320
 msgid "Save _As..."
 msgstr "ഫയല്‍ പേര് _മാറ്റി സംരക്ഷിക്കുക..."
 
-#: ../components/editor/main.c:334
+#: ../components/editor/main.c:337
 msgid "HTML _Output"
 msgstr "എച്ച്.ടി.എം.എല്‍ _ഔട്പുട്ട്"
 
-#: ../components/editor/main.c:341
+#: ../components/editor/main.c:344
 msgid "_HTML Source"
 msgstr "_എച്ച്.ടി.എം.എല്‍ ഉറവിടം:"
 
-#: ../components/editor/main.c:348
+#: ../components/editor/main.c:351
 msgid "_Plain Source"
 msgstr "വെറും _ഉറവിടം മാത്രം"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
-#: ../components/html-editor/paragraph-style.c:56
-msgid "Alphabetical List"
-msgstr "അകാരാദിക്രമത്തിലുള്ള നാമാവലി"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
-#: ../components/html-editor/paragraph-style.c:47
-msgid "Bulleted List"
-msgstr "എണ്ണി ചിട്ടപ്പെടുത്തിയ നാമാവലി"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
-#: ../components/html-editor/toolbar.c:415
-msgid "Center justifies the paragraphs"
-msgstr "ഖണ്ഡികയെ മദ്ധ്യത്തില്‍ ക്രമീകരിക്കുന്നു"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
-msgid "Check spelling of the document"
-msgstr "രേഖയിലെ അക്ഷരത്തെറ്റ് പരിശോധിക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
-msgid "Copy"
-msgstr "പകര്‍ത്തുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
-msgid "Copy selection to clipboard"
-msgstr "തെരഞ്ഞെടുത്തത് ക്ലിപ്പ് ബോര്‍ഡിലേക്ക് പകര്‍ത്തുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
-msgid "Copy the selection"
-msgstr "തെരഞ്ഞെടുത്തത് പകര്‍ത്തുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
-msgid "Cut"
-msgstr "മുറിയ്ക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
-msgid "Cut selection to clipboard"
-msgstr "തെരഞ്ഞെടുത്തത് ക്ലിപ്പ് ബോര്‍ഡിലേക്ക് മുറിച്ച് മാറ്റുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
-msgid "Cut the selection"
-msgstr "തെരഞ്ഞെടുത്തത് മുറിച്ച് മാറ്റുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-msgid "Emoti_con"
-msgstr "വികാരചിഹ്നം"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
-msgid "Find _Again"
-msgstr "_അടുത്തത് കണ്ടെത്തുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
-msgid "Find again"
-msgstr "അടുത്തത് കണ്ടെത്തുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
-msgid "Find and Replace"
-msgstr "മാറ്റിയെഴുതുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
-msgid "Find and replace"
-msgstr "മാറ്റിയെഴുതുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
-msgid "I_nsert"
-msgstr "_ഇടയ്ക്ക് ചേര്‍ക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-#: ../components/html-editor/editor-control-factory.c:197
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:35
-#: ../components/html-editor/popup.c:211
-msgid "Image"
-msgstr "ചിത്രം"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-msgid "Insert Crying emoticon into document..."
-msgstr "രേഖയുടെ ഇടയില്‍ കരയുന്ന വികാരചിഹ്നം ചേര്‍ക്കുക..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
-msgid "Insert Frown emoticon into document..."
-msgstr "രേഖയുടെ ഇടയില്‍ കോപം കാണിക്കുന്ന വികാരചിഹ്നം ചേര്‍ക്കുക..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
-msgid "Insert HTML file into document..."
-msgstr "രേഖയുടെ ഇടയില്‍ HTML ഫയല്‍ ചേര്‍ക്കുക..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
-msgid "Insert HTML link into document..."
-msgstr "രേഖയുടെ ഇടയില്‍ HTML കണ്ണി ചേര്‍ക്കുക..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
-msgid "Insert HTML template into document..."
-msgstr "രേഖയുടെ ഇടയില്‍ HTML ടംപ്ളേറ്റ് ചേര്‍ക്കുക..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
-msgid "Insert Indifferent emoticon into document..."
-msgstr "രേഖയുടെ ഇടയില്‍ നിസ്സംഗമായ വികാരചിഹ്നം ചേര്‍ക്കുക..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-msgid "Insert Laughing emoticon into document..."
-msgstr "രേഖയുടെ ഇടയില്‍ ചിരിക്കുന്ന വികാരചിഹ്നം ചേര്‍ക്കുക..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
-msgid "Insert Oh no! emoticon into document..."
-msgstr "രേഖയുടെ ഇടയില്‍ അബദ്ധഭാവം കാണിക്കുന്ന വികാരചിഹ്നം ചേര്‍ക്കുക..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
-msgid "Insert Sick emoticon into document..."
-msgstr "രേഖയുടെ ഇടയില്‍ അസുഖം കാണിക്കുന്ന വികാരചിഹ്നം ചേര്‍ക്കുക..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
-msgid "Insert Smile emoticon into document..."
-msgstr "രേഖയുടെ ഇടയില്‍ ചിരിയ്ക്കുന്ന ഭാവമുളള വികാരചിഹ്നം ചേര്‍ക്കുക..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-msgid "Insert Surprised emoticon into document..."
-msgstr "രേഖയുടെ ഇടയില്‍ അതിശയ ഭാവമുളള വികാരചിഹ്നം ചേര്‍ക്കുക..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
-msgid "Insert Tongue emoticon into document..."
-msgstr "രേഖയുടെ ഇടയില്‍ നാക്ക് കാണിക്കുന്ന വികാരചിഹ്നം ചേര്‍ക്കുക..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
-msgid "Insert Undecided emoticon into document..."
-msgstr "രേഖയുടെ ഇടയില്‍ തീരുമാനത്തിലെത്താത്ത ഭാവമുളള വികാരചിഹ്നം ചേര്‍ക്കുക..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
-msgid "Insert Wink emoticon into document..."
-msgstr "രേഖയുടെ ഇടയില്‍ കണ്ണിറുക്കുന്ന വികാരചിഹ്നം ചേര്‍ക്കുക..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
-#: ../components/html-editor/menubar.c:129
-msgid "Insert image"
-msgstr "ചിത്രം ചേര്‍ക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
-msgid "Insert image into document..."
-msgstr "രേഖയുടെ ഇടയില്‍ ചിത്രം ചേര്‍ക്കുക..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
-msgid "Insert link"
-msgstr "ഇടയില്‍ കണ്ണി ചേര്‍ക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
-msgid "Insert rule"
-msgstr "നിയമം ഇടയില്‍ ചേര്‍ക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
-msgid "Insert rule into document..."
-msgstr "രേഖയുടെ ഇടയില്‍ നിയമം ചേര്‍ക്കുക..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-msgid "Insert table"
-msgstr "പട്ടിക ഇടയില്‍ ചേര്‍ക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-msgid "Insert table into document..."
-msgstr "രേഖയുടെ ഇടയില്‍ പട്ടിക ചേര്‍ക്കുക..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
-msgid "Insert text file into document..."
-msgstr "രേഖയുടെ ഇടയില്‍ വാചകത്തിന്റെ ചേര്‍ക്കുക..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
-#: ../components/html-editor/toolbar.c:412
-msgid "Left justifies the paragraphs"
-msgstr "വാചകങ്ങള്‍ താളിന്റെ ഇടത്ത് വശത്ത് നിന്നും തുടങ്ങുന്നു"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
-#: ../components/html-editor/menubar.c:174
-#: ../components/html-editor/popup.c:111 ../components/html-editor/popup.c:205
-#: ../components/html-editor/popup.c:271
-msgid "Link"
-msgstr "കണ്ണി"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
-msgid "Make the current Paragraph style Normal"
-msgstr "നിലവിലുളള ഖണ്ഡികയുടെ ശൈലി സാധാരണരീതിയിലാക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
-msgid "Make the current Paragraph style Preformat"
-msgstr "Make the current Paragraph style Preformat"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
-msgid "Make the current paragraph a bulleted list"
-msgstr "നിലവിലുളള ഖണ്ഡികയുടെ ശൈലി എണ്ണി ചിട്ടപ്പെടുത്തിയ നാമാവലിയിലാക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
-msgid "Make the current paragraph a list with roman numerals"
-msgstr "നിലവിലുളള ഖണ്ഡിക റോമന്‍ അക്കങ്ങള്‍ ഉപയോഗിച്ച് ചിട്ടപ്പെടുത്തിയ ശൈലിയിലാക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
-msgid "Make the current paragraph a numbered list"
-msgstr "നിലവിലുളള ഖണ്ഡിക അക്കങ്ങള്‍ ഉപയോഗിച്ച് ചിട്ടപ്പെടുത്തിയ ശൈലിയിലാക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
-msgid "Make the current paragraph an H1 header"
-msgstr "നിലവിലുളള ഖണ്ഡിക ഒരു H1 തലക്കെട്ട് ആക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
-msgid "Make the current paragraph an H2 header"
-msgstr "നിലവിലുളള ഖണ്ഡിക ഒരു H2 തലക്കെട്ട് ആക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
-msgid "Make the current paragraph an H3 header"
-msgstr "നിലവിലുളള ഖണ്ഡിക ഒരു H3 തലക്കെട്ട് ആക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
-msgid "Make the current paragraph an H4 header"
-msgstr "നിലവിലുളള ഖണ്ഡിക ഒരു H4 തലക്കെട്ട് ആക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
-msgid "Make the current paragraph an H5 header"
-msgstr "നിലവിലുളള ഖണ്ഡിക ഒരു H5 തലക്കെട്ട് ആക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
-msgid "Make the current paragraph an H6 header"
-msgstr "നിലവിലുളള ഖണ്ഡിക ഒരു H6 തലക്കെട്ട് ആക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
-msgid "Make the current paragraph an address"
-msgstr "നിലവിലുളള ഖണ്ഡിക ഒരു വിലാസം ആക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
-msgid "Make the current paragraph an alphabetical list"
-msgstr "നിലവിലുളള ഖണ്ഡിക ഇംഗ്ലീഷ് അക്ഷരമാലയുടെ ക്രമത്തിലുളള നാമാവലിയിലാക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
-#: ../components/html-editor/paragraph-style.c:41
-msgid "Normal"
-msgstr "സാധാരണ"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
-#: ../components/html-editor/paragraph-style.c:50
-msgid "Numbered List"
-msgstr "സംഖ്യാ നാമാവലി"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
-msgid "Oh _No!"
-msgstr "_അയ്യോ!"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
-msgid "Paste"
-msgstr "ഒട്ടിക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
-msgid "Paste from clipboard"
-msgstr "ക്ലിപ്പ് ബോര്‍ഡില്‍ നിന്നും ഒട്ടിക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
-msgid "Paste the clipboard"
-msgstr "ക്ലിപ്പ് ബോര്‍ഡില്‍ നിന്നും ഒട്ടിക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
-msgid "Paste the clipboard as a quotation"
-msgstr "ഒരു ഉദ്ധരണിയായി ക്ലിപ്പ് ബോര്‍ഡില്‍ നിന്നും ഒട്ടിക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-#: ../components/html-editor/paragraph-style.c:44
-msgid "Preformat"
-msgstr "പ്രീഫോര്‍മാറ്റ്"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
-msgid "Redo"
-msgstr "വീണ്ടും"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
-msgid "Redo previously undone change"
-msgstr "വേണ്ടന്ന് വച്ച മാറ്റങ്ങള്‍ വീണ്ടും ചെയ്യുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
-msgid "Redo the undone action"
-msgstr "വേണ്ടന്ന് വച്ച പ്രവര്‍ത്തി വീണ്ടും ചെയ്യുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
-#: ../components/html-editor/toolbar.c:418
-msgid "Right justifies the paragraphs"
-msgstr "വാചകങ്ങള്‍ താളിന്റെ വലത്ത് വശത്ത് നിന്നും തുടങ്ങുന്നു"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-msgid "Roman Numeral List"
-msgstr "റോമന്‍ അക്കങ്ങളുടെ ലിസ്റ്റ്"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
-#: ../components/html-editor/editor-control-factory.c:215
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:46
-#: ../components/html-editor/menubar.c:193
-#: ../components/html-editor/popup.c:229
-msgid "Rule"
-msgstr "നിയമം"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
-msgid "Select the entire contents of the document"
-msgstr "രേഖ മുഴുവന്‍ തെരഞ്ഞെടുക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
-#: ../components/html-editor/toolbar.c:450
-msgid "Strikeout"
-msgstr "വെട്ടുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
-msgid "Su_rprised"
-msgstr "അതിശയ ഭാവം"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
-msgid "Subscript"
-msgstr "സബ്സ്ക്രിപ്റ്റ്"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
-msgid "Superscript"
-msgstr "സൂപ്പര്‍ സ്ക്രിപ്റ്റ്"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
-msgid "Te_mplate..."
-msgstr "ടെംപ്ളേറ്റ്..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
-msgid "Ton_gue"
-msgstr "നാക്ക് കാണിക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
-#: ../components/html-editor/toolbar.c:439
-msgid "Typewriter"
-msgstr "ടൈപ്പ് റൈറ്റര്‍"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
-msgid "Undo"
-msgstr "വേണ്ട"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
-msgid "Undo previous changes"
-msgstr "മുമ്പ് വരുത്തിയ മാറ്റങ്ങള്‍ വേണ്ടെന്ന് വയ്ക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
-msgid "Undo the last action"
-msgstr "അവസാനം ചെയ്ത പ്രവൃത്തി വേണ്ടെന്ന് വയ്ക്കുക"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
-msgid "_Font Size"
-msgstr "അക്ഷരത്തിന്റെ വലിപ്പം"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
-msgid "_Heading"
-msgstr "_തലക്കെട്ട്"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
-msgid "_Page..."
-msgstr "_താള്‍..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
-msgid "_Paragraph..."
-msgstr "_ഖണ്ഡിക..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
-msgid "_Replace..."
-msgstr "_മാറ്റിയെഴുതുക..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
-msgid "_Style"
-msgstr "_ശൈലി"
-
-#.
-#. <submenu name="BackgroundColor" _label="Background Color">
-#. <menuitem name="ColorRed" verb="" _label="Red"/>
-#. <menuitem name="ColorOrange" verb="" _label="Orange"/>
-#. <menuitem name="ColorYellow" verb="" _label="Yellow"/>
-#. <menuitem name="ColorGreen" verb="" _label="Green"/>
-#. <menuitem name="ColorBlue" verb="" _label="Blue"/>
-#. <menuitem name="ColorPurple" verb="" _label="Purple"/>
-#. <menuitem name="etc" verb="" _label="etc..."/>
-#.
-#. <separator/>
-#.
-#. <menuitem name="Other" verb="" _label="Other..."/>
-#. </submenu>
-#.
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:156
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:156
-msgid "_Text..."
-msgstr "_പദാവലി..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
-msgid "GNOME HTML Editor"
-msgstr "ഗ്നോം എച്ച്ടിഎംഎല്‍ എഡിറ്റര്‍"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:2
-msgid "GNOME HTML Editor Control"
-msgstr "ഗ്നോം എച്ച്ടിഎംഎല്‍ എഡിറ്റര്‍ കണ്ട്രോള്‍"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
-msgid "GNOME HTML Editor Factory"
-msgstr "ഗ്നോം എച്ച്ടിഎംഎല്‍  എഡിറ്റര്‍ ശാല"
-
-#: ../components/html-editor/body.c:64
-msgid "None"
-msgstr "ഒന്നുമില്ല"
-
-#: ../components/html-editor/body.c:72
-msgid "Perforated paper"
-msgstr "പ്രിഫോര്‍മാറ്റഡ് കടലാസ്"
-
-#: ../components/html-editor/body.c:80
-msgid "Blue ink"
-msgstr "നീല മഷി"
-
-#: ../components/html-editor/body.c:88
-msgid "Paper"
-msgstr "കടലാസ്"
-
-#: ../components/html-editor/body.c:96
-msgid "Ribbon"
-msgstr "റിബണ്‍"
-
-#: ../components/html-editor/body.c:104
-msgid "Midnight"
-msgstr "പാതിരാത്രി"
-
-#: ../components/html-editor/body.c:112
-msgid "Confidential"
-msgstr "രഹസ്യ സ്വഭാവമുളള"
-
-#: ../components/html-editor/body.c:120
-msgid "Draft"
-msgstr "പൂര്‍ത്തിയാകാത്തത്"
-
-#: ../components/html-editor/body.c:128
-msgid "Graph paper"
-msgstr "ഗ്രാഫ് പേപ്പര്‍"
-
-#: ../components/html-editor/body.c:254
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:27
-msgid "Colors"
-msgstr "നിറങ്ങള്‍"
-
-#: ../components/html-editor/body.c:256 ../components/html-editor/body.c:288
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:22
-msgid "Background Image"
-msgstr "പശ്ചാത്തല ചിത്രം"
-
-#: ../components/html-editor/body.c:267
-msgid "Background Image File Path"
-msgstr "പശ്ചാത്തല ചിത്രത്തിന്റെ ഫയലിലേക്കുകളള വഴി"
-
-#: ../components/html-editor/body.c:275
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
-#: ../components/html-editor/menubar.c:239
-msgid "Template"
-msgstr "ടെംപ്ളേറ്റ്"
-
-#: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:345
-#: ../components/html-editor/link.c:215 ../components/html-editor/rule.c:179
-#: ../components/html-editor/table.c:229
-#: ../components/html-editor/template.c:287
-#: ../components/html-editor/text.c:168
-msgid "Could not load glade file."
-msgstr "ഗ്ളേഡ് ഫയല്‍ ലോഡ് ചെയ്യുവാന്‍ കഴിഞ്ഞില്ല."
-
-#: ../components/html-editor/cell.c:346 ../components/html-editor/table.c:233
-msgid "Transparent"
-msgstr "സുതാര്യം"
-
-#: ../components/html-editor/editor-control-factory.c:205
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: ../components/html-editor/menubar.c:425
-#: ../components/html-editor/popup.c:199
-msgid "Text"
-msgstr "പദാവലി"
-
-#: ../components/html-editor/editor-control-factory.c:224
-#: ../components/html-editor/menubar.c:442
-#: ../components/html-editor/popup.c:217
-msgid "Paragraph"
-msgstr "ഖണ്ഡിക"
-
-#: ../components/html-editor/editor-control-factory.c:228
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:44
-#: ../components/html-editor/menubar.c:408
-#: ../components/html-editor/popup.c:223
-msgid "Page"
-msgstr "താള്‍"
-
-#: ../components/html-editor/gi-color-combo.c:189
-msgid "color preview"
-msgstr "നിറങ്ങള്‍ ക്രമീകരിക്കുന്നതിന് മുമ്പ് കാണുക"
-
-#. "Custom" color - we'll pop up a GtkColorDialog
-#: ../components/html-editor/gi-color-palette.c:414
-msgid "Custom Color:"
-msgstr "ഇഷ്ടമുളള നിറം:"
-
-#: ../components/html-editor/gi-color-palette.c:607
-msgid "purplish blue"
-msgstr "പര്‍പ്പിള്‍ നിറഞ്ഞ നീല"
-
-#: ../components/html-editor/gi-color-palette.c:611
-msgid "dark purple"
-msgstr "കടും പര്‍പ്പിള്‍"
-
-#: ../components/html-editor/gi-color-palette.c:613
-msgid "sky blue"
-msgstr "ആകാശ നീല"
-
-#. set the a11y name
-#: ../components/html-editor/gi-combo-box.c:411
-msgid "Popup"
-msgstr "പോപ്പപ്പ്"
-
-#: ../components/html-editor/gnome-gtkhtml-editor.c:74
-msgid "GtkHTML Editor Control"
-msgstr "GtkHTML എഡിറ്റര്‍ കണ്ട്രോള്‍"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:1
-msgid "    "
-msgstr "    "
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:2
-msgid "*"
-msgstr "*"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:3
-msgid ""
-"-2\n"
-"-1\n"
-"Standard\n"
-"+1\n"
-"+2\n"
-"+3\n"
-"+4"
-msgstr ""
-"-2\n"
-"-1\n"
-"Standard\n"
-"+1\n"
-"+2\n"
-"+3\n"
-"+4"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:10
-msgid "<b>Alignment &amp; Behaviour</b>"
-msgstr "<b>ക്രമീകരണം &amp; പെരുമാറ്റം</b>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:15
-msgid "<span weight=\"bold\">General</span>"
-msgstr "<span weight=\"bold\">സാധാരണയായ</span>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:16
-msgid "<span weight=\"bold\">Layout</span>"
-msgstr "<span weight=\"bold\">ക്രമീകരണ ശൈലി</span>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:17
-msgid "<span weight=\"bold\">Link</span>"
-msgstr "<span weight=\"bold\">കണ്ണി</span>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:18
-msgid "<span weight=\"bold\">Size</span>"
-msgstr "<span weight=\"bold\">വലിപ്പം</span>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:19
-msgid "<span weight=\"bold\">Style</span>"
-msgstr "<span weight=\"bold\">ശൈലി</span>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:20
-msgid "<span weight=\"bold\">Template</span>"
-msgstr "<span weight=\"bold\">ടെംപ്ളേറ്റ്</span>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:21
-msgid "Alignment:"
-msgstr "ക്രമീകരണം:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:25
-#: ../components/html-editor/popup.c:241
-msgid "Cell"
-msgstr "കളം"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
-msgid "Colu_mns:"
-msgstr "_നിരകള്‍ :"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:29
-msgid "Column span:"
-msgstr "നിരയുടെ വീതി:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:30
-msgid "Enable"
-msgstr "സജ്ജമാക്കുക"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:31
-msgid "Hea_der style"
-msgstr "തലക്കെട്ടിന്റെ _ശൈലി"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:32
-msgid "Horizontal alignment:"
-msgstr "കുറുകെയുള്ള ക്രമീകരണം:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:33
-msgid "Horizontal:"
-msgstr "കുറുകെയുള്ള:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:39
-msgid ""
-"Left\n"
-"Center\n"
-"Right\n"
-"None"
-msgstr ""
-"ഇടത്ത്\n"
-"മദ്ധ്യത്തില്‍\n"
-"വലത്ത്\n"
-"ഒന്നുമില്ല"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
-msgid "Link properties"
-msgstr "കണ്ണിയുടെ ഗുണഗണങ്ങള്‍"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
-msgid "Row span:"
-msgstr "വരിയുടെ അളവ്:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
-msgid "Shade"
-msgstr "മറവ്"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
-msgid "Size:"
-msgstr "വലിപ്പം:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:56
-msgid "Vertical:"
-msgstr "നേരെയുളള:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:87
-msgid "xxxxxxxxxxxxxx"
-msgstr "xxxxxxxxxxxxxx"
-
-#: ../components/html-editor/link.c:227
-msgid "URL:"
-msgstr "URL:"
-
-#: ../components/html-editor/link.c:231
-msgid "Description:"
-msgstr "വിവരണം:"
-
-#: ../components/html-editor/menubar.c:171
-#: ../components/html-editor/menubar.c:190
-#: ../components/html-editor/menubar.c:214
-#: ../components/html-editor/menubar.c:236
-#: ../components/html-editor/popup.c:108
-msgid "Insert"
-msgstr "ഇടയ്ക്ക് ചേര്‍ക്കുക"
-
-#: ../components/html-editor/menubar.c:323
-#, c-format
-msgid "Error loading file '%s': %s"
-msgstr "'%s' ഫയല്‍ ലോഡ് ചെയ്യുന്നതില്‍ പിശക്: %s"
-
-#: ../components/html-editor/menubar.c:405
-#: ../components/html-editor/menubar.c:422
-#: ../components/html-editor/menubar.c:439
-msgid "Format"
-msgstr "രീതി"
-
-#: ../components/html-editor/paragraph.c:72
-msgid "General"
-msgstr "സാധാരണയായ"
-
-#: ../components/html-editor/paragraph.c:87
-msgid "Left"
-msgstr "ഇടത്"
-
-#: ../components/html-editor/paragraph.c:88
-#: ../components/html-editor/toolbar.c:415
-msgid "Center"
-msgstr "മദ്ധ്യത്തില്‍"
-
-#: ../components/html-editor/paragraph.c:89
-msgid "Right"
-msgstr "വലത്"
-
-#: ../components/html-editor/paragraph.c:91
-msgid "Alignment"
-msgstr "ക്രമീകരണം"
-
-#: ../components/html-editor/paragraph-style.c:53
-msgid "Roman List"
-msgstr "റോമന്‍ ലിസ്റ്റ്"
-
-#: ../components/html-editor/paragraph-style.c:59
-msgid "Header 1"
-msgstr "തലക്കെട്ട് 1"
-
-#: ../components/html-editor/paragraph-style.c:62
-msgid "Header 2"
-msgstr "തലക്കെട്ട് 2"
-
-#: ../components/html-editor/paragraph-style.c:65
-msgid "Header 3"
-msgstr "തലക്കെട്ട് 3"
-
-#: ../components/html-editor/paragraph-style.c:68
-msgid "Header 4"
-msgstr "തലക്കെട്ട് 4"
-
-#: ../components/html-editor/paragraph-style.c:71
-msgid "Header 5"
-msgstr "തലക്കെട്ട് 5"
-
-#: ../components/html-editor/paragraph-style.c:74
-msgid "Header 6"
-msgstr "തലക്കെട്ട് 6"
-
-#: ../components/html-editor/paragraph-style.c:77
-msgid "Address"
-msgstr "വിലാസം"
-
-#: ../components/html-editor/popup.c:464
-msgid "Style"
-msgstr "ശൈലി"
-
-#: ../components/html-editor/popup.c:467
-msgid "Text Style..."
-msgstr "പദാവലികളുടെ ശൈലി..."
-
-#: ../components/html-editor/popup.c:469 ../components/html-editor/popup.c:475
-#: ../components/html-editor/popup.c:485
-msgid "Paragraph Style..."
-msgstr "ഖണ്ഡികയുടെ ശൈലി..."
-
-#: ../components/html-editor/popup.c:473
-msgid "Link Style..."
-msgstr "കണ്ണിയുടെ ശൈലി..."
-
-#: ../components/html-editor/popup.c:479
-msgid "Rule Style..."
-msgstr "നിയമത്തിന്റെ ശൈലി..."
-
-#: ../components/html-editor/popup.c:483
-msgid "Image Style..."
-msgstr "ചിത്രത്തിന്റെ ശൈലി..."
-
-#: ../components/html-editor/popup.c:494
-msgid "Cell Style..."
-msgstr "കളത്തിന്റെ ശൈലി..."
-
-#: ../components/html-editor/popup.c:497
-msgid "Table Style..."
-msgstr "പട്ടികയുടെ ശൈലി..."
-
-#: ../components/html-editor/popup.c:503
-msgid "Page Style..."
-msgstr "താളിന്റെ ശൈലി..."
-
-#: ../components/html-editor/popup.c:508
-msgid "Table insert"
-msgstr "പട്ടിക ഇടയ്ക്ക് ചേര്‍ക്കുക"
-
-#: ../components/html-editor/popup.c:511
-msgid "Row above"
-msgstr "മുകളില്‍ ഉളള വരി"
-
-#: ../components/html-editor/popup.c:512
-msgid "Row below"
-msgstr "താഴെ ഉളള വരി"
-
-#: ../components/html-editor/popup.c:514
-msgid "Column before"
-msgstr "മുമ്പുളള നിര"
-
-#: ../components/html-editor/popup.c:515
-msgid "Column after"
-msgstr "ശേഷമുളള നിര"
-
-#: ../components/html-editor/popup.c:520
-msgid "Table delete"
-msgstr "പട്ടിക നീക്കം ചെയ്യുക"
-
-#: ../components/html-editor/popup.c:524
-msgid "Cell contents"
-msgstr "കളത്തിലുള്ള ഡേറ്റാ"
-
-#: ../components/html-editor/popup.c:564
-msgid "Add Word to"
-msgstr "വാക്ക് ചേര്‍ക്കുക"
-
-#. Translators: %s is the language name.
-#: ../components/html-editor/popup.c:569
-#, c-format
-msgid "%s Dictionary"
-msgstr "%s നിഘണ്ടു"
-
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/html-editor/replace.c:81
-msgid "Replace confirmation"
-msgstr "മാറ്റം ഉറപ്പ് വരുത്തുക"
-
-#: ../components/html-editor/replace.c:179
-msgid "Search _backward"
-msgstr "പുറകോട്ട് തിരയുക"
-
-#: ../components/html-editor/search.c:115
-msgid "_Backward"
-msgstr "_പുറകോട്ട്"
-
-#: ../components/html-editor/search.c:117
-msgid "_Regular Expression"
-msgstr "_റെഗുലര്‍ എക്സ്പ്രഷന്‍"
-
-#: ../components/html-editor/search.c:121
-msgid "Input the words you want to search here"
-msgstr "നിങ്ങള്‍ക്ക് തെരയേണ്ട വാക്കുകള്‍ ഇവിടെ കൊടുക്കുക"
-
-#: ../components/html-editor/spellchecker.c:116
-msgid ""
-"Unable to add word to dictionary,\n"
-"language settings are broken.\n"
-msgstr ""
-"നിഘണ്ടുവിലേക്ക് വാക്ക് ചേര്‍ക്കുവാന്‍ സാധ്യമായില്ല,\n"
-"ഭാഷയുടെ ക്രമീകരണത്തില്‍ തകരാറുകള്‍.\n"
-
-#: ../components/html-editor/spellchecker.c:322
-msgid "No misspelled word found"
-msgstr "അക്ഷരത്തെറ്റുകള്‍ ഒന്നും ഇല്ല"
-
-#: ../components/html-editor/spellchecker.c:329
-msgid "Spell checker"
-msgstr "അക്ഷരത്തെറ്റു് പരിശോധന"
-
-#: ../components/html-editor/template.c:90
-msgid "Note"
-msgstr "കുറിപ്പ്"
-
-#: ../components/html-editor/template.c:101
-#: ../components/html-editor/template.c:121
-msgid "Place your text here"
-msgstr "നിങ്ങളുടെ പദാവലി ഇവിടെ ചേര്‍ക്കുക"
-
-#: ../components/html-editor/template.c:104
-msgid "Image frame"
-msgstr "ഇമേജ് ഫ്രെയിം"
-
-#: ../components/html-editor/template.c:296
-msgid "Template Labels"
-msgstr "ടെംപ്ളേറ്റ് ലേബലുകള്‍"
-
-#: ../components/html-editor/test-html-editor-control.c:263
-msgid "Open file..."
-msgstr "ഫയല്‍ തുറക്കുക..."
-
-#: ../components/html-editor/test-html-editor-control.c:270
-msgid "Save file as..."
-msgstr "ഫയല്‍ പേര് മാറ്റി സംരക്ഷിക്കുക..."
-
-#: ../components/html-editor/test-html-editor-control.c:542
-msgid "GtkHTML Editor Test Container"
-msgstr "GtkHTML എഡിറ്റര്‍ ടെസ്റ്റ് കണ്ടെയിനര്‍"
-
-#: ../components/html-editor/toolbar.c:412
-msgid "Left align"
-msgstr "ഇടത് ക്രമീകരണം"
-
-#: ../components/html-editor/toolbar.c:418
-msgid "Right align"
-msgstr "വലത് ക്രമീകരണം"
-
-#: ../components/html-editor/toolbar.c:439
-msgid "Toggle typewriter font style"
-msgstr "ടൈപ്പ് റൈറ്ററിന്റെ ലിപി ശൈലി മാറ്റുക"
-
-#: ../components/html-editor/toolbar.c:441
-msgid "Makes the text bold"
-msgstr "വാചകങ്ങള്‍ കട്ടിയാക്കുക"
-
-#: ../components/html-editor/toolbar.c:444
-msgid "Makes the text italic"
-msgstr "വാചകങ്ങള്‍ ചരിഞ്ഞതാക്കുക"
-
-#: ../components/html-editor/toolbar.c:447
-msgid "Underlines the text"
-msgstr "വാചകങ്ങള്‍ക്ക് അടിവരയിടുന്നു"
-
-#: ../components/html-editor/toolbar.c:450
-msgid "Strikes out the text"
-msgstr "വാചകത്തിലൂടെ വരയിടുക"
-
-#: ../components/html-editor/toolbar.c:460
-msgid "Unindent"
-msgstr "Unindent"
-
-#: ../components/html-editor/toolbar.c:460
-msgid "Indents the paragraphs less"
-msgstr "Indents the paragraphs less"
-
-#: ../components/html-editor/toolbar.c:463
-msgid "Indent"
-msgstr "ഇന്‍ഡെന്റ്"
-
-#: ../components/html-editor/toolbar.c:463
-msgid "Indents the paragraphs more"
-msgstr "ഖണ്ഡികയുടെ ഇന്‍ഡെന്റ് കൂട്ടുക"
-
-#: ../components/html-editor/toolbar.c:540
-msgid "Text Color"
-msgstr "വാചക നിറങ്ങള്‍"
-
-#: ../components/html-editor/utils.c:132
-msgid "Sample"
-msgstr "മാതൃക"
-
-#: ../components/html-editor/utils.c:248
-msgid ""
-"The edited object was removed from the document.\n"
-"Cannot apply your changes."
-msgstr ""
-"മാറ്റം വരുത്തിയ ഒബ്ജക്ട് രേഖയില്‍ നിന്നും നീക്കം ചെയ്യുക.\n"
-"നിങ്ങള്‍ വരുത്തിയ മാറ്റങ്ങള്‍ പ്രാവര്‍ത്തികമാക്കാന്‍ സാധ്യമല്ല."
-
-#: ../gtkhtml/gtkhtml.c:2927
+#: ../gtkhtml/gtkhtml.c:3073
 msgid "Editable"
 msgstr "മാറ്റം വരുത്തുവാന്‍ സാധ്യമാകുന്ന"
 
-#: ../gtkhtml/gtkhtml.c:2928
+#: ../gtkhtml/gtkhtml.c:3074
 msgid "Whether the html can be edited"
 msgstr "html മാറ്റം വരുത്തുവാന്‍ സാധ്യമാകുന്നതാണോ എന്ന്"
 
-#: ../gtkhtml/gtkhtml.c:2934
+#: ../gtkhtml/gtkhtml.c:3080
 msgid "Document Title"
 msgstr "രേഖയുടെ തലക്കെട്ട്"
 
-#: ../gtkhtml/gtkhtml.c:2935
+#: ../gtkhtml/gtkhtml.c:3081
 msgid "The title of the current document"
 msgstr "നിലവിലുളള രേഖയുടെ തലക്കെട്ട്"
 
-#: ../gtkhtml/gtkhtml.c:2941
+#: ../gtkhtml/gtkhtml.c:3087
 msgid "Document Base"
 msgstr "Document Base"
 
-#: ../gtkhtml/gtkhtml.c:2942
+#: ../gtkhtml/gtkhtml.c:3088
 msgid "The base URL for relative references"
 msgstr "The base URL for relative references"
 
-#: ../gtkhtml/gtkhtml.c:2948
+#: ../gtkhtml/gtkhtml.c:3094
 msgid "Target Base"
 msgstr "Target Base"
 
-#: ../gtkhtml/gtkhtml.c:2949
+#: ../gtkhtml/gtkhtml.c:3095
 msgid "The base URL of the target frame"
 msgstr "The base URL of the target frame"
 
-#: ../gtkhtml/gtkhtml.c:2958
+#: ../gtkhtml/gtkhtml.c:3103
 msgid "Fixed Width Font"
 msgstr "ലിപിയുടെ സ്ഥിരമായ വീതി"
 
-#: ../gtkhtml/gtkhtml.c:2959
+#: ../gtkhtml/gtkhtml.c:3104
 msgid "The Monospace font to use for typewriter text"
 msgstr "ടൈപ്പ് റൈറ്ററിന്റെ വാചകങ്ങള്‍ക്കുളള മോണോസ്പെയിസ് ലിപി"
 
-#: ../gtkhtml/gtkhtml.c:2965
+#: ../gtkhtml/gtkhtml.c:3110
 msgid "New Link Color"
 msgstr "ലിങ്കിനുളള പുതിയ നിറം"
 
-#: ../gtkhtml/gtkhtml.c:2966
+#: ../gtkhtml/gtkhtml.c:3111
 msgid "The color of new link elements"
 msgstr "പുതിയ കണ്ണി എലമെന്‍റുകളുടെ നിറം"
 
-#: ../gtkhtml/gtkhtml.c:2971
+#: ../gtkhtml/gtkhtml.c:3116
 msgid "Visited Link Color"
 msgstr "പരിശോധിച്ച കണ്ണിയുടെ നിറം"
 
-#: ../gtkhtml/gtkhtml.c:2972
+#: ../gtkhtml/gtkhtml.c:3117
 msgid "The color of visited link elements"
 msgstr "പരിശോധിച്ച കണ്ണി എലമെന്‍റുകളുടെ നിറം"
 
-#: ../gtkhtml/gtkhtml.c:2977
+#: ../gtkhtml/gtkhtml.c:3122
 msgid "Active Link Color"
 msgstr "പ്രവര്‍ത്തനത്തിലുളള കണ്ണിയുടെ നിറം"
 
-#: ../gtkhtml/gtkhtml.c:2978
+#: ../gtkhtml/gtkhtml.c:3123
 msgid "The color of active link elements"
 msgstr "പ്രവര്‍ത്തനത്തിലുളള കണ്ണി എലമെന്‍റുകളുടെ നിറം"
 
-#: ../gtkhtml/gtkhtml.c:2983
+#: ../gtkhtml/gtkhtml.c:3128
 msgid "Spelling Error Color"
 msgstr "അക്ഷരപിശകുളള വാക്കുകളുടെ നിറം"
 
-#: ../gtkhtml/gtkhtml.c:2984
+#: ../gtkhtml/gtkhtml.c:3129
 msgid "The color of the spelling error markers"
 msgstr "അക്ഷരപിശകുളള വാക്കുകളുടെ നിറം"
 
-#: ../gtkhtml/gtkhtml.c:2989
+#: ../gtkhtml/gtkhtml.c:3134
 msgid "Cite Quotation Color"
 msgstr "Cite Quotation Color"
 
-#: ../gtkhtml/gtkhtml.c:2990
+#: ../gtkhtml/gtkhtml.c:3135
 msgid "The color of the cited text"
 msgstr "The color of the cited text"
 
-#: ../gtkhtml/htmlbutton.c:139
+#: ../gtkhtml/htmlbutton.c:138
 msgid "Submit Query"
 msgstr "ചോദ്യം സമര്‍പ്പിക്കുക"
 
-#: ../gtkhtml/htmlbutton.c:142
+#: ../gtkhtml/htmlbutton.c:141
 msgid "Reset"
 msgstr "പുനഃസ്ഥാപിക്കുക"
 
 #. TODO2 dialog instead of warning
-#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:310
+#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:309
 msgid "Cannot allocate default font for printing"
 msgstr "പ്രിന്റ്‌ ചെയ്യുന്നതിനായി സ്വതേയുള്ള ലിപി ഉപയോഗിക്കുവാന്‍ സാധ്യമല്ല"
 
-#: ../gtkhtml/test.c:365
+#: ../gtkhtml/test.c:364
 msgid "GtkHTML Test"
 msgstr "GtkHTML പരിശോധന"
-
-#: ../gtkhtml/testgtkhtml.c:114
-msgid "Print pre_view"
-msgstr "പ്രിന്റ്‌ ചെയ്യുന്നതിന് മുമ്പ് സ്ക്രീനില്‍ കാണുക (_v)"
-
-#: ../gtkhtml/testgtkhtml.c:114
-msgid "Print preview"
-msgstr "പ്രിന്റ് ചെയ്യുന്നതിന് മുമ്പ് സ്ക്രീനില്‍ കാണുക"
-
-#: ../gtkhtml/testgtkhtml.c:1019
-msgid "GtkHTML Test Application"
-msgstr "GtkHTML ടെസ്റ്റ് ആപ്ളിക്കഷന്‍"
-
-#~ msgid "language|Default"
-#~ msgstr "ഭാഷ|സഹജമായ"
-
-#~ msgid "Make the current Paragraph style Preformatted"
-#~ msgstr "Make the current Paragraph style Preformatted"
-
-#~ msgid "Preformatted"
-#~ msgstr "പ്രിഫോര്‍മാറ്റഡ്"
-
-#~ msgid "Cannot allocate default font for printing\n"
-#~ msgstr "പ്രിന്‍റ് ചെയ്യുന്നതിനായി ഡീഫോള്‍ട്ടായ ലിപി ഉപയോഗിക്കുവാന്‍ സാധ്യമല്ല\n"
-
-#~ msgid "%"
-#~ msgstr "%"
-
-#~ msgid "Bottom"
-#~ msgstr "താഴെ"
-
-#~ msgid "Middle"
-#~ msgstr "നടുവില്‍"
-
-#~ msgid "Percent"
-#~ msgstr "ശതമാനം"
-
-#~ msgid "Pixels"
-#~ msgstr "പിക്സല്‍സ്"
-
-#~ msgid "Standard"
-#~ msgstr "നിലവാരമുളള"
-
-#~ msgid "Top"
-#~ msgstr "മുകളില്‍"
-
-#~ msgid "Dot item"
-#~ msgstr "ഡോട്ട് ഐറ്റം"
-
-#~ msgid "Number item"
-#~ msgstr "നംബര്‍ ഐറ്റം"
-
-#~ msgid "Roman item"
-#~ msgstr "റോമന്‍ ഐറ്റം"
-
-#~ msgid "Alphabeta item"
-#~ msgstr "ആല്‍ഫാബീറ്റാ ഐറ്റം"
-
-#~ msgid "Paste Quotation"
-#~ msgstr "കോട്ടേഷന്‍ ഒട്ടിക്കുക"
 
