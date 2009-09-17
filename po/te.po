@@ -1,22 +1,21 @@
-# translation of gtkhtml.gnome-2-26.te.po to Telugu
+# translation of gtkhtml.gnome-2-28.te.po to Telugu
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Krishna Babu K <kkrothap@redhat.com>, 2008, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml.gnome-2-26.te\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gtkhtml&component=general\n"
-"POT-Creation-Date: 2009-08-28 10:35+0000\n"
-"PO-Revision-Date: 2009-05-15 13:08+0530\n"
+"Project-Id-Version: gtkhtml.gnome-2-28.te\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gtkhtml&component=general\n"
+"POT-Creation-Date: 2009-08-31 11:09+0000\n"
+"PO-Revision-Date: 2009-09-17 19:02+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
 "\n"
 "\n"
 
@@ -993,34 +992,31 @@ msgstr "మీరు టైపుచేసిన విధంగా భావప
 #: ../components/editor/gtkhtml-editor-builder.ui.h:2
 #, no-c-format
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:3
 msgid "Alignment"
 msgstr "సర్దుబాటు"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:4
-#, fuzzy
 msgid "Alignment & Behavior"
-msgstr "<b>సర్దబాటు &amp; ప్రవర్తన</b>"
+msgstr "సర్దబాటు & ప్రవర్తన"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:5
-#, fuzzy
 msgid "Background"
-msgstr "బ్యాక్‌గ్రౌండ్ (_B):"
+msgstr "బ్యాక్‌గ్రౌండ్"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:6
 msgid "Background Image"
 msgstr "బ్యాక్‌గ్రౌండ్ ప్రతిబింబము"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:7
-#, fuzzy
 msgid "Blue Ink"
 msgstr "బులుగు సిరా"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:8
 msgid "Bottom"
-msgstr ""
+msgstr "క్రింద"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:9
 msgid "C_ell"
@@ -1083,7 +1079,6 @@ msgid "General"
 msgstr "సాధారణ"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:24
-#, fuzzy
 msgid "Graph Paper"
 msgstr "రేఖాచిత్ర కాగితం"
 
@@ -1100,9 +1095,8 @@ msgid "Image Properties"
 msgstr "ప్రతిబింబము లక్షణాలు"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:28
-#, fuzzy
 msgid "Layout"
-msgstr "<b>వాస్తు</b>"
+msgstr "నమూనా"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:29
 msgid "Left"
@@ -1118,7 +1112,7 @@ msgstr "లింకు లక్షణాలు"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:32
 msgid "Middle"
-msgstr ""
+msgstr "మద్యన"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:33
 msgid "Midnight"
@@ -1141,7 +1135,6 @@ msgid "Paragraph Properties"
 msgstr "పరిచ్ఛేదము లక్షణాలు"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:38
-#, fuzzy
 msgid "Perforated Paper"
 msgstr "ముందుగారూపీకరించిన కాగితం"
 
@@ -1179,7 +1172,7 @@ msgstr "పాలిపోయిన (_h)"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:47
 msgid "Scope"
-msgstr ""
+msgstr "స్కోపు"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:48
 msgid "Search _backwards"
@@ -1194,9 +1187,8 @@ msgid "Si_ze:"
 msgstr "పరిమాణ (_z):"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:51
-#, fuzzy
 msgid "Size"
-msgstr "పరిమాణము:"
+msgstr "పరిమాణము"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:52
 msgid "Style"
@@ -1216,7 +1208,7 @@ msgstr "పాఠ్యము లక్షణములు"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:56
 msgid "Top"
-msgstr ""
+msgstr "పైన"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:57
 msgid "Width:"
@@ -1323,12 +1315,8 @@ msgid "_Y-Padding:"
 msgstr "_Y-పాడింగ్:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:89
-#, fuzzy
 msgid "follow"
-msgstr ""
-"px\n"
-"%\n"
-"అనుసరించు"
+msgstr "అనుసరించు"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:90
 msgid "px"
@@ -1561,682 +1549,3 @@ msgstr "ముద్రణ కొరకు అప్రమేయ ఫాంటు
 msgid "GtkHTML Test"
 msgstr "GtkHTML పరిశీలన"
 
-#~ msgid "_Indifferent"
-#~ msgstr "భిన్నముకాని (_I)"
-
-#, fuzzy
-#~ msgid "_Tongue"
-#~ msgstr "నాలుక (_g)"
-
-#~ msgid "_Frown"
-#~ msgstr "చిరాకు (_F)"
-
-#~ msgid "_Undecided"
-#~ msgstr "నిర్ధారణకాని (_U)"
-
-#~ msgid "<b>Alignment</b>"
-#~ msgstr "<b>సర్దబాటు</b>"
-
-#~ msgid "<b>Background Image</b>"
-#~ msgstr "<b>బ్యాక్‌గ్రౌండ్ ప్రతిబింబము</b>"
-
-#~ msgid "<b>Background</b>"
-#~ msgstr "<b>బ్యాక్‌గ్రౌండ్</b>"
-
-#~ msgid "<b>Colors</b>"
-#~ msgstr "<b>వర్ణములు</b>"
-
-#~ msgid "<b>General</b>"
-#~ msgstr "<b>సాదారణ</b>"
-
-#~ msgid "<b>Link</b>"
-#~ msgstr "<b>లింకు</b>"
-
-#~ msgid "<b>Scope</b>"
-#~ msgstr "<b>వ్యాప్తి</b>"
-
-#~ msgid "<b>Size</b>"
-#~ msgstr "<b>పరిమాణము</b>"
-
-#~ msgid "<b>Style</b>"
-#~ msgstr "<b>శైలి</b>"
-
-#~ msgid ""
-#~ "Left\n"
-#~ "Center\n"
-#~ "Right"
-#~ msgstr ""
-#~ "ఎడమ\n"
-#~ "మధ్య\n"
-#~ "కుడి"
-
-#~ msgid ""
-#~ "None\n"
-#~ "Perforated Paper\n"
-#~ "Blue Ink\n"
-#~ "Paper\n"
-#~ "Ribbon\n"
-#~ "Midnight\n"
-#~ "Confidential\n"
-#~ "Draft\n"
-#~ "Graph Paper"
-#~ msgstr ""
-#~ "ఏదీకాదు\n"
-#~ "బెజ్జములున్న కాగితం\n"
-#~ "నీలము సిరా\n"
-#~ "కాగితం\n"
-#~ "రిబ్బన్\n"
-#~ "అర్ధరాత్రి\n"
-#~ "అతిరహస్యము\n"
-#~ "డ్రాఫ్ట్‍\n"
-#~ "రేఖాచిత్ర కాగితం"
-
-#~ msgid ""
-#~ "Top\n"
-#~ "Middle\n"
-#~ "Bottom"
-#~ msgstr ""
-#~ "పైన\n"
-#~ "మద్యన\n"
-#~ "క్రిందన"
-
-#~ msgid ""
-#~ "px\n"
-#~ "%"
-#~ msgstr ""
-#~ "px\n"
-#~ "%"
-
-#~ msgid "Alphabetical List"
-#~ msgstr "అక్షరమాల జాబితా"
-
-#~ msgid "Bulleted List"
-#~ msgstr "బుల్లెటెడ్ జాబితా"
-
-#~ msgid "Center justifies the paragraphs"
-#~ msgstr "పరిచ్ఛేదాన్ని మధ్య అనునది నిర్ణయిస్తుంది"
-
-#~ msgid "Check spelling of the document"
-#~ msgstr "పత్రము యొక్క స్పెల్లింగ్ ను పరిశీలించుము"
-
-#~ msgid "Copy"
-#~ msgstr "నకలు"
-
-#~ msgid "Copy selection to clipboard"
-#~ msgstr "ఎంపికను క్లిప్ పలకానికి నకలు తీయుము"
-
-#~ msgid "Copy the selection"
-#~ msgstr "ఎంపికను నకలు తీయుము"
-
-#~ msgid "Cut"
-#~ msgstr "కోయుము"
-
-#~ msgid "Cut selection to clipboard"
-#~ msgstr "ఎంపికను క్లిప్‌బోర్డుకు కత్తిరించుము"
-
-#~ msgid "Cut the selection"
-#~ msgstr "ఎంపికచేసినదాన్ని కత్తిరించుము"
-
-#~ msgid "Emoti_con"
-#~ msgstr "భావముతెల్పుప్రతిమ (_c)"
-
-#~ msgid "Find _Again"
-#~ msgstr "మరలా కనుగొనుము (_A)"
-
-#~ msgid "Find again"
-#~ msgstr "మరలా కనుగొనుము"
-
-#~ msgid "Find and Replace"
-#~ msgstr "కనుగొనుము మరియు పునఃస్థాపించుము"
-
-#~ msgid "Find and replace"
-#~ msgstr "కనుగొనుము మరియు పునఃస్థాపించుము"
-
-#~ msgid "I_nsert"
-#~ msgstr "చేర్చుము (_n)"
-
-#~ msgid "Image"
-#~ msgstr "ప్రతిబింబము"
-
-#~ msgid "Insert Crying emoticon into document..."
-#~ msgstr "పత్రములోనికి రోధిస్తున్న భావముగలప్రతిమను చేర్చుము..."
-
-#~ msgid "Insert Frown emoticon into document..."
-#~ msgstr "చిరాకు భావముగలప్రతిమను పత్రములోనికి చేర్చుము..."
-
-#~ msgid "Insert HTML file into document..."
-#~ msgstr "పత్రములోనికి HTML దస్త్రమును చేర్చుము..."
-
-#~ msgid "Insert HTML link into document..."
-#~ msgstr "పత్రములోనికి HTML లింకును చేర్చుము..."
-
-#~ msgid "Insert HTML template into document..."
-#~ msgstr "పత్రములోనికి HTML మాదిరిని చేర్చుము..."
-
-#~ msgid "Insert Indifferent emoticon into document..."
-#~ msgstr "పత్రములోనికి భేధములేని భావముగలప్రతిమ ను చేర్చుము..."
-
-#~ msgid "Insert Laughing emoticon into document..."
-#~ msgstr "పత్రములోనికి నవ్వుతున్న భావముగలప్రతిమను చేర్చుము..."
-
-#~ msgid "Insert Oh no! emoticon into document..."
-#~ msgstr "పత్రములోనికి ఒహ్ వద్దు! భావముగలప్రతిమ ను చేర్చుము..."
-
-#~ msgid "Insert Sick emoticon into document..."
-#~ msgstr "పత్రములోనికి నలత భావముగలప్రతిమ ను ప్రవేశపెట్టండి..."
-
-#~ msgid "Insert Smile emoticon into document..."
-#~ msgstr "పత్రములోనికి చిరునవ్వు భావముగలప్రతిమను చేర్చుము..."
-
-#~ msgid "Insert Surprised emoticon into document..."
-#~ msgstr "పత్రములోనికి ఆశ్చర్య భావముగలప్రతిమ ను చేర్చుము..."
-
-#~ msgid "Insert Tongue emoticon into document..."
-#~ msgstr "పత్రములోనికి నాలుకచూపిన భావముగలప్రతిమ ను చేర్చుము..."
-
-#~ msgid "Insert Undecided emoticon into document..."
-#~ msgstr "పత్రములోనికి మీమాంస భావముగలప్రతిమ ను చేర్చుము..."
-
-#~ msgid "Insert Wink emoticon into document..."
-#~ msgstr "పత్రములోనికి కనుసైగ భావముగలప్రతిమ ను చేర్చుము..."
-
-#~ msgid "Insert image"
-#~ msgstr "ప్రతిబింబమును చేర్చుము"
-
-#~ msgid "Insert image into document..."
-#~ msgstr "పత్రములోనికి ప్రతిబింబమును చేర్చుము..."
-
-#~ msgid "Insert link"
-#~ msgstr "లింకును చేర్చుము..."
-
-#~ msgid "Insert rule"
-#~ msgstr "నియమాన్ని చేర్చుము"
-
-#~ msgid "Insert rule into document..."
-#~ msgstr "పత్రములోనికి నియమాన్ని చేర్చుము..."
-
-#~ msgid "Insert table"
-#~ msgstr "పట్టికను చేర్చుము"
-
-#~ msgid "Insert table into document..."
-#~ msgstr "పత్రములోనికి పట్టికను చేర్చుము..."
-
-#~ msgid "Insert text file into document..."
-#~ msgstr "పత్రములోనికి పాఠ్యపు దస్త్రాన్ని చేర్చుము..."
-
-#~ msgid "Left justifies the paragraphs"
-#~ msgstr "పరిచ్ఛేదాన్ని ఎడమవైపుకు సర్దబాటుచేయుము"
-
-#~ msgid "Make the current Paragraph style Normal"
-#~ msgstr "ప్రస్తుత పరిచ్ఛేదము యొక్క శైలి ని సాదారణము చేయుము"
-
-#~ msgid "Make the current Paragraph style Preformat"
-#~ msgstr "ప్రస్తుత పరిచ్ఛేద శైలిని ముందుగారూపీకరించుము"
-
-#~ msgid "Make the current paragraph a bulleted list"
-#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును బుల్లెటెడ్ జాబితా చేయుము"
-
-#~ msgid "Make the current paragraph a list with roman numerals"
-#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును రొమన్ సంఖ్యల తో జాబితా చేయుము"
-
-#~ msgid "Make the current paragraph a numbered list"
-#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును సంఖ్యల జాబితా చేయుము"
-
-#~ msgid "Make the current paragraph an H1 header"
-#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక H1 పీఠిక చేయుము"
-
-#~ msgid "Make the current paragraph an H2 header"
-#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక H2 పీఠిక చేయుము"
-
-#~ msgid "Make the current paragraph an H3 header"
-#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక H3 పీఠిక చేయుము"
-
-#~ msgid "Make the current paragraph an H4 header"
-#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక H4 పీఠిక చేయుము"
-
-#~ msgid "Make the current paragraph an H5 header"
-#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక H5 పీఠిక చేయుము"
-
-#~ msgid "Make the current paragraph an H6 header"
-#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక H6 పీఠిక చేయుము"
-
-#~ msgid "Make the current paragraph an address"
-#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును ఒక చిరునామా చేయుము"
-
-#~ msgid "Make the current paragraph an alphabetical list"
-#~ msgstr "ప్రస్తుత పరిచ్ఛేదమును అక్షరమాల జాబితా చేయుము"
-
-#~ msgid "Normal"
-#~ msgstr "సాదారణ"
-
-#~ msgid "Numbered List"
-#~ msgstr "సంఖ్యల జాబితా"
-
-#~ msgid "Oh _No!"
-#~ msgstr "ఓహ్ వద్దు (_N)!"
-
-#~ msgid "Paste"
-#~ msgstr "అతికించు"
-
-#~ msgid "Paste from clipboard"
-#~ msgstr "క్లిప్ పలకం నుండి అతికించుము"
-
-#~ msgid "Paste the clipboard"
-#~ msgstr "క్లిప్ పలకాన్ని అతికించుము"
-
-#~ msgid "Paste the clipboard as a quotation"
-#~ msgstr "క్లిప్‌బోర్డును ఒక కొటేషన్ వలె అతికించు"
-
-#~ msgid "Preformat"
-#~ msgstr "ముందుగారూపీకరించిన"
-
-#~ msgid "Redo"
-#~ msgstr "మళ్ళీచేయి"
-
-#~ msgid "Redo previously undone change"
-#~ msgstr "గతంలో రద్దుచేసిన మార్పును మళ్ళీచేయి"
-
-#~ msgid "Redo the undone action"
-#~ msgstr "రద్దుచేసిన చర్యను మళ్ళీచేయి"
-
-#~ msgid "Right justifies the paragraphs"
-#~ msgstr "పరిచ్ఛేదమును కుడివైపు సర్దబాటుచేయుము"
-
-#~ msgid "Roman Numeral List"
-#~ msgstr "రోమన్ సాంఖ్యక జాబితా"
-
-#~ msgid "Rule"
-#~ msgstr "నియమం"
-
-#~ msgid "Select the entire contents of the document"
-#~ msgstr "పత్రము యొక్క అన్ని విషములను ఎంపికచేయుము"
-
-#~ msgid "Strikeout"
-#~ msgstr "కొట్టిపారేయుము"
-
-#~ msgid "Subscript"
-#~ msgstr "ఉపలిపి"
-
-#~ msgid "Superscript"
-#~ msgstr "ఉచ్ఛలిపి"
-
-#~ msgid "Te_mplate..."
-#~ msgstr "మాదిరి (_m)..."
-
-#~ msgid "Typewriter"
-#~ msgstr "టైపుచేయునది"
-
-#~ msgid "Undo"
-#~ msgstr "చేయవద్దు"
-
-#~ msgid "Undo previous changes"
-#~ msgstr "గంతంలో చేసిన మార్పులను రద్దుచేయి"
-
-#~ msgid "Undo the last action"
-#~ msgstr "చినరి చర్యను రద్దుచేయి"
-
-#~ msgid "_Font Size"
-#~ msgstr "ఫాంటు పరిమాణం (_F)"
-
-#~ msgid "_Heading"
-#~ msgstr "హెడ్డింగ్ (_H)"
-
-#~ msgid "_Page..."
-#~ msgstr "పుట (_P)..."
-
-#~ msgid "_Paragraph..."
-#~ msgstr "పరిచ్ఛేదము (_P)..."
-
-#~ msgid "_Replace..."
-#~ msgstr "పునఃస్థాపించుము (_R)..."
-
-#~ msgid "_Style"
-#~ msgstr "శైలి (_S)"
-
-#~ msgid "_Text..."
-#~ msgstr "పాఠ్యము (_T)..."
-
-#~ msgid "GNOME HTML Editor"
-#~ msgstr "GNOME HTML కూర్పరి"
-
-#~ msgid "GNOME HTML Editor Control"
-#~ msgstr "GNOME HTML కూర్పరి నియంత్రిక"
-
-#~ msgid "GNOME HTML Editor Factory"
-#~ msgstr "GNOME HTML కూర్పరి ఫాక్టరి"
-
-#~ msgid "Background Image File Path"
-#~ msgstr "బ్యాక్‌గ్రౌండ్ ప్రతిబింబపు దస్త్రం పాత్"
-
-#~ msgid "Template"
-#~ msgstr "మాదిరి"
-
-#~ msgid "Text"
-#~ msgstr "పాఠ్యము"
-
-#~ msgid "Paragraph"
-#~ msgstr "పరిచ్ఛేదము"
-
-#~ msgid "Page"
-#~ msgstr "పుట"
-
-#~ msgid "color preview"
-#~ msgstr "వర్ణము ఉపదర్శనం"
-
-#~ msgid "Custom Color:"
-#~ msgstr "మలుచుకున్న వర్ణము:"
-
-#~ msgid "purplish blue"
-#~ msgstr "వంకాయ బులుగు"
-
-#~ msgid "dark purple"
-#~ msgstr "ముదురు వంకాయ"
-
-#~ msgid "sky blue"
-#~ msgstr "అకాశపు బులుగు"
-
-#~ msgid "Popup"
-#~ msgstr "పాప్అప్"
-
-#~ msgid "GtkHTML Editor Control"
-#~ msgstr "GtkHTML కూర్పరి నియంత్రిక"
-
-#~ msgid "    "
-#~ msgstr "    "
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid ""
-#~ "-2\n"
-#~ "-1\n"
-#~ "Standard\n"
-#~ "+1\n"
-#~ "+2\n"
-#~ "+3\n"
-#~ "+4"
-#~ msgstr ""
-#~ "-2\n"
-#~ "-1\n"
-#~ "ప్రామాణిక\n"
-#~ "+1\n"
-#~ "+2\n"
-#~ "+3\n"
-#~ "+4"
-
-#~ msgid "<b>Alignment &amp; Behaviour</b>"
-#~ msgstr "<b>సర్దుబాటు &amp; ప్రవర్తన</b>"
-
-#~ msgid "<span weight=\"bold\">General</span>"
-#~ msgstr "<span weight=\"bold\">సాదారణ</span>"
-
-#~ msgid "<span weight=\"bold\">Layout</span>"
-#~ msgstr "<span weight=\"bold\">వాస్తు</span>"
-
-#~ msgid "<span weight=\"bold\">Link</span>"
-#~ msgstr "<span weight=\"bold\">లింకు</span>"
-
-#~ msgid "<span weight=\"bold\">Size</span>"
-#~ msgstr "<span weight=\"bold\">పరిమాణం</span>"
-
-#~ msgid "<span weight=\"bold\">Style</span>"
-#~ msgstr "<span weight=\"bold\">శైలి</span>"
-
-#~ msgid "<span weight=\"bold\">Template</span>"
-#~ msgstr "<span weight=\"bold\">మాదిరి</span>"
-
-#~ msgid "Alignment:"
-#~ msgstr "సర్దుబాటు:"
-
-#~ msgid "Cell"
-#~ msgstr "అర"
-
-#~ msgid "Colu_mns:"
-#~ msgstr "నిలువువరుసలు (_m):"
-
-#~ msgid "Column span:"
-#~ msgstr "నిలువువరుస స్పాన్:"
-
-#~ msgid "Enable"
-#~ msgstr "చేతనం"
-
-#~ msgid "Hea_der style"
-#~ msgstr "పీఠిక శైలి (_d)"
-
-#~ msgid "Horizontal alignment:"
-#~ msgstr "అడ్డముగా సర్దుబాటు:"
-
-#~ msgid "Horizontal:"
-#~ msgstr "అడ్డముగా:"
-
-#~ msgid ""
-#~ "Left\n"
-#~ "Center\n"
-#~ "Right\n"
-#~ "None"
-#~ msgstr ""
-#~ "ఎడమ\n"
-#~ "మధ్య\n"
-#~ "కుడి\n"
-#~ "ఏదీకాదు"
-
-#~ msgid "Link properties"
-#~ msgstr "లింకు లక్షణాలు"
-
-#~ msgid "Row span:"
-#~ msgstr "అడ్డువరుస స్పాన్:"
-
-#~ msgid "Shade"
-#~ msgstr "ఛాయ"
-
-#~ msgid "Vertical:"
-#~ msgstr "నిట్టనిలువు:"
-
-#~ msgid "xxxxxxxxxxxxxx"
-#~ msgstr "xxxxxxxxxxxxxx"
-
-#~ msgid "URL:"
-#~ msgstr "URL:"
-
-#~ msgid "Description:"
-#~ msgstr "వివరణ:"
-
-#~ msgid "Insert"
-#~ msgstr "చేర్చుము"
-
-#~ msgid "Error loading file '%s': %s"
-#~ msgstr "దస్త్రం '%s' ను నింపుటలో దోషం: %s"
-
-#~ msgid "Format"
-#~ msgstr "ఫార్మెట్"
-
-#~ msgid "Roman List"
-#~ msgstr "రోమన్ జాబితా"
-
-#~ msgid "Header 1"
-#~ msgstr "పీఠిక 1"
-
-#~ msgid "Header 2"
-#~ msgstr "పీఠిక 2"
-
-#~ msgid "Header 3"
-#~ msgstr "పీఠిక 3"
-
-#~ msgid "Header 4"
-#~ msgstr "పీఠిక 4"
-
-#~ msgid "Header 5"
-#~ msgstr "పీఠిక 5"
-
-#~ msgid "Header 6"
-#~ msgstr "పీఠిక 6"
-
-#~ msgid "Address"
-#~ msgstr "చిరునామా"
-
-#~ msgid "Text Style..."
-#~ msgstr "పాఠ్యము శైలి..."
-
-#~ msgid "Paragraph Style..."
-#~ msgstr "పరిచ్ఛేదము శైలి..."
-
-#~ msgid "Link Style..."
-#~ msgstr "లింకు శైలి..."
-
-#~ msgid "Rule Style..."
-#~ msgstr "నియమం శైలి..."
-
-#~ msgid "Image Style..."
-#~ msgstr "ప్రతిబింబము శైలి..."
-
-#~ msgid "Cell Style..."
-#~ msgstr "అర శైలి..."
-
-#~ msgid "Table Style..."
-#~ msgstr "పట్టిక శైలి..."
-
-#~ msgid "Page Style..."
-#~ msgstr "పుట శైలి..."
-
-#~ msgid "Table insert"
-#~ msgstr "పట్టికను చేర్చుము"
-
-#~ msgid "Row above"
-#~ msgstr "అడ్డువరుస పైన"
-
-#~ msgid "Row below"
-#~ msgstr "అడ్డువరుస క్రింద"
-
-#~ msgid "Column before"
-#~ msgstr "నిలువువరుస ముందు"
-
-#~ msgid "Column after"
-#~ msgstr "నిలువువరుస తర్వాత"
-
-#~ msgid "Table delete"
-#~ msgstr "పట్టిక ను తొలగించు"
-
-#~ msgid "Cell contents"
-#~ msgstr "అర సారములు"
-
-#~ msgid "Add Word to"
-#~ msgstr "పదమును దీనికి జతచేయుము"
-
-#~ msgid "%s Dictionary"
-#~ msgstr "%s నిఘంటువు"
-
-#~ msgid "Replace confirmation"
-#~ msgstr "నిర్ధారణను పునఃస్థాపించుము"
-
-#~ msgid "Search _backward"
-#~ msgstr "వెనుకకు వెతుకుము (_b)"
-
-#~ msgid "_Backward"
-#~ msgstr "వెనుకకు (_B)"
-
-#~ msgid "_Regular Expression"
-#~ msgstr "రెగ్యులర్ ఎక్సప్రెషన్ (_R)"
-
-#~ msgid "Input the words you want to search here"
-#~ msgstr "మీరు ఇక్కడ శోధించాలని అనుకున్న పదాలను ప్రవేశపెట్టండి"
-
-#~ msgid ""
-#~ "Unable to add word to dictionary,\n"
-#~ "language settings are broken.\n"
-#~ msgstr ""
-#~ "పదాన్ని నిఘంటువుకు జతచేయలేకపోతోంది,\n"
-#~ "భాషా అమర్పులు చెడినవి.\n"
-
-#~ msgid "No misspelled word found"
-#~ msgstr "ఏ తప్పుగాస్పెల్ చేసిన పదం కనబడలేదు"
-
-#~ msgid "Spell checker"
-#~ msgstr "స్పెల్ పరిశీలకి"
-
-#~ msgid "Note"
-#~ msgstr "గమనిక"
-
-#~ msgid "Place your text here"
-#~ msgstr "మీ పాఠ్యమును ఇచట ఉంచుము"
-
-#~ msgid "Image frame"
-#~ msgstr "ప్రతిబింబము చట్రం"
-
-#~ msgid "Template Labels"
-#~ msgstr "మాదిరి లేబుళ్ళు"
-
-#~ msgid "Open file..."
-#~ msgstr "దస్త్రమును తెరువుము..."
-
-#~ msgid "Save file as..."
-#~ msgstr "దస్త్రాన్ని ఇలా దాయుము..."
-
-#~ msgid "GtkHTML Editor Test Container"
-#~ msgstr "GtkHTML కూర్పరి పరిశీలన చేయునది"
-
-#~ msgid "Left align"
-#~ msgstr "ఎడమ సర్దుబాటు"
-
-#~ msgid "Right align"
-#~ msgstr "కుడి సర్దుబాటు"
-
-#~ msgid "Toggle typewriter font style"
-#~ msgstr "టైపుచేయుదాని ఫాంటు శైలిమద్య మారుము"
-
-#~ msgid "Makes the text bold"
-#~ msgstr "పాఠ్యము బోల్డ్ గా చేయుము"
-
-#~ msgid "Makes the text italic"
-#~ msgstr "పాఠ్యమును ఇటాలిక్ చేయుము"
-
-#~ msgid "Underlines the text"
-#~ msgstr "పాఠ్యము క్రింద గీతఉంచుము"
-
-#~ msgid "Strikes out the text"
-#~ msgstr "పాఠ్యమును కొట్టివేయుము"
-
-#~ msgid "Unindent"
-#~ msgstr "క్రమములేని"
-
-#~ msgid "Indents the paragraphs less"
-#~ msgstr "పరిచ్ఛేదములను తక్కువ ఖాళీలకు క్రమముచేయుము"
-
-#~ msgid "Indent"
-#~ msgstr "క్రమము"
-
-#~ msgid "Indents the paragraphs more"
-#~ msgstr "పరిచ్ఛేదములను ఎక్కువఖాళీ లకు క్రమముచేయుము"
-
-#~ msgid "Text Color"
-#~ msgstr "పాఠ్యము వర్ణము"
-
-#~ msgid "Sample"
-#~ msgstr "మచ్చుకు"
-
-#~ msgid ""
-#~ "The edited object was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "సరికూర్చబడిన ఆబ్జక్టు పత్రమునుండి తీసివేయబడింది.\n"
-#~ "మీ మార్పులను ఆపాదించలేము."
-
-#~ msgid "Print pre_view"
-#~ msgstr "ముద్రణ ఉపదర్శనం (_v)"
-
-#~ msgid "Print preview"
-#~ msgstr "ముద్రణ ఉపదర్శనం"
-
-#~ msgid "GtkHTML Test Application"
-#~ msgstr "GtkHTML పరిశీలన అనువర్తనం"
-
-#~ msgid "Su_rprised"
-#~ msgstr "అశ్చముచెందిన (_r)"
-
-#~ msgid "_Laughing"
-#~ msgstr "నవ్వుతున్న (_L)"
-
-#~ msgid "Could not load glade file."
-#~ msgstr "గ్లేడ్ దస్త్రాన్ని నింపలేకపోయింది."
-
-#~ msgid "Transparent"
-#~ msgstr "పారదర్శకం"
