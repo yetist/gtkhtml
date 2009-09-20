@@ -1,3 +1,4 @@
+# translation of ml.po to
 # translation of gtkhtml.gnome-2-28.ml.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) 2003-2008 gtkhtml'S COPYRIGHT HOLDER.
@@ -10,10 +11,10 @@
 # പ്രവീണ്‍ അരിമ്പ്രത്തൊടിയില്‍ <pravi.a@gmail.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml.gnome-2-28.ml\n"
+"Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gtkhtml&component=general\n"
 "POT-Creation-Date: 2009-08-11 14:04+0000\n"
-"PO-Revision-Date: 2009-09-12 23:10+0530\n"
+"PO-Revision-Date: 2009-09-20 10:34+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1530,7 +1531,7 @@ msgstr "ലിങ്കിനുളള പുതിയ നിറം"
 
 #: ../gtkhtml/gtkhtml.c:3111
 msgid "The color of new link elements"
-msgstr "പുതിയ കണ്ണി എലമെന്‍റുകളുടെ നിറം"
+msgstr "പുതിയ കണ്ണി എലമെന്റുകളുടെ നിറം"
 
 #: ../gtkhtml/gtkhtml.c:3116
 msgid "Visited Link Color"
@@ -1538,7 +1539,7 @@ msgstr "പരിശോധിച്ച കണ്ണിയുടെ നിറം"
 
 #: ../gtkhtml/gtkhtml.c:3117
 msgid "The color of visited link elements"
-msgstr "പരിശോധിച്ച കണ്ണി എലമെന്‍റുകളുടെ നിറം"
+msgstr "പരിശോധിച്ച കണ്ണി എലമെന്റുകളുടെ നിറം"
 
 #: ../gtkhtml/gtkhtml.c:3122
 msgid "Active Link Color"
@@ -1546,7 +1547,7 @@ msgstr "പ്രവര്‍ത്തനത്തിലുളള കണ്ണ�
 
 #: ../gtkhtml/gtkhtml.c:3123
 msgid "The color of active link elements"
-msgstr "പ്രവര്‍ത്തനത്തിലുളള കണ്ണി എലമെന്‍റുകളുടെ നിറം"
+msgstr "പ്രവര്‍ത്തനത്തിലുളള കണ്ണി എലമെന്റുകളുടെ നിറം"
 
 #: ../gtkhtml/gtkhtml.c:3128
 msgid "Spelling Error Color"
