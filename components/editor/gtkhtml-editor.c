@@ -384,7 +384,7 @@ editor_method_event (GtkHTML *html,
 	guint signal_id;
 
 	/* GtkHTML event arguments are either NULL or a single string. */
-	if (G_VALUE_HOLDS (args, G_TYPE_STRING))
+	if (args != NULL && G_VALUE_HOLDS (args, G_TYPE_STRING))
 		string = g_value_get_string (args);
 
 	switch (event) {
