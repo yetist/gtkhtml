@@ -2,6 +2,7 @@
 # Run this to generate all the initial makefiles, etc.
 
 REQUIRED_AUTOMAKE_VERSION=1.9
+REQUIRED_LIBTOOL_VERSION=2.2
 
 srcdir=`dirname $0`
 test -z "$srcdir" && srcdir=.

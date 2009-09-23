@@ -8,10 +8,6 @@ SUBDIRS =					\
 CLEANFILES =					\
 	po/.intltool-merge-cache
 
-DISTCLEANFILES =				\
-	$(builddir)/doltcompile			\
-	$(builddir)/doltlibtool
-
 MAINTAINERCLEANFILES =				\
 	$(srcdir)/INSTALL			\
 	$(srcdir)/aclocal.m4			\
