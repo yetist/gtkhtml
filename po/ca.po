@@ -3,15 +3,15 @@
 #
 # Jordi Negrevernis i Font, 2002
 # Xavier Conde Rueda <xavi.conde@gmail.com>, 2004.
-# Gil Forcada <gilforcada@guifi.net>, 2005, 2008.
+# Gil Forcada <gilforcada@guifi.net>, 2005, 2008, 2009.
 # Josep Puigdemont <josep.puigdemont@gmail.com>, 2006, 2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-28 12:24+0200\n"
-"PO-Revision-Date: 2009-08-28 12:25+0200\n"
+"POT-Creation-Date: 2009-10-06 18:18+0200\n"
+"PO-Revision-Date: 2009-10-06 18:19+0200\n"
 "Last-Translator: Gil Forcada <gilforcada@guifi.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -998,21 +998,18 @@ msgid "Alignment"
 msgstr "Alineació"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:4
-#, fuzzy
 msgid "Alignment & Behavior"
-msgstr "<b>Alineació i comportament</b>"
+msgstr "Alineació i comportament"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:5
-#, fuzzy
 msgid "Background"
-msgstr "_Fons:"
+msgstr "Fons"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:6
 msgid "Background Image"
 msgstr "Imatge de fons"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:7
-#, fuzzy
 msgid "Blue Ink"
 msgstr "Tinta blava"
 
@@ -1081,7 +1078,6 @@ msgid "General"
 msgstr "General"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:24
-#, fuzzy
 msgid "Graph Paper"
 msgstr "Paper de gràfics"
 
@@ -1098,9 +1094,8 @@ msgid "Image Properties"
 msgstr "Propietats de la imatge"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:28
-#, fuzzy
 msgid "Layout"
-msgstr "<b>Disposició</b>"
+msgstr "Disposició"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:29
 msgid "Left"
@@ -1139,7 +1134,6 @@ msgid "Paragraph Properties"
 msgstr "Propietats del paràgraf"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:38
-#, fuzzy
 msgid "Perforated Paper"
 msgstr "Paper perforat"
 
@@ -1177,7 +1171,7 @@ msgstr "_Ombrejat"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:47
 msgid "Scope"
-msgstr ""
+msgstr "Abast"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:48
 msgid "Search _backwards"
@@ -1192,9 +1186,8 @@ msgid "Si_ze:"
 msgstr "_Mida:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:51
-#, fuzzy
 msgid "Size"
-msgstr "Mida:"
+msgstr "Mida"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:52
 msgid "Style"
@@ -1321,12 +1314,8 @@ msgid "_Y-Padding:"
 msgstr "Farciment _Y:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:89
-#, fuzzy
 msgid "follow"
-msgstr ""
-"px\n"
-"%\n"
-"segueix"
+msgstr "segueix"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:90
 msgid "px"
