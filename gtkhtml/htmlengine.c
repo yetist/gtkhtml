@@ -6152,7 +6152,7 @@ html_engine_spell_word_is_valid (HTMLEngine *e)
 	GList *cur;
 	gboolean valid = TRUE;
 	gint offset;
-	gchar prev, curr;
+	gunichar prev, curr;
 	gboolean cited;
 	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
 
