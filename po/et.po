@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gtkhtml&component=general\n"
 "POT-Creation-Date: 2009-07-02 16:41+0000\n"
-"PO-Revision-Date: 2009-07-20 14:56+0300\n"
+"PO-Revision-Date: 2009-10-12 09:25+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -272,7 +272,7 @@ msgstr "N_aerev"
 
 #. Translators: :-|
 msgid "_Plain"
-msgstr "_Tavaline"
+msgstr "_Tõsine"
 
 #. Translators: :-!
 msgid "Smi_rk"
@@ -441,13 +441,13 @@ msgid "Center Alignment"
 msgstr "Joondamine keskele"
 
 msgid "_Left"
-msgstr "_Vasak"
+msgstr "_Vasakul"
 
 msgid "Left Alignment"
 msgstr "Joondamine vasakule"
 
 msgid "_Right"
-msgstr "_Parem"
+msgstr "_Paremal"
 
 msgid "Right Alignment"
 msgstr "Joondamine paremale"
@@ -486,13 +486,13 @@ msgid "Header _6"
 msgstr "Päis _6"
 
 msgid "A_ddress"
-msgstr "_Aadress"
+msgstr "Aa_dress"
 
 msgid "_Preformatted"
 msgstr "_Eelvormindatud"
 
 msgid "_Bulleted List"
-msgstr "_Täpploetelu"
+msgstr "Tä_pploetelu"
 
 msgid "_Roman Numeral List"
 msgstr "_Rooma numbrite loetelu"
@@ -531,7 +531,7 @@ msgid "Pa_ge..."
 msgstr "_Lehekülg..."
 
 msgid "Font _Size"
-msgstr "_Kirja suurus"
+msgstr "Kirja suu_rus"
 
 msgid "_Font Style"
 msgstr "_Kirja laad"
@@ -880,7 +880,7 @@ msgid "S_haded"
 msgstr "_Varjutatud"
 
 msgid "Scope"
-msgstr ""
+msgstr "Skoop"
 
 msgid "Search _backwards"
 msgstr "Otsi _tahapoole"
@@ -979,7 +979,7 @@ msgid "_With:"
 msgstr "_Järgnevaga:"
 
 msgid "_Wrap Text"
-msgstr "_Ridade murdmine"
+msgstr "Ridade _murdmine"
 
 msgid "_X-Padding:"
 msgstr "_X-polsterdus:"
@@ -988,7 +988,7 @@ msgid "_Y-Padding:"
 msgstr "_Y-polsterdus:"
 
 msgid "follow"
-msgstr ""
+msgstr "tuletatud"
 
 msgid "px"
 msgstr "px"
