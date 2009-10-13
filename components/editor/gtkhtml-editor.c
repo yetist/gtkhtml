@@ -58,12 +58,12 @@ editor_alignment_changed_cb (GtkhtmlEditor *editor,
 static void
 editor_show_popup_menu (GtkhtmlEditor *editor,
                         GdkEventButton *event,
-                        HTMLObject *object)
+                        HTMLObject *object,
+			guint offset)
 {
 	GtkHTML *html;
 	GtkWidget *menu;
 	gboolean in_selection;
-	guint offset = 0;
 
 	html = gtkhtml_editor_get_html (editor);
 	menu = gtkhtml_editor_get_managed_widget (editor, "/context-menu");
@@ -111,7 +111,7 @@ editor_button_press_event_cb (GtkhtmlEditor *editor,
 	object = html_engine_get_object_at (
 		html->engine, event->x, event->y, &offset, FALSE);
 
-	editor_show_popup_menu (editor, event, object);
+	editor_show_popup_menu (editor, event, object, offset);
 
 	return FALSE;
 }
@@ -182,7 +182,7 @@ editor_popup_menu_cb (GtkhtmlEditor *editor)
 	html = gtkhtml_editor_get_html (editor);
 	object = html->engine->cursor->object;
 
-	editor_show_popup_menu (editor, NULL, object);
+	editor_show_popup_menu (editor, NULL, object, html->engine->cursor->offset);
 
 	return TRUE;
 }
