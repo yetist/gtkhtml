@@ -42,6 +42,7 @@
 #include "htmlengine-save.h"
 #include "htmlpainter.h"
 #include "htmlplainpainter.h"
+#include "htmlprinter.h"
 #include "htmlsearch.h"
 #include "htmlselection.h"
 #include "htmlsettings.h"
@@ -665,7 +666,7 @@ calc_min_width (HTMLObject *o,
 	gint w = 0;
 	gboolean add;
 
-	add = HTML_CLUEFLOW (o)->style == HTML_CLUEFLOW_STYLE_PRE;
+	add = HTML_CLUEFLOW (o)->style == HTML_CLUEFLOW_STYLE_PRE && !HTML_IS_PRINTER (painter);
 
 	cur = HTML_CLUE (o)->head;
 	while (cur) {
@@ -692,7 +693,7 @@ pref_left_margin (HTMLPainter *p, HTMLObject *o, gint indent)
 	gint margin = html_object_get_left_margin (o->parent, p, o->y, TRUE);
 
 	if (html_object_get_direction (o) == HTML_DIRECTION_RTL) {
-		if (HTML_CLUEFLOW (o)->style != HTML_CLUEFLOW_STYLE_PRE && HTML_IS_PLAIN_PAINTER(p))
+		if ((HTML_CLUEFLOW (o)->style != HTML_CLUEFLOW_STYLE_PRE || HTML_IS_PRINTER (p)) && HTML_IS_PLAIN_PAINTER (p))
 			return MAX (margin, o->width - (gint)(72 * (MAX (html_painter_get_space_width (p, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED, NULL),
 									html_painter_get_e_width (p, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED, NULL)))));
 	} else {
@@ -709,7 +710,7 @@ pref_right_margin (HTMLPainter *p, HTMLObject *o, gint indent)
 	gint margin = html_object_get_right_margin (o->parent, p, o->y, TRUE);
 
 	if (html_object_get_direction (o) != HTML_DIRECTION_RTL) {
-		if (HTML_CLUEFLOW (o)->style != HTML_CLUEFLOW_STYLE_PRE && HTML_IS_PLAIN_PAINTER(p))
+		if ((HTML_CLUEFLOW (o)->style != HTML_CLUEFLOW_STYLE_PRE || HTML_IS_PRINTER (p)) && HTML_IS_PLAIN_PAINTER (p))
 			return MIN (margin, 72 * (MAX (html_painter_get_space_width (p, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED, NULL),
 						       html_painter_get_e_width (p, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED, NULL))));
 	} else {
@@ -746,9 +747,9 @@ calc_margins (HTMLObject *o, HTMLPainter *painter, gint indent, gint *lmargin, g
 }
 
 static inline gint
-width_left (HTMLObject *o, gint x, gint rmargin)
+width_left (HTMLObject *o, gint x, gint rmargin, gboolean printing)
 {
-	return HTML_CLUEFLOW (o)->style == HTML_CLUEFLOW_STYLE_PRE ? G_MAXINT : rmargin - x;
+	return (!printing && HTML_CLUEFLOW (o)->style == HTML_CLUEFLOW_STYLE_PRE) ? G_MAXINT : rmargin - x;
 }
 
 static gint
@@ -948,13 +949,13 @@ layout_line (HTMLObject *o, HTMLPainter *painter, HTMLObject *begin,
 						  indent, &o->y, lmargin, rmargin);
 
 			/* is there enough space for this object? */
-			if (HTML_CLUEFLOW (o)->style != HTML_CLUEFLOW_STYLE_PRE && o->y != old_y && *rmargin - x < nb_width)
+			if ((HTML_IS_PRINTER (painter) || HTML_CLUEFLOW (o)->style != HTML_CLUEFLOW_STYLE_PRE) && o->y != old_y && *rmargin - x < nb_width)
 				break;
 			need_update_height = TRUE;
 		}
 
 		cur->y = o->ascent + a;
-		fit = html_object_fit_line (cur, painter, first, first, FALSE, width_left (o, x, *rmargin));
+		fit = html_object_fit_line (cur, painter, first, first, FALSE, width_left (o, x, *rmargin, HTML_IS_PRINTER (painter)));
 		first = FALSE;
 		if (fit == HTML_FIT_NONE)
 			break;
