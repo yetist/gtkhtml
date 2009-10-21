@@ -4481,8 +4481,7 @@ clipboard_paste_received_cb (GtkClipboard     *clipboard,
 			}
 
 			if (HTML_IS_TEXT (e->cursor->object))
-				html_text_magic_link (HTML_TEXT (e->cursor->object), e,
-						html_object_get_length (e->cursor->object));
+				html_text_magic_link (HTML_TEXT (e->cursor->object), e, 1);
 		}
 
 		if (utf8)
