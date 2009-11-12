@@ -5165,9 +5165,11 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_UNBLOCK_SELECTION:
 		html_engine_unblock_selection (html->engine);
 		break;
-
 	case GTK_HTML_COMMAND_IS_SELECTION_ACTIVE:
 		rv = html_engine_is_selection_active (html->engine);
+		break;
+	case GTK_HTML_COMMAND_UNSELECT_ALL:
+		gtk_html_unselect_all (html);
 		break;
 
 	default:
@@ -5924,6 +5926,19 @@ gtk_html_select_all (GtkHTML *html)
 	else {
 		html_engine_select_all (e);
 	}
+
+	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
+	update_primary_selection (html);
+}
+
+void
+gtk_html_unselect_all (GtkHTML *html)
+{
+	HTMLEngine *e;
+
+	e = html->engine;
+
+	html_engine_unselect_all (e);
 
 	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 	update_primary_selection (html);
