@@ -5150,6 +5150,9 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 			rv = move_selection (html, com_type);
 		}
 		break;
+	case GTK_HTML_COMMAND_SELECT_ALL:
+		gtk_html_select_all (html);
+		break;
 	case GTK_HTML_COMMAND_EDITABLE_ON:
 		gtk_html_set_editable (html, TRUE);
 		break;
@@ -5429,9 +5432,6 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 		break;
 	case GTK_HTML_COMMAND_SELECT_PARAGRAPH_EXTENDED:
 		gtk_html_select_paragraph_extended (html);
-		break;
-	case GTK_HTML_COMMAND_SELECT_ALL:
-		gtk_html_select_all (html);
 		break;
 	case GTK_HTML_COMMAND_CURSOR_POSITION_SAVE:
 		html_engine_edit_cursor_position_save (html->engine);
