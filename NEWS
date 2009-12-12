@@ -1,3 +1,19 @@
+GtkHTML-3.28.2 2009-12-14
+-------------------------
+
+Bug Fixes:
+	#471687 - Crash selecting mail content (Simon Brys)
+	#598159 - Context popup clears a selection (Milan Crha)
+	#600042 - Hyperlink dialog doesn't allow more hyperlinks (Milan Crha)
+
+Other Changes:
+	Add argument guards to gtk_html_command(). (Matthew Barnes)
+
+Translations:
+	Ivar Smolin (et)
+	Leonid Kanter (ru)
+
+
 GtkHTML-3.28.1 2009-10-19
 -------------------------
 
