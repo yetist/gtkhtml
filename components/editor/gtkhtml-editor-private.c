@@ -318,10 +318,6 @@ gtkhtml_editor_private_init (GtkhtmlEditor *editor)
 {
 	GtkhtmlEditorPrivate *priv = editor->priv;
 
-	GtkHTML *html;
-	GtkWidget *widget;
-	GtkToolbar *toolbar;
-	GtkToolItem *tool_item;
 	gchar *filename;
 	GError *error = NULL;
 
@@ -371,6 +367,20 @@ gtkhtml_editor_private_init (GtkhtmlEditor *editor)
 
 	gtk_builder_connect_signals (priv->builder, NULL);
 
+	/* Wait to construct the main window widgets
+	 * until the 'html' property is initialized. */
+}
+
+void
+gtkhtml_editor_private_constructed (GtkhtmlEditor *editor)
+{
+	GtkhtmlEditorPrivate *priv = editor->priv;
+
+	GtkHTML *html;
+	GtkWidget *widget;
+	GtkToolbar *toolbar;
+	GtkToolItem *tool_item;
+
 	/* Construct main window widgets. */
 
 	widget = gtkhtml_editor_get_managed_widget (editor, "/main-menu");
@@ -405,11 +415,8 @@ gtkhtml_editor_private_init (GtkhtmlEditor *editor)
 	priv->scrolled_window = g_object_ref (widget);
 	gtk_widget_show (widget);
 
-	widget = gtk_html_new ();
-	gtk_html_load_empty (GTK_HTML (widget));
-	gtk_html_set_editable (GTK_HTML (widget), TRUE);
+	widget = GTK_WIDGET (gtkhtml_editor_get_html (editor));
 	gtk_container_add (GTK_CONTAINER (priv->scrolled_window), widget);
-	priv->edit_area = g_object_ref (widget);
 	gtk_widget_show (widget);
 
 	/* Add some combo boxes to the "edit" toolbar. */
