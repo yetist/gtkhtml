@@ -213,51 +213,7 @@ editor_url_requested_cb (GtkhtmlEditor *editor,
                          const gchar *url,
                          GtkHTMLStream *stream)
 {
-	GtkHTML *html;
-	GMappedFile *mapped_file;
-	GtkHTMLStreamStatus status;
-	gchar *filename = NULL;
-	GError *error = NULL;
-
-	html = gtkhtml_editor_get_html (editor);
-
-	/* We can only handle local URLs here. */
-	if (g_ascii_strncasecmp (url, "file:/", 6) != 0) {
-		g_signal_emit (editor, signals[URI_REQUESTED], 0, url, stream);
-		return;
-	}
-
-	filename = g_filename_from_uri (url, NULL, &error);
-	if (filename == NULL)
-		goto exit;
-
-	mapped_file = g_mapped_file_new (filename, FALSE, &error);
-	if (mapped_file == NULL)
-		goto exit;
-
-	gtk_html_write (
-		html, stream,
-		g_mapped_file_get_contents (mapped_file),
-		g_mapped_file_get_length (mapped_file));
-
-#if GLIB_CHECK_VERSION(2,21,3)
-	g_mapped_file_unref (mapped_file);
-#else
-	g_mapped_file_free (mapped_file);
-#endif
-
-exit:
-	if (error == NULL)
-		status = GTK_HTML_STREAM_OK;
-	else {
-		status = GTK_HTML_STREAM_ERROR;
-		g_warning ("%s", error->message);
-		g_error_free (error);
-	}
-
-	gtk_html_end (html, stream, status);
-
-	g_free (filename);
+	g_signal_emit (editor, signals[URI_REQUESTED], 0, url, stream);
 }
 
 static void
@@ -795,25 +751,6 @@ editor_select_all (GtkhtmlEditor *editor)
 }
 
 static void
-editor_uri_requested_ready_cb (GtkhtmlEditor *editor,
-                               GAsyncResult *result)
-{
-	/* XXX Do something in the event of an error? */
-	gtkhtml_editor_request_finish (editor, result, NULL);
-}
-
-static void
-editor_uri_requested (GtkhtmlEditor *editor,
-                      const gchar *uri,
-                      GtkHTMLStream *stream)
-{
-	/* XXX Currently no way to cancel this. */
-	gtkhtml_editor_request_async (
-		editor, uri, stream, NULL, (GAsyncReadyCallback)
-		editor_uri_requested_ready_cb, NULL);
-}
-
-static void
 editor_class_init (GtkhtmlEditorClass *class)
 {
 	GObjectClass *object_class;
@@ -832,7 +769,6 @@ editor_class_init (GtkhtmlEditorClass *class)
 	class->copy_clipboard = editor_copy_clipboard;
 	class->paste_clipboard = editor_paste_clipboard;
 	class->select_all = editor_select_all;
-	class->uri_requested = editor_uri_requested;
 
 	g_object_class_install_property (
 		object_class,

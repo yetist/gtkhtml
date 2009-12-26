@@ -205,15 +205,6 @@ gchar *		gtkhtml_editor_find_data_file	(const gchar *basename);
 gint		gtkhtml_editor_insert_file	(GtkhtmlEditor *editor,
 						 const gchar *title,
 						 GCallback response_cb);
-void		gtkhtml_editor_request_async	(GtkhtmlEditor *editor,
-						 const gchar *uri,
-						 GtkHTMLStream *stream,
-						 GCancellable *cancellable,
-						 GAsyncReadyCallback callback,
-						 gpointer user_data);
-gboolean	gtkhtml_editor_request_finish	(GtkhtmlEditor *editor,
-						 GAsyncResult *result,
-						 GError **error);
 GFile *		gtkhtml_editor_run_open_dialog	(GtkhtmlEditor *editor,
 						 const gchar *title,
 						 GtkCallback customize_func,
