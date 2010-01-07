@@ -1807,7 +1807,7 @@ hierarchy_changed (GtkWidget *widget,
 
 	toplevel = gtk_widget_get_toplevel (widget);
 
-	if (GTK_WIDGET_TOPLEVEL (toplevel) && priv->toplevel_unmap_handler == 0) {
+	if (gtk_widget_is_toplevel (toplevel) && priv->toplevel_unmap_handler == 0) {
 		priv->toplevel_unmap_handler = g_signal_connect (G_OBJECT (toplevel), "unmap-event",
 								 G_CALLBACK (toplevel_unmap), widget);
 	}
