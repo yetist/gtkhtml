@@ -2829,7 +2829,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	signals [URL_REQUESTED] =
 		g_signal_new ("url_requested",
 			      G_TYPE_FROM_CLASS (object_class),
-			      G_SIGNAL_RUN_FIRST,
+			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, url_requested),
 			      NULL, NULL,
 			      html_g_cclosure_marshal_VOID__STRING_POINTER,
