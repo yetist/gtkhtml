@@ -1842,9 +1842,12 @@ button_press_event (GtkWidget *widget,
 	html   = GTK_HTML (widget);
 	engine = html->engine;
 
-	if (event->button == 1 || ((event->button == 2 || event->button == 3)
-				   && html_engine_get_editable (engine)))
+	if (event->button == 1 || ((event->button == 2 || event->button == 3) && html_engine_get_editable (engine))) {
+		html->priv->is_first_focus = FALSE;
+		html->priv->skip_update_cursor = TRUE;
+		html->priv->cursor_moved = FALSE;
 		gtk_widget_grab_focus (widget);
+	}
 
 	if (event->type == GDK_BUTTON_PRESS) {
 		GtkAdjustment *adjustment;
@@ -2105,6 +2108,11 @@ goto_caret_anchor (GtkHTML *html)
 
 	g_return_val_if_fail (html != NULL, FALSE);
 	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
+
+	if (!html->priv->is_first_focus)
+		return FALSE;
+
+	html->priv->is_first_focus = FALSE;
 
 	if (html->priv->caret_first_focus_anchor && html_object_find_anchor (html->engine->clue, html->priv->caret_first_focus_anchor, &x, &y)) {
 		GtkAdjustment *adjustment;
@@ -3460,6 +3468,7 @@ gtk_html_init (GtkHTML* html)
 	html->priv->in_key_binding = FALSE;
 
 	html->priv->caret_first_focus_anchor = NULL;
+	html->priv->is_first_focus = TRUE;
 
 	/* IM Context */
 	html->priv->im_context = gtk_im_multicontext_new ();
@@ -3643,6 +3652,8 @@ gtk_html_begin_full (GtkHTML           *html,
 		html->engine->keep_scroll = TRUE;
 	else
 		html->engine->keep_scroll = FALSE;
+
+	html->priv->is_first_focus = TRUE;
 
 	handle = html_engine_begin (html->engine, content_type);
 	if (handle == NULL)
