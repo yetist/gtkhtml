@@ -3111,7 +3111,7 @@ html_text_get_text (HTMLText *text, guint offset)
 {
 	gchar *s = text->text;
 
-	while (offset--)
+	while (offset-- && s && *s)
 		s = g_utf8_next_char (s);
 
 	return s;
