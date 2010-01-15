@@ -111,11 +111,9 @@ cell_properties_set_table (GtkhtmlEditor *editor,
 {
 	GtkHTML *html;
 	HTMLObject *parent;
-	HTMLTableCell *cell;
 	HTMLTableCell *iter;
 
 	html = gtkhtml_editor_get_html (editor);
-	cell = HTML_TABLE_CELL (editor->priv->cell_object);
 	parent = editor->priv->cell_parent;
 
 	iter = html_engine_get_table_cell (html->engine);
@@ -253,7 +251,7 @@ cell_properties_set_horizontal_alignment_cb (GtkhtmlEditor *editor,
 	active = gtk_combo_box_get_active (GTK_COMBO_BOX (widget));
 	align = HTML_HALIGN_LEFT + (HTMLHAlignType) active;
 
-	html_engine_table_cell_set_halign (html->engine, cell, active);
+	html_engine_table_cell_set_halign (html->engine, cell, align);
 }
 
 static void

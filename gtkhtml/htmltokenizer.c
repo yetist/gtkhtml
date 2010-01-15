@@ -1262,8 +1262,6 @@ in_crlf (HTMLTokenizer *t, const gchar **src)
 static void
 in_space_or_tab (HTMLTokenizer *t, const gchar **src)
 {
-	gchar *ptr;
-
 	if (t->priv->tquote) {
 		if (t->priv->discard == NoneDiscard)
 			t->priv->pending = SpacePending;
@@ -1272,7 +1270,6 @@ in_space_or_tab (HTMLTokenizer *t, const gchar **src)
 		t->priv->searchCount = 0; /* Stop looking for <!-- sequence */
 		if (t->priv->discard == NoneDiscard)
 			t->priv->pending = SpacePending;
-		ptr = t->priv->buffer;
 	}
 	else if (t->priv->pre || t->priv->textarea) {
 		if (t->priv->pending)

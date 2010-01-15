@@ -235,7 +235,6 @@ parse_element_name (const gchar *str)
 {
 	const gchar *ep = str;
 
-	ep = str;
 	if (*ep == '/')
 		ep++;
 
@@ -1080,7 +1079,7 @@ pop_block (HTMLEngine *e, HTMLElement *elem)
 		HTMLElement *cur = l->data;
 
 		if (cur == elem) {
-			l = remove_element (e, l);
+			remove_element (e, l);
 			return;
 		} else if (cur->style->display != DISPLAY_INLINE || elem->style->display > DISPLAY_BLOCK) {
 			l = remove_element (e, l);
@@ -1105,7 +1104,7 @@ pop_inline (HTMLEngine *e, HTMLElement *elem)
 			break;
 
 		if (cur == elem) {
-			l = remove_element (e, l);
+			remove_element (e, l);
 			return;
 		} else {
 			l = l->next;
@@ -1526,7 +1525,7 @@ parse_object_params(HTMLEngine *p, HTMLObject *clue)
 		if (*str == '\0' ||
 		    *str == '\n' ||
 		    is_leading_space ((guchar *) str)) {
-				str = html_tokenizer_next_token (p->ht);
+				/* str = html_tokenizer_next_token (p->ht); */
 				/* printf ("\"%s\": was the string\n", str); */
 				continue;
 		} else if (*str == TAG_ESCAPE) {

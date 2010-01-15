@@ -1533,7 +1533,7 @@ skip_host (const gchar *url)
 	       host++;
 
 	if (*host == ':') {
-		url = host++;
+		host++;
 
 		if (*host == '/')
 			host++;
@@ -4729,7 +4729,6 @@ scroll (GtkHTML *html,
 		break;
 	default:
 		g_warning ("invalid scroll parameters: %d %d %f\n", orientation, scroll_type, position);
-		delta = 0.0;
 		return;
 	}
 
