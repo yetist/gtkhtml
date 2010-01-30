@@ -285,14 +285,14 @@ write_header (HTMLEngineSaveState *state)
 
 	html_engine_clear_all_class_data (state->engine);
 	/* Preface.  */
-	if (! html_engine_save_output_string
+	if (!html_engine_save_output_string
 		    (state,
 		     "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 TRANSITIONAL//EN\">\n"
 		     "<HTML>\n"))
 		return FALSE;
 
 	/* Header start.  FIXME: `GENERATOR' string?  */
-	if (! html_engine_save_output_string
+	if (!html_engine_save_output_string
 		     (state,
 		      "<HEAD>\n"
 		      "  <META HTTP-EQUIV=\"Content-Type\" CONTENT=\"text/html; CHARSET=UTF-8\">\n"
@@ -303,14 +303,14 @@ write_header (HTMLEngineSaveState *state)
 	if (state->engine->title != NULL
 	    && state->engine->title->str != NULL
 	    && state->engine->title->str[0] != '\0') {
-		if (! html_engine_save_delims_and_vals (state,
+		if (!html_engine_save_delims_and_vals (state,
 				"  <TITLE>", state->engine->title->str,
 				"</TITLE>\n", NULL))
 			return FALSE;
 	}
 
 	/* End of header.  */
-	if (! html_engine_save_output_string (state, "</HEAD>\n"))
+	if (!html_engine_save_output_string (state, "</HEAD>\n"))
 		return FALSE;
 
 	/* Start of body.  */
@@ -325,7 +325,7 @@ write_header (HTMLEngineSaveState *state)
 static gboolean
 write_end (HTMLEngineSaveState *state)
 {
-	if (! html_engine_save_output_string (state, "</BODY>\n</HTML>\n"))
+	if (!html_engine_save_output_string (state, "</BODY>\n</HTML>\n"))
 		return FALSE;
 
 	html_engine_clear_all_class_data (state->engine);
@@ -355,14 +355,14 @@ html_engine_save (HTMLEngine *engine,
 	state.user_data = user_data;
 	state.last_level = 0;
 
-	if (! write_header (&state))
+	if (!write_header (&state))
 		return FALSE;
 
 	html_object_save (engine->clue, &state);
 	if (state.error)
 		return FALSE;
 
-	if (! write_end (&state))
+	if (!write_end (&state))
 		return FALSE;
 
 	return TRUE;

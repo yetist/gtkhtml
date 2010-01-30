@@ -1226,7 +1226,7 @@ block_end_option (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	if ( e->inOption )
+	if (e->inOption)
 		html_select_set_text (e->formSelect, e->formText->str);
 
 	e->inOption = FALSE;
@@ -1237,7 +1237,7 @@ block_end_select (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	if ( e->inOption )
+	if (e->inOption)
 		html_select_set_text (e->formSelect, e->formText->str);
 
 	e->inOption = FALSE;
@@ -1250,7 +1250,7 @@ block_end_textarea (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 {
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	if ( e->inTextArea )
+	if (e->inTextArea)
 		html_textarea_set_text (e->formTextArea, e->formText->str);
 
 	e->inTextArea = FALSE;
@@ -2148,7 +2148,7 @@ element_parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 			}
 		} else if (g_ascii_strncasecmp (token, "background=", 11) == 0
 			   && token [12]
-			   && ! e->defaultSettings->forceDefault) {
+			   && !e->defaultSettings->forceDefault) {
 			gchar *bgurl;
 
 			bgurl = g_strdup (token + 11);
@@ -2156,36 +2156,36 @@ element_parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				html_image_factory_unregister(e->image_factory, e->bgPixmapPtr, NULL);
 			e->bgPixmapPtr = html_image_factory_register(e->image_factory, NULL, bgurl, FALSE);
 			g_free (bgurl);
-		} else if ( g_ascii_strncasecmp( token, "text=", 5 ) == 0
+		} else if (g_ascii_strncasecmp( token, "text=", 5) == 0
 			    && !e->defaultSettings->forceDefault ) {
 			if (html_parse_color (token + 5, &color)) {
 				html_colorset_set_color (e->settings->color_set, &color, HTMLTextColor);
 				push_element (e, ID_BODY, NULL,
 					      html_style_add_color (NULL, html_colorset_get_color (e->settings->color_set, HTMLTextColor)));
 			}
-		} else if ( g_ascii_strncasecmp( token, "link=", 5 ) == 0
+		} else if (g_ascii_strncasecmp( token, "link=", 5) == 0
 			    && !e->defaultSettings->forceDefault ) {
 			html_parse_color (token + 5, &color);
 			html_colorset_set_color (e->settings->color_set, &color, HTMLLinkColor);
-		} else if ( g_ascii_strncasecmp( token, "vlink=", 6 ) == 0
+		} else if (g_ascii_strncasecmp( token, "vlink=", 6) == 0
 			    && !e->defaultSettings->forceDefault ) {
 			html_parse_color (token + 6, &color);
 			html_colorset_set_color (e->settings->color_set, &color, HTMLVLinkColor);
-		} else if ( g_ascii_strncasecmp( token, "alink=", 6 ) == 0
+		} else if (g_ascii_strncasecmp( token, "alink=", 6) == 0
 			    && !e->defaultSettings->forceDefault ) {
 			html_parse_color (token + 6, &color);
 			html_colorset_set_color (e->settings->color_set, &color, HTMLALinkColor);
-		} else if ( g_ascii_strncasecmp( token, "leftmargin=", 11 ) == 0) {
+		} else if (g_ascii_strncasecmp( token, "leftmargin=", 11) == 0) {
 			e->leftBorder = atoi (token + 11);
-		} else if ( g_ascii_strncasecmp( token, "rightmargin=", 12 ) == 0) {
+		} else if (g_ascii_strncasecmp( token, "rightmargin=", 12) == 0) {
 			e->rightBorder = atoi (token + 12);
-		} else if ( g_ascii_strncasecmp( token, "topmargin=", 10 ) == 0) {
+		} else if (g_ascii_strncasecmp( token, "topmargin=", 10) == 0) {
 			e->topBorder = atoi (token + 10);
-		} else if ( g_ascii_strncasecmp( token, "bottommargin=", 13 ) == 0) {
+		} else if (g_ascii_strncasecmp( token, "bottommargin=", 13) == 0) {
 			e->bottomBorder = atoi (token + 13);
-		} else if ( g_ascii_strncasecmp( token, "marginwidth=", 12 ) == 0) {
+		} else if (g_ascii_strncasecmp( token, "marginwidth=", 12) == 0) {
 			e->leftBorder = e->rightBorder = atoi (token + 12);
-		} else if ( g_ascii_strncasecmp( token, "marginheight=", 13 ) == 0) {
+		} else if (g_ascii_strncasecmp( token, "marginheight=", 13) == 0) {
 			e->topBorder = e->bottomBorder = atoi (token + 13);
 		} else if (e->parser_clue && g_ascii_strncasecmp (token, "dir=", 4) == 0) {
 			if (!g_ascii_strncasecmp (token + 4, "ltr", 3))
@@ -2204,11 +2204,11 @@ element_parse_base (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	html_string_tokenizer_tokenize( e->st, str + 5, " >" );
-	while ( html_string_tokenizer_has_more_tokens (e->st) ) {
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
 		const gchar * token = html_string_tokenizer_next_token(e->st);
-		if ( g_ascii_strncasecmp( token, "target=", 7 ) == 0 ) {
+		if (g_ascii_strncasecmp( token, "target=", 7 ) == 0) {
 			g_signal_emit (e, signals [SET_BASE_TARGET], 0, token + 7);
-		} else if ( g_ascii_strncasecmp( token, "href=", 5 ) == 0 ) {
+		} else if (g_ascii_strncasecmp( token, "href=", 5 ) == 0) {
 			g_signal_emit (e, signals [SET_BASE], 0, token + 5);
 		}
 	}
@@ -2259,7 +2259,7 @@ form_begin (HTMLEngine *e,
 	e->form = html_form_new (e, action, method);
 	e->formList = g_list_append (e->formList, e->form);
 
-	if (! e->avoid_para && close_paragraph) {
+	if (!e->avoid_para && close_paragraph) {
 		if (e->flow && HTML_CLUE (e->flow)->head)
 			close_flow (e, clue);
 		e->avoid_para = FALSE;
@@ -2307,56 +2307,56 @@ element_parse_input (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
 		const gchar *token = html_string_tokenizer_next_token (e->st);
 
-		if ( g_ascii_strncasecmp( token, "type=", 5 ) == 0 ) {
+		if (g_ascii_strncasecmp( token, "type=", 5 ) == 0) {
 			p = token + 5;
-			if ( g_ascii_strncasecmp( p, "checkbox", 8 ) == 0 )
+			if (g_ascii_strncasecmp( p, "checkbox", 8 ) == 0)
 				type = CheckBox;
-			else if ( g_ascii_strncasecmp( p, "password", 8 ) == 0 )
+			else if (g_ascii_strncasecmp( p, "password", 8 ) == 0)
 				type = Password;
-			else if ( g_ascii_strncasecmp( p, "hidden", 6 ) == 0 )
+			else if (g_ascii_strncasecmp( p, "hidden", 6 ) == 0)
 				type = Hidden;
-			else if ( g_ascii_strncasecmp( p, "radio", 5 ) == 0 )
+			else if (g_ascii_strncasecmp( p, "radio", 5 ) == 0)
 				type = Radio;
-			else if ( g_ascii_strncasecmp( p, "reset", 5 ) == 0 )
+			else if (g_ascii_strncasecmp( p, "reset", 5 ) == 0)
 				type = Reset;
-			else if ( g_ascii_strncasecmp( p, "submit", 5 ) == 0 )
+			else if (g_ascii_strncasecmp( p, "submit", 5 ) == 0)
 				type = Submit;
-			else if ( g_ascii_strncasecmp( p, "button", 6 ) == 0 )
+			else if (g_ascii_strncasecmp( p, "button", 6 ) == 0)
 				type = Button;
-			else if ( g_ascii_strncasecmp( p, "text", 5 ) == 0 )
+			else if (g_ascii_strncasecmp( p, "text", 5 ) == 0)
 				type = Text;
-			else if ( g_ascii_strncasecmp( p, "image", 5 ) == 0 )
+			else if (g_ascii_strncasecmp( p, "image", 5 ) == 0)
 				type = Image;
 		}
-		else if ( g_ascii_strncasecmp( token, "name=", 5 ) == 0 ) {
+		else if (g_ascii_strncasecmp( token, "name=", 5 ) == 0) {
 			name = g_strdup(token + 5);
 		}
-		else if ( g_ascii_strncasecmp( token, "value=", 6 ) == 0 ) {
+		else if (g_ascii_strncasecmp( token, "value=", 6 ) == 0) {
 			value = g_strdup(token + 6);
 		}
-		else if ( g_ascii_strncasecmp( token, "size=", 5 ) == 0 ) {
+		else if (g_ascii_strncasecmp( token, "size=", 5 ) == 0) {
 			size = atoi( token + 5 );
 		}
-		else if ( g_ascii_strncasecmp( token, "maxlength=", 10 ) == 0 ) {
+		else if (g_ascii_strncasecmp( token, "maxlength=", 10 ) == 0) {
 			maxLen = atoi( token + 10 );
 		}
-		else if ( g_ascii_strncasecmp( token, "checked", 7 ) == 0 ) {
+		else if (g_ascii_strncasecmp( token, "checked", 7 ) == 0) {
 			checked = TRUE;
 		}
-		else if ( g_ascii_strncasecmp( token, "src=", 4 ) == 0 ) {
+		else if (g_ascii_strncasecmp( token, "src=", 4 ) == 0) {
 			imgSrc = g_strdup (token + 4);
 		}
-		else if ( g_ascii_strncasecmp( token, "onClick=", 8 ) == 0 ) {
+		else if (g_ascii_strncasecmp( token, "onClick=", 8 ) == 0) {
 			/* TODO: Implement Javascript */
 		}
-		else if ( g_ascii_strncasecmp( token, "hspace=", 7 ) == 0 ) {
+		else if (g_ascii_strncasecmp( token, "hspace=", 7 ) == 0) {
 			imgHSpace = atoi (token + 7);
 		}
-		else if ( g_ascii_strncasecmp( token, "vspace=", 7 ) == 0 ) {
+		else if (g_ascii_strncasecmp( token, "vspace=", 7 ) == 0) {
 			imgVSpace = atoi (token + 7);
 		}
 	}
-	switch ( type ) {
+	switch (type) {
 	case CheckBox:
 		element = html_checkbox_new(GTK_WIDGET(e->widget), name, value, checked);
 		break;
@@ -2424,12 +2424,12 @@ element_parse_form (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
 		const gchar *token = html_string_tokenizer_next_token (e->st);
 
-		if ( g_ascii_strncasecmp( token, "action=", 7 ) == 0 ) {
+		if (g_ascii_strncasecmp( token, "action=", 7 ) == 0) {
 			action = g_strdup (token + 7);
-		} else if ( g_ascii_strncasecmp( token, "method=", 7 ) == 0 ) {
-			if ( g_ascii_strncasecmp( token + 7, "post", 4 ) == 0 )
+		} else if (g_ascii_strncasecmp( token, "method=", 7 ) == 0) {
+			if (g_ascii_strncasecmp( token + 7, "post", 4 ) == 0)
 				method = "POST";
-		} else if ( g_ascii_strncasecmp( token, "target=", 7 ) == 0 ) {
+		} else if (g_ascii_strncasecmp( token, "target=", 7 ) == 0) {
 			target = g_strdup(token + 7);
 		}
 	}
@@ -3471,10 +3471,10 @@ element_parse_caption (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	*/
 
 	html_string_tokenizer_tokenize( e->st, str + 7, " >" );
-	while ( html_string_tokenizer_has_more_tokens (e->st) ) {
+	while (html_string_tokenizer_has_more_tokens (e->st)) {
 		const gchar * token = html_string_tokenizer_next_token(e->st);
-		if ( g_ascii_strncasecmp( token, "align=", 6 ) == 0) {
-			if ( g_ascii_strncasecmp( token+6, "top", 3 ) == 0)
+		if (g_ascii_strncasecmp( token, "align=", 6) == 0) {
+			if (g_ascii_strncasecmp( token+6, "top", 3) == 0)
 				capAlign = HTML_VALIGN_TOP;
 		}
 	}
@@ -4780,7 +4780,7 @@ html_engine_update_event (HTMLEngine *e)
 	html_engine_calc_size (e, FALSE);
 
 	if (vadjustment == NULL
-	    || ! html_gdk_painter_realized (HTML_GDK_PAINTER (e->painter))) {
+	    || !html_gdk_painter_realized (HTML_GDK_PAINTER (e->painter))) {
 		e->need_update = TRUE;
 		return FALSE;
 	}
@@ -4796,7 +4796,7 @@ html_engine_update_event (HTMLEngine *e)
 	if (e->newPage) {
 		gtk_adjustment_set_value (vadjustment, 0);
 		e->newPage = FALSE;
-		if (! e->parsing && e->editable)
+		if (!e->parsing && e->editable)
 			html_cursor_home (e->cursor, e);
 	}
 
@@ -5447,7 +5447,7 @@ html_engine_set_editable (HTMLEngine *e,
 {
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	if ((e->editable && editable) || (! e->editable && ! editable))
+	if ((e->editable && editable) || (!e->editable && !editable))
 		return;
 
 	if (editable)
@@ -5481,7 +5481,7 @@ html_engine_get_editable (HTMLEngine *e)
 {
 	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
 
-	if (e->editable && ! e->parsing && e->timerId == 0)
+	if (e->editable && !e->parsing && e->timerId == 0)
 		return TRUE;
 	else
 		return FALSE;
@@ -5503,9 +5503,9 @@ html_engine_set_focus (HTMLEngine *engine,
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 
 	if (engine->editable || engine->caret_mode) {
-		if (! engine->have_focus && have_focus)
+		if (!engine->have_focus && have_focus)
 			html_engine_setup_blinking_cursor (engine);
-		else if (engine->have_focus && ! have_focus)
+		else if (engine->have_focus && !have_focus)
 			html_engine_stop_blinking_cursor (engine);
 	}
 
@@ -5542,7 +5542,7 @@ html_engine_make_cursor_visible (HTMLEngine *e)
 
 	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
 
-	if (! e->editable && !e->caret_mode)
+	if (!e->editable && !e->caret_mode)
 		return FALSE;
 
 	if (e->cursor->object == NULL)
