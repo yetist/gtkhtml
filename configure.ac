@@ -74,7 +74,14 @@ dnl
 dnl	-Wmissing-format-attribute
 dnl	-Wshadow
 
-CFLAGS="$CFLAGS $WARNING_FLAGS"
+dnl GCC 4.4 got more aggressive in it's aliasing optimizations, changing
+dnl behavior that -- according to the C99 standard -- is supposed to be
+dnl undefined.  We may still have aliasing abuses lying around that rely
+dnl on GCC's previous "undefined" behavior but are hidden by type casts,
+dnl so disable the strict-aliasing optimzation until GCC (or even LLVM)
+dnl learns how to detect them and warn us about it.
+dnl XXX This really belongs in AM_CFLAGS.
+CFLAGS="$CFLAGS $WARNING_FLAGS -fno-strict-aliasing"
 
 dnl *********************
 dnl Necessary programs
