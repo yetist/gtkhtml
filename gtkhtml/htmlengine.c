@@ -4024,8 +4024,11 @@ html_engine_finalize (GObject *object)
 {
 	HTMLEngine *engine;
 	GList *p;
+	gint opened_streams;
 
 	engine = HTML_ENGINE (object);
+
+	opened_streams = engine->opened_streams;
 
         /* it is critical to destroy timers immediately so that
 	 * if widgets contained in the object tree manage to iterate the
@@ -4211,6 +4214,9 @@ html_engine_finalize (GObject *object)
 	}
 
 	G_OBJECT_CLASS (parent_class)->finalize (object);
+
+	/* just note when will be engine finalized before all the streams are closed */
+	g_return_if_fail (opened_streams == 0);
 }
 
 static void
