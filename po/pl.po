@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-08 01:54+0200\n"
-"PO-Revision-Date: 2009-09-08 01:39+0200\n"
+"POT-Creation-Date: 2010-02-22 16:35+0100\n"
+"PO-Revision-Date: 2010-02-22 01:14+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "MIME-Version: 1.0\n"
@@ -92,7 +92,7 @@ msgstr "niebieski pastelowy"
 
 #: ../components/editor/gtkhtml-color-combo.c:93
 msgid "blue"
-msgstr "niebiski"
+msgstr "niebieski"
 
 #: ../components/editor/gtkhtml-color-combo.c:94
 msgid "dull purple"
@@ -110,10 +110,9 @@ msgstr "czerwony"
 msgid "orange"
 msgstr "pomarańczowy"
 
-# FIXME - ja się nie znam na kolorach ;)
 #: ../components/editor/gtkhtml-color-combo.c:99
 msgid "lime"
-msgstr "wapienny"
+msgstr "limonkowy"
 
 #: ../components/editor/gtkhtml-color-combo.c:100
 msgid "dull green"
@@ -145,7 +144,7 @@ msgstr "jasnopomarańczowy"
 
 #: ../components/editor/gtkhtml-color-combo.c:108
 msgid "yellow"
-msgstr "zółty"
+msgstr "żółty"
 
 #: ../components/editor/gtkhtml-color-combo.c:109
 msgid "green"
@@ -153,7 +152,7 @@ msgstr "zielony"
 
 #: ../components/editor/gtkhtml-color-combo.c:110
 msgid "cyan"
-msgstr "niebiskozielony"
+msgstr "niebieskozielony"
 
 #: ../components/editor/gtkhtml-color-combo.c:111
 msgid "bright blue"
@@ -238,12 +237,12 @@ msgstr "Domyślny"
 #: ../components/editor/gtkhtml-color-combo.c:743
 #: ../components/editor/gtkhtml-color-state.c:237
 msgid "Default is transparent"
-msgstr "Domyślny jest przeźroczysty"
+msgstr "Domyślny jest przezroczysty"
 
 #: ../components/editor/gtkhtml-color-combo.c:744
 #: ../components/editor/gtkhtml-color-state.c:238
 msgid "Whether the default color is transparent"
-msgstr "Określa, czy domyślny kolor jest przeźroczysty"
+msgstr "Określa, czy domyślny kolor jest przezroczysty"
 
 #: ../components/editor/gtkhtml-color-combo.c:754
 #: ../components/editor/gtkhtml-color-state.c:248
@@ -804,7 +803,7 @@ msgstr "Usunięcie tabeli"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1770
 msgid "Input Methods"
-msgstr "Metoda wprowadzania"
+msgstr "Metody wprowadzania"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1777
 msgid "Table Insert"
@@ -876,7 +875,7 @@ msgstr "Dodaj słowo do słownika"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1924
 msgid "Ignore Misspelled Word"
-msgstr "Ignoruj źle wpisane słowa"
+msgstr "Ignoruj błędnie wpisane słowa"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1931
 msgid "Add Word To"
@@ -925,7 +924,7 @@ msgstr "Styl akapitu"
 
 #: ../components/editor/gtkhtml-editor-private.c:278
 msgid "Editing Mode"
-msgstr "Tryb edycji"
+msgstr "Tryb modyfikowania"
 
 #: ../components/editor/gtkhtml-editor-private.c:290
 msgid "Font Color"
@@ -981,7 +980,7 @@ msgstr "Magiczne odnośniki"
 
 #: ../components/editor/gtkhtml-editor.c:799
 msgid "Make URIs clickable as you type"
-msgstr "Przekształca adresy URI w tekście w odnośniki "
+msgstr "Przekształca adresy URI w tekście w odnośniki"
 
 #: ../components/editor/gtkhtml-editor.c:809
 msgid "Magic Smileys"
@@ -1340,11 +1339,11 @@ msgstr "Sugestie dla \"%s\""
 
 #: ../components/editor/gtkhtml-spell-dialog.c:358
 msgid "Misspelled Word"
-msgstr "Błędnie zapisane słowo"
+msgstr "Błędnie wpisane słowo"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:359
 msgid "The current misspelled word"
-msgstr "Bieżące źle zapisane słowo"
+msgstr "Bieżące błędnie wpisane słowo"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:449
 msgid "Spell Checker"
@@ -1358,7 +1357,7 @@ msgstr "Zastąp _wszystkie"
 #. Ignore Button
 #: ../components/editor/gtkhtml-spell-dialog.c:550
 msgid "_Ignore"
-msgstr "_Ignoruj"
+msgstr "_Zignoruj"
 
 #. Skip Button
 #: ../components/editor/gtkhtml-spell-dialog.c:564
@@ -1425,7 +1424,7 @@ msgstr "Tekst źródłowy"
 
 #: ../components/editor/main.c:292
 msgid "_Print..."
-msgstr "_Drukuj..."
+msgstr "Wy_drukuj..."
 
 #: ../components/editor/main.c:299
 msgid "Print Pre_view"
@@ -1455,83 +1454,83 @@ msgstr "Kod źródłowy _HTML"
 msgid "_Plain Source"
 msgstr "_Tekst źródłowy"
 
-#: ../gtkhtml/gtkhtml.c:3073
+#: ../gtkhtml/gtkhtml.c:3081
 msgid "Editable"
 msgstr "Modyfikowalny"
 
-#: ../gtkhtml/gtkhtml.c:3074
+#: ../gtkhtml/gtkhtml.c:3082
 msgid "Whether the html can be edited"
-msgstr "Określa, czy html może być edytowany"
+msgstr "Określa, czy HTML może być modyfikowany"
 
-#: ../gtkhtml/gtkhtml.c:3080
+#: ../gtkhtml/gtkhtml.c:3088
 msgid "Document Title"
 msgstr "Tytuł dokumentu"
 
-#: ../gtkhtml/gtkhtml.c:3081
+#: ../gtkhtml/gtkhtml.c:3089
 msgid "The title of the current document"
 msgstr "Tytuł bieżącego dokumentu"
 
-#: ../gtkhtml/gtkhtml.c:3087
+#: ../gtkhtml/gtkhtml.c:3095
 msgid "Document Base"
 msgstr "Baza dokumentu"
 
-#: ../gtkhtml/gtkhtml.c:3088
+#: ../gtkhtml/gtkhtml.c:3096
 msgid "The base URL for relative references"
-msgstr "Bazowy adres URL dla odnosników relatywnych"
+msgstr "Bazowy adres URL dla odnośników relatywnych"
 
-#: ../gtkhtml/gtkhtml.c:3094
+#: ../gtkhtml/gtkhtml.c:3102
 msgid "Target Base"
 msgstr "Baza celu"
 
-#: ../gtkhtml/gtkhtml.c:3095
+#: ../gtkhtml/gtkhtml.c:3103
 msgid "The base URL of the target frame"
 msgstr "Bazowy adres URL docelowej ramki"
 
-#: ../gtkhtml/gtkhtml.c:3103
+#: ../gtkhtml/gtkhtml.c:3111
 msgid "Fixed Width Font"
 msgstr "Zmienna szerokość czcionki"
 
-#: ../gtkhtml/gtkhtml.c:3104
+#: ../gtkhtml/gtkhtml.c:3112
 msgid "The Monospace font to use for typewriter text"
 msgstr "Czcionka jednorodna używana dla tekstu maszynowego"
 
-#: ../gtkhtml/gtkhtml.c:3110
+#: ../gtkhtml/gtkhtml.c:3118
 msgid "New Link Color"
 msgstr "Kolor nowego odnośnika"
 
-#: ../gtkhtml/gtkhtml.c:3111
+#: ../gtkhtml/gtkhtml.c:3119
 msgid "The color of new link elements"
-msgstr "Kolor elemntów nowego odnośnika"
+msgstr "Kolor elementów nowego odnośnika"
 
-#: ../gtkhtml/gtkhtml.c:3116
+#: ../gtkhtml/gtkhtml.c:3124
 msgid "Visited Link Color"
 msgstr "Kolor odwiedzonych odnośników"
 
-#: ../gtkhtml/gtkhtml.c:3117
+#: ../gtkhtml/gtkhtml.c:3125
 msgid "The color of visited link elements"
 msgstr "Kolor elementów odwiedzonego odnośnika"
 
-#: ../gtkhtml/gtkhtml.c:3122
+#: ../gtkhtml/gtkhtml.c:3130
 msgid "Active Link Color"
 msgstr "Kolor aktywnego odnośnika"
 
-#: ../gtkhtml/gtkhtml.c:3123
+#: ../gtkhtml/gtkhtml.c:3131
 msgid "The color of active link elements"
 msgstr "Kolor elementów aktywnego odnośnika"
 
-#: ../gtkhtml/gtkhtml.c:3128
+#: ../gtkhtml/gtkhtml.c:3136
 msgid "Spelling Error Color"
 msgstr "Kolor błędów pisowni"
 
-#: ../gtkhtml/gtkhtml.c:3129
+#: ../gtkhtml/gtkhtml.c:3137
 msgid "The color of the spelling error markers"
 msgstr "Kolor znaczników błędów pisowni"
 
-#: ../gtkhtml/gtkhtml.c:3134
+#: ../gtkhtml/gtkhtml.c:3142
 msgid "Cite Quotation Color"
-msgstr "Kolor cytowanego tesktu"
+msgstr "Kolor cytowanego tekstu"
 
-#: ../gtkhtml/gtkhtml.c:3135
+#: ../gtkhtml/gtkhtml.c:3143
 msgid "The color of the cited text"
 msgstr "Kolor cytowanego tekstu"
 
@@ -1546,8 +1545,20 @@ msgstr "Wyczyść"
 #. TODO2 dialog instead of warning
 #: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:309
 msgid "Cannot allocate default font for printing"
-msgstr "Nie można uzyskać domyślnej czcionki do drukowania"
+msgstr "Nie można przydzielić domyślnej czcionki do drukowania"
 
 #: ../gtkhtml/test.c:364
 msgid "GtkHTML Test"
-msgstr "Test GtkHTML-a"
+msgstr "Test GtkHTML"
+
+#~ msgid "Failed to insert HTML file."
+#~ msgstr "Wstawienie pliku HTML się nie powiodło."
+
+#~ msgid "Failed to insert text file."
+#~ msgstr "Wstaw pliku tekstowego się nie powiodło."
+
+#~ msgid "HTML Editing Widget"
+#~ msgstr "Widget modyfikowania HTML"
+
+#~ msgid "The main HTML editing widget"
+#~ msgstr "Główny widget modyfikowania HTML"
