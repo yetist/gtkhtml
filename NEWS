@@ -1,3 +1,11 @@
+GtkHTML-3.28.3 2010-03-01
+-------------------------
+
+Bug Fixes:
+	#606167 - Crash on composer Link editing (Milan Crha)
+	#494986 - Clicking URL moves view to the top in caret mode 
+	          (Milan Crha)
+
 GtkHTML-3.28.2 2009-12-14
 -------------------------
 
