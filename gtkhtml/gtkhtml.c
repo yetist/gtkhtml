@@ -560,7 +560,11 @@ scroll_update_mouse (GtkWidget *widget)
 	GdkWindow *bin_window;
 	gint x, y;
 
+#if GTK_CHECK_VERSION(2,19,7)
+	if (!gtk_widget_get_realized (widget))
+#else
 	if (!GTK_WIDGET_REALIZED (widget))
+#endif
 		return;
 
 	window = gtk_widget_get_window (widget);
@@ -1438,7 +1442,11 @@ mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y, gint sta
 	HTMLType type;
 	gint offset;
 
+#if GTK_CHECK_VERSION(2,19,7)
+	if (!gtk_widget_get_realized (widget))
+#else
 	if (!GTK_WIDGET_REALIZED (widget))
+#endif
 		return FALSE;
 
 	html   = GTK_HTML (widget);
@@ -2399,7 +2407,11 @@ focus (GtkWidget *w, GtkDirectionType direction)
 		e->shift_selection = FALSE;
 	}
 
+#if GTK_CHECK_VERSION(2,19,7)
+	if (!gtk_widget_has_focus (w) && e->caret_mode) {
+#else
 	if (!GTK_WIDGET_HAS_FOCUS (w) && e->caret_mode) {
+#endif
 		if (goto_caret_anchor (GTK_HTML (w))) {
 			gtk_widget_grab_focus (w);
 
@@ -2410,7 +2422,11 @@ focus (GtkWidget *w, GtkDirectionType direction)
 		}
 	}
 
+#if GTK_CHECK_VERSION(2,19,7)
+	if (((e->focus_object && !(gtk_widget_has_focus (w))) || html_engine_focus (e, direction)) && e->focus_object) {
+#else
 	if (((e->focus_object && !(GTK_WIDGET_HAS_FOCUS (w))) || html_engine_focus (e, direction)) && e->focus_object) {
+#endif
 		gint offset;
 		HTMLObject *obj = html_engine_get_focus_object (e, &offset);
 		gint x1, y1, x2, y2, xo, yo;
@@ -2465,7 +2481,11 @@ focus (GtkWidget *w, GtkDirectionType direction)
 		/* printf ("engine pos: %d,%d x %d,%d\n",
 		   e->x_offset, e->y_offset, e->x_offset + e->width, e->y_offset + e->height); */
 
+#if GTK_CHECK_VERSION(2,19,7)
+		if (!gtk_widget_has_focus (w) && !html_object_is_embedded (obj))
+#else
 		if (!GTK_WIDGET_HAS_FOCUS (w) && !html_object_is_embedded (obj))
+#endif
 			gtk_widget_grab_focus (w);
 		if (e->caret_mode) {
 			html_engine_jump_to_object (e, obj, offset);
@@ -3883,7 +3903,11 @@ gtk_html_private_calc_scrollbars (GtkHTML *html, gboolean *changed_x, gboolean *
 	gint width, height;
 	gdouble value;
 
+#if GTK_CHECK_VERSION(2,19,7)
+	if (!gtk_widget_get_realized (GTK_WIDGET (html)))
+#else
 	if (!GTK_WIDGET_REALIZED (html))
+#endif
 		return;
 
 	/* printf ("calc scrollbars\n"); */
