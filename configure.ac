@@ -209,8 +209,8 @@ fi
 
 if test "x$have_iso_codes" = "xyes"; then
 	AC_MSG_CHECKING([whether iso-codes has iso-639 and iso-3166 domains])
-	if $PKG_CONFIG --variable=domains iso-codes | grep 639 && \
-		$PKG_CONFIG --variable=domains iso-codes | grep 3166 ; then
+	if $PKG_CONFIG --variable=domains iso-codes | grep 639 >/dev/null 2>&1 && \
+		$PKG_CONFIG --variable=domains iso-codes | grep 3166 >/dev/null 2>&1 ; then
 			result=yes
 	else
 		result=no
