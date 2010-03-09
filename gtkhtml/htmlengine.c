@@ -5042,11 +5042,7 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, g
 
 			vscrollbar = gtk_scrolled_window_get_vscrollbar (
 				GTK_SCROLLED_WINDOW (parent));
-#if GTK_CHECK_VERSION(2,19,7)
 			if (vscrollbar != NULL && !gtk_widget_get_visible (vscrollbar)) {
-#else
-			if (vscrollbar != NULL && !GTK_WIDGET_VISIBLE (vscrollbar)) {
-#endif
 				GtkPolicyType vscrollbar_policy;
 
 				gtk_scrolled_window_get_policy (
@@ -5065,11 +5061,7 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, g
 
 			vscrollbar = gtk_scrolled_window_get_vscrollbar (
 				GTK_SCROLLED_WINDOW (parent));
-#if GTK_CHECK_VERSION(2,19,7)
 			if (vscrollbar != NULL && gtk_widget_get_visible (vscrollbar)) {
-#else
-			if (vscrollbar != NULL && GTK_WIDGET_VISIBLE (vscrollbar)) {
-#endif
 				GtkPolicyType vscrollbar_policy;
 
 				gtk_scrolled_window_get_policy (
@@ -6646,11 +6638,7 @@ html_engine_focus (HTMLEngine *e, GtkDirectionType dir)
 				return TRUE;
 			} else if (html_object_is_embedded (cur) && !html_object_is_frame (cur)
 				   && HTML_EMBEDDED (cur)->widget) {
-#if GTK_CHECK_VERSION(2,19,7)
 				if (!gtk_widget_is_drawable (HTML_EMBEDDED (cur)->widget)) {
-#else
-				if (!GTK_WIDGET_DRAWABLE (HTML_EMBEDDED (cur)->widget)) {
-#endif
 					gint x, y;
 
 					html_object_calc_abs_position (cur, &x, &y);
