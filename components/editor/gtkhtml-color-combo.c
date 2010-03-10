@@ -318,7 +318,11 @@ color_combo_default_release_event_cb (GtkhtmlColorCombo *combo,
                                       GdkEventButton *event,
                                       GtkButton *button)
 {
-	if (GTK_WIDGET_STATE (button) != GTK_STATE_NORMAL)
+	GtkStateType state;
+
+	state = gtk_widget_get_state (GTK_WIDGET (button));
+
+	if (state != GTK_STATE_NORMAL)
 		gtk_button_clicked (button);
 
 	return FALSE;
@@ -371,7 +375,11 @@ color_combo_swatch_release_event_cb (GtkhtmlColorCombo *combo,
                                      GdkEventButton *event,
                                      GtkButton *button)
 {
-	if (GTK_WIDGET_STATE (button) != GTK_STATE_NORMAL)
+	GtkStateType state;
+
+	state = gtk_widget_get_state (GTK_WIDGET (button));
+
+	if (state != GTK_STATE_NORMAL)
 		gtk_button_clicked (button);
 
 	return FALSE;
