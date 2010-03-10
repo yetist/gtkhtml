@@ -150,7 +150,11 @@ face_tool_button_face_release_event_cb (GtkhtmlFaceToolButton *button,
                                         GdkEventButton *event,
                                         GtkButton *face_button)
 {
-	if (GTK_WIDGET_STATE (button) != GTK_STATE_NORMAL)
+	GtkStateType state;
+
+	state = gtk_widget_get_state (GTK_WIDGET (button));
+
+	if (state != GTK_STATE_NORMAL)
 		gtk_button_clicked (face_button);
 
 	return FALSE;
