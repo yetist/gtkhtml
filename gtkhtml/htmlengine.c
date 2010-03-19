@@ -1525,7 +1525,7 @@ parse_object_params(HTMLEngine *p, HTMLObject *clue)
 		if (*str == '\0' ||
 		    *str == '\n' ||
 		    is_leading_space ((guchar *) str)) {
-				/* str = html_tokenizer_next_token (p->ht); */
+				html_tokenizer_next_token (p->ht);
 				/* printf ("\"%s\": was the string\n", str); */
 				continue;
 		} else if (*str == TAG_ESCAPE) {
