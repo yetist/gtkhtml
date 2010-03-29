@@ -1,3 +1,27 @@
+GtkHTML-3.30.0 2010-03-29
+--------------------------
+
+Bug Fixes:
+	#612168 - Crash while pasting over a selection (Matthew Barnes)
+	#613181 - Mistakenly removed statement (Milan Crha)
+
+Other Changes:
+	Remove redundant "DISABLE_DEPRECATED" flags. (Matthew Barnes)
+	Work around recent GTK+ deprecations. (Matthew Barnes)
+	Fix configure output for iso-codes check. (Priit Laes)
+
+Translations:
+	Duarte Loreto (pt)
+	Milo Casagrande (it)
+	Inaki Larranaga Murgoitio (eu)
+	A S Alam (pa)
+	Gil Forcada (ca)
+	Tommi Vainikainen (fi)
+	Ivar Smolin (et)
+	Ask H. Larsen (da)
+	Jamil Ahmed (bn)
+	Nikos Bakaoukas (el)
+
 GtkHTML-3.29.92 2010-03-08
 --------------------------
 
