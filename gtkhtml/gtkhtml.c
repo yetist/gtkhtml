@@ -2049,7 +2049,7 @@ button_release_event (GtkWidget *initial_widget,
 
 	engine =  html->engine;
 
-	if (html->in_selection) {
+	if (html->in_selection && !html->priv->dnd_in_progress) {
 		html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 		if (html->in_selection_drag)
 			html_engine_select_region (engine, html->selection_x1, html->selection_y1,
