@@ -2868,21 +2868,28 @@ element_parse_map (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 /* list parsers */
 static HTMLListType
-get_list_type (gchar c)
+get_list_type (const gchar* value)
 {
-	switch (c) {
-	case 'i':
-		return HTML_LIST_TYPE_ORDERED_LOWER_ROMAN;
-	case 'I':
-		return HTML_LIST_TYPE_ORDERED_UPPER_ROMAN;
-	case 'a':
-		return HTML_LIST_TYPE_ORDERED_LOWER_ALPHA;
-	case 'A':
-		return HTML_LIST_TYPE_ORDERED_UPPER_ALPHA;
-	case '1':
-	default:
+	if (!value)
 		return HTML_LIST_TYPE_ORDERED_ARABIC;
-	}
+	else if (*value == 'i')
+		return HTML_LIST_TYPE_ORDERED_LOWER_ROMAN;
+	else if (*value == 'I')
+		return HTML_LIST_TYPE_ORDERED_UPPER_ROMAN;
+	else if (*value == 'a')
+		return HTML_LIST_TYPE_ORDERED_LOWER_ALPHA;
+	else if (*value == 'A')
+		return HTML_LIST_TYPE_ORDERED_UPPER_ALPHA;
+	else if (*value == '1')
+		return HTML_LIST_TYPE_ORDERED_ARABIC;
+	else if (!g_ascii_strcasecmp (value, "circle"))
+		return HTML_LIST_TYPE_CIRCLE;
+	else if (!g_ascii_strcasecmp (value, "disc"))
+		return HTML_LIST_TYPE_DISC;
+	else if (!g_ascii_strcasecmp (value, "square"))
+		return HTML_LIST_TYPE_SQUARE;
+
+	return HTML_LIST_TYPE_ORDERED_ARABIC;
 }
 
 static void
@@ -2923,7 +2930,7 @@ element_parse_li (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		if (!g_ascii_strncasecmp (token, "value=", 6))
 			itemNumber = atoi (token + 6);
 		else if (!g_ascii_strncasecmp (token, "type=", 5))
-			listType = get_list_type (token [5]);
+			listType = get_list_type (token + 5);
 	}
 
 	if (!html_stack_is_empty (e->listStack)) {
@@ -2969,7 +2976,7 @@ element_parse_ol (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 		token = html_string_tokenizer_next_token (e->st);
 		if (g_ascii_strncasecmp( token, "type=", 5 ) == 0)
-			listType = get_list_type (token [5]);
+			listType = get_list_type (token + 5);
 	}
 
 	html_stack_push (e->listStack, html_list_new (listType));
