@@ -1550,8 +1550,10 @@ static GtkActionEntry html_entries[] = {
 
 	{ "insert-rule",
 	  "stock_insert-rule",
+	  /* Translators: 'Rule' here means a horizontal line in an HTML text */
 	  N_("_Rule..."),
 	  NULL,
+	  /* Translators: 'Rule' here means a horizontal line in an HTML text */
 	  N_("Insert Rule"),
 	  G_CALLBACK (action_insert_rule_cb) },
 
@@ -1592,6 +1594,7 @@ static GtkActionEntry html_entries[] = {
 
 	{ "properties-rule",
 	  NULL,
+	  /* Translators: 'Rule' here means a horizontal line in an HTML text */
 	  N_("_Rule..."),
 	  NULL,
 	  NULL,
@@ -1766,6 +1769,7 @@ static GtkActionEntry context_entries[] = {
 
 	{ "context-delete-table-menu",
 	  NULL,
+	  /* Translators: Popup menu item caption, containing all the Delete options for a table */
 	  N_("Table Delete"),
 	  NULL,
 	  NULL,
@@ -1780,6 +1784,7 @@ static GtkActionEntry context_entries[] = {
 
 	{ "context-insert-table-menu",
 	  NULL,
+	  /* Translators: Popup menu item caption, containing all the Insert options for a table */
 	  N_("Table Insert"),
 	  NULL,
 	  NULL,
@@ -1882,6 +1887,7 @@ static GtkActionEntry html_context_entries[] = {
 
 	{ "context-properties-rule",
 	  NULL,
+	  /* Translators: 'Rule' here means a horizontal line in an HTML text */
 	  N_("Rule..."),
 	  NULL,
 	  NULL,
@@ -2186,6 +2192,7 @@ gtkhtml_editor_actions_init (GtkhtmlEditor *editor)
 		"short-label", _("_Link"), NULL);
 	g_object_set (
 		G_OBJECT (ACTION (INSERT_RULE)),
+		/* Translators: 'Rule' here means a horizontal line in an HTML text */
 		"short-label", _("_Rule"), NULL);
 	g_object_set (
 		G_OBJECT (ACTION (INSERT_TABLE)),
