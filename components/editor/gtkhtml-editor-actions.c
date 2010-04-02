@@ -1668,6 +1668,7 @@ static GtkRadioActionEntry html_size_entries[] = {
 
 	{ "size-minus-two",
 	  NULL,
+	  /* Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible. */
 	  N_("-2"),
 	  NULL,
 	  NULL,
@@ -1675,6 +1676,7 @@ static GtkRadioActionEntry html_size_entries[] = {
 
 	{ "size-minus-one",
 	  NULL,
+	  /* Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible. */
 	  N_("-1"),
 	  NULL,
 	  NULL,
@@ -1682,6 +1684,7 @@ static GtkRadioActionEntry html_size_entries[] = {
 
 	{ "size-plus-zero",
 	  NULL,
+	  /* Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible. */
 	  N_("+0"),
 	  NULL,
 	  NULL,
@@ -1689,6 +1692,7 @@ static GtkRadioActionEntry html_size_entries[] = {
 
 	{ "size-plus-one",
 	  NULL,
+	  /* Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible. */
 	  N_("+1"),
 	  NULL,
 	  NULL,
@@ -1696,6 +1700,7 @@ static GtkRadioActionEntry html_size_entries[] = {
 
 	{ "size-plus-two",
 	  NULL,
+	  /* Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible. */
 	  N_("+2"),
 	  NULL,
 	  NULL,
@@ -1703,6 +1708,7 @@ static GtkRadioActionEntry html_size_entries[] = {
 
 	{ "size-plus-three",
 	  NULL,
+	  /* Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible. */
 	  N_("+3"),
 	  NULL,
 	  NULL,
@@ -1710,6 +1716,7 @@ static GtkRadioActionEntry html_size_entries[] = {
 
 	{ "size-plus-four",
 	  NULL,
+	  /* Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible. */
 	  N_("+4"),
 	  NULL,
 	  NULL,
@@ -2034,8 +2041,10 @@ editor_actions_setup_spell_check_menu (GtkhtmlEditor *editor)
 
 		/* Add an item to the "Add Word To" menu. */
 
-		action_label = g_strdup_printf ("%s Dictionary", name);
 		action_name = g_strdup_printf ("context-spell-add-%s", code);
+		/* Translators: %s will be replaced with the actual dictionary name,
+		   where a user can add a word to. This is part of an "Add Word To" submenu. */
+		action_label = g_strdup_printf (_("%s Dictionary"), name);
 
 		action = gtk_action_new (
 			action_name, action_label, NULL, NULL);
