@@ -2868,7 +2868,7 @@ element_parse_map (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 
 /* list parsers */
 static HTMLListType
-get_list_type (const gchar* value)
+get_list_type (const gchar *value)
 {
 	if (!value)
 		return HTML_LIST_TYPE_ORDERED_ARABIC;
