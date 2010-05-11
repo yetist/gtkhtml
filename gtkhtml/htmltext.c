@@ -3234,13 +3234,21 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 		str = g_utf8_next_char (str);
 
 	if (exec) {
-		for (i = 0; i < G_N_ELEMENTS (mim); i++) {
-			if (mim [i].preg && !regexec (mim [i].preg, str, 2, pmatch, 0)) {
-				paste_link (engine, text,
-					    g_utf8_pointer_to_offset (text->text, str + pmatch [0].rm_so),
-					    g_utf8_pointer_to_offset (text->text, str + pmatch [0].rm_eo), mim [i].prefix);
-					rv = TRUE;
-					break;
+		gboolean done = FALSE;
+		guint32 str_offset = 0, str_length = strlen (str);
+
+		while (!done) {
+			done = TRUE;
+			for (i = 0; i < G_N_ELEMENTS (mim); i++) {
+				if (mim [i].preg && !regexec (mim [i].preg, str + str_offset, 2, pmatch, 0)) {
+					paste_link (engine, text,
+						    g_utf8_pointer_to_offset (text->text, str + str_offset + pmatch [0].rm_so),
+						    g_utf8_pointer_to_offset (text->text, str + str_offset + pmatch [0].rm_eo), mim [i].prefix);
+						rv = TRUE;
+						str_offset += pmatch [0].rm_eo + 1;
+						done = str_offset >= str_length;
+						break;
+				}
 			}
 		}
 	}
