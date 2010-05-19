@@ -2774,7 +2774,7 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
                                  pasted = TRUE;
                          }
                  } while (list_len);
-                 html_undo_level_end (engine->undo);
+                 html_undo_level_end (engine->undo, engine);
 	}
 	break;
 	}
@@ -6199,7 +6199,7 @@ gtk_html_insert_html_generic (GtkHTML *html, GtkHTML *tmp, const gchar *html_src
 			html_object_remove_child (o->parent, o);
 			html_engine_append_flow (html->engine, o, html_object_get_recursive_length (o));
 		}
-		html_undo_level_end (html->engine->undo);
+		html_undo_level_end (html->engine->undo, html->engine);
 	} else {
 		g_return_if_fail (tmp->engine->clue);
 

@@ -560,7 +560,7 @@ html_engine_indent_paragraph (HTMLEngine *e)
 
 	html_cursor_jump_to_position (e->cursor, e, position);
 	html_engine_thaw (e);
-	html_undo_level_end (e->undo);
+	html_undo_level_end (e->undo, e);
 }
 
 void
@@ -615,7 +615,7 @@ html_engine_indent_pre_line (HTMLEngine *e)
 
 	html_cursor_jump_to_position (e->cursor, e, position);
 	html_engine_thaw (e);
-	html_undo_level_end (e->undo);
+	html_undo_level_end (e->undo, e);
 }
 
 void
@@ -682,7 +682,7 @@ html_engine_space_and_fill_line (HTMLEngine *e)
 	html_engine_fill_pre_line (e);
 
 	html_engine_thaw (e);
-	html_undo_level_end (e->undo);
+	html_undo_level_end (e->undo, e);
 }
 
 void
@@ -697,7 +697,7 @@ html_engine_break_and_fill_line (HTMLEngine *e)
 
 	html_engine_insert_empty_paragraph (e);
 	html_engine_thaw (e);
-	html_undo_level_end (e->undo);
+	html_undo_level_end (e->undo, e);
 }
 
 gboolean

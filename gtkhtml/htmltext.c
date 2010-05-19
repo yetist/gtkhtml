@@ -3253,7 +3253,7 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 		}
 	}
 
-	html_undo_level_end (engine->undo);
+	html_undo_level_end (engine->undo, engine);
 	html_cursor_jump_to_position_no_spell (engine->cursor, engine, saved_position);
 
 	return rv;

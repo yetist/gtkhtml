@@ -282,6 +282,7 @@ struct _HTMLEngineClass {
         void (* redirect) (HTMLEngine *engine, const gchar *url, gint delay);
         void (* submit) (HTMLEngine *engine, const gchar *method, const gchar *action, const gchar *encoding);
 	gboolean (* object_requested) (HTMLEngine *engine, GtkHTMLEmbedded *);
+	void (* undo_changed) (HTMLEngine *engine);
 };
 
 
@@ -497,5 +498,7 @@ void html_engine_opened_streams_decrement (HTMLEngine *e);
 void html_engine_opened_streams_set (HTMLEngine *e, gint value);
 
 void html_engine_refresh_fonts (HTMLEngine *e);
+
+void html_engine_emit_undo_changed (HTMLEngine *e);
 
 #endif /* _HTMLENGINE_H_ */
