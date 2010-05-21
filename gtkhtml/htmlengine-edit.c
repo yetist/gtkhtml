@@ -476,8 +476,13 @@ try_break_this_line (HTMLEngine *e, guint line_offset, guint last_space)
 				}
 			}
 			if (uc == ' ' || uc == '\t') {
+				gchar c;
+
 				html_engine_insert_empty_paragraph (e);
 				html_engine_delete_n (e, 1, TRUE);
+
+				while (c = html_cursor_get_current_char (e->cursor), c == ' ' || c == '\t')
+					html_engine_delete_n (e, 1, TRUE);
 
 				flow        = e->cursor->object->parent;
 				last_space  = 0;
