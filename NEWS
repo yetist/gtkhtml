@@ -1,3 +1,22 @@
+GtkHTML-3.30.2 2010-06-20
+-------------------------
+
+Bug Fixes:
+	Bug 247302 - Wrong letter color with HTML content rendering
+	             (Milan Crha)
+	Bug 344076 - Crash after closing an inline view of text attachment
+	             (Chenthill Palanisamy)
+	Bug 575038 - Cursor/caret mode breaks magic spacebar (Milan Crha)
+	Bug 607324 - Crash doing table editing. (Bharath Acharya)
+	Bug 615205 - Translations not working in Emoticons and Find/Replace
+	             dialogs. (Mario Carrion)
+
+Other Changes:
+	[win32] Relocate relevant paths to data (Fridrich Štrba)
+
+Translations:
+	Carles Ferrando (ca@valencia)
+
 GtkHTML-3.30.1 2010-04-26
 -------------------------
 
