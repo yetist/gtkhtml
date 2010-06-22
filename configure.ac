@@ -228,6 +228,16 @@ if test "x$have_iso_codes" = "xyes"; then
 fi
 
 dnl **************************************************
+dnl XF86 multimedia keys support
+dnl **************************************************
+AC_CHECK_HEADER([X11/XF86keysym.h],
+	[AC_DEFINE([HAVE_XFREE], 1, [Have <X11/XF86keysym.h>])],,
+	[[	#if HAVE_XFREE
+		#include <X11/XF86keysym.h>
+		#endif
+	]])
+
+dnl **************************************************
 dnl regex library
 dnl **************************************************
 AC_CHECK_FUNCS(regexec,,[AC_CHECK_LIB(regex,regexec,[REGEX_LIBS=-lregex],[AC_MSG_ERROR([No regex library found])])])
