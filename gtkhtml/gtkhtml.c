@@ -82,7 +82,7 @@ enum DndTargetType {
 	DND_TARGET_TYPE_STRING
 };
 
-static GtkTargetEntry dnd_link_sources [] = {
+static GtkTargetEntry drag_dest_targets[] = {
 	{ (gchar *) "message/rfc822", 0, DND_TARGET_TYPE_MESSAGE_RFC822 },
 	{ (gchar *) "x-uid-list", 0, DND_TARGET_TYPE_X_UID_LIST },
 	{ (gchar *) "text/uri-list", 0, DND_TARGET_TYPE_TEXT_URI_LIST },
@@ -94,7 +94,15 @@ static GtkTargetEntry dnd_link_sources [] = {
 	{ (gchar *) "text/plain", 0, DND_TARGET_TYPE_TEXT_PLAIN },
 	{ (gchar *) "STRING", 0, DND_TARGET_TYPE_STRING },
 };
-#define DND_LINK_SOURCES sizeof (dnd_link_sources) / sizeof (GtkTargetEntry)
+
+static GtkTargetEntry drag_source_targets[] = {
+	{ (gchar *) "text/uri-list", 0, DND_TARGET_TYPE_TEXT_URI_LIST },
+	{ (gchar *) "_NETSCAPE_URL", 0, DND_TARGET_TYPE_MOZILLA_URL },
+	{ (gchar *) "text/html", 0, DND_TARGET_TYPE_TEXT_HTML },
+	{ (gchar *) "UTF8_STRING", 0, DND_TARGET_TYPE_UTF8_STRING },
+	{ (gchar *) "text/plain", 0, DND_TARGET_TYPE_TEXT_PLAIN },
+	{ (gchar *) "STRING", 0, DND_TARGET_TYPE_STRING },
+};
 
 enum _TargetInfo {
 	TARGET_HTML,
@@ -1138,8 +1146,10 @@ void
 gtk_html_drag_dest_set (GtkHTML *html)
 {
 	if (html_engine_get_editable (html->engine))
-		gtk_drag_dest_set (GTK_WIDGET (html), GTK_DEST_DEFAULT_ALL,
-				   dnd_link_sources, DND_LINK_SOURCES, GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
+		gtk_drag_dest_set (
+			GTK_WIDGET (html), GTK_DEST_DEFAULT_ALL,
+			drag_dest_targets, G_N_ELEMENTS (drag_dest_targets),
+			GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
 	else
 		gtk_drag_dest_unset (GTK_WIDGET (html));
 }
@@ -1422,9 +1432,10 @@ dnd_link_set (GtkWidget *widget, HTMLObject *o, gint offset)
 	if (!html_engine_get_editable (GTK_HTML (widget)->engine)) {
 		/* printf ("dnd_link_set %p\n", o); */
 
-		gtk_drag_source_set (widget, GDK_BUTTON1_MASK,
-				     dnd_link_sources, DND_LINK_SOURCES,
-				     GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
+		gtk_drag_source_set (
+			widget, GDK_BUTTON1_MASK,
+			drag_source_targets, G_N_ELEMENTS (drag_source_targets),
+			GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
 		GTK_HTML (widget)->priv->dnd_object = o;
 		GTK_HTML (widget)->priv->dnd_object_offset = offset;
 	}
