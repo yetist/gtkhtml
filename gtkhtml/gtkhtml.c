@@ -70,12 +70,8 @@
 #include "math.h"
 
 enum DndTargetType {
-	DND_TARGET_TYPE_MESSAGE_RFC822,
-	DND_TARGET_TYPE_X_UID_LIST,
 	DND_TARGET_TYPE_TEXT_URI_LIST,
 	DND_TARGET_TYPE_MOZILLA_URL,
-	DND_TARGET_TYPE_TEXT_VCARD,
-	DND_TARGET_TYPE_TEXT_CALENDAR,
 	DND_TARGET_TYPE_TEXT_HTML,
 	DND_TARGET_TYPE_UTF8_STRING,
 	DND_TARGET_TYPE_TEXT_PLAIN,
@@ -83,12 +79,8 @@ enum DndTargetType {
 };
 
 static GtkTargetEntry drag_dest_targets[] = {
-	{ (gchar *) "message/rfc822", 0, DND_TARGET_TYPE_MESSAGE_RFC822 },
-	{ (gchar *) "x-uid-list", 0, DND_TARGET_TYPE_X_UID_LIST },
 	{ (gchar *) "text/uri-list", 0, DND_TARGET_TYPE_TEXT_URI_LIST },
 	{ (gchar *) "_NETSCAPE_URL", 0, DND_TARGET_TYPE_MOZILLA_URL },
-	{ (gchar *) "text/x-vcard", 0, DND_TARGET_TYPE_TEXT_VCARD },
-	{ (gchar *) "text/calendar", 0, DND_TARGET_TYPE_TEXT_CALENDAR },
 	{ (gchar *) "text/html", 0, DND_TARGET_TYPE_TEXT_HTML },
 	{ (gchar *) "UTF8_STRING", 0, DND_TARGET_TYPE_UTF8_STRING },
 	{ (gchar *) "text/plain", 0, DND_TARGET_TYPE_TEXT_PLAIN },
