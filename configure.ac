@@ -16,19 +16,27 @@ m4_define([gnome_icon_theme_minimum_version], [2.22.0])
 dnl **********************************
 dnl GTK version
 dnl **********************************
-if $PKG_CONFIG --exists gtk+-3.0; then
+
+AC_ARG_ENABLE([gtk+-3],
+	AS_HELP_STRING([--enable-gtk3],
+	[Attempt to use gtk+-3]),
+	[enable_gtk3=$enableval],[enable_gtk3=no])
+
+if test "x${enable_gtk3}" = "xyes"; then
 	GTK_PACKAGE="gtk+-3.0"
 	gtk_minimum_version="2.90.5"
+	GTKHTML_API_VERSION=4.0
+	EDITOR_API_VERSION=4.0
 else	
 	GTK_PACKAGE="gtk+-2.0"
 	gtk_minimum_version="2.20.0"
+	GTKHTML_API_VERSION=3.14
+	EDITOR_API_VERSION=3.14
 fi
 
-GTKHTML_API_VERSION=3.14
 AC_DEFINE_UNQUOTED(GTKHTML_API_VERSION, "${GTKHTML_API_VERSION}", [GtkHTML API Version])
 AC_SUBST(GTKHTML_API_VERSION)
 
-EDITOR_API_VERSION=3.14
 AC_DEFINE_UNQUOTED(EDITOR_API_VERSION, "${EDITOR_API_VERSION}", [Editor API Version])
 AC_SUBST(EDITOR_API_VERSION)
 
