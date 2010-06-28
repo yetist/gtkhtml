@@ -9,10 +9,20 @@ AC_CONFIG_SRCDIR(README)
 PACKAGE=gtkhtml
 
 dnl Required Package Versions
-m4_define([gtk_minimum_version], [2.20.0])
 m4_define([gail_minimum_version], [1.1.0])
 m4_define([enchant_minimum_version], [1.1.7])
 m4_define([gnome_icon_theme_minimum_version], [2.22.0])
+
+dnl **********************************
+dnl GTK version
+dnl **********************************
+if $PKG_CONFIG --exists gtk+-3.0; then
+	GTK_PACKAGE="gtk+-3.0"
+	gtk_minimum_version="2.90.5"
+else	
+	GTK_PACKAGE="gtk+-2.0"
+	gtk_minimum_version="2.20.0"
+fi
 
 GTKHTML_API_VERSION=3.14
 AC_DEFINE_UNQUOTED(GTKHTML_API_VERSION, "${GTKHTML_API_VERSION}", [GtkHTML API Version])
@@ -146,7 +156,7 @@ AC_SUBST(GTHREAD_LIBS)
 dnl **********************************
 dnl GTKHTML modules
 dnl **********************************
-GTKHTML_MODULES="gtk+-2.0 >= gtk_minimum_version enchant >= enchant_minimum_version gconf-2.0 iso-codes"
+GTKHTML_MODULES="$GTK_PACKAGE >= $gtk_minimum_version enchant >= enchant_minimum_version gconf-2.0 iso-codes"
 PKG_CHECK_MODULES(GTKHTML, $GTKHTML_MODULES)
 AC_SUBST(GTKHTML_CFLAGS)
 AC_SUBST(GTKHTML_LIBS)
