@@ -204,7 +204,7 @@ csources =					\
 if ENABLE_GTK3
 lib_LTLIBRARIES = libgtkhtml-4.0.la
 libgtkhtml_4_0_la_SOURCES = $(csources)
-libgtkhtml_4_0_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE) -no-undefined
+libgtkhtml_4_0_la_LDFLAGS = -version-info $(GTKHTML_GTK3_CURRENT):$(GTKHTML_GTK3_REVISION):$(GTKHTML_GTK3_AGE) -no-undefined
 libgtkhtml_4_0_la_LIBADD = $(GTKHTML_LIBS) ../a11y/libgtkhtml-a11y.la $(GAIL_LIBS) $(REGEX_LIBS)
 else
 lib_LTLIBRARIES = libgtkhtml-3.14.la

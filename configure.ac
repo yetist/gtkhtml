@@ -289,19 +289,25 @@ dnl **********************************
 dnl Increment the following if the interface has additions, changes,
 dnl removals.
 GTKHTML_CURRENT=20
+GTKHTML_GTK3_CURRENT=0
 
 dnl Increment any time the source changes; set to 0 if you
 dnl increment CURRENT.
 GTKHTML_REVISION=1
+GTKHTML_GTK3_REVISION=0
 
 dnl Increment if any interfaces have been added; set to 0
 dnl if any interfaces have been removed. removal has 
 dnl precedence over adding, so set to 0 if both happened.
 GTKHTML_AGE=1
+GTKHTML_GTK3_AGE=0
 
 AC_SUBST(GTKHTML_CURRENT)
 AC_SUBST(GTKHTML_REVISION)
 AC_SUBST(GTKHTML_AGE)
+AC_SUBST(GTKHTML_GTK3_CURRENT)
+AC_SUBST(GTKHTML_GTK3_REVISION)
+AC_SUBST(GTKHTML_GTK3_AGE)
 
 dnl **************
 dnl Done.
