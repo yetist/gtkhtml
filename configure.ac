@@ -331,6 +331,7 @@ AC_OUTPUT
 echo "
 Configuration:
 
+	GTK+ package            :		${GTK_PACKAGE}
 	Cookies support in soup :		${HAVE_NEWSOUP}
 	Editor component type   :		${GNOME_GTKHTML_EDITOR_TYPE}
 "
