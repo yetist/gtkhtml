@@ -9,7 +9,6 @@ AC_CONFIG_SRCDIR(README)
 PACKAGE=gtkhtml
 
 dnl Required Package Versions
-m4_define([gail_minimum_version], [1.1.0])
 m4_define([enchant_minimum_version], [1.1.7])
 m4_define([gnome_icon_theme_minimum_version], [2.22.0])
 
