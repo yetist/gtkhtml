@@ -1,6 +1,6 @@
 ### Process this file with automake to produce Makefile.in
 
-gtkhtml_data = $(datadir)/gtkhtml-@GTKHTML_API_VERSION@
+gtkhtml_data = $(datadir)/gtkhtml-@EDITOR_API_VERSION@
 
 bin_PROGRAMS = gtkhtml-editor-test
 
@@ -21,7 +21,7 @@ BUILT_SOURCES = \
 	gtkhtml-spell-marshal.c			\
 	gtkhtml-spell-marshal.h
 
-libgtkhtml_editordir = $(includedir)/libgtkhtml-@GTKHTML_API_VERSION@/editor
+libgtkhtml_editordir = $(includedir)/libgtkhtml-@EDITOR_API_VERSION@/editor
 
 csources = 					\
 	$(BUILT_SOURCES)			\
@@ -68,14 +68,14 @@ lib_LTLIBRARIES = libgtkhtml-editor-4.0.la
 libgtkhtml_editor_4_0_la_SOURCES = $(csources) 
 libgtkhtml_editor_4_0_la_LIBADD = \
 	@GTKHTML_LIBS@				\
-	$(top_builddir)/gtkhtml/libgtkhtml-@GTKHTML_API_VERSION@.la
+	$(top_builddir)/gtkhtml/libgtkhtml-@EDITOR_API_VERSION@.la
 libgtkhtml_editor_4_0_la_LDFLAGS = -no-undefined
 else
 lib_LTLIBRARIES = libgtkhtml-editor-3.14.la
 libgtkhtml_editor_3_14_la_SOURCES = $(csources) 
 libgtkhtml_editor_3_14_la_LIBADD = \
 	@GTKHTML_LIBS@				\
-	$(top_builddir)/gtkhtml/libgtkhtml-@GTKHTML_API_VERSION@.la
+	$(top_builddir)/gtkhtml/libgtkhtml-@EDITOR_API_VERSION@.la
 libgtkhtml_editor_la_3_14_LDFLAGS = -no-undefined
 endif
 
@@ -83,8 +83,8 @@ gtkhtml_editor_test_SOURCES = main.c
 
 gtkhtml_editor_test_LDADD = \
 	$(GTHREAD_LIBS)				\
-	libgtkhtml-editor-@GTKHTML_API_VERSION@.la			\
-	$(top_builddir)/gtkhtml/libgtkhtml-@GTKHTML_API_VERSION@.la
+	libgtkhtml-editor-@EDITOR_API_VERSION@.la			\
+	$(top_builddir)/gtkhtml/libgtkhtml-@EDITOR_API_VERSION@.la
 
 gtkhtml-editor-marshal.h: gtkhtml-editor-marshal.list $(GLIB_GENMARSHAL)
 	$(GLIB_GENMARSHAL) $< --header --prefix=gtkhtml_editor_marshal > $@
@@ -100,8 +100,12 @@ gtkhtml-spell-marshal.c: gtkhtml-spell-marshal.list $(GLIB_GENMARSHAL)
 	echo "#include \"gtkhtml-spell-marshal.h\"" > $@ && \
 	$(GLIB_GENMARSHAL) $< --body --prefix=gtkhtml_spell_marshal >> $@
 
+%-$(EDITOR_API_VERSION).pc: %.pc
+	cp $< $@
+
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = gtkhtml-editor.pc
+pkgconfig_in_files = gtkhtml-editor.pc.in
+pkgconfig_DATA = $(pkgconfig_in_files:.pc.in=-$(EDITOR_API_VERSION).pc)
 
 uidir = $(gtkhtml_data)
 ui_DATA = \
@@ -114,8 +118,8 @@ EXTRA_DIST = \
 	gtkhtml-editor-marshal.list		\
 	gtkhtml-spell-marshal.list
 
-CLEANFILES = \
-	$(BUILT_SOURCES)
+CLEANFILES = $(BUILT_SOURCES)
+DISTCLEANFILES = $(pkgconfig_DATA)
 
 if GLADE_CATALOG
 
