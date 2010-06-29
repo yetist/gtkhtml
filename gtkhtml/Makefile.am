@@ -198,6 +198,7 @@ csources =					\
 	htmliframe.h				\
 	htmlframe.h				\
 	htmlframeset.h				\
+	gtk-compat.h				\
 	$(PLATFORM_DEP_SOURCES)			\
 	$(NULL)
 
