@@ -24,7 +24,7 @@ AC_ARG_ENABLE([gtk3],
 if test "x${enable_gtk3}" = "xyes"; then
 	GTK_PACKAGE="gtk+-3.0"
 	GAIL_PACKAGE="gail-3.0"
-	gtk_minimum_version="2.90.5"
+	gtk_minimum_version="2.90.4"
 	GTKHTML_API_VERSION=4.0
 	EDITOR_API_VERSION=4.0
 else	
