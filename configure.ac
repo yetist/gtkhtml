@@ -24,11 +24,13 @@ AC_ARG_ENABLE([gtk3],
 
 if test "x${enable_gtk3}" = "xyes"; then
 	GTK_PACKAGE="gtk+-3.0"
+	GAIL_PACKAGE="gail-3.0"
 	gtk_minimum_version="2.90.5"
 	GTKHTML_API_VERSION=4.0
 	EDITOR_API_VERSION=4.0
 else	
 	GTK_PACKAGE="gtk+-2.0"
+	GAIL_PACKAGE="gail"
 	gtk_minimum_version="2.20.0"
 	GTKHTML_API_VERSION=3.14
 	EDITOR_API_VERSION=3.14
@@ -148,7 +150,7 @@ AC_SUBST(LDFLAGS)
 dnl **********************************
 dnl GAIL modules
 dnl **********************************
-GAIL_MODULES="gail >= gail_minimum_version"
+GAIL_MODULES="$GAIL_PACKAGE >= $gtk_minimum_version"
 PKG_CHECK_MODULES(GAIL, $GAIL_MODULES)
 AC_SUBST(GAIL_CFLAGS)
 AC_SUBST(GAIL_LIBS)
