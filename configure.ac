@@ -17,7 +17,7 @@ dnl **********************************
 dnl GTK version
 dnl **********************************
 
-AC_ARG_ENABLE([gtk+-3],
+AC_ARG_ENABLE([gtk3],
 	AS_HELP_STRING([--enable-gtk3],
 	[Attempt to use gtk+-3]),
 	[enable_gtk3=$enableval],[enable_gtk3=no])
@@ -33,6 +33,7 @@ else
 	GTKHTML_API_VERSION=3.14
 	EDITOR_API_VERSION=3.14
 fi
+AM_CONDITIONAL([ENABLE_GTK3], [test "$enable_gtk3" = yes])
 
 AC_DEFINE_UNQUOTED(GTKHTML_API_VERSION, "${GTKHTML_API_VERSION}", [GtkHTML API Version])
 AC_SUBST(GTKHTML_API_VERSION)
