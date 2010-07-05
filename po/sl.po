@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gtkhtml&component=general\n"
-"POT-Creation-Date: 2009-12-28 01:14+0000\n"
-"PO-Revision-Date: 2009-12-30 10:59+0100\n"
+"POT-Creation-Date: 2010-06-29 23:11+0000\n"
+"PO-Revision-Date: 2010-07-05 07:14+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "Naslov URL je %s"
 msgid "grab focus"
 msgstr "dobi fokus"
 
-#: ../a11y/object.c:253
+#: ../a11y/object.c:257
 msgid "Panel containing HTML"
 msgstr "Pult, ki vsebuje HTML"
 
@@ -69,7 +69,7 @@ msgstr "vijolična 2"
 
 #: ../components/editor/gtkhtml-color-combo.c:86
 msgid "very dark gray"
-msgstr "zelo temno modra"
+msgstr "zelo temno siva"
 
 #: ../components/editor/gtkhtml-color-combo.c:88
 msgid "dark red"
@@ -101,7 +101,7 @@ msgstr "mračno vijolična"
 
 #: ../components/editor/gtkhtml-color-combo.c:95
 msgid "dark grey"
-msgstr "mračno siva"
+msgstr "temno siva"
 
 #: ../components/editor/gtkhtml-color-combo.c:97
 msgid "red"
@@ -199,132 +199,22 @@ msgstr "svetlo vijolična"
 msgid "white"
 msgstr "bela"
 
-#: ../components/editor/gtkhtml-color-combo.c:274
+#: ../components/editor/gtkhtml-color-combo.c:277
 msgid "Choose Custom Color"
 msgstr "Izberite barvo po meri"
 
-#: ../components/editor/gtkhtml-color-combo.c:711
-#: ../components/editor/gtkhtml-color-state.c:205
-msgid "Current color"
-msgstr "Trenutna barva"
-
-#: ../components/editor/gtkhtml-color-combo.c:712
-msgid "The currently selected color"
-msgstr "Trenutno izbrana barva"
-
-#: ../components/editor/gtkhtml-color-combo.c:721
-#: ../components/editor/gtkhtml-color-state.c:215
-msgid "Default color"
-msgstr "Privzeta barva"
-
-#: ../components/editor/gtkhtml-color-combo.c:722
-msgid "The color associated with the default button"
-msgstr "Barva povezana s trenutnim gumbom"
-
-#: ../components/editor/gtkhtml-color-combo.c:732
-#: ../components/editor/gtkhtml-color-state.c:226
-msgid "Default label"
-msgstr "Privzeta oznaka"
-
-#: ../components/editor/gtkhtml-color-combo.c:733
-msgid "The label for the default button"
-msgstr "Oznaka privzetega gumba"
-
-#: ../components/editor/gtkhtml-color-combo.c:734
+#: ../components/editor/gtkhtml-color-combo.c:745
 #: ../components/editor/gtkhtml-color-state.c:228
 msgid "Default"
 msgstr "Privzeto"
 
-#: ../components/editor/gtkhtml-color-combo.c:743
-#: ../components/editor/gtkhtml-color-state.c:237
-msgid "Default is transparent"
-msgstr "Privzeto je prosojno"
-
-#: ../components/editor/gtkhtml-color-combo.c:744
-#: ../components/editor/gtkhtml-color-state.c:238
-msgid "Whether the default color is transparent"
-msgstr "Možnost omogoča, da je privzeta barva prosojna"
-
-#: ../components/editor/gtkhtml-color-combo.c:754
-#: ../components/editor/gtkhtml-color-state.c:248
-msgid "Color palette"
-msgstr "Barvna paleta"
-
-#: ../components/editor/gtkhtml-color-combo.c:755
-#: ../components/editor/gtkhtml-color-state.c:249
-msgid "Custom color palette"
-msgstr "Barvna paleta po meri"
-
-#. Translators: This is the nickname for a
-#. * GtkhtmlColorCombo property named "popup-shown",
-#. * based on a similar property in GtkComboBox.
-#: ../components/editor/gtkhtml-color-combo.c:767
-msgid "Popup shown"
-msgstr "Prikazano pojavno okno"
-
-#. Translators: This is the blurb for a
-#. * GtkhtmlColorCombo property named "popup-shown",
-#. * based on a similar property in GtkComboBox.
-#: ../components/editor/gtkhtml-color-combo.c:771
-msgid "Whether the combo's dropdown is shown"
-msgstr "Ali naj bo prikazano spustno polje"
-
-#. Translators: This is the nickname for a
-#. GtkHtmlColorCombo property named "state". It holds all
-#. the internal values for a GtkHtml color combination box.
-#.
-#: ../components/editor/gtkhtml-color-combo.c:784
-msgid "Color state"
-msgstr "Stanje barve"
-
-#. Translators: This is the blurb for a
-#. GtkHtmlColorCombo property named "state". It holds all
-#. the internal values for a GtkHtml color combination box.
-#.
-#: ../components/editor/gtkhtml-color-combo.c:789
-msgid "The state of a color combo box"
-msgstr "Stanje spustnega barvnega polja"
-
-#: ../components/editor/gtkhtml-color-combo.c:971
+#: ../components/editor/gtkhtml-color-combo.c:968
 msgid "custom"
 msgstr "po meri"
 
-#: ../components/editor/gtkhtml-color-combo.c:979
+#: ../components/editor/gtkhtml-color-combo.c:976
 msgid "Custom Color..."
 msgstr "Barva po meri ..."
-
-#: ../components/editor/gtkhtml-color-state.c:206
-#: ../components/editor/gtkhtml-color-swatch.c:183
-msgid "The current color"
-msgstr "Trenutna barva"
-
-#: ../components/editor/gtkhtml-color-state.c:216
-msgid "The default color"
-msgstr "Privzeta barva"
-
-#: ../components/editor/gtkhtml-color-state.c:227
-msgid "Description of the default color"
-msgstr "Opis privzete barve"
-
-#: ../components/editor/gtkhtml-color-swatch.c:182
-msgid "Color"
-msgstr "Barva"
-
-#: ../components/editor/gtkhtml-color-swatch.c:192
-msgid "Frame Shadow"
-msgstr "Senca okvirja"
-
-#: ../components/editor/gtkhtml-color-swatch.c:193
-msgid "Appearance of the frame border"
-msgstr "Videz roba okvirja"
-
-#: ../components/editor/gtkhtml-combo-box.c:323
-msgid "Action"
-msgstr "Dejanje"
-
-#: ../components/editor/gtkhtml-combo-box.c:324
-msgid "A GtkRadioAction"
-msgstr "GtkRadioAction"
 
 #. Translators: :-)
 #: ../components/editor/gtkhtml-face-chooser.c:34
@@ -454,7 +344,7 @@ msgstr "Vstavi datoteko z besedilom"
 
 #. Replace Button
 #: ../components/editor/gtkhtml-editor-actions.c:1176
-#: ../components/editor/gtkhtml-spell-dialog.c:522
+#: ../components/editor/gtkhtml-spell-dialog.c:520
 msgid "_Replace"
 msgstr "_Zamenjaj"
 
@@ -523,7 +413,7 @@ msgid "Check _Spelling..."
 msgstr "Preveri č_rkovanje ..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1309
-#: ../components/editor/gtkhtml-editor-builder.ui.h:79
+#: ../components/editor/gtkhtml-editor-builder.ui.h:80
 msgid "_Test URL..."
 msgstr "_Preizkusni URL ..."
 
@@ -670,12 +560,12 @@ msgid "_Alphabetical List"
 msgstr "_Abecedno oštevilčen seznam"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1539
-#: ../components/editor/gtkhtml-editor-actions.c:1574
+#: ../components/editor/gtkhtml-editor-actions.c:1576
 msgid "_Image..."
 msgstr "_Slika ..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1546
-#: ../components/editor/gtkhtml-editor-actions.c:1581
+#: ../components/editor/gtkhtml-editor-actions.c:1583
 msgid "_Link..."
 msgstr "Po_vezava ..."
 
@@ -683,329 +573,301 @@ msgstr "Po_vezava ..."
 msgid "Insert Link"
 msgstr "Vstavi povezavo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1553
-#: ../components/editor/gtkhtml-editor-actions.c:1595
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1554
+#: ../components/editor/gtkhtml-editor-actions.c:1598
 msgid "_Rule..."
 msgstr "P_ravilo ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1555
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1557
 msgid "Insert Rule"
 msgstr "Vstavi pravilo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1560
-#: ../components/editor/gtkhtml-editor-actions.c:1602
-msgid "_Table..."
-msgstr "_Razpredelnica ..."
-
 #: ../components/editor/gtkhtml-editor-actions.c:1562
+#: ../components/editor/gtkhtml-editor-actions.c:1605
+msgid "_Table..."
+msgstr "_Preglednica ..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1564
 msgid "Insert Table"
 msgstr "Vstavi preglednico"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1567
+#: ../components/editor/gtkhtml-editor-actions.c:1569
 msgid "_Cell..."
 msgstr "_Celica ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1588
+#: ../components/editor/gtkhtml-editor-actions.c:1590
 msgid "Pa_ge..."
 msgstr "_Stran ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1611
+#: ../components/editor/gtkhtml-editor-actions.c:1614
 msgid "Font _Size"
 msgstr "Velikost _pisave"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1618
+#: ../components/editor/gtkhtml-editor-actions.c:1621
 msgid "_Font Style"
 msgstr "_Slog pisave"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1628
-#: ../components/editor/gtkhtml-editor-builder.ui.h:60
+#: ../components/editor/gtkhtml-editor-actions.c:1631
+#: ../components/editor/gtkhtml-editor-builder.ui.h:61
 msgid "_Bold"
 msgstr "_Krepko"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1630
+#: ../components/editor/gtkhtml-editor-actions.c:1633
 msgid "Bold"
 msgstr "Krepko"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1636
-#: ../components/editor/gtkhtml-editor-builder.ui.h:67
+#: ../components/editor/gtkhtml-editor-actions.c:1639
+#: ../components/editor/gtkhtml-editor-builder.ui.h:68
 msgid "_Italic"
 msgstr "_Ležeče"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1638
+#: ../components/editor/gtkhtml-editor-actions.c:1641
 msgid "Italic"
 msgstr "Ležeče"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1644
+#: ../components/editor/gtkhtml-editor-actions.c:1647
 msgid "_Plain Text"
 msgstr "_Običajno besedilo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1646
+#: ../components/editor/gtkhtml-editor-actions.c:1649
 msgid "Plain Text"
 msgstr "Običajno besedilo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1652
-#: ../components/editor/gtkhtml-editor-builder.ui.h:76
+#: ../components/editor/gtkhtml-editor-actions.c:1655
+#: ../components/editor/gtkhtml-editor-builder.ui.h:77
 msgid "_Strikethrough"
 msgstr "P_rečrtano"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1654
+#: ../components/editor/gtkhtml-editor-actions.c:1657
 msgid "Strikethrough"
 msgstr "Prečrtano"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1660
-#: ../components/editor/gtkhtml-editor-builder.ui.h:82
+#: ../components/editor/gtkhtml-editor-actions.c:1663
+#: ../components/editor/gtkhtml-editor-builder.ui.h:83
 msgid "_Underline"
 msgstr "Po_dčrtano"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1662
+#: ../components/editor/gtkhtml-editor-actions.c:1665
 msgid "Underline"
 msgstr "Podčrtano"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1671
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1675
 msgid "-2"
 msgstr "-2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1678
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1683
 msgid "-1"
 msgstr "-1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1685
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1691
 msgid "+0"
 msgstr "+0"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1692
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1699
 msgid "+1"
 msgstr "+1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1699
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1707
 msgid "+2"
 msgstr "+2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1706
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1715
 msgid "+3"
 msgstr "+3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1713
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1723
 msgid "+4"
 msgstr "+4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1732
+#: ../components/editor/gtkhtml-editor-actions.c:1742
 msgid "Cell Contents"
 msgstr "Vsebina celice"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1739
+#: ../components/editor/gtkhtml-editor-actions.c:1749
 msgid "Column"
 msgstr "Stolpec"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1746
+#: ../components/editor/gtkhtml-editor-actions.c:1756
 msgid "Row"
 msgstr "Vrstica"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1753
-#: ../components/editor/gtkhtml-editor-actions.c:1836
+#: ../components/editor/gtkhtml-editor-actions.c:1763
+#: ../components/editor/gtkhtml-editor-actions.c:1848
 msgid "Table"
-msgstr "Razpredelnica"
+msgstr "Preglednica"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1762
+#. Translators: Popup menu item caption, containing all the Delete options for a table
+#: ../components/editor/gtkhtml-editor-actions.c:1773
 msgid "Table Delete"
-msgstr "Izbriši razpredelnico"
+msgstr "Izbriši preglednico"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1769
+#: ../components/editor/gtkhtml-editor-actions.c:1780
 msgid "Input Methods"
 msgstr "Načini vnosa"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1776
+#. Translators: Popup menu item caption, containing all the Insert options for a table
+#: ../components/editor/gtkhtml-editor-actions.c:1788
 msgid "Table Insert"
 msgstr "Vstavi preglednico"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1783
+#: ../components/editor/gtkhtml-editor-actions.c:1795
 msgid "Properties"
 msgstr "Lastnosti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1801
+#: ../components/editor/gtkhtml-editor-actions.c:1813
 msgid "Column After"
 msgstr "Stolpec po"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1808
+#: ../components/editor/gtkhtml-editor-actions.c:1820
 msgid "Column Before"
 msgstr "Stolpec pred"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1815
+#: ../components/editor/gtkhtml-editor-actions.c:1827
 msgid "Insert _Link"
 msgstr "Vstavi _povezavo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1822
+#: ../components/editor/gtkhtml-editor-actions.c:1834
 msgid "Row Above"
 msgstr "Vrstica nad"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1829
+#: ../components/editor/gtkhtml-editor-actions.c:1841
 msgid "Row Below"
 msgstr "Vrstica pod"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1843
+#: ../components/editor/gtkhtml-editor-actions.c:1855
 msgid "Cell..."
 msgstr "Celica ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1850
+#: ../components/editor/gtkhtml-editor-actions.c:1862
 msgid "Image..."
 msgstr "Slika ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1857
+#: ../components/editor/gtkhtml-editor-actions.c:1869
 msgid "Link..."
 msgstr "Povezava ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1864
+#: ../components/editor/gtkhtml-editor-actions.c:1876
 msgid "Page..."
 msgstr "Stran ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1871
+#: ../components/editor/gtkhtml-editor-actions.c:1883
 msgid "Paragraph..."
 msgstr "Odstavek ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1878
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1891
 msgid "Rule..."
 msgstr "Pravilo ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1885
+#: ../components/editor/gtkhtml-editor-actions.c:1898
 msgid "Table..."
-msgstr "Razpredelnica ..."
+msgstr "Preglednica ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1892
+#: ../components/editor/gtkhtml-editor-actions.c:1905
 msgid "Text..."
 msgstr "Besedilo ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1899
+#: ../components/editor/gtkhtml-editor-actions.c:1912
 msgid "Remove Link"
 msgstr "Odstrani povezavo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1916
+#: ../components/editor/gtkhtml-editor-actions.c:1929
 msgid "Add Word to Dictionary"
 msgstr "Dodaj besedo v slovar"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1923
+#: ../components/editor/gtkhtml-editor-actions.c:1936
 msgid "Ignore Misspelled Word"
 msgstr "Prezri narobe črkovano besedo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1930
+#: ../components/editor/gtkhtml-editor-actions.c:1943
 msgid "Add Word To"
 msgstr "Dodaj besedo v"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1939
+#: ../components/editor/gtkhtml-editor-actions.c:1952
 msgid "More Suggestions"
 msgstr "Več predlogov"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2106
+#. Translators: %s will be replaced with the actual dictionary name,
+#. where a user can add a word to. This is part of an "Add Word To" submenu.
+#: ../components/editor/gtkhtml-editor-actions.c:2053
+#, c-format
+msgid "%s Dictionary"
+msgstr "%s slovar"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2121
 msgid "_Emoticon"
 msgstr "Sm_eško"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2107
+#: ../components/editor/gtkhtml-editor-actions.c:2122
 msgid "Insert Emoticon"
 msgstr "Vstavi slike _smeškov"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2168
+#: ../components/editor/gtkhtml-editor-actions.c:2183
 msgid "_Find"
 msgstr "_Poišči"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2171
+#: ../components/editor/gtkhtml-editor-actions.c:2186
 msgid "Re_place"
 msgstr "_Zamenjaj"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2174
+#: ../components/editor/gtkhtml-editor-actions.c:2189
 msgid "_Image"
 msgstr "_Slika"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2177
+#: ../components/editor/gtkhtml-editor-actions.c:2192
 msgid "_Link"
 msgstr "_Povezava"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2180
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:2196
 msgid "_Rule"
 msgstr "_Pravilo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2183
-#: ../components/editor/gtkhtml-editor-builder.ui.h:78
+#: ../components/editor/gtkhtml-editor-actions.c:2199
+#: ../components/editor/gtkhtml-editor-builder.ui.h:79
 msgid "_Table"
-msgstr "_Razpredelnica"
+msgstr "_Preglednica"
 
-#: ../components/editor/gtkhtml-editor-private.c:271
+#: ../components/editor/gtkhtml-editor-private.c:273
 msgid "Paragraph Style"
 msgstr "Slog odstavka"
 
-#: ../components/editor/gtkhtml-editor-private.c:285
+#: ../components/editor/gtkhtml-editor-private.c:287
 msgid "Editing Mode"
 msgstr "Urejevalni način"
 
-#: ../components/editor/gtkhtml-editor-private.c:297
+#: ../components/editor/gtkhtml-editor-private.c:299
 msgid "Font Color"
 msgstr "Barva pisave"
 
-#: ../components/editor/gtkhtml-editor-private.c:307
+#: ../components/editor/gtkhtml-editor-private.c:309
 msgid "Font Size"
 msgstr "Velikost pisave"
 
-#: ../components/editor/gtkhtml-editor-private.c:334
+#: ../components/editor/gtkhtml-editor-private.c:336
 msgid "Automatic"
 msgstr "Samodejno"
 
-#: ../components/editor/gtkhtml-editor-private.c:587
+#: ../components/editor/gtkhtml-editor-private.c:589
 msgid "Could not open the link."
 msgstr "Ni mogoče odprti povezave."
 
-#: ../components/editor/gtkhtml-editor.c:778
-msgid "Current Folder"
-msgstr "Trenutna mapa"
+#: ../components/editor/gtkhtml-editor.c:897
+msgid "Changed property"
+msgstr "Spremenjena lastnost"
 
-#: ../components/editor/gtkhtml-editor.c:779
-msgid "The initial folder for file chooser dialogs"
-msgstr "Začetna mapa izbire pogovornih oken"
-
-#: ../components/editor/gtkhtml-editor.c:789
-msgid "Filename"
-msgstr "Ime datoteke"
-
-#: ../components/editor/gtkhtml-editor.c:790
-msgid "The filename to use when saving"
-msgstr "Ime datoteke uporabljeno pri shanjevanju"
-
-#: ../components/editor/gtkhtml-editor.c:800
-msgid "HTML Editing Widget"
-msgstr "Gradnik urejanja HTML"
-
-#: ../components/editor/gtkhtml-editor.c:801
-msgid "The main HTML editing widget"
-msgstr "Urejevalni gradnik HTML kode"
-
-#: ../components/editor/gtkhtml-editor.c:811
-msgid "HTML Mode"
-msgstr "Način HTML"
-
-#: ../components/editor/gtkhtml-editor.c:812
-msgid "Edit HTML or plain text"
-msgstr "Urejanje HTML ali običajnega besedila"
-
-#: ../components/editor/gtkhtml-editor.c:822
-msgid "Inline Spelling"
-msgstr "Sprotno č_rkovanje"
-
-#: ../components/editor/gtkhtml-editor.c:823
-msgid "Check your spelling as you type"
-msgstr "Preveri črkovanje dokumenta med tipkanjem"
-
-#: ../components/editor/gtkhtml-editor.c:833
-msgid "Magic Links"
-msgstr "Čarobne povezave"
-
-#: ../components/editor/gtkhtml-editor.c:834
-msgid "Make URIs clickable as you type"
-msgstr "Pretvori zapisano povezavo v neposredno povezavo"
-
-#: ../components/editor/gtkhtml-editor.c:844
-msgid "Magic Smileys"
-msgstr "Čarobni smeški"
-
-#: ../components/editor/gtkhtml-editor.c:845
-msgid "Convert emoticons to images as you type"
-msgstr "Pretvori smeške v slike med tipkanjem"
+#: ../components/editor/gtkhtml-editor.c:898
+msgid "Whether editor changed"
+msgstr "Ali je bil urejevalnik spremenjen."
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:2
 #, no-c-format
@@ -1180,223 +1042,208 @@ msgstr "Desno"
 msgid "Row Span:"
 msgstr "Seganje vrstice:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:45
+#. Translators: Caption of a window. 'Rule' here means a horizontal line in an HTML text.
+#: ../components/editor/gtkhtml-editor-builder.ui.h:46
 msgid "Rule Properties"
 msgstr "Lastnosti pravil"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:46
+#: ../components/editor/gtkhtml-editor-builder.ui.h:47
 msgid "S_haded"
 msgstr "_Senčeno"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:47
+#: ../components/editor/gtkhtml-editor-builder.ui.h:48
 msgid "Scope"
 msgstr "Obseg"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:48
+#: ../components/editor/gtkhtml-editor-builder.ui.h:49
 msgid "Search _backwards"
 msgstr "Poišči _nazaj"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:49
+#: ../components/editor/gtkhtml-editor-builder.ui.h:50
 msgid "Select An Image"
 msgstr "Izbor slike"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:50
+#: ../components/editor/gtkhtml-editor-builder.ui.h:51
 msgid "Si_ze:"
 msgstr "Vel_ikost:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:51
+#: ../components/editor/gtkhtml-editor-builder.ui.h:52
 msgid "Size"
 msgstr "Velikost"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:52
+#: ../components/editor/gtkhtml-editor-builder.ui.h:53
 msgid "Style"
 msgstr "Slog"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:53
+#: ../components/editor/gtkhtml-editor-builder.ui.h:54
 msgid "T_emplate:"
 msgstr "Pr_edloga:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:54
-msgid "Table Properties"
-msgstr "Lastnosti razpredelnice"
-
 #: ../components/editor/gtkhtml-editor-builder.ui.h:55
+msgid "Table Properties"
+msgstr "Lastnosti preglednice"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:56
 msgid "Text Properties"
 msgstr "Lastnosti besedila"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:56
+#: ../components/editor/gtkhtml-editor-builder.ui.h:57
 msgid "Top"
 msgstr "Na vrhu"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:57
+#: ../components/editor/gtkhtml-editor-builder.ui.h:58
 msgid "Width:"
 msgstr "Širina:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:58
+#: ../components/editor/gtkhtml-editor-builder.ui.h:59
 msgid "_Alignment:"
 msgstr "Por_avnava:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:59
+#: ../components/editor/gtkhtml-editor-builder.ui.h:60
 msgid "_Background:"
 msgstr "_Ozadje:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:61
+#: ../components/editor/gtkhtml-editor-builder.ui.h:62
 msgid "_Border:"
 msgstr "Ro_b:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:62
+#: ../components/editor/gtkhtml-editor-builder.ui.h:63
 msgid "_Color:"
 msgstr "_Barva:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:63
+#: ../components/editor/gtkhtml-editor-builder.ui.h:64
 msgid "_Description:"
 msgstr "_Opis:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:64
+#: ../components/editor/gtkhtml-editor-builder.ui.h:65
 msgid "_Height:"
 msgstr "_Višina:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:65
+#: ../components/editor/gtkhtml-editor-builder.ui.h:66
 msgid "_Horizontal:"
 msgstr "_Vodoravno:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:66
+#: ../components/editor/gtkhtml-editor-builder.ui.h:67
 msgid "_Image:"
 msgstr "_Slika:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:68
+#: ../components/editor/gtkhtml-editor-builder.ui.h:69
 msgid "_Link:"
 msgstr "_Povezava:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:69
+#: ../components/editor/gtkhtml-editor-builder.ui.h:70
 msgid "_Padding:"
 msgstr "_Polnjenje:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:70
+#: ../components/editor/gtkhtml-editor-builder.ui.h:71
 msgid "_Regular expression"
 msgstr "Logični izraz"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:71
+#: ../components/editor/gtkhtml-editor-builder.ui.h:72
 msgid "_Row"
 msgstr "V_rstica"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:72
+#: ../components/editor/gtkhtml-editor-builder.ui.h:73
 msgid "_Rows:"
 msgstr "V_rstice:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:73
+#: ../components/editor/gtkhtml-editor-builder.ui.h:74
 msgid "_Size:"
 msgstr "_Velikost:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:74
+#: ../components/editor/gtkhtml-editor-builder.ui.h:75
 msgid "_Source:"
 msgstr "_Vir:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:75
+#: ../components/editor/gtkhtml-editor-builder.ui.h:76
 msgid "_Spacing:"
 msgstr "_Razmik:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:77
+#: ../components/editor/gtkhtml-editor-builder.ui.h:78
 msgid "_Style:"
 msgstr "_Slog:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:80
+#: ../components/editor/gtkhtml-editor-builder.ui.h:81
 msgid "_Text:"
 msgstr "_Besedilo:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:81
+#: ../components/editor/gtkhtml-editor-builder.ui.h:82
 msgid "_URL:"
 msgstr "_URL:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:83
+#: ../components/editor/gtkhtml-editor-builder.ui.h:84
 msgid "_Vertical:"
 msgstr "_Navpično:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:84
+#: ../components/editor/gtkhtml-editor-builder.ui.h:85
 msgid "_Width:"
 msgstr "Š_irina:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:85
+#: ../components/editor/gtkhtml-editor-builder.ui.h:86
 msgid "_With:"
 msgstr "_Z:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:86
+#: ../components/editor/gtkhtml-editor-builder.ui.h:87
 msgid "_Wrap Text"
 msgstr "_Prelomi besedilo"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:87
+#: ../components/editor/gtkhtml-editor-builder.ui.h:88
 msgid "_X-Padding:"
 msgstr "Polnjenje _X:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:88
+#: ../components/editor/gtkhtml-editor-builder.ui.h:89
 msgid "_Y-Padding:"
 msgstr "Polnjenje _Y:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:89
+#: ../components/editor/gtkhtml-editor-builder.ui.h:90
 msgid "follow"
 msgstr "sledi"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:90
+#: ../components/editor/gtkhtml-editor-builder.ui.h:91
 msgid "px"
 msgstr "točk"
-
-#: ../components/editor/gtkhtml-spell-checker.c:200
-msgid "Language"
-msgstr "Jezik"
-
-#: ../components/editor/gtkhtml-spell-checker.c:201
-msgid "The language used by the spell checker"
-msgstr "Jezik, ki ga uporablja črkovalnik"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:117
 #, c-format
 msgid "Suggestions for \"%s\""
 msgstr "Predlogi za \"%s\""
 
-#: ../components/editor/gtkhtml-spell-dialog.c:358
-msgid "Misspelled Word"
-msgstr "Napačno črkovana beseda"
-
-#: ../components/editor/gtkhtml-spell-dialog.c:359
-msgid "The current misspelled word"
-msgstr "Trenutna napačno črkovana beseda"
-
-#: ../components/editor/gtkhtml-spell-dialog.c:449
+#: ../components/editor/gtkhtml-spell-dialog.c:447
 msgid "Spell Checker"
 msgstr "Črkovalnik"
 
 #. Replace All Button
-#: ../components/editor/gtkhtml-spell-dialog.c:536
+#: ../components/editor/gtkhtml-spell-dialog.c:534
 msgid "R_eplace All"
 msgstr "Zamenjaj _vse"
 
 #. Ignore Button
-#: ../components/editor/gtkhtml-spell-dialog.c:550
+#: ../components/editor/gtkhtml-spell-dialog.c:548
 msgid "_Ignore"
 msgstr "_Prezri"
 
 #. Skip Button
-#: ../components/editor/gtkhtml-spell-dialog.c:564
+#: ../components/editor/gtkhtml-spell-dialog.c:562
 msgid "_Skip"
 msgstr "Pre_skoči"
 
 #. Back Button
-#: ../components/editor/gtkhtml-spell-dialog.c:577
+#: ../components/editor/gtkhtml-spell-dialog.c:575
 msgid "_Back"
 msgstr "_Nazaj"
 
 #. Dictionary Label
-#: ../components/editor/gtkhtml-spell-dialog.c:590
+#: ../components/editor/gtkhtml-spell-dialog.c:588
 msgid "Dictionary"
 msgstr "Slovar"
 
 #. Add Word Button
-#: ../components/editor/gtkhtml-spell-dialog.c:619
+#: ../components/editor/gtkhtml-spell-dialog.c:617
 msgid "_Add Word"
 msgstr "_Dodaj besedo"
 
 #. Translators: %s is the language ISO code.
-#: ../components/editor/gtkhtml-spell-language.c:184
+#: ../components/editor/gtkhtml-spell-language.c:255
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
@@ -1404,8 +1251,8 @@ msgstr "Neznan nabor (%s)"
 
 #. Translators: The first %s is the language name, and the
 #. * second is the country name. Example: "French (France)"
-#: ../components/editor/gtkhtml-spell-language.c:199
-#: ../components/editor/gtkhtml-spell-language.c:204
+#: ../components/editor/gtkhtml-spell-language.c:270
+#: ../components/editor/gtkhtml-spell-language.c:275
 #, c-format
 msgctxt "language"
 msgid "%s (%s)"
@@ -1413,7 +1260,7 @@ msgstr "%s (%s)"
 
 #. Translators: This refers to the default language used
 #. * by the spell checker.
-#: ../components/editor/gtkhtml-spell-language.c:389
+#: ../components/editor/gtkhtml-spell-language.c:460
 msgctxt "language"
 msgid "Default"
 msgstr "Privzeto"
@@ -1470,86 +1317,6 @@ msgstr "_HTML Vir"
 msgid "_Plain Source"
 msgstr "_Običajni vir"
 
-#: ../gtkhtml/gtkhtml.c:3052
-msgid "Editable"
-msgstr "Uredljivo"
-
-#: ../gtkhtml/gtkhtml.c:3053
-msgid "Whether the html can be edited"
-msgstr "Ali je HTML mogoče urejati"
-
-#: ../gtkhtml/gtkhtml.c:3059
-msgid "Document Title"
-msgstr "Naziv dokumenta"
-
-#: ../gtkhtml/gtkhtml.c:3060
-msgid "The title of the current document"
-msgstr "Naslov trenutnega dokumenta"
-
-#: ../gtkhtml/gtkhtml.c:3066
-msgid "Document Base"
-msgstr "Osnova dokumenta"
-
-#: ../gtkhtml/gtkhtml.c:3067
-msgid "The base URL for relative references"
-msgstr "Osnovni URL relativnih sklicev"
-
-#: ../gtkhtml/gtkhtml.c:3073
-msgid "Target Base"
-msgstr "Osnova cilja"
-
-#: ../gtkhtml/gtkhtml.c:3074
-msgid "The base URL of the target frame"
-msgstr "Osnovni URL ciljnega okvirja"
-
-#: ../gtkhtml/gtkhtml.c:3082
-msgid "Fixed Width Font"
-msgstr "Pisava stalne širine"
-
-#: ../gtkhtml/gtkhtml.c:3083
-msgid "The Monospace font to use for typewriter text"
-msgstr "Pisava stalne širine za besedilo pisalnega stroja"
-
-#: ../gtkhtml/gtkhtml.c:3089
-msgid "New Link Color"
-msgstr "Barva nove povezave"
-
-#: ../gtkhtml/gtkhtml.c:3090
-msgid "The color of new link elements"
-msgstr "Barva elementov nove povezave"
-
-#: ../gtkhtml/gtkhtml.c:3095
-msgid "Visited Link Color"
-msgstr "Barva obiskane povezave"
-
-#: ../gtkhtml/gtkhtml.c:3096
-msgid "The color of visited link elements"
-msgstr "Barva elementov obiskane povezave"
-
-#: ../gtkhtml/gtkhtml.c:3101
-msgid "Active Link Color"
-msgstr "Barva dejavne povezave"
-
-#: ../gtkhtml/gtkhtml.c:3102
-msgid "The color of active link elements"
-msgstr "Barva elementov dejavne povezave"
-
-#: ../gtkhtml/gtkhtml.c:3107
-msgid "Spelling Error Color"
-msgstr "Barva napačnega črkovanja"
-
-#: ../gtkhtml/gtkhtml.c:3108
-msgid "The color of the spelling error markers"
-msgstr "Barva oznak pri napačnem črkovanju"
-
-#: ../gtkhtml/gtkhtml.c:3113
-msgid "Cite Quotation Color"
-msgstr "Barva navedka"
-
-#: ../gtkhtml/gtkhtml.c:3114
-msgid "The color of the cited text"
-msgstr "Barva navedenega besedila"
-
 #: ../gtkhtml/htmlbutton.c:138
 msgid "Submit Query"
 msgstr "Pošlji poizvedbo"
@@ -1568,24 +1335,210 @@ msgstr "Ni mogoče določiti privzete pisave za tiskanje"
 msgid "GtkHTML Test"
 msgstr "GtkHTML test"
 
+#~ msgid "Current color"
+#~ msgstr "Trenutna barva"
+
+#~ msgid "The currently selected color"
+#~ msgstr "Trenutno izbrana barva"
+
+#~ msgid "Default color"
+#~ msgstr "Privzeta barva"
+
+#~ msgid "The color associated with the default button"
+#~ msgstr "Barva povezana s trenutnim gumbom"
+
+#~ msgid "Default label"
+#~ msgstr "Privzeta oznaka"
+
+#~ msgid "The label for the default button"
+#~ msgstr "Oznaka privzetega gumba"
+
+#~ msgid "Default is transparent"
+#~ msgstr "Privzeto je prosojno"
+
+#~ msgid "Whether the default color is transparent"
+#~ msgstr "Možnost omogoča, da je privzeta barva prosojna"
+
+#~ msgid "Color palette"
+#~ msgstr "Barvna paleta"
+
+#~ msgid "Custom color palette"
+#~ msgstr "Barvna paleta po meri"
+
+#~ msgid "Popup shown"
+#~ msgstr "Prikazano pojavno okno"
+
+#~ msgid "Whether the combo's dropdown is shown"
+#~ msgstr "Ali naj bo prikazano spustno polje"
+
+#~ msgid "Color state"
+#~ msgstr "Stanje barve"
+
+#~ msgid "The state of a color combo box"
+#~ msgstr "Stanje spustnega barvnega polja"
+
+#~ msgid "The current color"
+#~ msgstr "Trenutna barva"
+
+#~ msgid "The default color"
+#~ msgstr "Privzeta barva"
+
+#~ msgid "Description of the default color"
+#~ msgstr "Opis privzete barve"
+
+#~ msgid "Color"
+#~ msgstr "Barva"
+
+#~ msgid "Frame Shadow"
+#~ msgstr "Senca okvirja"
+
+#~ msgid "Appearance of the frame border"
+#~ msgstr "Videz roba okvirja"
+
+#~ msgid "Action"
+#~ msgstr "Dejanje"
+
+#~ msgid "A GtkRadioAction"
+#~ msgstr "GtkRadioAction"
+
+#~ msgid "Current Folder"
+#~ msgstr "Trenutna mapa"
+
+#~ msgid "The initial folder for file chooser dialogs"
+#~ msgstr "Začetna mapa izbire pogovornih oken"
+
+#~ msgid "Filename"
+#~ msgstr "Ime datoteke"
+
+#~ msgid "The filename to use when saving"
+#~ msgstr "Ime datoteke uporabljeno pri shanjevanju"
+
+#~ msgid "HTML Editing Widget"
+#~ msgstr "Gradnik urejanja HTML"
+
+#~ msgid "The main HTML editing widget"
+#~ msgstr "Urejevalni gradnik HTML kode"
+
+#~ msgid "HTML Mode"
+#~ msgstr "Način HTML"
+
+#~ msgid "Edit HTML or plain text"
+#~ msgstr "Urejanje HTML ali običajnega besedila"
+
+#~ msgid "Inline Spelling"
+#~ msgstr "Sprotno č_rkovanje"
+
+#~ msgid "Check your spelling as you type"
+#~ msgstr "Preveri črkovanje dokumenta med tipkanjem"
+
+#~ msgid "Magic Links"
+#~ msgstr "Čarobne povezave"
+
+#~ msgid "Make URIs clickable as you type"
+#~ msgstr "Pretvori zapisano povezavo v neposredno povezavo"
+
+#~ msgid "Magic Smileys"
+#~ msgstr "Čarobni smeški"
+
+#~ msgid "Convert emoticons to images as you type"
+#~ msgstr "Pretvori smeške v slike med tipkanjem"
+
+#~ msgid "Language"
+#~ msgstr "Jezik"
+
+#~ msgid "The language used by the spell checker"
+#~ msgstr "Jezik, ki ga uporablja črkovalnik"
+
+#~ msgid "Misspelled Word"
+#~ msgstr "Napačno črkovana beseda"
+
+#~ msgid "The current misspelled word"
+#~ msgstr "Trenutna napačno črkovana beseda"
+
+#~ msgid "Editable"
+#~ msgstr "Uredljivo"
+
+#~ msgid "Document Title"
+#~ msgstr "Naziv dokumenta"
+
+#~ msgid "The title of the current document"
+#~ msgstr "Naslov trenutnega dokumenta"
+
+#~ msgid "Document Base"
+#~ msgstr "Osnova dokumenta"
+
+#~ msgid "The base URL for relative references"
+#~ msgstr "Osnovni URL relativnih sklicev"
+
+#~ msgid "Target Base"
+#~ msgstr "Osnova cilja"
+
+#~ msgid "The base URL of the target frame"
+#~ msgstr "Osnovni URL ciljnega okvirja"
+
+#~ msgid "Fixed Width Font"
+#~ msgstr "Pisava stalne širine"
+
+#~ msgid "The Monospace font to use for typewriter text"
+#~ msgstr "Pisava stalne širine za besedilo pisalnega stroja"
+
+#~ msgid "New Link Color"
+#~ msgstr "Barva nove povezave"
+
+#~ msgid "The color of new link elements"
+#~ msgstr "Barva elementov nove povezave"
+
+#~ msgid "Visited Link Color"
+#~ msgstr "Barva obiskane povezave"
+
+#~ msgid "The color of visited link elements"
+#~ msgstr "Barva elementov obiskane povezave"
+
+#~ msgid "Active Link Color"
+#~ msgstr "Barva dejavne povezave"
+
+#~ msgid "The color of active link elements"
+#~ msgstr "Barva elementov dejavne povezave"
+
+#~ msgid "Spelling Error Color"
+#~ msgstr "Barva napačnega črkovanja"
+
+#~ msgid "The color of the spelling error markers"
+#~ msgstr "Barva oznak pri napačnem črkovanju"
+
+#~ msgid "Cite Quotation Color"
+#~ msgstr "Barva navedka"
+
+#~ msgid "The color of the cited text"
+#~ msgstr "Barva navedenega besedila"
+
 #~ msgid "<b>Alignment</b>"
 #~ msgstr "<b>Poravnava</b>"
+
 #~ msgid "<b>Background Image</b>"
 #~ msgstr "<b>Slika ozadja</b>"
+
 #~ msgid "<b>Background</b>"
 #~ msgstr "<b>Ozadje</b>"
+
 #~ msgid "<b>Colors</b>"
 #~ msgstr "<b>Barve</b>"
+
 #~ msgid "<b>General</b>"
 #~ msgstr "<b>Splošno</b>"
+
 #~ msgid "<b>Link</b>"
 #~ msgstr "<b>Povezava</b>"
+
 #~ msgid "<b>Scope</b>"
 #~ msgstr "<b>Obseg</b>"
+
 #~ msgid "<b>Size</b>"
 #~ msgstr "<b>Velikost</b>"
+
 #~ msgid "<b>Style</b>"
 #~ msgstr "<b>Slog</b>"
+
 #~ msgid ""
 #~ "Left\n"
 #~ "Center\n"
@@ -1594,6 +1547,7 @@ msgstr "GtkHTML test"
 #~ "Levo\n"
 #~ "Sredina\n"
 #~ "Desno"
+
 #~ msgid ""
 #~ "None\n"
 #~ "Perforated Paper\n"
@@ -1614,6 +1568,7 @@ msgstr "GtkHTML test"
 #~ "Zaupno\n"
 #~ "Osnutek\n"
 #~ "Karo papir"
+
 #~ msgid ""
 #~ "Top\n"
 #~ "Middle\n"
@@ -1622,226 +1577,335 @@ msgstr "GtkHTML test"
 #~ "Zgoraj\n"
 #~ "Sredina\n"
 #~ "Spodaj"
+
 #~ msgid ""
 #~ "px\n"
 #~ "%"
 #~ msgstr ""
 #~ "točk\n"
 #~ "%"
+
 #~ msgid "Alphabetical List"
 #~ msgstr "Abecedno oštevilčen seznam"
+
 #~ msgid "Bulleted List"
 #~ msgstr "Neoštevilčen seznam"
+
 #~ msgid "Center justifies the paragraphs"
 #~ msgstr "Sredinsko razvrščeno besedilo poravna odstavke"
+
 #~ msgid "Check spelling of the document"
 #~ msgstr "Preveri črkovanje dokumenta"
+
 #~ msgid "Copy"
 #~ msgstr "Kopiraj"
+
 #~ msgid "Copy selection to clipboard"
 #~ msgstr "Kopiraj izbrano na odložišče"
+
 #~ msgid "Copy the selection"
 #~ msgstr "Kopiraj izbrano"
+
 #~ msgid "Cut"
 #~ msgstr "Izreži"
+
 #~ msgid "Cut selection to clipboard"
 #~ msgstr "Izreži izbrano na odložišče"
+
 #~ msgid "Cut the selection"
 #~ msgstr "Izreži izbrano"
+
 #~ msgid "Emoti_con"
 #~ msgstr "Sm_eško"
+
 #~ msgid "Find _Again"
 #~ msgstr "Poišči znov_a"
+
 #~ msgid "Find again"
 #~ msgstr "Poišči znov_a"
+
 #~ msgid "Find and Replace"
 #~ msgstr "Najdi in zamenjaj"
+
 #~ msgid "Find and replace"
 #~ msgstr "Najdi in zamenjaj"
+
 #~ msgid "I_nsert"
 #~ msgstr "_Vstavi"
+
 #~ msgid "Image"
 #~ msgstr "Slika"
+
 #~ msgid "Insert Crying emoticon into document..."
 #~ msgstr "V dokument vstavi jokajočega smeška ..."
+
 #~ msgid "Insert Frown emoticon into document..."
 #~ msgstr "V dokument vstavi nejevoljnega smeška ..."
+
 #~ msgid "Insert HTML file into document..."
 #~ msgstr "V dokument vstavi datoteko HTML ..."
+
 #~ msgid "Insert HTML link into document..."
 #~ msgstr "V dokument vstavi povezavo HTML ..."
+
 #~ msgid "Insert HTML template into document..."
 #~ msgstr "V dokument vstavi predlogo HTML ..."
+
 #~ msgid "Insert Indifferent emoticon into document..."
 #~ msgstr "V dokument vstavi brezbrižnega smeška ..."
+
 #~ msgid "Insert Laughing emoticon into document..."
 #~ msgstr "V dokument vstavi smejočega smeška ..."
+
 #~ msgid "Insert Oh no! emoticon into document..."
 #~ msgstr "V dokument vstavi smeška O ne! ..."
+
 #~ msgid "Insert Sick emoticon into document..."
 #~ msgstr "V dokument vstavi bolnega smeška ..."
+
 #~ msgid "Insert Smile emoticon into document..."
 #~ msgstr "V dokument vstavi smejočega smeška ..."
+
 #~ msgid "Insert Surprised emoticon into document..."
 #~ msgstr "V dokument vstavi presenečenega smeška ..."
+
 #~ msgid "Insert Tongue emoticon into document..."
 #~ msgstr "V dokument vstavi smeška, ki pokaže jezik ..."
+
 #~ msgid "Insert Undecided emoticon into document..."
 #~ msgstr "V dokument vstavi omahujočega smeška ..."
+
 #~ msgid "Insert Wink emoticon into document..."
 #~ msgstr "V dokument vstavi smeška, ki pomežikne ..."
+
 #~ msgid "Insert image"
 #~ msgstr "Vstavi sliko"
+
 #~ msgid "Insert image into document..."
 #~ msgstr "V dokument vstavi sliko ..."
+
 #~ msgid "Insert link"
 #~ msgstr "Vstavi povezavo"
+
 #~ msgid "Insert rule"
 #~ msgstr "Vstavi pravilo"
+
 #~ msgid "Insert rule into document..."
 #~ msgstr "V dokument vstavi pravilo ..."
+
 #~ msgid "Insert table"
 #~ msgstr "Vstavi preglednico"
+
 #~ msgid "Insert table into document..."
-#~ msgstr "V dokument vstavi razpredelnico ..."
+#~ msgstr "V dokument vstavi preglednico ..."
+
 #~ msgid "Insert text file into document..."
 #~ msgstr "V dokument vstavi datoteko z besedilom ..."
+
 #~ msgid "Left justifies the paragraphs"
 #~ msgstr "Poravnaj odstavke levo"
+
 #~ msgid "Make the current Paragraph style Normal"
 #~ msgstr "Trenutni odstavek naj postane običajen"
+
 #~ msgid "Make the current Paragraph style Preformat"
 #~ msgstr "Slog trenutnega odstavka naj se preoblikuje"
+
 #~ msgid "Make the current paragraph a bulleted list"
 #~ msgstr "Trenutni odstavek naj postane neoštevilčen seznam"
+
 #~ msgid "Make the current paragraph a list with roman numerals"
 #~ msgstr "Trenutni odstavek naj postane rimsko oštevilčen seznam"
+
 #~ msgid "Make the current paragraph a numbered list"
 #~ msgstr "Trenutni odstavek naj postane oštevilčen seznam"
+
 #~ msgid "Make the current paragraph an H1 header"
 #~ msgstr "Trenutni odstavek naj postane glava H1"
+
 #~ msgid "Make the current paragraph an H2 header"
 #~ msgstr "Trenutni odstavek naj postane glava H2"
+
 #~ msgid "Make the current paragraph an H3 header"
 #~ msgstr "Trenutni odstavek naj postane glava H3"
+
 #~ msgid "Make the current paragraph an H4 header"
 #~ msgstr "Trenutni odstavek naj postane glava H4"
+
 #~ msgid "Make the current paragraph an H5 header"
 #~ msgstr "Trenutni odstavek naj postane glava H5"
+
 #~ msgid "Make the current paragraph an H6 header"
 #~ msgstr "Trenutni odstavek naj postane glava H6"
+
 #~ msgid "Make the current paragraph an address"
 #~ msgstr "Trenutni odstavek naj postane naslov"
+
 #~ msgid "Make the current paragraph an alphabetical list"
 #~ msgstr "Trenutni odstavek naj postane abecedno oštevilčen seznam"
+
 #~ msgid "Normal"
 #~ msgstr "Običajno"
+
 #~ msgid "Numbered List"
 #~ msgstr "Oštevilčen seznam"
+
 #~ msgid "Oh _No!"
 #~ msgstr "O, _ne!"
+
 #~ msgid "Paste"
 #~ msgstr "Prilepi"
+
 #~ msgid "Paste from clipboard"
 #~ msgstr "Prilepi iz odložišča"
+
 #~ msgid "Paste the clipboard"
 #~ msgstr "Prilepi iz odložišča"
+
 #~ msgid "Paste the clipboard as a quotation"
 #~ msgstr "Prilepi odložišče kot citat"
+
 #~ msgid "Preformat"
 #~ msgstr "Predoblikovanje"
+
 #~ msgid "Redo"
 #~ msgstr "Ponovno uveljavi"
+
 #~ msgid "Redo previously undone change"
 #~ msgstr "Obnovi prejšnjo razveljavljeno dejanje"
+
 #~ msgid "Redo the undone action"
 #~ msgstr "Obnovi razveljavljeno dejanje"
+
 #~ msgid "Right justifies the paragraphs"
 #~ msgstr "Poravnaj odstavke desno"
+
 #~ msgid "Roman Numeral List"
 #~ msgstr "Rimsko oštevilčen seznam"
+
 #~ msgid "Rule"
 #~ msgstr "Pravilo"
+
 #~ msgid "Select the entire contents of the document"
 #~ msgstr "Izberi celotno vsebino dokumenta"
+
 #~ msgid "Strikeout"
 #~ msgstr "Prečrtano"
+
 #~ msgid "Su_rprised"
 #~ msgstr "_Presenečen"
+
 #~ msgid "Subscript"
 #~ msgstr "Podpisano"
+
 #~ msgid "Superscript"
 #~ msgstr "Nadpisano"
+
 #~ msgid "Te_mplate..."
 #~ msgstr "_Predloga ..."
+
 #~ msgid "Typewriter"
 #~ msgstr "Pisalni stroj"
+
 #~ msgid "Undo"
 #~ msgstr "Razveljavi"
+
 #~ msgid "Undo previous changes"
 #~ msgstr "Razveljavi prejšnje dejanje"
+
 #~ msgid "Undo the last action"
 #~ msgstr "Razveljavi zadnje dejanje"
+
 #~ msgid "_Font Size"
 #~ msgstr "Velikost _pisave"
+
 #~ msgid "_Frown"
 #~ msgstr "_Nejevoljni"
+
 #~ msgid "_Heading"
 #~ msgstr "_Naslov"
+
 #~ msgid "_Indifferent"
 #~ msgstr "_Brezbrižen"
+
 #~ msgid "_Laughing"
 #~ msgstr "_Smejoč"
+
 #~ msgid "_Page..."
 #~ msgstr "_Stran ..."
+
 #~ msgid "_Paragraph..."
 #~ msgstr "_Odstavek ..."
+
 #~ msgid "_Replace..."
 #~ msgstr "_Zamenjaj ..."
+
 #~ msgid "_Style"
 #~ msgstr "_Slog"
+
 #~ msgid "_Text..."
 #~ msgstr "_Besedilo ..."
+
 #~ msgid "_Undecided"
 #~ msgstr "_Omahujoč"
+
 #~ msgid "GNOME HTML Editor"
 #~ msgstr "Urejevalnik HTML GNOME"
+
 #~ msgid "GNOME HTML Editor Control"
 #~ msgstr "Nadzor urejevalnika HTML GNOME"
+
 #~ msgid "GNOME HTML Editor Factory"
 #~ msgstr "Tovarna urejevalnika HTML GNOME"
+
 #~ msgid "Background Image File Path"
 #~ msgstr "Pot slike v ozadju"
+
 #~ msgid "Template"
 #~ msgstr "Predloga"
+
 #~ msgid "Could not load glade file."
 #~ msgstr "Ni mogoče naložiti datoteke glade."
+
 #~ msgid "Transparent"
 #~ msgstr "Prozorno"
+
 #~ msgid "Text"
 #~ msgstr "Besedilo"
+
 #~ msgid "Paragraph"
 #~ msgstr "Odstavek"
+
 #~ msgid "Page"
 #~ msgstr "Stran"
+
 #~ msgid "color preview"
 #~ msgstr "predogled barve"
+
 #~ msgid "Custom Color:"
 #~ msgstr "Barva po meri:"
+
 #~ msgid "purplish blue"
 #~ msgstr "vijolično-modra"
+
 #~ msgid "dark purple"
 #~ msgstr "temo vijolična"
+
 #~ msgid "sky blue"
 #~ msgstr "nebeško modra"
+
 #~ msgid "Popup"
 #~ msgstr "Pojavno okno"
+
 #~ msgid "GtkHTML Editor Control"
 #~ msgstr "Urejevalnik GtkHTML"
+
 #~ msgid "    "
 #~ msgstr "    "
+
 #~ msgid "*"
 #~ msgstr "*"
+
 #~ msgid ""
 #~ "-2\n"
 #~ "-1\n"
@@ -1858,36 +1922,52 @@ msgstr "GtkHTML test"
 #~ "+2\n"
 #~ "+3\n"
 #~ "+4"
+
 #~ msgid "<b>Alignment &amp; Behaviour</b>"
 #~ msgstr "<b>Poravnava in vedenje</b>"
+
 #~ msgid "<span weight=\"bold\">General</span>"
 #~ msgstr "<span weight=\"bold\">Splošno</span>"
+
 #~ msgid "<span weight=\"bold\">Layout</span>"
 #~ msgstr "<span weight=\"bold\">Razpored</span>"
+
 #~ msgid "<span weight=\"bold\">Link</span>"
 #~ msgstr "<span weight=\"bold\">Povezava</span>"
+
 #~ msgid "<span weight=\"bold\">Size</span>"
 #~ msgstr "<span weight=\"bold\">Velikost</span>"
+
 #~ msgid "<span weight=\"bold\">Style</span>"
 #~ msgstr "<span weight=\"bold\">Slog</span>"
+
 #~ msgid "<span weight=\"bold\">Template</span>"
 #~ msgstr "<span weight=\"bold\">Predloga</span>"
+
 #~ msgid "Alignment:"
 #~ msgstr "Poravnava:"
+
 #~ msgid "Cell"
 #~ msgstr "Celica"
+
 #~ msgid "Colu_mns:"
 #~ msgstr "Stolp_ci:"
+
 #~ msgid "Column span:"
 #~ msgstr "Seganje stolpca:"
+
 #~ msgid "Enable"
 #~ msgstr "Omogoči"
+
 #~ msgid "Hea_der style"
 #~ msgstr "_Slog glave"
+
 #~ msgid "Horizontal alignment:"
 #~ msgstr "Vodoravna poravnava:"
+
 #~ msgid "Horizontal:"
 #~ msgstr "Vodoravno:"
+
 #~ msgid ""
 #~ "Left\n"
 #~ "Center\n"
@@ -1898,170 +1978,245 @@ msgstr "GtkHTML test"
 #~ "Sredina\n"
 #~ "Desno\n"
 #~ "Brez"
+
 #~ msgid "Link properties"
 #~ msgstr "Lastnosti povezave"
+
 #~ msgid "Row span:"
 #~ msgstr "Seganje vrstice:"
+
 #~ msgid "Shade"
 #~ msgstr "Senčeno"
+
 #~ msgid "Vertical:"
 #~ msgstr "Navpično:"
+
 #~ msgid "xxxxxxxxxxxxxx"
 #~ msgstr "xxxxxxxxxxxxxx"
+
 #~ msgid "URL:"
 #~ msgstr "URL:"
+
 #~ msgid "Description:"
 #~ msgstr "Opis:"
+
 #~ msgid "Insert"
 #~ msgstr "Vstavi"
+
 #~ msgid "Error loading file '%s': %s"
 #~ msgstr "Napaka med nalaganjem datoteke '%s': %s"
+
 #~ msgid "Format"
 #~ msgstr "Oblikuj"
+
 #~ msgid "Roman List"
 #~ msgstr "Rimsko oštevilčen seznam"
+
 #~ msgid "Header 1"
 #~ msgstr "Glava 1"
+
 #~ msgid "Header 2"
 #~ msgstr "Glava 2"
+
 #~ msgid "Header 3"
 #~ msgstr "Glava 3"
+
 #~ msgid "Header 4"
 #~ msgstr "Glava 4"
+
 #~ msgid "Header 5"
 #~ msgstr "Glava 5"
+
 #~ msgid "Header 6"
 #~ msgstr "Glava 6"
+
 #~ msgid "Address"
 #~ msgstr "Naslov"
+
 #~ msgid "Text Style..."
 #~ msgstr "Slog besedila ..."
+
 #~ msgid "Paragraph Style..."
 #~ msgstr "Slog odstavka ..."
+
 #~ msgid "Link Style..."
 #~ msgstr "Slog povezave ..."
+
 #~ msgid "Rule Style..."
 #~ msgstr "Slog pravila ..."
+
 #~ msgid "Image Style..."
 #~ msgstr "Slog slike ..."
+
 #~ msgid "Cell Style..."
 #~ msgstr "Slog celice ..."
+
 #~ msgid "Table Style..."
-#~ msgstr "Slog razpredelnice ..."
+#~ msgstr "Slog preglednice ..."
+
 #~ msgid "Page Style..."
 #~ msgstr "Slog strani ..."
+
 #~ msgid "Table insert"
 #~ msgstr "Vstavi preglednico"
+
 #~ msgid "Row above"
 #~ msgstr "Vrstica nad"
+
 #~ msgid "Row below"
 #~ msgstr "Vrstica pod"
+
 #~ msgid "Column before"
 #~ msgstr "Stolpec pred"
+
 #~ msgid "Column after"
 #~ msgstr "Stolpec po"
+
 #~ msgid "Table delete"
-#~ msgstr "Izbriši razpredelnico"
+#~ msgstr "Izbriši preglednico"
+
 #~ msgid "Cell contents"
 #~ msgstr "Vsebina celice"
+
 #~ msgid "Add Word to"
 #~ msgstr "Dodaj besedo v"
-#~ msgid "%s Dictionary"
-#~ msgstr "%s slovar"
+
 #~ msgid "Replace confirmation"
 #~ msgstr "Potrditev zamenjave"
+
 #~ msgid "Search _backward"
 #~ msgstr "išči _nazaj"
+
 #~ msgid "_Backward"
 #~ msgstr "_Nazaj"
+
 #~ msgid "_Regular Expression"
 #~ msgstr "_Logični izraz"
+
 #~ msgid "Input the words you want to search here"
 #~ msgstr "Vnesite besede, ki jih želite iskati"
+
 #~ msgid ""
 #~ "Unable to add word to dictionary,\n"
 #~ "language settings are broken.\n"
 #~ msgstr ""
 #~ "Ni mogoče dodati besede v slovar.\n"
 #~ "Nastavitve jezika so poškodovane.\n"
+
 #~ msgid "No misspelled word found"
 #~ msgstr "Nobena narobe črkovana beseda ni bila najdena"
+
 #~ msgid "Spell checker"
 #~ msgstr "Črkovalnik"
+
 #~ msgid "Note"
 #~ msgstr "Opomba"
+
 #~ msgid "Place your text here"
 #~ msgstr "Vaše besedilo postavite sem"
+
 #~ msgid "Image frame"
 #~ msgstr "Okvir slike"
+
 #~ msgid "Template Labels"
 #~ msgstr "Oznake predlog"
+
 #~ msgid "Open file..."
 #~ msgstr "Odpri datoteko ..."
+
 #~ msgid "Save file as..."
 #~ msgstr "Shrani datoteko kot ..."
+
 #~ msgid "GtkHTML Editor Test Container"
 #~ msgstr "Preizkusni vsebovalnik urejevalnika GtkHTML"
+
 #~ msgid "Left align"
 #~ msgstr "Poravnaj levo"
+
 #~ msgid "Right align"
 #~ msgstr "Poravnaj desno"
+
 #~ msgid "Toggle typewriter font style"
 #~ msgstr "Preklopi slog pisave na pisalni stroj"
+
 #~ msgid "Makes the text bold"
 #~ msgstr "Nastavi besedilo krepko"
+
 #~ msgid "Makes the text italic"
 #~ msgstr "Nastavi besedilo poševno"
+
 #~ msgid "Underlines the text"
 #~ msgstr "Podčrta besedilo"
+
 #~ msgid "Strikes out the text"
 #~ msgstr "Prečrta besedilo"
+
 #~ msgid "Unindent"
 #~ msgstr "Razveljavi zamik"
+
 #~ msgid "Indents the paragraphs less"
 #~ msgstr "Manjši zamik odstavkov"
+
 #~ msgid "Indent"
 #~ msgstr "Zamik"
+
 #~ msgid "Indents the paragraphs more"
 #~ msgstr "Večji zamik odstavkov"
+
 #~ msgid "Text Color"
 #~ msgstr "Barva besedila"
+
 #~ msgid "Sample"
 #~ msgstr "Vzorec"
+
 #~ msgid ""
 #~ "The edited object was removed from the document.\n"
 #~ "Cannot apply your changes."
 #~ msgstr ""
 #~ "Predmet, ki ga urejate, je bil odstranjen iz dokumenta.\n"
 #~ "Ni mogoče uveljaviti vaših sprememb."
+
 #~ msgid "Print pre_view"
 #~ msgstr "_Predogled tiskanja"
+
 #~ msgid "Print preview"
 #~ msgstr "Predogled tiskanja"
+
 #~ msgid "GtkHTML Test Application"
 #~ msgstr "Preizkusni program GtkHTML"
+
 #~ msgid "_Tongue"
 #~ msgstr "_Jezik"
+
 #~ msgid "language|Default"
 #~ msgstr "Privzeto"
+
 #~ msgid "Make the current Paragraph style Preformatted"
 #~ msgstr "Slog trenutnega odstavka naj se predoblikuje"
+
 #~ msgid "Preformatted"
 #~ msgstr "Predoblikovano"
+
 #~ msgid "_Format"
 #~ msgstr "_Oblika"
+
 #~ msgid "gtk-close"
 #~ msgstr "gtk-close"
+
 #~ msgid "gtk-find"
 #~ msgstr "gtk-find"
+
 #~ msgid "gtk-find-and-replace"
 #~ msgstr "Najdi in zamenjaj"
+
 #~ msgid "gtk-justify-center"
 #~ msgstr "gtk-justify-center"
+
 #~ msgid "gtk-justify-left"
 #~ msgstr "gtk-justify-left"
+
 #~ msgid "gtk-justify-right"
 #~ msgstr "gtk-justify-right"
+
 #~ msgid "gtk-ok"
 #~ msgstr "gtk-ok"
-
