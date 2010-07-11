@@ -142,7 +142,7 @@ text_width (HTMLPainter *painter, PangoFontDescription *desc, const gchar *text,
 		gint i;
 		for (list = glyphs; list; list = list->next->next) {
 			PangoGlyphString *str = (PangoGlyphString *) list->data;
-			for (i=0; i < str->num_glyphs; i ++)
+			for (i=0; i < str->num_glyphs; i++)
 				width += str->glyphs [i].geometry.width;
 		}
 	}
@@ -197,7 +197,7 @@ text_size (HTMLPainter *painter, PangoFontDescription *desc, const gchar *text, 
 
 			c_text = g_utf8_offset_to_pointer (c_text, str->num_glyphs);
 			if (*text == '\t')
-				c_text ++;
+				c_text++;
 			c_bytes = c_text - text;
 		}
 	}
@@ -533,7 +533,7 @@ html_replace_tabs (const gchar *text, gchar *translated, guint bytes)
 			strncpy (tt, t, tab - t);
 			tt += tab - t;
 			*tt = ' ';
-			tt ++;
+			tt++;
 			t = tab + 1;
 		} else
 			strncpy (tt, t, bytes - (t - text));
@@ -1018,7 +1018,7 @@ html_painter_text_itemize_and_prepare_glyphs (HTMLPainter *painter, PangoFontDes
 			end = g_utf8_offset_to_pointer (text, item->num_chars);
 			*glyphs = html_get_glyphs_non_tab (*glyphs, item, i, text, end - text, item->num_chars);
 			text = end;
-			i ++;
+			i++;
 		}
 		*glyphs = g_list_reverse (*glyphs);
 		g_list_free (items);

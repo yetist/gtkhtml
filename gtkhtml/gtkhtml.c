@@ -1695,10 +1695,10 @@ url_is_absolute (const gchar *url)
 
 	if (!isalpha (*url))
 		return FALSE;
-	url ++;
+	url++;
 
 	while (*url && (isalnum (*url) || *url == '+' || *url == '-' || *url == '.'))
-		url ++;
+		url++;
 
 	return *url && *url == ':';
 }

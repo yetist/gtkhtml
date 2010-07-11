@@ -63,7 +63,7 @@ html_color_ref (HTMLColor *color)
 {
 	g_assert (color);
 
-	color->refcount ++;
+	color->refcount++;
 }
 
 void
@@ -72,7 +72,7 @@ html_color_unref (HTMLColor *color)
 	g_assert (color);
 	g_assert (color->refcount > 0);
 
-	color->refcount --;
+	color->refcount--;
 
 	if (!color->refcount) {
 		/* if (color->allocated)

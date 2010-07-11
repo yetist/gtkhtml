@@ -151,7 +151,7 @@ print_all_pages (HTMLPainter *painter,
 	document_height = html_engine_get_doc_height (engine);
 
 	do {
-		pages ++;
+		pages++;
 		new_split_offset = html_object_check_page_split (
 			engine->clue, painter, split_offset + body_height);
 

@@ -225,7 +225,7 @@ forward (HTMLCursor *cursor,
 			if (!html_object_is_container (next))
 				cursor->offset = (next->parent == cursor->object->parent) ? 1 : 0;
 			cursor->object = next;
-			cursor->position ++;
+			cursor->position++;
 		} else
 			retval = FALSE;
 	}
@@ -290,7 +290,7 @@ backward (HTMLCursor *cursor,
 			if (!html_object_is_container (prev))
 				cursor->offset = html_object_get_length (prev);
 			cursor->object = prev;
-			cursor->position --;
+			cursor->position--;
 		} else
 			retval = FALSE;
 	}
@@ -927,7 +927,7 @@ html_cursor_forward_n (HTMLCursor *cursor, HTMLEngine *e, guint n)
 	gboolean rv = FALSE;
 
 	while (n && html_cursor_forward (cursor, e)) {
-		n --;
+		n--;
 		rv = TRUE;
 	}
 
@@ -940,7 +940,7 @@ html_cursor_backward_n (HTMLCursor *cursor, HTMLEngine *e, guint n)
 	gboolean rv = FALSE;
 
 	while (n && html_cursor_backward (cursor, e)) {
-		n --;
+		n--;
 		rv = TRUE;
 	}
 
@@ -969,7 +969,7 @@ move_to_next_object (HTMLCursor *cursor, HTMLEngine *e)
 	next = html_object_next_cursor (cursor->object, (gint *) &cursor->offset);
 	if (next && next->parent) {
 		cursor->object = next;
-		cursor->position ++;
+		cursor->position++;
 
 		if (!html_object_is_container (next)) {
 			if (html_object_get_direction (next->parent) == HTML_DIRECTION_RTL) {
@@ -993,7 +993,7 @@ move_to_prev_object (HTMLCursor *cursor, HTMLEngine *e)
 	prev = html_object_prev_cursor (cursor->object, (gint *) &cursor->offset);
 	if (prev && prev->parent) {
 		cursor->object = prev;
-		cursor->position --;
+		cursor->position--;
 
 		if (!html_object_is_container (prev)) {
 			if (html_object_get_direction (prev->parent) == HTML_DIRECTION_RTL) {
@@ -1126,9 +1126,9 @@ move_right (HTMLCursor *cursor, HTMLEngine *e)
 
 		if (rv && !html_object_is_container (cursor->object) && cursor->object->parent == orig->parent) {
 			if (html_object_get_direction (cursor->object) == HTML_DIRECTION_RTL)
-				cursor->offset --;
+				cursor->offset--;
 			else
-				cursor->offset ++;
+				cursor->offset++;
 		}
 
 		return rv;

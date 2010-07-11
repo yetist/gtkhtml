@@ -748,19 +748,19 @@ gint main (gint argc, gchar *argv[])
 
 	fprintf (stderr, "\nGtkHTML test suite\n");
 	fprintf (stderr, "--------------------------------------------------------------------------------\n");
-	for (i = 0; tests [i].name; i ++) {
+	for (i = 0; tests [i].name; i++) {
 		gint j, result;
 
 		if (tests [i].test_function) {
 			fprintf (stderr, "  %s ", tests [i].name);
-			for (j = strlen (tests [i].name); j < 69; j ++)
+			for (j = strlen (tests [i].name); j < 69; j++)
 				fputc ('.', stderr);
 			result = (*tests [i].test_function) (html);
 			fprintf (stderr, " %s\n", result ? "passed" : "failed");
 
-			n_all ++;
+			n_all++;
 			if (result)
-				n_successful ++;
+				n_successful++;
 		} else {
 			fprintf (stderr, "* %s\n", tests [i].name);
 		}

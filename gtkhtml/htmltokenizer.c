@@ -366,7 +366,7 @@ html_token_buffer_append_token (HTMLTokenBuffer * buf, const gchar *token, gint 
 	strncpy (buf->data + buf->used, token, len);
 	buf->used += len;
 	buf->data [buf->used] = 0;
-	buf->used ++;
+	buf->used++;
 
 	dt(printf ("html_token_buffer_append_token: '%s'\n", buf->data + buf->used - 1 - len));
 
@@ -465,7 +465,7 @@ html_tokenizer_convert_entity (gchar *token)
 				/*value to add*/
 				gunichar value = INVALID_ENTITY_CHARACTER_MARKER;
 				/*skip not needed &*/
-				read_pos ++;
+				read_pos++;
 				count_chars = strcspn (read_pos, ";");
 				if (count_chars < 14 && count_chars > 1) {
 					/*save for recovery*/
@@ -532,10 +532,10 @@ convert_text_encoding (const GIConv iconv_cd,
 			if (currlength > 0) {
 				g_warning ("IconvError=%s", current);
 				*newbuffer = INVALID_ENTITY_CHARACTER_MARKER;
-				newbuffer ++;
-				current ++;
-				currlength --;
-				newlength --;
+				newbuffer++;
+				current++;
+				currlength--;
+				newlength--;
 			}
 		}
 		returnbuffer[oldlength - newlength] = '\0';
@@ -857,7 +857,7 @@ add_char (HTMLTokenizer *t, gchar c)
 	if (c!='\0')
 	{
 		*(p->dest) = c;
-		p->dest ++;
+		p->dest++;
 		*(p->dest) = 0;
 	}
 }
@@ -963,7 +963,7 @@ in_comment (HTMLTokenizer *t, const gchar **src)
 			p->searchExtensionEndCount = 0;
 			p->searchGtkHTMLCount = 0;
 		} else
-			p->searchGtkHTMLCount ++;
+			p->searchGtkHTMLCount++;
 	} else {
 		p->searchGtkHTMLCount = 0;
 		if (p->searchCount < 2)
@@ -991,7 +991,7 @@ in_extension (HTMLTokenizer *t, const gchar **src)
 	/* check for "-->" */
 	if (!p->tquote && **src == '-') {
 		if (p->searchExtensionEndCount < 2)
-			p->searchExtensionEndCount ++;
+			p->searchExtensionEndCount++;
 		(*src) ++;
 	} else if (!p->tquote && p->searchExtensionEndCount == 2 && **src == '>') {
 		p->extension = FALSE;
@@ -1003,7 +1003,7 @@ in_extension (HTMLTokenizer *t, const gchar **src)
 
 				while (p->searchExtensionEndCount) {
 					extension_one_char (t, &c);
-					p->searchExtensionEndCount --;
+					p->searchExtensionEndCount--;
 				}
 			}
 		}

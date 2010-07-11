@@ -799,7 +799,7 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 	if (properties.strikethrough || properties.underline)
 		cw = draw_lines (glyphs, x, y, gdk_painter->pixmap, gdk_painter->gc, item, &properties);
 	else
-		for (i=0; i < glyphs->num_glyphs; i ++)
+		for (i=0; i < glyphs->num_glyphs; i++)
 			cw += glyphs->glyphs [i].geometry.width;
 
 	if (fg_text_color || fg)

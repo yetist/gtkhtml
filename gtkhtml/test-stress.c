@@ -85,11 +85,11 @@ static gint test_level_1 (GtkHTML *html)
 
 	srand (2);
 
-	for (i = 0; i < 200; i ++) {
+	for (i = 0; i < 200; i++) {
 		gint j, len = 1 + (gint) (10.0*rand()/(RAND_MAX+1.0));
 		gchar word [12];
 
-		for (j = 0; j < len; j ++)
+		for (j = 0; j < len; j++)
 			word [j] = 'a' + (gint) (26.0*rand()/(RAND_MAX+1.0));
 		word [len] = ' ';
 		word [len + 1] = 0;
@@ -104,7 +104,7 @@ static gint test_level_1 (GtkHTML *html)
 	if (html->engine->cursor->position != 0 || html->engine->cursor->offset != 0)
 		return FALSE;
 
-	for (i = 0; i < 1000; i ++) {
+	for (i = 0; i < 1000; i++) {
 		gint j, new_pos, pos, len;
 
 		len = 1 + (gint) (120.0*rand()/(RAND_MAX+1.0));
@@ -130,7 +130,7 @@ static gint test_level_1 (GtkHTML *html)
 			/* insert text */
 			printf ("insert text\n");
 			html_cursor_jump_to_position (html->engine->cursor, html->engine, pos);
-			for (j = 0; j < len; j ++) {
+			for (j = 0; j < len; j++) {
 				gint et = (gint) (10.0*rand()/(RAND_MAX+1.0));
 				if (et == 0)
 					gtk_html_command (html, "insert-tab");
@@ -159,14 +159,14 @@ static gint test_level_1 (GtkHTML *html)
 		case 3:
 			/* undo */
 			printf ("undo\n");
-			for (j = 0; j < len; j ++) {
+			for (j = 0; j < len; j++) {
 				html_engine_undo (html->engine);
 			}
 			break;
 		case 4:
 			/* redo */
 			printf ("redo\n");
-			for (j = 0; j < len; j ++) {
+			for (j = 0; j < len; j++) {
 				html_engine_redo (html->engine);
 			}
 			break;
@@ -186,14 +186,14 @@ static gint test_level_1 (GtkHTML *html)
 		case 6:
 			/* left */
 			printf ("left\n");
-			for (j = 0; j < 5*len; j ++) {
+			for (j = 0; j < 5*len; j++) {
 				html_cursor_left (html->engine->cursor, html->engine);
 			}
 			break;
 		case 7:
 			/* right */
 			printf ("right\n");
-			for (j = 0; j < 5*len; j ++) {
+			for (j = 0; j < 5*len; j++) {
 				html_cursor_right (html->engine->cursor, html->engine);
 			}
 			break;
@@ -254,19 +254,19 @@ gint main (gint argc, gchar *argv[])
 
 	fprintf (stderr, "\nGtkHTML test suite\n");
 	fprintf (stderr, "--------------------------------------------------------------------------------\n");
-	for (i = 0; tests [i].name; i ++) {
+	for (i = 0; tests [i].name; i++) {
 		gint j, result;
 
 		if (tests [i].test_function) {
 			fprintf (stderr, "  %s ", tests [i].name);
-			for (j = strlen (tests [i].name); j < 69; j ++)
+			for (j = strlen (tests [i].name); j < 69; j++)
 				fputc ('.', stderr);
 			result = (*tests [i].test_function) (html);
 			fprintf (stderr, " %s\n", result ? "passed" : "failed");
 
-			n_all ++;
+			n_all++;
 			if (result)
-				n_successful ++;
+				n_successful++;
 		} else {
 			fprintf (stderr, "* %s\n", tests [i].name);
 		}

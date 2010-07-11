@@ -267,7 +267,7 @@ op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left,
 	if (!from && prev_flow_in_cluevs (self)) {
 		(*len) ++;
 		/* if (cut)
-		   e->cursor->position --; */
+		   e->cursor->position--; */
 	}
 	if (cut)
 		html_clue_remove_text_slaves (HTML_CLUE (self));
@@ -391,9 +391,9 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 			cf2->item_type = cf1->item_type;
 
 			update_item_number (self, e);
-			cf1->item_number --;
+			cf1->item_number--;
 			update_item_number (with, e);
-			cf1->item_number ++;
+			cf1->item_number++;
 
 			if (cf2_next_relative)
 				update_item_number (cf2_next_relative, e);
@@ -1174,7 +1174,7 @@ get_item_marker_str (HTMLClueFlow *flow, gboolean ascii_only)
 	if (type == HTML_LIST_TYPE_BLOCKQUOTE && flow->levels->len > 0) {
 		gint i;
 
-		for (i = flow->levels->len - 1; i >= 0; i --) {
+		for (i = flow->levels->len - 1; i >= 0; i--) {
 			if (flow->levels->data [i] != HTML_LIST_TYPE_BLOCKQUOTE) {
 				type = flow->levels->data [i];
 				break;
@@ -1490,7 +1490,7 @@ write_indent (HTMLEngineSaveState *state, gint level)
 	while (level > 0) {
 		if (!html_engine_save_output_string (state, "    "))
 			return FALSE;
-		level --;
+		level--;
 	}
 
 	return TRUE;
@@ -2018,11 +2018,11 @@ save_plain (HTMLObject *self,
 			lattrs = g_new (PangoLogAttr, slen + 1);
 			n_items = g_list_length (items_list);
 			items = g_new (PangoItem *, n_items);
-			for (i = 0, cur = items_list; i < n_items; i ++, cur = cur->next)
+			for (i = 0, cur = items_list; i < n_items; i++, cur = cur->next)
 				items [i] = (PangoItem *) cur->data;
 
 			offset = 0;
-			for (i = 0; i < n_items; i ++) {
+			for (i = 0; i < n_items; i++) {
 				PangoItem tmp_item;
 				gint start_offset;
 
@@ -2034,7 +2034,7 @@ save_plain (HTMLObject *self,
 						tmp_item.length += items [i + 1]->length;
 						tmp_item.num_chars += items [i + 1]->num_chars;
 						offset += items [i + 1]->num_chars;
-						i ++;
+						i++;
 					} else
 						break;
 				}
@@ -2045,7 +2045,7 @@ save_plain (HTMLObject *self,
 			html_text_remove_unwanted_line_breaks ((gchar *) s, slen, lattrs);
 
 			g_list_free (items_list);
-			for (i = 0; i < n_items; i ++)
+			for (i = 0; i < n_items; i++)
 				pango_item_free (items [i]);
 			g_free (items);
 			pango_attr_list_unref (attrs);
@@ -2070,7 +2070,7 @@ save_plain (HTMLObject *self,
 						if (lattrs [wl].is_white) {
 
 							while (lattrs [wl].is_white && wl < slen)
-								wl ++;
+								wl++;
 
 							if (wl < slen && html_text_is_line_break (lattrs [wl]))
 								look_backward = FALSE;
@@ -2082,14 +2082,14 @@ save_plain (HTMLObject *self,
 							while (wl > 0) {
 								if (html_text_is_line_break (lattrs [wl]))
 									break;
-								wl --;
+								wl--;
 							}
 						}
 
 						if (wl > clen && wl < slen && html_text_is_line_break (lattrs [wl])) {
 							wi = MIN (wl, wmax);
 							while (wi > clen && lattrs [wi - 1].is_white)
-								wi --;
+								wi--;
 							len = wi - clen;
 							width = utf8_width ((gchar *) s, len);
 							skip = wl - wi;
@@ -2133,7 +2133,7 @@ save_plain (HTMLObject *self,
 
 				if (*s == '\n') {
 					s++;
-					clen ++;
+					clen++;
 				}
 
 				g_string_append_c (out, '\n');

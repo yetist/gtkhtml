@@ -246,7 +246,7 @@ get_n_children (HTMLObject *self)
 	for (r = 0; r < t->totalRows; r++)
 		for (c = 0; c < t->totalCols; c++)
 			if (t->cells [r][c] && t->cells [r][c]->row == r && t->cells [r][c]->col == c)
-				n_children ++;
+				n_children++;
 
 	/* printf ("table n_children %d\n", n_children); */
 
@@ -267,7 +267,7 @@ get_child (HTMLObject *self, gint index)
 					child = HTML_OBJECT (t->cells [r][c]);
 					break;
 				}
-				n ++;
+				n++;
 			}
 
 	/* printf ("table ref %d child %p\n", index, child); */
@@ -289,7 +289,7 @@ get_child_index (HTMLObject *self, HTMLObject *child)
 					/* printf ("table child %p index %d\n", child, n); */
 					return n;
 				}
-				n ++;
+				n++;
 			}
 		}
 
@@ -310,8 +310,8 @@ get_recursive_length (HTMLObject *self)
 				len += html_object_get_recursive_length (HTML_OBJECT (t->cells [r][c])) + 1;
 
 	/* if (len > 0)
-	   len --; */
-	len ++;
+	   len--; */
+	len++;
 	return len;
 }
 
@@ -470,8 +470,8 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 	dup = HTML_OBJECT (g_new0 (HTMLTable, 1));
 	dup_table = HTML_TABLE (dup);
 	copy_sized (self, dup, t->totalRows, t->totalCols);
-	for (r = 0; r < t->totalRows; r ++) {
-		for (c = 0; c < t->totalCols; c ++) {
+	for (r = 0; r < t->totalRows; r++) {
+		for (c = 0; c < t->totalCols; c++) {
 			HTMLTableCell *cc;
 
 			cc = t->cells [r][c];
@@ -558,8 +558,8 @@ could_merge (HTMLTable *t1, HTMLTable *t2)
 	    || t1->totalCols != t2->totalCols || t1->totalRows != t2->totalRows)
 		return FALSE;
 
-	for (r = 0; r < t1->totalRows; r ++) {
-		for (c = 0; c < t1->totalCols; c ++) {
+	for (r = 0; r < t1->totalRows; r++) {
+		for (c = 0; c < t1->totalCols; c++) {
 			HTMLTableCell *c1, *c2;
 
 			c1 = t1->cells [r][c];
@@ -653,8 +653,8 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 		cursor_cell_2 = HTML_TABLE_CELL (object_get_parent_cell (cursor->object, HTML_OBJECT (t1)));
 	cursor_cell_3 = HTML_TABLE_CELL (object_get_parent_cell (e->cursor->object, HTML_OBJECT (t2)));
 
-	for (r = 0; r < t1->totalRows; r ++) {
-		for (c = 0; c < t1->totalCols; c ++) {
+	for (r = 0; r < t1->totalRows; r++) {
+		for (c = 0; c < t1->totalCols; c++) {
 			HTMLTableCell *c1, *c2;
 
 			c1 = t1->cells [r][c];
@@ -680,7 +680,7 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 								+ (t1->totalCols - c1->col);
 							for (list = *left; list; list = list->next)
 								if (list->data && HTML_IS_TABLE (list->data))
-									e->cursor->position --;
+									e->cursor->position--;
 
 							/* printf ("3rd dec: %d t1_tail %d,%d\n",
 								(t1->totalRows - c1->row - 1)*t1->totalCols
@@ -869,11 +869,11 @@ calc_column_width_step (HTMLTable *table, HTMLPainter *painter, GArray *array, g
 					if (LL col_width * (ARR (cell->col + i + 1) - ARR (cell->col))
 					    - LL new_width * span_width > LL (new_width + 1) * span_width
 					    - LL col_width * (ARR (cell->col + i + 1) - ARR (cell->col)))
-						new_width ++;
+						new_width++;
 				} else {
 					new_width = added + col_width / span;
 					if (col_width - LL span * new_width > LL span * (new_width + 1) - col_width)
-						new_width ++;
+						new_width++;
 				}
 				new_width -= added;
 				added     += new_width;
@@ -917,7 +917,7 @@ calc_column_width_template (HTMLTable *table, HTMLPainter *painter, GArray *arra
 			}
 		}
 		g_free (arr);
-		span ++;
+		span++;
 	}
 
 	for (c = 0; c < table->totalCols; c++)
@@ -1367,7 +1367,7 @@ calc_percentage_step (HTMLTable *table, gint *col_percent, gint *span_percent, g
 				not_percented = 0;
 				for (cp = 0; cp < span; cp++)
 					if (!PERC (c + cp))
-						not_percented ++;
+						not_percented++;
 
 				np    = 1;
 				added = 0;
@@ -1379,7 +1379,7 @@ calc_percentage_step (HTMLTable *table, gint *col_percent, gint *span_percent, g
 							if (np * pleft - part * not_percented >
 							    (part + 1) * not_percented - np * pleft)
 								part++;
-							np ++;
+							np++;
 						}
 					} else {
 						part = ((col_percent [c + cp + 1] - col_percent [c]) * pleft)
@@ -1388,7 +1388,7 @@ calc_percentage_step (HTMLTable *table, gint *col_percent, gint *span_percent, g
 						    - part * (col_percent [cl] - col_percent [c])
 						    > (part + 1) * (col_percent [cl] - col_percent [c])
 						    - (col_percent [c + cp + 1] - col_percent [c]) * pleft)
-							part ++;
+							part++;
 					}
 					part  -= added;
 					added += part;
@@ -1407,7 +1407,7 @@ calc_col_percentage (HTMLTable *table, gint *col_percent)
 	gboolean next = TRUE;
 
 	percent = g_new0 (gint, table->totalCols);
-	for (span = 1; next && span <= table->totalCols; span ++) {
+	for (span = 1; next && span <= table->totalCols; span++) {
 		for (c = 0; c < table->totalCols; c++)
 			percent [c] = 0;
 
@@ -1433,7 +1433,7 @@ calc_not_percented (HTMLTable *table, gint *col_percent)
 	not_percented = 0;
 	for (c = 0; c < table->totalCols; c++)
 		if (col_percent [c + 1] == col_percent [c])
-			not_percented ++;
+			not_percented++;
 
 	return not_percented;
 }
@@ -1461,7 +1461,7 @@ divide_into_percented (HTMLTable *table, gint *col_percent, gint *max_size, gint
 				add     = LL left * (request - max_size [c] + filled) / to_fill;
 				if (LL left * (request - max_size [c] + filled) - LL add * to_fill >
 				    LL (add + 1) * to_fill - LL left * (request - max_size [c] + filled))
-					add ++;
+					add++;
 				add          -= added;
 				added        += add;
 				filled       += request - max_size [c];
@@ -1539,7 +1539,7 @@ divide_upto_preferred_width (HTMLTable *table, HTMLPainter *painter, GArray *pre
 					part = (LL min_fill * processed_pw) / total_pref;
 					if (LL min_fill * processed_pw - LL part * total_pref
 					    > LL (part + 1) * total_pref - LL min_fill * processed_pw)
-						part ++;
+						part++;
 					part         -= added;
 					if (max_size [c] + part > pw)
 						part = pw - max_size [c];
@@ -1591,7 +1591,7 @@ divide_left_by_preferred_width (HTMLTable *table, HTMLPainter *painter,
 				   pw, part, total_fill, processed_pw); */
 				if (LL total_fill * processed_pw - LL part * pref
 				    > LL (part + 1) * pref - LL total_fill * processed_pw)
-					part ++;
+					part++;
 				part         -= added;
 				max_size [c] += part;
 				added        += part;
@@ -2413,8 +2413,8 @@ html_table_end_table (HTMLTable *table)
 {
 	gint r, c, cells = 0;
 
-	for (r = 0; r < table->totalRows; r ++)
-		for (c = 0; c < table->totalCols; c ++)
+	for (r = 0; r < table->totalRows; r++)
+		for (c = 0; c < table->totalCols; c++)
 			if (table->cells [r][c]) {
 				if (HTML_CLUE (table->cells [r][c])->head == NULL) {
 					HTMLTableCell *cell = table->cells [r][c];
@@ -2422,7 +2422,7 @@ html_table_end_table (HTMLTable *table)
 					remove_cell (table, cell);
 					html_object_destroy (HTML_OBJECT (cell));
 				} else
-					cells ++;
+					cells++;
 			}
 	return cells;
 }

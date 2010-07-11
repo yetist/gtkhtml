@@ -5174,7 +5174,7 @@ html_engine_block_redraw (HTMLEngine *e)
 {
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	e->block_redraw ++;
+	e->block_redraw++;
 	if (e->redraw_idle_id) {
 		g_source_remove (e->redraw_idle_id);
 		e->redraw_idle_id = 0;
@@ -5189,7 +5189,7 @@ html_engine_unblock_redraw (HTMLEngine *e)
 
 	g_return_if_fail (e->block_redraw > 0);
 
-	e->block_redraw --;
+	e->block_redraw--;
 	if (!e->block_redraw && e->need_redraw) {
 		if (e->redraw_idle_id) {
 			g_source_remove (e->redraw_idle_id);

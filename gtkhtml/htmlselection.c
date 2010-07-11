@@ -414,13 +414,13 @@ html_engine_activate_selection (HTMLEngine *e, guint32 time)
 void
 html_engine_block_selection (HTMLEngine *e)
 {
-	e->block_selection ++;
+	e->block_selection++;
 }
 
 void
 html_engine_unblock_selection (HTMLEngine *e)
 {
-	e->block_selection --;
+	e->block_selection--;
 }
 
 void

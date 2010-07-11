@@ -138,7 +138,7 @@ get_parent_depth (HTMLObject *o, HTMLObject *parent)
 
 	while (o && parent && o != parent) {
 		o = o->parent;
-		level ++;
+		level++;
 	}
 
 	return level;
@@ -647,13 +647,13 @@ validate_tables (HTMLEngine *e, HTMLUndoDirection dir, gboolean add_undo, gboole
 		gint steps = 0;
 
 		while (html_cursor_forward (e->cursor, e)) {
-			steps ++;
+			steps++;
 			if (HTML_IS_TABLE (e->cursor->object)) {
 				next = html_object_next_not_slave (e->cursor->object);
 				if (next) {
 					insert_empty_paragraph (e, dir, FALSE);
 					*fix_para = TRUE;
-					steps ++;
+					steps++;
 					break;
 				}
 			} else
@@ -1019,7 +1019,7 @@ fix_aligned_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection di
 	if (!html_cursor_forward (e->cursor, e))
 		g_assert (html_cursor_backward (e->cursor, e));
 	else
-		e->cursor->position --;
+		e->cursor->position--;
 
 	html_clue_remove (HTML_CLUE (cf->parent), cf);
 	html_object_destroy (cf);
@@ -1071,7 +1071,7 @@ fix_aligned_position (HTMLEngine *e, guint *position_after, HTMLUndoDirection di
 				html_clue_append (HTML_CLUE (cf), e->cursor->object);
 				html_clue_append_after (HTML_CLUE (cluev), cf, flow);
 				e->cursor->offset = 0;
-				e->cursor->position ++;
+				e->cursor->position++;
 				(*position_after) ++;
 #ifdef OP_DEBUG
 				gtk_html_debug_dump_tree_simple (e->clue, 0);
@@ -1327,13 +1327,13 @@ use_pictograms (HTMLEngine *e)
 		while (picto_chars [state + relative]) {
 			if (picto_chars [state + relative] == uc)
 				break;
-			relative ++;
+			relative++;
 		}
 		state = picto_states [state + relative];
 		/* 0 .. not found, -n .. found n-th */
 		if (state <= 0)
 			break;
-		pos --;
+		pos--;
 	}
 
 	/* Special case needed to recognize angel and devilish. */
@@ -1486,7 +1486,7 @@ html_engine_paste_link (HTMLEngine *e, const gchar *text, gint len, const gchar 
 	target = strrchr (url, '#');
 	if (target) {
 		*target = 0;
-		target ++;
+		target++;
 	}
 
 	html_engine_paste_text (e, text, len);

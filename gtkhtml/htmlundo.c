@@ -163,7 +163,7 @@ action_do_and_destroy_undo (HTMLEngine *engine, HTMLUndo *undo, HTMLUndoDirectio
 	undo->undo.stack = g_list_remove (first, first->data);
 	if (undo->level == 0) {
 		undo->undo_used.stack = g_list_prepend (undo->undo_used.stack, action);
-		undo->step_counter --;
+		undo->step_counter--;
 
 		html_engine_emit_undo_changed (engine);
 	}
@@ -186,10 +186,10 @@ html_undo_do_undo (HTMLUndo *undo,
 			DEBUG (undo);
 		}
 #endif
-		engine->block_events ++;
+		engine->block_events++;
 		action_do_and_destroy_undo (engine, undo, HTML_UNDO_UNDO);
 		undo->undo.size--;
-		engine->block_events --;
+		engine->block_events--;
 #ifdef UNDO_DEBUG
 		if (!undo->level) {
 			DEBUG (undo);
@@ -216,12 +216,12 @@ html_undo_do_redo (HTMLUndo *undo,
 			DEBUG (undo);
 		}
 #endif
-		undo->in_redo ++;
-		engine->block_events ++;
+		undo->in_redo++;
+		engine->block_events++;
 		action_do_and_destroy_redo (engine, undo, &undo->redo.stack, HTML_UNDO_REDO);
 		undo->redo.size--;
-		engine->block_events --;
-		undo->in_redo --;
+		engine->block_events--;
+		undo->in_redo--;
 
 #ifdef UNDO_DEBUG
 		if (!undo->level) {
@@ -278,13 +278,13 @@ html_undo_add_undo_action  (HTMLUndo *undo, HTMLEngine *engine, HTMLUndoAction *
 			undo->undo.size--;
 		}
 
-		undo->step_counter ++;
+		undo->step_counter++;
 
 		html_engine_emit_undo_changed (engine);
 	}
 
 	undo->undo.stack = g_list_prepend (undo->undo.stack, action);
-	undo->undo.size ++;
+	undo->undo.size++;
 
 #ifdef UNDO_DEBUG
 	if (!undo->level) {
@@ -305,7 +305,7 @@ html_undo_add_redo_action  (HTMLUndo *undo,
 		return;
 
 	undo->redo.stack = g_list_prepend (undo->redo.stack, action);
-	undo->redo.size ++;
+	undo->redo.size++;
 }
 
 void
@@ -323,13 +323,13 @@ html_undo_add_action  (HTMLUndo *undo, HTMLEngine *engine, HTMLUndoAction *actio
 void
 html_undo_freeze  (HTMLUndo *undo)
 {
-	undo->freeze_count ++;
+	undo->freeze_count++;
 }
 
 void
 html_undo_thaw  (HTMLUndo *undo)
 {
-	undo->freeze_count --;
+	undo->freeze_count--;
 }
 
 /*
@@ -405,7 +405,7 @@ html_undo_level_begin (HTMLUndo *undo, const gchar *undo_desription, const gchar
 	undo->undo.stack  = NULL;
 	undo->undo.size   = 0;
 
-	undo->level ++;
+	undo->level++;
 }
 
 static void
@@ -416,7 +416,7 @@ redo_level_begin (HTMLUndo *undo, const gchar *redo_desription, const gchar *und
 	undo->redo.stack  = NULL;
 	undo->redo.size   = 0;
 
-	undo->level ++;
+	undo->level++;
 }
 
 static void
@@ -428,7 +428,7 @@ redo_level_end (HTMLUndo *undo)
 
 	g_assert (undo->redo_levels);
 
-	undo->level --;
+	undo->level--;
 
 	/* preserve current redo stack */
 	stack_copy (&undo->redo, &save_redo);
@@ -532,14 +532,14 @@ undo_step_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, guin
 	/* set this level */
 	stack_dup (&level->stack, stack);
 
-	undo->level ++;
+	undo->level++;
 	if (dir == HTML_UNDO_UNDO)
 		while (undo->undo.size)
 			html_undo_do_undo (undo, e);
 	else
 		while (undo->redo.size)
 			html_undo_do_redo (undo, e);
-	undo->level --;
+	undo->level--;
 
 	/* restore current undo/redo stack */
 	stack_copy (&save, stack);
@@ -563,7 +563,7 @@ html_undo_data_ref (HTMLUndoData *data)
 {
 	g_assert (data);
 
-	data->ref_count ++;
+	data->ref_count++;
 }
 
 void
@@ -572,7 +572,7 @@ html_undo_data_unref (HTMLUndoData *data)
 	g_assert (data);
 	g_assert (data->ref_count > 0);
 
-	data->ref_count --;
+	data->ref_count--;
 
 	if (data->ref_count == 0) {
 		if (data->destroy)

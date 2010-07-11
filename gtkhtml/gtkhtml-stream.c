@@ -207,7 +207,7 @@ gtk_html_stream_log_new (GtkHTML *html, GtkHTMLStream *stream)
 	log->file = fopen (fname, "w+");
 	g_free (fname);
 
-	log_num ++;
+	log_num++;
 
 	new_stream = gtk_html_stream_new (html,
 					  stream_log_types,

@@ -162,7 +162,7 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 		g_print (" [%s, %d]",
 			 clueflow_style_to_string (HTML_CLUEFLOW (obj)->style), HTML_CLUEFLOW (obj)->levels->len);
 		g_print (" levels: [");
-		for (i = 0; i < HTML_CLUEFLOW (obj)->levels->len; i ++) {
+		for (i = 0; i < HTML_CLUEFLOW (obj)->levels->len; i++) {
 			g_print ("%d", HTML_CLUEFLOW (obj)->levels->data [i]);
 			if (i < HTML_CLUEFLOW (obj)->levels->len - 1)
 				g_print (" ");
@@ -209,7 +209,7 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 			tw += HTML_TEXT_SLAVE (obj)->owner->pi->entries [ii].widths [io];
 			g_print ("%d ", HTML_TEXT_SLAVE (obj)->owner->pi->entries [ii].widths [io]);
 			html_text_pi_forward (HTML_TEXT_SLAVE (obj)->owner->pi, &ii, &io);
-			offset ++;
+			offset++;
 		}
 
 		g_print ("\ntotal width by widths in entries (in engine units): %d", (gint)(0.5 + tw / PANGO_SCALE));
@@ -230,10 +230,10 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 			 text->text_len, text->text_bytes, text->text);
 /*		debug_spell_errors (text->spell_errors); */
 		if (text->pi) {
-			for (i =0; i < text->pi->n; i ++)
+			for (i =0; i < text->pi->n; i++)
 				g_print ("item %d offset: %d length: %d\n", i, text->pi->entries [i].glyph_item.item->offset, text->pi->entries [i].glyph_item.item->length);
 
-			for (i = 0; i < text->text_len; i ++) {
+			for (i = 0; i < text->text_len; i++) {
 				union {
 					PangoLogAttr attr;
 					guint as_int;

@@ -114,7 +114,7 @@ set_link (HTMLObject *obj, HTMLEngine *e, gpointer data)
 			target = strrchr (url, '#');
 			if (target) {
 				*target = 0;
-				target ++;
+				target++;
 			}
 		}
 

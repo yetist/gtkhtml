@@ -397,7 +397,7 @@ html_engine_new_link (HTMLEngine *e, const gchar *text, gint len, gchar *url)
 	real_target = strchr (text, '#');
 	if (real_target) {
 		real_url = g_strndup (url, real_target - url);
-		real_target ++;
+		real_target++;
 	} else
 		real_url = url;
 
@@ -574,9 +574,9 @@ html_engine_indent_paragraph (HTMLEngine *e)
 					prev = html_cursor_get_prev_char (e->cursor);
 					if (prev != ' ' && prev != '\t') {
 						html_engine_insert_text (e, " ", 1);
-						line_offset ++;
+						line_offset++;
 					} else if (position > e->cursor->position)
-						position --;
+						position--;
 					last_space = line_offset - 1;
 				} else {
 					line_offset = 0;
@@ -810,7 +810,7 @@ html_engine_get_insert_level_for_object (HTMLEngine *e, HTMLObject *o)
 
 			while (clue && clue->parent && (HTML_IS_CLUEV (clue->parent) || HTML_IS_TABLE_CELL (clue->parent))) {
 				clue = clue->parent;
-				cursor_level ++;
+				cursor_level++;
 			}
 		}
 	}

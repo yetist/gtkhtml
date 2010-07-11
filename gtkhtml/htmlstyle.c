@@ -397,7 +397,7 @@ static HTMLStyle *
 parse_border_style (HTMLStyle *style, gchar *value)
 {
 	while (isspace (*value))
-		value ++;
+		value++;
 
 	if (!g_ascii_strcasecmp (value, "solid"))
 		style = html_style_set_border_style (style, HTML_BORDER_SOLID);
@@ -425,7 +425,7 @@ static HTMLStyle *
 parse_border_width (HTMLStyle *style, gchar *value)
 {
 	while (isspace (*value))
-		value ++;
+		value++;
 
 	if (!g_ascii_strcasecmp (value, "thin"))
 		style = html_style_set_border_width (style, 1);
@@ -448,11 +448,11 @@ parse_border (HTMLStyle *style, gchar *value)
 		gchar orig = 0;
 
 		while (isspace (*value))
-			value ++;
+			value++;
 
 		next = value;
 		while (*next && !isspace (*next))
-			next ++;
+			next++;
 		if (*next) {
 			orig = *next;
 			*next = 0;
@@ -466,7 +466,7 @@ parse_border (HTMLStyle *style, gchar *value)
 
 		if (modified) {
 			*next = orig;
-			next ++;
+			next++;
 		}
 
 		value = next;

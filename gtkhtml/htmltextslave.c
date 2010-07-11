@@ -319,8 +319,8 @@ html_text_slave_remove_leading_space (HTMLTextSlave *slave, HTMLPainter *painter
 	if (*begin == ' ' && could_remove_leading_space (slave, lineBegin)) {
 		begin = g_utf8_next_char (begin);
 		slave->charStart = begin;
-		slave->posStart ++;
-		slave->posLen --;
+		slave->posStart++;
+		slave->posLen--;
 	}
 
 	return begin;
@@ -419,13 +419,13 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 				= skip*html_painter_get_space_width (painter, font_style, face) * PANGO_SCALE;
 			line_offset += skip;
 		} else {
-			line_offset ++;
+			line_offset++;
 		}
 		w += pi->entries [ii].widths [io];
 
 		html_text_pi_forward (pi, &ii, &io);
 		s = g_utf8_next_char (s);
-		offset ++;
+		offset++;
 	}
 
 	if (offset == slave->posStart + slave->posLen && (widthLeft >= w || force_fit)) {
@@ -524,7 +524,7 @@ reorder_glyph_items (GSList *glyph_items, gint n_items)
 		return NULL;
 
 	tmp_list = glyph_items;
-	for (i = 0; i < n_items; i ++) {
+	for (i = 0; i < n_items; i++) {
 		HTMLTextSlaveGlyphItem *gi = tmp_list->data;
 
 		min_level = MIN (min_level, gi->glyph_item.item->analysis.level);
@@ -535,7 +535,7 @@ reorder_glyph_items (GSList *glyph_items, gint n_items)
 	level_start_i = 0;
 	level_start_node = glyph_items;
 	tmp_list = glyph_items;
-	for (i = 0; i < n_items; i ++) {
+	for (i = 0; i < n_items; i++) {
 		HTMLTextSlaveGlyphItem *gi= tmp_list->data;
 
 		if (gi->glyph_item.item->analysis.level == min_level) {
@@ -577,7 +577,7 @@ get_glyph_items_in_range (HTMLTextSlave *slave, HTMLPainter *painter, gint start
 	start_offset += slave->posStart;
 	end_offset = start_offset + len;
 
-	for (offset = 0, i = 0; i < pi->n; i ++) {
+	for (offset = 0, i = 0; i < pi->n; i++) {
 		PangoItem *item = pi->entries [i].glyph_item.item;
 
 		/* do item and slave overlap? */
@@ -637,7 +637,7 @@ get_glyph_items_in_range (HTMLTextSlave *slave, HTMLPainter *painter, gint start
 			}
 
 			glyph_items = g_slist_prepend (glyph_items, glyph_item);
-			n_items ++;
+			n_items++;
 		}
 
 		if (offset + item->num_chars >= end_offset)
@@ -975,16 +975,16 @@ calc_offset (HTMLTextSlave *slave, HTMLPainter *painter, gint x)
 
 			if (item->analysis.level % 2 == 0) {
 				/* LTR */
-				for (i = 0; i < item->num_chars; i ++) {
+				for (i = 0; i < item->num_chars; i++) {
 					if (x < html_painter_pango_to_engine (painter, width + gi->widths [i] / 2))
 						goto done;
 					width += gi->widths [i];
 				}
 			} else {
 				/* RTL */
-				for (i = item->num_chars - 1; i >= 0; i --) {
+				for (i = item->num_chars - 1; i >= 0; i--) {
 					if (x < html_painter_pango_to_engine (painter, width + gi->widths [i] / 2)) {
-						i ++;
+						i++;
 						goto done;
 					}
 					width += gi->widths [i];
@@ -1263,16 +1263,16 @@ html_text_slave_cursor_right_one (HTMLTextSlave *slave, HTMLPainter *painter, HT
 	if (gi->glyph_item.item->analysis.level % 2 == 0) {
 		/* LTR */
 		if (index < gi->glyph_item.item->offset + gi->glyph_item.item->length) {
-			cursor->offset ++;
-			cursor->position ++;
+			cursor->offset++;
+			cursor->position++;
 
 			return TRUE;
 		}
 	} else {
 		/* RTL */
 		if (index > gi->glyph_item.item->offset && index <= gi->glyph_item.item->offset + gi->glyph_item.item->length) {
-			cursor->offset --;
-			cursor->position --;
+			cursor->offset--;
+			cursor->position--;
 
 			return TRUE;
 		}
@@ -1282,12 +1282,12 @@ html_text_slave_cursor_right_one (HTMLTextSlave *slave, HTMLPainter *painter, HT
 		if (html_text_slave_gi_left_edge (slave, cursor, next)) {
 			if (next->glyph_item.item->analysis.level % 2 == 0) {
 				/* LTR */
-				cursor->offset ++;
-				cursor->position ++;
+				cursor->offset++;
+				cursor->position++;
 			} else {
 				/* RTL */
-				cursor->offset --;
-				cursor->position --;
+				cursor->offset--;
+				cursor->position--;
 			}
 
 			return TRUE;
@@ -1326,16 +1326,16 @@ html_text_slave_cursor_left_one (HTMLTextSlave *slave, HTMLPainter *painter, HTM
 	if (gi->glyph_item.item->analysis.level % 2 == 0) {
 		/* LTR */
 		if (index - gi->glyph_item.item->offset > 1 || (!prev && !prev_obj && index - gi->glyph_item.item->offset > 0)) {
-			cursor->offset --;
-			cursor->position --;
+			cursor->offset--;
+			cursor->position--;
 
 			return TRUE;
 		}
 	} else {
 		/* RTL */
 		if (index < gi->glyph_item.item->offset + gi->glyph_item.item->length) {
-			cursor->offset ++;
-			cursor->position ++;
+			cursor->offset++;
+			cursor->position++;
 
 			return TRUE;
 		}
@@ -1346,13 +1346,13 @@ html_text_slave_cursor_left_one (HTMLTextSlave *slave, HTMLPainter *painter, HTM
 			if (prev->glyph_item.item->analysis.level % 2 == 0) {
 				/* LTR */
 				if (index - gi->glyph_item.item->offset == 0) {
-					cursor->offset --;
-					cursor->position --;
+					cursor->offset--;
+					cursor->position--;
 				}
 			} else {
 				/* RTL */
-				cursor->offset ++;
-				cursor->position ++;
+				cursor->offset++;
+				cursor->position++;
 			}
 
 			return TRUE;
