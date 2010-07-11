@@ -2,20 +2,21 @@
 # Copyright (C) 2000, 2007, 2008, 2009, 2010 the author(s) of gtkhtml.
 # Copyright (C) 2004, 2005, 2006 Miloslav Trmac <mitr@volny.cz>.
 # This file is distributed under the same license as the gtkhtml package.
+#
 # Radka Soukupova <Radka.Soukupova@centrum.cz>, 2000, 2002.
 # Miloslav Trmac <mitr@volny.cz>, 2002, 2003, 2004, 2005, 2006.
 # Jakub Friedl <jfriedl@suse.cz>, 2007.
 # Lucas Lommer <llommer@svn.gnome.org>, 2008, 2009, 2010.
 # Petr Kovar <pknbe@volny.cz>, 2008.
-# Marek Černocký <marek@manet.cz>, 2009.
+# Marek Černocký <marek@manet.cz>, 2009, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml gnome-2-28\n"
+"Project-Id-Version: gtkhtml gnome-2-30\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-01 19:40+0100\n"
-"PO-Revision-Date: 2010-02-23 22:35+0100\n"
-"Last-Translator: Lucas Lommer <llommer@svn.gnome.org>\n"
+"POT-Creation-Date: 2010-07-11 16:54+0200\n"
+"PO-Revision-Date: 2010-06-29 11:32+0200\n"
+"Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -206,54 +207,54 @@ msgstr "bílá"
 msgid "Choose Custom Color"
 msgstr "Zvolte vlastní barvu"
 
-#: ../components/editor/gtkhtml-color-combo.c:711
+#: ../components/editor/gtkhtml-color-combo.c:727
 #: ../components/editor/gtkhtml-color-state.c:205
 msgid "Current color"
 msgstr "Aktuální barva"
 
-#: ../components/editor/gtkhtml-color-combo.c:712
+#: ../components/editor/gtkhtml-color-combo.c:728
 msgid "The currently selected color"
 msgstr "Aktuálně zvolená barva"
 
-#: ../components/editor/gtkhtml-color-combo.c:721
+#: ../components/editor/gtkhtml-color-combo.c:737
 #: ../components/editor/gtkhtml-color-state.c:215
 msgid "Default color"
 msgstr "Výchozí barva"
 
-#: ../components/editor/gtkhtml-color-combo.c:722
+#: ../components/editor/gtkhtml-color-combo.c:738
 msgid "The color associated with the default button"
 msgstr "Barva asociovaná s výchozím tlačítkem"
 
-#: ../components/editor/gtkhtml-color-combo.c:732
+#: ../components/editor/gtkhtml-color-combo.c:748
 #: ../components/editor/gtkhtml-color-state.c:226
 msgid "Default label"
 msgstr "Výchozí titulek"
 
-#: ../components/editor/gtkhtml-color-combo.c:733
+#: ../components/editor/gtkhtml-color-combo.c:749
 msgid "The label for the default button"
 msgstr "Titulek výchozího tlačítka"
 
-#: ../components/editor/gtkhtml-color-combo.c:734
+#: ../components/editor/gtkhtml-color-combo.c:750
 #: ../components/editor/gtkhtml-color-state.c:228
 msgid "Default"
 msgstr "Výchozí"
 
-#: ../components/editor/gtkhtml-color-combo.c:743
+#: ../components/editor/gtkhtml-color-combo.c:759
 #: ../components/editor/gtkhtml-color-state.c:237
 msgid "Default is transparent"
 msgstr "Výchozí je průhledné"
 
-#: ../components/editor/gtkhtml-color-combo.c:744
+#: ../components/editor/gtkhtml-color-combo.c:760
 #: ../components/editor/gtkhtml-color-state.c:238
 msgid "Whether the default color is transparent"
 msgstr "Jestli je výchozí barva průhledná"
 
-#: ../components/editor/gtkhtml-color-combo.c:754
+#: ../components/editor/gtkhtml-color-combo.c:770
 #: ../components/editor/gtkhtml-color-state.c:248
 msgid "Color palette"
 msgstr "Barevná paleta"
 
-#: ../components/editor/gtkhtml-color-combo.c:755
+#: ../components/editor/gtkhtml-color-combo.c:771
 #: ../components/editor/gtkhtml-color-state.c:249
 msgid "Custom color palette"
 msgstr "Vlastní barevná paleta"
@@ -261,14 +262,14 @@ msgstr "Vlastní barevná paleta"
 #. Translators: This is the nickname for a
 #. * GtkhtmlColorCombo property named "popup-shown",
 #. * based on a similar property in GtkComboBox.
-#: ../components/editor/gtkhtml-color-combo.c:767
+#: ../components/editor/gtkhtml-color-combo.c:783
 msgid "Popup shown"
 msgstr "Kontextová nabídka zobrazena"
 
 #. Translators: This is the blurb for a
 #. * GtkhtmlColorCombo property named "popup-shown",
 #. * based on a similar property in GtkComboBox.
-#: ../components/editor/gtkhtml-color-combo.c:771
+#: ../components/editor/gtkhtml-color-combo.c:787
 msgid "Whether the combo's dropdown is shown"
 msgstr "Jestli zobrazovat rozbalovací seznam"
 
@@ -276,7 +277,7 @@ msgstr "Jestli zobrazovat rozbalovací seznam"
 #. GtkHtmlColorCombo property named "state". It holds all
 #. the internal values for a GtkHtml color combination box.
 #.
-#: ../components/editor/gtkhtml-color-combo.c:784
+#: ../components/editor/gtkhtml-color-combo.c:800
 msgid "Color state"
 msgstr "Barevný stav"
 
@@ -284,17 +285,17 @@ msgstr "Barevný stav"
 #. GtkHtmlColorCombo property named "state". It holds all
 #. the internal values for a GtkHtml color combination box.
 #.
-#: ../components/editor/gtkhtml-color-combo.c:789
+#: ../components/editor/gtkhtml-color-combo.c:805
 msgid "The state of a color combo box"
 msgstr "Položka 'state' barevného výběru"
 
-#: ../components/editor/gtkhtml-color-combo.c:971
+#: ../components/editor/gtkhtml-color-combo.c:987
 msgid "custom"
 msgstr "vlastní"
 
-#: ../components/editor/gtkhtml-color-combo.c:979
+#: ../components/editor/gtkhtml-color-combo.c:995
 msgid "Custom Color..."
-msgstr "Vlastní barva..."
+msgstr "Vlastní barva…"
 
 #: ../components/editor/gtkhtml-color-state.c:206
 #: ../components/editor/gtkhtml-color-swatch.c:183
@@ -491,11 +492,11 @@ msgstr "Zvětšit odsazení"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1246
 msgid "_HTML File..."
-msgstr "Soubor _HTML..."
+msgstr "Soubor _HTML…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1253
 msgid "Te_xt File..."
-msgstr "Te_xtový soubor..."
+msgstr "Te_xtový soubor…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1260
 msgid "_Paste"
@@ -515,20 +516,20 @@ msgstr "Vybr_at vše"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1288
 msgid "_Find..."
-msgstr "_Hledat..."
+msgstr "_Hledat…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1295
 msgid "Re_place..."
-msgstr "Nah_radit..."
+msgstr "Nah_radit…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1302
 msgid "Check _Spelling..."
-msgstr "Zkontrolovat _pravopis..."
+msgstr "Zkontrolovat _pravopis…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1309
 #: ../components/editor/gtkhtml-editor-builder.ui.h:79
 msgid "_Test URL..."
-msgstr "_Otestovat URL..."
+msgstr "_Otestovat URL…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1316
 msgid "_Undo"
@@ -675,12 +676,12 @@ msgstr "_Abecední seznam"
 #: ../components/editor/gtkhtml-editor-actions.c:1539
 #: ../components/editor/gtkhtml-editor-actions.c:1574
 msgid "_Image..."
-msgstr "_Obrázek..."
+msgstr "_Obrázek…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1546
 #: ../components/editor/gtkhtml-editor-actions.c:1581
 msgid "_Link..."
-msgstr "O_dkaz..."
+msgstr "O_dkaz…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1548
 msgid "Insert Link"
@@ -689,7 +690,7 @@ msgstr "Vložit odkaz"
 #: ../components/editor/gtkhtml-editor-actions.c:1553
 #: ../components/editor/gtkhtml-editor-actions.c:1595
 msgid "_Rule..."
-msgstr "Čá_ru..."
+msgstr "Čá_ru…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1555
 msgid "Insert Rule"
@@ -698,7 +699,7 @@ msgstr "Vložit čáru"
 #: ../components/editor/gtkhtml-editor-actions.c:1560
 #: ../components/editor/gtkhtml-editor-actions.c:1602
 msgid "_Table..."
-msgstr "Ta_bulku..."
+msgstr "Ta_bulku…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1562
 msgid "Insert Table"
@@ -706,11 +707,11 @@ msgstr "Vložit tabulku"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1567
 msgid "_Cell..."
-msgstr "_Buňka..."
+msgstr "_Buňka…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1588
 msgid "Pa_ge..."
-msgstr "_Stránka..."
+msgstr "_Stránka…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1611
 msgid "Font _Size"
@@ -847,35 +848,35 @@ msgstr "Řádka pod"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1843
 msgid "Cell..."
-msgstr "Buňka..."
+msgstr "Buňka…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1850
 msgid "Image..."
-msgstr "Obrázek..."
+msgstr "Obrázek…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1857
 msgid "Link..."
-msgstr "Odkaz..."
+msgstr "Odkaz…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1864
 msgid "Page..."
-msgstr "Stránka..."
+msgstr "Stránka…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1871
 msgid "Paragraph..."
-msgstr "Odstavec..."
+msgstr "Odstavec…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1878
 msgid "Rule..."
-msgstr "Čáru..."
+msgstr "Čáru…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1885
 msgid "Table..."
-msgstr "Tabulku..."
+msgstr "Tabulku…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1892
 msgid "Text..."
-msgstr "Text..."
+msgstr "Text…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1899
 msgid "Remove Link"
@@ -930,27 +931,27 @@ msgstr "Čá_ra"
 msgid "_Table"
 msgstr "_Tabulka"
 
-#: ../components/editor/gtkhtml-editor-private.c:271
+#: ../components/editor/gtkhtml-editor-private.c:273
 msgid "Paragraph Style"
 msgstr "Styl odstavce"
 
-#: ../components/editor/gtkhtml-editor-private.c:285
+#: ../components/editor/gtkhtml-editor-private.c:287
 msgid "Editing Mode"
 msgstr "Mód úprav"
 
-#: ../components/editor/gtkhtml-editor-private.c:297
+#: ../components/editor/gtkhtml-editor-private.c:299
 msgid "Font Color"
 msgstr "Barva písma"
 
-#: ../components/editor/gtkhtml-editor-private.c:307
+#: ../components/editor/gtkhtml-editor-private.c:309
 msgid "Font Size"
 msgstr "Velikost písma"
 
-#: ../components/editor/gtkhtml-editor-private.c:334
+#: ../components/editor/gtkhtml-editor-private.c:336
 msgid "Automatic"
 msgstr "Automatický"
 
-#: ../components/editor/gtkhtml-editor-private.c:587
+#: ../components/editor/gtkhtml-editor-private.c:589
 msgid "Could not open the link."
 msgstr "Nelze otavřít odkaz."
 
@@ -1399,7 +1400,7 @@ msgid "_Add Word"
 msgstr "Přid_at slovo"
 
 #. Translators: %s is the language ISO code.
-#: ../components/editor/gtkhtml-spell-language.c:184
+#: ../components/editor/gtkhtml-spell-language.c:255
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
@@ -1407,8 +1408,8 @@ msgstr "Neznámý (%s)"
 
 #. Translators: The first %s is the language name, and the
 #. * second is the country name. Example: "French (France)"
-#: ../components/editor/gtkhtml-spell-language.c:199
-#: ../components/editor/gtkhtml-spell-language.c:204
+#: ../components/editor/gtkhtml-spell-language.c:270
+#: ../components/editor/gtkhtml-spell-language.c:275
 #, c-format
 msgctxt "language"
 msgid "%s (%s)"
@@ -1416,7 +1417,7 @@ msgstr "%s (%s)"
 
 #. Translators: This refers to the default language used
 #. * by the spell checker.
-#: ../components/editor/gtkhtml-spell-language.c:389
+#: ../components/editor/gtkhtml-spell-language.c:460
 msgctxt "language"
 msgid "Default"
 msgstr "Výchozí"
@@ -1443,7 +1444,7 @@ msgstr "Čistý zdroj"
 
 #: ../components/editor/main.c:292
 msgid "_Print..."
-msgstr "_Tisk..."
+msgstr "_Tisk…"
 
 #: ../components/editor/main.c:299
 msgid "Print Pre_view"
@@ -1459,7 +1460,7 @@ msgstr "_Uložit"
 
 #: ../components/editor/main.c:320
 msgid "Save _As..."
-msgstr "Uložit _jako..."
+msgstr "Uložit _jako…"
 
 #: ../components/editor/main.c:337
 msgid "HTML _Output"
@@ -1473,83 +1474,83 @@ msgstr "Zdroj _HTML"
 msgid "_Plain Source"
 msgstr "Č_istý zdroj"
 
-#: ../gtkhtml/gtkhtml.c:3060
+#: ../gtkhtml/gtkhtml.c:3068
 msgid "Editable"
 msgstr "Upravitelný"
 
-#: ../gtkhtml/gtkhtml.c:3061
+#: ../gtkhtml/gtkhtml.c:3069
 msgid "Whether the html can be edited"
 msgstr "Jestli může být html upravováno"
 
-#: ../gtkhtml/gtkhtml.c:3067
+#: ../gtkhtml/gtkhtml.c:3075
 msgid "Document Title"
 msgstr "Nadpis dokumentu"
 
-#: ../gtkhtml/gtkhtml.c:3068
+#: ../gtkhtml/gtkhtml.c:3076
 msgid "The title of the current document"
 msgstr "Nadpis aktuálního dokumentu"
 
-#: ../gtkhtml/gtkhtml.c:3074
+#: ../gtkhtml/gtkhtml.c:3082
 msgid "Document Base"
 msgstr "Základ dokumentu"
 
-#: ../gtkhtml/gtkhtml.c:3075
+#: ../gtkhtml/gtkhtml.c:3083
 msgid "The base URL for relative references"
 msgstr "Základní URL pro relativní odkazy"
 
-#: ../gtkhtml/gtkhtml.c:3081
+#: ../gtkhtml/gtkhtml.c:3089
 msgid "Target Base"
 msgstr "Základ cíle"
 
-#: ../gtkhtml/gtkhtml.c:3082
+#: ../gtkhtml/gtkhtml.c:3090
 msgid "The base URL of the target frame"
 msgstr "Základní URL cílového rámce"
 
-#: ../gtkhtml/gtkhtml.c:3090
+#: ../gtkhtml/gtkhtml.c:3098
 msgid "Fixed Width Font"
 msgstr "Písmo s pevnou šířkou"
 
-#: ../gtkhtml/gtkhtml.c:3091
+#: ../gtkhtml/gtkhtml.c:3099
 msgid "The Monospace font to use for typewriter text"
 msgstr "Písmo monospace, které použít pro text psacího stroje"
 
-#: ../gtkhtml/gtkhtml.c:3097
+#: ../gtkhtml/gtkhtml.c:3105
 msgid "New Link Color"
 msgstr "Barva nového odkazu"
 
-#: ../gtkhtml/gtkhtml.c:3098
+#: ../gtkhtml/gtkhtml.c:3106
 msgid "The color of new link elements"
 msgstr "Barva nových elementů odkaz"
 
-#: ../gtkhtml/gtkhtml.c:3103
+#: ../gtkhtml/gtkhtml.c:3111
 msgid "Visited Link Color"
 msgstr "Barva navštíveného odkazu"
 
-#: ../gtkhtml/gtkhtml.c:3104
+#: ../gtkhtml/gtkhtml.c:3112
 msgid "The color of visited link elements"
 msgstr "Barva elementů navštívených odkazů"
 
-#: ../gtkhtml/gtkhtml.c:3109
+#: ../gtkhtml/gtkhtml.c:3117
 msgid "Active Link Color"
 msgstr "Barva aktivního odkazu"
 
-#: ../gtkhtml/gtkhtml.c:3110
+#: ../gtkhtml/gtkhtml.c:3118
 msgid "The color of active link elements"
 msgstr "Barva elementů aktivních odkazů"
 
-#: ../gtkhtml/gtkhtml.c:3115
+#: ../gtkhtml/gtkhtml.c:3123
 msgid "Spelling Error Color"
 msgstr "Barva pravopisné chyby"
 
-#: ../gtkhtml/gtkhtml.c:3116
+#: ../gtkhtml/gtkhtml.c:3124
 msgid "The color of the spelling error markers"
 msgstr "Barva označení pravopisných chyb"
 
-#: ../gtkhtml/gtkhtml.c:3121
+#: ../gtkhtml/gtkhtml.c:3129
 msgid "Cite Quotation Color"
 msgstr "Barva citátu"
 
-#: ../gtkhtml/gtkhtml.c:3122
+#: ../gtkhtml/gtkhtml.c:3130
 msgid "The color of the cited text"
 msgstr "Barva citovaného textu"
 
@@ -1564,7 +1565,7 @@ msgstr "Vymazat"
 #. TODO2 dialog instead of warning
 #: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:309
 msgid "Cannot allocate default font for printing"
-msgstr "Nemohu alokovat výchozí písmo pro tisk"
+msgstr "Nelze alokovat výchozí písmo pro tisk"
 
 #: ../gtkhtml/test.c:364
 msgid "GtkHTML Test"
