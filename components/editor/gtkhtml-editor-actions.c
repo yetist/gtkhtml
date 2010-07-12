@@ -614,6 +614,10 @@ action_insert_html_file_cb (GtkToggleAction *action,
 	file = gtkhtml_editor_run_open_dialog (
 		editor, _("Insert HTML File"), NULL, NULL);
 
+	/* User cancelled? */
+	if (file == NULL)
+		return;
+
 	/* XXX Need a way to cancel this. */
 	g_file_load_contents_async (
 		file, NULL, (GAsyncReadyCallback)
@@ -678,6 +682,10 @@ action_insert_text_file_cb (GtkAction *action,
 
 	file = gtkhtml_editor_run_open_dialog (
 		editor, _("Insert Text File"), NULL, NULL);
+
+	/* User cancelled? */
+	if (file == NULL)
+		return;
 
 	/* XXX Need a way to cancel this. */
 	g_file_load_contents_async (
