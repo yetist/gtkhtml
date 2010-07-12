@@ -1,3 +1,17 @@
+GtkHTML-3.31.5 2010-07-12
+-------------------------
+
+Bug Fixes:
+	(none)
+
+Other Changes:
+	Work around sudden disapperance of GdkRegion in GTK+ 2.90.5.
+	(Matthew Barnes)
+
+Translations:
+	Marek Cernocky (cs)
+	Matej Urban¿i¿ (sl)
+
 GtkHTML-3.31.4 2010-06-29
 -------------------------
 
