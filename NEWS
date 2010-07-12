@@ -2,7 +2,8 @@ GtkHTML-3.31.5 2010-07-12
 -------------------------
 
 Bug Fixes:
-	(none)
+	Bug 624149 - Check for NULL after gtkhtml_editor_run_open_dialog()
+	             (Matthew Barnes)
 
 Other Changes:
 	Work around sudden disapperance of GdkRegion in GTK+ 2.90.5.
