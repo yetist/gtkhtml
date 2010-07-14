@@ -4087,6 +4087,10 @@ gtk_html_set_inline_spelling (GtkHTML *html,
 
 	html->priv->inline_spelling = inline_spell;
 
+	/* do not update content, when there is none set (yet) */
+	if (!html->engine || !html->engine->clue)
+		return;
+
 	if (gtk_html_get_editable (html) && html->priv->inline_spelling)
 		html_engine_spell_check (html->engine);
 	else
