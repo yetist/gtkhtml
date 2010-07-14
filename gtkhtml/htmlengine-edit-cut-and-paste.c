@@ -1394,15 +1394,17 @@ use_pictograms (HTMLEngine *e)
 }
 
 void
-html_engine_insert_text_with_extra_attributes (HTMLEngine *e, const gchar *text, gint len, PangoAttrList *attrs)
+html_engine_insert_text_with_extra_attributes (HTMLEngine *e, const gchar *ptext, gint len, PangoAttrList *attrs)
 {
-	gchar *nl;
+	gchar *nl, *text = NULL;
 	gint alen;
 	gsize bytes;
 
-	bytes = html_text_sanitize (&text, &len);
-	if (!len)
+	bytes = html_text_sanitize (ptext, &text, &len);
+	if (!len || !text) {
+		g_free (text);
 		return;
+	}
 
 	html_undo_level_begin (e->undo, "Insert text", "Delete text");
 	/* FIXME add insert text event */
@@ -1446,6 +1448,8 @@ html_engine_insert_text_with_extra_attributes (HTMLEngine *e, const gchar *text,
 		}
 	} while (nl);
 	html_undo_level_end (e->undo, e);
+
+	g_free (text);
 }
 
 void

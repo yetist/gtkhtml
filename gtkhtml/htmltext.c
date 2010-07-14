@@ -2874,66 +2874,91 @@ html_text_class_init (HTMLTextClass *klass,
 	parent_class = &html_object_class;
 }
 
+/* almost identical copy of glib's _g_utf8_make_valid() */
 static gchar *
-offset_to_pointer_validated (const gchar *str, glong offset, gint *chars_out)
+_html_text_utf8_make_valid (const gchar *name, gint len)
 {
-	const gchar *s = str;
-	glong chars = 0;
+	GString *string;
+	const gchar *remainder, *invalid;
+	gint remaining_bytes, valid_bytes, total_bytes;
 
-	if (offset < 0) {
-		while (*s) {
-			gunichar wc = g_utf8_get_char_validated (s, -1);
-			if (wc == (gunichar)-1 || wc == (gunichar)-2)
-				return NULL;
-			s = g_utf8_next_char (s);
-			chars++;
-		}
+	g_return_val_if_fail (name != NULL, NULL);
 
+	string = NULL;
+	remainder = name;
+	if (len == -1) {
+		remaining_bytes = strlen (name);
 	} else {
-		while (offset-- && *s) {
-			gunichar wc = g_utf8_get_char_validated (s, -1);
-			if (wc == (gunichar)-1 || wc == (gunichar)-2)
-				return NULL;
-			s = g_utf8_next_char (s);
-			chars++;
+		const gchar *start = name, *end = name;
+
+		while (len > 0) {
+			gunichar uc = g_utf8_get_char_validated (end, -1);
+
+			if (uc == (gunichar) -2 || uc == (gunichar) -1) {
+				end++;
+			} else if (uc == 0) {
+				break;
+			} else {
+				end = g_utf8_next_char (end);
+			}
+
+			len--;
 		}
+
+		remaining_bytes = end - start;
 	}
 
-	*chars_out = chars;
+	total_bytes = remaining_bytes;
 
-	return (gchar *)s;
+	while (remaining_bytes != 0) {
+		if (g_utf8_validate (remainder, remaining_bytes, &invalid)) 
+			break;
+		valid_bytes = invalid - remainder;
+    
+		if (string == NULL) 
+			string = g_string_sized_new (remaining_bytes);
+
+		g_string_append_len (string, remainder, valid_bytes);
+		/* append U+FFFD REPLACEMENT CHARACTER */
+		g_string_append (string, "\357\277\275");
+
+		remaining_bytes -= valid_bytes + 1;
+		remainder = invalid + 1;
+	}
+  
+	if (string == NULL)
+		return g_strndup (name, total_bytes);
+  
+	g_string_append (string, remainder);
+
+	g_assert (g_utf8_validate (string->str, -1, NULL));
+
+	return g_string_free (string, FALSE);
 }
 
 /**
  * html_text_sanitize:
- * @str: text string (in/out)
+ * @str_in: text string to sanitize (in)
+ * @str_out: newly allocated text string sanitized (out)
  * @len: length of text, in characters (in/out). (A value of
  *       -1 on input means to use all characters in @str)
  *
- * Validates a UTF-8 string up to the given number of characters;
- * if the string is invalid, on output, "[?]" will be stored in
- * @str and 3 in @len, otherwise @str will be left unchanged,
- * and @len will be left unchanged if non-negative, otherwise
- * replaced with the number of characters in @str.
+ * Validates a UTF-8 string up to the given number of characters.
  *
  * Return value: number of bytes in the output value of @str
  **/
 gsize
-html_text_sanitize (const gchar **str, gint *len)
+html_text_sanitize (const gchar *str_in, gchar **str_out, gint *len)
 {
-	gchar *end;
-
-	g_return_val_if_fail (str != NULL, 0);
+	g_return_val_if_fail (str_in != NULL, 0);
+	g_return_val_if_fail (str_out != NULL, 0);
 	g_return_val_if_fail (len != NULL, 0);
 
-	end = offset_to_pointer_validated (*str, *len, len);
-	if (end) {
-		return end - *str;
-	} else {
-		*str = "[?]";
-		*len = 3;
-		return 3;
-	}
+	*str_out = _html_text_utf8_make_valid (str_in, *len);
+	g_return_val_if_fail (*str_out != NULL, 0);
+
+	*len = g_utf8_strlen (*str_out, -1);
+	return strlen (*str_out);
 }
 
 void
@@ -2948,10 +2973,8 @@ html_text_init (HTMLText *text,
 
 	html_object_init (HTML_OBJECT (text), HTML_OBJECT_CLASS (klass));
 
-	text->text_bytes = html_text_sanitize (&str, &len);
+	text->text_bytes = html_text_sanitize (str, &text->text, &len);
 	text->text_len = len;
-	text->text = g_memdup (str, text->text_bytes + 1);
-	text->text [text->text_bytes] = '\0';
 
 	text->font_style    = font_style;
 	text->face          = NULL;
@@ -3030,11 +3053,10 @@ void
 html_text_set_text (HTMLText *text, const gchar *new_text)
 {
 	g_free (text->text);
+	text->text = NULL;
 	text->text_len = -1;
-	text->text_bytes = html_text_sanitize (&new_text,
+	text->text_bytes = html_text_sanitize (new_text, &text->text,
 					       (gint *)&text->text_len);
-	text->text = g_memdup (new_text, text->text_bytes + 1);
-	text->text [text->text_bytes] = '\0';
 	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
 }
 
@@ -3271,13 +3293,13 @@ html_text_trail_space_width (HTMLText *text, HTMLPainter *painter)
 }
 
 void
-html_text_append (HTMLText *text, const gchar *str, gint len)
+html_text_append (HTMLText *text, const gchar *pstr, gint len)
 {
-	gchar *to_delete;
+	gchar *to_delete, *str = NULL;
 	guint bytes;
 
 	to_delete       = text->text;
-	bytes = html_text_sanitize (&str, &len);
+	bytes = html_text_sanitize (pstr, &str, &len);
 	text->text_len += len;
 	text->text      = g_malloc (text->text_bytes + bytes + 1);
 
@@ -3287,6 +3309,7 @@ html_text_append (HTMLText *text, const gchar *str, gint len)
 	text->text[text->text_bytes] = '\0';
 
 	g_free (to_delete);
+	g_free (str);
 
 	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
 }
