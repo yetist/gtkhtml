@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gtkhtml&component=general\n"
 "POT-Creation-Date: 2010-07-20 11:51+0000\n"
-"PO-Revision-Date: 2010-07-23 20:16+0800\n"
+"PO-Revision-Date: 2010-07-24 18:38+0800\n"
 "Last-Translator: fujianwzh <fujianwzh@gmail.com>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
@@ -1176,9 +1176,8 @@ msgid "_Width:"
 msgstr "宽度(_W)："
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:86
-#, fuzzy
 msgid "_With:"
-msgstr "为(_W)："
+msgstr "带有(_W)："
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:87
 msgid "_Wrap Text"
