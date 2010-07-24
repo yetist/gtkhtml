@@ -4,21 +4,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Jayaradha N <jaya@pune.redhat.com>, 2004.
-# Dr.T.Vasudevan <agnihot3@gmail.com>, 2007, 2008, 2009.
+# Dr.T.Vasudevan <agnihot3@gmail.com>, 2007, 2008, 2009, 2010.
 # I. Felix <ifelix@redhat.com>, 2009.
 # Dr,T,Vasudevan <agnihot3@gmail.com>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-18 09:43+0530\n"
-"PO-Revision-Date: 2010-02-18 09:45+0530\n"
-"Last-Translator: Dr,T,Vasudevan <agnihot3@gmail.com>\n"
-"Language-Team: Tamil <Ubuntu-l10n-tam@lists.ubuntu.com>>\n"
+"POT-Creation-Date: 2010-07-24 20:51+0530\n"
+"PO-Revision-Date: 2010-07-24 20:52+0530\n"
+"Last-Translator: Dr.T.Vasudevan <agnihot3@gmail.com>\n"
+"Language-Team: Tamil <<Ubuntu-l10n-tam@lists.ubuntu.com>>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 0.3\n"
+"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\\n"
 "\n"
 "\n"
@@ -37,7 +37,7 @@ msgstr "யூஆர்எல்(URL) %s"
 msgid "grab focus"
 msgstr "முன்னிலையை பெறு"
 
-#: ../a11y/object.c:253
+#: ../a11y/object.c:257
 msgid "Panel containing HTML"
 msgstr "ஹெச்டிஎம்எல்(ஹெச்டிஎம்எல்(HTML)) உள்ள பலகம்"
 
@@ -201,132 +201,22 @@ msgstr "வெளிர் ஊதா"
 msgid "white"
 msgstr "வெள்ளை"
 
-#: ../components/editor/gtkhtml-color-combo.c:274
+#: ../components/editor/gtkhtml-color-combo.c:277
 msgid "Choose Custom Color"
 msgstr "தனிப்பயன் நிறத்தை தேர்வுசெய்"
 
-#: ../components/editor/gtkhtml-color-combo.c:711
-#: ../components/editor/gtkhtml-color-state.c:205
-msgid "Current color"
-msgstr "இப்போதைய நிறம்:"
-
-#: ../components/editor/gtkhtml-color-combo.c:712
-msgid "The currently selected color"
-msgstr "தற்போது தேர்ந்தெடுக்கப்பட்ட நிறம்"
-
-#: ../components/editor/gtkhtml-color-combo.c:721
-#: ../components/editor/gtkhtml-color-state.c:215
-msgid "Default color"
-msgstr "முன்னிருப்பு நிறம்"
-
-#: ../components/editor/gtkhtml-color-combo.c:722
-msgid "The color associated with the default button"
-msgstr "முன்னிருப்பு பொத்தானுடன் சம்பந்தப்பட்ட நிறம்"
-
-#: ../components/editor/gtkhtml-color-combo.c:732
-#: ../components/editor/gtkhtml-color-state.c:226
-msgid "Default label"
-msgstr "முன்னிருப்பு அடையாளச்சீட்டு"
-
-#: ../components/editor/gtkhtml-color-combo.c:733
-msgid "The label for the default button"
-msgstr "முன்னிருப்பு பொத்தானுக்கு அடையாளச்சீட்டு"
-
-#: ../components/editor/gtkhtml-color-combo.c:734
+#: ../components/editor/gtkhtml-color-combo.c:745
 #: ../components/editor/gtkhtml-color-state.c:228
 msgid "Default"
 msgstr "முன்னிருப்பு"
 
-#: ../components/editor/gtkhtml-color-combo.c:743
-#: ../components/editor/gtkhtml-color-state.c:237
-msgid "Default is transparent"
-msgstr "முன்னிருப்பு ஒளிபுகும்தன்மை கொண்டது"
-
-#: ../components/editor/gtkhtml-color-combo.c:744
-#: ../components/editor/gtkhtml-color-state.c:238
-msgid "Whether the default color is transparent"
-msgstr "முன்னிருப்பு நிறம் ஊடுருவு தன்மையை கொண்டுள்ளதா"
-
-#: ../components/editor/gtkhtml-color-combo.c:754
-#: ../components/editor/gtkhtml-color-state.c:248
-msgid "Color palette"
-msgstr "நிற தட்டு"
-
-#: ../components/editor/gtkhtml-color-combo.c:755
-#: ../components/editor/gtkhtml-color-state.c:249
-msgid "Custom color palette"
-msgstr "தனிப்பயன் நிற தட்டு"
-
-#. Translators: This is the nickname for a
-#. * GtkhtmlColorCombo property named "popup-shown",
-#. * based on a similar property in GtkComboBox.
-#: ../components/editor/gtkhtml-color-combo.c:767
-msgid "Popup shown"
-msgstr "வெளித்துள்ளல் காட்டப்பட்டது"
-
-#. Translators: This is the blurb for a
-#. * GtkhtmlColorCombo property named "popup-shown",
-#. * based on a similar property in GtkComboBox.
-#: ../components/editor/gtkhtml-color-combo.c:771
-msgid "Whether the combo's dropdown is shown"
-msgstr "கீழ் இறங்கும் தொகுப்பு காட்டப்பட வேண்டுமா"
-
-#. Translators: This is the nickname for a
-#. GtkHtmlColorCombo property named "state". It holds all
-#. the internal values for a GtkHtml color combination box.
-#.
-#: ../components/editor/gtkhtml-color-combo.c:784
-msgid "Color state"
-msgstr "வண்ணங்கள் நிலை"
-
-#. Translators: This is the blurb for a
-#. GtkHtmlColorCombo property named "state". It holds all
-#. the internal values for a GtkHtml color combination box.
-#.
-#: ../components/editor/gtkhtml-color-combo.c:789
-msgid "The state of a color combo box"
-msgstr "நிற தொகுப்பின் பெட்டியின் நிலை"
-
-#: ../components/editor/gtkhtml-color-combo.c:971
+#: ../components/editor/gtkhtml-color-combo.c:968
 msgid "custom"
 msgstr "தனிப்பயன்"
 
-#: ../components/editor/gtkhtml-color-combo.c:979
+#: ../components/editor/gtkhtml-color-combo.c:976
 msgid "Custom Color..."
 msgstr "தனிப்பயன் நிறம்...."
-
-#: ../components/editor/gtkhtml-color-state.c:206
-#: ../components/editor/gtkhtml-color-swatch.c:183
-msgid "The current color"
-msgstr "தற்போதைய வண்ணம்"
-
-#: ../components/editor/gtkhtml-color-state.c:216
-msgid "The default color"
-msgstr "முன்னிருப்பு நிறம்"
-
-#: ../components/editor/gtkhtml-color-state.c:227
-msgid "Description of the default color"
-msgstr "முன்னிருப்பு நிறத்தின் விவரம் "
-
-#: ../components/editor/gtkhtml-color-swatch.c:182
-msgid "Color"
-msgstr "வண்ணம்"
-
-#: ../components/editor/gtkhtml-color-swatch.c:192
-msgid "Frame Shadow"
-msgstr "சட்டத்தின் நிழல்"
-
-#: ../components/editor/gtkhtml-color-swatch.c:193
-msgid "Appearance of the frame border"
-msgstr "சட்டத்தின் தோற்றம்"
-
-#: ../components/editor/gtkhtml-combo-box.c:323
-msgid "Action"
-msgstr "செயல்"
-
-#: ../components/editor/gtkhtml-combo-box.c:324
-msgid "A GtkRadioAction"
-msgstr "ஒரு ஜிடிகே ரேடியோ செயல்"
 
 #. Translators: :-)
 #: ../components/editor/gtkhtml-face-chooser.c:34
@@ -445,569 +335,541 @@ msgstr "உரை கோப்பை சொருக முடியவில்
 msgid "Insert HTML File"
 msgstr "HTML கோப்பை சொருகு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:631
-#: ../components/editor/gtkhtml-editor-actions.c:1541
+#: ../components/editor/gtkhtml-editor-actions.c:635
+#: ../components/editor/gtkhtml-editor-actions.c:1549
 msgid "Insert Image"
 msgstr "படத்தை சொருகு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:680
+#: ../components/editor/gtkhtml-editor-actions.c:684
 msgid "Insert Text File"
 msgstr "உரை கோப்பை சொருகு"
 
 #. Replace Button
-#: ../components/editor/gtkhtml-editor-actions.c:1176
+#: ../components/editor/gtkhtml-editor-actions.c:1184
 #: ../components/editor/gtkhtml-spell-dialog.c:520
 msgid "_Replace"
 msgstr "(_R)மாற்று"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1183
+#: ../components/editor/gtkhtml-editor-actions.c:1191
 msgid "Replace _All"
 msgstr "(_A)அனைத்தையும் மாற்று"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1197
+#: ../components/editor/gtkhtml-editor-actions.c:1205
 msgid "_Next"
 msgstr "(_N)அடுத்து"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1204
+#: ../components/editor/gtkhtml-editor-actions.c:1212
 msgid "_Copy"
 msgstr "(_C)படியெடு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1211
+#: ../components/editor/gtkhtml-editor-actions.c:1219
 msgid "Cu_t"
 msgstr "(_t)வெட்டு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1225
+#: ../components/editor/gtkhtml-editor-actions.c:1233
 msgid "Find A_gain"
 msgstr "(_A) மீண்டும் தேடு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1239
+#: ../components/editor/gtkhtml-editor-actions.c:1247
 msgid "_Increase Indent"
 msgstr "(_I) ஒதுக்கத்தை அதிகரி"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1241
+#: ../components/editor/gtkhtml-editor-actions.c:1249
 msgid "Increase Indent"
 msgstr "ஒதுக்கத்தை அதிகரி"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1246
+#: ../components/editor/gtkhtml-editor-actions.c:1254
 msgid "_HTML File..."
 msgstr "ஹெச்டிஎம்எல்(HTML) கோப்பு..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1253
+#: ../components/editor/gtkhtml-editor-actions.c:1261
 msgid "Te_xt File..."
 msgstr "உரை கோப்பு..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1260
+#: ../components/editor/gtkhtml-editor-actions.c:1268
 msgid "_Paste"
 msgstr "(_P)ஒட்டு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1267
+#: ../components/editor/gtkhtml-editor-actions.c:1275
 msgid "Paste _Quotation"
 msgstr "(_Q)மேற்கோளை ஒட்டு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1274
+#: ../components/editor/gtkhtml-editor-actions.c:1282
 msgid "_Redo"
 msgstr "(_R)மீண்டும் செய்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1281
+#: ../components/editor/gtkhtml-editor-actions.c:1289
 msgid "Select _All"
 msgstr "(_A)அனைத்தையும் தேர்வு செய்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1288
+#: ../components/editor/gtkhtml-editor-actions.c:1296
 msgid "_Find..."
 msgstr "(_F)கண்டுபிடி.."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1295
+#: ../components/editor/gtkhtml-editor-actions.c:1303
 msgid "Re_place..."
 msgstr "(_p) மாற்று..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1302
+#: ../components/editor/gtkhtml-editor-actions.c:1310
 msgid "Check _Spelling..."
 msgstr "_சரிபார் எழுத்தமைப்பை..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1309
-#: ../components/editor/gtkhtml-editor-builder.ui.h:79
+#: ../components/editor/gtkhtml-editor-actions.c:1317
+#: ../components/editor/gtkhtml-editor-builder.ui.h:80
 msgid "_Test URL..."
 msgstr "சோதனை யூஆர்எல்(யூஆர்எல்(URL))..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1316
+#: ../components/editor/gtkhtml-editor-actions.c:1324
 msgid "_Undo"
 msgstr "(_U)செய்ததை நீக்கு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1323
+#: ../components/editor/gtkhtml-editor-actions.c:1331
 msgid "_Decrease Indent"
 msgstr "(_D)ஒதுக்கத்தை குறை"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1325
+#: ../components/editor/gtkhtml-editor-actions.c:1333
 msgid "Decrease Indent"
 msgstr "ஒதுக்கத்தை குறை"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1330
+#: ../components/editor/gtkhtml-editor-actions.c:1338
 msgid "_Wrap Lines"
 msgstr "(_W)வரிகளை மடக்கு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1339
+#: ../components/editor/gtkhtml-editor-actions.c:1347
 msgid "_Edit"
 msgstr "(_E)திருத்து"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1346
+#: ../components/editor/gtkhtml-editor-actions.c:1354
 #: ../components/editor/main.c:327
 msgid "_File"
 msgstr "(_F) கோப்பு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1353
+#: ../components/editor/gtkhtml-editor-actions.c:1361
 msgid "For_mat"
 msgstr "(_m)அமைப்பு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1360
+#: ../components/editor/gtkhtml-editor-actions.c:1368
 msgid "_Paragraph Style"
 msgstr "(_P) பத்தி பாணி"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1367
+#: ../components/editor/gtkhtml-editor-actions.c:1375
 msgid "_Insert"
 msgstr "(_I) சொருகு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1374
+#: ../components/editor/gtkhtml-editor-actions.c:1382
 msgid "_Alignment"
 msgstr "(_A)பொருத்தம்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1381
+#: ../components/editor/gtkhtml-editor-actions.c:1389
 msgid "Current _Languages"
 msgstr "(_L)தற்போதைய மொழி"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1388
+#: ../components/editor/gtkhtml-editor-actions.c:1396
 #: ../components/editor/main.c:358
 msgid "_View"
 msgstr "பார்வை (_V)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1398
+#: ../components/editor/gtkhtml-editor-actions.c:1406
 msgid "_Center"
 msgstr "(_C)மையம்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1400
+#: ../components/editor/gtkhtml-editor-actions.c:1408
 msgid "Center Alignment"
 msgstr "நடு பொருத்தம்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1405
+#: ../components/editor/gtkhtml-editor-actions.c:1413
 msgid "_Left"
 msgstr "(_L)இடது"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1407
+#: ../components/editor/gtkhtml-editor-actions.c:1415
 msgid "Left Alignment"
 msgstr "இடது பொருத்தம்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1412
+#: ../components/editor/gtkhtml-editor-actions.c:1420
 msgid "_Right"
 msgstr "(_R)வலது"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1414
+#: ../components/editor/gtkhtml-editor-actions.c:1422
 msgid "Right Alignment"
 msgstr "வலது பக்க பொருத்தம்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1422
+#: ../components/editor/gtkhtml-editor-actions.c:1430
 msgid "_HTML"
 msgstr "_HTML"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1424
+#: ../components/editor/gtkhtml-editor-actions.c:1432
 msgid "HTML editing mode"
 msgstr "HTML திருத்தும் முறைமை"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1429
+#: ../components/editor/gtkhtml-editor-actions.c:1437
 msgid "Plain _Text"
 msgstr "(_T) வெற்று உரை"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1431
+#: ../components/editor/gtkhtml-editor-actions.c:1439
 msgid "Plain text editing mode"
 msgstr "வெற்று உரை திருத்தும் முறைமை"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1439
+#: ../components/editor/gtkhtml-editor-actions.c:1447
 msgid "_Normal"
 msgstr "(_N)இயல்பான"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1446
+#: ../components/editor/gtkhtml-editor-actions.c:1454
 msgid "Header _1"
 msgstr "தலைப்பு _1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1453
+#: ../components/editor/gtkhtml-editor-actions.c:1461
 msgid "Header _2"
 msgstr "தலைப்பு _2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1460
+#: ../components/editor/gtkhtml-editor-actions.c:1468
 msgid "Header _3"
 msgstr "தலைப்பு _3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1467
+#: ../components/editor/gtkhtml-editor-actions.c:1475
 msgid "Header _4"
 msgstr "தலைப்பு _4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1474
+#: ../components/editor/gtkhtml-editor-actions.c:1482
 msgid "Header _5"
 msgstr "தலைப்பு _5"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1481
+#: ../components/editor/gtkhtml-editor-actions.c:1489
 msgid "Header _6"
 msgstr "தலைப்பு _6"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1488
+#: ../components/editor/gtkhtml-editor-actions.c:1496
 msgid "A_ddress"
 msgstr "_ம முகவரிகள்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1495
+#: ../components/editor/gtkhtml-editor-actions.c:1503
 msgid "_Preformatted"
 msgstr "_ஏற்கெனவே வடிவமைத்த"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1502
+#: ../components/editor/gtkhtml-editor-actions.c:1510
 msgid "_Bulleted List"
 msgstr "(_B)குறி எண்ணிட்ட பட்டியல்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1509
+#: ../components/editor/gtkhtml-editor-actions.c:1517
 msgid "_Roman Numeral List"
 msgstr "(_R)ரோமன் எண்ணிடல் பட்டியல்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1516
+#: ../components/editor/gtkhtml-editor-actions.c:1524
 msgid "Numbered _List"
 msgstr "(_L)எண்ணிட்ட பட்டியல்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1523
+#: ../components/editor/gtkhtml-editor-actions.c:1531
 msgid "_Alphabetical List"
 msgstr "(_A)அகர வரிசை பட்டியல்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1539
-#: ../components/editor/gtkhtml-editor-actions.c:1574
+#: ../components/editor/gtkhtml-editor-actions.c:1547
+#: ../components/editor/gtkhtml-editor-actions.c:1584
 msgid "_Image..."
 msgstr "(_I)பிம்பம்..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1546
-#: ../components/editor/gtkhtml-editor-actions.c:1581
+#: ../components/editor/gtkhtml-editor-actions.c:1554
+#: ../components/editor/gtkhtml-editor-actions.c:1591
 msgid "_Link..."
 msgstr "(_L)இணைப்பு..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1548
+#: ../components/editor/gtkhtml-editor-actions.c:1556
 msgid "Insert Link"
 msgstr "இணைப்பை சொருகு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1553
-#: ../components/editor/gtkhtml-editor-actions.c:1595
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1562
+#: ../components/editor/gtkhtml-editor-actions.c:1606
 msgid "_Rule..."
 msgstr "(_R) அளவுகோல்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1555
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1565
 msgid "Insert Rule"
 msgstr "அளவுகோலை சொருகு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1560
-#: ../components/editor/gtkhtml-editor-actions.c:1602
+#: ../components/editor/gtkhtml-editor-actions.c:1570
+#: ../components/editor/gtkhtml-editor-actions.c:1613
 msgid "_Table..."
 msgstr "(_T)அட்டவணை"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1562
+#: ../components/editor/gtkhtml-editor-actions.c:1572
 msgid "Insert Table"
 msgstr "அட்டவணையை சொருகு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1567
+#: ../components/editor/gtkhtml-editor-actions.c:1577
 msgid "_Cell..."
 msgstr "(_C) அறை"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1588
+#: ../components/editor/gtkhtml-editor-actions.c:1598
 msgid "Pa_ge..."
 msgstr "(_g) பக்கம்..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1611
+#: ../components/editor/gtkhtml-editor-actions.c:1622
 msgid "Font _Size"
 msgstr "(_S) எழுத்துரு அளவு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1618
+#: ../components/editor/gtkhtml-editor-actions.c:1629
 msgid "_Font Style"
 msgstr "(_F) எழுத்துரு பாங்கு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1628
-#: ../components/editor/gtkhtml-editor-builder.ui.h:60
+#: ../components/editor/gtkhtml-editor-actions.c:1639
+#: ../components/editor/gtkhtml-editor-builder.ui.h:61
 msgid "_Bold"
 msgstr "(_B)தடித்த"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1630
+#: ../components/editor/gtkhtml-editor-actions.c:1641
 msgid "Bold"
 msgstr "தடித்த"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1636
-#: ../components/editor/gtkhtml-editor-builder.ui.h:67
+#: ../components/editor/gtkhtml-editor-actions.c:1647
+#: ../components/editor/gtkhtml-editor-builder.ui.h:68
 msgid "_Italic"
 msgstr "(_I)சாய்ந்த"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1638
+#: ../components/editor/gtkhtml-editor-actions.c:1649
 msgid "Italic"
 msgstr "சாய்ந்த"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1644
+#: ../components/editor/gtkhtml-editor-actions.c:1655
 msgid "_Plain Text"
 msgstr "_வ வெற்று உரை"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1646
+#: ../components/editor/gtkhtml-editor-actions.c:1657
 msgid "Plain Text"
 msgstr "வெற்று உரை"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1652
-#: ../components/editor/gtkhtml-editor-builder.ui.h:76
+#: ../components/editor/gtkhtml-editor-actions.c:1663
+#: ../components/editor/gtkhtml-editor-builder.ui.h:77
 msgid "_Strikethrough"
 msgstr "அடித்தல் (_S)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1654
+#: ../components/editor/gtkhtml-editor-actions.c:1665
 msgid "Strikethrough"
 msgstr "அடித்தல் "
 
-#: ../components/editor/gtkhtml-editor-actions.c:1660
-#: ../components/editor/gtkhtml-editor-builder.ui.h:82
+#: ../components/editor/gtkhtml-editor-actions.c:1671
+#: ../components/editor/gtkhtml-editor-builder.ui.h:83
 msgid "_Underline"
 msgstr "(_U)அடிக்கோடிட்ட"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1662
+#: ../components/editor/gtkhtml-editor-actions.c:1673
 msgid "Underline"
 msgstr "அடிக்கோடிடு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1671
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1683
 msgid "-2"
 msgstr "-2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1678
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1691
 msgid "-1"
 msgstr "-1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1685
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1699
 msgid "+0"
 msgstr "+0"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1692
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1707
 msgid "+1"
 msgstr "+1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1699
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1715
 msgid "+2"
 msgstr "+2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1706
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1723
 msgid "+3"
 msgstr "+3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1713
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1731
 msgid "+4"
 msgstr "+4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1732
+#: ../components/editor/gtkhtml-editor-actions.c:1750
 msgid "Cell Contents"
 msgstr "செல் உள்ளடக்கங்கள்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1739
+#: ../components/editor/gtkhtml-editor-actions.c:1757
 msgid "Column"
 msgstr "நெடுவரிசை"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1746
+#: ../components/editor/gtkhtml-editor-actions.c:1764
 msgid "Row"
 msgstr "வரிசை"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1753
-#: ../components/editor/gtkhtml-editor-actions.c:1836
+#: ../components/editor/gtkhtml-editor-actions.c:1771
+#: ../components/editor/gtkhtml-editor-actions.c:1856
 msgid "Table"
 msgstr "அட்டவணை"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1762
+#. Translators: Popup menu item caption, containing all the Delete options for a table
+#: ../components/editor/gtkhtml-editor-actions.c:1781
 msgid "Table Delete"
 msgstr "அட்டவணையை நீக்கு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1769
+#: ../components/editor/gtkhtml-editor-actions.c:1788
 msgid "Input Methods"
 msgstr "உள்ளிடும் முறைகள்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1776
+#. Translators: Popup menu item caption, containing all the Insert options for a table
+#: ../components/editor/gtkhtml-editor-actions.c:1796
 msgid "Table Insert"
 msgstr "அட்டவணையை சொருகு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1783
+#: ../components/editor/gtkhtml-editor-actions.c:1803
 msgid "Properties"
 msgstr "பண்புகள்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1801
+#: ../components/editor/gtkhtml-editor-actions.c:1821
 msgid "Column After"
 msgstr "பின் உள்ள நெெடுவரிச்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1808
+#: ../components/editor/gtkhtml-editor-actions.c:1828
 msgid "Column Before"
 msgstr "முன் உள்ள நெடுவரிசை"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1815
+#: ../components/editor/gtkhtml-editor-actions.c:1835
 msgid "Insert _Link"
 msgstr "_ச இணைப்பை சொருகு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1822
+#: ../components/editor/gtkhtml-editor-actions.c:1842
 msgid "Row Above"
 msgstr "மேல் வரி"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1829
+#: ../components/editor/gtkhtml-editor-actions.c:1849
 msgid "Row Below"
 msgstr "கீழ் வரி"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1843
+#: ../components/editor/gtkhtml-editor-actions.c:1863
 msgid "Cell..."
 msgstr "அறை..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1850
+#: ../components/editor/gtkhtml-editor-actions.c:1870
 msgid "Image..."
 msgstr "பிம்பம்..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1857
+#: ../components/editor/gtkhtml-editor-actions.c:1877
 msgid "Link..."
 msgstr "இணைப்பு..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1864
+#: ../components/editor/gtkhtml-editor-actions.c:1884
 msgid "Page..."
 msgstr "பக்கம்..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1871
+#: ../components/editor/gtkhtml-editor-actions.c:1891
 msgid "Paragraph..."
 msgstr "பத்தி..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1878
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1899
 msgid "Rule..."
 msgstr "அளவுகோல்...."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1885
+#: ../components/editor/gtkhtml-editor-actions.c:1906
 msgid "Table..."
 msgstr "அட்டவணை"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1892
+#: ../components/editor/gtkhtml-editor-actions.c:1913
 msgid "Text..."
 msgstr "உரை..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1899
+#: ../components/editor/gtkhtml-editor-actions.c:1920
 msgid "Remove Link"
 msgstr "இணைப்பை நீக்கு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1916
+#: ../components/editor/gtkhtml-editor-actions.c:1937
 msgid "Add Word to Dictionary"
 msgstr "அகராதியில் வார்த்தையை சேர்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1923
+#: ../components/editor/gtkhtml-editor-actions.c:1944
 msgid "Ignore Misspelled Word"
 msgstr "தவறாக எழுதப்பட்ட வார்த்தைகளை உதாசீனம் செய்க"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1930
+#: ../components/editor/gtkhtml-editor-actions.c:1951
 msgid "Add Word To"
 msgstr "வார்த்தையை சேர்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1939
+#: ../components/editor/gtkhtml-editor-actions.c:1960
 msgid "More Suggestions"
 msgstr "கூடுதல் யோசனைகள்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2106
+#. Translators: %s will be replaced with the actual dictionary name,
+#. where a user can add a word to. This is part of an "Add Word To" submenu.
+#: ../components/editor/gtkhtml-editor-actions.c:2061
+#, c-format
+msgid "%s Dictionary"
+msgstr "%s அகராதி"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2129
 msgid "_Emoticon"
 msgstr "(_E) உணர்ச்சி படம்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2107
+#: ../components/editor/gtkhtml-editor-actions.c:2130
 msgid "Insert Emoticon"
 msgstr "பாவனைகளை நுழை"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2168
+#: ../components/editor/gtkhtml-editor-actions.c:2191
 msgid "_Find"
 msgstr "(_F) தேடு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2171
+#: ../components/editor/gtkhtml-editor-actions.c:2194
 msgid "Re_place"
 msgstr "(_p)மாற்று"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2174
+#: ../components/editor/gtkhtml-editor-actions.c:2197
 msgid "_Image"
 msgstr "(_I) பிம்பம்"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2177
+#: ../components/editor/gtkhtml-editor-actions.c:2200
 msgid "_Link"
 msgstr "(_L) இணைப்பு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2180
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:2204
 msgid "_Rule"
 msgstr "(_R) கோடு"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2183
-#: ../components/editor/gtkhtml-editor-builder.ui.h:78
+#: ../components/editor/gtkhtml-editor-actions.c:2207
+#: ../components/editor/gtkhtml-editor-builder.ui.h:79
 msgid "_Table"
 msgstr "_அட்டவணை"
 
-#: ../components/editor/gtkhtml-editor-private.c:271
+#: ../components/editor/gtkhtml-editor-private.c:273
 msgid "Paragraph Style"
 msgstr "பத்தி பாணி"
 
-#: ../components/editor/gtkhtml-editor-private.c:285
+#: ../components/editor/gtkhtml-editor-private.c:287
 msgid "Editing Mode"
 msgstr "திருத்த முறைமை"
 
-#: ../components/editor/gtkhtml-editor-private.c:297
+#: ../components/editor/gtkhtml-editor-private.c:299
 msgid "Font Color"
 msgstr "எழுதுரு வண்ணங்கள்"
 
-#: ../components/editor/gtkhtml-editor-private.c:307
+#: ../components/editor/gtkhtml-editor-private.c:309
 msgid "Font Size"
 msgstr "எழுத்துரு அளவு"
 
-#: ../components/editor/gtkhtml-editor-private.c:334
+#: ../components/editor/gtkhtml-editor-private.c:336
 msgid "Automatic"
 msgstr "தானியங்கி"
 
-#: ../components/editor/gtkhtml-editor-private.c:587
+#: ../components/editor/gtkhtml-editor-private.c:589
 msgid "Could not open the link."
 msgstr "இணைப்பை திறக்க முடியவில்லை"
 
-#: ../components/editor/gtkhtml-editor.c:778
-msgid "Current Folder"
-msgstr "இப்போதைய அடைவு"
+#: ../components/editor/gtkhtml-editor.c:897
+msgid "Changed property"
+msgstr "மாற்றப்பட்ட பண்பு"
 
-#: ../components/editor/gtkhtml-editor.c:779
-msgid "The initial folder for file chooser dialogs"
-msgstr "தேர்வு உரையாடல்களுக்கு துவக்க கோப்பு"
-
-#: ../components/editor/gtkhtml-editor.c:789
-msgid "Filename"
-msgstr "கோப்பு பெயர்"
-
-#: ../components/editor/gtkhtml-editor.c:790
-msgid "The filename to use when saving"
-msgstr "சேமிக்கும் போது பயன்படுத்த கோப்பின் பெயர்"
-
-#: ../components/editor/gtkhtml-editor.c:800
-msgid "HTML Editing Widget"
-msgstr "HTML திருத்தும் விட்செட்"
-
-#: ../components/editor/gtkhtml-editor.c:801
-msgid "The main HTML editing widget"
-msgstr "முதன்மை  HTML திருத்தும் விட்செட்"
-
-#: ../components/editor/gtkhtml-editor.c:811
-msgid "HTML Mode"
-msgstr "HTML முறைமை"
-
-#: ../components/editor/gtkhtml-editor.c:812
-msgid "Edit HTML or plain text"
-msgstr "HTML அல்லது சாதாரண உரையை திருத்துக"
-
-#: ../components/editor/gtkhtml-editor.c:822
-msgid "Inline Spelling"
-msgstr "எழுத்தமைப்பு சரிபார்ப்பு"
-
-#: ../components/editor/gtkhtml-editor.c:823
-msgid "Check your spelling as you type"
-msgstr "எழுதும் போதே எழுத்துப்பிழையை சோதி"
-
-#: ../components/editor/gtkhtml-editor.c:833
-msgid "Magic Links"
-msgstr "மாயாஜால இணைப்புகள்"
-
-#: ../components/editor/gtkhtml-editor.c:834
-msgid "Make URIs clickable as you type"
-msgstr "தட்டச்சும் போதே யூஆர்ஐ களை சொடுக்கும்படி மாற்று"
-
-#: ../components/editor/gtkhtml-editor.c:844
-msgid "Magic Smileys"
-msgstr "மாயாஜால சிரிப்பான்"
-
-#: ../components/editor/gtkhtml-editor.c:845
-msgid "Convert emoticons to images as you type"
-msgstr "சிரிப்பான்களை படங்களாக தட்டச்சும் போதே மாற்று "
+#: ../components/editor/gtkhtml-editor.c:898
+msgid "Whether editor changed"
+msgstr "திருத்தி மாற்றப்பட்டதா"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:2
 #, no-c-format
@@ -1182,186 +1044,171 @@ msgstr "வலது"
 msgid "Row Span:"
 msgstr "வரிசை இடைவெளி"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:45
+#. Translators: Caption of a window. 'Rule' here means a horizontal line in an HTML text.
+#: ../components/editor/gtkhtml-editor-builder.ui.h:46
 msgid "Rule Properties"
 msgstr "கோடு பண்புகள்"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:46
+#: ../components/editor/gtkhtml-editor-builder.ui.h:47
 msgid "S_haded"
 msgstr "(_h) நிழலிட்டது"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:47
+#: ../components/editor/gtkhtml-editor-builder.ui.h:48
 msgid "Scope"
 msgstr "நோக்கம்"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:48
+#: ../components/editor/gtkhtml-editor-builder.ui.h:49
 msgid "Search _backwards"
 msgstr "(_b) பின்னோக்கி தேடு"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:49
+#: ../components/editor/gtkhtml-editor-builder.ui.h:50
 msgid "Select An Image"
 msgstr "ஒரு பிம்பத்தை தேர்வு செய்"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:50
+#: ../components/editor/gtkhtml-editor-builder.ui.h:51
 msgid "Si_ze:"
 msgstr "_அளவு:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:51
+#: ../components/editor/gtkhtml-editor-builder.ui.h:52
 msgid "Size"
 msgstr "அளவு"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:52
+#: ../components/editor/gtkhtml-editor-builder.ui.h:53
 msgid "Style"
 msgstr "பாணி"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:53
+#: ../components/editor/gtkhtml-editor-builder.ui.h:54
 msgid "T_emplate:"
 msgstr "_வார்புரு:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:54
+#: ../components/editor/gtkhtml-editor-builder.ui.h:55
 msgid "Table Properties"
 msgstr "அட்டவணை பண்புகள்"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:55
+#: ../components/editor/gtkhtml-editor-builder.ui.h:56
 msgid "Text Properties"
 msgstr "உரை பண்புகள்"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:56
+#: ../components/editor/gtkhtml-editor-builder.ui.h:57
 msgid "Top"
 msgstr "மேல்"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:57
+#: ../components/editor/gtkhtml-editor-builder.ui.h:58
 msgid "Width:"
 msgstr "அகலம்:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:58
+#: ../components/editor/gtkhtml-editor-builder.ui.h:59
 msgid "_Alignment:"
 msgstr "(_A)பொருத்தம்:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:59
+#: ../components/editor/gtkhtml-editor-builder.ui.h:60
 msgid "_Background:"
 msgstr "_ப பின்னனி:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:61
+#: ../components/editor/gtkhtml-editor-builder.ui.h:62
 msgid "_Border:"
 msgstr "(_B)ஓரம்:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:62
+#: ../components/editor/gtkhtml-editor-builder.ui.h:63
 msgid "_Color:"
 msgstr "(_C)நிறம்:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:63
+#: ../components/editor/gtkhtml-editor-builder.ui.h:64
 msgid "_Description:"
 msgstr "(_D)விளக்கம்:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:64
+#: ../components/editor/gtkhtml-editor-builder.ui.h:65
 msgid "_Height:"
 msgstr "_உயரம்:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:65
+#: ../components/editor/gtkhtml-editor-builder.ui.h:66
 msgid "_Horizontal:"
 msgstr "(_h) செங்குத்து:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:66
+#: ../components/editor/gtkhtml-editor-builder.ui.h:67
 msgid "_Image:"
 msgstr "(_I)பிம்பம்:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:68
+#: ../components/editor/gtkhtml-editor-builder.ui.h:69
 msgid "_Link:"
 msgstr "_இணைப்பு:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:69
+#: ../components/editor/gtkhtml-editor-builder.ui.h:70
 msgid "_Padding:"
 msgstr "(_P)திணிப்பு:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:70
+#: ../components/editor/gtkhtml-editor-builder.ui.h:71
 msgid "_Regular expression"
 msgstr "(_R) இயல்பான கூற்று"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:71
+#: ../components/editor/gtkhtml-editor-builder.ui.h:72
 msgid "_Row"
 msgstr "_வரிசை"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:72
+#: ../components/editor/gtkhtml-editor-builder.ui.h:73
 msgid "_Rows:"
 msgstr "_வரிசைகள்:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:73
+#: ../components/editor/gtkhtml-editor-builder.ui.h:74
 msgid "_Size:"
 msgstr "(_S) அளவு:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:74
+#: ../components/editor/gtkhtml-editor-builder.ui.h:75
 msgid "_Source:"
 msgstr "(_S)மூலம்:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:75
+#: ../components/editor/gtkhtml-editor-builder.ui.h:76
 msgid "_Spacing:"
 msgstr "(_S)இடைவெளிகள்:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:77
+#: ../components/editor/gtkhtml-editor-builder.ui.h:78
 msgid "_Style:"
 msgstr "(_S)பாணி:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:80
+#: ../components/editor/gtkhtml-editor-builder.ui.h:81
 msgid "_Text:"
 msgstr "_உரை:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:81
+#: ../components/editor/gtkhtml-editor-builder.ui.h:82
 msgid "_URL:"
 msgstr "யூஆர்எல்(_யூஆர்எல்(URL)):"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:83
+#: ../components/editor/gtkhtml-editor-builder.ui.h:84
 msgid "_Vertical:"
 msgstr "(_V) செங்குத்து:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:84
+#: ../components/editor/gtkhtml-editor-builder.ui.h:85
 msgid "_Width:"
 msgstr "(_W)அகலம்:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:85
+#: ../components/editor/gtkhtml-editor-builder.ui.h:86
 msgid "_With:"
 msgstr "_உடன்:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:86
+#: ../components/editor/gtkhtml-editor-builder.ui.h:87
 msgid "_Wrap Text"
 msgstr "(_W)உரை மடக்கல்"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:87
+#: ../components/editor/gtkhtml-editor-builder.ui.h:88
 msgid "_X-Padding:"
 msgstr "(_X)X--திணிப்பு:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:88
+#: ../components/editor/gtkhtml-editor-builder.ui.h:89
 msgid "_Y-Padding:"
 msgstr "(_Y)Y-திணிப்பு:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:89
+#: ../components/editor/gtkhtml-editor-builder.ui.h:90
 msgid "follow"
 msgstr "தொடர்"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:90
+#: ../components/editor/gtkhtml-editor-builder.ui.h:91
 msgid "px"
 msgstr "px"
-
-#: ../components/editor/gtkhtml-spell-checker.c:200
-msgid "Language"
-msgstr "(_L) மொழி"
-
-#: ../components/editor/gtkhtml-spell-checker.c:201
-msgid "The language used by the spell checker"
-msgstr "எழுத்துபிழை சோதிப்பான் பயன்படுத்தும் மொழி"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:117
 #, c-format
 msgid "Suggestions for \"%s\""
 msgstr "\"%s\" க்கு யோசனைகள்"
-
-#: ../components/editor/gtkhtml-spell-dialog.c:358
-msgid "Misspelled Word"
-msgstr "தவறாக எழுதப்பட்ட வார்த்தை"
-
-#: ../components/editor/gtkhtml-spell-dialog.c:359
-msgid "The current misspelled word"
-msgstr "தற்போதைய தவறாக எழுதப்பட்ட வார்த்தை"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:447
 msgid "Spell Checker"
@@ -1398,7 +1245,7 @@ msgid "_Add Word"
 msgstr "(_A) வார்த்தையில் சேர்"
 
 #. Translators: %s is the language ISO code.
-#: ../components/editor/gtkhtml-spell-language.c:184
+#: ../components/editor/gtkhtml-spell-language.c:255
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
@@ -1406,8 +1253,8 @@ msgstr "இனம் தெரியாத (%s)"
 
 #. Translators: The first %s is the language name, and the
 #. * second is the country name. Example: "French (France)"
-#: ../components/editor/gtkhtml-spell-language.c:199
-#: ../components/editor/gtkhtml-spell-language.c:204
+#: ../components/editor/gtkhtml-spell-language.c:270
+#: ../components/editor/gtkhtml-spell-language.c:275
 #, c-format
 msgctxt "language"
 msgid "%s (%s)"
@@ -1415,7 +1262,7 @@ msgstr "%s (%s)"
 
 #. Translators: This refers to the default language used
 #. * by the spell checker.
-#: ../components/editor/gtkhtml-spell-language.c:389
+#: ../components/editor/gtkhtml-spell-language.c:460
 msgctxt "language"
 msgid "Default"
 msgstr "முன்னிருப்பு"
@@ -1472,86 +1319,6 @@ msgstr "_H HTML மூலம்"
 msgid "_Plain Source"
 msgstr "(_P) வெற்று உரை"
 
-#: ../gtkhtml/gtkhtml.c:3060
-msgid "Editable"
-msgstr "திருத்தக்கூடிய"
-
-#: ../gtkhtml/gtkhtml.c:3061
-msgid "Whether the html can be edited"
-msgstr "ஹெச்டிஎம்எல்(html) ஐ திருத்த முடியுமா"
-
-#: ../gtkhtml/gtkhtml.c:3067
-msgid "Document Title"
-msgstr "ஆவண தலைப்பு"
-
-#: ../gtkhtml/gtkhtml.c:3068
-msgid "The title of the current document"
-msgstr "தற்போதைய ஆவணத்தின் தலைப்பு"
-
-#: ../gtkhtml/gtkhtml.c:3074
-msgid "Document Base"
-msgstr "ஆவண அடிப்படை"
-
-#: ../gtkhtml/gtkhtml.c:3075
-msgid "The base URL for relative references"
-msgstr "அடிப்படை யூஆர்எல்(URL) தொடர்புடைய குறிப்பு"
-
-#: ../gtkhtml/gtkhtml.c:3081
-msgid "Target Base"
-msgstr "இலக்கு அடிப்படை"
-
-#: ../gtkhtml/gtkhtml.c:3082
-msgid "The base URL of the target frame"
-msgstr "இலக்கு சட்டத்தின் அடிப்படை யூஆர்எல்(URL)"
-
-#: ../gtkhtml/gtkhtml.c:3090
-msgid "Fixed Width Font"
-msgstr "நிலையான அகல எழுத்துரு"
-
-#: ../gtkhtml/gtkhtml.c:3091
-msgid "The Monospace font to use for typewriter text"
-msgstr "தட்டச்சு உரைக்கு பயன்படும் சீரான இடைவெளி எழுத்துரு"
-
-#: ../gtkhtml/gtkhtml.c:3097
-msgid "New Link Color"
-msgstr "புதிய இணைப்பு நிறம்"
-
-#: ../gtkhtml/gtkhtml.c:3098
-msgid "The color of new link elements"
-msgstr "புதிய இணைப்பு உறுப்பின் நிறம்"
-
-#: ../gtkhtml/gtkhtml.c:3103
-msgid "Visited Link Color"
-msgstr "பார்த்த இணைப்பின் நிறம்"
-
-#: ../gtkhtml/gtkhtml.c:3104
-msgid "The color of visited link elements"
-msgstr "பார்த்த இணைப்பின் நிறம்"
-
-#: ../gtkhtml/gtkhtml.c:3109
-msgid "Active Link Color"
-msgstr "செயலில் உள்ள இணைப்பின் வண்ணம்"
-
-#: ../gtkhtml/gtkhtml.c:3110
-msgid "The color of active link elements"
-msgstr "செயலில் உள்ள இணைப்பின் வண்ணம்"
-
-#: ../gtkhtml/gtkhtml.c:3115
-msgid "Spelling Error Color"
-msgstr "நிறத்தில் எழுத்துப்பிழை"
-
-#: ../gtkhtml/gtkhtml.c:3116
-msgid "The color of the spelling error markers"
-msgstr "எழுத்துப்பிழை நிறத்தின் வண்ணம்"
-
-#: ../gtkhtml/gtkhtml.c:3121
-msgid "Cite Quotation Color"
-msgstr "மேற்கோள் நிறம்"
-
-#: ../gtkhtml/gtkhtml.c:3122
-msgid "The color of the cited text"
-msgstr "மேற்கோள் உரையின் நிறம்"
-
 #: ../gtkhtml/htmlbutton.c:138
 msgid "Submit Query"
 msgstr "கேள்வியை சமர்ப்பி"
@@ -1568,6 +1335,183 @@ msgstr "அச்சடிக்க முன்னிருப்பு எழ�
 #: ../gtkhtml/test.c:364
 msgid "GtkHTML Test"
 msgstr "ஜிடிகேஹெச்டிஎம்எல்(GtkHTML) சோதனை"
+
+#~ msgid "Current color"
+#~ msgstr "இப்போதைய நிறம்:"
+
+#~ msgid "The currently selected color"
+#~ msgstr "தற்போது தேர்ந்தெடுக்கப்பட்ட நிறம்"
+
+#~ msgid "Default color"
+#~ msgstr "முன்னிருப்பு நிறம்"
+
+#~ msgid "The color associated with the default button"
+#~ msgstr "முன்னிருப்பு பொத்தானுடன் சம்பந்தப்பட்ட நிறம்"
+
+#~ msgid "Default label"
+#~ msgstr "முன்னிருப்பு அடையாளச்சீட்டு"
+
+#~ msgid "The label for the default button"
+#~ msgstr "முன்னிருப்பு பொத்தானுக்கு அடையாளச்சீட்டு"
+
+#~ msgid "Default is transparent"
+#~ msgstr "முன்னிருப்பு ஒளிபுகும்தன்மை கொண்டது"
+
+#~ msgid "Whether the default color is transparent"
+#~ msgstr "முன்னிருப்பு நிறம் ஊடுருவு தன்மையை கொண்டுள்ளதா"
+
+#~ msgid "Color palette"
+#~ msgstr "நிற தட்டு"
+
+#~ msgid "Custom color palette"
+#~ msgstr "தனிப்பயன் நிற தட்டு"
+
+#~ msgid "Popup shown"
+#~ msgstr "வெளித்துள்ளல் காட்டப்பட்டது"
+
+#~ msgid "Whether the combo's dropdown is shown"
+#~ msgstr "கீழ் இறங்கும் தொகுப்பு காட்டப்பட வேண்டுமா"
+
+#~ msgid "Color state"
+#~ msgstr "வண்ணங்கள் நிலை"
+
+#~ msgid "The state of a color combo box"
+#~ msgstr "நிற தொகுப்பின் பெட்டியின் நிலை"
+
+#~ msgid "The current color"
+#~ msgstr "தற்போதைய வண்ணம்"
+
+#~ msgid "The default color"
+#~ msgstr "முன்னிருப்பு நிறம்"
+
+#~ msgid "Description of the default color"
+#~ msgstr "முன்னிருப்பு நிறத்தின் விவரம் "
+
+#~ msgid "Color"
+#~ msgstr "வண்ணம்"
+
+#~ msgid "Frame Shadow"
+#~ msgstr "சட்டத்தின் நிழல்"
+
+#~ msgid "Appearance of the frame border"
+#~ msgstr "சட்டத்தின் தோற்றம்"
+
+#~ msgid "Action"
+#~ msgstr "செயல்"
+
+#~ msgid "A GtkRadioAction"
+#~ msgstr "ஒரு ஜிடிகே ரேடியோ செயல்"
+
+#~ msgid "Current Folder"
+#~ msgstr "இப்போதைய அடைவு"
+
+#~ msgid "The initial folder for file chooser dialogs"
+#~ msgstr "தேர்வு உரையாடல்களுக்கு துவக்க கோப்பு"
+
+#~ msgid "Filename"
+#~ msgstr "கோப்பு பெயர்"
+
+#~ msgid "The filename to use when saving"
+#~ msgstr "சேமிக்கும் போது பயன்படுத்த கோப்பின் பெயர்"
+
+#~ msgid "HTML Editing Widget"
+#~ msgstr "HTML திருத்தும் விட்செட்"
+
+#~ msgid "The main HTML editing widget"
+#~ msgstr "முதன்மை  HTML திருத்தும் விட்செட்"
+
+#~ msgid "HTML Mode"
+#~ msgstr "HTML முறைமை"
+
+#~ msgid "Edit HTML or plain text"
+#~ msgstr "HTML அல்லது சாதாரண உரையை திருத்துக"
+
+#~ msgid "Inline Spelling"
+#~ msgstr "எழுத்தமைப்பு சரிபார்ப்பு"
+
+#~ msgid "Check your spelling as you type"
+#~ msgstr "எழுதும் போதே எழுத்துப்பிழையை சோதி"
+
+#~ msgid "Magic Links"
+#~ msgstr "மாயாஜால இணைப்புகள்"
+
+#~ msgid "Make URIs clickable as you type"
+#~ msgstr "தட்டச்சும் போதே யூஆர்ஐ களை சொடுக்கும்படி மாற்று"
+
+#~ msgid "Magic Smileys"
+#~ msgstr "மாயாஜால சிரிப்பான்"
+
+#~ msgid "Convert emoticons to images as you type"
+#~ msgstr "சிரிப்பான்களை படங்களாக தட்டச்சும் போதே மாற்று "
+
+#~ msgid "Language"
+#~ msgstr "(_L) மொழி"
+
+#~ msgid "The language used by the spell checker"
+#~ msgstr "எழுத்துபிழை சோதிப்பான் பயன்படுத்தும் மொழி"
+
+#~ msgid "Misspelled Word"
+#~ msgstr "தவறாக எழுதப்பட்ட வார்த்தை"
+
+#~ msgid "The current misspelled word"
+#~ msgstr "தற்போதைய தவறாக எழுதப்பட்ட வார்த்தை"
+
+#~ msgid "Editable"
+#~ msgstr "திருத்தக்கூடிய"
+
+#~ msgid "Document Title"
+#~ msgstr "ஆவண தலைப்பு"
+
+#~ msgid "The title of the current document"
+#~ msgstr "தற்போதைய ஆவணத்தின் தலைப்பு"
+
+#~ msgid "Document Base"
+#~ msgstr "ஆவண அடிப்படை"
+
+#~ msgid "The base URL for relative references"
+#~ msgstr "அடிப்படை யூஆர்எல்(URL) தொடர்புடைய குறிப்பு"
+
+#~ msgid "Target Base"
+#~ msgstr "இலக்கு அடிப்படை"
+
+#~ msgid "The base URL of the target frame"
+#~ msgstr "இலக்கு சட்டத்தின் அடிப்படை யூஆர்எல்(URL)"
+
+#~ msgid "Fixed Width Font"
+#~ msgstr "நிலையான அகல எழுத்துரு"
+
+#~ msgid "The Monospace font to use for typewriter text"
+#~ msgstr "தட்டச்சு உரைக்கு பயன்படும் சீரான இடைவெளி எழுத்துரு"
+
+#~ msgid "New Link Color"
+#~ msgstr "புதிய இணைப்பு நிறம்"
+
+#~ msgid "The color of new link elements"
+#~ msgstr "புதிய இணைப்பு உறுப்பின் நிறம்"
+
+#~ msgid "Visited Link Color"
+#~ msgstr "பார்த்த இணைப்பின் நிறம்"
+
+#~ msgid "The color of visited link elements"
+#~ msgstr "பார்த்த இணைப்பின் நிறம்"
+
+#~ msgid "Active Link Color"
+#~ msgstr "செயலில் உள்ள இணைப்பின் வண்ணம்"
+
+#~ msgid "The color of active link elements"
+#~ msgstr "செயலில் உள்ள இணைப்பின் வண்ணம்"
+
+#~ msgid "Spelling Error Color"
+#~ msgstr "நிறத்தில் எழுத்துப்பிழை"
+
+#~ msgid "The color of the spelling error markers"
+#~ msgstr "எழுத்துப்பிழை நிறத்தின் வண்ணம்"
+
+#~ msgid "Cite Quotation Color"
+#~ msgstr "மேற்கோள் நிறம்"
+
+#~ msgid "The color of the cited text"
+#~ msgstr "மேற்கோள் உரையின் நிறம்"
 
 #~ msgid "<b>Alignment</b>"
 #~ msgstr "<b>பொருத்தம்</b>"
@@ -2137,9 +2081,6 @@ msgstr "ஜிடிகேஹெச்டிஎம்எல்(GtkHTML) சோ�
 
 #~ msgid "Add Word to"
 #~ msgstr "வார்த்தையில் சேர்"
-
-#~ msgid "%s Dictionary"
-#~ msgstr "%s அகராதி"
 
 #~ msgid "Replace confirmation"
 #~ msgstr "உறுதிப்படுத்தலை மாற்று"
