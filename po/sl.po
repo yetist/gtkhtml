@@ -1,14 +1,17 @@
+# Slovenian translation for gtkhtml.
+# Copyright (C) 2006 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gtkhtml package.
 #
-# Andraz Tori <andraz.tori1@guest.arnes.si>, 2000.
+# Andraž Tori <andraz.tori1@guest.arnes.si>, 2000.
 # Matjaž Horvat <m@owca.info>, 2006.
 # Matej Urbančič <mateju@svn.gnome.org>, 2007 - 2009.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml\n"
+"Project-Id-Version: gtkhtml master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gtkhtml&component=general\n"
 "POT-Creation-Date: 2010-06-29 23:11+0000\n"
-"PO-Revision-Date: 2010-07-05 07:14+0100\n"
+"PO-Revision-Date: 2010-07-27 14:21+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +36,7 @@ msgstr "Naslov URL je %s"
 #: ../a11y/object.c:60
 #: ../a11y/text.c:125
 msgid "grab focus"
-msgstr "dobi fokus"
+msgstr "pridobi žarišče"
 
 #: ../a11y/object.c:257
 msgid "Panel containing HTML"
@@ -224,7 +227,7 @@ msgstr "_Nasmeh"
 #. Translators: :-(
 #: ../components/editor/gtkhtml-face-chooser.c:36
 msgid "S_ad"
-msgstr "_Žalostno"
+msgstr "_Žalost"
 
 #. Translators: ;-)
 #: ../components/editor/gtkhtml-face-chooser.c:38
@@ -239,7 +242,7 @@ msgstr "_Jezik"
 #. Translators: :-))
 #: ../components/editor/gtkhtml-face-chooser.c:42
 msgid "Laug_h"
-msgstr "_Nasmejano"
+msgstr "_Smejanje"
 
 #. Translators: :-|
 #: ../components/editor/gtkhtml-face-chooser.c:44
@@ -259,12 +262,12 @@ msgstr "_Rdečica"
 #. Translators: :-D
 #: ../components/editor/gtkhtml-face-chooser.c:50
 msgid "_Big Smile"
-msgstr "_Krohotajoče"
+msgstr "_Krohotanje"
 
 #. Translators: :-/
 #: ../components/editor/gtkhtml-face-chooser.c:52
 msgid "Uncer_tain"
-msgstr "_Dvomeče"
+msgstr "_Nejeverno"
 
 #. Translators: :-O
 #: ../components/editor/gtkhtml-face-chooser.c:54
@@ -289,7 +292,7 @@ msgstr "_Jezno"
 #. Translators: B-)
 #: ../components/editor/gtkhtml-face-chooser.c:62
 msgid "_Cool"
-msgstr "Super"
+msgstr "_Kul"
 
 #. Translators: O:-)
 #: ../components/editor/gtkhtml-face-chooser.c:64
@@ -299,7 +302,7 @@ msgstr "_Angelsko"
 #. Translators: :'(
 #: ../components/editor/gtkhtml-face-chooser.c:66
 msgid "Cr_ying"
-msgstr "Joka_joč"
+msgstr "Joka_joče"
 
 #. Translators: :-Q
 #: ../components/editor/gtkhtml-face-chooser.c:68
@@ -786,7 +789,7 @@ msgstr "Dodaj besedo v slovar"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1936
 msgid "Ignore Misspelled Word"
-msgstr "Prezri narobe črkovano besedo"
+msgstr "Prezri napačno črkovano besedo"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1943
 msgid "Add Word To"
@@ -809,11 +812,11 @@ msgstr "Sm_eško"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2122
 msgid "Insert Emoticon"
-msgstr "Vstavi slike _smeškov"
+msgstr "Vstavi _smeške"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2183
 msgid "_Find"
-msgstr "_Poišči"
+msgstr "_Najdi"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2186
 msgid "Re_place"
@@ -992,7 +995,7 @@ msgstr "Lastnosti povezave"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:32
 msgid "Middle"
-msgstr "sredinsko"
+msgstr "Sredinsko"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:33
 msgid "Midnight"
@@ -1333,890 +1336,74 @@ msgstr "Ni mogoče določiti privzete pisave za tiskanje"
 
 #: ../gtkhtml/test.c:364
 msgid "GtkHTML Test"
-msgstr "GtkHTML test"
+msgstr "Preizkus GtkHTML"
 
 #~ msgid "Current color"
 #~ msgstr "Trenutna barva"
-
 #~ msgid "The currently selected color"
 #~ msgstr "Trenutno izbrana barva"
-
 #~ msgid "Default color"
 #~ msgstr "Privzeta barva"
-
 #~ msgid "The color associated with the default button"
 #~ msgstr "Barva povezana s trenutnim gumbom"
-
 #~ msgid "Default label"
 #~ msgstr "Privzeta oznaka"
-
 #~ msgid "The label for the default button"
 #~ msgstr "Oznaka privzetega gumba"
-
-#~ msgid "Default is transparent"
-#~ msgstr "Privzeto je prosojno"
-
 #~ msgid "Whether the default color is transparent"
 #~ msgstr "Možnost omogoča, da je privzeta barva prosojna"
-
 #~ msgid "Color palette"
 #~ msgstr "Barvna paleta"
-
 #~ msgid "Custom color palette"
 #~ msgstr "Barvna paleta po meri"
-
 #~ msgid "Popup shown"
 #~ msgstr "Prikazano pojavno okno"
-
 #~ msgid "Whether the combo's dropdown is shown"
 #~ msgstr "Ali naj bo prikazano spustno polje"
-
 #~ msgid "Color state"
 #~ msgstr "Stanje barve"
-
 #~ msgid "The state of a color combo box"
 #~ msgstr "Stanje spustnega barvnega polja"
-
 #~ msgid "The current color"
 #~ msgstr "Trenutna barva"
-
 #~ msgid "The default color"
 #~ msgstr "Privzeta barva"
-
 #~ msgid "Description of the default color"
 #~ msgstr "Opis privzete barve"
-
 #~ msgid "Color"
 #~ msgstr "Barva"
-
 #~ msgid "Frame Shadow"
 #~ msgstr "Senca okvirja"
-
 #~ msgid "Appearance of the frame border"
 #~ msgstr "Videz roba okvirja"
-
 #~ msgid "Action"
 #~ msgstr "Dejanje"
-
-#~ msgid "A GtkRadioAction"
-#~ msgstr "GtkRadioAction"
-
 #~ msgid "Current Folder"
 #~ msgstr "Trenutna mapa"
-
 #~ msgid "The initial folder for file chooser dialogs"
 #~ msgstr "Začetna mapa izbire pogovornih oken"
-
 #~ msgid "Filename"
 #~ msgstr "Ime datoteke"
-
-#~ msgid "The filename to use when saving"
-#~ msgstr "Ime datoteke uporabljeno pri shanjevanju"
-
 #~ msgid "HTML Editing Widget"
 #~ msgstr "Gradnik urejanja HTML"
-
 #~ msgid "The main HTML editing widget"
 #~ msgstr "Urejevalni gradnik HTML kode"
-
 #~ msgid "HTML Mode"
 #~ msgstr "Način HTML"
-
 #~ msgid "Edit HTML or plain text"
 #~ msgstr "Urejanje HTML ali običajnega besedila"
-
 #~ msgid "Inline Spelling"
 #~ msgstr "Sprotno č_rkovanje"
-
 #~ msgid "Check your spelling as you type"
 #~ msgstr "Preveri črkovanje dokumenta med tipkanjem"
-
-#~ msgid "Magic Links"
-#~ msgstr "Čarobne povezave"
-
-#~ msgid "Make URIs clickable as you type"
-#~ msgstr "Pretvori zapisano povezavo v neposredno povezavo"
-
-#~ msgid "Magic Smileys"
-#~ msgstr "Čarobni smeški"
-
-#~ msgid "Convert emoticons to images as you type"
-#~ msgstr "Pretvori smeške v slike med tipkanjem"
-
 #~ msgid "Language"
 #~ msgstr "Jezik"
-
 #~ msgid "The language used by the spell checker"
 #~ msgstr "Jezik, ki ga uporablja črkovalnik"
-
 #~ msgid "Misspelled Word"
 #~ msgstr "Napačno črkovana beseda"
-
 #~ msgid "The current misspelled word"
 #~ msgstr "Trenutna napačno črkovana beseda"
-
 #~ msgid "Editable"
 #~ msgstr "Uredljivo"
 
-#~ msgid "Document Title"
-#~ msgstr "Naziv dokumenta"
-
-#~ msgid "The title of the current document"
-#~ msgstr "Naslov trenutnega dokumenta"
-
-#~ msgid "Document Base"
-#~ msgstr "Osnova dokumenta"
-
-#~ msgid "The base URL for relative references"
-#~ msgstr "Osnovni URL relativnih sklicev"
-
-#~ msgid "Target Base"
-#~ msgstr "Osnova cilja"
-
-#~ msgid "The base URL of the target frame"
-#~ msgstr "Osnovni URL ciljnega okvirja"
-
-#~ msgid "Fixed Width Font"
-#~ msgstr "Pisava stalne širine"
-
-#~ msgid "The Monospace font to use for typewriter text"
-#~ msgstr "Pisava stalne širine za besedilo pisalnega stroja"
-
-#~ msgid "New Link Color"
-#~ msgstr "Barva nove povezave"
-
-#~ msgid "The color of new link elements"
-#~ msgstr "Barva elementov nove povezave"
-
-#~ msgid "Visited Link Color"
-#~ msgstr "Barva obiskane povezave"
-
-#~ msgid "The color of visited link elements"
-#~ msgstr "Barva elementov obiskane povezave"
-
-#~ msgid "Active Link Color"
-#~ msgstr "Barva dejavne povezave"
-
-#~ msgid "The color of active link elements"
-#~ msgstr "Barva elementov dejavne povezave"
-
-#~ msgid "Spelling Error Color"
-#~ msgstr "Barva napačnega črkovanja"
-
-#~ msgid "The color of the spelling error markers"
-#~ msgstr "Barva oznak pri napačnem črkovanju"
-
-#~ msgid "Cite Quotation Color"
-#~ msgstr "Barva navedka"
-
-#~ msgid "The color of the cited text"
-#~ msgstr "Barva navedenega besedila"
-
-#~ msgid "<b>Alignment</b>"
-#~ msgstr "<b>Poravnava</b>"
-
-#~ msgid "<b>Background Image</b>"
-#~ msgstr "<b>Slika ozadja</b>"
-
-#~ msgid "<b>Background</b>"
-#~ msgstr "<b>Ozadje</b>"
-
-#~ msgid "<b>Colors</b>"
-#~ msgstr "<b>Barve</b>"
-
-#~ msgid "<b>General</b>"
-#~ msgstr "<b>Splošno</b>"
-
-#~ msgid "<b>Link</b>"
-#~ msgstr "<b>Povezava</b>"
-
-#~ msgid "<b>Scope</b>"
-#~ msgstr "<b>Obseg</b>"
-
-#~ msgid "<b>Size</b>"
-#~ msgstr "<b>Velikost</b>"
-
-#~ msgid "<b>Style</b>"
-#~ msgstr "<b>Slog</b>"
-
-#~ msgid ""
-#~ "Left\n"
-#~ "Center\n"
-#~ "Right"
-#~ msgstr ""
-#~ "Levo\n"
-#~ "Sredina\n"
-#~ "Desno"
-
-#~ msgid ""
-#~ "None\n"
-#~ "Perforated Paper\n"
-#~ "Blue Ink\n"
-#~ "Paper\n"
-#~ "Ribbon\n"
-#~ "Midnight\n"
-#~ "Confidential\n"
-#~ "Draft\n"
-#~ "Graph Paper"
-#~ msgstr ""
-#~ "Brez\n"
-#~ "Preluknjan papir\n"
-#~ "Modro črnilo\n"
-#~ "Papir\n"
-#~ "Trak\n"
-#~ "Polnočno\n"
-#~ "Zaupno\n"
-#~ "Osnutek\n"
-#~ "Karo papir"
-
-#~ msgid ""
-#~ "Top\n"
-#~ "Middle\n"
-#~ "Bottom"
-#~ msgstr ""
-#~ "Zgoraj\n"
-#~ "Sredina\n"
-#~ "Spodaj"
-
-#~ msgid ""
-#~ "px\n"
-#~ "%"
-#~ msgstr ""
-#~ "točk\n"
-#~ "%"
-
-#~ msgid "Alphabetical List"
-#~ msgstr "Abecedno oštevilčen seznam"
-
-#~ msgid "Bulleted List"
-#~ msgstr "Neoštevilčen seznam"
-
-#~ msgid "Center justifies the paragraphs"
-#~ msgstr "Sredinsko razvrščeno besedilo poravna odstavke"
-
-#~ msgid "Check spelling of the document"
-#~ msgstr "Preveri črkovanje dokumenta"
-
-#~ msgid "Copy"
-#~ msgstr "Kopiraj"
-
-#~ msgid "Copy selection to clipboard"
-#~ msgstr "Kopiraj izbrano na odložišče"
-
-#~ msgid "Copy the selection"
-#~ msgstr "Kopiraj izbrano"
-
-#~ msgid "Cut"
-#~ msgstr "Izreži"
-
-#~ msgid "Cut selection to clipboard"
-#~ msgstr "Izreži izbrano na odložišče"
-
-#~ msgid "Cut the selection"
-#~ msgstr "Izreži izbrano"
-
-#~ msgid "Emoti_con"
-#~ msgstr "Sm_eško"
-
-#~ msgid "Find _Again"
-#~ msgstr "Poišči znov_a"
-
-#~ msgid "Find again"
-#~ msgstr "Poišči znov_a"
-
-#~ msgid "Find and Replace"
-#~ msgstr "Najdi in zamenjaj"
-
-#~ msgid "Find and replace"
-#~ msgstr "Najdi in zamenjaj"
-
-#~ msgid "I_nsert"
-#~ msgstr "_Vstavi"
-
-#~ msgid "Image"
-#~ msgstr "Slika"
-
-#~ msgid "Insert Crying emoticon into document..."
-#~ msgstr "V dokument vstavi jokajočega smeška ..."
-
-#~ msgid "Insert Frown emoticon into document..."
-#~ msgstr "V dokument vstavi nejevoljnega smeška ..."
-
-#~ msgid "Insert HTML file into document..."
-#~ msgstr "V dokument vstavi datoteko HTML ..."
-
-#~ msgid "Insert HTML link into document..."
-#~ msgstr "V dokument vstavi povezavo HTML ..."
-
-#~ msgid "Insert HTML template into document..."
-#~ msgstr "V dokument vstavi predlogo HTML ..."
-
-#~ msgid "Insert Indifferent emoticon into document..."
-#~ msgstr "V dokument vstavi brezbrižnega smeška ..."
-
-#~ msgid "Insert Laughing emoticon into document..."
-#~ msgstr "V dokument vstavi smejočega smeška ..."
-
-#~ msgid "Insert Oh no! emoticon into document..."
-#~ msgstr "V dokument vstavi smeška O ne! ..."
-
-#~ msgid "Insert Sick emoticon into document..."
-#~ msgstr "V dokument vstavi bolnega smeška ..."
-
-#~ msgid "Insert Smile emoticon into document..."
-#~ msgstr "V dokument vstavi smejočega smeška ..."
-
-#~ msgid "Insert Surprised emoticon into document..."
-#~ msgstr "V dokument vstavi presenečenega smeška ..."
-
-#~ msgid "Insert Tongue emoticon into document..."
-#~ msgstr "V dokument vstavi smeška, ki pokaže jezik ..."
-
-#~ msgid "Insert Undecided emoticon into document..."
-#~ msgstr "V dokument vstavi omahujočega smeška ..."
-
-#~ msgid "Insert Wink emoticon into document..."
-#~ msgstr "V dokument vstavi smeška, ki pomežikne ..."
-
-#~ msgid "Insert image"
-#~ msgstr "Vstavi sliko"
-
-#~ msgid "Insert image into document..."
-#~ msgstr "V dokument vstavi sliko ..."
-
-#~ msgid "Insert link"
-#~ msgstr "Vstavi povezavo"
-
-#~ msgid "Insert rule"
-#~ msgstr "Vstavi pravilo"
-
-#~ msgid "Insert rule into document..."
-#~ msgstr "V dokument vstavi pravilo ..."
-
-#~ msgid "Insert table"
-#~ msgstr "Vstavi preglednico"
-
-#~ msgid "Insert table into document..."
-#~ msgstr "V dokument vstavi preglednico ..."
-
-#~ msgid "Insert text file into document..."
-#~ msgstr "V dokument vstavi datoteko z besedilom ..."
-
-#~ msgid "Left justifies the paragraphs"
-#~ msgstr "Poravnaj odstavke levo"
-
-#~ msgid "Make the current Paragraph style Normal"
-#~ msgstr "Trenutni odstavek naj postane običajen"
-
-#~ msgid "Make the current Paragraph style Preformat"
-#~ msgstr "Slog trenutnega odstavka naj se preoblikuje"
-
-#~ msgid "Make the current paragraph a bulleted list"
-#~ msgstr "Trenutni odstavek naj postane neoštevilčen seznam"
-
-#~ msgid "Make the current paragraph a list with roman numerals"
-#~ msgstr "Trenutni odstavek naj postane rimsko oštevilčen seznam"
-
-#~ msgid "Make the current paragraph a numbered list"
-#~ msgstr "Trenutni odstavek naj postane oštevilčen seznam"
-
-#~ msgid "Make the current paragraph an H1 header"
-#~ msgstr "Trenutni odstavek naj postane glava H1"
-
-#~ msgid "Make the current paragraph an H2 header"
-#~ msgstr "Trenutni odstavek naj postane glava H2"
-
-#~ msgid "Make the current paragraph an H3 header"
-#~ msgstr "Trenutni odstavek naj postane glava H3"
-
-#~ msgid "Make the current paragraph an H4 header"
-#~ msgstr "Trenutni odstavek naj postane glava H4"
-
-#~ msgid "Make the current paragraph an H5 header"
-#~ msgstr "Trenutni odstavek naj postane glava H5"
-
-#~ msgid "Make the current paragraph an H6 header"
-#~ msgstr "Trenutni odstavek naj postane glava H6"
-
-#~ msgid "Make the current paragraph an address"
-#~ msgstr "Trenutni odstavek naj postane naslov"
-
-#~ msgid "Make the current paragraph an alphabetical list"
-#~ msgstr "Trenutni odstavek naj postane abecedno oštevilčen seznam"
-
-#~ msgid "Normal"
-#~ msgstr "Običajno"
-
-#~ msgid "Numbered List"
-#~ msgstr "Oštevilčen seznam"
-
-#~ msgid "Oh _No!"
-#~ msgstr "O, _ne!"
-
-#~ msgid "Paste"
-#~ msgstr "Prilepi"
-
-#~ msgid "Paste from clipboard"
-#~ msgstr "Prilepi iz odložišča"
-
-#~ msgid "Paste the clipboard"
-#~ msgstr "Prilepi iz odložišča"
-
-#~ msgid "Paste the clipboard as a quotation"
-#~ msgstr "Prilepi odložišče kot citat"
-
-#~ msgid "Preformat"
-#~ msgstr "Predoblikovanje"
-
-#~ msgid "Redo"
-#~ msgstr "Ponovno uveljavi"
-
-#~ msgid "Redo previously undone change"
-#~ msgstr "Obnovi prejšnjo razveljavljeno dejanje"
-
-#~ msgid "Redo the undone action"
-#~ msgstr "Obnovi razveljavljeno dejanje"
-
-#~ msgid "Right justifies the paragraphs"
-#~ msgstr "Poravnaj odstavke desno"
-
-#~ msgid "Roman Numeral List"
-#~ msgstr "Rimsko oštevilčen seznam"
-
-#~ msgid "Rule"
-#~ msgstr "Pravilo"
-
-#~ msgid "Select the entire contents of the document"
-#~ msgstr "Izberi celotno vsebino dokumenta"
-
-#~ msgid "Strikeout"
-#~ msgstr "Prečrtano"
-
-#~ msgid "Su_rprised"
-#~ msgstr "_Presenečen"
-
-#~ msgid "Subscript"
-#~ msgstr "Podpisano"
-
-#~ msgid "Superscript"
-#~ msgstr "Nadpisano"
-
-#~ msgid "Te_mplate..."
-#~ msgstr "_Predloga ..."
-
-#~ msgid "Typewriter"
-#~ msgstr "Pisalni stroj"
-
-#~ msgid "Undo"
-#~ msgstr "Razveljavi"
-
-#~ msgid "Undo previous changes"
-#~ msgstr "Razveljavi prejšnje dejanje"
-
-#~ msgid "Undo the last action"
-#~ msgstr "Razveljavi zadnje dejanje"
-
-#~ msgid "_Font Size"
-#~ msgstr "Velikost _pisave"
-
-#~ msgid "_Frown"
-#~ msgstr "_Nejevoljni"
-
-#~ msgid "_Heading"
-#~ msgstr "_Naslov"
-
-#~ msgid "_Indifferent"
-#~ msgstr "_Brezbrižen"
-
-#~ msgid "_Laughing"
-#~ msgstr "_Smejoč"
-
-#~ msgid "_Page..."
-#~ msgstr "_Stran ..."
-
-#~ msgid "_Paragraph..."
-#~ msgstr "_Odstavek ..."
-
-#~ msgid "_Replace..."
-#~ msgstr "_Zamenjaj ..."
-
-#~ msgid "_Style"
-#~ msgstr "_Slog"
-
-#~ msgid "_Text..."
-#~ msgstr "_Besedilo ..."
-
-#~ msgid "_Undecided"
-#~ msgstr "_Omahujoč"
-
-#~ msgid "GNOME HTML Editor"
-#~ msgstr "Urejevalnik HTML GNOME"
-
-#~ msgid "GNOME HTML Editor Control"
-#~ msgstr "Nadzor urejevalnika HTML GNOME"
-
-#~ msgid "GNOME HTML Editor Factory"
-#~ msgstr "Tovarna urejevalnika HTML GNOME"
-
-#~ msgid "Background Image File Path"
-#~ msgstr "Pot slike v ozadju"
-
-#~ msgid "Template"
-#~ msgstr "Predloga"
-
-#~ msgid "Could not load glade file."
-#~ msgstr "Ni mogoče naložiti datoteke glade."
-
-#~ msgid "Transparent"
-#~ msgstr "Prozorno"
-
-#~ msgid "Text"
-#~ msgstr "Besedilo"
-
-#~ msgid "Paragraph"
-#~ msgstr "Odstavek"
-
-#~ msgid "Page"
-#~ msgstr "Stran"
-
-#~ msgid "color preview"
-#~ msgstr "predogled barve"
-
-#~ msgid "Custom Color:"
-#~ msgstr "Barva po meri:"
-
-#~ msgid "purplish blue"
-#~ msgstr "vijolično-modra"
-
-#~ msgid "dark purple"
-#~ msgstr "temo vijolična"
-
-#~ msgid "sky blue"
-#~ msgstr "nebeško modra"
-
-#~ msgid "Popup"
-#~ msgstr "Pojavno okno"
-
-#~ msgid "GtkHTML Editor Control"
-#~ msgstr "Urejevalnik GtkHTML"
-
-#~ msgid "    "
-#~ msgstr "    "
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid ""
-#~ "-2\n"
-#~ "-1\n"
-#~ "Standard\n"
-#~ "+1\n"
-#~ "+2\n"
-#~ "+3\n"
-#~ "+4"
-#~ msgstr ""
-#~ "-2\n"
-#~ "-1\n"
-#~ "Običajno\n"
-#~ "+1\n"
-#~ "+2\n"
-#~ "+3\n"
-#~ "+4"
-
-#~ msgid "<b>Alignment &amp; Behaviour</b>"
-#~ msgstr "<b>Poravnava in vedenje</b>"
-
-#~ msgid "<span weight=\"bold\">General</span>"
-#~ msgstr "<span weight=\"bold\">Splošno</span>"
-
-#~ msgid "<span weight=\"bold\">Layout</span>"
-#~ msgstr "<span weight=\"bold\">Razpored</span>"
-
-#~ msgid "<span weight=\"bold\">Link</span>"
-#~ msgstr "<span weight=\"bold\">Povezava</span>"
-
-#~ msgid "<span weight=\"bold\">Size</span>"
-#~ msgstr "<span weight=\"bold\">Velikost</span>"
-
-#~ msgid "<span weight=\"bold\">Style</span>"
-#~ msgstr "<span weight=\"bold\">Slog</span>"
-
-#~ msgid "<span weight=\"bold\">Template</span>"
-#~ msgstr "<span weight=\"bold\">Predloga</span>"
-
-#~ msgid "Alignment:"
-#~ msgstr "Poravnava:"
-
-#~ msgid "Cell"
-#~ msgstr "Celica"
-
-#~ msgid "Colu_mns:"
-#~ msgstr "Stolp_ci:"
-
-#~ msgid "Column span:"
-#~ msgstr "Seganje stolpca:"
-
-#~ msgid "Enable"
-#~ msgstr "Omogoči"
-
-#~ msgid "Hea_der style"
-#~ msgstr "_Slog glave"
-
-#~ msgid "Horizontal alignment:"
-#~ msgstr "Vodoravna poravnava:"
-
-#~ msgid "Horizontal:"
-#~ msgstr "Vodoravno:"
-
-#~ msgid ""
-#~ "Left\n"
-#~ "Center\n"
-#~ "Right\n"
-#~ "None"
-#~ msgstr ""
-#~ "Levo\n"
-#~ "Sredina\n"
-#~ "Desno\n"
-#~ "Brez"
-
-#~ msgid "Link properties"
-#~ msgstr "Lastnosti povezave"
-
-#~ msgid "Row span:"
-#~ msgstr "Seganje vrstice:"
-
-#~ msgid "Shade"
-#~ msgstr "Senčeno"
-
-#~ msgid "Vertical:"
-#~ msgstr "Navpično:"
-
-#~ msgid "xxxxxxxxxxxxxx"
-#~ msgstr "xxxxxxxxxxxxxx"
-
-#~ msgid "URL:"
-#~ msgstr "URL:"
-
-#~ msgid "Description:"
-#~ msgstr "Opis:"
-
-#~ msgid "Insert"
-#~ msgstr "Vstavi"
-
-#~ msgid "Error loading file '%s': %s"
-#~ msgstr "Napaka med nalaganjem datoteke '%s': %s"
-
-#~ msgid "Format"
-#~ msgstr "Oblikuj"
-
-#~ msgid "Roman List"
-#~ msgstr "Rimsko oštevilčen seznam"
-
-#~ msgid "Header 1"
-#~ msgstr "Glava 1"
-
-#~ msgid "Header 2"
-#~ msgstr "Glava 2"
-
-#~ msgid "Header 3"
-#~ msgstr "Glava 3"
-
-#~ msgid "Header 4"
-#~ msgstr "Glava 4"
-
-#~ msgid "Header 5"
-#~ msgstr "Glava 5"
-
-#~ msgid "Header 6"
-#~ msgstr "Glava 6"
-
-#~ msgid "Address"
-#~ msgstr "Naslov"
-
-#~ msgid "Text Style..."
-#~ msgstr "Slog besedila ..."
-
-#~ msgid "Paragraph Style..."
-#~ msgstr "Slog odstavka ..."
-
-#~ msgid "Link Style..."
-#~ msgstr "Slog povezave ..."
-
-#~ msgid "Rule Style..."
-#~ msgstr "Slog pravila ..."
-
-#~ msgid "Image Style..."
-#~ msgstr "Slog slike ..."
-
-#~ msgid "Cell Style..."
-#~ msgstr "Slog celice ..."
-
-#~ msgid "Table Style..."
-#~ msgstr "Slog preglednice ..."
-
-#~ msgid "Page Style..."
-#~ msgstr "Slog strani ..."
-
-#~ msgid "Table insert"
-#~ msgstr "Vstavi preglednico"
-
-#~ msgid "Row above"
-#~ msgstr "Vrstica nad"
-
-#~ msgid "Row below"
-#~ msgstr "Vrstica pod"
-
-#~ msgid "Column before"
-#~ msgstr "Stolpec pred"
-
-#~ msgid "Column after"
-#~ msgstr "Stolpec po"
-
-#~ msgid "Table delete"
-#~ msgstr "Izbriši preglednico"
-
-#~ msgid "Cell contents"
-#~ msgstr "Vsebina celice"
-
-#~ msgid "Add Word to"
-#~ msgstr "Dodaj besedo v"
-
-#~ msgid "Replace confirmation"
-#~ msgstr "Potrditev zamenjave"
-
-#~ msgid "Search _backward"
-#~ msgstr "išči _nazaj"
-
-#~ msgid "_Backward"
-#~ msgstr "_Nazaj"
-
-#~ msgid "_Regular Expression"
-#~ msgstr "_Logični izraz"
-
-#~ msgid "Input the words you want to search here"
-#~ msgstr "Vnesite besede, ki jih želite iskati"
-
-#~ msgid ""
-#~ "Unable to add word to dictionary,\n"
-#~ "language settings are broken.\n"
-#~ msgstr ""
-#~ "Ni mogoče dodati besede v slovar.\n"
-#~ "Nastavitve jezika so poškodovane.\n"
-
-#~ msgid "No misspelled word found"
-#~ msgstr "Nobena narobe črkovana beseda ni bila najdena"
-
-#~ msgid "Spell checker"
-#~ msgstr "Črkovalnik"
-
-#~ msgid "Note"
-#~ msgstr "Opomba"
-
-#~ msgid "Place your text here"
-#~ msgstr "Vaše besedilo postavite sem"
-
-#~ msgid "Image frame"
-#~ msgstr "Okvir slike"
-
-#~ msgid "Template Labels"
-#~ msgstr "Oznake predlog"
-
-#~ msgid "Open file..."
-#~ msgstr "Odpri datoteko ..."
-
-#~ msgid "Save file as..."
-#~ msgstr "Shrani datoteko kot ..."
-
-#~ msgid "GtkHTML Editor Test Container"
-#~ msgstr "Preizkusni vsebovalnik urejevalnika GtkHTML"
-
-#~ msgid "Left align"
-#~ msgstr "Poravnaj levo"
-
-#~ msgid "Right align"
-#~ msgstr "Poravnaj desno"
-
-#~ msgid "Toggle typewriter font style"
-#~ msgstr "Preklopi slog pisave na pisalni stroj"
-
-#~ msgid "Makes the text bold"
-#~ msgstr "Nastavi besedilo krepko"
-
-#~ msgid "Makes the text italic"
-#~ msgstr "Nastavi besedilo poševno"
-
-#~ msgid "Underlines the text"
-#~ msgstr "Podčrta besedilo"
-
-#~ msgid "Strikes out the text"
-#~ msgstr "Prečrta besedilo"
-
-#~ msgid "Unindent"
-#~ msgstr "Razveljavi zamik"
-
-#~ msgid "Indents the paragraphs less"
-#~ msgstr "Manjši zamik odstavkov"
-
-#~ msgid "Indent"
-#~ msgstr "Zamik"
-
-#~ msgid "Indents the paragraphs more"
-#~ msgstr "Večji zamik odstavkov"
-
-#~ msgid "Text Color"
-#~ msgstr "Barva besedila"
-
-#~ msgid "Sample"
-#~ msgstr "Vzorec"
-
-#~ msgid ""
-#~ "The edited object was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Predmet, ki ga urejate, je bil odstranjen iz dokumenta.\n"
-#~ "Ni mogoče uveljaviti vaših sprememb."
-
-#~ msgid "Print pre_view"
-#~ msgstr "_Predogled tiskanja"
-
-#~ msgid "Print preview"
-#~ msgstr "Predogled tiskanja"
-
-#~ msgid "GtkHTML Test Application"
-#~ msgstr "Preizkusni program GtkHTML"
-
-#~ msgid "_Tongue"
-#~ msgstr "_Jezik"
-
-#~ msgid "language|Default"
-#~ msgstr "Privzeto"
-
-#~ msgid "Make the current Paragraph style Preformatted"
-#~ msgstr "Slog trenutnega odstavka naj se predoblikuje"
-
-#~ msgid "Preformatted"
-#~ msgstr "Predoblikovano"
-
-#~ msgid "_Format"
-#~ msgstr "_Oblika"
-
-#~ msgid "gtk-close"
-#~ msgstr "gtk-close"
-
-#~ msgid "gtk-find"
-#~ msgstr "gtk-find"
-
-#~ msgid "gtk-find-and-replace"
-#~ msgstr "Najdi in zamenjaj"
-
-#~ msgid "gtk-justify-center"
-#~ msgstr "gtk-justify-center"
-
-#~ msgid "gtk-justify-left"
-#~ msgstr "gtk-justify-left"
-
-#~ msgid "gtk-justify-right"
-#~ msgstr "gtk-justify-right"
-
-#~ msgid "gtk-ok"
-#~ msgstr "gtk-ok"
