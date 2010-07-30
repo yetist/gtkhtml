@@ -3228,7 +3228,7 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 	cur = str = html_text_get_text (text, offset);
 
 	/* check forward to ensure chars are < 0x80, could be removed once we have utf8 regex */
-	while (TRUE) {
+	while (cur && *cur) {
 		cur = g_utf8_next_char (cur);
 		if (!*cur)
 			break;
