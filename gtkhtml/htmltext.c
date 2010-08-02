@@ -2911,11 +2911,11 @@ _html_text_utf8_make_valid (const gchar *name, gint len)
 	total_bytes = remaining_bytes;
 
 	while (remaining_bytes != 0) {
-		if (g_utf8_validate (remainder, remaining_bytes, &invalid)) 
+		if (g_utf8_validate (remainder, remaining_bytes, &invalid))
 			break;
 		valid_bytes = invalid - remainder;
-    
-		if (string == NULL) 
+
+		if (string == NULL)
 			string = g_string_sized_new (remaining_bytes);
 
 		g_string_append_len (string, remainder, valid_bytes);
@@ -2925,10 +2925,10 @@ _html_text_utf8_make_valid (const gchar *name, gint len)
 		remaining_bytes -= valid_bytes + 1;
 		remainder = invalid + 1;
 	}
-  
+
 	if (string == NULL)
 		return g_strndup (name, total_bytes);
-  
+
 	g_string_append (string, remainder);
 
 	g_assert (g_utf8_validate (string->str, -1, NULL));

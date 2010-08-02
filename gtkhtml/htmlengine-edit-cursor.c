@@ -266,7 +266,7 @@ html_engine_draw_table_cursor (HTMLEngine *e)
 
 		html_object_calc_abs_position (to, &cr->x1, &cr->y2);
 		cr->x2 = cr->x1 + to->width - 1;
-		cr->y2 --;
+		cr->y2--;
 		cr->y1 = cr->y2 - (to->ascent + to->descent - 1);
 
 		animate = HTML_IS_TABLE (e->cursor->object) && !html_engine_get_table_cell (e);
