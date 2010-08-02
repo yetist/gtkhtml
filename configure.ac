@@ -156,14 +156,6 @@ AC_SUBST(GAIL_LIBS)
 AC_SUBST(GAIL_MODULES)
 
 dnl **********************************
-dnl GTHREAD modules
-dnl **********************************
-GTHREAD_MODULES="gthread-2.0"
-PKG_CHECK_MODULES(GTHREAD, $GTHREAD_MODULES)
-AC_SUBST(GTHREAD_CFLAGS)
-AC_SUBST(GTHREAD_LIBS)
-
-dnl **********************************
 dnl GTKHTML modules
 dnl **********************************
 GTKHTML_MODULES="$GTK_PACKAGE >= $gtk_minimum_version enchant >= enchant_minimum_version gconf-2.0 iso-codes"
