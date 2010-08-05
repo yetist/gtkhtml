@@ -11,10 +11,10 @@ msgstr ""
 "Project-Id-Version: gtkhtml.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gtkhtml&component=general\n"
-"POT-Creation-Date: 2010-07-20 11:51+0000\n"
-"PO-Revision-Date: 2010-07-21 07:33+0700\n"
-"Last-Translator: Dirgita Devina <dirgitadevina@yahoo.co.id>\n"
-"Language-Team: Indonesian <gnome-l10n-id@googlegroups.com>\n"
+"POT-Creation-Date: 2010-07-27 14:49+0000\n"
+"PO-Revision-Date: 2010-08-05 10:33+0700\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"Language-Team: GNOME Indonesian Translation Team <gnome@i15n.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -80,10 +80,8 @@ msgid "red-orange"
 msgstr "oranye merah"
 
 #: ../components/editor/gtkhtml-color-combo.c:90
-#, fuzzy
-#| msgid "Bold"
 msgid "gold"
-msgstr "Tebal"
+msgstr "emas"
 
 #: ../components/editor/gtkhtml-color-combo.c:91
 msgid "dark green"
@@ -94,10 +92,8 @@ msgid "dull blue"
 msgstr "biru dull"
 
 #: ../components/editor/gtkhtml-color-combo.c:93
-#, fuzzy
-#| msgid "Table"
 msgid "blue"
-msgstr "Tabel"
+msgstr "biru"
 
 #: ../components/editor/gtkhtml-color-combo.c:94
 msgid "dull purple"
@@ -112,16 +108,12 @@ msgid "red"
 msgstr "merah"
 
 #: ../components/editor/gtkhtml-color-combo.c:98
-#, fuzzy
-#| msgid "red-orange"
 msgid "orange"
-msgstr "oranye merah"
+msgstr "oranye"
 
 #: ../components/editor/gtkhtml-color-combo.c:99
-#, fuzzy
-#| msgid "Alignment"
 msgid "lime"
-msgstr "Perataan"
+msgstr "hijau pupus"
 
 #: ../components/editor/gtkhtml-color-combo.c:100
 msgid "dull green"
@@ -176,10 +168,8 @@ msgid "light grey"
 msgstr "abu-abu muda"
 
 #: ../components/editor/gtkhtml-color-combo.c:115
-#, fuzzy
-#| msgid "Link"
 msgid "pink"
-msgstr "Taut"
+msgstr "merah jambu"
 
 #: ../components/editor/gtkhtml-color-combo.c:116
 msgid "light orange"
@@ -223,17 +213,13 @@ msgid "custom"
 msgstr "bebas"
 
 #: ../components/editor/gtkhtml-color-combo.c:976
-#, fuzzy
-#| msgid "Choose Custom Color"
 msgid "Custom Color..."
-msgstr "Pilih Warna Bebas"
+msgstr "Warna Bebas..."
 
 #. Translators: :-)
 #: ../components/editor/gtkhtml-face-chooser.c:34
-#, fuzzy
-#| msgid "_Style:"
 msgid "_Smile"
-msgstr "_Gaya:"
+msgstr "_Senyum"
 
 #. Translators: :-(
 #: ../components/editor/gtkhtml-face-chooser.c:36
@@ -242,10 +228,8 @@ msgstr "_Sedih"
 
 #. Translators: ;-)
 #: ../components/editor/gtkhtml-face-chooser.c:38
-#, fuzzy
-#| msgid "_Link:"
 msgid "_Wink"
-msgstr "_Taut:"
+msgstr "_Kedip"
 
 #. Translators: :-P
 #: ../components/editor/gtkhtml-face-chooser.c:40
@@ -259,10 +243,8 @@ msgstr "_Tertawa"
 
 #. Translators: :-|
 #: ../components/editor/gtkhtml-face-chooser.c:44
-#, fuzzy
-#| msgid "_Plain Text"
 msgid "_Plain"
-msgstr "Teks _biasa"
+msgstr "_Polos"
 
 #. Translators: :-!
 #: ../components/editor/gtkhtml-face-chooser.c:46
@@ -277,14 +259,12 @@ msgstr "_Malu"
 #. Translators: :-D
 #: ../components/editor/gtkhtml-face-chooser.c:50
 msgid "_Big Smile"
-msgstr ""
+msgstr "Senyum Le_bar"
 
 #. Translators: :-/
 #: ../components/editor/gtkhtml-face-chooser.c:52
-#, fuzzy
-#| msgid "Underline"
 msgid "Uncer_tain"
-msgstr "Garis bawah"
+msgstr "Ragu-ragu"
 
 #. Translators: :-O
 #: ../components/editor/gtkhtml-face-chooser.c:54
@@ -303,15 +283,12 @@ msgstr "_Kecup"
 
 #. Translators: X-(
 #: ../components/editor/gtkhtml-face-chooser.c:60
-#, fuzzy
-#| msgid "gray"
 msgid "A_ngry"
-msgstr "abu-abu"
+msgstr "_Marah"
 
 #. Translators: B-)
 #: ../components/editor/gtkhtml-face-chooser.c:62
 #, fuzzy
-#| msgid "_Color:"
 msgid "_Cool"
 msgstr "_Warna:"
 
@@ -332,10 +309,8 @@ msgstr "Sak_it"
 
 #. Translators: |-)
 #: ../components/editor/gtkhtml-face-chooser.c:70
-#, fuzzy
-#| msgid "red"
 msgid "Tire_d"
-msgstr "merah"
+msgstr "_Lelah"
 
 #. Translators: >:-)
 #: ../components/editor/gtkhtml-face-chooser.c:72
@@ -348,16 +323,14 @@ msgid "_Monkey"
 msgstr "_Monyet"
 
 #: ../components/editor/gtkhtml-editor-actions.c:190
-#, fuzzy
-#| msgid "Insert HTML File"
 msgid "Failed to insert HTML file."
-msgstr "Masukkan Berkas HTML"
+msgstr "Gagal menyisipkan berkas HTML."
 
 #: ../components/editor/gtkhtml-editor-actions.c:227
 #, fuzzy
 #| msgid "Insert Text File"
 msgid "Failed to insert text file."
-msgstr "Masukkan Berkas Teks"
+msgstr "Gagal menyisipkan berkas teks."
 
 #: ../components/editor/gtkhtml-editor-actions.c:615
 msgid "Insert HTML File"
@@ -365,10 +338,8 @@ msgstr "Masukkan Berkas HTML"
 
 #: ../components/editor/gtkhtml-editor-actions.c:635
 #: ../components/editor/gtkhtml-editor-actions.c:1549
-#, fuzzy
-#| msgid "_Insert"
 msgid "Insert Image"
-msgstr "_Masukkan"
+msgstr "Sisipkan Gambar"
 
 #: ../components/editor/gtkhtml-editor-actions.c:684
 msgid "Insert Text File"
@@ -377,22 +348,16 @@ msgstr "Masukkan Berkas Teks"
 #. Replace Button
 #: ../components/editor/gtkhtml-editor-actions.c:1184
 #: ../components/editor/gtkhtml-spell-dialog.c:520
-#, fuzzy
-#| msgid "Replace"
 msgid "_Replace"
-msgstr "Ganti"
+msgstr "_Ganti"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1191
-#, fuzzy
-#| msgid "Replace"
 msgid "Replace _All"
-msgstr "Ganti"
+msgstr "Ganti Semu_a"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1205
-#, fuzzy
-#| msgid "_Text:"
 msgid "_Next"
-msgstr "_Teks:"
+msgstr "Selanjut_nya"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1212
 msgid "_Copy"
@@ -404,17 +369,15 @@ msgstr "Po_tong"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1233
 msgid "Find A_gain"
-msgstr ""
+msgstr "Cari La_gi"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1247
 msgid "_Increase Indent"
 msgstr "Tambah _Indentasi"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1249
-#, fuzzy
-#| msgid "_Increase Indent"
 msgid "Increase Indent"
-msgstr "Tambah _Indentasi"
+msgstr "Naikkan _Indentasi"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1254
 msgid "_HTML File..."
@@ -447,10 +410,8 @@ msgid "_Find..."
 msgstr "_Cari..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1303
-#, fuzzy
-#| msgid "Replace"
 msgid "Re_place..."
-msgstr "Ganti"
+msgstr "_Ganti..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1310
 msgid "Check _Spelling..."
@@ -470,10 +431,8 @@ msgid "_Decrease Indent"
 msgstr "Kurangi In_dentasi"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1333
-#, fuzzy
-#| msgid "_Decrease Indent"
 msgid "Decrease Indent"
-msgstr "Kurangi In_dentasi"
+msgstr "Kurangi Indentasi"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1338
 msgid "_Wrap Lines"
@@ -485,30 +444,24 @@ msgstr "_Ubah"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1354
 #: ../components/editor/main.c:327
-#, fuzzy
-#| msgid "_View"
 msgid "_File"
-msgstr "_Tampilan"
+msgstr "_Berkas"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1361
 msgid "For_mat"
 msgstr "Be_ntuk"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1368
-#, fuzzy
-#| msgid "Paragraph Properties"
 msgid "_Paragraph Style"
-msgstr "Properti Paragraf"
+msgstr "Gaya _Paragraf"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1375
 msgid "_Insert"
 msgstr "_Masukkan"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1382
-#, fuzzy
-#| msgid "_Alignment:"
 msgid "_Alignment"
-msgstr "Per_ataan:"
+msgstr "Per_ataan"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1389
 msgid "Current _Languages"
@@ -524,34 +477,24 @@ msgid "_Center"
 msgstr "_Tengah"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1408
-#, fuzzy
-#| msgid "Alignment"
 msgid "Center Alignment"
-msgstr "Perataan"
+msgstr "Perataan Tengah"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1413
-#, fuzzy
-#| msgid "Left"
 msgid "_Left"
-msgstr "Kiri"
+msgstr "_Kiri"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1415
-#, fuzzy
-#| msgid "Alignment"
 msgid "Left Alignment"
-msgstr "Perataan"
+msgstr "Perataan Kiri"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1420
-#, fuzzy
-#| msgid "Right"
 msgid "_Right"
-msgstr "Kanan"
+msgstr "_Kanan"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1422
-#, fuzzy
-#| msgid "Alignment"
 msgid "Right Alignment"
-msgstr "Perataan"
+msgstr "Perataan Kanan"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1430
 msgid "_HTML"
@@ -562,10 +505,8 @@ msgid "HTML editing mode"
 msgstr "Mode sunting HTML"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1437
-#, fuzzy
-#| msgid "_Plain Text"
 msgid "Plain _Text"
-msgstr "Teks _biasa"
+msgstr "_Teks Biasa"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1439
 msgid "Plain text editing mode"
@@ -625,17 +566,13 @@ msgstr "Daftar _Alfabet"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1547
 #: ../components/editor/gtkhtml-editor-actions.c:1584
-#, fuzzy
-#| msgid "_Image:"
 msgid "_Image..."
-msgstr "_Gambar:"
+msgstr "_Gambar..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1554
 #: ../components/editor/gtkhtml-editor-actions.c:1591
-#, fuzzy
-#| msgid "_Find..."
 msgid "_Link..."
-msgstr "_Cari..."
+msgstr "_Taut..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1556
 msgid "Insert Link"
@@ -649,45 +586,33 @@ msgstr "Ga_ris..."
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
 #: ../components/editor/gtkhtml-editor-actions.c:1565
-#, fuzzy
-#| msgid "Insert HTML File"
 msgid "Insert Rule"
-msgstr "Masukkan Berkas HTML"
+msgstr "Sisipkan Garis"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1570
 #: ../components/editor/gtkhtml-editor-actions.c:1613
-#, fuzzy
-#| msgid "_Table"
 msgid "_Table..."
-msgstr "_Tabel"
+msgstr "_Tabel..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1572
-#, fuzzy
-#| msgid "Insert HTML File"
 msgid "Insert Table"
-msgstr "Masukkan Berkas HTML"
+msgstr "Sisipkan Tabel"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1577
-#, fuzzy
-#| msgid "_Rule..."
 msgid "_Cell..."
-msgstr "Ga_ris..."
+msgstr "_Sel..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1598
-#, fuzzy
-#| msgid "_Rule..."
 msgid "Pa_ge..."
-msgstr "Ga_ris..."
+msgstr "_Halaman..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1622
 msgid "Font _Size"
 msgstr "_Ukuran Fonta"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1629
-#, fuzzy
-#| msgid "Font Size"
 msgid "_Font Style"
-msgstr "Ukuran Fonta"
+msgstr "Gaya _Fonta"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1639
 #: ../components/editor/gtkhtml-editor-builder.ui.h:61
@@ -712,10 +637,8 @@ msgid "_Plain Text"
 msgstr "Teks _biasa"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1657
-#, fuzzy
-#| msgid "_Plain Text"
 msgid "Plain Text"
-msgstr "Teks _biasa"
+msgstr "Teks Biasa"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1663
 #: ../components/editor/gtkhtml-editor-builder.ui.h:77
@@ -723,10 +646,8 @@ msgid "_Strikethrough"
 msgstr "_Coret"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1665
-#, fuzzy
-#| msgid "_Strikethrough"
 msgid "Strikethrough"
-msgstr "_Coret"
+msgstr "Coret"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1671
 #: ../components/editor/gtkhtml-editor-builder.ui.h:83
@@ -800,32 +721,24 @@ msgstr "Metode Masukan"
 
 #. Translators: Popup menu item caption, containing all the Insert options for a table
 #: ../components/editor/gtkhtml-editor-actions.c:1796
-#, fuzzy
-#| msgid "_Insert"
 msgid "Table Insert"
-msgstr "_Masukkan"
+msgstr "Sisipkan Tabel"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1803
 msgid "Properties"
 msgstr "Properti"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1821
-#, fuzzy
-#| msgid "Column"
 msgid "Column After"
-msgstr "Kolom"
+msgstr "Kolom Setelah"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1828
-#, fuzzy
-#| msgid "Column"
 msgid "Column Before"
-msgstr "Kolom"
+msgstr "Kolom Sebelum"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1835
-#, fuzzy
-#| msgid "Insert Link"
 msgid "Insert _Link"
-msgstr "Masukkan Taut"
+msgstr "Sisipkan _Taut"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1842
 msgid "Row Above"
@@ -836,28 +749,20 @@ msgid "Row Below"
 msgstr "Baris Bawah"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1863
-#, fuzzy
-#| msgid "C_ell"
 msgid "Cell..."
-msgstr "S_el"
+msgstr "Sel..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1870
-#, fuzzy
-#| msgid "I_mage:"
 msgid "Image..."
-msgstr "Ga_mbar:"
+msgstr "Gambar..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1877
-#, fuzzy
-#| msgid "Link"
 msgid "Link..."
-msgstr "Taut"
+msgstr "Taut..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1884
-#, fuzzy
-#| msgid "Paragraph..."
 msgid "Page..."
-msgstr "Paragraf..."
+msgstr "Halaman..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1891
 msgid "Paragraph..."
@@ -865,22 +770,16 @@ msgstr "Paragraf..."
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
 #: ../components/editor/gtkhtml-editor-actions.c:1899
-#, fuzzy
-#| msgid "_Rule..."
 msgid "Rule..."
-msgstr "Ga_ris..."
+msgstr "Garis..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1906
-#, fuzzy
-#| msgid "Table"
 msgid "Table..."
-msgstr "Tabel"
+msgstr "Tabel..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1913
-#, fuzzy
-#| msgid "Te_xt File..."
 msgid "Text..."
-msgstr "Berkas te_ks..."
+msgstr "Teks..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1920
 msgid "Remove Link"
@@ -895,10 +794,8 @@ msgid "Ignore Misspelled Word"
 msgstr "Abaikan Kata Yang Salah Ejaan"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1951
-#, fuzzy
-#| msgid "_Add Word"
 msgid "Add Word To"
-msgstr "T_ambah Kata"
+msgstr "Tambah Kata Ke"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1960
 msgid "More Suggestions"
@@ -916,41 +813,29 @@ msgid "_Emoticon"
 msgstr "_Emotikon"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2130
-#, fuzzy
-#| msgid "Insert Link"
 msgid "Insert Emoticon"
-msgstr "Masukkan Taut"
+msgstr "Sisipkan Emoticon"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2191
-#, fuzzy
-#| msgid "Find"
 msgid "_Find"
-msgstr "Cari"
+msgstr "_Cari"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2194
-#, fuzzy
-#| msgid "Replace"
 msgid "Re_place"
-msgstr "Ganti"
+msgstr "_Ganti"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2197
-#, fuzzy
-#| msgid "_Image:"
 msgid "_Image"
-msgstr "_Gambar:"
+msgstr "_Gambar"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2200
-#, fuzzy
-#| msgid "_Link:"
 msgid "_Link"
-msgstr "_Taut:"
+msgstr "_Taut"
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
 #: ../components/editor/gtkhtml-editor-actions.c:2204
-#, fuzzy
-#| msgid "_Rule..."
 msgid "_Rule"
-msgstr "Ga_ris..."
+msgstr "Ga_ris"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2207
 #: ../components/editor/gtkhtml-editor-builder.ui.h:79
@@ -958,10 +843,8 @@ msgid "_Table"
 msgstr "_Tabel"
 
 #: ../components/editor/gtkhtml-editor-private.c:273
-#, fuzzy
-#| msgid "Paragraph Properties"
 msgid "Paragraph Style"
-msgstr "Properti Paragraf"
+msgstr "Gaya Paragraf"
 
 #: ../components/editor/gtkhtml-editor-private.c:287
 msgid "Editing Mode"
@@ -1001,16 +884,12 @@ msgid "Alignment"
 msgstr "Perataan"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:4
-#, fuzzy
-#| msgid "Alignment"
 msgid "Alignment & Behavior"
-msgstr "Perataan"
+msgstr "Perataan & Perilaku"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:5
-#, fuzzy
-#| msgid "_Background:"
 msgid "Background"
-msgstr "Latar _Belakang:"
+msgstr "Latar Belakang"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:6
 msgid "Background Image"
@@ -1018,7 +897,7 @@ msgstr "Gambar Latar Belakang"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:7
 msgid "Blue Ink"
-msgstr ""
+msgstr "Tinta Biru"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:8
 msgid "Bottom"
@@ -1045,16 +924,12 @@ msgid "Case _sensitive"
 msgstr "Perhatikan huruf be_sar/kecil"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:14
-#, fuzzy
-#| msgid "Properties"
 msgid "Cell Properties"
-msgstr "Properti"
+msgstr "Properti Sel"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:15
-#, fuzzy
-#| msgid "_Center"
 msgid "Center"
-msgstr "_Tengah"
+msgstr "Tengah"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:16
 msgid "Co_lor:"
@@ -1070,9 +945,8 @@ msgstr "Warna"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:19
 #, fuzzy
-#| msgid "Column"
 msgid "Column Span:"
-msgstr "Kolom"
+msgstr "Rentang Kolom:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:20
 msgid "Confidential"
@@ -1092,25 +966,21 @@ msgstr "Umum"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:24
 #, fuzzy
-#| msgid "Paper"
 msgid "Graph Paper"
 msgstr "Kertas"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:25
 #, fuzzy
-#| msgid "Header _1"
 msgid "Hea_der Style"
-msgstr "Kepala _1"
+msgstr "Gaya _Kepala"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:26
 msgid "I_mage:"
 msgstr "Ga_mbar:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:27
-#, fuzzy
-#| msgid "Text Properties"
 msgid "Image Properties"
-msgstr "Properti Teks"
+msgstr "Properti Gambar"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:28
 msgid "Layout"
@@ -1133,20 +1003,16 @@ msgid "Middle"
 msgstr "Tengah"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:33
-#, fuzzy
-#| msgid "Right"
 msgid "Midnight"
-msgstr "Kanan"
+msgstr "Tengah Malam"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:34
 msgid "None"
 msgstr "Nihil"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:35
-#, fuzzy
-#| msgid "Properties"
 msgid "Page Properties"
-msgstr "Properti"
+msgstr "Properti Halaman"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:36
 msgid "Paper"
@@ -1158,15 +1024,12 @@ msgstr "Properti Paragraf"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:38
 #, fuzzy
-#| msgid "_Preformatted"
 msgid "Perforated Paper"
-msgstr "_Preformatted"
+msgstr "Kertas Diperforasi"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:39
-#, fuzzy
-#| msgid "Replace"
 msgid "R_eplace:"
-msgstr "Ganti"
+msgstr "Ganti:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:40
 msgid "Replace"
@@ -1190,10 +1053,8 @@ msgstr "Rentangan Baris:"
 
 #. Translators: Caption of a window. 'Rule' here means a horizontal line in an HTML text.
 #: ../components/editor/gtkhtml-editor-builder.ui.h:46
-#, fuzzy
-#| msgid "Properties"
 msgid "Rule Properties"
-msgstr "Properti"
+msgstr "Properti Garis"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:47
 msgid "S_haded"
@@ -1208,20 +1069,16 @@ msgid "Search _backwards"
 msgstr "Cari _mundur"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:50
-#, fuzzy
-#| msgid "Select _All"
 msgid "Select An Image"
-msgstr "Pilih Semu_a"
+msgstr "Pilih Suatu Gambar"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:51
 msgid "Si_ze:"
 msgstr "_Ukuran:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:52
-#, fuzzy
-#| msgid "Si_ze:"
 msgid "Size"
-msgstr "_Ukuran:"
+msgstr "Ukuran"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:53
 msgid "Style"
@@ -1232,10 +1089,8 @@ msgid "T_emplate:"
 msgstr "Pal_et:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:55
-#, fuzzy
-#| msgid "Text Properties"
 msgid "Table Properties"
-msgstr "Properti Teks"
+msgstr "Properti Tabel"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:56
 msgid "Text Properties"
@@ -1258,10 +1113,8 @@ msgid "_Background:"
 msgstr "Latar _Belakang:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:62
-#, fuzzy
-#| msgid "_Source:"
 msgid "_Border:"
-msgstr "_Sumber:"
+msgstr "_Batas:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:63
 msgid "_Color:"
@@ -1304,8 +1157,6 @@ msgid "_Rows:"
 msgstr "Ba_ris:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:74
-#, fuzzy
-#| msgid "Si_ze:"
 msgid "_Size:"
 msgstr "_Ukuran:"
 
@@ -1343,9 +1194,8 @@ msgstr "_Dengan:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:87
 #, fuzzy
-#| msgid "_Wrap Lines"
 msgid "_Wrap Text"
-msgstr "_Potong Baris"
+msgstr "_Potong Teks"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:88
 msgid "_X-Padding:"
@@ -1374,10 +1224,8 @@ msgstr ""
 
 #. Replace All Button
 #: ../components/editor/gtkhtml-spell-dialog.c:534
-#, fuzzy
-#| msgid "Replace"
 msgid "R_eplace All"
-msgstr "Ganti"
+msgstr "Ganti S_emua"
 
 #. Ignore Button
 #: ../components/editor/gtkhtml-spell-dialog.c:548
@@ -1391,17 +1239,13 @@ msgstr "_Lewati"
 
 #. Back Button
 #: ../components/editor/gtkhtml-spell-dialog.c:575
-#, fuzzy
-#| msgid "black"
 msgid "_Back"
-msgstr "hitam"
+msgstr "Kem_bali"
 
 #. Dictionary Label
 #: ../components/editor/gtkhtml-spell-dialog.c:588
-#, fuzzy
-#| msgid "%s Dictionary"
 msgid "Dictionary"
-msgstr "Kamus %s"
+msgstr "Kamus"
 
 #. Add Word Button
 #: ../components/editor/gtkhtml-spell-dialog.c:617
@@ -1448,26 +1292,20 @@ msgid "HTML Source"
 msgstr "Sumber HTML"
 
 #: ../components/editor/main.c:285
-#, fuzzy
-#| msgid "_Plain Text"
 msgid "Plain Source"
-msgstr "Teks _biasa"
+msgstr "Sumber Biasa"
 
 #: ../components/editor/main.c:292
-#, fuzzy
-#| msgid "_Find..."
 msgid "_Print..."
-msgstr "_Cari..."
+msgstr "_Cetak..."
 
 #: ../components/editor/main.c:299
 msgid "Print Pre_view"
 msgstr ""
 
 #: ../components/editor/main.c:306
-#, fuzzy
-#| msgid "_Edit"
 msgid "_Quit"
-msgstr "_Ubah"
+msgstr "_Keluar"
 
 #: ../components/editor/main.c:313
 msgid "_Save"
@@ -1486,10 +1324,8 @@ msgid "_HTML Source"
 msgstr "Sumber _HTML"
 
 #: ../components/editor/main.c:351
-#, fuzzy
-#| msgid "_Plain Text"
 msgid "_Plain Source"
-msgstr "Teks _biasa"
+msgstr "Sumber _Biasa"
 
 #: ../gtkhtml/htmlbutton.c:138
 msgid "Submit Query"
