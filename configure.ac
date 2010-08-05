@@ -96,13 +96,8 @@ dnl	-Wmissing-format-attribute
 dnl	-Wshadow
 dnl	-Wstrict-aliasing=2
 
-dnl GCC 4.4 got more aggressive in its aliasing optimizations, changing
-dnl behavior that -- according to the C99 standard -- is supposed to be
-dnl undefined.  We may still have aliasing abuses lying around that rely
-dnl on GCC's previous "undefined" behavior, so disable strict-aliasing
-dnl optimization until we can find and fix all the abuses.
-dnl XXX This really belongs in AM_CFLAGS.
-CFLAGS="$CFLAGS $WARNING_FLAGS -fno-strict-aliasing"
+dnl XXX This really belongs in AM_CPPFLAGS.
+CFLAGS="$CFLAGS $WARNING_FLAGS"
 
 dnl *********************
 dnl Necessary programs
@@ -116,6 +111,17 @@ AC_TYPE_SIZE_T
 
 AC_CHECK_FUNCS([memchr memmove memset regcomp setlocale strchr strcspn strrchr strstr strtol strtoull])
 AC_CHECK_HEADERS([fcntl.h libintl.h])
+
+dnl GCC 4.4 got more aggressive in its aliasing optimizations, changing
+dnl behavior that -- according to the C99 standard -- is supposed to be
+dnl undefined.  We may still have aliasing abuses lying around that rely
+dnl on GCC's previous "undefined" behavior, so disable strict-aliasing
+dnl optimization until we can find and fix all the abuses.
+dnl (AC_PROG_CC must run first to set the GCC variable.)
+dnl XXX This really belongs in AM_CFLAGS.
+if test "x${GCC}" = "xyes"; then
+	CFLAGS="$CFLAGS -fno-strict-aliasing"
+fi
 
 dnl *****************
 dnl libtool
