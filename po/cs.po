@@ -2,18 +2,21 @@
 # Copyright (C) 2000, 2007, 2008, 2009, 2010 the author(s) of gtkhtml.
 # Copyright (C) 2004, 2005, 2006 Miloslav Trmac <mitr@volny.cz>.
 # This file is distributed under the same license as the gtkhtml package.
+#
 # Radka Soukupova <Radka.Soukupova@centrum.cz>, 2000, 2002.
 # Miloslav Trmac <mitr@volny.cz>, 2002, 2003, 2004, 2005, 2006.
 # Jakub Friedl <jfriedl@suse.cz>, 2007.
 # Lucas Lommer <llommer@svn.gnome.org>, 2008, 2009, 2010.
 # Petr Kovar <pknbe@volny.cz>, 2008.
 # Marek Černocký <marek@manet.cz>, 2009, 2010.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml gnome-2-28\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-11 16:53+0200\n"
-"PO-Revision-Date: 2010-06-29 11:40+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gtkhtml&component=general\n"
+"POT-Creation-Date: 2010-08-05 12:41+0000\n"
+"PO-Revision-Date: 2010-08-06 18:27+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -335,506 +338,506 @@ msgstr "Chyba při vkládání textového souboru"
 msgid "Insert HTML File"
 msgstr "Vložit soubor HTML"
 
-#: ../components/editor/gtkhtml-editor-actions.c:631
-#: ../components/editor/gtkhtml-editor-actions.c:1541
+#: ../components/editor/gtkhtml-editor-actions.c:635
+#: ../components/editor/gtkhtml-editor-actions.c:1549
 msgid "Insert Image"
 msgstr "Vložit obrázek"
 
-#: ../components/editor/gtkhtml-editor-actions.c:680
+#: ../components/editor/gtkhtml-editor-actions.c:684
 msgid "Insert Text File"
 msgstr "Vložit textový soubor"
 
 #. Replace Button
-#: ../components/editor/gtkhtml-editor-actions.c:1176
+#: ../components/editor/gtkhtml-editor-actions.c:1184
 #: ../components/editor/gtkhtml-spell-dialog.c:520
 msgid "_Replace"
 msgstr "_Nahradit"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1183
+#: ../components/editor/gtkhtml-editor-actions.c:1191
 msgid "Replace _All"
 msgstr "Nahradit _vše"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1197
+#: ../components/editor/gtkhtml-editor-actions.c:1205
 msgid "_Next"
 msgstr "_Další"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1204
+#: ../components/editor/gtkhtml-editor-actions.c:1212
 msgid "_Copy"
 msgstr "_Kopírovat"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1211
+#: ../components/editor/gtkhtml-editor-actions.c:1219
 msgid "Cu_t"
 msgstr "_Vyjmout"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1225
+#: ../components/editor/gtkhtml-editor-actions.c:1233
 msgid "Find A_gain"
 msgstr "Hl_edat další"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1239
+#: ../components/editor/gtkhtml-editor-actions.c:1247
 msgid "_Increase Indent"
 msgstr "Odsadit _více"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1241
+#: ../components/editor/gtkhtml-editor-actions.c:1249
 msgid "Increase Indent"
 msgstr "Zvětšit odsazení"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1246
+#: ../components/editor/gtkhtml-editor-actions.c:1254
 msgid "_HTML File..."
 msgstr "Soubor _HTML…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1253
+#: ../components/editor/gtkhtml-editor-actions.c:1261
 msgid "Te_xt File..."
 msgstr "Te_xtový soubor…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1260
+#: ../components/editor/gtkhtml-editor-actions.c:1268
 msgid "_Paste"
 msgstr "V_ložit"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1267
+#: ../components/editor/gtkhtml-editor-actions.c:1275
 msgid "Paste _Quotation"
 msgstr "Vložit _citát"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1274
+#: ../components/editor/gtkhtml-editor-actions.c:1282
 msgid "_Redo"
 msgstr "Zn_ovu"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1281
+#: ../components/editor/gtkhtml-editor-actions.c:1289
 msgid "Select _All"
 msgstr "Vybr_at vše"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1288
+#: ../components/editor/gtkhtml-editor-actions.c:1296
 msgid "_Find..."
 msgstr "_Hledat…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1295
+#: ../components/editor/gtkhtml-editor-actions.c:1303
 msgid "Re_place..."
 msgstr "Nah_radit…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1302
+#: ../components/editor/gtkhtml-editor-actions.c:1310
 msgid "Check _Spelling..."
 msgstr "Zkontrolovat _pravopis…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1309
+#: ../components/editor/gtkhtml-editor-actions.c:1317
 #: ../components/editor/gtkhtml-editor-builder.ui.h:80
 msgid "_Test URL..."
 msgstr "_Otestovat URL…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1316
+#: ../components/editor/gtkhtml-editor-actions.c:1324
 msgid "_Undo"
 msgstr "_Zpět"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1323
+#: ../components/editor/gtkhtml-editor-actions.c:1331
 msgid "_Decrease Indent"
 msgstr "Odsadit _méně"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1325
+#: ../components/editor/gtkhtml-editor-actions.c:1333
 msgid "Decrease Indent"
 msgstr "Zmenšit odsazení"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1330
+#: ../components/editor/gtkhtml-editor-actions.c:1338
 msgid "_Wrap Lines"
 msgstr "Za_lamovat řádky"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1339
+#: ../components/editor/gtkhtml-editor-actions.c:1347
 msgid "_Edit"
 msgstr "_Upravit"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1346
+#: ../components/editor/gtkhtml-editor-actions.c:1354
 #: ../components/editor/main.c:327
 msgid "_File"
 msgstr "_Soubor"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1353
+#: ../components/editor/gtkhtml-editor-actions.c:1361
 msgid "For_mat"
 msgstr "_Formát"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1360
+#: ../components/editor/gtkhtml-editor-actions.c:1368
 msgid "_Paragraph Style"
 msgstr "Styl _odstavce"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1367
+#: ../components/editor/gtkhtml-editor-actions.c:1375
 msgid "_Insert"
 msgstr "Vlož_it"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1374
+#: ../components/editor/gtkhtml-editor-actions.c:1382
 msgid "_Alignment"
 msgstr "_Zarovnání"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1381
+#: ../components/editor/gtkhtml-editor-actions.c:1389
 msgid "Current _Languages"
 msgstr "Aktuální _jazyky"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1388
+#: ../components/editor/gtkhtml-editor-actions.c:1396
 #: ../components/editor/main.c:358
 msgid "_View"
 msgstr "_Zobrazit"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1398
+#: ../components/editor/gtkhtml-editor-actions.c:1406
 msgid "_Center"
 msgstr "_Střed"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1400
+#: ../components/editor/gtkhtml-editor-actions.c:1408
 msgid "Center Alignment"
 msgstr "Zarovnání na střed"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1405
+#: ../components/editor/gtkhtml-editor-actions.c:1413
 msgid "_Left"
 msgstr "V_levo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1407
+#: ../components/editor/gtkhtml-editor-actions.c:1415
 msgid "Left Alignment"
 msgstr "Zarovnání vlevo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1412
+#: ../components/editor/gtkhtml-editor-actions.c:1420
 msgid "_Right"
 msgstr "V_pravo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1414
+#: ../components/editor/gtkhtml-editor-actions.c:1422
 msgid "Right Alignment"
 msgstr "Zarovnání vpravo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1422
+#: ../components/editor/gtkhtml-editor-actions.c:1430
 msgid "_HTML"
 msgstr "_HTML"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1424
+#: ../components/editor/gtkhtml-editor-actions.c:1432
 msgid "HTML editing mode"
 msgstr "Mód úprav HTML"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1429
+#: ../components/editor/gtkhtml-editor-actions.c:1437
 msgid "Plain _Text"
 msgstr "Prostý _text"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1431
+#: ../components/editor/gtkhtml-editor-actions.c:1439
 msgid "Plain text editing mode"
 msgstr "Mód úprav prostého textu"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1439
+#: ../components/editor/gtkhtml-editor-actions.c:1447
 msgid "_Normal"
 msgstr "_Normální"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1446
+#: ../components/editor/gtkhtml-editor-actions.c:1454
 msgid "Header _1"
 msgstr "Hlavička _1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1453
+#: ../components/editor/gtkhtml-editor-actions.c:1461
 msgid "Header _2"
 msgstr "Hlavička _2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1460
+#: ../components/editor/gtkhtml-editor-actions.c:1468
 msgid "Header _3"
 msgstr "Hlavička _3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1467
+#: ../components/editor/gtkhtml-editor-actions.c:1475
 msgid "Header _4"
 msgstr "Hlavička _4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1474
+#: ../components/editor/gtkhtml-editor-actions.c:1482
 msgid "Header _5"
 msgstr "Hlavička _5"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1481
+#: ../components/editor/gtkhtml-editor-actions.c:1489
 msgid "Header _6"
 msgstr "Hlavička _6"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1488
+#: ../components/editor/gtkhtml-editor-actions.c:1496
 msgid "A_ddress"
 msgstr "A_dresa"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1495
+#: ../components/editor/gtkhtml-editor-actions.c:1503
 msgid "_Preformatted"
 msgstr "_Předformátované"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1502
+#: ../components/editor/gtkhtml-editor-actions.c:1510
 msgid "_Bulleted List"
 msgstr "_Bodový seznam"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1509
+#: ../components/editor/gtkhtml-editor-actions.c:1517
 msgid "_Roman Numeral List"
 msgstr "Ří_msky číslovaný seznam"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1516
+#: ../components/editor/gtkhtml-editor-actions.c:1524
 msgid "Numbered _List"
 msgstr "Čí_slovaný seznam"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1523
+#: ../components/editor/gtkhtml-editor-actions.c:1531
 msgid "_Alphabetical List"
 msgstr "_Abecední seznam"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1539
-#: ../components/editor/gtkhtml-editor-actions.c:1576
+#: ../components/editor/gtkhtml-editor-actions.c:1547
+#: ../components/editor/gtkhtml-editor-actions.c:1584
 msgid "_Image..."
 msgstr "_Obrázek…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1546
-#: ../components/editor/gtkhtml-editor-actions.c:1583
+#: ../components/editor/gtkhtml-editor-actions.c:1554
+#: ../components/editor/gtkhtml-editor-actions.c:1591
 msgid "_Link..."
 msgstr "O_dkaz…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1548
+#: ../components/editor/gtkhtml-editor-actions.c:1556
 msgid "Insert Link"
 msgstr "Vložit odkaz"
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
-#: ../components/editor/gtkhtml-editor-actions.c:1554
-#: ../components/editor/gtkhtml-editor-actions.c:1598
+#: ../components/editor/gtkhtml-editor-actions.c:1562
+#: ../components/editor/gtkhtml-editor-actions.c:1606
 msgid "_Rule..."
 msgstr "Čá_ru…"
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
-#: ../components/editor/gtkhtml-editor-actions.c:1557
+#: ../components/editor/gtkhtml-editor-actions.c:1565
 msgid "Insert Rule"
 msgstr "Vložit čáru"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1562
-#: ../components/editor/gtkhtml-editor-actions.c:1605
+#: ../components/editor/gtkhtml-editor-actions.c:1570
+#: ../components/editor/gtkhtml-editor-actions.c:1613
 msgid "_Table..."
 msgstr "Ta_bulku…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1564
+#: ../components/editor/gtkhtml-editor-actions.c:1572
 msgid "Insert Table"
 msgstr "Vložit tabulku"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1569
+#: ../components/editor/gtkhtml-editor-actions.c:1577
 msgid "_Cell..."
 msgstr "_Buňka…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1590
+#: ../components/editor/gtkhtml-editor-actions.c:1598
 msgid "Pa_ge..."
 msgstr "_Stránka…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1614
+#: ../components/editor/gtkhtml-editor-actions.c:1622
 msgid "Font _Size"
 msgstr "Veliko_st písma"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1621
+#: ../components/editor/gtkhtml-editor-actions.c:1629
 msgid "_Font Style"
 msgstr "Styl _písma"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1631
+#: ../components/editor/gtkhtml-editor-actions.c:1639
 #: ../components/editor/gtkhtml-editor-builder.ui.h:61
 msgid "_Bold"
 msgstr "_Tučné"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1633
+#: ../components/editor/gtkhtml-editor-actions.c:1641
 msgid "Bold"
 msgstr "Tučné"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1639
+#: ../components/editor/gtkhtml-editor-actions.c:1647
 #: ../components/editor/gtkhtml-editor-builder.ui.h:68
 msgid "_Italic"
 msgstr "_Kurzíva"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1641
+#: ../components/editor/gtkhtml-editor-actions.c:1649
 msgid "Italic"
 msgstr "Kurzíva"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1647
+#: ../components/editor/gtkhtml-editor-actions.c:1655
 msgid "_Plain Text"
 msgstr "_Obyčejný text"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1649
+#: ../components/editor/gtkhtml-editor-actions.c:1657
 msgid "Plain Text"
 msgstr "Prostý text"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1655
+#: ../components/editor/gtkhtml-editor-actions.c:1663
 #: ../components/editor/gtkhtml-editor-builder.ui.h:77
 msgid "_Strikethrough"
 msgstr "Přeš_krtnuté"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1657
+#: ../components/editor/gtkhtml-editor-actions.c:1665
 msgid "Strikethrough"
 msgstr "Přeškrtnuté"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1663
+#: ../components/editor/gtkhtml-editor-actions.c:1671
 #: ../components/editor/gtkhtml-editor-builder.ui.h:83
 msgid "_Underline"
 msgstr "_Podtržené"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1665
+#: ../components/editor/gtkhtml-editor-actions.c:1673
 msgid "Underline"
 msgstr "Podržené"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1675
+#: ../components/editor/gtkhtml-editor-actions.c:1683
 msgid "-2"
 msgstr "-2"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1683
+#: ../components/editor/gtkhtml-editor-actions.c:1691
 msgid "-1"
 msgstr "-1"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1691
+#: ../components/editor/gtkhtml-editor-actions.c:1699
 msgid "+0"
 msgstr "+0"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1699
+#: ../components/editor/gtkhtml-editor-actions.c:1707
 msgid "+1"
 msgstr "+1"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1707
+#: ../components/editor/gtkhtml-editor-actions.c:1715
 msgid "+2"
 msgstr "+2"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1715
+#: ../components/editor/gtkhtml-editor-actions.c:1723
 msgid "+3"
 msgstr "+3"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1723
+#: ../components/editor/gtkhtml-editor-actions.c:1731
 msgid "+4"
 msgstr "+4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1742
+#: ../components/editor/gtkhtml-editor-actions.c:1750
 msgid "Cell Contents"
 msgstr "Obsah buňky"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1749
+#: ../components/editor/gtkhtml-editor-actions.c:1757
 msgid "Column"
 msgstr "Sloupec"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1756
+#: ../components/editor/gtkhtml-editor-actions.c:1764
 msgid "Row"
 msgstr "Řádek"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1763
-#: ../components/editor/gtkhtml-editor-actions.c:1848
+#: ../components/editor/gtkhtml-editor-actions.c:1771
+#: ../components/editor/gtkhtml-editor-actions.c:1856
 msgid "Table"
 msgstr "Tabulka"
 
 #. Translators: Popup menu item caption, containing all the Delete options for a table
-#: ../components/editor/gtkhtml-editor-actions.c:1773
+#: ../components/editor/gtkhtml-editor-actions.c:1781
 msgid "Table Delete"
 msgstr "Odstranění tabulky"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1780
+#: ../components/editor/gtkhtml-editor-actions.c:1788
 msgid "Input Methods"
 msgstr "Vstupní metody"
 
 #. Translators: Popup menu item caption, containing all the Insert options for a table
-#: ../components/editor/gtkhtml-editor-actions.c:1788
+#: ../components/editor/gtkhtml-editor-actions.c:1796
 msgid "Table Insert"
 msgstr "Vkládání tabulky"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1795
+#: ../components/editor/gtkhtml-editor-actions.c:1803
 msgid "Properties"
 msgstr "Vlastnosti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1813
+#: ../components/editor/gtkhtml-editor-actions.c:1821
 msgid "Column After"
 msgstr "Sloupec za"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1820
+#: ../components/editor/gtkhtml-editor-actions.c:1828
 msgid "Column Before"
 msgstr "Sloupec před"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1827
+#: ../components/editor/gtkhtml-editor-actions.c:1835
 msgid "Insert _Link"
 msgstr "V_ložit odkaz"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1834
+#: ../components/editor/gtkhtml-editor-actions.c:1842
 msgid "Row Above"
 msgstr "Řádka nad"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1841
+#: ../components/editor/gtkhtml-editor-actions.c:1849
 msgid "Row Below"
 msgstr "Řádka pod"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1855
+#: ../components/editor/gtkhtml-editor-actions.c:1863
 msgid "Cell..."
 msgstr "Buňka…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1862
+#: ../components/editor/gtkhtml-editor-actions.c:1870
 msgid "Image..."
 msgstr "Obrázek…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1869
+#: ../components/editor/gtkhtml-editor-actions.c:1877
 msgid "Link..."
 msgstr "Odkaz…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1876
+#: ../components/editor/gtkhtml-editor-actions.c:1884
 msgid "Page..."
 msgstr "Stránka…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1883
+#: ../components/editor/gtkhtml-editor-actions.c:1891
 msgid "Paragraph..."
 msgstr "Odstavec…"
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
-#: ../components/editor/gtkhtml-editor-actions.c:1891
+#: ../components/editor/gtkhtml-editor-actions.c:1899
 msgid "Rule..."
 msgstr "Čáru…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1898
+#: ../components/editor/gtkhtml-editor-actions.c:1906
 msgid "Table..."
 msgstr "Tabulku…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1905
+#: ../components/editor/gtkhtml-editor-actions.c:1913
 msgid "Text..."
 msgstr "Text…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1912
+#: ../components/editor/gtkhtml-editor-actions.c:1920
 msgid "Remove Link"
 msgstr "Odstranit odkaz"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1929
+#: ../components/editor/gtkhtml-editor-actions.c:1937
 msgid "Add Word to Dictionary"
 msgstr "Přidat slovo do slovníku"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1936
+#: ../components/editor/gtkhtml-editor-actions.c:1944
 msgid "Ignore Misspelled Word"
 msgstr "Ignorovat překlep"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1943
+#: ../components/editor/gtkhtml-editor-actions.c:1951
 msgid "Add Word To"
 msgstr "Přidat slovo do"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1952
+#: ../components/editor/gtkhtml-editor-actions.c:1960
 msgid "More Suggestions"
 msgstr "Další návrhy"
 
 #. Translators: %s will be replaced with the actual dictionary name,
 #. where a user can add a word to. This is part of an "Add Word To" submenu.
-#: ../components/editor/gtkhtml-editor-actions.c:2053
+#: ../components/editor/gtkhtml-editor-actions.c:2061
 #, c-format
 msgid "%s Dictionary"
 msgstr "Slovník %s"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2121
+#: ../components/editor/gtkhtml-editor-actions.c:2129
 msgid "_Emoticon"
 msgstr "_Emotikon"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2122
+#: ../components/editor/gtkhtml-editor-actions.c:2130
 msgid "Insert Emoticon"
 msgstr "Vložit emotikon"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2183
+#: ../components/editor/gtkhtml-editor-actions.c:2191
 msgid "_Find"
 msgstr "_Hledat"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2186
+#: ../components/editor/gtkhtml-editor-actions.c:2194
 msgid "Re_place"
 msgstr "Nah_radit"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2189
+#: ../components/editor/gtkhtml-editor-actions.c:2197
 msgid "_Image"
 msgstr "_Obrázek"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2192
+#: ../components/editor/gtkhtml-editor-actions.c:2200
 msgid "_Link"
 msgstr "_Odkaz"
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
-#: ../components/editor/gtkhtml-editor-actions.c:2196
+#: ../components/editor/gtkhtml-editor-actions.c:2204
 msgid "_Rule"
 msgstr "Čá_ra"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2199
+#: ../components/editor/gtkhtml-editor-actions.c:2207
 #: ../components/editor/gtkhtml-editor-builder.ui.h:79
 msgid "_Table"
 msgstr "_Tabulka"
@@ -1208,7 +1211,7 @@ msgstr "px"
 #: ../components/editor/gtkhtml-spell-dialog.c:117
 #, c-format
 msgid "Suggestions for \"%s\""
-msgstr "Návrhy k \"%s\""
+msgstr "Návrhy k „%s“"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:447
 msgid "Spell Checker"
@@ -1336,179 +1339,3 @@ msgstr "Nelze alokovat výchozí písmo pro tisk"
 msgid "GtkHTML Test"
 msgstr "Test GtkHTML"
 
-#~ msgid "Current color"
-#~ msgstr "Aktuální barva"
-
-#~ msgid "The currently selected color"
-#~ msgstr "Aktuálně zvolená barva"
-
-#~ msgid "Default color"
-#~ msgstr "Výchozí barva"
-
-#~ msgid "The color associated with the default button"
-#~ msgstr "Barva asociovaná s výchozím tlačítkem"
-
-#~ msgid "Default label"
-#~ msgstr "Výchozí titulek"
-
-#~ msgid "The label for the default button"
-#~ msgstr "Titulek výchozího tlačítka"
-
-#~ msgid "Default is transparent"
-#~ msgstr "Výchozí je průhledné"
-
-#~ msgid "Whether the default color is transparent"
-#~ msgstr "Jestli je výchozí barva průhledná"
-
-#~ msgid "Color palette"
-#~ msgstr "Barevná paleta"
-
-#~ msgid "Custom color palette"
-#~ msgstr "Vlastní barevná paleta"
-
-#~ msgid "Popup shown"
-#~ msgstr "Kontextová nabídka zobrazena"
-
-#~ msgid "Whether the combo's dropdown is shown"
-#~ msgstr "Jestli zobrazovat rozbalovací seznam"
-
-#~ msgid "Color state"
-#~ msgstr "Barevný stav"
-
-#~ msgid "The state of a color combo box"
-#~ msgstr "Položka 'state' barevného výběru"
-
-#~ msgid "The current color"
-#~ msgstr "Aktuální barva"
-
-#~ msgid "The default color"
-#~ msgstr "Výchozí barva"
-
-#~ msgid "Description of the default color"
-#~ msgstr "Popis výchozí barvy"
-
-#~ msgid "Color"
-#~ msgstr "Barva"
-
-#~ msgid "Frame Shadow"
-#~ msgstr "Stín rámu"
-
-#~ msgid "Appearance of the frame border"
-#~ msgstr "Vzhled ohraničení rámu"
-
-#~ msgid "Action"
-#~ msgstr "Akce"
-
-#~ msgid "A GtkRadioAction"
-#~ msgstr "GtkRadioAction"
-
-#~ msgid "Current Folder"
-#~ msgstr "Aktuální složka"
-
-#~ msgid "The initial folder for file chooser dialogs"
-#~ msgstr "Výchozí adresář pro okno výběru souboru"
-
-#~ msgid "Filename"
-#~ msgstr "Jméno souboru"
-
-#~ msgid "The filename to use when saving"
-#~ msgstr "Jméno použité při ukládání souboru"
-
-#~ msgid "HTML Editing Widget"
-#~ msgstr "Widget úprav HTML"
-
-#~ msgid "The main HTML editing widget"
-#~ msgstr "Hlavní widget úprav HTML"
-
-#~ msgid "HTML Mode"
-#~ msgstr "Mód HTML"
-
-#~ msgid "Edit HTML or plain text"
-#~ msgstr "Upravit HTML nebo prostý text"
-
-#~ msgid "Inline Spelling"
-#~ msgstr "Pravopis vkládaného"
-
-#~ msgid "Check your spelling as you type"
-#~ msgstr "Při psaní kontrolovat pravopis"
-
-#~ msgid "Magic Links"
-#~ msgstr "Kouzelné odkazy"
-
-#~ msgid "Make URIs clickable as you type"
-#~ msgstr "Při psaní adresy URI umožnit klepnutí"
-
-#~ msgid "Magic Smileys"
-#~ msgstr "Kouzelní smajlíci"
-
-#~ msgid "Convert emoticons to images as you type"
-#~ msgstr "Měnit při psaní smajlíky na obrázky"
-
-#~ msgid "Language"
-#~ msgstr "Jazyk"
-
-#~ msgid "The language used by the spell checker"
-#~ msgstr "Jazyk používaný kontrolou pravopisu"
-
-#~ msgid "Misspelled Word"
-#~ msgstr "Překlep"
-
-#~ msgid "The current misspelled word"
-#~ msgstr "Aktuální slovo s překlepem"
-
-#~ msgid "Editable"
-#~ msgstr "Upravitelný"
-
-#~ msgid "Document Title"
-#~ msgstr "Nadpis dokumentu"
-
-#~ msgid "The title of the current document"
-#~ msgstr "Nadpis aktuálního dokumentu"
-
-#~ msgid "Document Base"
-#~ msgstr "Základ dokumentu"
-
-#~ msgid "The base URL for relative references"
-#~ msgstr "Základní URL pro relativní odkazy"
-
-#~ msgid "Target Base"
-#~ msgstr "Základ cíle"
-
-#~ msgid "The base URL of the target frame"
-#~ msgstr "Základní URL cílového rámce"
-
-#~ msgid "Fixed Width Font"
-#~ msgstr "Písmo s pevnou šířkou"
-
-#~ msgid "The Monospace font to use for typewriter text"
-#~ msgstr "Písmo monospace, které použít pro text psacího stroje"
-
-#~ msgid "New Link Color"
-#~ msgstr "Barva nového odkazu"
-
-#~ msgid "The color of new link elements"
-#~ msgstr "Barva nových elementů odkaz"
-
-#~ msgid "Visited Link Color"
-#~ msgstr "Barva navštíveného odkazu"
-
-#~ msgid "The color of visited link elements"
-#~ msgstr "Barva elementů navštívených odkazů"
-
-#~ msgid "Active Link Color"
-#~ msgstr "Barva aktivního odkazu"
-
-#~ msgid "The color of active link elements"
-#~ msgstr "Barva elementů aktivních odkazů"
-
-#~ msgid "Spelling Error Color"
-#~ msgstr "Barva pravopisné chyby"
-
-#~ msgid "The color of the spelling error markers"
-#~ msgstr "Barva označení pravopisných chyb"
-
-#~ msgid "Cite Quotation Color"
-#~ msgstr "Barva citátu"
-
-#~ msgid "The color of the cited text"
-#~ msgstr "Barva citovaného textu"
