@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: gtkhtml.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gtkhtml&component=general\n"
-"POT-Creation-Date: 2010-07-27 14:49+0000\n"
-"PO-Revision-Date: 2010-08-05 10:33+0700\n"
+"POT-Creation-Date: 2010-08-06 17:51+0000\n"
+"PO-Revision-Date: 2010-08-09 18:22+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: GNOME Indonesian Translation Team <gnome@i15n.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Language: Indonesian\n"
+"X-Poedit-Country: Indonesia\n"
 
 #: ../a11y/image.c:151
 #, c-format
@@ -288,9 +290,8 @@ msgstr "_Marah"
 
 #. Translators: B-)
 #: ../components/editor/gtkhtml-face-chooser.c:62
-#, fuzzy
 msgid "_Cool"
-msgstr "_Warna:"
+msgstr "_Keren"
 
 #. Translators: O:-)
 #: ../components/editor/gtkhtml-face-chooser.c:64
@@ -327,7 +328,6 @@ msgid "Failed to insert HTML file."
 msgstr "Gagal menyisipkan berkas HTML."
 
 #: ../components/editor/gtkhtml-editor-actions.c:227
-#, fuzzy
 #| msgid "Insert Text File"
 msgid "Failed to insert text file."
 msgstr "Gagal menyisipkan berkas teks."
@@ -396,10 +396,9 @@ msgid "Paste _Quotation"
 msgstr "Tempel _Kutipan"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1282
-#, fuzzy
 #| msgid "_Row"
 msgid "_Redo"
-msgstr "Ba_ris"
+msgstr "_Jadi Lagi"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1289
 msgid "Select _All"
@@ -713,7 +712,7 @@ msgstr "Tabel"
 #. Translators: Popup menu item caption, containing all the Delete options for a table
 #: ../components/editor/gtkhtml-editor-actions.c:1781
 msgid "Table Delete"
-msgstr ""
+msgstr "Hapus Tabel"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1788
 msgid "Input Methods"
@@ -944,7 +943,6 @@ msgid "Colors"
 msgstr "Warna"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:19
-#, fuzzy
 msgid "Column Span:"
 msgstr "Rentang Kolom:"
 
@@ -965,12 +963,10 @@ msgid "General"
 msgstr "Umum"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:24
-#, fuzzy
 msgid "Graph Paper"
-msgstr "Kertas"
+msgstr "Kertas Grafik"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:25
-#, fuzzy
 msgid "Hea_der Style"
 msgstr "Gaya _Kepala"
 
@@ -1023,7 +1019,6 @@ msgid "Paragraph Properties"
 msgstr "Properti Paragraf"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:38
-#, fuzzy
 msgid "Perforated Paper"
 msgstr "Kertas Diperforasi"
 
@@ -1130,7 +1125,7 @@ msgstr "_Tinggi:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:66
 msgid "_Horizontal:"
-msgstr ""
+msgstr "_Horisontal:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:67
 msgid "_Image:"
@@ -1193,7 +1188,6 @@ msgid "_With:"
 msgstr "_Dengan:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:87
-#, fuzzy
 msgid "_Wrap Text"
 msgstr "_Potong Teks"
 
@@ -1220,7 +1214,7 @@ msgstr "Saran untuk \"%s\""
 
 #: ../components/editor/gtkhtml-spell-dialog.c:447
 msgid "Spell Checker"
-msgstr ""
+msgstr "Pemeriksa Ejaan"
 
 #. Replace All Button
 #: ../components/editor/gtkhtml-spell-dialog.c:534
@@ -1301,7 +1295,7 @@ msgstr "_Cetak..."
 
 #: ../components/editor/main.c:299
 msgid "Print Pre_view"
-msgstr ""
+msgstr "Pratilik _Cetak"
 
 #: ../components/editor/main.c:306
 msgid "_Quit"
