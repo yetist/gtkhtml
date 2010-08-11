@@ -1,3 +1,15 @@
+GtkHTML-3.30.3 2010-08-11
+-------------------------
+
+Bug Fixes:
+	Bug 624149 - Check for NULL after gtkhtml_editor_run_open_dialog()
+	             (Matthew Barnes)
+
+Translations:
+	Marek Cernocky (cs)
+	Andika Triwidada (id)
+	Anita Reitere (lv)
+
 GtkHTML-3.30.2 2010-06-20
 -------------------------
 
