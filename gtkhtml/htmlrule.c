@@ -26,6 +26,7 @@
 #include "htmlcolor.h"
 #include "htmlcolorset.h"
 #include "htmlengine-save.h"
+#include "htmlenumutils.h"
 #include "htmlrule.h"
 #include "htmlpainter.h"
 #include "htmlsettings.h"
@@ -208,6 +209,7 @@ save (HTMLObject *self,
 {
 	gchar *size;
 	const gchar *shade;
+	gchar *align;
 	gchar *length;
 	gboolean rv;
 
@@ -216,13 +218,13 @@ save (HTMLObject *self,
 	length = HTML_RULE (self)->length
 		? g_strdup_printf (" LENGTH=\"%d\"", HTML_RULE (self)->length)
 		: (self->percent > 0 && self->percent != 100 ? g_strdup_printf (" LENGTH=\"%d%%\"", self->percent) : g_strdup (""));
+	align = g_strdup_printf (" ALIGN=\"%s\"", html_halign_name (HTML_RULE (self)->halign));
 
-	rv = html_engine_save_output_string (state, "\n<HR%s%s%s>\n", shade, size, length);
+	rv = html_engine_save_output_string (state, "\n<HR%s%s%s%s>\n", shade, size, length, align);
 
-	if (*size)
-		g_free (size);
-	if (*length)
-		g_free (length);
+	g_free (align);
+	g_free (length);
+	g_free (size);
 
 	return rv;
 }
