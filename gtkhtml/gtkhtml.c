@@ -1139,7 +1139,8 @@ gtk_html_drag_dest_set (GtkHTML *html)
 {
 	if (html_engine_get_editable (html->engine))
 		gtk_drag_dest_set (
-			GTK_WIDGET (html), GTK_DEST_DEFAULT_ALL,
+			GTK_WIDGET (html),
+			GTK_DEST_DEFAULT_HIGHLIGHT | GTK_DEST_DEFAULT_DROP,
 			drag_dest_targets, G_N_ELEMENTS (drag_dest_targets),
 			GDK_ACTION_COPY | GDK_ACTION_MOVE | GDK_ACTION_LINK);
 	else
