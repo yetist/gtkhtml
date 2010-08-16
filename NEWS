@@ -1,3 +1,21 @@
+GtkHTML-3.31.90 2010-08-16
+-------------------------
+
+Bug Fixes:
+	Bug 605335 - Alignment of horizontal rules is not saved (Matthew Barnes)
+	Bug 626090 - Only set -fno-strict-aliasing for GCC (Matthew Barnes)
+
+Miscellaneous Fixes:
+	Add an option for disabling deprecated warning flags. We would handle the deprecated gdk gc past evolution-2.32 (Chenthill Palanisamy)
+	Remove GTK_DEST_DEFAULT_MOTION flag. (Matthew Barnes)
+	Remove -DGDK_DISABLE_DEPRECATED (Matthew Barnes)
+
+Translations:
+	Marek Černocký (cs)
+	Andika Triwidada (id)
+	Claude Paroz (fr)
+	A S Alam (pa)
+
 GtkHTML-3.31.6 2010-08-02
 -------------------------
 
