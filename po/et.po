@@ -1002,7 +1002,7 @@ msgid "Submit Query"
 msgstr "Saada päring"
 
 msgid "Reset"
-msgstr "Algväärtusta"
+msgstr "Lähtesta"
 
 #. TODO2 dialog instead of warning
 msgid "Cannot allocate default font for printing"
