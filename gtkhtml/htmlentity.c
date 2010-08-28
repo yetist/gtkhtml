@@ -86,7 +86,7 @@ inline
 static guint
 hash (register const gchar *str, register guint len)
 {
-  static unsigned short asso_values[] =
+  static gushort asso_values[] =
     {
       739, 739, 739, 739, 739, 739, 739, 739, 739, 739,
       739, 739, 739, 739, 739, 739, 739, 739, 739, 739,

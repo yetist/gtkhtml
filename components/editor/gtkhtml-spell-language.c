@@ -78,7 +78,7 @@ _get_iso_codes_prefix (void)
 		return retval;
 
 	if (!(temp_dir = g_win32_get_package_installation_directory_of_module ((gpointer)hmodule))) {
-		strcpy(retval, ISO_CODES_PREFIX);
+		strcpy (retval, ISO_CODES_PREFIX);
 		return retval;
 	}
 
