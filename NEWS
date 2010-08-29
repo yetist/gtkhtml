@@ -1,5 +1,16 @@
+GtkHTML-3.31.91 2010-08-29
+--------------------------
+
+Translations:
+	Alexander Shopov (bg)
+	David Planella (ca)
+	Ivar Smolin (et)
+	Milo Casagrande (it)
+	Hideki Yamane (ja)
+	Милош Поповић (sr)
+
 GtkHTML-3.31.90 2010-08-16
--------------------------
+--------------------------
 
 Bug Fixes:
 	Bug 605335 - Alignment of horizontal rules is not saved (Matthew Barnes)
