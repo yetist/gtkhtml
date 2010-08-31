@@ -173,7 +173,7 @@ insert_html_file_ready_cb (GFile *file,
 	stream = gtk_html_begin (new_html);
 	gtk_html_write (html, stream, contents, length);
 	gtk_html_end (html, stream, GTK_HTML_STREAM_OK);
-	g_object_unref (stream);
+	gtk_html_stream_destroy (stream);
 
 	g_free (contents);
 
