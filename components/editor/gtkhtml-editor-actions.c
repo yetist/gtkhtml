@@ -19,6 +19,7 @@
  */
 
 #include "gtkhtml-editor-private.h"
+#include "gtkhtml-stream.h"
 
 /******************************************************************************
  * Action Group Quick Reference
