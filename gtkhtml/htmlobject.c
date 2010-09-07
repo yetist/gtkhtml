@@ -76,6 +76,8 @@ destroy (HTMLObject *self)
 
 	if (self->redraw_pending) {
 		self->free_pending = TRUE;
+	} else {
+		g_free (self);
 	}
 }
 

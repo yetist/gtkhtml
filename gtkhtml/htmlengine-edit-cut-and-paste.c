@@ -389,9 +389,9 @@ split_and_add_empty_texts (HTMLEngine *e, gint level, GList **left, GList **righ
 void
 html_engine_copy_object (HTMLEngine *e, HTMLObject **o, guint *len)
 {
-	GList *from, *to;
-
 	if (e->clue && HTML_CLUE (e->clue)->head && html_engine_is_selection_active (e)) {
+		GList *from = NULL, *to = NULL;
+
 		prepare_delete_bounds (e, &from, &to, NULL, NULL);
 		*len = 0;
 		*o    = html_object_op_copy (HTML_OBJECT (from->data), NULL, e,
@@ -400,6 +400,8 @@ html_engine_copy_object (HTMLEngine *e, HTMLObject **o, guint *len)
 		printf ("copy len: %d (parent %p)\n", *len, (*o)->parent);
 		gtk_html_debug_dump_tree_simple (*o, 0);
 #endif
+		g_list_free (from);
+		g_list_free (to);
 	} else {
 		*len = 0;
 		*o = NULL;

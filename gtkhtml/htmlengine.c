@@ -1349,6 +1349,8 @@ element_parse_title (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
 	e->inTitle = TRUE;
+	if (e->title)
+		g_string_free (e->title, TRUE);
 	e->title = g_string_new ("");
 
 	push_block (e, "title", DISPLAY_NONE, block_end_title, 0, 0);
@@ -1441,18 +1443,20 @@ new_parse_body (HTMLEngine *e, const gchar *end[])
 	return rv;
 }
 
-static gchar *
+static gboolean
 discard_body (HTMLEngine *p, const gchar *end[])
 {
 	gchar *str = NULL;
 
-	g_return_val_if_fail (p != NULL && HTML_IS_ENGINE (p), NULL);
+	g_return_val_if_fail (p != NULL && HTML_IS_ENGINE (p), FALSE);
 
 	while (html_tokenizer_has_more_tokens (p->ht) && p->parsing) {
 		str = html_tokenizer_next_token (p->ht);
 
-		if (*str == '\0')
+		if (*str == '\0') {
+			g_free (str);
 			continue;
+		}
 
 		if ((*str == ' ' && *(str+1) == '\0')
 		    || (*str != TAG_ESCAPE)) {
@@ -1460,18 +1464,20 @@ discard_body (HTMLEngine *p, const gchar *end[])
 		}
 		else {
 			gint i  = 0;
-			str++;
 
 			while (end [i] != 0) {
-				if (g_ascii_strncasecmp (str, end[i], strlen(end[i])) == 0) {
-					return str;
+				if (g_ascii_strncasecmp (str + 1, end[i], strlen(end[i])) == 0) {
+					g_free (str);
+					return TRUE;
 				}
 				i++;
 			}
 		}
+
+		g_free (str);
 	}
 
-	return 0;
+	return FALSE;
 }
 
 static gboolean
@@ -1510,12 +1516,12 @@ element_parse_param (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	html_element_free (element);
 }
 
-static gchar *
+static gboolean
 parse_object_params(HTMLEngine *p, HTMLObject *clue)
 {
 	gchar *str;
 
-	g_return_val_if_fail (p != NULL && HTML_IS_ENGINE (p), NULL);
+	g_return_val_if_fail (p != NULL && HTML_IS_ENGINE (p), FALSE);
 
 	/* we peek at tokens looking for <param> elements and
 	 * as soon as we find something that is not whitespace or a param
@@ -1529,21 +1535,25 @@ parse_object_params(HTMLEngine *p, HTMLObject *clue)
 		    is_leading_space ((guchar *) str)) {
 				html_tokenizer_next_token (p->ht);
 				/* printf ("\"%s\": was the string\n", str); */
+				g_free (str);
 				continue;
 		} else if (*str == TAG_ESCAPE) {
-			str++;
-			if (g_ascii_strncasecmp ("<param", str, 6) == 0) {
+			if (g_ascii_strncasecmp ("<param", str + 1, 6) == 0) {
 				/* go ahead and remove the token */
 				html_tokenizer_next_token (p->ht);
 
-				parse_one_token (p, clue, str);
+				parse_one_token (p, clue, str + 1);
+				g_free (str);
 				continue;
 			}
 		}
-		return str;
+
+		g_free (str);
+
+		return TRUE;
 	}
 
-	return NULL;
+	return FALSE;
 }
 
 static void
@@ -4206,6 +4216,10 @@ html_engine_finalize (GObject *object)
 		engine->formText = NULL;
 	}
 
+	if (engine->title) {
+		g_string_free (engine->title, TRUE);
+		engine->title = NULL;
+	}
 	clear_selection (engine);
 	html_engine_map_table_clear (engine);
 	html_engine_id_table_clear (engine);
@@ -5328,8 +5342,10 @@ html_engine_parse (HTMLEngine *e)
 		e->replace_info = NULL;
 	}
 
-	if (e->clue != NULL)
+	if (e->clue != NULL) {
 		html_object_destroy (e->clue);
+		e->clue = NULL;
+	}
 
 	clear_selection (e);
 
