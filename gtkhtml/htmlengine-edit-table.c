@@ -90,6 +90,7 @@ html_engine_insert_table_1_1 (HTMLEngine *e)
 
 	html_engine_append_object (e, table, 2);
 	html_cursor_backward (e->cursor, e);
+	html_engine_table_set_align (e, table, HTML_HALIGN_CENTER);
 }
 
 /**
