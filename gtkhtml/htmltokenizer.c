@@ -483,7 +483,7 @@ html_tokenizer_convert_entity (gchar *token)
 					} else {
 						value = html_entity_parse (read_pos, strlen (read_pos));
 					}
-					if (value != INVALID_ENTITY_CHARACTER_MARKER) {
+					if (*read_pos == '#' || value != INVALID_ENTITY_CHARACTER_MARKER) {
 						write_pos += g_unichar_to_utf8 (value, write_pos);
 						read_pos += (count_chars + 1);
 					} else {
