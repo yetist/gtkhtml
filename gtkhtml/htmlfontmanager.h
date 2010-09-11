@@ -43,7 +43,7 @@ struct _HTMLFont {
 };
 
 struct _HTMLFontSet {
-	HTMLFont *font [GTK_HTML_FONT_STYLE_MAX_FONT];
+	HTMLFont *font[GTK_HTML_FONT_STYLE_MAX_FONT];
 	gint      ref_count;
 	gchar    *face;
 };

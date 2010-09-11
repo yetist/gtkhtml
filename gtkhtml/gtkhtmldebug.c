@@ -206,7 +206,7 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 		tw = 0;
 		offset = 0;
 		while (offset < HTML_TEXT_SLAVE (obj)->posLen) {
-			tw += HTML_TEXT_SLAVE (obj)->owner->pi->entries [ii].widths [io];
+			tw += HTML_TEXT_SLAVE (obj)->owner->pi->entries[ii].widths[io];
 			g_print ("%d ", HTML_TEXT_SLAVE (obj)->owner->pi->entries [ii].widths [io]);
 			html_text_pi_forward (HTML_TEXT_SLAVE (obj)->owner->pi, &ii, &io);
 			offset++;
@@ -238,7 +238,7 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 					PangoLogAttr attr;
 					guint as_int;
 				} u;
-				u.attr = text->pi->attrs [i];
+				u.attr = text->pi->attrs[i];
 				g_print ("log attrs[%d]: %d\n\t", i, u.as_int & 0x7ff);
 				if (u.attr.is_line_break)
 					g_print ("line break, ");
@@ -344,7 +344,7 @@ dump_object_simple (HTMLObject *obj,
 		gchar *text;
 
 		text = alloca (slave->posLen+1);
-		text [slave->posLen] = 0;
+		text[slave->posLen] = 0;
 		strncpy (text, slave->owner->text + slave->posStart, slave->posLen);
 		g_print ("%s `%s'\n",
 			 html_type_name (HTML_OBJECT_TYPE (obj)),

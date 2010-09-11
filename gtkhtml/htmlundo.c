@@ -356,7 +356,7 @@ struct _HTMLUndoLevel {
 	HTMLUndo      *parent_undo;
 	HTMLUndoStack  stack;
 
-	gchar    *description [HTML_UNDO_END];
+	gchar    *description[HTML_UNDO_END];
 };
 typedef struct _HTMLUndoLevel HTMLUndoLevel;
 
@@ -376,8 +376,8 @@ level_destroy (HTMLUndoData *data)
 	destroy_action_list (level->stack.stack);
 	g_list_free (level->stack.stack);
 
-	g_free (level->description [HTML_UNDO_UNDO]);
-	g_free (level->description [HTML_UNDO_REDO]);
+	g_free (level->description[HTML_UNDO_UNDO]);
+	g_free (level->description[HTML_UNDO_REDO]);
 }
 
 static HTMLUndoLevel *
@@ -391,8 +391,8 @@ level_new (HTMLUndo *undo, HTMLUndoStack *stack, const gchar *undo_description, 
 
 	nl->data.destroy                 = level_destroy;
 	nl->parent_undo                  = undo;
-	nl->description [HTML_UNDO_UNDO] = g_strdup (undo_description);
-	nl->description [HTML_UNDO_REDO] = g_strdup (redo_description);
+	nl->description[HTML_UNDO_UNDO] = g_strdup (undo_description);
+	nl->description[HTML_UNDO_REDO] = g_strdup (redo_description);
 
 	return nl;
 }
@@ -491,7 +491,7 @@ html_undo_level_end (HTMLUndo *undo, HTMLEngine *engine)
 		HTMLUndoAction *action;
 
 		/* we use position from last undo action on the stack */
-		action = html_undo_action_new (level->description [HTML_UNDO_UNDO],
+		action = html_undo_action_new (level->description[HTML_UNDO_UNDO],
 					       undo_step_action,
 					       HTML_UNDO_DATA (level),
 					       HTML_UNDO_ACTION (save_undo.stack->data)->position,
@@ -522,9 +522,9 @@ undo_step_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, guin
 
 	/* prepare undo/redo step */
 	if (dir == HTML_UNDO_UNDO)
-		redo_level_begin (undo, level->description [HTML_UNDO_REDO], level->description [HTML_UNDO_UNDO]);
+		redo_level_begin (undo, level->description[HTML_UNDO_REDO], level->description[HTML_UNDO_UNDO]);
 	else
-		html_undo_level_begin (undo, level->description [HTML_UNDO_UNDO], level->description [HTML_UNDO_REDO]);
+		html_undo_level_begin (undo, level->description[HTML_UNDO_UNDO], level->description[HTML_UNDO_REDO]);
 
 	/* preserve current undo/redo stack */
 	stack_copy (stack, &save);

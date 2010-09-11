@@ -121,7 +121,7 @@ draw_cursor_rectangle (HTMLEngine *e, gint x1, gint y1, gint x2, gint y2,
 {
 	GdkGC *gc;
 	GdkColor color;
-	gint8 dashes [2] = { 1, 3 };
+	gint8 dashes[2] = { 1, 3 };
 
 	if (x1 > x2 || y1 > y2 || !e->window)
 		return;

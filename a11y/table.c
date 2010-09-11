@@ -196,7 +196,7 @@ html_a11y_table_ref_at (AtkTable *table, gint row, gint column)
 	g_return_val_if_fail (row < to->totalRows, NULL);
 	g_return_val_if_fail (column < to->totalCols, NULL);
 
-	cell = to->cells [row][column];
+	cell = to->cells[row][column];
 
 	if (cell) {
 		accessible = html_utils_get_accessible (HTML_OBJECT (cell), ATK_OBJECT (table));
@@ -217,9 +217,9 @@ html_a11y_table_get_index_at (AtkTable *table, gint row, gint column)
 
 	g_return_val_if_fail (row < to->totalRows, -1);
 	g_return_val_if_fail (column < to->totalCols, -1);
-	g_return_val_if_fail (to->cells [row][column], -1);
+	g_return_val_if_fail (to->cells[row][column], -1);
 
-	return html_object_get_child_index (HTML_OBJECT (to), HTML_OBJECT (to->cells [row][column]));
+	return html_object_get_child_index (HTML_OBJECT (to), HTML_OBJECT (to->cells[row][column]));
 }
 
 static gint
@@ -282,9 +282,9 @@ html_a11y_table_get_column_extent_at (AtkTable *table, gint row, gint column)
 
 	g_return_val_if_fail (row < to->totalRows, -1);
 	g_return_val_if_fail (column < to->totalCols, -1);
-	g_return_val_if_fail (to->cells [row][column], -1);
+	g_return_val_if_fail (to->cells[row][column], -1);
 
-	return to->cells [row][column]->cspan;
+	return to->cells[row][column]->cspan;
 }
 
 static gint
@@ -297,9 +297,9 @@ html_a11y_table_get_row_extent_at (AtkTable *table, gint row, gint column)
 
 	g_return_val_if_fail (row < to->totalRows, -1);
 	g_return_val_if_fail (column < to->totalCols, -1);
-	g_return_val_if_fail (to->cells [row][column], -1);
+	g_return_val_if_fail (to->cells[row][column], -1);
 
-	return to->cells [row][column]->rspan;
+	return to->cells[row][column]->rspan;
 }
 
 static AtkObject *
@@ -311,10 +311,10 @@ html_a11y_table_get_column_header (AtkTable *table, gint column)
 		return NULL;
 
 	g_return_val_if_fail (column < to->totalCols, NULL);
-	g_return_val_if_fail (to->cells [0][column], NULL);
+	g_return_val_if_fail (to->cells[0][column], NULL);
 
-	return to->cells [0][column]->heading
-		? html_utils_get_accessible (HTML_OBJECT (to->cells [0][column]), ATK_OBJECT (table)) : NULL;
+	return to->cells[0][column]->heading
+		? html_utils_get_accessible (HTML_OBJECT (to->cells[0][column]), ATK_OBJECT (table)) : NULL;
 }
 
 static AtkObject *
@@ -326,10 +326,10 @@ html_a11y_table_get_row_header (AtkTable *table, gint row)
 		return NULL;
 
 	g_return_val_if_fail (row < to->totalRows, NULL);
-	g_return_val_if_fail (to->cells [row][0], NULL);
+	g_return_val_if_fail (to->cells[row][0], NULL);
 
-	return to->cells [row][0]->heading
-		? html_utils_get_accessible (HTML_OBJECT (to->cells [row][0]), ATK_OBJECT (table)) : NULL;
+	return to->cells[row][0]->heading
+		? html_utils_get_accessible (HTML_OBJECT (to->cells[row][0]), ATK_OBJECT (table)) : NULL;
 }
 
 /* unsupported calls

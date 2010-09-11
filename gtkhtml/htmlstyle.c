@@ -29,7 +29,7 @@ gboolean
 html_parse_color (const gchar *text,
 		  GdkColor *color)
 {
-	gchar c [8];
+	gchar c[8];
 	gint  len = strlen (text);
 
 	if (gdk_color_parse (text, color)) {
@@ -64,7 +64,7 @@ html_parse_color (const gchar *text,
 		}
 	}
 
-	c [7] = 0;
+	c[7] = 0;
 	if (*text != '#') {
 		c[0] = '#';
 		strncpy (c + 1, text, 6);

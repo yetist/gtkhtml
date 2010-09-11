@@ -65,9 +65,9 @@ html_font_set_release (HTMLFontSet *set, HTMLPainter *painter)
 	gint i;
 
 	for (i=0; i<GTK_HTML_FONT_STYLE_MAX_FONT; i++) {
-		if (set->font [i])
-			html_font_unref (set->font [i], painter);
-		set->font [i] = NULL;
+		if (set->font[i])
+			html_font_unref (set->font[i], painter);
+		set->font[i] = NULL;
 	}
 }
 
@@ -224,9 +224,9 @@ html_font_set_font (HTMLFontManager *manager, HTMLFontSet *set, GtkHTMLFontStyle
 
 	/* set font in font set */
 	idx = html_font_set_get_idx (style);
-	if (set->font [idx] && font != set->font [idx])
-		html_font_unref (set->font [idx], manager->painter);
-	set->font [idx] = font;
+	if (set->font[idx] && font != set->font[idx])
+		html_font_unref (set->font[idx], manager->painter);
+	set->font[idx] = font;
 }
 
 static HTMLFont *
@@ -236,7 +236,7 @@ get_font (HTMLFontManager *manager, HTMLFontSet **set, gchar *face, GtkHTMLFontS
 
 	*set = get_font_set (manager, face, style);
 	if (*set)
-		font = (*set)->font [html_font_set_get_idx (style)];
+		font = (*set)->font[html_font_set_get_idx (style)];
 	return font;
 }
 
@@ -275,11 +275,11 @@ static gchar *
 strip_white_space (gchar *name)
 {
 	gint end;
-	while (name [0] == ' ' || name [0] == '\t')
+	while (name[0] == ' ' || name[0] == '\t')
 		name++;
 	end = strlen (name);
-	while (end && (name [end - 1] == ' ' || name [end - 1] == '\t')) {
-		name [end - 1] = 0;
+	while (end && (name[end - 1] == ' ' || name[end - 1] == '\t')) {
+		name[end - 1] = 0;
 		end--;
 	}
 

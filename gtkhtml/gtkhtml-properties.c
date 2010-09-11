@@ -57,8 +57,8 @@ get_locale_language (void)
 		if (strlen (lang) >= 2) {
 			if (lang[2] == '-' || lang[2] == '_') {
 				/* canonicalise the lang */
-				lang [0] = g_ascii_tolower (lang [0]);
-				lang [1] = g_ascii_tolower (lang [1]);
+				lang[0] = g_ascii_tolower (lang[0]);
+				lang[1] = g_ascii_tolower (lang[1]);
 
 				/* validate the country code */
 				if (strlen (lang + 3) > 2) {
@@ -66,8 +66,8 @@ get_locale_language (void)
 					lang[2] = '\0';
 				} else {
 					lang[2] = '-';
-					lang [3] = g_ascii_toupper (lang [3]);
-					lang [4] = g_ascii_toupper (lang [4]);
+					lang[3] = g_ascii_toupper (lang[3]);
+					lang[4] = g_ascii_toupper (lang[4]);
 				}
 			} else if (lang[2] != '\0') {
 				/* invalid language */

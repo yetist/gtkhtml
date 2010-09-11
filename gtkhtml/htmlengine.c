@@ -154,7 +154,7 @@ enum {
 	LAST_SIGNAL
 };
 
-static guint signals [LAST_SIGNAL] = { 0 };
+static guint signals[LAST_SIGNAL] = { 0 };
 
 #define TIMER_INTERVAL 300
 #define DT(x);
@@ -812,7 +812,7 @@ close_flow (HTMLEngine *e, HTMLObject *clue)
 	} else if (last != HTML_CLUE (e->flow)->head
 		   && html_object_is_text (last)
 		   && HTML_TEXT (last)->text_len == 1
-		   && HTML_TEXT (last)->text [0] == ' ') {
+		   && HTML_TEXT (last)->text[0] == ' ') {
 		html_clue_remove (HTML_CLUE (e->flow), last);
 		html_object_destroy (last);
 	}
@@ -906,7 +906,7 @@ insert_text (HTMLEngine *e,
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	if (text [0] == ' ' && text [1] == 0) {
+	if (text[0] == ' ' && text[1] == 0) {
 		if (e->eat_space)
 			return;
 		else
@@ -1339,7 +1339,7 @@ block_end_title (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 	 * valid title
 	 */
 	if (e->inTitle && e->title)
-		g_signal_emit (e, signals [TITLE_CHANGED], 0);
+		g_signal_emit (e, signals[TITLE_CHANGED], 0);
 	e->inTitle = FALSE;
 }
 
@@ -1404,7 +1404,7 @@ new_parse_body (HTMLEngine *e, const gchar *end[])
 			gchar *str = token + 1;
 			gint i  = 0;
 
-			while (end [i] != 0) {
+			while (end[i] != 0) {
 				if (g_ascii_strncasecmp (str, end[i], strlen(end[i])) == 0) {
 					rv = str;
 				}
@@ -1465,7 +1465,7 @@ discard_body (HTMLEngine *p, const gchar *end[])
 		else {
 			gint i  = 0;
 
-			while (end [i] != 0) {
+			while (end[i] != 0) {
 				if (g_ascii_strncasecmp (str + 1, end[i], strlen(end[i])) == 0) {
 					g_free (str);
 					return TRUE;
@@ -1632,7 +1632,7 @@ element_parse_object (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
 	gtk_html_debug_log (e->widget,
 			    "requesting object classid: %s\n",
 			    classid ? classid : "(null)");
-	g_signal_emit (e, signals [OBJECT_REQUESTED], 0, eb, &object_found);
+	g_signal_emit (e, signals[OBJECT_REQUESTED], 0, eb, &object_found);
 	gtk_html_debug_log (e->widget, "object_found: %d\n", object_found);
 
 	/* show alt text on TRUE */
@@ -2159,7 +2159,7 @@ element_parse_body (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 				gtk_html_debug_log (e->widget, "Color `%s' could not be parsed\n", token);
 			}
 		} else if (g_ascii_strncasecmp (token, "background=", 11) == 0
-			   && token [12]
+			   && token[12]
 			   && !e->defaultSettings->forceDefault) {
 			gchar *bgurl;
 
@@ -2219,9 +2219,9 @@ element_parse_base (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 	while (html_string_tokenizer_has_more_tokens (e->st)) {
 		const gchar * token = html_string_tokenizer_next_token(e->st);
 		if (g_ascii_strncasecmp( token, "target=", 7 ) == 0) {
-			g_signal_emit (e, signals [SET_BASE_TARGET], 0, token + 7);
+			g_signal_emit (e, signals[SET_BASE_TARGET], 0, token + 7);
 		} else if (g_ascii_strncasecmp( token, "href=", 5 ) == 0) {
-			g_signal_emit (e, signals [SET_BASE], 0, token + 5);
+			g_signal_emit (e, signals[SET_BASE], 0, token + 5);
 		}
 	}
 }
@@ -2849,7 +2849,7 @@ element_parse_meta (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 						refresh_url = g_strdup (token + 4);
 				}
 
-				g_signal_emit (e, signals [REDIRECT], 0, refresh_url, refresh_delay);
+				g_signal_emit (e, signals[REDIRECT], 0, refresh_url, refresh_delay);
 				if (refresh_url)
 					g_free(refresh_url);
 			}
@@ -4268,7 +4268,7 @@ html_engine_class_init (HTMLEngineClass *klass)
 
 	parent_class = g_type_class_ref (G_TYPE_OBJECT);
 
-	signals [SET_BASE] =
+	signals[SET_BASE] =
 		g_signal_new ("set_base",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -4278,7 +4278,7 @@ html_engine_class_init (HTMLEngineClass *klass)
 			      G_TYPE_NONE, 1,
 			      G_TYPE_STRING);
 
-	signals [SET_BASE_TARGET] =
+	signals[SET_BASE_TARGET] =
 		g_signal_new ("set_base_target",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -4288,7 +4288,7 @@ html_engine_class_init (HTMLEngineClass *klass)
 			      G_TYPE_NONE, 1,
 			      G_TYPE_STRING);
 
-	signals [LOAD_DONE] =
+	signals[LOAD_DONE] =
 		g_signal_new ("load_done",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -4297,7 +4297,7 @@ html_engine_class_init (HTMLEngineClass *klass)
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
 
-	signals [TITLE_CHANGED] =
+	signals[TITLE_CHANGED] =
 		g_signal_new ("title_changed",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -4306,7 +4306,7 @@ html_engine_class_init (HTMLEngineClass *klass)
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
 
-	signals [URL_REQUESTED] =
+	signals[URL_REQUESTED] =
 		g_signal_new ("url_requested",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -4317,7 +4317,7 @@ html_engine_class_init (HTMLEngineClass *klass)
 			      G_TYPE_STRING,
 			      G_TYPE_POINTER);
 
-	signals [DRAW_PENDING] =
+	signals[DRAW_PENDING] =
 		g_signal_new ("draw_pending",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -4326,7 +4326,7 @@ html_engine_class_init (HTMLEngineClass *klass)
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
 
-	signals [REDIRECT] =
+	signals[REDIRECT] =
 		g_signal_new ("redirect",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -4337,7 +4337,7 @@ html_engine_class_init (HTMLEngineClass *klass)
 			      G_TYPE_STRING,
 			      G_TYPE_INT);
 
-	signals [SUBMIT] =
+	signals[SUBMIT] =
 		g_signal_new ("submit",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -4349,7 +4349,7 @@ html_engine_class_init (HTMLEngineClass *klass)
 			      G_TYPE_STRING,
 			      G_TYPE_STRING);
 
-	signals [OBJECT_REQUESTED] =
+	signals[OBJECT_REQUESTED] =
 		g_signal_new ("object_requested",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_LAST,
@@ -4359,7 +4359,7 @@ html_engine_class_init (HTMLEngineClass *klass)
 			      G_TYPE_BOOLEAN, 1,
 			      G_TYPE_OBJECT);
 
-	signals [UNDO_CHANGED] =
+	signals[UNDO_CHANGED] =
 		g_signal_new ("undo-changed",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -5045,7 +5045,7 @@ html_engine_stream_end (GtkHTMLStream *stream,
 
 	gtk_widget_queue_resize (GTK_WIDGET (e->widget));
 
-	g_signal_emit (e, signals [LOAD_DONE], 0);
+	g_signal_emit (e, signals[LOAD_DONE], 0);
 }
 
 static void
@@ -5649,7 +5649,7 @@ html_engine_form_submitted (HTMLEngine *e,
 			    const gchar *action,
 			    const gchar *encoding)
 {
-	g_signal_emit (e, signals [SUBMIT], 0, method, action, encoding);
+	g_signal_emit (e, signals[SUBMIT], 0, method, action, encoding);
 }
 
 
@@ -6168,12 +6168,12 @@ html_engine_get_spell_word (HTMLEngine *e)
 	/* move to the end of word */
 	cited2 = FALSE;
 	while (html_selection_spell_word (uc = html_cursor_get_current_char (cursor), &cited2) || (!cited && cited2)) {
-		gchar out [7];
+		gchar out[7];
 		gint size;
 
 		size = g_unichar_to_utf8 (uc, out);
 		g_assert (size < 7);
-		out [size] = 0;
+		out[size] = 0;
 		text = g_string_append (text, out);
 		html_cursor_forward (cursor, e);
 		cited2 = FALSE;
@@ -7033,5 +7033,5 @@ html_engine_emit_undo_changed (HTMLEngine *e)
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	g_signal_emit (e, signals [UNDO_CHANGED], 0);
+	g_signal_emit (e, signals[UNDO_CHANGED], 0);
 }

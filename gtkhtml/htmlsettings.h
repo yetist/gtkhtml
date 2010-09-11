@@ -34,7 +34,7 @@
 #define HTML_NUM_FONT_SIZES 7
 
 struct _HTMLSettings {
-	gint fontSizes [HTML_NUM_FONT_SIZES];
+	gint fontSizes[HTML_NUM_FONT_SIZES];
 	gint fontBaseSize;
 
 	gchar *fontBaseFace;

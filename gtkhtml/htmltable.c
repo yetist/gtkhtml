@@ -72,9 +72,9 @@ static void html_table_set_max_width (HTMLObject *o, HTMLPainter *painter, gint 
 static inline gboolean
 invalid_cell (HTMLTable *table, gint r, gint c)
 {
-	return (table->cells [r][c] == NULL
-		|| c != table->cells [r][c]->col
-		|| r != table->cells [r][c]->row);
+	return (table->cells[r][c] == NULL
+		|| c != table->cells[r][c]->col
+		|| r != table->cells[r][c]->row);
 }
 
 /* HTMLObject methods.  */
@@ -94,7 +94,7 @@ destroy (HTMLObject *o)
 				if (c == 0)
 					break;
 			}
-			g_free (table->cells [r]);
+			g_free (table->cells[r]);
 			if (r == 0)
 				break;
 		}
@@ -140,7 +140,7 @@ copy_sized (HTMLObject *self, HTMLObject *dest, gint rows, gint cols)
 
 	d->cells = g_new (HTMLTableCell **, rows);
 	for (r = 0; r < rows; r++)
-		d->cells [r] = g_new0 (HTMLTableCell *, cols);
+		d->cells[r] = g_new0 (HTMLTableCell *, cols);
 
 	dest->change = HTML_CHANGE_ALL_CALC;
 }
@@ -201,12 +201,12 @@ op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList
 #endif
 	for (r = 0; r < rows; r++)
 		for (c = 0; c < cols; c++) {
-			HTMLTableCell *cell = t->cells [start->row + r][c + start_col];
+			HTMLTableCell *cell = t->cells[start->row + r][c + start_col];
 
 			if (!cell || (end->row != start->row
 				      && ((r == 0 && c < start->col) || (r == rows - 1 && c > end->col)))) {
 				html_table_set_cell (nt, r, c, html_engine_new_cell (e, nt));
-				html_table_cell_set_position (nt->cells [r][c], r, c);
+				html_table_cell_set_position (nt->cells[r][c], r, c);
 			} else {
 				if (cell->row == r + start->row && cell->col == c + start_col) {
 					HTMLTableCell *cell_copy;
@@ -219,10 +219,10 @@ op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList
 					html_table_cell_set_position (cell_copy, r, c);
 				} else {
 					if (cell->row - start->row >= 0 && cell->col - start_col >= 0) {
-						nt->cells [r][c] = nt->cells [cell->row - start->row][cell->col - start_col];
+						nt->cells[r][c] = nt->cells[cell->row - start->row][cell->col - start_col];
 					} else {
 						html_table_set_cell (nt, r, c, html_engine_new_cell (e, nt));
-						html_table_cell_set_position (nt->cells [r][c], r, c);
+						html_table_cell_set_position (nt->cells[r][c], r, c);
 					}
 				}
 			}
@@ -245,7 +245,7 @@ get_n_children (HTMLObject *self)
 
 	for (r = 0; r < t->totalRows; r++)
 		for (c = 0; c < t->totalCols; c++)
-			if (t->cells [r][c] && t->cells [r][c]->row == r && t->cells [r][c]->col == c)
+			if (t->cells[r][c] && t->cells[r][c]->row == r && t->cells[r][c]->col == c)
 				n_children++;
 
 	/* printf ("table n_children %d\n", n_children); */
@@ -262,9 +262,9 @@ get_child (HTMLObject *self, gint index)
 
 	for (r = 0; r < t->totalRows && !child; r++)
 		for (c = 0; c < t->totalCols; c++)
-			if (t->cells [r][c] && t->cells [r][c]->row == r && t->cells [r][c]->col == c) {
+			if (t->cells[r][c] && t->cells[r][c]->row == r && t->cells[r][c]->col == c) {
 				if (n == index) {
-					child = HTML_OBJECT (t->cells [r][c]);
+					child = HTML_OBJECT (t->cells[r][c]);
 					break;
 				}
 				n++;
@@ -284,8 +284,8 @@ get_child_index (HTMLObject *self, HTMLObject *child)
 
 	for (r = 0; r < t->totalRows; r++)
 		for (c = 0; c < t->totalCols; c++) {
-			if (t->cells [r][c] && t->cells [r][c]->row == r && t->cells [r][c]->col == c) {
-				if (HTML_OBJECT (t->cells [r][c]) == child) {
+			if (t->cells[r][c] && t->cells[r][c]->row == r && t->cells[r][c]->col == c) {
+				if (HTML_OBJECT (t->cells[r][c]) == child) {
 					/* printf ("table child %p index %d\n", child, n); */
 					return n;
 				}
@@ -306,8 +306,8 @@ get_recursive_length (HTMLObject *self)
 
 	for (r = 0; r < t->totalRows; r++)
 		for (c = 0; c < t->totalCols; c++)
-			if (t->cells [r][c] && t->cells [r][c]->row == r && t->cells [r][c]->col == c)
-				len += html_object_get_recursive_length (HTML_OBJECT (t->cells [r][c])) + 1;
+			if (t->cells[r][c] && t->cells[r][c]->row == r && t->cells[r][c]->col == c)
+				len += html_object_get_recursive_length (HTML_OBJECT (t->cells[r][c])) + 1;
 
 	/* if (len > 0)
 	   len--; */
@@ -338,7 +338,7 @@ remove_cell (HTMLTable *t, HTMLTableCell *cell)
 				cell->row + r, cell->col + c, cell->rspan, cell->cspan, r, c);
 #endif
 
-			t->cells [cell->row + r][cell->col + c] = NULL;
+			t->cells[cell->row + r][cell->col + c] = NULL;
 		}
 	HTML_OBJECT (cell)->parent = NULL;
 }
@@ -384,12 +384,12 @@ cut_partial (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *lef
 
 	for (r = 0; r < t->totalRows; r++) {
 		for (c = 0; c < t->totalCols; c++) {
-			cell = t->cells [r][c];
+			cell = t->cells[r][c];
 			if (cell && cell->row == r && cell->col == c) {
 				if (((r == start_row && c < start_col) || r < start_row)
 				    || ((r == end_row && c > end_col) || r > end_row)) {
 					html_table_set_cell (nt, r, c, html_engine_new_cell (e, nt));
-					html_table_cell_set_position (nt->cells [r][c], r, c);
+					html_table_cell_set_position (nt->cells[r][c], r, c);
 				} else {
 					HTMLTableCell *cell_cut;
 
@@ -402,9 +402,9 @@ cut_partial (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *lef
 					html_table_set_cell (nt, r, c, cell_cut);
 					html_table_cell_set_position (cell_cut, r, c);
 
-					if (t->cells [r][c] == NULL) {
+					if (t->cells[r][c] == NULL) {
 						html_table_set_cell (t, r, c, html_engine_new_cell (e, t));
-						html_table_cell_set_position (t->cells [r][c], r, c);
+						html_table_cell_set_position (t->cells[r][c], r, c);
 					}
 				}
 				(*len) ++;
@@ -474,20 +474,20 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 		for (c = 0; c < t->totalCols; c++) {
 			HTMLTableCell *cc;
 
-			cc = t->cells [r][c];
+			cc = t->cells[r][c];
 			if (cc && cc->row == r && cc->col == c) {
 				if ((r == cell->row && c < cell->col) || r < cell->row) {
 					/* empty cell in dup table */
 					html_table_set_cell (dup_table, r, c, html_engine_new_cell (e, dup_table));
-					html_table_cell_set_position (dup_table->cells [r][c], r, c);
+					html_table_cell_set_position (dup_table->cells[r][c], r, c);
 				} else if ((r == dup_cell->row && c > dup_cell->col) || r > dup_cell->row) {
 					/* move cc to dup table */
 					remove_cell (t, cc);
 					html_table_set_cell (dup_table, r, c, cc);
-					html_table_cell_set_position (dup_table->cells [r][c], r, c);
+					html_table_cell_set_position (dup_table->cells[r][c], r, c);
 					/* place empty cell in t table */
 					html_table_set_cell (t, r, c, html_engine_new_cell (e, t));
-					html_table_cell_set_position (t->cells [r][c], r, c);
+					html_table_cell_set_position (t->cells[r][c], r, c);
 
 				} else {
 					if (r == cell->row && c == cell->col) {
@@ -495,7 +495,7 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 							/* empty cell in dup table */
 							html_table_set_cell (dup_table, r, c,
 									     html_engine_new_cell (e, dup_table));
-							html_table_cell_set_position (dup_table->cells [r][c], r, c);
+							html_table_cell_set_position (dup_table->cells[r][c], r, c);
 						}
 
 					}
@@ -506,12 +506,12 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 							remove_cell (t, cell);
 
 						html_table_set_cell (dup_table, r, c, dup_cell);
-						html_table_cell_set_position (dup_table->cells [r][c], r, c);
+						html_table_cell_set_position (dup_table->cells[r][c], r, c);
 
 						if (r != cell->row || c != cell->col) {
 							/* empty cell in orig table */
 							html_table_set_cell (t, r, c, html_engine_new_cell (e, t));
-							html_table_cell_set_position (t->cells [r][c], r, c);
+							html_table_cell_set_position (t->cells[r][c], r, c);
 						}
 					}
 				}
@@ -562,8 +562,8 @@ could_merge (HTMLTable *t1, HTMLTable *t2)
 		for (c = 0; c < t1->totalCols; c++) {
 			HTMLTableCell *c1, *c2;
 
-			c1 = t1->cells [r][c];
-			c2 = t2->cells [r][c];
+			c1 = t1->cells[r][c];
+			c2 = t2->cells[r][c];
 			if (!c1 || !c2)
 				return FALSE;
 
@@ -612,7 +612,7 @@ move_cell (HTMLTable *t1, HTMLTable *t2, HTMLTableCell *c1, HTMLTableCell *c2,
 	html_object_destroy (HTML_OBJECT (c1));
 	remove_cell (t2, c2);
 	html_table_set_cell (t1, r, c, c2);
-	html_table_cell_set_position (t1->cells [r][c], r, c);
+	html_table_cell_set_position (t1->cells[r][c], r, c);
 }
 
 static gboolean
@@ -657,8 +657,8 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 		for (c = 0; c < t1->totalCols; c++) {
 			HTMLTableCell *c1, *c2;
 
-			c1 = t1->cells [r][c];
-			c2 = t2->cells [r][c];
+			c1 = t1->cells[r][c];
+			c2 = t2->cells[r][c];
 
 			if (first) {
 				if (!html_clue_is_empty (HTML_CLUE (c2))) {
@@ -772,8 +772,8 @@ previous_rows_do_cspan (HTMLTable *table, gint c)
 	gint i;
 	if (c)
 		for (i=0; i < table->totalRows - 1; i++)
-			if (table->cells [i][c - 1])
-				do_cspan (table, i, c, table->cells [i][c - 1]);
+			if (table->cells[i][c - 1])
+				do_cspan (table, i, c, table->cells[i][c - 1]);
 }
 
 static void
@@ -782,8 +782,8 @@ expand_columns (HTMLTable *table, gint num)
 	gint r;
 
 	for (r = 0; r < table->allocRows; r++) {
-		table->cells [r] = g_renew (HTMLTableCell *, table->cells [r], table->totalCols + num);
-		memset (table->cells [r] + table->totalCols, 0, num * sizeof (HTMLTableCell *));
+		table->cells[r] = g_renew (HTMLTableCell *, table->cells[r], table->totalCols + num);
+		memset (table->cells[r] + table->totalCols, 0, num * sizeof (HTMLTableCell *));
 	}
 	table->totalCols += num;
 }
@@ -803,8 +803,8 @@ expand_rows (HTMLTable *table, gint num)
 	table->cells = g_renew (HTMLTableCell **, table->cells, table->allocRows + num);
 
 	for (r = table->allocRows; r < table->allocRows + num; r++) {
-		table->cells [r] = g_new (HTMLTableCell *, table->totalCols);
-		memset (table->cells [r], 0, table->totalCols * sizeof (HTMLTableCell *));
+		table->cells[r] = g_new (HTMLTableCell *, table->totalCols);
+		memset (table->cells[r], 0, table->totalCols * sizeof (HTMLTableCell *));
 	}
 
 	table->allocRows += num;
@@ -878,8 +878,8 @@ calc_column_width_step (HTMLTable *table, HTMLPainter *painter, GArray *array, g
 				new_width -= added;
 				added     += new_width;
 
-				if (sizes [cell->col + i] < new_width)
-					sizes [cell->col + i] = new_width;
+				if (sizes[cell->col + i] < new_width)
+					sizes[cell->col + i] = new_width;
 			}
 			/* printf ("%d added %d col_width %d span_width %d\n",
 			   col_width - added, added, col_width, span_width); */
@@ -911,9 +911,9 @@ calc_column_width_template (HTMLTable *table, HTMLPainter *painter, GArray *arra
 		add  = 0;
 		for (c = 0; c < table->totalCols; c++) {
 			ARR (c + 1) += add;
-			if (ARR (c + 1) - ARR (c) < arr [c]) {
-				add += arr [c] - (ARR (c + 1) - ARR (c));
-				ARR (c + 1) = ARR (c) + arr [c];
+			if (ARR (c + 1) - ARR (c) < arr[c]) {
+				add += arr[c] - (ARR (c + 1) - ARR (c));
+				ARR (c + 1) = ARR (c) + arr[c];
 			}
 		}
 		g_free (arr);
@@ -942,10 +942,10 @@ prev_col_do_cspan (HTMLTable *table, gint row)
 	g_assert (row >= 0);
 
 	/* add previous column cell which has cspan > 1 */
-	while (table->col < table->totalCols && table->cells [row][table->col] != 0) {
-		html_table_alloc_cell (table, row, table->col + table->cells [row][table->col]->cspan);
-		do_cspan (table, row, table->col + 1, table->cells [row][table->col]);
-		table->col += (table->cells [row][table->col])->cspan;
+	while (table->col < table->totalCols && table->cells[row][table->col] != 0) {
+		html_table_alloc_cell (table, row, table->col + table->cells[row][table->col]->cspan);
+		do_cspan (table, row, table->col + 1, table->cells[row][table->col]);
+		table->col += (table->cells[row][table->col])->cspan;
 	}
 }
 
@@ -957,22 +957,22 @@ do_rspan (HTMLTable *table, gint row)
 	g_assert (row > 0);
 
 	for (i=0; i<table->totalCols; i++)
-		if (table->cells [row - 1][i]
-		    && (table->cells [row - 1][i])->row + (table->cells [row - 1][i])->rspan
+		if (table->cells[row - 1][i]
+		    && (table->cells[row - 1][i])->row + (table->cells[row - 1][i])->rspan
 		    > row) {
-			html_table_set_cell (table, table->row, i, table->cells [table->row - 1][i]);
-			do_cspan (table, table->row, i + 1, table->cells [table->row -1][i]);
+			html_table_set_cell (table, table->row, i, table->cells[table->row - 1][i]);
+			do_cspan (table, table->row, i + 1, table->cells[table->row -1][i]);
 		}
 }
 
 void
 html_table_set_cell (HTMLTable *table, gint r, gint c, HTMLTableCell *cell)
 {
-	if (!table->cells [r][c]) {
+	if (!table->cells[r][c]) {
 #ifdef GTKHTML_DEBUG_TABLE
 		printf ("set cell:    %d,%d %p\n", r, c, cell);
 #endif
-		table->cells [r][c] = cell;
+		table->cells[r][c] = cell;
 		HTML_OBJECT (cell)->parent = HTML_OBJECT (table);
 	}
 }
@@ -1244,9 +1244,9 @@ draw (HTMLObject *o,
 
 			if (cell == NULL)
 				continue;
-			if (c < end_col && cell == table->cells [r][c + 1])
+			if (c < end_col && cell == table->cells[r][c + 1])
 				continue;
-			if (r < end_row && table->cells [r + 1][c] == cell)
+			if (r < end_row && table->cells[r + 1][c] == cell)
 				continue;
 
 			html_object_draw (HTML_OBJECT (cell), p,
@@ -1361,7 +1361,7 @@ calc_percentage_step (HTMLTable *table, gint *col_percent, gint *span_percent, g
 				continue;
 
 			cl = cell_end_col (table, cell);
-			if (col_percent [cl] - col_percent [c] < cell->fixed_width) {
+			if (col_percent[cl] - col_percent[c] < cell->fixed_width) {
 				gint cp, part, added, pleft, not_percented, np;
 				part = 0;
 				not_percented = 0;
@@ -1371,7 +1371,7 @@ calc_percentage_step (HTMLTable *table, gint *col_percent, gint *span_percent, g
 
 				np    = 1;
 				added = 0;
-				pleft = cell->fixed_width - (col_percent [cl] - col_percent [c]);
+				pleft = cell->fixed_width - (col_percent[cl] - col_percent[c]);
 				for (cp = 0; cp < span; cp++) {
 					if (not_percented) {
 						if (!PERC (c + cp)) {
@@ -1382,17 +1382,17 @@ calc_percentage_step (HTMLTable *table, gint *col_percent, gint *span_percent, g
 							np++;
 						}
 					} else {
-						part = ((col_percent [c + cp + 1] - col_percent [c]) * pleft)
-							/ (col_percent [cl] - col_percent [cell->col]);
-						if ((col_percent [c + cp + 1] - col_percent [c]) * pleft
-						    - part * (col_percent [cl] - col_percent [c])
-						    > (part + 1) * (col_percent [cl] - col_percent [c])
-						    - (col_percent [c + cp + 1] - col_percent [c]) * pleft)
+						part = ((col_percent[c + cp + 1] - col_percent[c]) * pleft)
+							/ (col_percent[cl] - col_percent[cell->col]);
+						if ((col_percent[c + cp + 1] - col_percent[c]) * pleft
+						    - part * (col_percent[cl] - col_percent[c])
+						    > (part + 1) * (col_percent[cl] - col_percent[c])
+						    - (col_percent[c + cp + 1] - col_percent[c]) * pleft)
 							part++;
 					}
 					part  -= added;
 					added += part;
-					span_percent [c + cp] = PERC (c + cp) + part;
+					span_percent[c + cp] = PERC (c + cp) + part;
 				}
 			}
 		}
@@ -1409,16 +1409,16 @@ calc_col_percentage (HTMLTable *table, gint *col_percent)
 	percent = g_new0 (gint, table->totalCols);
 	for (span = 1; next && span <= table->totalCols; span++) {
 		for (c = 0; c < table->totalCols; c++)
-			percent [c] = 0;
+			percent[c] = 0;
 
 		next    = calc_percentage_step (table, col_percent, percent, span);
 		add     = 0;
 
 		for (c = 0; c < table->totalCols; c++) {
-			col_percent [c + 1] += add;
-			if (PERC (c) < percent [c]) {
-				add += percent [c] - PERC (c);
-				col_percent [c + 1] = col_percent [c] + percent [c];
+			col_percent[c + 1] += add;
+			if (PERC (c) < percent[c]) {
+				add += percent[c] - PERC (c);
+				col_percent[c + 1] = col_percent[c] + percent[c];
 			}
 		}
 	}
@@ -1432,7 +1432,7 @@ calc_not_percented (HTMLTable *table, gint *col_percent)
 
 	not_percented = 0;
 	for (c = 0; c < table->totalCols; c++)
-		if (col_percent [c + 1] == col_percent [c])
+		if (col_percent[c + 1] == col_percent[c])
 			not_percented++;
 
 	return not_percented;
@@ -1446,8 +1446,8 @@ divide_into_percented (HTMLTable *table, gint *col_percent, gint *max_size, gint
 	to_fill = 0;
 	for (c = 0; c < table->totalCols; c++) {
 		request = (LL max_width * (PERC (c))) / 100;
-		if (max_size [c] < request)
-			to_fill += request - max_size [c];
+		if (max_size[c] < request)
+			to_fill += request - max_size[c];
 	}
 
 	/* printf ("to fill %d\n", to_fill); */
@@ -1457,15 +1457,15 @@ divide_into_percented (HTMLTable *table, gint *col_percent, gint *max_size, gint
 	if (left) {
 		for (c = 0; c < table->totalCols; c++) {
 			request = (LL max_width * (PERC (c))) / 100;
-			if (max_size [c] < request) {
-				add     = LL left * (request - max_size [c] + filled) / to_fill;
-				if (LL left * (request - max_size [c] + filled) - LL add * to_fill >
-				    LL (add + 1) * to_fill - LL left * (request - max_size [c] + filled))
+			if (max_size[c] < request) {
+				add     = LL left * (request - max_size[c] + filled) / to_fill;
+				if (LL left * (request - max_size[c] + filled) - LL add * to_fill >
+				    LL (add + 1) * to_fill - LL left * (request - max_size[c] + filled))
 					add++;
 				add          -= added;
 				added        += add;
-				filled       += request - max_size [c];
-				max_size [c] += add;
+				filled       += request - max_size[c];
+				max_size[c] += add;
 			}
 		}
 	}
@@ -1485,18 +1485,18 @@ calc_lowest_fill (HTMLTable *table, GArray *pref, gint *max_size, gint *col_perc
 	*ret_total_pref = 0;
 	*ret_total = 0;
 	for (c = 0; c < table->totalCols; c++)
-		if (col_percent [c + 1] == col_percent [c]) {
+		if (col_percent[c + 1] == col_percent[c]) {
 			pw = PREF (c + 1) - PREF (c)
 				- pixel_size * (table->spacing + border_extra);
 			/* printf ("col %d pw %d size %d\n", c, pw, max_size [c]); */
-			if (max_size [c] < pw) {
-				if (pw - max_size [c] < min_fill) {
+			if (max_size[c] < pw) {
+				if (pw - max_size[c] < min_fill) {
 					*ret_col = c;
-					min_fill = pw - max_size [c];
+					min_fill = pw - max_size[c];
 				}
 
 				(*ret_total_pref) += pw;
-				(*ret_total) += max_size [c];
+				(*ret_total) += max_size[c];
 			}
 		}
 
@@ -1516,11 +1516,11 @@ divide_upto_preferred_width (HTMLTable *table, HTMLPainter *painter, GArray *pre
 			- pixel_size * (table->spacing + border_extra);
 		/* printf ("min: %d left: %d\n", min_col, left); */
 		to_divide = MIN (total_pref - total, left);
-		if (min_pw - max_size [min_col] < ((gdouble) min_pw * to_divide) / total_pref) {
-			added = min_pw - max_size [min_col];
+		if (min_pw - max_size[min_col] < ((gdouble) min_pw * to_divide) / total_pref) {
+			added = min_pw - max_size[min_col];
 			left -= added;
 			min_fill = to_divide - added;
-			max_size [min_col] += added;
+			max_size[min_col] += added;
 			total_pref -= min_pw;
 		} else {
 			min_fill = to_divide;
@@ -1531,20 +1531,20 @@ divide_upto_preferred_width (HTMLTable *table, HTMLPainter *painter, GArray *pre
 		added = 0;
 
 		for (c = 0; c < table->totalCols; c++) {
-			if (col_percent [c + 1] == col_percent [c]) {
+			if (col_percent[c + 1] == col_percent[c]) {
 				pw = PREF (c + 1) - PREF (c)
 					- pixel_size * (table->spacing + border_extra);
-				if (max_size [c] < pw) {
+				if (max_size[c] < pw) {
 					processed_pw += pw;
 					part = (LL min_fill * processed_pw) / total_pref;
 					if (LL min_fill * processed_pw - LL part * total_pref
 					    > LL (part + 1) * total_pref - LL min_fill * processed_pw)
 						part++;
 					part         -= added;
-					if (max_size [c] + part > pw)
-						part = pw - max_size [c];
+					if (max_size[c] + part > pw)
+						part = pw - max_size[c];
 					added        += part;
-					max_size [c] += part;
+					max_size[c] += part;
 					left         -= part;
 					/* printf ("cell %d add: %d --> %d\n", c, part, max_size [c]); */
 				}
@@ -1569,12 +1569,12 @@ divide_left_by_preferred_width (HTMLTable *table, HTMLPainter *painter,
 #define FW(c) COLUMN_FIX (table, c + 1) - COLUMN_FIX (table, c)
 	pref = 0;
 	for (c = 0; c < table->totalCols; c++)
-		if (col_percent [c + 1] == col_percent [c] && PW (c) > FW (c))
+		if (col_percent[c + 1] == col_percent[c] && PW (c) > FW (c))
 			pref += COLUMN_PREF (table, c + 1) - COLUMN_PREF (table, c)
 				- pixel_size * (table->spacing + border_extra);
 			/* printf ("col pref: %d size: %d\n", COLUMN_PREF (table, c + 1)
 			   - COLUMN_PREF (table, c)
-			   - pixel_size * (table->spacing + border_extra), max_size [c]); */
+			   - pixel_size * (table->spacing + border_extra), max_size[c]); */
 
 	added        = 0;
 	processed_pw = 0;
@@ -1582,7 +1582,7 @@ divide_left_by_preferred_width (HTMLTable *table, HTMLPainter *painter,
 
 	if (pref)
 		for (c = 0; c < table->totalCols; c++) {
-			if (col_percent [c + 1] == col_percent [c] && PW (c) > FW (c)) {
+			if (col_percent[c + 1] == col_percent[c] && PW (c) > FW (c)) {
 				pw  = COLUMN_PREF (table, c + 1) - COLUMN_PREF (table, c)
 					- pixel_size * (table->spacing + border_extra);
 				processed_pw += pw;
@@ -1593,7 +1593,7 @@ divide_left_by_preferred_width (HTMLTable *table, HTMLPainter *painter,
 				    > LL (part + 1) * pref - LL total_fill * processed_pw)
 					part++;
 				part         -= added;
-				max_size [c] += part;
+				max_size[c] += part;
 				added        += part;
 				left         -= part;
 				/* printf ("col %d (add %d) --> %d (pw=%d)\n", c, part, max_size [c], pw); */
@@ -1626,22 +1626,22 @@ divide_into_percented_all (HTMLTable *table, gint *col_percent, gint *max_size, 
 
 	active = g_new (gboolean, table->totalCols);
 	for (c = 0; c < table->totalCols; c++)
-		active [c] = TRUE;
+		active[c] = TRUE;
 
-	percent = col_percent [table->totalCols];
+	percent = col_percent[table->totalCols];
 	width   = max_width;
 	do {
 		sub_percent = 0.0;
 		sub_width   = width;
 		all_active  = TRUE;
 		for (c = 0; c < table->totalCols; c++) {
-			if (active [c]) {
-				if (max_size [c] < ((gdouble) width * PERC (c)) / percent)
+			if (active[c]) {
+				if (max_size[c] < ((gdouble) width * PERC (c)) / percent)
 					sub_percent += PERC (c);
 				else {
-					sub_width -= max_size [c];
+					sub_width -= max_size[c];
 					all_active = FALSE;
-					active [c] = FALSE;
+					active[c] = FALSE;
 				}
 			}
 		}
@@ -1651,8 +1651,8 @@ divide_into_percented_all (HTMLTable *table, gint *col_percent, gint *max_size, 
 
 	/* printf ("sub_width %d\n", sub_width); */
 	for (c = 0; c < table->totalCols; c++)
-		if (active [c] && max_size [c] < ((gdouble) width * PERC (c)) / percent)
-			max_size [c] = ((gdouble) width) * (PERC (c)) / percent;
+		if (active[c] && max_size[c] < ((gdouble) width * PERC (c)) / percent)
+			max_size[c] = ((gdouble) width) * (PERC (c)) / percent;
 
 	g_free (active);
 }
@@ -1671,7 +1671,7 @@ html_table_set_cells_max_width (HTMLTable *table, HTMLPainter *painter, gint *ma
 		for (c = 0; c < table->totalCols; c++) {
 			cell = table->cells[r][c];
 			if (cell) {
-				size = max_size [c] + (cell->col != c ? size : 0);
+				size = max_size[c] + (cell->col != c ? size : 0);
 				if (cell_end_col (table, cell) - 1 == c && cell->row == r)
 					html_object_set_max_width (HTML_OBJECT (cell), painter, size
 								   + pixel_size * (table->spacing + border_extra) * CSPAN);
@@ -1688,7 +1688,7 @@ set_columns_optimal_width (HTMLTable *table, gint *max_size, gint pixel_size)
 	COLUMN_OPT (table, 0) = COLUMN_MIN (table, 0);
 
 	for (c = 0; c < table->totalCols; c++)
-		COLUMN_OPT (table, c + 1) = COLUMN_OPT (table, c) + max_size [c]
+		COLUMN_OPT (table, c + 1) = COLUMN_OPT (table, c) + max_size[c]
 			+ pixel_size * (table->spacing + (table->border ? 2 : 0));
 }
 
@@ -1703,7 +1703,7 @@ divide_left_width (HTMLTable *table, HTMLPainter *painter, gint *max_size, gint 
 
 	col_percent  = g_new (gint, table->totalCols + 1);
 	for (c = 0; c <= table->totalCols; c++)
-		col_percent [c] = 0;
+		col_percent[c] = 0;
 
 	calc_col_percentage (table, col_percent);
 	/* printf ("width_left: %d percented: %d\n", width_left, col_percent [table->totalCols]); */
@@ -1729,7 +1729,7 @@ alloc_max_size (HTMLTable *table, gint pixel_size)
 
 	max_size = g_new (gint, table->totalCols);
 	for (c = 0; c < table->totalCols; c++)
-		max_size [c] = COLUMN_MIN (table, c+1) - COLUMN_MIN (table, c) - pixel_size * (table->spacing + border_extra);
+		max_size[c] = COLUMN_MIN (table, c+1) - COLUMN_MIN (table, c) - pixel_size * (table->spacing + border_extra);
 
 	return max_size;
 }
@@ -2031,7 +2031,7 @@ append_selection_string (HTMLObject *self,
 			/* remove last \n from added text */
 			if (buffer->len != len) {
 				tab = TRUE;
-				if (buffer->str [buffer->len-1] == '\n')
+				if (buffer->str[buffer->len-1] == '\n')
 					g_string_truncate (buffer, buffer->len - 1);
 			}
 		}
@@ -2053,7 +2053,7 @@ head (HTMLObject *self)
 		for (c = 0; c < table->totalCols; c++) {
 			if (invalid_cell (table, r, c))
 				continue;
-			return HTML_OBJECT (table->cells [r][c]);
+			return HTML_OBJECT (table->cells[r][c]);
 		}
 	return NULL;
 }
@@ -2069,7 +2069,7 @@ tail (HTMLObject *self)
 		for (c = table->totalCols - 1; c >= 0; c--) {
 			if (invalid_cell (table, r, c))
 				continue;
-			return HTML_OBJECT (table->cells [r][c]);
+			return HTML_OBJECT (table->cells[r][c]);
 		}
 	return NULL;
 }
@@ -2087,7 +2087,7 @@ next (HTMLObject *self, HTMLObject *child)
 		for (; c < table->totalCols; c++) {
 			if (invalid_cell (table, r, c))
 				continue;
-			return HTML_OBJECT (table->cells [r][c]);
+			return HTML_OBJECT (table->cells[r][c]);
 		}
 		c = 0;
 	}
@@ -2107,7 +2107,7 @@ prev (HTMLObject *self, HTMLObject *child)
 		for (; c >=0; c--) {
 			if (invalid_cell (table, r, c))
 				continue;
-			return HTML_OBJECT (table->cells [r][c]);
+			return HTML_OBJECT (table->cells[r][c]);
 		}
 		c = table->totalCols-1;
 	}
@@ -2156,11 +2156,11 @@ save (HTMLObject *self,
 	for (r = 0; r < table->totalRows; r++) {
 		SB "<TR>\n" SE;
 		for (c = 0; c < table->totalCols; c++) {
-			if (!table->cells [r][c]
-			    || table->cells [r][c]->row != r
-			    || table->cells [r][c]->col != c)
+			if (!table->cells[r][c]
+			    || table->cells[r][c]->row != r
+			    || table->cells[r][c]->col != c)
 				continue;
-			if (!html_object_save (HTML_OBJECT (table->cells [r][c]), state))
+			if (!html_object_save (HTML_OBJECT (table->cells[r][c]), state))
 				return FALSE;
 		}
 		SB "</TR>\n" SE;
@@ -2183,12 +2183,12 @@ save_plain (HTMLObject *self,
 
 	for (r = 0; r < table->totalRows; r++) {
 		for (c = 0; c < table->totalCols; c++) {
-			if (!table->cells [r][c]
-			    || table->cells [r][c]->row != r
-			    || table->cells [r][c]->col != c)
+			if (!table->cells[r][c]
+			    || table->cells[r][c]->row != r
+			    || table->cells[r][c]->col != c)
 				continue;
 			/*  FIXME the width calculation for the column here is completely broken */
-			result &= html_object_save_plain (HTML_OBJECT (table->cells [r][c]), state, requested_width / table->totalCols);
+			result &= html_object_save_plain (HTML_OBJECT (table->cells[r][c]), state, requested_width / table->totalCols);
 		}
 	}
 
@@ -2385,7 +2385,7 @@ html_table_add_cell (HTMLTable *table, HTMLTableCell *cell)
 	prev_col_do_cspan (table, table->row);
 
 	/* look for first free cell */
-	while (table->cells [table->row][table->col] && table->col < table->totalCols)
+	while (table->cells[table->row][table->col] && table->col < table->totalCols)
 		table->col++;
 
 	html_table_alloc_cell (table, table->row, table->col);
@@ -2415,9 +2415,9 @@ html_table_end_table (HTMLTable *table)
 
 	for (r = 0; r < table->totalRows; r++)
 		for (c = 0; c < table->totalCols; c++)
-			if (table->cells [r][c]) {
-				if (HTML_CLUE (table->cells [r][c])->head == NULL) {
-					HTMLTableCell *cell = table->cells [r][c];
+			if (table->cells[r][c]) {
+				if (HTML_CLUE (table->cells[r][c])->head == NULL) {
+					HTMLTableCell *cell = table->cells[r][c];
 
 					remove_cell (table, cell);
 					html_object_destroy (HTML_OBJECT (cell));

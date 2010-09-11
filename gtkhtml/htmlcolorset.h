@@ -28,8 +28,8 @@
 
 struct _HTMLColorSet
 {
-	HTMLColor *color [HTMLColors];
-	gboolean changed [HTMLColors];
+	HTMLColor *color[HTMLColors];
+	gboolean changed[HTMLColors];
 
 	/* slave sets - they must be updated when setting this one
 	   engine has master set and painters have slave ones

@@ -542,7 +542,7 @@ test_quotes_in_div_block (GtkHTML *html)
 	flow_levels = HTML_CLUEFLOW (HTML_CLUE (HTML_CLUE (e->clue)->head)->head)->levels;
 
 	/* test if levels are OK */
-	if (!flow_levels || !flow_levels->len == 1 || flow_levels->data [0] != HTML_LIST_TYPE_BLOCKQUOTE_CITE)
+	if (!flow_levels || !flow_levels->len == 1 || flow_levels->data[0] != HTML_LIST_TYPE_BLOCKQUOTE_CITE)
 		return FALSE;
 
 	return TRUE;
@@ -571,11 +571,11 @@ test_quotes_in_table (GtkHTML *html)
 
 	table = HTML_TABLE (HTML_CLUE (HTML_CLUE (e->clue)->head->next)->head);
 
-	if (table->totalCols != 1 || table->totalRows != 1 || !table->cells [0][0] || !HTML_IS_TABLE_CELL (table->cells [0][0])
-	    || !HTML_CLUE (table->cells [0][0])->head || !HTML_IS_CLUEFLOW (HTML_CLUE (table->cells [0][0])->head))
+	if (table->totalCols != 1 || table->totalRows != 1 || !table->cells[0][0] || !HTML_IS_TABLE_CELL (table->cells[0][0])
+	    || !HTML_CLUE (table->cells[0][0])->head || !HTML_IS_CLUEFLOW (HTML_CLUE (table->cells[0][0])->head))
 		return FALSE;
 
-	flow_levels = HTML_CLUEFLOW (HTML_CLUE (table->cells [0][0])->head)->levels;
+	flow_levels = HTML_CLUEFLOW (HTML_CLUE (table->cells[0][0])->head)->levels;
 
 	/* test if levels are OK */
 	if (!flow_levels || !flow_levels->len == 0)
@@ -748,14 +748,14 @@ gint main (gint argc, gchar *argv[])
 
 	fprintf (stderr, "\nGtkHTML test suite\n");
 	fprintf (stderr, "--------------------------------------------------------------------------------\n");
-	for (i = 0; tests [i].name; i++) {
+	for (i = 0; tests[i].name; i++) {
 		gint j, result;
 
-		if (tests [i].test_function) {
+		if (tests[i].test_function) {
 			fprintf (stderr, "  %s ", tests [i].name);
-			for (j = strlen (tests [i].name); j < 69; j++)
+			for (j = strlen (tests[i].name); j < 69; j++)
 				fputc ('.', stderr);
-			result = (*tests [i].test_function) (html);
+			result = (*tests[i].test_function) (html);
 			fprintf (stderr, " %s\n", result ? "passed" : "failed");
 
 			n_all++;

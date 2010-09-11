@@ -94,7 +94,7 @@ begin (HTMLPainter *painter,
 	gdouble printer_x2, printer_y2;
 	cairo_t *cr;
 #ifdef PRINTER_DEBUG
-	gdouble dash [2];
+	gdouble dash[2];
 #endif
 	printer = HTML_PRINTER (painter);
 	g_return_if_fail (printer);
@@ -113,8 +113,8 @@ begin (HTMLPainter *painter,
 	cairo_rectangle (cr, printer_x1, printer_y1, printer_x2, printer_y2);
 #ifdef PRINTER_DEBUG
 	cairo_save (cr);
-	dash [0] = 10.0;
-	dash [1] = 10.0;
+	dash[0] = 10.0;
+	dash[1] = 10.0;
 	cairo_set_source_rgb (cr, .5, .5, .5);
 	cairo_set_line_width (cr, .3);
 	cairo_set_dash (cr, 2, dash, .0);

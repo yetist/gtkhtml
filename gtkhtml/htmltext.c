@@ -106,10 +106,10 @@ html_text_pango_info_destroy (HTMLTextPangoInfo *pi)
 	gint i;
 
 	for (i = 0; i < pi->n; i++) {
-		pango_item_free (pi->entries [i].glyph_item.item);
-		if (pi->entries [i].glyph_item.glyphs)
-			pango_glyph_string_free (pi->entries [i].glyph_item.glyphs);
-		g_free (pi->entries [i].widths);
+		pango_item_free (pi->entries[i].glyph_item.item);
+		if (pi->entries[i].glyph_item.glyphs)
+			pango_glyph_string_free (pi->entries[i].glyph_item.glyphs);
+		g_free (pi->entries[i].widths);
 	}
 	g_free (pi->entries);
 	g_free (pi->attrs);
@@ -405,7 +405,7 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 		begin_index = html_text_get_index (text, begin);
 		end_index = tail - text->text;
 		text->text_bytes -= tail - (text->text + begin_index);
-		text->text [begin_index] = 0;
+		text->text[begin_index] = 0;
 		cut_attr_list (text, begin_index, end_index);
 		if (end_index < rvt->text_bytes)
 			cut_attr_list (rvt, end_index, rvt->text_bytes);
@@ -851,8 +851,8 @@ html_text_get_item_index (HTMLText *text, HTMLPainter *painter, gint offset, gin
 	gint idx = 0;
 
 	if (pi->n > 0) {
-		while (idx < pi->n - 1 && offset >= pi->entries [idx].glyph_item.item->num_chars) {
-			offset -= pi->entries [idx].glyph_item.item->num_chars;
+		while (idx < pi->n - 1 && offset >= pi->entries[idx].glyph_item.item->num_chars) {
+			offset -= pi->entries[idx].glyph_item.item->num_chars;
 			idx++;
 		}
 
@@ -975,28 +975,28 @@ html_text_calc_part_width (HTMLText *text, HTMLPainter *painter, gchar *start, g
 
 	idx = html_text_get_item_index (text, painter, offset, &offset);
 	if (need_ascent_descent) {
-		update_asc_dsc (painter, pi->entries [idx].glyph_item.item, &ascent, &descent);
-		font = pi->entries [idx].glyph_item.item->analysis.font;
-		language = pi->entries [idx].glyph_item.item->analysis.language;
+		update_asc_dsc (painter, pi->entries[idx].glyph_item.item, &ascent, &descent);
+		font = pi->entries[idx].glyph_item.item->analysis.font;
+		language = pi->entries[idx].glyph_item.item->analysis.language;
 	}
 	while (len > 0) {
 		gint old_idx;
 
 		if (*s == '\t') {
 			gint skip = 8 - (line_offset % 8);
-			width += skip*pi->entries [idx].widths [offset];
+			width += skip*pi->entries[idx].widths[offset];
 			line_offset += skip;
 		} else {
-			width += pi->entries [idx].widths [offset];
+			width += pi->entries[idx].widths[offset];
 			line_offset++;
 		}
 		len--;
 
 		old_idx = idx;
 		if (html_text_pi_forward (pi, &idx, &offset) && idx != old_idx)
-			if (len > 0 && (need_ascent_descent) && (pi->entries [idx].glyph_item.item->analysis.font != font
-								 || pi->entries [idx].glyph_item.item->analysis.language != language)) {
-				update_asc_dsc (painter, pi->entries [idx].glyph_item.item, &ascent, &descent);
+			if (len > 0 && (need_ascent_descent) && (pi->entries[idx].glyph_item.item->analysis.font != font
+								 || pi->entries[idx].glyph_item.item->analysis.language != language)) {
+				update_asc_dsc (painter, pi->entries[idx].glyph_item.item, &ascent, &descent);
 			}
 
 		s = g_utf8_next_char (s);
@@ -1138,7 +1138,7 @@ min_word_width_calc_tabs (HTMLText *text, HTMLPainter *p, gint idx, gint *len)
 gint
 html_text_pango_info_get_index (HTMLTextPangoInfo *pi, gint byte_offset, gint idx)
 {
-	while (idx < pi->n && pi->entries [idx].glyph_item.item->offset + pi->entries [idx].glyph_item.item->length <= byte_offset)
+	while (idx < pi->n && pi->entries[idx].glyph_item.item->offset + pi->entries[idx].glyph_item.item->length <= byte_offset)
 		idx++;
 
 	return idx;
@@ -1168,7 +1168,7 @@ html_text_remove_unwanted_line_breaks (gchar *s, gint len, PangoLogAttr *attrs)
 	for (i = 0; i < len; i++) {
 		gunichar uc = g_utf8_get_char (s);
 
-		if (attrs [i].is_line_break) {
+		if (attrs[i].is_line_break) {
 			if (last_uc == '.' || last_uc == '/' ||
 			    last_uc == '-' || last_uc == '$' ||
 			    last_uc == '+' || last_uc == '?' ||
@@ -1176,14 +1176,14 @@ html_text_remove_unwanted_line_breaks (gchar *s, gint len, PangoLogAttr *attrs)
 			    last_uc == '}' ||
 			    last_uc == ']' ||
 			    last_uc == '>')
-				attrs [i].is_line_break = 0;
+				attrs[i].is_line_break = 0;
 			else if ((uc == '(' ||
 				  uc == '{' ||
 				  uc == '[' ||
 				  uc == '<'
 				  )
-				 && i > 0 && !attrs [i - 1].is_white)
-				attrs [i].is_line_break = 0;
+				 && i > 0 && !attrs[i - 1].is_white)
+				attrs[i].is_line_break = 0;
 		}
 		s = g_utf8_next_char (s);
 		last_uc = uc;
@@ -1436,24 +1436,24 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 			html_text_remove_unwanted_line_breaks (text->text, text->text_len, text->pi->attrs);
 
 		for (i = 0, cur = items; i < text->pi->n; i++, cur = cur->next)
-			text->pi->entries [i].glyph_item.item = (PangoItem *) cur->data;
+			text->pi->entries[i].glyph_item.item = (PangoItem *) cur->data;
 
 		for (i = 0; i < text->pi->n; i++) {
 			PangoItem *item;
 			PangoGlyphString *glyphs;
 
-			item = text->pi->entries [i].glyph_item.item;
-			glyphs = text->pi->entries [i].glyph_item.glyphs = pango_glyph_string_new ();
+			item = text->pi->entries[i].glyph_item.item;
+			glyphs = text->pi->entries[i].glyph_item.glyphs = pango_glyph_string_new ();
 
 			/* printf ("item pos %d len %d\n", item->offset, item->length); */
 
-			text->pi->entries [i].widths = g_new (PangoGlyphUnit, item->num_chars);
-			if (text->text [item->offset] == '\t')
+			text->pi->entries[i].widths = g_new (PangoGlyphUnit, item->num_chars);
+			if (text->text[item->offset] == '\t')
 				html_text_shape_tab (text, glyphs);
 			else
 				pango_shape (text->text + item->offset, item->length, &item->analysis, glyphs);
 			html_tmp_fix_pango_glyph_string_get_logical_widths (glyphs, text->text + item->offset, item->length,
-									    item->analysis.level, text->pi->entries [i].widths);
+									    item->analysis.level, text->pi->entries[i].widths);
 		}
 
 		g_list_free (items);
@@ -1478,7 +1478,7 @@ html_text_pi_backward (HTMLTextPangoInfo *pi, gint *ii, gint *io)
 gboolean
 html_text_pi_forward (HTMLTextPangoInfo *pi, gint *ii, gint *io)
 {
-	if (*io >= pi->entries [*ii].glyph_item.item->num_chars - 1) {
+	if (*io >= pi->entries[*ii].glyph_item.item->num_chars - 1) {
 		if (*ii >= pi->n -1)
 			return FALSE;
 		(*ii) ++;
@@ -1514,7 +1514,7 @@ html_text_tail_white_space (HTMLText *text, HTMLPainter *painter, gint offset, g
 	if (html_text_pi_backward (pi, &ii, &io)) {
 		s = g_utf8_prev_char (s);
 		offset--;
-		if (pi->attrs [offset].is_white) {
+		if (pi->attrs[offset].is_white) {
 			if (*s == '\t' && offset > 1) {
 				gint skip = 8, co = offset - 1;
 
@@ -1525,9 +1525,9 @@ html_text_tail_white_space (HTMLText *text, HTMLPainter *painter, gint offset, g
 						skip--;
 				} while (s && co > 0 && *s != '\t');
 
-				ww += skip*pi->entries [ii].widths [io];
+				ww += skip*pi->entries[ii].widths[io];
 			} else {
-				ww += pi->entries [ii].widths [io];
+				ww += pi->entries[ii].widths[io];
 			}
 			wl++;
 		}
@@ -1571,15 +1571,15 @@ calc_min_width (HTMLObject *self, HTMLPainter *painter)
 	line_offset = html_text_get_line_offset (text, painter, 0);
 	s = text->text;
 	while (offset < text->text_len) {
-		if (offset > 0 && html_text_is_line_break (pi->attrs [offset]))
+		if (offset > 0 && html_text_is_line_break (pi->attrs[offset]))
 			update_mw (text, painter, offset, &last_offset, &ww, &mw, ii, io, s, line_offset);
 
 		if (*s == '\t') {
 			gint skip = 8 - (line_offset % 8);
-			ww += skip*pi->entries [ii].widths [io];
+			ww += skip*pi->entries[ii].widths[io];
 			line_offset += skip;
 		} else {
-			ww += pi->entries [ii].widths [io];
+			ww += pi->entries[ii].widths[io];
 			line_offset++;
 		}
 
@@ -2339,12 +2339,12 @@ select_range (HTMLObject *self,
 		length = HTML_TEXT (self)->text_len - offset;
 
 	/* extend to cursor positions */
-	while (offset > 0 && !pi->attrs [offset].is_cursor_position) {
+	while (offset > 0 && !pi->attrs[offset].is_cursor_position) {
 		offset--;
 		length++;
 	}
 
-	while (offset + length < text->text_len && !pi->attrs [offset + length].is_cursor_position)
+	while (offset + length < text->text_len && !pi->attrs[offset + length].is_cursor_position)
 		length++;
 
 	/* printf ("updated offset: %d length: %d (end offset %d)\n", offset, length, offset + length); */
@@ -3166,7 +3166,7 @@ struct _HTMLMagicInsertMatch
 
 typedef struct _HTMLMagicInsertMatch HTMLMagicInsertMatch;
 
-static HTMLMagicInsertMatch mim [] = {
+static HTMLMagicInsertMatch mim[] = {
 	/* prefixed expressions */
 	{ "(news|telnet|nntp|file|http|ftp|sftp|https|webcal)://([-a-z0-9]+(:[-a-z0-9]+)?@)?[-a-z0-9.]+[-a-z0-9](:[0-9]*)?(([.])?/[-a-z0-9_$.+!*(),;:@%&=?/~#']*[^]'.}>\\) ,?!;:\"]?)?", NULL, NULL },
 	{ "(sip|h323|callto):([-_a-z0-9.'\\+]+(:[0-9]{1,5})?(/[-_a-z0-9.']+)?)(@([-_a-z0-9.%=?]+|([0-9]{1,3}.){3}[0-9]{1,3})?)?(:[0-9]{1,5})?", NULL, NULL },
@@ -3183,11 +3183,11 @@ html_engine_init_magic_links (void)
 	gint i;
 
 	for (i = 0; i < G_N_ELEMENTS (mim); i++) {
-		mim [i].preg = g_new0 (regex_t, 1);
-		if (regcomp (mim [i].preg, mim [i].regex, REG_EXTENDED | REG_ICASE)) {
+		mim[i].preg = g_new0 (regex_t, 1);
+		if (regcomp (mim[i].preg, mim[i].regex, REG_EXTENDED | REG_ICASE)) {
 			/* error */
-			g_free (mim [i].preg);
-			mim [i].preg = 0;
+			g_free (mim[i].preg);
+			mim[i].preg = 0;
 		}
 	}
 }
@@ -3209,7 +3209,7 @@ paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, const gchar *p
 gboolean
 html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 {
-	regmatch_t pmatch [2];
+	regmatch_t pmatch[2];
 	gint i;
 	gboolean rv = FALSE, exec = TRUE;
 	gint saved_position;
@@ -3262,12 +3262,12 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
 		while (!done) {
 			done = TRUE;
 			for (i = 0; i < G_N_ELEMENTS (mim); i++) {
-				if (mim [i].preg && !regexec (mim [i].preg, str + str_offset, 2, pmatch, 0)) {
+				if (mim[i].preg && !regexec (mim[i].preg, str + str_offset, 2, pmatch, 0)) {
 					paste_link (engine, text,
-						    g_utf8_pointer_to_offset (text->text, str + str_offset + pmatch [0].rm_so),
-						    g_utf8_pointer_to_offset (text->text, str + str_offset + pmatch [0].rm_eo), mim [i].prefix);
+						    g_utf8_pointer_to_offset (text->text, str + str_offset + pmatch[0].rm_so),
+						    g_utf8_pointer_to_offset (text->text, str + str_offset + pmatch[0].rm_eo), mim[i].prefix);
 						rv = TRUE;
-						str_offset += pmatch [0].rm_eo + 1;
+						str_offset += pmatch[0].rm_eo + 1;
 						done = str_offset >= str_length;
 						break;
 				}

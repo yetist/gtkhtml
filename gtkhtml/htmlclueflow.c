@@ -463,7 +463,7 @@ need_blockquote_padding  (HTMLClueFlow *flow, HTMLClueFlow *prev)
 	while (i > 0) {
 		HTMLListType type;
 
-		type = prev->levels->data [prev->levels->len - i];
+		type = prev->levels->data[prev->levels->len - i];
 
 		if (is_blockquote (type)) {
 			return TRUE;
@@ -1143,19 +1143,19 @@ get_roman_value (gint value, gboolean lower)
 		if (r != 0) {
 			if (r < 4) {
 				for (; r; r--)
-					g_string_prepend_c (str, base [b] + add);
+					g_string_prepend_c (str, base[b] + add);
 			} else if (r == 4) {
-				g_string_prepend_c (str, base [b + 1] + add);
-				g_string_prepend_c (str, base [b] + add);
+				g_string_prepend_c (str, base[b + 1] + add);
+				g_string_prepend_c (str, base[b] + add);
 			} else if (r == 5) {
-				g_string_prepend_c (str, base [b + 1] + add);
+				g_string_prepend_c (str, base[b + 1] + add);
 			} else if (r < 9) {
 				for (; r > 5; r--)
-					g_string_prepend_c (str, base [b] + add);
-				g_string_prepend_c (str, base [b + 1] + add);
+					g_string_prepend_c (str, base[b] + add);
+				g_string_prepend_c (str, base[b + 1] + add);
 			} else if (r == 9) {
-				g_string_prepend_c (str, base [b + 2] + add);
-				g_string_prepend_c (str, base [b] + add);
+				g_string_prepend_c (str, base[b + 2] + add);
+				g_string_prepend_c (str, base[b] + add);
 			}
 		}
 	}
@@ -1175,8 +1175,8 @@ get_item_marker_str (HTMLClueFlow *flow, gboolean ascii_only)
 		gint i;
 
 		for (i = flow->levels->len - 1; i >= 0; i--) {
-			if (flow->levels->data [i] != HTML_LIST_TYPE_BLOCKQUOTE) {
-				type = flow->levels->data [i];
+			if (flow->levels->data[i] != HTML_LIST_TYPE_BLOCKQUOTE) {
+				type = flow->levels->data[i];
 				break;
 			}
 		}
@@ -2019,7 +2019,7 @@ save_plain (HTMLObject *self,
 			n_items = g_list_length (items_list);
 			items = g_new (PangoItem *, n_items);
 			for (i = 0, cur = items_list; i < n_items; i++, cur = cur->next)
-				items [i] = (PangoItem *) cur->data;
+				items[i] = (PangoItem *) cur->data;
 
 			offset = 0;
 			for (i = 0; i < n_items; i++) {
@@ -2027,13 +2027,13 @@ save_plain (HTMLObject *self,
 				gint start_offset;
 
 				start_offset = offset;
-				offset += items [i]->num_chars;
-				tmp_item = *items [i];
+				offset += items[i]->num_chars;
+				tmp_item = *items[i];
 				while (i < n_items - 1) {
-					if (tmp_item.analysis.lang_engine == items [i + 1]->analysis.lang_engine) {
-						tmp_item.length += items [i + 1]->length;
-						tmp_item.num_chars += items [i + 1]->num_chars;
-						offset += items [i + 1]->num_chars;
+					if (tmp_item.analysis.lang_engine == items[i + 1]->analysis.lang_engine) {
+						tmp_item.length += items[i + 1]->length;
+						tmp_item.num_chars += items[i + 1]->num_chars;
+						offset += items[i + 1]->num_chars;
 						i++;
 					} else
 						break;
@@ -2046,7 +2046,7 @@ save_plain (HTMLObject *self,
 
 			g_list_free (items_list);
 			for (i = 0; i < n_items; i++)
-				pango_item_free (items [i]);
+				pango_item_free (items[i]);
 			g_free (items);
 			pango_attr_list_unref (attrs);
 
@@ -2067,12 +2067,12 @@ save_plain (HTMLObject *self,
 						wmax = clen + utf8_length_in_width ((gchar *) s, len, max_width);
 						wl = wmax;
 
-						if (lattrs [wl].is_white) {
+						if (lattrs[wl].is_white) {
 
-							while (lattrs [wl].is_white && wl < slen)
+							while (lattrs[wl].is_white && wl < slen)
 								wl++;
 
-							if (wl < slen && html_text_is_line_break (lattrs [wl]))
+							if (wl < slen && html_text_is_line_break (lattrs[wl]))
 								look_backward = FALSE;
 							else
 								wl = wmax;
@@ -2080,15 +2080,15 @@ save_plain (HTMLObject *self,
 
 						if (look_backward) {
 							while (wl > 0) {
-								if (html_text_is_line_break (lattrs [wl]))
+								if (html_text_is_line_break (lattrs[wl]))
 									break;
 								wl--;
 							}
 						}
 
-						if (wl > clen && wl < slen && html_text_is_line_break (lattrs [wl])) {
+						if (wl > clen && wl < slen && html_text_is_line_break (lattrs[wl])) {
 							wi = MIN (wl, wmax);
-							while (wi > clen && lattrs [wi - 1].is_white)
+							while (wi > clen && lattrs[wi - 1].is_white)
 								wi--;
 							len = wi - clen;
 							width = utf8_width ((gchar *) s, len);
@@ -2262,7 +2262,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 
 	if (text_bytes > 0) {
 		par = (guchar *) g_new (gchar, text_bytes + 1);
-		par [text_bytes] = 0;
+		par[text_bytes] = 0;
 
 		pp = (info->forward) ? par : par + text_bytes;
 
@@ -2943,7 +2943,7 @@ get_text (HTMLClue *clue, HTMLInterval *i)
 
 	bytes        = get_text_bytes (clue, i);
 	ct           = text = g_malloc (bytes + 1);
-	text [bytes] = 0;
+	text[bytes] = 0;
 
 	obj = html_interval_get_head (i, HTML_OBJECT (clue));
 	while (obj) {

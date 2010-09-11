@@ -230,7 +230,7 @@ html_engine_save_delims_and_vals (HTMLEngineSaveState *state,
 static gchar *
 color_to_string (const gchar *s, HTMLColor *c)
 {
-	gchar color [20];
+	gchar color[20];
 
 	g_snprintf (color, 20, " %s=\"#%02x%02x%02x\"", s, c->color.red >> 8, c->color.green >> 8, c->color.blue >> 8);
 	return g_strdup (color);

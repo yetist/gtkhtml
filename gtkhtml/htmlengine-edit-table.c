@@ -90,7 +90,7 @@ html_engine_insert_table_1_1 (HTMLEngine *e)
 
 	html_engine_append_object (e, table, 2);
 	html_cursor_backward (e->cursor, e);
-	html_engine_table_set_align (e, table, HTML_HALIGN_CENTER);
+	html_engine_table_set_align (e, (HTMLTable *) table, HTML_HALIGN_CENTER);
 }
 
 /**
@@ -241,30 +241,30 @@ html_table_insert_column (HTMLTable *t, HTMLEngine *e, gint col, HTMLTableCell *
 	html_table_alloc_cell (t, 0, t->totalCols);
 	for (c = t->totalCols - 1; c > col; c--) {
 		for (r = 0; r < t->totalRows; r++) {
-			HTMLTableCell *cell = t->cells [r][c - 1];
+			HTMLTableCell *cell = t->cells[r][c - 1];
 
 			if (cell) {
 				if (cell->col == c - 1) {
 					html_table_cell_set_position (cell, cell->row, c);
-					t->cells [r][c - 1] = NULL;
+					t->cells[r][c - 1] = NULL;
 				} else if (c == col + 1 && cell->row == r)
 					cell->cspan++;
 				if (cell->col > c - 1)
-					t->cells [r][c - 1] = NULL;
-				t->cells [r][c] = cell;
+					t->cells[r][c - 1] = NULL;
+				t->cells[r][c] = cell;
 			}
 		}
 	}
 	for (r = 0; r < t->totalRows; r++) {
-		if (!t->cells [r][col]) {
+		if (!t->cells[r][col]) {
 			guint len;
 
 			cell = column
-				? HTML_TABLE_CELL (html_object_op_copy (HTML_OBJECT (column [r]), HTML_OBJECT (t),
+				? HTML_TABLE_CELL (html_object_op_copy (HTML_OBJECT (column[r]), HTML_OBJECT (t),
 									e, NULL, NULL, &len))
 				: html_engine_new_cell (e, t);
 			html_table_set_cell (t, r, col, cell);
-			html_table_cell_set_position (t->cells [r][col], r, col);
+			html_table_cell_set_position (t->cells[r][col], r, col);
 		}
 	}
 
@@ -316,8 +316,8 @@ delete_cells_undo_destroy (HTMLUndoData *undo_data)
 	gint i;
 
 	for (i = 0; i < data->size; i++)
-		if (data->cells [i])
-			html_object_destroy (HTML_OBJECT (data->cells [i]));
+		if (data->cells[i])
+			html_object_destroy (HTML_OBJECT (data->cells[i]));
 	g_free(data->cells);
 }
 
@@ -399,22 +399,22 @@ html_table_delete_column (HTMLTable *t, HTMLEngine *e, gint col, HTMLUndoDirecti
 
 	html_engine_goto_table_0 (e, t);
 	for (r = 0; r < t->totalRows; r++) {
-		cell = t->cells [r][col];
+		cell = t->cells[r][col];
 
 		/* remove & keep old one */
 		if (cell && cell->col == col) {
 			HTML_OBJECT (cell)->parent = NULL;
-			column [r] = cell;
-			t->cells [r][col] = NULL;
+			column[r] = cell;
+			t->cells[r][col] = NULL;
 		}
 
 		for (c = col + 1; c < t->totalCols; c++) {
-			cell = t->cells [r][c];
+			cell = t->cells[r][c];
 			if (cell && cell->col != col) {
 				if (cell->row == r && cell->col == c)
 					html_table_cell_set_position (cell, r, c - 1);
-				t->cells [r][c - 1] = cell;
-				t->cells [r][c]     = NULL;
+				t->cells[r][c - 1] = cell;
+				t->cells[r][c]     = NULL;
 			}
 		}
 	}
@@ -533,30 +533,30 @@ html_table_insert_row (HTMLTable *t, HTMLEngine *e, gint row, HTMLTableCell **ro
 	html_table_alloc_cell (t, t->totalRows, 0);
 	for (r = t->totalRows; r > row; r--) {
 		for (c = 0; c < t->totalCols; c++) {
-			HTMLTableCell *cell = t->cells [r - 1][c];
+			HTMLTableCell *cell = t->cells[r - 1][c];
 
 			if (cell) {
 				if (cell->row == r - 1) {
 					html_table_cell_set_position (cell, r, cell->col);
-					t->cells [r - 1][c] = NULL;
+					t->cells[r - 1][c] = NULL;
 				} else if (r == row + 1 && cell->col == c)
 					cell->rspan++;
 				if (cell->row > r - 1)
-					t->cells [r - 1][c] = NULL;
-				t->cells [r][c] = cell;
+					t->cells[r - 1][c] = NULL;
+				t->cells[r][c] = cell;
 			}
 		}
 	}
 	for (c = 0; c < t->totalCols; c++) {
-		if (!t->cells [row][c]) {
+		if (!t->cells[row][c]) {
 			guint len;
 
 			cell = row_cells
-				? HTML_TABLE_CELL (html_object_op_copy (HTML_OBJECT (row_cells [c]), HTML_OBJECT (t),
+				? HTML_TABLE_CELL (html_object_op_copy (HTML_OBJECT (row_cells[c]), HTML_OBJECT (t),
 									e, NULL, NULL, &len))
 				:  html_engine_new_cell (e, t);
 			html_table_set_cell (t, row, c, cell);
-			html_table_cell_set_position (t->cells [row][c], row, c);
+			html_table_cell_set_position (t->cells[row][c], row, c);
 		}
 	}
 
@@ -654,22 +654,22 @@ html_table_delete_row (HTMLTable *t, HTMLEngine *e, gint row, HTMLUndoDirection 
 
 	html_engine_goto_table_0 (e, t);
 	for (c = 0; c < t->totalCols; c++) {
-		cell = t->cells [row][c];
+		cell = t->cells[row][c];
 
 		/* remove & keep old one */
 		if (cell && cell->row == row) {
 			HTML_OBJECT (cell)->parent = NULL;
-			row_cells [c] = cell;
-			t->cells [row][c] = NULL;
+			row_cells[c] = cell;
+			t->cells[row][c] = NULL;
 		}
 
 		for (r = row + 1; r < t->totalRows; r++) {
-			cell = t->cells [r][c];
+			cell = t->cells[r][c];
 			if (cell && cell->row != row) {
 				if (cell->row == r && cell->col == c)
 					html_table_cell_set_position (cell, r - 1, c);
-				t->cells [r - 1][c] = cell;
-				t->cells [r][c]     = NULL;
+				t->cells[r - 1][c] = cell;
+				t->cells[r][c]     = NULL;
 			}
 		}
 	}
@@ -1023,9 +1023,9 @@ table_set_padding (HTMLEngine *e, HTMLTable *t, gint padding, gboolean relative,
 	t->padding = new_padding;
 	for (r = 0; r < t->totalRows; r++)
 		for (c = 0; c < t->totalCols; c++)
-			if (t->cells [r][c]->col == c && t->cells [r][c]->row == r) {
-				HTML_CLUEV (t->cells [r][c])->padding = new_padding;
-				HTML_OBJECT (t->cells [r][c])->change |= HTML_CHANGE_ALL_CALC;
+			if (t->cells[r][c]->col == c && t->cells[r][c]->row == r) {
+				HTML_CLUEV (t->cells[r][c])->padding = new_padding;
+				HTML_OBJECT (t->cells[r][c])->change |= HTML_CHANGE_ALL_CALC;
 			}
 	html_object_change_set (HTML_OBJECT (t), HTML_CHANGE_ALL_CALC);
 	html_engine_schedule_update (e);

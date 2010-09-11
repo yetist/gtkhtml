@@ -38,17 +38,17 @@ html_colorset_new (GtkWidget *w)
 	if (w && gtk_widget_get_style (w)) {
 		html_colorset_set_style (s, w);
 	} else {
-		s->color [HTMLLinkColor]            = html_color_new_from_rgb (0, 0, 0xffff);
-		s->color [HTMLALinkColor]           = html_color_new_from_rgb (0, 0, 0xffff);
-		s->color [HTMLVLinkColor]           = html_color_new_from_rgb (0xffff, 0, 0);
-		s->color [HTMLSpellErrorColor]      = html_color_new_from_rgb (0xffff, 0, 0);
-		s->color [HTMLBgColor]              = html_color_new_from_rgb (0xffff, 0xffff, 0xffff);
-		s->color [HTMLHighlightColor]       = html_color_new_from_rgb (0x7fff, 0x7fff, 0xffff);
-		s->color [HTMLHighlightTextColor]   = html_color_new ();
-		s->color [HTMLHighlightNFColor]     = html_color_new ();
-		s->color [HTMLHighlightTextNFColor] = html_color_new ();
-		s->color [HTMLTextColor]            = html_color_new ();
-		s->color [HTMLCiteColor]            = html_color_new ();
+		s->color[HTMLLinkColor]            = html_color_new_from_rgb (0, 0, 0xffff);
+		s->color[HTMLALinkColor]           = html_color_new_from_rgb (0, 0, 0xffff);
+		s->color[HTMLVLinkColor]           = html_color_new_from_rgb (0xffff, 0, 0);
+		s->color[HTMLSpellErrorColor]      = html_color_new_from_rgb (0xffff, 0, 0);
+		s->color[HTMLBgColor]              = html_color_new_from_rgb (0xffff, 0xffff, 0xffff);
+		s->color[HTMLHighlightColor]       = html_color_new_from_rgb (0x7fff, 0x7fff, 0xffff);
+		s->color[HTMLHighlightTextColor]   = html_color_new ();
+		s->color[HTMLHighlightNFColor]     = html_color_new ();
+		s->color[HTMLHighlightTextNFColor] = html_color_new ();
+		s->color[HTMLTextColor]            = html_color_new ();
+		s->color[HTMLCiteColor]            = html_color_new ();
 	}
 
 	return s;
@@ -84,8 +84,8 @@ html_colorset_set_color (HTMLColorSet *s, GdkColor *color, HTMLColorId idx)
 	GSList *cur;
 	HTMLColorSet *cs;
 
-	html_color_set (s->color [idx], color);
-	s->changed [idx] = TRUE;
+	html_color_set (s->color[idx], color);
+	s->changed[idx] = TRUE;
 
 	/* forward change to slaves */
 	cur = s->slaves;
@@ -99,14 +99,14 @@ html_colorset_set_color (HTMLColorSet *s, GdkColor *color, HTMLColorId idx)
 HTMLColor *
 html_colorset_get_color (HTMLColorSet *s, HTMLColorId idx)
 {
-	return s->color [idx];
+	return s->color[idx];
 }
 
 HTMLColor *
 html_colorset_get_color_allocated (HTMLColorSet *s, HTMLPainter *painter, HTMLColorId idx)
 {
-	html_color_alloc (s->color [idx], painter);
-	return s->color [idx];
+	html_color_alloc (s->color[idx], painter);
+	return s->color[idx];
 }
 
 void
@@ -115,9 +115,9 @@ html_colorset_set_by (HTMLColorSet *s, HTMLColorSet *o)
 	HTMLColorId i;
 
 	for (i=0; i < HTMLColors; i++) {
-		html_colorset_set_color (s, &o->color [i]->color, i);
+		html_colorset_set_color (s, &o->color[i]->color, i);
 		/* unset the changed flag */
-		s->changed [i] = FALSE;
+		s->changed[i] = FALSE;
 	}
 }
 
@@ -128,8 +128,8 @@ html_colorset_set_unchanged (HTMLColorSet *s, HTMLColorSet *o)
 
 	for (i=0; i < HTMLColors; i++) {
 		if (!s->changed[i]) {
-			html_colorset_set_color (s, &o->color [i]->color, i);
-			s->changed [i] = FALSE;
+			html_colorset_set_color (s, &o->color[i]->color, i);
+			s->changed[i] = FALSE;
 		}
 	}
 }
@@ -157,13 +157,13 @@ get_prop_color (GtkWidget *w,
 		return gdk_color_copy (gdk_color);
 
 	g_warning ("falling back to text color");
-	return (gdk_color_copy (&style->text [GTK_STATE_NORMAL]));
+	return (gdk_color_copy (&style->text[GTK_STATE_NORMAL]));
 }
 
 #define SET_GCOLOR(t,c) \
-        if (!s->changed [HTML ## t ## Color]) { \
-                if (s->color [HTML ## t ## Color]) html_color_unref (s->color [HTML ## t ## Color]); \
-                s->color [HTML ## t ## Color] = html_color_new_from_gdk_color (&c); \
+        if (!s->changed[HTML ## t ## Color]) { \
+                if (s->color[HTML ## t ## Color]) html_color_unref (s->color[HTML ## t ## Color]); \
+                s->color[HTML ## t ## Color] = html_color_new_from_gdk_color (&c); \
         }
 
 void
@@ -172,12 +172,12 @@ html_colorset_set_style (HTMLColorSet *s, GtkWidget *w)
 	GdkColor *color = NULL;
 	GtkStyle *style = gtk_widget_get_style (w);
 
-	SET_GCOLOR (Bg,              style->base [GTK_STATE_NORMAL]);
-	SET_GCOLOR (Text,            style->text [GTK_STATE_NORMAL]);
-	SET_GCOLOR (Highlight,       style->base [GTK_STATE_SELECTED]);
-	SET_GCOLOR (HighlightText,   style->text [GTK_STATE_SELECTED]);
-	SET_GCOLOR (HighlightNF,     style->base [GTK_STATE_ACTIVE]);
-	SET_GCOLOR (HighlightTextNF, style->text [GTK_STATE_ACTIVE]);
+	SET_GCOLOR (Bg,              style->base[GTK_STATE_NORMAL]);
+	SET_GCOLOR (Text,            style->text[GTK_STATE_NORMAL]);
+	SET_GCOLOR (Highlight,       style->base[GTK_STATE_SELECTED]);
+	SET_GCOLOR (HighlightText,   style->text[GTK_STATE_SELECTED]);
+	SET_GCOLOR (HighlightNF,     style->base[GTK_STATE_ACTIVE]);
+	SET_GCOLOR (HighlightTextNF, style->text[GTK_STATE_ACTIVE]);
 	color = get_prop_color (w, "link_color", "#0000ff", NULL);
 	SET_GCOLOR (Link, *color);
 	gdk_color_free (color);

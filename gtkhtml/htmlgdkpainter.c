@@ -800,7 +800,7 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 		cw = draw_lines (glyphs, x, y, gdk_painter->pixmap, gdk_painter->gc, item, &properties);
 	else
 		for (i=0; i < glyphs->num_glyphs; i++)
-			cw += glyphs->glyphs [i].geometry.width;
+			cw += glyphs->glyphs[i].geometry.width;
 
 	if (fg_text_color || fg)
 		gdk_gc_set_foreground (gdk_painter->gc, &orig_fg.foreground);

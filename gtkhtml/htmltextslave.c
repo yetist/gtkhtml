@@ -261,7 +261,7 @@ debug_print (HTMLFitType rv, gchar *text, gint len)
 	}
 
 	for (i = 0; i < len; i++)
-		putchar (text [i]);
+		putchar (text[i]);
 
 	printf ("'\n");
 }
@@ -398,11 +398,11 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 	lbsp = s = html_text_slave_get_text (slave);
 
 	while ((force_fit || widthLeft > lbw) && offset < slave->posStart + slave->posLen) {
-		if (offset > slave->posStart && offset > lbo && html_text_is_line_break (pi->attrs [offset]))
+		if (offset > slave->posStart && offset > lbo && html_text_is_line_break (pi->attrs[offset]))
 			if (update_lb (slave, painter, widthLeft, offset, s, ii, io, line_offset, w, &lwl, &lbw, &lbo, &lbsp, &force_fit))
 				break;
 
-		if (io == 0 && slave->owner->text [pi->entries [ii].glyph_item.item->offset]  == '\t') {
+		if (io == 0 && slave->owner->text[pi->entries[ii].glyph_item.item->offset]  == '\t') {
 			GtkHTMLFontStyle font_style;
 			gchar *face;
 			gint skip = 8 - (line_offset % 8);
@@ -415,13 +415,13 @@ hts_fit_line (HTMLObject *o, HTMLPainter *painter,
 				face = slave->owner->face;
 			}
 
-			pi->entries [ii].glyph_item.glyphs->glyphs[0].geometry.width = pi->entries [ii].widths [io]
+			pi->entries[ii].glyph_item.glyphs->glyphs[0].geometry.width = pi->entries[ii].widths[io]
 				= skip*html_painter_get_space_width (painter, font_style, face) * PANGO_SCALE;
 			line_offset += skip;
 		} else {
 			line_offset++;
 		}
-		w += pi->entries [ii].widths [io];
+		w += pi->entries[ii].widths[io];
 
 		html_text_pi_forward (pi, &ii, &io);
 		s = g_utf8_next_char (s);
@@ -578,7 +578,7 @@ get_glyph_items_in_range (HTMLTextSlave *slave, HTMLPainter *painter, gint start
 	end_offset = start_offset + len;
 
 	for (offset = 0, i = 0; i < pi->n; i++) {
-		PangoItem *item = pi->entries [i].glyph_item.item;
+		PangoItem *item = pi->entries[i].glyph_item.item;
 
 		/* do item and slave overlap? */
 		if (MAX (offset, start_offset) < MIN (offset + item->num_chars, end_offset)) {
@@ -586,8 +586,8 @@ get_glyph_items_in_range (HTMLTextSlave *slave, HTMLPainter *painter, gint start
 
 			/* use text glyph item */
 			glyph_item->type = HTML_TEXT_SLAVE_GLYPH_ITEM_PARENTAL;
-			glyph_item->glyph_item = pi->entries [i].glyph_item;
-			glyph_item->widths = pi->entries [i].widths;
+			glyph_item->glyph_item = pi->entries[i].glyph_item;
+			glyph_item->widths = pi->entries[i].widths;
 
 			if (start_offset > offset) {
 				/* need to cut the beginning of current glyph item */
@@ -976,18 +976,18 @@ calc_offset (HTMLTextSlave *slave, HTMLPainter *painter, gint x)
 			if (item->analysis.level % 2 == 0) {
 				/* LTR */
 				for (i = 0; i < item->num_chars; i++) {
-					if (x < html_painter_pango_to_engine (painter, width + gi->widths [i] / 2))
+					if (x < html_painter_pango_to_engine (painter, width + gi->widths[i] / 2))
 						goto done;
-					width += gi->widths [i];
+					width += gi->widths[i];
 				}
 			} else {
 				/* RTL */
 				for (i = item->num_chars - 1; i >= 0; i--) {
-					if (x < html_painter_pango_to_engine (painter, width + gi->widths [i] / 2)) {
+					if (x < html_painter_pango_to_engine (painter, width + gi->widths[i] / 2)) {
 						i++;
 						goto done;
 					}
-					width += gi->widths [i];
+					width += gi->widths[i];
 				}
 			}
 		}
@@ -1305,7 +1305,7 @@ html_text_slave_cursor_right (HTMLTextSlave *slave, HTMLPainter *painter, HTMLCu
 
 	do
 		step_success = html_text_slave_cursor_right_one (slave, painter, cursor);
-	while (step_success && !pi->attrs [cursor->offset].is_cursor_position);
+	while (step_success && !pi->attrs[cursor->offset].is_cursor_position);
 
 	return step_success;
 }
@@ -1370,7 +1370,7 @@ html_text_slave_cursor_left (HTMLTextSlave *slave, HTMLPainter *painter, HTMLCur
 
 	do
 		step_success = html_text_slave_cursor_left_one (slave, painter, cursor);
-	while (step_success && !pi->attrs [cursor->offset].is_cursor_position);
+	while (step_success && !pi->attrs[cursor->offset].is_cursor_position);
 
 	return step_success;
 }
@@ -1384,7 +1384,7 @@ html_text_slave_get_left_edge (HTMLTextSlave *slave, HTMLPainter *painter, HTMLC
 
 	cursor->offset = html_text_slave_get_left_edge_offset (slave, painter);
 
-	if (pi->attrs [cursor->offset].is_cursor_position && old_offset != cursor->offset)
+	if (pi->attrs[cursor->offset].is_cursor_position && old_offset != cursor->offset)
 		return TRUE;
 	else {
 		if (html_text_slave_cursor_right (slave, painter, cursor)) {
@@ -1405,7 +1405,7 @@ html_text_slave_get_right_edge (HTMLTextSlave *slave, HTMLPainter *painter, HTML
 
 	cursor->offset = html_text_slave_get_right_edge_offset (slave, painter);
 
-	if (pi->attrs [cursor->offset].is_cursor_position && old_offset != cursor->offset)
+	if (pi->attrs[cursor->offset].is_cursor_position && old_offset != cursor->offset)
 		return TRUE;
 	else {
 		if (html_text_slave_cursor_left (slave, painter, cursor)) {

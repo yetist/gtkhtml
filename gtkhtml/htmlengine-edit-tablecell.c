@@ -450,8 +450,8 @@ move_cell_rd_undo_free (struct MoveCellRDUndo *undo)
 	gint i;
 
 	for (i = 0; i < undo->rspan*undo->cspan; i++)
-		if (undo->removed [i])
-			html_object_destroy (HTML_OBJECT (undo->removed [i]));
+		if (undo->removed[i])
+			html_object_destroy (HTML_OBJECT (undo->removed[i]));
 	g_free (undo->removed);
 	g_free (undo->moved);
 }
@@ -472,11 +472,11 @@ move_cell_rd (HTMLTable *t, HTMLTableCell *cell, gint rs, gint cs)
 				gint nr = rs + r - (rs ? cell->rspan : 0), nc = cs + c - (cs ? cell->cspan : 0);
 
 				/* printf ("exchange: %dx%d <--> %dx%d (%p)\n", rs + r, cs + c, nr, nc, t->cells [rs][nc]); */
-				t->cells [nr][nc] = t->cells [rs + r][cs + c];
-				if (t->cells [nr][nc]) {
-					struct Move *move = &undo->moved [(r - cell->row)*cell->cspan + c - cell->col];
+				t->cells[nr][nc] = t->cells[rs + r][cs + c];
+				if (t->cells[nr][nc]) {
+					struct Move *move = &undo->moved[(r - cell->row)*cell->cspan + c - cell->col];
 
-					html_table_cell_set_position (t->cells [nr][nc], nr, nc);
+					html_table_cell_set_position (t->cells[nr][nc], nr, nc);
 					move->rs = rs + r;
 					move->cs = cs + c;
 					move->rt = nr;
@@ -486,16 +486,16 @@ move_cell_rd (HTMLTable *t, HTMLTableCell *cell, gint rs, gint cs)
 				}
 			} else {
 				if (r >= cell->row + rs && c >= cell->col + cs) {
-					if (t->cells [rs + r][cs + c] && t->cells [rs + r][cs + c]->col == cs + c && t->cells [rs + r][cs + c]->row == rs + r) {
+					if (t->cells[rs + r][cs + c] && t->cells[rs + r][cs + c]->col == cs + c && t->cells[rs + r][cs + c]->row == rs + r) {
 						/* printf ("move destroy: %dx%d\n", rs + r, cs + c); */
 						/* html_object_destroy (HTML_OBJECT (t->cells [rs + r][cs + c])); */
 						/* printf ("removed: %dx%d (%d, %d)\n", rs + r, cs + c, r - cell->row, c - cell->col); */
-						undo->removed [(r - cell->row)*cell->cspan + c - cell->col] = t->cells [r][c];
+						undo->removed[(r - cell->row)*cell->cspan + c - cell->col] = t->cells[r][c];
 					}
-					t->cells [r][c] = NULL;
+					t->cells[r][c] = NULL;
 				}
 			}
-			t->cells [rs + r][cs + c] = cell;
+			t->cells[rs + r][cs + c] = cell;
 			/* printf ("cell %dx%d <--\n", rs + r, cs + c); */
 		}
 	/* printf ("set  %dx%d --> %dx%d\n", cell->row, cell->col, cell->row + rs, cell->col + cs); */
@@ -545,26 +545,26 @@ expand_undo_data_new (gint span, GSList *slist)
 static void
 move_cell_rd_undo (HTMLTable *table, struct MoveCellRDUndo *undo)
 {
-	HTMLTableCell *cell = table->cells [undo->move.rt][undo->move.ct];
+	HTMLTableCell *cell = table->cells[undo->move.rt][undo->move.ct];
 	gint r, c;
 
 	for (r = 0; r < undo->rspan; r++)
 		for (c = 0; c < undo->cspan; c++)
-			if (undo->moved [r*undo->cspan + c].move) {
-				struct Move *move = &undo->moved [r*undo->cspan + c];
+			if (undo->moved[r*undo->cspan + c].move) {
+				struct Move *move = &undo->moved[r*undo->cspan + c];
 
 				/* printf ("move back: %dx%d --> %dx%d (%d, %d) %p\n", move->rt, move->ct, move->rs, move->cs, r, c, table->cells [move->rt][move->ct]); */
-				table->cells [move->rs][move->cs] = table->cells [move->rt][move->ct];
-				html_table_cell_set_position (table->cells [move->rs][move->cs], move->rs, move->cs);
-				table->cells [move->rt][move->ct] = NULL;
+				table->cells[move->rs][move->cs] = table->cells[move->rt][move->ct];
+				html_table_cell_set_position (table->cells[move->rs][move->cs], move->rs, move->cs);
+				table->cells[move->rt][move->ct] = NULL;
 			}
 
 	for (r = 0; r < cell->rspan; r++)
 		for (c = 0; c < cell->cspan; c++)
-			table->cells [undo->move.rt + r][undo->move.ct + c] = NULL;
+			table->cells[undo->move.rt + r][undo->move.ct + c] = NULL;
 	for (r = 0; r < cell->rspan; r++)
 		for (c = 0; c < cell->cspan; c++)
-			table->cells [undo->move.rs + r][undo->move.cs + c] = cell;
+			table->cells[undo->move.rs + r][undo->move.cs + c] = cell;
 
 	html_table_cell_set_position (cell, undo->move.rs, undo->move.cs);
 }
@@ -602,13 +602,13 @@ expand_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirection 
 	move_rows = g_new0 (gint, cell->rspan);
 	for (r = cell->row; r < cell->row + cell->rspan; r++)
 		for (c = cell->col + cell->cspan; c < MIN (cell->col + cspan, table->totalCols); c++)
-			if (table->cells [r][c] && !html_clue_is_empty (HTML_CLUE (table->cells [r][c])) && move_rows [r - cell->row] == 0)
-				move_rows [r - cell->row] = cspan - (c - cell->col);
+			if (table->cells[r][c] && !html_clue_is_empty (HTML_CLUE (table->cells[r][c])) && move_rows[r - cell->row] == 0)
+				move_rows[r - cell->row] = cspan - (c - cell->col);
 
 	max_move = 0;
 	for (r = 0; r < cell->rspan; r++)
-		if (move_rows [r] > max_move)
-			max_move = move_rows [r];
+		if (move_rows[r] > max_move)
+			max_move = move_rows[r];
 
 	add_cols = MAX (max_move, cspan - (table->totalCols - cell->col));
 	/* printf ("max move: %d add: %d\n", max_move, add_cols); */
@@ -618,7 +618,7 @@ expand_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirection 
 	if (max_move > 0) {
 		for (c = table->totalCols - max_move - 1; c >= cell->col + cspan - max_move; c--)
 			for (r = cell->row; r < cell->row + cell->rspan; r++) {
-				HTMLTableCell *ccell = table->cells [r][c];
+				HTMLTableCell *ccell = table->cells[r][c];
 
 				if (ccell && ccell->col == c) {
 					slist = g_slist_prepend (slist, move_cell_rd (table, ccell, 0, max_move));
@@ -631,7 +631,7 @@ expand_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirection 
 	cell->cspan = cspan;
 	for (r = cell->row; r < cell->row + cell->rspan; r++)
 		for (c = cell->col; c < cell->col + cell->cspan; c++)
-			table->cells [r][c] = cell;
+			table->cells[r][c] = cell;
 
 	html_object_change_set (HTML_OBJECT (cell), HTML_CHANGE_ALL);
 }
@@ -683,9 +683,9 @@ collapse_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirectio
 	table = HTML_TABLE (HTML_OBJECT (cell)->parent);
 	for (c = cell->col + cspan; c < cell->col + cell->cspan; c++)
 		for (r = cell->row; r < cell->row + cell->rspan; r++) {
-			table->cells [r][c] = NULL;
+			table->cells[r][c] = NULL;
 			html_table_set_cell (table, r, c, html_engine_new_cell (e, table));
-			html_table_cell_set_position (table->cells [r][c], r, c);
+			html_table_cell_set_position (table->cells[r][c], r, c);
 		}
 
 	collapse_cspan_setup_undo (e, cell->cspan, position_before, dir);
@@ -721,13 +721,13 @@ calc_rspan_max_move (HTMLTableCell *cell, gint rspan)
 	move_cols = g_new0 (gint, cell->cspan);
 	for (c = cell->col; c < cell->col + cell->cspan; c++)
 		for (r = cell->row + cell->rspan; r < MIN (cell->row + rspan, table->totalRows); r++)
-			if (table->cells [r][c] && !html_clue_is_empty (HTML_CLUE (table->cells [r][c])) && move_cols [c - cell->col] == 0)
-				move_cols [c - cell->col] = rspan - (r - cell->row);
+			if (table->cells[r][c] && !html_clue_is_empty (HTML_CLUE (table->cells[r][c])) && move_cols[c - cell->col] == 0)
+				move_cols[c - cell->col] = rspan - (r - cell->row);
 
 	max_move = 0;
 	for (c = 0; c < cell->cspan; c++)
-		if (move_cols [c] > max_move)
-			max_move = move_cols [c];
+		if (move_cols[c] > max_move)
+			max_move = move_cols[c];
 	g_free (move_cols);
 
 	return max_move;
@@ -749,7 +749,7 @@ expand_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirection 
 	if (max_move > 0) {
 		for (r = table->totalRows - max_move - 1; r >= cell->row + rspan - max_move; r--)
 			for (c = cell->col; c < cell->col + cell->cspan; c++) {
-				HTMLTableCell *ccell = table->cells [r][c];
+				HTMLTableCell *ccell = table->cells[r][c];
 
 				if (ccell && ccell->row == r) {
 					slist = g_slist_prepend (slist, move_cell_rd (table, ccell, max_move, 0));
@@ -761,7 +761,7 @@ expand_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirection 
 	cell->rspan = rspan;
 	for (r = cell->row; r < cell->row + cell->rspan; r++)
 		for (c = cell->col; c < cell->col + cell->cspan; c++)
-			table->cells [r][c] = cell;
+			table->cells[r][c] = cell;
 
 	html_object_change_set (HTML_OBJECT (cell), HTML_CHANGE_ALL);
 }
@@ -794,9 +794,9 @@ collapse_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirectio
 	table = HTML_TABLE (HTML_OBJECT (cell)->parent);
 	for (r = cell->row + rspan; r < cell->row + cell->rspan; r++)
 		for (c = cell->col; c < cell->col + cell->cspan; c++) {
-			table->cells [r][c] = NULL;
+			table->cells[r][c] = NULL;
 			html_table_set_cell (table, r, c, html_engine_new_cell (e, table));
-			html_table_cell_set_position (table->cells [r][c], r, c);
+			html_table_cell_set_position (table->cells[r][c], r, c);
 		}
 
 	collapse_rspan_setup_undo (e, cell->rspan, position_before, dir);

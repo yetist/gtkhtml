@@ -1319,8 +1319,8 @@ main (gint argc, gchar *argv[])
 	soup_session_add_feature (session, SOUP_SESSION_FEATURE (cookie_jar));
 #endif
 
-	if (argc > 1 && *argv [argc - 1] != '-')
-		goto_url (argv [argc - 1], 0);
+	if (argc > 1 && *argv[argc - 1] != '-')
+		goto_url (argv[argc - 1], 0);
 
 	gtk_main ();
 

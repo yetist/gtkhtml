@@ -173,7 +173,7 @@ static void     gtk_html_get_property  (GObject *object, guint prop_id, GValue *
 static void     gtk_html_set_property  (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
 #endif
 
-static guint signals [LAST_SIGNAL] = { 0 };
+static guint signals[LAST_SIGNAL] = { 0 };
 
 static void
 gtk_html_update_scrollbars_on_resize (GtkHTML *html,
@@ -346,25 +346,25 @@ gtk_html_update_styles (GtkHTML *html)
 
 	if (paragraph_style != html->priv->paragraph_style) {
 		html->priv->paragraph_style = paragraph_style;
-		g_signal_emit (html, signals [CURRENT_PARAGRAPH_STYLE_CHANGED], 0, paragraph_style);
+		g_signal_emit (html, signals[CURRENT_PARAGRAPH_STYLE_CHANGED], 0, paragraph_style);
 	}
 
 	indentation = html_engine_get_current_clueflow_indentation (engine);
 	if (indentation != html->priv->paragraph_indentation) {
 		html->priv->paragraph_indentation = indentation;
-		g_signal_emit (html, signals [CURRENT_PARAGRAPH_INDENTATION_CHANGED], 0, indentation);
+		g_signal_emit (html, signals[CURRENT_PARAGRAPH_INDENTATION_CHANGED], 0, indentation);
 	}
 
 	alignment = html_alignment_to_paragraph (html_engine_get_current_clueflow_alignment (engine));
 	if (alignment != html->priv->paragraph_alignment) {
 		html->priv->paragraph_alignment = alignment;
-		g_signal_emit (html, signals [CURRENT_PARAGRAPH_ALIGNMENT_CHANGED], 0, alignment);
+		g_signal_emit (html, signals[CURRENT_PARAGRAPH_ALIGNMENT_CHANGED], 0, alignment);
 	}
 
 	if (html_engine_update_insertion_font_style (engine))
-		g_signal_emit (html, signals [INSERTION_FONT_STYLE_CHANGED], 0, engine->insertion_font_style);
+		g_signal_emit (html, signals[INSERTION_FONT_STYLE_CHANGED], 0, engine->insertion_font_style);
 	if (html_engine_update_insertion_color (engine))
-		g_signal_emit (html, signals [INSERTION_COLOR_CHANGED], 0, engine->insertion_color);
+		g_signal_emit (html, signals[INSERTION_COLOR_CHANGED], 0, engine->insertion_color);
 
 	/* TODO add insertion_url_or_targed_changed signal */
 	html_engine_update_insertion_url_and_target (engine);
@@ -448,7 +448,7 @@ html_engine_title_changed_cb (HTMLEngine *engine, gpointer data)
 	GtkHTML *gtk_html;
 
 	gtk_html = GTK_HTML (data);
-	g_signal_emit (gtk_html, signals [TITLE_CHANGED], 0, engine->title->str);
+	g_signal_emit (gtk_html, signals[TITLE_CHANGED], 0, engine->title->str);
 }
 
 static void
@@ -1095,7 +1095,7 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 					/* printf ("link clicked: %s\n", url); */
                                         if (HTML_IS_TEXT(focus_object)) {
 						html_text_set_link_visited (HTML_TEXT (focus_object), focus_object_offset, html->engine, TRUE);
-					g_signal_emit (html, signals [LINK_CLICKED], 0, url);
+					g_signal_emit (html, signals[LINK_CLICKED], 0, url);
 					}
 					g_free (url);
 				}
@@ -2478,7 +2478,7 @@ focus (GtkWidget *w, GtkDirectionType direction)
 			gtk_widget_grab_focus (w);
 
 			update_primary_selection (GTK_HTML (w));
-			g_signal_emit (GTK_HTML (w), signals [CURSOR_CHANGED], 0);
+			g_signal_emit (GTK_HTML (w), signals[CURSOR_CHANGED], 0);
 
 			return TRUE;
 		}
@@ -2546,7 +2546,7 @@ focus (GtkWidget *w, GtkDirectionType direction)
 		}
 
 		update_primary_selection (GTK_HTML (w));
-		g_signal_emit (GTK_HTML (w), signals [CURSOR_CHANGED], 0);
+		g_signal_emit (GTK_HTML (w), signals[CURSOR_CHANGED], 0);
 
 		return TRUE;
 	}
@@ -2899,7 +2899,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	parent_class = g_type_class_peek_parent (klass);
 
-	signals [TITLE_CHANGED] =
+	signals[TITLE_CHANGED] =
 		g_signal_new ("title_changed",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -2908,7 +2908,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      g_cclosure_marshal_VOID__STRING,
 			      G_TYPE_NONE, 1,
 			      G_TYPE_STRING);
-	signals [URL_REQUESTED] =
+	signals[URL_REQUESTED] =
 		g_signal_new ("url_requested",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_LAST,
@@ -2918,7 +2918,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_NONE, 2,
 			      G_TYPE_STRING,
 			      G_TYPE_POINTER);
-	signals [LOAD_DONE] =
+	signals[LOAD_DONE] =
 		g_signal_new ("load_done",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -2926,7 +2926,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
-	signals [LINK_CLICKED] =
+	signals[LINK_CLICKED] =
 		g_signal_new ("link_clicked",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -2935,7 +2935,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      g_cclosure_marshal_VOID__STRING,
 			      G_TYPE_NONE, 1,
 			      G_TYPE_STRING);
-	signals [SET_BASE] =
+	signals[SET_BASE] =
 		g_signal_new ("set_base",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -2944,7 +2944,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      g_cclosure_marshal_VOID__STRING,
 			      G_TYPE_NONE, 1,
 			      G_TYPE_STRING);
-	signals [SET_BASE_TARGET] =
+	signals[SET_BASE_TARGET] =
 		g_signal_new ("set_base_target",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -2954,7 +2954,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_NONE, 1,
 			      G_TYPE_STRING);
 
-	signals [ON_URL] =
+	signals[ON_URL] =
 		g_signal_new ("on_url",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -2964,7 +2964,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_NONE, 1,
 			      G_TYPE_STRING);
 
-	signals [REDIRECT] =
+	signals[REDIRECT] =
 		g_signal_new ("redirect",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -2975,7 +2975,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_STRING,
 			      G_TYPE_INT);
 
-	signals [SUBMIT] =
+	signals[SUBMIT] =
 		g_signal_new ("submit",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -2987,7 +2987,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_STRING,
 			      G_TYPE_STRING);
 
-	signals [OBJECT_REQUESTED] =
+	signals[OBJECT_REQUESTED] =
 		g_signal_new ("object_requested",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_LAST,
@@ -2997,7 +2997,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_BOOLEAN, 1,
 			      G_TYPE_OBJECT);
 
-	signals [CURRENT_PARAGRAPH_STYLE_CHANGED] =
+	signals[CURRENT_PARAGRAPH_STYLE_CHANGED] =
 		g_signal_new ("current_paragraph_style_changed",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -3007,7 +3007,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_NONE, 1,
 			      G_TYPE_INT);
 
-	signals [CURRENT_PARAGRAPH_INDENTATION_CHANGED] =
+	signals[CURRENT_PARAGRAPH_INDENTATION_CHANGED] =
 		g_signal_new ("current_paragraph_indentation_changed",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -3017,7 +3017,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_NONE, 1,
 			      G_TYPE_INT);
 
-	signals [CURRENT_PARAGRAPH_ALIGNMENT_CHANGED] =
+	signals[CURRENT_PARAGRAPH_ALIGNMENT_CHANGED] =
 		g_signal_new ("current_paragraph_alignment_changed",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -3027,7 +3027,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_NONE, 1,
 			      G_TYPE_INT);
 
-	signals [INSERTION_FONT_STYLE_CHANGED] =
+	signals[INSERTION_FONT_STYLE_CHANGED] =
 		g_signal_new ("insertion_font_style_changed",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -3037,7 +3037,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_NONE, 1,
 			      G_TYPE_INT);
 
-	signals [INSERTION_COLOR_CHANGED] =
+	signals[INSERTION_COLOR_CHANGED] =
 		g_signal_new ("insertion_color_changed",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -3047,7 +3047,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_NONE, 1,
 			      G_TYPE_POINTER);
 
-	signals [SIZE_CHANGED] =
+	signals[SIZE_CHANGED] =
 		g_signal_new ("size_changed",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -3055,7 +3055,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
-	signals [IFRAME_CREATED] =
+	signals[IFRAME_CREATED] =
 		g_signal_new ("iframe_created",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -3065,7 +3065,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_NONE, 1,
 			      GTK_TYPE_HTML);
 
-	signals [SCROLL] =
+	signals[SCROLL] =
 		g_signal_new ("scroll",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
@@ -3076,7 +3076,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      GTK_TYPE_ORIENTATION,
 			      GTK_TYPE_SCROLL_TYPE, G_TYPE_FLOAT);
 
-	signals [CURSOR_MOVE] =
+	signals[CURSOR_MOVE] =
 		g_signal_new ("cursor_move",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
@@ -3085,7 +3085,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      html_g_cclosure_marshal_VOID__ENUM_ENUM,
 			      G_TYPE_NONE, 2, GTK_TYPE_DIRECTION_TYPE, GTK_TYPE_HTML_CURSOR_SKIP);
 
-	signals [COMMAND] =
+	signals[COMMAND] =
 		g_signal_new ("command",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
@@ -3094,7 +3094,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      html_g_cclosure_marshal_BOOL__ENUM,
 			      G_TYPE_BOOLEAN, 1, GTK_TYPE_HTML_COMMAND);
 
-	signals [CURSOR_CHANGED] =
+	signals[CURSOR_CHANGED] =
 		g_signal_new ("cursor_changed",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -3103,7 +3103,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
 
-	signals [OBJECT_INSERTED] =
+	signals[OBJECT_INSERTED] =
 		g_signal_new ("object_inserted",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -3113,7 +3113,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_NONE, 2,
 			      G_TYPE_INT, G_TYPE_INT);
 
-	signals [OBJECT_DELETE] =
+	signals[OBJECT_DELETE] =
 		g_signal_new ("object_delete",
 			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
@@ -3986,7 +3986,7 @@ gtk_html_private_calc_scrollbars (GtkHTML *html, gboolean *changed_x, gboolean *
 
 	gtk_layout_get_size (layout, &layout_width, &layout_height);
 	if ((width != layout_width) || (height != layout_height)) {
-		g_signal_emit (html, signals [SIZE_CHANGED], 0);
+		g_signal_emit (html, signals[SIZE_CHANGED], 0);
 		gtk_layout_set_size (layout, width, height);
 	}
 
@@ -4380,7 +4380,7 @@ gtk_html_set_font_style (GtkHTML *html,
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	if (html_engine_set_font_style (html->engine, and_mask, or_mask))
-		g_signal_emit (html, signals [INSERTION_FONT_STYLE_CHANGED], 0, html->engine->insertion_font_style);
+		g_signal_emit (html, signals[INSERTION_FONT_STYLE_CHANGED], 0, html->engine->insertion_font_style);
 }
 
 void
@@ -4390,7 +4390,7 @@ gtk_html_set_color (GtkHTML *html, HTMLColor *color)
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	if (html_engine_set_color (html->engine, color))
-		g_signal_emit (html, signals [INSERTION_COLOR_CHANGED], 0, html->engine->insertion_color);
+		g_signal_emit (html, signals[INSERTION_COLOR_CHANGED], 0, html->engine->insertion_color);
 }
 
 void
@@ -4404,7 +4404,7 @@ gtk_html_toggle_font_style (GtkHTML *html,
 		return;
 
 	if (html_engine_toggle_font_style (html->engine, style))
-		g_signal_emit (html, signals [INSERTION_FONT_STYLE_CHANGED], 0, html->engine->insertion_font_style);
+		g_signal_emit (html, signals[INSERTION_FONT_STYLE_CHANGED], 0, html->engine->insertion_font_style);
 }
 
 GtkHTMLParagraphAlignment
@@ -4431,7 +4431,7 @@ gtk_html_set_paragraph_alignment (GtkHTML *html,
 	if (html_engine_set_clueflow_style (html->engine, 0, 0, align, 0, NULL,
 					    HTML_ENGINE_SET_CLUEFLOW_ALIGNMENT, HTML_UNDO_UNDO, TRUE)) {
 		html->priv->paragraph_alignment = alignment;
-		g_signal_emit (html,  signals [CURRENT_PARAGRAPH_ALIGNMENT_CHANGED], 0, alignment);
+		g_signal_emit (html,  signals[CURRENT_PARAGRAPH_ALIGNMENT_CHANGED], 0, alignment);
 	}
 }
 
@@ -4919,7 +4919,7 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 
 	if (skip == GTK_HTML_CURSOR_SKIP_NONE) {
 		update_primary_selection (html);
-		g_signal_emit (GTK_HTML (html), signals [CURSOR_CHANGED], 0);
+		g_signal_emit (GTK_HTML (html), signals[CURSOR_CHANGED], 0);
 		return;
 	}
 
@@ -5017,7 +5017,7 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 	gtk_html_edit_make_cursor_visible (html);
 	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 	update_primary_selection (html);
-	g_signal_emit (GTK_HTML (html), signals [CURSOR_CHANGED], 0);
+	g_signal_emit (GTK_HTML (html), signals[CURSOR_CHANGED], 0);
 }
 
 static gboolean
@@ -5893,7 +5893,7 @@ gtk_html_set_iframe_parent (GtkHTML *html, GtkWidget *parent, HTMLObject *frame)
 		html_painter_set_widget (html->engine->painter, top_level);
 		gtk_html_set_fonts (html, html->engine->painter);
 	}
-	g_signal_emit (top_level, signals [IFRAME_CREATED], 0, html);
+	g_signal_emit (top_level, signals[IFRAME_CREATED], 0, html);
 
 	while (html->iframe_parent) {
 		depth++;

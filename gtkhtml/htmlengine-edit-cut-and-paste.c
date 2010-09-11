@@ -1176,7 +1176,7 @@ check_magic_link (HTMLEngine *e, const gchar *text, guint len)
 	if (HTML_IS_TEXT (e->cursor->object)
 	    && gtk_html_get_magic_links (e->widget)
 	    && len == 1
-	    && (*text == ' ' || text [0] == '\n' || text [0] == '>' || text [0] == ')'))
+	    && (*text == ' ' || text[0] == '\n' || text[0] == '>' || text[0] == ')'))
 		html_text_magic_link (HTML_TEXT (e->cursor->object), e, 1);
 }
 
@@ -1277,7 +1277,7 @@ static const gchar *picto_chars =
 	/* 50 */ "\0:\0:-\0:\0:-"
 	/* 60 */ "\0:\0:\0:-\0:\0"
 	/* 70 */ ":-\0:\0:-\0:\0";
-static gint picto_states [] = {
+static gint picto_states[] = {
 	/*  0 */  12,  17,  22,  34,  43,  48,  53,  58,  65,  70,
 	/* 10 */  75,   0, -15,  15,   0, -15,   0, -17,  20,   0,
 	/* 20 */ -17,   0, -14, -20, -14,  28,  63,   0, -14, -20,
@@ -1286,7 +1286,7 @@ static gint picto_states [] = {
 	/* 50 */   0, -19,   0, -11,  56,   0, -11,   0, -13,  61,
 	/* 60 */   0, -13,   0,  -6,   0,  68,  -7,   0,  -7,   0,
 	/* 70 */ -16,  73,   0, -16,   0, -21,  78,   0, -21,   0 };
-static const gchar *picto_icon_names [] = {
+static const gchar *picto_icon_names[] = {
 	"face-angel",
 	"face-angry",
 	"face-cool",
@@ -1326,12 +1326,12 @@ use_pictograms (HTMLEngine *e)
 	while (pos >= 0) {
 		uc = html_text_get_char (HTML_TEXT (e->cursor->object), pos);
 		relative = 0;
-		while (picto_chars [state + relative]) {
-			if (picto_chars [state + relative] == uc)
+		while (picto_chars[state + relative]) {
+			if (picto_chars[state + relative] == uc)
 				break;
 			relative++;
 		}
-		state = picto_states [state + relative];
+		state = picto_states[state + relative];
 		/* 0 .. not found, -n .. found n-th */
 		if (state <= 0)
 			break;

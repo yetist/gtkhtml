@@ -215,7 +215,7 @@ html_tokenizer_class_init (HTMLTokenizerClass *klass)
 			      G_TYPE_NONE,
 			      1, G_TYPE_POINTER);
 
-	html_tokenizer_signals [HTML_TOKENIZER_END_SIGNAL] =
+	html_tokenizer_signals[HTML_TOKENIZER_END_SIGNAL] =
 		g_signal_new ("end",
 			      G_TYPE_FROM_CLASS (klass),
 			      G_SIGNAL_RUN_LAST,
@@ -365,7 +365,7 @@ html_token_buffer_append_token (HTMLTokenBuffer * buf, const gchar *token, gint 
 	/* copy token and terminate with zero */
 	strncpy (buf->data + buf->used, token, len);
 	buf->used += len;
-	buf->data [buf->used] = 0;
+	buf->data[buf->used] = 0;
 	buf->used++;
 
 	dt(printf ("html_token_buffer_append_token: '%s'\n", buf->data + buf->used - 1 - len));
@@ -955,7 +955,7 @@ in_comment (HTMLTokenizer *t, const gchar **src)
 			p->searchCount++;
 	} else if (p->searchCount == 2 && (**src == '>')) {
 		p->comment = FALSE;          /* We've got a "-->" sequence */
-	} else if (tolower (**src) == gtkhtmlStart [p->searchGtkHTMLCount]) {
+	} else if (tolower (**src) == gtkhtmlStart[p->searchGtkHTMLCount]) {
 		if (p->searchGtkHTMLCount == 8) {
 			p->extension    = TRUE;
 			p->comment = FALSE;
@@ -1020,10 +1020,10 @@ in_script_or_style (HTMLTokenizer *t, const gchar **src)
 	if (p->scriptCodeSize + 11 > p->scriptCodeMaxSize)
 		p->scriptCode = g_realloc (p->scriptCode, p->scriptCodeMaxSize += 1024);
 
-	if ((**src == '>' ) && ( p->searchFor [p->searchCount] == '>')) {
+	if ((**src == '>' ) && ( p->searchFor[p->searchCount] == '>')) {
 		(*src)++;
-		p->scriptCode [p->scriptCodeSize] = 0;
-		p->scriptCode [p->scriptCodeSize + 1] = 0;
+		p->scriptCode[p->scriptCodeSize] = 0;
+		p->scriptCode[p->scriptCodeSize + 1] = 0;
 		if (p->script) {
 			p->script = FALSE;
 		}
@@ -1036,12 +1036,12 @@ in_script_or_style (HTMLTokenizer *t, const gchar **src)
 	/* Check if a </script> tag is on its way */
 	else if (p->searchCount > 0) {
 		gboolean put_to_script = FALSE;
-		if (tolower (**src) == p->searchFor [p->searchCount]) {
-			p->searchBuffer [p->searchCount] = **src;
+		if (tolower (**src) == p->searchFor[p->searchCount]) {
+			p->searchBuffer[p->searchCount] = **src;
 			p->searchCount++;
 			(*src)++;
 		}
-		else if (p->searchFor [p->searchCount] == '>') {
+		else if (p->searchFor[p->searchCount] == '>') {
 			/* There can be any number of white-space characters between
 			   tag name and closing '>' so try to move through them, if possible */
 
@@ -1060,21 +1060,21 @@ in_script_or_style (HTMLTokenizer *t, const gchar **src)
 		if (put_to_script) {
 			gchar *c;
 
-			p->searchBuffer [p->searchCount] = 0;
+			p->searchBuffer[p->searchCount] = 0;
 			c = p->searchBuffer;
 			while (*c)
-				p->scriptCode [p->scriptCodeSize++] = *c++;
-			p->scriptCode [p->scriptCodeSize] = **src; (*src)++;
+				p->scriptCode[p->scriptCodeSize++] = *c++;
+			p->scriptCode[p->scriptCodeSize] = **src; (*src)++;
 			p->searchCount = 0;
 		}
 	}
 	else if (**src == '<') {
 		p->searchCount = 1;
-		p->searchBuffer [0] = '<';
+		p->searchBuffer[0] = '<';
 		(*src)++;
 	}
 	else {
-		p->scriptCode [p->scriptCodeSize] = **src;
+		p->scriptCode[p->scriptCodeSize] = **src;
 		(*src)++;
 	}
 }
@@ -1468,7 +1468,7 @@ html_tokenizer_begin (HTMLTokenizer *t, const gchar *content_type)
 
 	g_return_if_fail (t && HTML_IS_TOKENIZER (t));
 
-	g_signal_emit (t, html_tokenizer_signals [HTML_TOKENIZER_BEGIN_SIGNAL], 0, content_type);
+	g_signal_emit (t, html_tokenizer_signals[HTML_TOKENIZER_BEGIN_SIGNAL], 0, content_type);
 }
 
 void
@@ -1476,7 +1476,7 @@ html_tokenizer_set_engine_type (HTMLTokenizer *t, gboolean engine_type)
 {
 	g_return_if_fail (t && HTML_IS_TOKENIZER (t));
 
-	g_signal_emit (t, html_tokenizer_signals [HTML_TOKENIZER_CHANGEENGINE_SIGNAL], 0, engine_type);
+	g_signal_emit (t, html_tokenizer_signals[HTML_TOKENIZER_CHANGEENGINE_SIGNAL], 0, engine_type);
 }
 
 void
@@ -1484,7 +1484,7 @@ html_tokenizer_change_content_type (HTMLTokenizer *t,const gchar *content_type)
 {
 	g_return_if_fail (t && HTML_IS_TOKENIZER (t));
 
-	g_signal_emit (t, html_tokenizer_signals [HTML_TOKENIZER_CHANGECONTENT_SIGNAL], 0, content_type);
+	g_signal_emit (t, html_tokenizer_signals[HTML_TOKENIZER_CHANGECONTENT_SIGNAL], 0, content_type);
 }
 
 void

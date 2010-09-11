@@ -294,7 +294,7 @@ set_max_width (HTMLObject *o, HTMLPainter *painter, gint w)
 	for (i = 0; i < set->frames->len; i++) {
 		c = i % set->cols->len;
 		if (i < set->frames->len)
-			html_object_set_max_width (HTML_OBJECT (g_ptr_array_index (set->frames, i)), painter, widths [c]);
+			html_object_set_max_width (HTML_OBJECT (g_ptr_array_index (set->frames, i)), painter, widths[c]);
 		remain_x -= widths[c];
 	}
 	g_free (widths);
