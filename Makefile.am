@@ -1,6 +1,6 @@
 ACLOCAL_AMFLAGS=-I m4
 
-DISTCHECK_CONFIGURE_FLAGS = --enable-gtk3
+DISTCHECK_CONFIGURE_FLAGS = --disable-gtk3
 
 SUBDIRS =					\
 	a11y					\
