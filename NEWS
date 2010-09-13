@@ -1,3 +1,25 @@
+GtkHTML-3.31.92 2010-09-13
+--------------------------
+
+Bug Fixes:
+	Bug 629393 - git.mk breaks parallel builds (Matthew Barnes)
+	Bug 615511 (bnc) - Encoded question mark issues. (Simon Brys)
+	Bug 463936 (bnc) - Table insertion issues. (Chenthill Palanisamy)
+	Bug 623265 - Various memory leaks (Milan Crha)
+
+Miscellaneous Fixes:
+	Use --disable-gtk3 in DISTCHECK_CONFIGURE_FLAGS. (Matthew Barnes)
+	Fix a build break - missing include file (Milan Crha)
+	Fix for #613774, GtkHTMLStream should be freed by unref (Jeff Cai)
+
+Translations:
+	Chao-Hsiung Liao (zh_HK)
+	Wolfgang Stöggl (de)
+	Piotr Drąg (pl)
+	Philip Withnall (en_GB)
+	Duarte Loreto (pt)
+	Gabor Kelemen (hu)
+
 GtkHTML-3.31.91 2010-08-29
 --------------------------
 
