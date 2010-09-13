@@ -286,7 +286,7 @@ gtk_html_a11y_get_focus_object (GtkWidget * widget)
         AtkObject *obj = NULL;
 	gint offset;
 
-	html = GTK_HTML(widget);
+	html = GTK_HTML (widget);
 
 	g_return_val_if_fail (html && html->engine, NULL);
 
@@ -304,7 +304,7 @@ gtk_html_a11y_get_focus_object (GtkWidget * widget)
 static AtkObject * gtk_html_a11y_focus_object = NULL;
 
 static void
-gtk_html_a11y_grab_focus_cb(GtkWidget * widget)
+gtk_html_a11y_grab_focus_cb (GtkWidget * widget)
 {
         AtkObject *focus_object, *obj, *clue;
 
@@ -314,8 +314,8 @@ gtk_html_a11y_grab_focus_cb(GtkWidget * widget)
 
 	obj = gtk_widget_get_accessible (widget);
 
-	clue = html_utils_get_accessible(GTK_HTML(widget)->engine->clue, obj);
-	atk_object_set_parent(clue, obj);
+	clue = html_utils_get_accessible (GTK_HTML (widget)->engine->clue, obj);
+	atk_object_set_parent (clue, obj);
 
 	gtk_html_a11y_focus_object = focus_object;
 	atk_focus_tracker_notify (focus_object);
@@ -333,10 +333,10 @@ gtk_html_a11y_cursor_changed_cb (GtkWidget *widget)
 		gtk_html_a11y_focus_object = focus_object;
 		atk_focus_tracker_notify (focus_object);
 	} else {
-		if (G_IS_HTML_A11Y_TEXT(focus_object)) {
+		if (G_IS_HTML_A11Y_TEXT (focus_object)) {
 			gint offset;
 
-			offset = (GTK_HTML(widget))->engine->cursor->offset;
+			offset = (GTK_HTML (widget))->engine->cursor->offset;
 			g_signal_emit_by_name(focus_object, "text_caret_moved",offset);
 		}
 	}
@@ -357,7 +357,7 @@ gtk_html_a11y_insert_object_cb (GtkWidget * widget, gint pos, gint len)
 		atk_focus_tracker_notify (a11y);
 	}
 
-	if (G_IS_HTML_A11Y_TEXT(a11y)) {
+	if (G_IS_HTML_A11Y_TEXT (a11y)) {
 		g_signal_emit_by_name (a11y, "text_changed::insert", cursor->offset - len, len);
 
 	}
@@ -376,7 +376,7 @@ gtk_html_a11y_delete_object_cb (GtkWidget * widget, gint pos, gint len)
 		atk_focus_tracker_notify (a11y);
 	}
 
-	if (G_IS_HTML_A11Y_TEXT(a11y)) {
+	if (G_IS_HTML_A11Y_TEXT (a11y)) {
 		g_signal_emit_by_name (a11y, "text_changed::delete", pos, len);
 	}
 }
@@ -399,17 +399,17 @@ gtk_html_a11y_new (GtkWidget *widget)
 			G_CALLBACK (gtk_html_a11y_grab_focus_cb),
 			NULL);
 	g_signal_connect (widget, "cursor_changed",
-			G_CALLBACK(gtk_html_a11y_cursor_changed_cb),
+			G_CALLBACK (gtk_html_a11y_cursor_changed_cb),
 			NULL);
 	g_signal_connect_after (widget, "object_inserted",
-			G_CALLBACK(gtk_html_a11y_insert_object_cb),
+			G_CALLBACK (gtk_html_a11y_insert_object_cb),
 			NULL);
 	g_signal_connect_after (widget, "object_delete",
-			G_CALLBACK(gtk_html_a11y_delete_object_cb),
+			G_CALLBACK (gtk_html_a11y_delete_object_cb),
 			NULL);
 
-	if (GTK_HTML(widget)->engine->clue)
-		html_utils_get_accessible(GTK_HTML(widget)->engine->clue, accessible);
+	if (GTK_HTML (widget)->engine->clue)
+		html_utils_get_accessible (GTK_HTML (widget)->engine->clue, accessible);
 
 	/* printf ("created new gtkhtml accessible object\n"); */
 

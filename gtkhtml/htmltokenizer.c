@@ -153,9 +153,9 @@ static void     html_tokenizer_real_engine_type (HTMLTokenizer *t, gboolean engi
 static void     html_tokenizer_real_write           (HTMLTokenizer *, const gchar *str, gsize size);
 static void     html_tokenizer_real_end             (HTMLTokenizer *);
 static const gchar *
-				html_tokenizer_real_get_content_type(HTMLTokenizer *);
+				html_tokenizer_real_get_content_type (HTMLTokenizer *);
 static gboolean
-				html_tokenizer_real_get_engine_type(HTMLTokenizer *);
+				html_tokenizer_real_get_engine_type (HTMLTokenizer *);
 static gchar   *html_tokenizer_real_peek_token      (HTMLTokenizer *);
 static gchar   *html_tokenizer_real_next_token      (HTMLTokenizer *);
 static gboolean html_tokenizer_real_has_more_tokens (HTMLTokenizer *);
@@ -170,11 +170,11 @@ static void               html_tokenizer_blocking_push       (HTMLTokenizer  *t,
 							      HTMLTokenType   tt);
 static void               html_tokenizer_tokenize_one_char   (HTMLTokenizer  *t,
 							      const gchar  **src);
-static void				  add_char(HTMLTokenizer *t, gchar c);
+static void				  add_char (HTMLTokenizer *t, gchar c);
 
-gboolean				  is_need_convert(const gchar * token);
+gboolean				  is_need_convert (const gchar * token);
 
-gchar *					  html_tokenizer_convert_entity(gchar * token);
+gchar *					  html_tokenizer_convert_entity (gchar * token);
 
 static GObjectClass *parent_class = NULL;
 
@@ -303,7 +303,7 @@ html_tokenizer_finalize (GObject *obj)
 		g_iconv_close (t->priv->iconv_cd);
 
 	if (t->priv->content_type)
-		g_free(t->priv->content_type);
+		g_free (t->priv->content_type);
 
 	g_free (t->priv);
 	t->priv = NULL;
@@ -676,7 +676,7 @@ is_text (const gchar *content_type)
 }
 
 static const gchar *
-get_encoding_from_content_type(const gchar * content_type)
+get_encoding_from_content_type (const gchar * content_type)
 {
 	gchar * charset;
 	if (content_type)
@@ -693,10 +693,10 @@ get_encoding_from_content_type(const gchar * content_type)
 }
 
 GIConv
-generate_iconv_from(const gchar * content_type)
+generate_iconv_from (const gchar * content_type)
 {
 	if (content_type)
-		if (!charset_is_utf8(content_type))
+		if (!charset_is_utf8 (content_type))
 		{
 			const gchar * encoding = get_encoding_from_content_type (content_type);
 			if (encoding)
@@ -706,7 +706,7 @@ generate_iconv_from(const gchar * content_type)
 }
 
 GIConv
-generate_iconv_to(const gchar * content_type)
+generate_iconv_to (const gchar * content_type)
 {
 	if (content_type)
 		if (!charset_is_utf8 (content_type))
@@ -740,7 +740,7 @@ html_tokenizer_real_change (HTMLTokenizer *t, const gchar *content_type)
 		return;
 
 	if (p->content_type)
-		g_free(p->content_type);
+		g_free (p->content_type);
 
 	p->content_type = g_ascii_strdown ( content_type, -1);
 
@@ -1527,7 +1527,7 @@ html_tokenizer_peek_token (HTMLTokenizer *t)
 }
 
 const gchar *
-html_tokenizer_get_content_type(HTMLTokenizer *t)
+html_tokenizer_get_content_type (HTMLTokenizer *t)
 {
 	HTMLTokenizerClass *klass;
 
@@ -1536,7 +1536,7 @@ html_tokenizer_get_content_type(HTMLTokenizer *t)
 	klass = HTML_TOKENIZER_CLASS (G_OBJECT_GET_CLASS (t));
 
 	if (klass->get_content_type)
-		return  klass->get_content_type(t);
+		return  klass->get_content_type (t);
 
 	g_warning ("No get_content_type method defined.");
 	return NULL;
@@ -1553,7 +1553,7 @@ html_tokenizer_get_engine_type (HTMLTokenizer *t)
 	klass = HTML_TOKENIZER_CLASS (G_OBJECT_GET_CLASS (t));
 
 	if (klass->get_engine_type)
-		return  klass->get_engine_type(t);
+		return  klass->get_engine_type (t);
 
 	g_warning ("No get_engine_type method defined.");
 	return FALSE;

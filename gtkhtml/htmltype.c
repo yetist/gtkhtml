@@ -76,7 +76,7 @@ html_types_init (void)
 		return;
 
 	html_anchor_type_init ();
-	html_button_type_init();
+	html_button_type_init ();
 	html_checkbox_type_init ();
 	html_clue_type_init ();
 	html_cluealigned_type_init ();

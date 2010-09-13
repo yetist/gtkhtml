@@ -56,7 +56,7 @@ encode (HTMLEmbedded *e, const gchar *codepage)
 	}
 
 	ptr = encoding->str;
-	g_string_free(encoding, FALSE);
+	g_string_free (encoding, FALSE);
 
 	return ptr;
 }
@@ -65,7 +65,7 @@ encode (HTMLEmbedded *e, const gchar *codepage)
 static void
 reset (HTMLEmbedded *e)
 {
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(e->widget), HTML_CHECKBOX(e)->default_checked);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (e->widget), HTML_CHECKBOX (e)->default_checked);
 }
 
 
@@ -116,14 +116,14 @@ html_checkbox_init (HTMLCheckBox *checkbox,
 
 	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass), parent, name, value);
 
-	check = gtk_check_button_new();
+	check = gtk_check_button_new ();
 	html_embedded_set_widget (element, check);
 
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(check), checked);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check), checked);
 	checkbox->default_checked = checked;
 
 	/*	gtk_widget_show(element->widget);
-		gtk_layout_put(GTK_LAYOUT(parent), element->widget, 0, 0);*/
+		gtk_layout_put (GTK_LAYOUT (parent), element->widget, 0, 0);*/
 }
 
 HTMLObject *

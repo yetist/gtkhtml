@@ -57,7 +57,7 @@ gtk_html_accessibility_init (void)
 	if (accessibility_initialized)
 		return;
 
-	if (atk_get_root())
+	if (atk_get_root ())
 		atk_registry_set_factory_type (atk_get_default_registry (), GTK_TYPE_HTML, gtk_html_a11y_factory_get_type ());
 
 	accessibility_initialized = TRUE;

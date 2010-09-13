@@ -31,8 +31,8 @@ html_form_new (HTMLEngine *engine, const gchar *_action, const gchar *_method)
 	HTMLForm *new;
 
 	new = g_new (HTMLForm, 1);
-	new->action = g_strdup(_action);
-	new->method = g_strdup(_method);
+	new->action = g_strdup (_action);
+	new->method = g_strdup (_method);
 
 	new->elements = NULL;
 	new->hidden = NULL;
@@ -126,7 +126,7 @@ html_form_submit (HTMLForm *form)
 	GList *i = form->elements;
 	gchar *ptr;
 
-	const gchar * codepage = html_engine_get_content_type(form->engine);
+	const gchar * codepage = html_engine_get_content_type (form->engine);
 
 	while (i) {
 		ptr = html_embedded_encode (HTML_EMBEDDED (i->data), codepage);

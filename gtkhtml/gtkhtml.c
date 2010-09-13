@@ -740,9 +740,9 @@ setup_scroll_timeout (GtkHTML *html)
 	html->priv->scroll_timeout_id = g_timeout_add (SCROLL_TIMEOUT_INTERVAL,
 						   scroll_timeout_cb, html);
 
-	GDK_THREADS_LEAVE();
+	GDK_THREADS_LEAVE ();
 	scroll_timeout_cb (html);
-	GDK_THREADS_ENTER();
+	GDK_THREADS_ENTER ();
 }
 
 static void
@@ -967,7 +967,7 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 }
 
 static void
-set_caret_mode(HTMLEngine *engine, gboolean caret_mode)
+set_caret_mode (HTMLEngine *engine, gboolean caret_mode)
 {
 	if (engine->editable)
 		return;
@@ -978,7 +978,7 @@ set_caret_mode(HTMLEngine *engine, gboolean caret_mode)
 	engine->caret_mode = caret_mode;
 
 	if (caret_mode && !engine->parsing && !engine->timerId == 0)
-		gtk_html_edit_make_cursor_visible(engine->widget);
+		gtk_html_edit_make_cursor_visible (engine->widget);
 
 	/* Normally, blink cursor handler is setup in focus in event.
 	 * However, in the case focus already in this engine, and user
@@ -1093,7 +1093,7 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 				url = html_object_get_complete_url (focus_object, focus_object_offset);
 				if (url) {
 					/* printf ("link clicked: %s\n", url); */
-                                        if (HTML_IS_TEXT(focus_object)) {
+                                        if (HTML_IS_TEXT (focus_object)) {
 						html_text_set_link_visited (HTML_TEXT (focus_object), focus_object_offset, html->engine, TRUE);
 					g_signal_emit (html, signals[LINK_CLICKED], 0, url);
 					}
@@ -2139,8 +2139,8 @@ button_release_event (GtkWidget *initial_widget,
 		    && (!gtk_html_get_editable (html) || html->priv->in_url_test_mode)) {
 			g_signal_emit (widget,  signals[LINK_CLICKED], 0, html->pointer_url);
 			focus_object = html_engine_get_focus_object (html->engine, &focus_object_offset);
-			if (HTML_IS_TEXT(focus_object)) {
-				html_text_set_link_visited (HTML_TEXT(focus_object), focus_object_offset, html->engine, TRUE);
+			if (HTML_IS_TEXT (focus_object)) {
+				html_text_set_link_visited (HTML_TEXT (focus_object), focus_object_offset, html->engine, TRUE);
 			}
 
 			if (html->priv->in_url_test_mode) {
@@ -2429,7 +2429,7 @@ set_adjustments (GtkLayout     *layout,
 		 GtkAdjustment *hadj,
 		 GtkAdjustment *vadj)
 {
-	GtkHTML *html = GTK_HTML(layout);
+	GtkHTML *html = GTK_HTML (layout);
 
 	connect_adjustments (html, hadj, vadj);
 
@@ -2688,12 +2688,12 @@ static HTMLObject *
 new_img_obj_from_uri (HTMLEngine *e, gchar *uri, gchar *title, gint len)
 {
 	if (!strncmp (uri, "file:", 5)) {
-		if (!HTML_IS_PLAIN_PAINTER(e->painter)) {
+		if (!HTML_IS_PLAIN_PAINTER (e->painter)) {
 			GdkPixbuf *pixbuf = NULL;
 			gchar *img_path = g_filename_from_uri (uri, NULL, NULL);
 			if (img_path) {
-				pixbuf = gdk_pixbuf_new_from_file(img_path, NULL);
-				g_free(img_path);
+				pixbuf = gdk_pixbuf_new_from_file (img_path, NULL);
+				g_free (img_path);
 			}
 			if (pixbuf) {
 				g_object_unref (pixbuf);
@@ -2756,7 +2756,7 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 	case DND_TARGET_TYPE_UTF8_STRING:
 	case DND_TARGET_TYPE_STRING:
 	case DND_TARGET_TYPE_TEXT_HTML:
-		clipboard_paste_received_cb(
+		clipboard_paste_received_cb (
 			gtk_widget_get_clipboard (GTK_WIDGET (widget), GDK_SELECTION_PRIMARY),
 			selection_data, widget);
 		pasted = TRUE;
@@ -3716,7 +3716,7 @@ gtk_html_begin_full (GtkHTML           *html,
 
 	/* Enable change content type in engine */
 	if (flags & GTK_HTML_BEGIN_CHANGECONTENTTYPE)
-		gtk_html_set_default_engine(html, TRUE);
+		gtk_html_set_default_engine (html, TRUE);
 
 	return handle;
 }
@@ -4158,16 +4158,16 @@ frame_set_animate (HTMLObject *o, HTMLEngine *e, gpointer data)
 }
 
 void
-gtk_html_set_caret_mode(GtkHTML * html, gboolean caret_mode)
+gtk_html_set_caret_mode (GtkHTML * html, gboolean caret_mode)
 {
 	g_return_if_fail (GTK_IS_HTML (html));
 	g_return_if_fail (HTML_IS_ENGINE (html->engine));
 
-	set_caret_mode(html->engine, caret_mode);
+	set_caret_mode (html->engine, caret_mode);
 }
 
 gboolean
-gtk_html_get_caret_mode(const GtkHTML *html)
+gtk_html_get_caret_mode (const GtkHTML *html)
 {
 	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
 	g_return_val_if_fail (HTML_IS_ENGINE (html->engine), FALSE);
@@ -4702,27 +4702,27 @@ gtk_html_redo (GtkHTML *html)
 /* misc utils */
 /* if engine_type == false - default behaviour*/
 void
-gtk_html_set_default_engine(GtkHTML *html, gboolean engine_type)
+gtk_html_set_default_engine (GtkHTML *html, gboolean engine_type)
 {
-	html_engine_set_engine_type( html->engine, engine_type);
+	html_engine_set_engine_type ( html->engine, engine_type);
 }
 
 gboolean
-gtk_html_get_default_engine(GtkHTML *html)
+gtk_html_get_default_engine (GtkHTML *html)
 {
-	return html_engine_get_engine_type( html->engine);
+	return html_engine_get_engine_type ( html->engine);
 }
 
 void
 gtk_html_set_default_content_type (GtkHTML *html, const gchar *content_type)
 {
-    html_engine_set_content_type( html->engine, content_type);
+    html_engine_set_content_type ( html->engine, content_type);
 }
 
 const gchar *
 gtk_html_get_default_content_type (GtkHTML *html)
 {
-    return html_engine_get_content_type( html->engine);
+    return html_engine_get_content_type ( html->engine);
 }
 
 gpointer
@@ -5211,7 +5211,7 @@ command (GtkHTML *html, GtkHTMLCommandType com_type)
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_PAGEDOWN:
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_PREV_WORD:
 	case GTK_HTML_COMMAND_MODIFY_SELECTION_NEXT_WORD:
-		if (html->engine->caret_mode || html_engine_get_editable(e)) {
+		if (html->engine->caret_mode || html_engine_get_editable (e)) {
 			gtk_im_context_reset (html->priv->im_context);
 			rv = move_selection (html, com_type);
 		}

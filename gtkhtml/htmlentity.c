@@ -868,7 +868,7 @@ html_entity_hash (register const gchar *str, register guint len)
 gulong
 html_entity_parse (const gchar *s, guint len)
 {
-	struct _EntityEntry * result = html_entity_hash( s, len);
+	struct _EntityEntry * result = html_entity_hash ( s, len);
 	if (result == NULL )
 		return INVALID_ENTITY_CHARACTER_MARKER;
 	return result->value;

@@ -873,7 +873,7 @@ html_image_new (HTMLImageFactory *imf,
 {
 	HTMLImage *image;
 
-	image = g_new(HTMLImage, 1);
+	image = g_new (HTMLImage, 1);
 
 	html_image_init (image, &html_image_class,
 			 imf,

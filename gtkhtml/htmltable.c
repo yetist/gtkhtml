@@ -126,7 +126,7 @@ copy_sized (HTMLObject *self, HTMLObject *dest, gint rows, gint cols)
 
 	d->bgColor     = s->bgColor ? gdk_color_copy (s->bgColor) : NULL;
 	d->caption     = s->caption ? HTML_CLUEV (html_object_dup (HTML_OBJECT (s->caption))) : NULL;
-	d->bgPixmap    = s->bgPixmap ? html_image_factory_register(s->bgPixmap->factory, NULL, s->bgPixmap->url, FALSE) : NULL;
+	d->bgPixmap    = s->bgPixmap ? html_image_factory_register (s->bgPixmap->factory, NULL, s->bgPixmap->url, FALSE) : NULL;
 
 	d->columnMin   = g_array_new (FALSE, FALSE, sizeof (gint));
 	d->columnFixed = g_array_new (FALSE, FALSE, sizeof (gint));
@@ -2391,7 +2391,7 @@ html_table_add_cell (HTMLTable *table, HTMLTableCell *cell)
 	html_table_alloc_cell (table, table->row, table->col);
 	html_table_set_cell (table, table->row, table->col, cell);
 	html_table_cell_set_position (cell, table->row, table->col);
-	do_cspan(table, table->row, table->col, cell);
+	do_cspan (table, table->row, table->col, cell);
 }
 
 void

@@ -25,7 +25,7 @@
              position of paragraph. so it is possible to find first match
              on bottom of page (ie. first column of table) and the second
              one on top (ie. top of second comlumn)
-	    [also Netscape didn't take care of it]
+	   [also Netscape didn't take care of it]
 
 */
 
@@ -95,7 +95,7 @@ html_search_new (HTMLEngine *e, const gchar *text, gboolean case_sensitive, gboo
 		rv_int = regcomp (ns->reb, ns->text, (case_sensitive) ? 0 : REG_ICASE);
 		if (rv_int) {
 			gchar buf[1024];
-			if (regerror(rv_int, ns->reb, buf, sizeof(buf))) {
+			if (regerror (rv_int, ns->reb, buf, sizeof (buf))) {
 				g_warning ("%s", buf);
 			} else {
 				g_warning ("regcomp failed, error code %d", rv_int);

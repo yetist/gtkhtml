@@ -72,7 +72,7 @@ void           html_tokenizer_destroy         (HTMLTokenizer *tokenizer);
 void           html_tokenizer_begin           (HTMLTokenizer *t,
 					       const gchar *content_type);
 
-const gchar *  html_tokenizer_get_content_type(HTMLTokenizer *t);
+const gchar *  html_tokenizer_get_content_type (HTMLTokenizer *t);
 void           html_tokenizer_change_content_type
 					      (HTMLTokenizer *t,
 					       const gchar *content_type);

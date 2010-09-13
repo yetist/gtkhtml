@@ -264,7 +264,7 @@ html_url_dup (const HTMLURL *url, HTMLURLDupFlags flags)
 
 	if (flags & HTML_URL_DUP_NOCGIARGS && new->path) {
 		/* Cut the path after the first '?' */
-		ptr = strchr(new->path, '?');
+		ptr = strchr (new->path, '?');
 		if (ptr)
 			*ptr = 0;
 	}
@@ -473,7 +473,7 @@ concat_dir_and_file (const gchar *dir, const gchar *file)
 {
         /* If the directory name doesn't have a / on the end, we need
 	   to add one so we get a proper path to the file */
-	if (*dir && dir[strlen(dir) - 1] != PATH_SEP)
+	if (*dir && dir[strlen (dir) - 1] != PATH_SEP)
 		return g_strconcat (dir, PATH_SEP_STR, file, NULL);
 	else
 		return g_strconcat (dir, file, NULL);
@@ -495,13 +495,13 @@ html_url_append_path (const HTMLURL *url,
 	if (url->path == NULL)
 		return NULL;
 
-	tmppath = g_strdup(url->path);
+	tmppath = g_strdup (url->path);
 
 	/* Cut the path at the first '?' */
-	if ((ptr = strchr(tmppath, '?')))
+	if ((ptr = strchr (tmppath, '?')))
 		*ptr = 0;
 
-	i = strlen(tmppath);
+	i = strlen (tmppath);
 
 	/* Remove first '/' from the right */
 	while (i && tmppath[i-1] != '/')
@@ -509,7 +509,7 @@ html_url_append_path (const HTMLURL *url,
 
 	if (i)
 		tmppath[i] = 0;
-	else if (strlen(tmppath) > 1)
+	else if (strlen (tmppath) > 1)
 		tmppath[i] = 0;
 
 	new_path = concat_dir_and_file (tmppath, path);

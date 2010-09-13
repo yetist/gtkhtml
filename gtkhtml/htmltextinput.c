@@ -70,7 +70,7 @@ reset (HTMLEmbedded *e)
 static gboolean
 html_text_input_key_pressed (GtkWidget *w, GdkEventKey *ev, gpointer p)
 {
-	HTMLEmbedded *e = HTML_EMBEDDED(p);
+	HTMLEmbedded *e = HTML_EMBEDDED (p);
 	HTMLEmbedded *next = NULL;
 	HTMLEmbedded *current = NULL;
 	gboolean found = FALSE;
@@ -78,12 +78,12 @@ html_text_input_key_pressed (GtkWidget *w, GdkEventKey *ev, gpointer p)
 
 	if (ev->keyval == GDK_Return) {
 		for (node = e->form->elements; node; node = node->next) {
-			current = HTML_EMBEDDED(node->data);
+			current = HTML_EMBEDDED (node->data);
 
 			/* focus on the next visible element */
 			if (current->widget && found
-			    && HTML_OBJECT_TYPE(current) != HTML_TYPE_BUTTON
-			    && HTML_OBJECT_TYPE(current) != HTML_TYPE_IMAGEINPUT) {
+			    && HTML_OBJECT_TYPE (current) != HTML_TYPE_BUTTON
+			    && HTML_OBJECT_TYPE (current) != HTML_TYPE_IMAGEINPUT) {
 				next = current;
 				break;
 			}
@@ -126,7 +126,7 @@ encode (HTMLEmbedded *e, const gchar * codepage)
 	}
 
 	ptr = encoding->str;
-	g_string_free(encoding, FALSE);
+	g_string_free (encoding, FALSE);
 
 	return ptr;
 }
@@ -192,11 +192,11 @@ html_text_input_init (HTMLTextInput *ti,
 	ti->default_text = g_strdup (element->value);
 
 	if (maxlen != -1)
-		gtk_entry_set_max_length(GTK_ENTRY(element->widget), maxlen);
+		gtk_entry_set_max_length (GTK_ENTRY (element->widget), maxlen);
 
-	gtk_entry_set_visibility (GTK_ENTRY(element->widget), !password);
+	gtk_entry_set_visibility (GTK_ENTRY (element->widget), !password);
 
-	gtk_entry_set_width_chars (GTK_ENTRY(element->widget), size);
+	gtk_entry_set_width_chars (GTK_ENTRY (element->widget), size);
 
 	ti->size = size;
 	ti->maxlen = maxlen;

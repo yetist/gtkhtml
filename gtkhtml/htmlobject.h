@@ -61,8 +61,8 @@ struct _HTMLObject {
 	guint selected : 1;
 
 	/* If an object has a redraw pending and is being destroyed, this flag
-           is set to TRUE instead of g_free()ing the object.  When the draw
-           queue is flushed, the g_free() is performed.  */
+           is set to TRUE instead of g_free ()ing the object.  When the draw
+           queue is flushed, the g_free () is performed.  */
 	guint free_pending : 1;
 
 	/* FIXME add the other dynamic pusedo-classes... */

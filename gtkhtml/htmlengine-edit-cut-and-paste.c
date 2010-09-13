@@ -411,7 +411,7 @@ html_engine_copy_object (HTMLEngine *e, HTMLObject **o, guint *len)
 void
 html_engine_copy (HTMLEngine *e)
 {
-	html_engine_copy_object(e, &e->clipboard, &e->clipboard_len);
+	html_engine_copy_object (e, &e->clipboard, &e->clipboard_len);
 }
 
 struct _DeleteUndo {

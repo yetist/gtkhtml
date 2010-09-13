@@ -3990,7 +3990,7 @@ html_text_change_set (HTMLText *text, HTMLChangeFlags flags)
 void
 html_text_set_link_visited (HTMLText *text, gint offset, HTMLEngine *engine, gboolean is_visited)
 {
-        HTMLEngine *object_engine=html_object_engine(HTML_OBJECT(text),engine);
+        HTMLEngine *object_engine=html_object_engine (HTML_OBJECT (text),engine);
         Link *link = html_text_get_link_at_offset (text,offset);
 
 	if (link) {

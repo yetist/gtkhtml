@@ -67,7 +67,7 @@ draw (HTMLObject *o,
       gint width, gint height,
       gint tx, gint ty)
 {
-	HTMLEmbedded *element = HTML_EMBEDDED(o);
+	HTMLEmbedded *element = HTML_EMBEDDED (o);
 	gint new_x, new_y;
 
 	d (printf ("draw embedded %p\n", element));
@@ -82,7 +82,7 @@ draw (HTMLObject *o,
 		if ((parent = gtk_widget_get_parent (element->widget))) {
 			if (new_x != element->abs_x || new_y != element->abs_y) {
 				d (printf ("element: %p moveto: %d,%d shown: %d\n", element, new_x, new_y, GTK_WIDGET_VISIBLE (element->widget)));
-				gtk_layout_move (GTK_LAYOUT(parent), element->widget, new_x, new_y);
+				gtk_layout_move (GTK_LAYOUT (parent), element->widget, new_x, new_y);
 			} else if (!GTK_HTML (parent)->engine->expose)
 				gtk_widget_queue_draw (element->widget);
 		}
@@ -92,7 +92,7 @@ draw (HTMLObject *o,
 
 		if (!parent) {
 			d (printf ("element: %p put: %d,%d shown: %d\n", element, new_x, new_y, GTK_WIDGET_VISIBLE (element->widget)));
-			gtk_layout_put (GTK_LAYOUT(element->parent), element->widget, new_x, new_y);
+			gtk_layout_put (GTK_LAYOUT (element->parent), element->widget, new_x, new_y);
 		}
 	}
 
@@ -109,9 +109,9 @@ destroy (HTMLObject *o)
 	element = HTML_EMBEDDED (o);
 
 	if (element->name)
-		g_free(element->name);
+		g_free (element->name);
 	if (element->value)
-		g_free(element->value);
+		g_free (element->value);
 	if (element->widget) {
 		GtkWidget *parent;
 
@@ -183,7 +183,7 @@ html_embedded_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList **ch
 	requisition.width = requisition.height = 0;
 	gtk_widget_size_request (widget, &requisition);
 
-	if (GTK_IS_HTML_EMBEDDED(widget))
+	if (GTK_IS_HTML_EMBEDDED (widget))
 		self->descent = GTK_HTML_EMBEDDED (widget)->descent * pixel_size;
 	else
 		self->descent = 0;
@@ -246,18 +246,18 @@ html_embedded_encode_string (const gchar *before, const gchar *codepage)
 	    GIConv iconv_cd = generate_iconv_to (codepage);
 	    if ( is_valid_g_iconv (iconv_cd))
 	    {
-		str= convert_text_encoding(iconv_cd, before);
-		g_iconv_close(iconv_cd);
+		str= convert_text_encoding (iconv_cd, before);
+		g_iconv_close (iconv_cd);
 	    }
 
-        while (pos < strlen(str)) {
+        while (pos < strlen (str)) {
 
 		c = (guchar) str[pos];
 
 		if ( (( c >= 'A') && ( c <= 'Z')) ||
 		     (( c >= 'a') && ( c <= 'z')) ||
 		     (( c >= '0') && ( c <= '9')) ||
-		     (strchr(safe, c))
+		     (strchr (safe, c))
 		     )
 			{
 				encoded = g_string_append_c (encoded, c);
@@ -334,11 +334,11 @@ html_embedded_init (HTMLEmbedded *element,
 
 	element->form = NULL;
 	if (name)
-		element->name = g_strdup(name);
+		element->name = g_strdup (name);
 	else
 		element->name = g_strdup("");
 	if (value)
-		element->value = g_strdup(value);
+		element->value = g_strdup (value);
 	else
 		element->value = g_strdup("");
 	element->widget = NULL;
@@ -350,7 +350,7 @@ html_embedded_init (HTMLEmbedded *element,
 }
 
 static gboolean
-html_embedded_grab_cursor(GtkWidget *eb, GdkEvent *event)
+html_embedded_grab_cursor (GtkWidget *eb, GdkEvent *event)
 {
 	/* Keep the focus! Fight the power */
 	return TRUE;
@@ -366,7 +366,7 @@ html_embedded_object_changed (GtkHTMLEmbedded *eb, HTMLEngine *e)
 	if (object)
 		html_object_calc_size (object, e->painter, NULL);
 
-	html_engine_schedule_update(e);
+	html_engine_schedule_update (e);
 }
 
 HTMLEmbedded *
@@ -374,7 +374,7 @@ html_embedded_new_widget (GtkWidget *parent, GtkHTMLEmbedded *eb, HTMLEngine *en
 {
 	HTMLEmbedded *em;
 
-	em = g_new0(HTMLEmbedded, 1);
+	em = g_new0 (HTMLEmbedded, 1);
 	d (printf ("embedded %p new widget\n", em));
 
 	html_embedded_init (em, HTML_EMBEDDED_CLASS (&html_embedded_class), parent, eb->name, "");

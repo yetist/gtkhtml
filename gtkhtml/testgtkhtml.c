@@ -90,8 +90,8 @@ static void resize_cb (GtkWidget *widget, gpointer data);
 static void select_all_cb (GtkWidget *widget, gpointer data);
 static void title_changed_cb (GtkHTML *html, const gchar *title, gpointer data);
 static void url_requested (GtkHTML *html, const gchar *url, GtkHTMLStream *handle, gpointer data);
-static void entry_goto_url(GtkWidget *widget, gpointer data);
-static void goto_url(const gchar *url, gint back_or_forward);
+static void entry_goto_url (GtkWidget *widget, gpointer data);
+static void goto_url (const gchar *url, gint back_or_forward);
 static void on_set_base (GtkHTML *html, const gchar *url, gpointer data);
 
 static gchar *parse_href (const gchar *s);
@@ -210,7 +210,7 @@ example_changed_cb (GtkComboBox *combo_box, gpointer data)
 	Example *example = examples->pdata[i];
 
 	if (example->filename) {
-		goto_url(example->filename, 0);
+		goto_url (example->filename, 0);
 	} else
 		goto_url("http://www.gnome.org", 0);
 }
@@ -597,7 +597,7 @@ redraw_cb (GtkWidget *widget, gpointer data)
 static void
 animate_cb (GtkToggleButton *togglebutton, gpointer data)
 {
-	gtk_html_set_animate (html, !gtk_toggle_button_get_mode(togglebutton));
+	gtk_html_set_animate (html, !gtk_toggle_button_get_mode (togglebutton));
 }
 
 static void
@@ -611,14 +611,14 @@ title_changed_cb (GtkHTML *html, const gchar *title, gpointer data)
 }
 
 static void
-entry_goto_url(GtkWidget *widget, gpointer data)
+entry_goto_url (GtkWidget *widget, gpointer data)
 {
 	gchar *tmpurl;
 
 	tmpurl = g_strdup (gtk_entry_get_text (GTK_ENTRY (widget)));
 
 	/* Add "http://" if no protocol is specified */
-	if (strchr(tmpurl, ':')) {
+	if (strchr (tmpurl, ':')) {
 		on_set_base (NULL, tmpurl, NULL);
 		goto_url (tmpurl, 0);
 	} else {
@@ -627,7 +627,7 @@ entry_goto_url(GtkWidget *widget, gpointer data)
 		url = g_strdup_printf("http://%s", tmpurl);
 		on_set_base (NULL, url, NULL);
 		goto_url (url, 0);
-		g_free(url);
+		g_free (url);
 	}
 	g_free (tmpurl);
 }
@@ -645,16 +645,16 @@ back_cb (GtkWidget *widget, gpointer data)
 
 	go_position++;
 
-	if ((item = g_list_nth_data(go_list, go_position))) {
+	if ((item = g_list_nth_data (go_list, go_position))) {
 
-		goto_url(item->url, 1);
-		gtk_widget_set_sensitive(popup_menu_forward, TRUE);
-		gtk_widget_set_sensitive(toolbar_forward, TRUE);
+		goto_url (item->url, 1);
+		gtk_widget_set_sensitive (popup_menu_forward, TRUE);
+		gtk_widget_set_sensitive (toolbar_forward, TRUE);
 
-		if (go_position == (g_list_length(go_list) - 1)) {
+		if (go_position == (g_list_length (go_list) - 1)) {
 
-			gtk_widget_set_sensitive(popup_menu_back, FALSE);
-			gtk_widget_set_sensitive(toolbar_back, FALSE);
+			gtk_widget_set_sensitive (popup_menu_back, FALSE);
+			gtk_widget_set_sensitive (toolbar_back, FALSE);
 		}
 
 	} else
@@ -668,16 +668,16 @@ forward_cb (GtkWidget *widget, gpointer data)
 
 	go_position--;
 
-	if ((go_position >= 0) && (item = g_list_nth_data(go_list, go_position))) {
+	if ((go_position >= 0) && (item = g_list_nth_data (go_list, go_position))) {
 
-		goto_url(item->url, 1);
+		goto_url (item->url, 1);
 
-		gtk_widget_set_sensitive(popup_menu_back, TRUE);
-		gtk_widget_set_sensitive(toolbar_back, TRUE);
+		gtk_widget_set_sensitive (popup_menu_back, TRUE);
+		gtk_widget_set_sensitive (toolbar_back, TRUE);
 
 		if (go_position == 0) {
-			gtk_widget_set_sensitive(popup_menu_forward, FALSE);
-			gtk_widget_set_sensitive(toolbar_forward, FALSE);
+			gtk_widget_set_sensitive (popup_menu_forward, FALSE);
+			gtk_widget_set_sensitive (toolbar_forward, FALSE);
 		}
 	} else
 		go_position++;
@@ -688,9 +688,9 @@ reload_cb (GtkWidget *widget, gpointer data)
 {
 	go_item *item;
 
-	if ((item = g_list_nth_data(go_list, go_position))) {
+	if ((item = g_list_nth_data (go_list, go_position))) {
 
-		goto_url(item->url, 1);
+		goto_url (item->url, 1);
 	}
 }
 
@@ -708,7 +708,7 @@ load_done (GtkHTML *html)
 	/* TODO2 animator stop
 
 	if (exit_when_done)
-		gtk_main_quit();
+		gtk_main_quit ();
 	*/
 }
 
@@ -751,7 +751,7 @@ on_set_base (GtkHTML *html, const gchar *url, gpointer data)
 static gboolean
 redirect_timer_event (gpointer data) {
 	g_print("Redirecting to '%s' NOW\n", redirect_url);
-	goto_url(redirect_url, 0);
+	goto_url (redirect_url, 0);
 
 	/*	OBS: redirect_url is freed in goto_url */
 
@@ -764,7 +764,7 @@ on_redirect (GtkHTML *html, const gchar *url, gint delay, gpointer data) {
 
 	if (redirect_timerId == 0) {
 
-		redirect_url = g_strdup(url);
+		redirect_url = g_strdup (url);
 
 		redirect_timerId = g_timeout_add (delay * 1000,(GtkFunction) redirect_timer_event, NULL);
 	}
@@ -781,7 +781,7 @@ on_submit (GtkHTML *html, const gchar *method, const gchar *action, const gchar 
 		tmpstr = g_string_append_c (tmpstr, '?');
 		tmpstr = g_string_append (tmpstr, encoding);
 
-		goto_url(tmpstr->str, 0);
+		goto_url (tmpstr->str, 0);
 
 		g_string_free (tmpstr, TRUE);
 	} else {
@@ -791,7 +791,7 @@ on_submit (GtkHTML *html, const gchar *method, const gchar *action, const gchar 
 }
 
 static void
-change_status_bar(GtkStatusbar * statusbar, const gchar * text)
+change_status_bar (GtkStatusbar * statusbar, const gchar * text)
 {
 	gchar *msg;
 
@@ -812,7 +812,7 @@ change_status_bar(GtkStatusbar * statusbar, const gchar * text)
 static void
 on_url (GtkHTML *html, const gchar *url, gpointer data)
 {
-	change_status_bar (GTK_STATUSBAR(statusbar), url);
+	change_status_bar (GTK_STATUSBAR (statusbar), url);
 }
 
 static void
@@ -823,16 +823,16 @@ on_link_clicked (GtkHTML *html, const gchar *url, gpointer data)
 
 /* simulate an async object isntantiation */
 static gint
-object_timeout(GtkHTMLEmbedded *eb)
+object_timeout (GtkHTMLEmbedded *eb)
 {
 	GtkWidget *w;
 
-	w = gtk_check_button_new();
-	gtk_widget_show(w);
+	w = gtk_check_button_new ();
+	gtk_widget_show (w);
 
 	printf("inserting custom widget after a delay ...\n");
-	gtk_html_embedded_set_descent(eb, rand()%8);
-	gtk_container_add (GTK_CONTAINER(eb), w);
+	gtk_html_embedded_set_descent (eb, rand ()%8);
+	gtk_container_add (GTK_CONTAINER (eb), w);
 	g_object_unref (eb);
 
 	return FALSE;
@@ -847,7 +847,7 @@ object_requested_cmd (GtkHTML *html, GtkHTMLEmbedded *eb, gpointer data)
 		return FALSE;
 
 	g_object_ref (eb);
-	g_timeout_add(rand() % 5000 + 1000, (GtkFunction) object_timeout, eb);
+	g_timeout_add (rand () % 5000 + 1000, (GtkFunction) object_timeout, eb);
 	/* object_timeout (eb); */
 
 	return TRUE;
@@ -865,7 +865,7 @@ got_data (SoupSession *session, SoupMessage *msg, gpointer user_data)
 		return;
 	}
 	/* Enable change content type in engine */
-	gtk_html_set_default_engine(html, TRUE);
+	gtk_html_set_default_engine (html, TRUE);
 
 	ContentType = soup_message_headers_get (msg->response_headers, "Content-type");
 
@@ -993,42 +993,42 @@ go_list_cb (GtkWidget *widget, gpointer data)
 	/* Only if the item was selected, not deselected */
 	if (gtk_check_menu_item_get_active (GTK_CHECK_MENU_ITEM (widget))) {
 
-		go_position = GPOINTER_TO_INT(data);
+		go_position = GPOINTER_TO_INT (data);
 
-		if ((item = g_list_nth_data(go_list, go_position))) {
+		if ((item = g_list_nth_data (go_list, go_position))) {
 
-			goto_url(item->url, 1);
-			num = g_list_length(go_list);
+			goto_url (item->url, 1);
+			num = g_list_length (go_list);
 
 			if (go_position == 0 || num < 2) {
-				gtk_widget_set_sensitive(popup_menu_forward, FALSE);
-				gtk_widget_set_sensitive(toolbar_forward, FALSE);
+				gtk_widget_set_sensitive (popup_menu_forward, FALSE);
+				gtk_widget_set_sensitive (toolbar_forward, FALSE);
 			} else {
-				gtk_widget_set_sensitive(popup_menu_forward, TRUE);
-				gtk_widget_set_sensitive(toolbar_forward, TRUE);
+				gtk_widget_set_sensitive (popup_menu_forward, TRUE);
+				gtk_widget_set_sensitive (toolbar_forward, TRUE);
 			}
 			if (go_position == (num - 1) || num < 2) {
-				gtk_widget_set_sensitive(popup_menu_back, FALSE);
-				gtk_widget_set_sensitive(toolbar_back, FALSE);
+				gtk_widget_set_sensitive (popup_menu_back, FALSE);
+				gtk_widget_set_sensitive (toolbar_back, FALSE);
 			} else {
-				gtk_widget_set_sensitive(popup_menu_back, TRUE);
-				gtk_widget_set_sensitive(toolbar_back, TRUE);
+				gtk_widget_set_sensitive (popup_menu_back, TRUE);
+				gtk_widget_set_sensitive (toolbar_back, TRUE);
 			}
 		}
 	}
 }
 
-static void remove_go_list(gpointer data, gpointer user_data) {
+static void remove_go_list (gpointer data, gpointer user_data) {
 	go_item *item = (go_item *)data;
 
 	if (item->widget)
-		gtk_widget_destroy(item->widget);
+		gtk_widget_destroy (item->widget);
 
 	item->widget = NULL;
 }
 
 static void
-goto_url(const gchar *url, gint back_or_forward)
+goto_url (const gchar *url, gint back_or_forward)
 {
 	gint tmp, i;
 	go_item *item;
@@ -1040,7 +1040,7 @@ goto_url(const gchar *url, gint back_or_forward)
 
 	/* Remove any pending redirection */
 	if (redirect_timerId) {
-		g_source_remove(redirect_timerId);
+		g_source_remove (redirect_timerId);
 
 		redirect_timerId = 0;
 	}
@@ -1060,82 +1060,82 @@ goto_url(const gchar *url, gint back_or_forward)
 			/* Removes "Forward entries"*/
 			tmp = go_position;
 			while (tmp) {
-				item = g_list_nth_data(go_list, --tmp);
-				go_list = g_list_remove(go_list, item);
+				item = g_list_nth_data (go_list, --tmp);
+				go_list = g_list_remove (go_list, item);
 				if (item->url)
-					g_free(item->url);
+					g_free (item->url);
 				if (item->title)
-					g_free(item->title);
+					g_free (item->title);
 				if (item->url)
-					gtk_widget_destroy(item->widget);
-				g_free(item);
+					gtk_widget_destroy (item->widget);
+				g_free (item);
 			}
 			go_position = 0;
 		}
 
 		/* Removes old entries if the list is to big */
-		tmp = g_list_length(go_list);
+		tmp = g_list_length (go_list);
 		while (tmp > MAX_GO_ENTRIES) {
-			item = g_list_nth_data(go_list, MAX_GO_ENTRIES);
+			item = g_list_nth_data (go_list, MAX_GO_ENTRIES);
 
 			if (item->url)
-				g_free(item->url);
+				g_free (item->url);
 			if (item->title)
-				g_free(item->title);
+				g_free (item->title);
 			if (item->url)
-				gtk_widget_destroy(item->widget);
-			g_free(item);
+				gtk_widget_destroy (item->widget);
+			g_free (item);
 
-			go_list = g_list_remove(go_list, item);
+			go_list = g_list_remove (go_list, item);
 			tmp--;
 		}
-		gtk_widget_set_sensitive(popup_menu_forward, FALSE);
-		gtk_widget_set_sensitive(toolbar_forward, FALSE);
+		gtk_widget_set_sensitive (popup_menu_forward, FALSE);
+		gtk_widget_set_sensitive (toolbar_forward, FALSE);
 
-		item = g_malloc0(sizeof(go_item));
-		item->url = g_strdup(full_url);
+		item = g_malloc0 (sizeof (go_item));
+		item->url = g_strdup (full_url);
 
 		/* Remove old go list */
-		g_list_foreach(go_list, remove_go_list, NULL);
+		g_list_foreach (go_list, remove_go_list, NULL);
 
 		/* Add new url to go list */
-		go_list = g_list_prepend(go_list, item);
+		go_list = g_list_prepend (go_list, item);
 
 		/* Create a new go list menu */
-		tmp = g_list_length(go_list);
+		tmp = g_list_length (go_list);
 		group = NULL;
 
 		for (i=0;i<tmp;i++) {
 
-			item = g_list_nth_data(go_list, i);
-			item->widget = gtk_radio_menu_item_new_with_label(group, item->url);
+			item = g_list_nth_data (go_list, i);
+			item->widget = gtk_radio_menu_item_new_with_label (group, item->url);
 
 			g_signal_connect (item->widget, "activate",
 					  G_CALLBACK (go_list_cb), GINT_TO_POINTER (i));
 
-			group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(item->widget));
+			group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (item->widget));
 
 			if (i == 0)
-				gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item->widget), TRUE);
+				gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (item->widget), TRUE);
 
-			gtk_widget_show(item->widget);
+			gtk_widget_show (item->widget);
 
 		}
 		/* Enable the "Back" button if there are more then one url in the list */
-		if (g_list_length(go_list) > 1) {
+		if (g_list_length (go_list) > 1) {
 
-			gtk_widget_set_sensitive(popup_menu_back, TRUE);
-			gtk_widget_set_sensitive(toolbar_back, TRUE);
+			gtk_widget_set_sensitive (popup_menu_back, TRUE);
+			gtk_widget_set_sensitive (toolbar_back, TRUE);
 		}
 	} else {
 		/* Update current link in the go list */
-		item = g_list_nth_data(go_list, go_position);
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(item->widget), TRUE);
+		item = g_list_nth_data (go_list, go_position);
+		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM (item->widget), TRUE);
 	}
 
 	if (redirect_url) {
 
-		g_free(redirect_url);
+		g_free (redirect_url);
 		redirect_url = NULL;
 	}
 	g_free (full_url);
@@ -1148,11 +1148,11 @@ bug_cb (GtkWidget *widget, gpointer data)
 
 	cwd = g_get_current_dir ();
 	filename = g_strdup_printf("%s/bugs.html", cwd);
-	url = g_filename_to_uri(filename, NULL, NULL);
-	goto_url(url, 0);
-	g_free(url);
-	g_free(filename);
-	g_free(cwd);
+	url = g_filename_to_uri (filename, NULL, NULL);
+	goto_url (url, 0);
+	g_free (url);
+	g_free (filename);
+	g_free (cwd);
 }
 
 static void
@@ -1168,7 +1168,7 @@ motion_notify_event (GtkHTML *html, GdkEventMotion *event, gpointer data)
 
 	id = gtk_html_get_object_id_at (html, event->x, event->y);
 	if (id)
-		change_status_bar(GTK_STATUSBAR (statusbar), id);
+		change_status_bar (GTK_STATUSBAR (statusbar), id);
 
 	return FALSE;
 }
@@ -1190,7 +1190,7 @@ main (gint argc, gchar *argv[])
 	gpointer p = malloc (1024);	/* to make linker happy with ccmalloc */
 #endif
 
-	gtk_init(&argc, &argv);
+	gtk_init (&argc, &argv);
 
 	app = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 
@@ -1264,7 +1264,7 @@ main (gint argc, gchar *argv[])
 	gtk_container_add (GTK_CONTAINER (scrolled_window), html_widget);
 
 	/* Create a popup menu with disabled back and forward items */
-	popup_menu = gtk_menu_new();
+	popup_menu = gtk_menu_new ();
 
 	popup_menu_back = gtk_menu_item_new_with_label ("Back");
 	gtk_widget_set_sensitive (popup_menu_back, FALSE);

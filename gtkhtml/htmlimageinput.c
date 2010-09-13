@@ -131,7 +131,7 @@ encode (HTMLEmbedded *e, const gchar *codepage)
 	}
 
 	ptr = encoding->str;
-	g_string_free(encoding, FALSE);
+	g_string_free (encoding, FALSE);
 
 	return ptr;
 }

@@ -69,7 +69,7 @@ encode (HTMLEmbedded *e,const gchar *codepage)
 	GString *encoding = g_string_new ("");
 	gchar *ptr;
 
-	if (strlen (e->name) && (HTML_BUTTON(e)->successful)) {
+	if (strlen (e->name) && (HTML_BUTTON (e)->successful)) {
 		ptr = html_embedded_encode_string (e->name, codepage);
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
@@ -82,7 +82,7 @@ encode (HTMLEmbedded *e,const gchar *codepage)
 	}
 
 	ptr = encoding->str;
-	g_string_free(encoding, FALSE);
+	g_string_free (encoding, FALSE);
 
 	return ptr;
 }
@@ -152,7 +152,7 @@ html_button_init (HTMLButton *button,
 	button->type = type;
 	button->successful = FALSE;
 	/*	gtk_widget_show(element->widget);
-		gtk_layout_put(GTK_LAYOUT(parent), element->widget, 0, 0);*/
+		gtk_layout_put (GTK_LAYOUT (parent), element->widget, 0, 0);*/
 }
 
 HTMLObject *

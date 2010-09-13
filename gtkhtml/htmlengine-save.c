@@ -20,7 +20,7 @@
     Boston, MA 02110-1301, USA.
 
     Author: Ettore Perazzoli <ettore@helixcode.com>
-    `encode_entities()' adapted from gnome-xml by Daniel Veillard
+    `encode_entities ()' adapted from gnome-xml by Daniel Veillard
     <Daniel.Veillard@w3.org>.
 */
 

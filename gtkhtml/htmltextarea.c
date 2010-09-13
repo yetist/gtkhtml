@@ -88,7 +88,7 @@ encode (HTMLEmbedded *e, const gchar *codepage)
 	}
 
 	utf8_str = encoding->str;
-	g_string_free(encoding, FALSE);
+	g_string_free (encoding, FALSE);
 
 	return utf8_str;
 }

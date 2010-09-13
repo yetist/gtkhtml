@@ -64,10 +64,10 @@ html_engine_hide_cursor  (HTMLEngine *engine)
 
 	if ((engine->editable || engine->caret_mode) && engine->cursor_hide_count == 0) {
 		if (!engine->editable) {
-			e = html_object_engine(engine->cursor->object, NULL);
+			e = html_object_engine (engine->cursor->object, NULL);
 			if (e) {
 				e->caret_mode = engine->caret_mode;
-				html_cursor_copy(e->cursor, engine->cursor);
+				html_cursor_copy (e->cursor, engine->cursor);
 			} else	e = engine;
 		}
 		html_engine_draw_cursor_in_area (e, 0, 0, -1, -1);
@@ -89,10 +89,10 @@ html_engine_show_cursor  (HTMLEngine *engine)
 		engine->cursor_hide_count--;
 		if ((engine->editable || engine->caret_mode) && engine->cursor_hide_count == 0) {
 			if (!engine->editable) {
-				e = html_object_engine(engine->cursor->object, NULL);
+				e = html_object_engine (engine->cursor->object, NULL);
 				if (e) {
 					e->caret_mode = engine->caret_mode;
-					html_cursor_copy(e->cursor, engine->cursor);
+					html_cursor_copy (e->cursor, engine->cursor);
 				} else e = engine;
 			}
 			html_engine_draw_cursor_in_area (e, 0, 0, -1, -1);
@@ -317,11 +317,11 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 
 	html_object_get_cursor (obj, engine->painter, offset, &x1, &y1, &x2, &y2);
 	while (obj) {
-		if (html_object_is_frame(obj)) {
-			x1 -= HTML_EMBEDDED(obj)->abs_x;
-			x2 -= HTML_EMBEDDED(obj)->abs_x;
-			y1 -= HTML_EMBEDDED(obj)->abs_y;
-			y2 -= HTML_EMBEDDED(obj)->abs_y;
+		if (html_object_is_frame (obj)) {
+			x1 -= HTML_EMBEDDED (obj)->abs_x;
+			x2 -= HTML_EMBEDDED (obj)->abs_x;
+			y1 -= HTML_EMBEDDED (obj)->abs_y;
+			y2 -= HTML_EMBEDDED (obj)->abs_y;
 			break;
 		}
                 obj = obj->parent;

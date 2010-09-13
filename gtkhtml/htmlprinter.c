@@ -273,12 +273,12 @@ draw_border (HTMLPainter *painter,
 	#define DARK(c)  dark.c = MAX (((gint) bg->c) - INC, 0)
 	#define LIGHT(c) light.c = MIN (((gint) bg->c) + INC, 0xffff)
 
-	DARK(red);
-	DARK(green);
-	DARK(blue);
-	LIGHT(red);
-	LIGHT(green);
-	LIGHT(blue);
+	DARK (red);
+	DARK (green);
+	DARK (blue);
+	LIGHT (red);
+	LIGHT (green);
+	LIGHT (blue);
 
 	switch (style) {
 	case HTML_BORDER_SOLID:
@@ -530,7 +530,7 @@ static void
 draw_embedded (HTMLPainter *p, HTMLEmbedded *o, gint x, gint y)
 {
 	gdouble print_x, print_y;
-	HTMLPrinter *printer = HTML_PRINTER(p);
+	HTMLPrinter *printer = HTML_PRINTER (p);
 	GtkWidget *embedded_widget;
 	cairo_t *cr;
 
@@ -541,9 +541,9 @@ draw_embedded (HTMLPainter *p, HTMLEmbedded *o, gint x, gint y)
 	cairo_save (cr);
 	cairo_translate (cr,
 			print_x, print_y + o->height * PIXEL_SIZE);
-	embedded_widget = html_embedded_get_widget(o);
+	embedded_widget = html_embedded_get_widget (o);
 	if (embedded_widget && GTK_IS_HTML_EMBEDDED (embedded_widget)) {
-		g_signal_emit_by_name(G_OBJECT (embedded_widget),
+		g_signal_emit_by_name (G_OBJECT (embedded_widget),
 				      "draw_print",
 				       cr);
 	}

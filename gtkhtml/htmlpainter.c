@@ -945,7 +945,7 @@ html_painter_pango_to_engine (HTMLPainter       *painter,
 			      gint               pango_units)
 {
 	gdouble tmp = 0.5 + pango_units / painter->engine_to_pango;
-	return (gint) CLAMP(tmp, G_MININT, G_MAXINT);
+	return (gint) CLAMP (tmp, G_MININT, G_MAXINT);
 }
 
 /**
@@ -964,7 +964,7 @@ html_painter_engine_to_pango (HTMLPainter       *painter,
 			      gint               engine_units)
 {
 	gdouble tmp = 0.5 + engine_units * painter->engine_to_pango;
-	return (gint) CLAMP(tmp, G_MININT, G_MAXINT);
+	return (gint) CLAMP (tmp, G_MININT, G_MAXINT);
 }
 
 void

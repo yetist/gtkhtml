@@ -45,7 +45,7 @@ copy (HTMLObject *self,
 static void
 reset (HTMLEmbedded *e)
 {
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(e->widget), HTML_RADIO(e)->default_checked);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (e->widget), HTML_RADIO (e)->default_checked);
 }
 
 static gchar *
@@ -68,7 +68,7 @@ encode (HTMLEmbedded *e, const gchar *codepage)
 	}
 
 	ptr = encoding->str;
-	g_string_free(encoding, FALSE);
+	g_string_free (encoding, FALSE);
 
 	return ptr;
 }
@@ -126,7 +126,7 @@ html_radio_init (HTMLRadio *radio,
 	html_embedded_set_widget (element, widget);
 	html_form_add_radio (form, name, GTK_RADIO_BUTTON (widget));
 
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), checked);
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), checked);
 	radio->default_checked = checked;
 }
 

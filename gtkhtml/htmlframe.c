@@ -43,7 +43,7 @@ static void
 frame_url_requested (GtkHTML *html, const gchar *url, GtkHTMLStream *handle, gpointer data)
 {
 	HTMLFrame *frame = HTML_FRAME (data);
-	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(frame)->parent);
+	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED (frame)->parent);
 
 	if (!html->engine->stopped)
 		g_signal_emit_by_name (parent->engine, "url_requested", url, handle);
@@ -67,7 +67,7 @@ frame_submit (GtkHTML *html,
 	      gpointer data)
 {
 	HTMLFrame *frame = HTML_FRAME (data);
-	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(frame)->parent);
+	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED (frame)->parent);
 
 	g_signal_emit_by_name (parent, "submit", method, action, encoding);
 }
@@ -76,7 +76,7 @@ static void
 frame_size_changed (GtkHTML *html, gpointer data)
 {
 	HTMLFrame *frame = HTML_FRAME (data);
-	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(frame)->parent);
+	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED (frame)->parent);
 
 	html_engine_schedule_update (parent->engine);
 }
@@ -85,7 +85,7 @@ static gboolean
 frame_object_requested (GtkHTML *html, GtkHTMLEmbedded *eb, gpointer data)
 {
 	HTMLFrame *frame = HTML_FRAME (data);
-	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(frame)->parent);
+	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED (frame)->parent);
 	gboolean ret_val;
 
 	ret_val = FALSE;
@@ -128,7 +128,7 @@ html_frame_new (GtkWidget *parent,
 }
 
 static gboolean
-html_frame_grab_cursor(GtkWidget *frame, GdkEvent *event)
+html_frame_grab_cursor (GtkWidget *frame, GdkEvent *event)
 {
 	/* Keep the focus! Fight the power */
 	return TRUE;
@@ -480,10 +480,10 @@ html_frame_init (HTMLFrame *frame,
 	new_tokenizer = NULL;
 
 	gtk_html_set_default_content_type (new_html,
-					   gtk_html_get_default_content_type(parent_html));
+					   gtk_html_get_default_content_type (parent_html));
 
 	gtk_html_set_default_engine (new_html,
-					   gtk_html_get_default_engine(parent_html));
+					   gtk_html_get_default_engine (parent_html));
 
 	frame->html = new_widget;
 	frame->url = g_strdup (src);

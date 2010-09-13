@@ -96,7 +96,7 @@ html_engine_set_mark (HTMLEngine *e)
 
 	if (e->mark != NULL) {
 		html_engine_unselect_all (e);
-		html_cursor_destroy(e->mark);
+		html_cursor_destroy (e->mark);
 	}
 
 	e->mark = html_cursor_dup (e->cursor);

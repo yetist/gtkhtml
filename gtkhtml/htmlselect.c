@@ -66,7 +66,7 @@ copy (HTMLObject *self,
 static void
 reset (HTMLEmbedded *e)
 {
-	HTMLSelect *s = HTML_SELECT(e);
+	HTMLSelect *s = HTML_SELECT (e);
 
 	if (s->multi || s->size > 1) {
 		GtkTreeView *tree_view;
@@ -128,7 +128,7 @@ static gchar *
 encode (HTMLEmbedded *e, const gchar *codepage)
 {
 	struct EmbeddedSelectionInfo info;
-	HTMLSelect *s = HTML_SELECT(e);
+	HTMLSelect *s = HTML_SELECT (e);
 	GtkTreeIter iter;
 
 	info.embedded = e;

@@ -291,12 +291,12 @@ draw_border (HTMLPainter *painter,
 	#define DARK(c)  dark.c = MAX (((gint) bg->c) - INC, 0)
 	#define LIGHT(c) light.c = MIN (((gint) bg->c) + INC, 0xffff)
 
-	DARK(red);
-	DARK(green);
-	DARK(blue);
-	LIGHT(red);
-	LIGHT(green);
-	LIGHT(blue);
+	DARK (red);
+	DARK (green);
+	DARK (blue);
+	LIGHT (red);
+	LIGHT (green);
+	LIGHT (blue);
 
 	alloc_color (painter, &dark);
 	alloc_color (painter, &light);
@@ -692,7 +692,7 @@ draw_spell_error (HTMLPainter *painter, gint x, gint y, gint width)
 static void
 draw_embedded (HTMLPainter * p, HTMLEmbedded *o, gint x, gint y)
 {
-	HTMLGdkPainter *gdk_painter = HTML_GDK_PAINTER(p);
+	HTMLGdkPainter *gdk_painter = HTML_GDK_PAINTER (p);
 	GtkWidget *embedded_widget;
 
 	embedded_widget = html_embedded_get_widget (o);

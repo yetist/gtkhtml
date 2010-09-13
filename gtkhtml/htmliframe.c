@@ -54,7 +54,7 @@ static void
 iframe_url_requested (GtkHTML *html, const gchar *url, GtkHTMLStream *handle, gpointer data)
 {
 	HTMLIFrame *iframe = HTML_IFRAME (data);
-	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(iframe)->parent);
+	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED (iframe)->parent);
 
 	if (!html->engine->stopped)
 		g_signal_emit_by_name (parent->engine, "url_requested", url, handle);
@@ -64,7 +64,7 @@ static void
 iframe_size_changed (GtkHTML *html, gpointer data)
 {
 	HTMLIFrame *iframe = HTML_IFRAME (data);
-	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(iframe)->parent);
+	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED (iframe)->parent);
 
 	html_engine_schedule_update (parent->engine);
 }
@@ -73,7 +73,7 @@ static gboolean
 iframe_object_requested (GtkHTML *html, GtkHTMLEmbedded *eb, gpointer data)
 {
 	HTMLIFrame *iframe = HTML_IFRAME (data);
-	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED(iframe)->parent);
+	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED (iframe)->parent);
 	gboolean ret_val;
 
 	ret_val = FALSE;
@@ -116,7 +116,7 @@ html_iframe_new (GtkWidget *parent,
 }
 
 static gboolean
-html_iframe_grab_cursor(GtkWidget *iframe, GdkEvent *event)
+html_iframe_grab_cursor (GtkWidget *iframe, GdkEvent *event)
 {
 	/* Keep the focus! Fight the power */
 	return TRUE;
@@ -610,10 +610,10 @@ html_iframe_init (HTMLIFrame *iframe,
 	new_tokenizer = NULL;
 
 	gtk_html_set_default_content_type (new_html,
-					   gtk_html_get_default_content_type(parent_html));
+					   gtk_html_get_default_content_type (parent_html));
 
 	gtk_html_set_default_engine (new_html,
-					   gtk_html_get_default_engine(parent_html));
+					   gtk_html_get_default_engine (parent_html));
 
 	iframe->html = new_widget;
 	iframe->url = g_strdup (src);

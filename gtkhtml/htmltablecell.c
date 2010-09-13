@@ -117,7 +117,7 @@ copy (HTMLObject *self, HTMLObject *dest)
 
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
 
-	d->bgPixmap    = s->have_bgPixmap ? html_image_factory_register(s->bgPixmap->factory, NULL, s->bgPixmap->url, FALSE) : NULL;
+	d->bgPixmap    = s->have_bgPixmap ? html_image_factory_register (s->bgPixmap->factory, NULL, s->bgPixmap->url, FALSE) : NULL;
 }
 
 static gboolean

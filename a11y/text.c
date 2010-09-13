@@ -333,7 +333,7 @@ html_a11y_text_ref_state_set (AtkObject *accessible)
 	if (!html || !html->engine)
 		return state_set;
 
-	if (html_engine_get_editable(html->engine))
+	if (html_engine_get_editable (html->engine))
 		atk_state_set_add_state (state_set, ATK_STATE_EDITABLE);
 
 	atk_state_set_add_state (state_set, ATK_STATE_MULTI_LINE);
@@ -447,41 +447,41 @@ html_a11y_text_get_text (AtkText *text, gint start_offset, gint end_offset)
 }
 
 static gint
-html_a11y_text_get_caret_offset(AtkText * text)
+html_a11y_text_get_caret_offset (AtkText * text)
 {
 	HTMLObject * p;
 	HTMLEngine * e;
 	GtkHTML * html;
 
-	g_return_val_if_fail(text, 0);
+	g_return_val_if_fail (text, 0);
 
-	p= HTML_A11Y_HTML(text);
-	g_return_val_if_fail(p && HTML_IS_TEXT(p), 0);
+	p= HTML_A11Y_HTML (text);
+	g_return_val_if_fail (p && HTML_IS_TEXT (p), 0);
 
-	html = GTK_HTML_A11Y_GTKHTML(html_a11y_get_gtkhtml_parent(HTML_A11Y(text)));
+	html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
 
-	g_return_val_if_fail(html && GTK_IS_HTML(html) && html->engine, 0);
+	g_return_val_if_fail (html && GTK_IS_HTML (html) && html->engine, 0);
 
-	e = html_engine_get_top_html_engine(html->engine);
+	e = html_engine_get_top_html_engine (html->engine);
 
-	g_return_val_if_fail(e && e->cursor && e->cursor->object == p, 0);
+	g_return_val_if_fail (e && e->cursor && e->cursor->object == p, 0);
 
 	return e->cursor->offset;
 }
 
 static gboolean
-html_a11y_text_set_caret_offset(AtkText * text, gint offset)
+html_a11y_text_set_caret_offset (AtkText * text, gint offset)
 {
 	GtkHTML * html;
 	HTMLEngine * e;
-	HTMLObject * obj = HTML_A11Y_HTML(text);
+	HTMLObject * obj = HTML_A11Y_HTML (text);
 
-	html = GTK_HTML_A11Y_GTKHTML(html_a11y_get_gtkhtml_parent(HTML_A11Y(text)));
+	html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
 
-	g_return_val_if_fail(obj && html && html->engine, FALSE);
+	g_return_val_if_fail (obj && html && html->engine, FALSE);
 
 	e = html->engine;
-	html_engine_jump_to_object(e, obj, offset);
+	html_engine_jump_to_object (e, obj, offset);
 
 	return TRUE;
 }
@@ -692,7 +692,7 @@ html_a11y_text_add_selection (AtkText *text, gint start_offset, gint end_offset)
 	HTMLObject *obj = HTML_A11Y_HTML (text);
 	HTMLInterval *i;
 
-	g_return_val_if_fail(html && html->engine, FALSE);
+	g_return_val_if_fail (html && html->engine, FALSE);
 
 	if (html_engine_is_selection_active (html->engine))
 		return FALSE;
@@ -761,7 +761,7 @@ html_a11y_text_get_run_attributes (AtkText *text,
 	g_return_val_if_fail (a11y, NULL);
 
 	html = GTK_HTML_A11Y_GTKHTML (a11y);
-	g_return_val_if_fail (html && GTK_IS_HTML(html) && html->engine, NULL);
+	g_return_val_if_fail (html && GTK_IS_HTML (html) && html->engine, NULL);
 
 	e = html->engine;
 	attr = html_text_prepare_attrs (t, e->painter);
@@ -861,7 +861,7 @@ html_a11y_text_get_run_attributes (AtkText *text,
 	}
 	if ((pango_lang = (PangoAttrLanguage*) pango_attr_iterator_get (iter,
 						PANGO_ATTR_LANGUAGE)) != NULL) {
-		value = g_strdup( pango_language_to_string( pango_lang->value));
+		value = g_strdup ( pango_language_to_string ( pango_lang->value));
 		attrib_set = gail_misc_add_attribute (attrib_set,
 				ATK_TEXT_ATTR_LANGUAGE,
 				value);
@@ -917,7 +917,7 @@ html_a11y_text_get_offset_at_point (AtkText *text, gint x, gint y,
 	gint text_x, text_y, text_height, text_width;
 
 	obj = HTML_A11Y_HTML (text);
-	g_return_val_if_fail(obj && html_object_is_text(obj), -1);
+	g_return_val_if_fail (obj && html_object_is_text (obj), -1);
 
 	atk_component_get_extents (ATK_COMPONENT (text), &text_x, &text_y, &text_width, &text_height, coords);
 
@@ -930,7 +930,7 @@ html_a11y_text_get_offset_at_point (AtkText *text, gint x, gint y,
 	g_return_val_if_fail (top_a11y, -1);
 
 	top_html = GTK_HTML_A11Y_GTKHTML (top_a11y);
-	g_return_val_if_fail (top_html && GTK_IS_HTML(top_html) && top_html->engine, -1);
+	g_return_val_if_fail (top_html && GTK_IS_HTML (top_html) && top_html->engine, -1);
 	top_e = top_html->engine;
 
 	atk_component_get_extents (ATK_COMPONENT (top_a11y), &html_x, &html_y, &html_width, &html_height, coords);
@@ -959,13 +959,13 @@ html_a11y_text_get_character_extents (AtkText *text, gint offset,
 	GtkHTMLA11Y *a11y;
 
 	obj = HTML_A11Y_HTML (text);
-	g_return_if_fail(obj && html_object_is_text(obj));
+	g_return_if_fail (obj && html_object_is_text (obj));
 
 	a11y = html_a11y_get_top_gtkhtml_parent (HTML_A11Y (text));
 	g_return_if_fail (a11y);
 
 	html = GTK_HTML_A11Y_GTKHTML (a11y);
-	g_return_if_fail(html && GTK_IS_HTML(html) && html->engine);
+	g_return_if_fail (html && GTK_IS_HTML (html) && html->engine);
 	e = html->engine;
 
 	atk_component_get_extents (ATK_COMPONENT (a11y), x, y, width, height, coords);
@@ -1004,19 +1004,19 @@ html_a11y_text_set_text_contents (AtkEditableText *text,
 	HTMLText *t;
 
 	/* fprintf(stderr, "atk set text contents called text %p\n", text);*/
-	g_return_if_fail(string);
+	g_return_if_fail (string);
 
-        html = GTK_HTML_A11Y_GTKHTML(html_a11y_get_gtkhtml_parent(HTML_A11Y(text)));
-	g_return_if_fail(html && html->engine && html_engine_get_editable(html->engine));
-	t = HTML_TEXT(HTML_A11Y_HTML(text));
+        html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
+	g_return_if_fail (html && html->engine && html_engine_get_editable (html->engine));
+	t = HTML_TEXT (HTML_A11Y_HTML (text));
 	g_return_if_fail (t);
 
         html_engine_hide_cursor (html->engine);
-	html_cursor_jump_to(html->engine->cursor, html->engine, HTML_OBJECT(t), 0);
-	html_engine_set_mark(html->engine);
-	html_cursor_jump_to(html->engine->cursor, html->engine, HTML_OBJECT(t), t->text_len);
+	html_cursor_jump_to (html->engine->cursor, html->engine, HTML_OBJECT (t), 0);
+	html_engine_set_mark (html->engine);
+	html_cursor_jump_to (html->engine->cursor, html->engine, HTML_OBJECT (t), t->text_len);
 	html_engine_update_selection_if_necessary (html->engine);
-	html_engine_paste_text(html->engine, string, -1);
+	html_engine_paste_text (html->engine, string, -1);
         html_engine_show_cursor (html->engine);
 
         g_signal_emit_by_name(html, "grab_focus");
@@ -1033,14 +1033,14 @@ html_a11y_text_insert_text (AtkEditableText *text,
 
 	/* fprintf(stderr, "atk insert text called \n"); */
 
-	g_return_if_fail(string && (length > 0));
-	t = HTML_TEXT(HTML_A11Y_HTML(text));
+	g_return_if_fail (string && (length > 0));
+	t = HTML_TEXT (HTML_A11Y_HTML (text));
 	g_return_if_fail (t);
 
-        html = GTK_HTML_A11Y_GTKHTML(html_a11y_get_gtkhtml_parent(HTML_A11Y(text)));
-	g_return_if_fail(html && html->engine && html_engine_get_editable(html->engine));
-	html_cursor_jump_to(html->engine->cursor, html->engine, HTML_OBJECT(t), *position);
-	html_engine_paste_text(html->engine, string, -1);
+        html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
+	g_return_if_fail (html && html->engine && html_engine_get_editable (html->engine));
+	html_cursor_jump_to (html->engine->cursor, html->engine, HTML_OBJECT (t), *position);
+	html_engine_paste_text (html->engine, string, -1);
 }
 
 static void
@@ -1052,18 +1052,18 @@ html_a11y_text_copy_text	(AtkEditableText *text,
 	HTMLText *t;
 
 	/* fprintf(stderr, "atk copy text called \n"); */
-        html = GTK_HTML_A11Y_GTKHTML(html_a11y_get_gtkhtml_parent(HTML_A11Y(text)));
-	g_return_if_fail(html && html->engine && html_engine_get_editable(html->engine));
-	t = HTML_TEXT(HTML_A11Y_HTML(text));
+        html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
+	g_return_if_fail (html && html->engine && html_engine_get_editable (html->engine));
+	t = HTML_TEXT (HTML_A11Y_HTML (text));
 	g_return_if_fail (t);
 
         html_engine_hide_cursor (html->engine);
-	html_cursor_jump_to(html->engine->cursor, html->engine, HTML_OBJECT(t), start_pos);
-	html_engine_set_mark(html->engine);
-	html_cursor_jump_to(html->engine->cursor, html->engine, HTML_OBJECT(t), end_pos);
+	html_cursor_jump_to (html->engine->cursor, html->engine, HTML_OBJECT (t), start_pos);
+	html_engine_set_mark (html->engine);
+	html_cursor_jump_to (html->engine->cursor, html->engine, HTML_OBJECT (t), end_pos);
 	html_engine_update_selection_if_necessary (html->engine);
 
-	html_engine_copy(html->engine);
+	html_engine_copy (html->engine);
         html_engine_show_cursor (html->engine);
 }
 
@@ -1076,17 +1076,17 @@ html_a11y_text_cut_text (AtkEditableText *text,
 	HTMLText *t;
 
 	/* fprintf(stderr, "atk cut text called.\n"); */
-        html = GTK_HTML_A11Y_GTKHTML(html_a11y_get_gtkhtml_parent(HTML_A11Y(text)));
-	g_return_if_fail(html && html->engine && html_engine_get_editable(html->engine));
-	t = HTML_TEXT(HTML_A11Y_HTML(text));
+        html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
+	g_return_if_fail (html && html->engine && html_engine_get_editable (html->engine));
+	t = HTML_TEXT (HTML_A11Y_HTML (text));
 	g_return_if_fail (t);
 
         html_engine_hide_cursor (html->engine);
-	html_cursor_jump_to(html->engine->cursor, html->engine, HTML_OBJECT(t), start_pos);
-	html_engine_set_mark(html->engine);
-	html_cursor_jump_to(html->engine->cursor, html->engine, HTML_OBJECT(t), end_pos);
+	html_cursor_jump_to (html->engine->cursor, html->engine, HTML_OBJECT (t), start_pos);
+	html_engine_set_mark (html->engine);
+	html_cursor_jump_to (html->engine->cursor, html->engine, HTML_OBJECT (t), end_pos);
 	html_engine_update_selection_if_necessary (html->engine);
-	html_engine_cut(html->engine);
+	html_engine_cut (html->engine);
 	html_engine_show_cursor (html->engine);
 
         g_signal_emit_by_name(html, "grab_focus");
@@ -1101,13 +1101,13 @@ html_a11y_text_delete_text	(AtkEditableText *text,
 	HTMLText *t;
 
 	/* fprintf(stderr, "atk delete text called.\n"); */
-        html = GTK_HTML_A11Y_GTKHTML(html_a11y_get_gtkhtml_parent(HTML_A11Y(text)));
-	g_return_if_fail(html && html->engine && html_engine_get_editable(html->engine));
-	t = HTML_TEXT(HTML_A11Y_HTML(text));
+        html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
+	g_return_if_fail (html && html->engine && html_engine_get_editable (html->engine));
+	t = HTML_TEXT (HTML_A11Y_HTML (text));
 	g_return_if_fail (t);
 
-	html_cursor_jump_to(html->engine->cursor, html->engine, HTML_OBJECT(t), start_pos);
-	html_engine_delete_n(html->engine, end_pos-start_pos, TRUE);
+	html_cursor_jump_to (html->engine->cursor, html->engine, HTML_OBJECT (t), start_pos);
+	html_engine_delete_n (html->engine, end_pos-start_pos, TRUE);
         g_signal_emit_by_name(html, "grab_focus");
 }
 
@@ -1120,14 +1120,14 @@ html_a11y_text_paste_text	(AtkEditableText *text,
 
 	/* fprintf(stderr, "atk paste text called.\n"); */
 
-        html = GTK_HTML_A11Y_GTKHTML(html_a11y_get_gtkhtml_parent(HTML_A11Y(text)));
-	g_return_if_fail(html && html->engine && html_engine_get_editable(html->engine));
-	t = HTML_TEXT(HTML_A11Y_HTML(text));
+        html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
+	g_return_if_fail (html && html->engine && html_engine_get_editable (html->engine));
+	t = HTML_TEXT (HTML_A11Y_HTML (text));
 	g_return_if_fail (t);
 
         html_engine_show_cursor (html->engine);
-	html_cursor_jump_to(html->engine->cursor, html->engine, HTML_OBJECT(t), position);
-	html_engine_paste(html->engine);
+	html_cursor_jump_to (html->engine->cursor, html->engine, HTML_OBJECT (t), position);
+	html_engine_paste (html->engine);
         html_engine_show_cursor (html->engine);
 
         g_signal_emit_by_name(html, "grab_focus");

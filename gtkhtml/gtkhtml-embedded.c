@@ -73,7 +73,7 @@ gtk_html_embedded_get_type (void)
 }
 
 static void
-free_param(gpointer key, gpointer value, gpointer data)
+free_param (gpointer key, gpointer value, gpointer data)
 {
 	g_free (key);
 	g_free (value);
@@ -82,12 +82,12 @@ free_param(gpointer key, gpointer value, gpointer data)
 static void
 gtk_html_embedded_finalize (GObject *object)
 {
-	GtkHTMLEmbedded *eb = GTK_HTML_EMBEDDED(object);
+	GtkHTMLEmbedded *eb = GTK_HTML_EMBEDDED (object);
 
 	g_hash_table_foreach (eb->params, free_param, NULL);
 	g_hash_table_destroy (eb->params);
-	g_free(eb->classid);
-	g_free(eb->type);
+	g_free (eb->classid);
+	g_free (eb->type);
 
 	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
@@ -105,8 +105,8 @@ static void gtk_html_embedded_add (GtkContainer *container, GtkWidget *child)
 	/* can't add something twice */
 	g_return_if_fail (gtk_bin_get_child (GTK_BIN (container)) == NULL);
 
-	old_add(container, child);
-	gtk_html_embedded_changed(GTK_HTML_EMBEDDED(container));
+	old_add (container, child);
+	gtk_html_embedded_changed (GTK_HTML_EMBEDDED (container));
 }
 
 static void gtk_html_embedded_remove (GtkContainer *container, GtkWidget *child)
@@ -114,9 +114,9 @@ static void gtk_html_embedded_remove (GtkContainer *container, GtkWidget *child)
 	g_return_if_fail (container != NULL);
 	g_return_if_fail (gtk_bin_get_child (GTK_BIN (container)) != NULL);
 
-	old_remove(container, child);
+	old_remove (container, child);
 
-	gtk_html_embedded_changed(GTK_HTML_EMBEDDED(container));
+	gtk_html_embedded_changed (GTK_HTML_EMBEDDED (container));
 }
 
 typedef void (*draw_print_signal)(GtkObject *, gpointer, gpointer);
@@ -274,10 +274,10 @@ gtk_html_embedded_new (gchar *classid, gchar *name, gchar *type, gchar *data, gi
 
 	em->width = width;
 	em->height = height;
-	em->type = type ? g_strdup(type) : NULL;
-	em->classid = g_strdup(classid);
-	em->name = g_strdup(name);
-	em->data = g_strdup(data);
+	em->type = type ? g_strdup (type) : NULL;
+	em->classid = g_strdup (classid);
+	em->name = g_strdup (name);
+	em->data = g_strdup (data);
 
 	return (GtkWidget *)em;
 }
@@ -315,7 +315,7 @@ gtk_html_embedded_set_parameter (GtkHTMLEmbedded *ge, gchar *param, gchar *value
 		g_free (lookup);
 	g_hash_table_insert (ge->params,
 			     lookup ? param : g_strdup (param),
-			     value  ? g_strdup(value) : NULL);
+			     value  ? g_strdup (value) : NULL);
 }
 
 /**

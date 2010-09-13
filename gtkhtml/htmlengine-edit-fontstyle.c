@@ -181,7 +181,7 @@ html_engine_get_document_color (HTMLEngine *engine)
 				return html_text_get_color_at_index (HTML_TEXT (obj), engine, g_utf8_offset_to_pointer (HTML_TEXT (obj)->text, offset) - HTML_TEXT (obj)->text);
 			} else {
 				HTMLColor *color = html_colorset_get_color (engine->settings->color_set, HTMLTextColor);
-				html_color_ref(color);
+				html_color_ref (color);
 				return color;
 			}
 		}
