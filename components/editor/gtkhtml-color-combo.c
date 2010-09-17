@@ -28,6 +28,9 @@
 #include <gdk/gdkkeysyms.h>
 #include "gtkhtml-color-swatch.h"
 
+/* backward-compatibility cruft */
+#include "gtkhtml/gtk-compat.h"
+
 #define NUM_CUSTOM_COLORS	8
 
 #define GTKHTML_COLOR_COMBO_GET_PRIVATE(obj) \
@@ -815,20 +818,20 @@ color_combo_class_init (GtkhtmlColorComboClass *class)
 
 	gtk_binding_entry_add_signal (
 		gtk_binding_set_by_class (class),
-		GDK_Down, GDK_MOD1_MASK, "popup", 0);
+		GDK_KEY_Down, GDK_MOD1_MASK, "popup", 0);
 	gtk_binding_entry_add_signal (
 		gtk_binding_set_by_class (class),
-		GDK_KP_Down, GDK_MOD1_MASK, "popup", 0);
+		GDK_KEY_KP_Down, GDK_MOD1_MASK, "popup", 0);
 
 	gtk_binding_entry_add_signal (
 		gtk_binding_set_by_class (class),
-		GDK_Up, GDK_MOD1_MASK, "popdown", 0);
+		GDK_KEY_Up, GDK_MOD1_MASK, "popdown", 0);
 	gtk_binding_entry_add_signal (
 		gtk_binding_set_by_class (class),
-		GDK_KP_Up, GDK_MOD1_MASK, "popdown", 0);
+		GDK_KEY_KP_Up, GDK_MOD1_MASK, "popdown", 0);
 	gtk_binding_entry_add_signal (
 		gtk_binding_set_by_class (class),
-		GDK_Escape, 0, "popdown", 0);
+		GDK_KEY_Escape, 0, "popdown", 0);
 }
 
 static void

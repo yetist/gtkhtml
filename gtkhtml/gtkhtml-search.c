@@ -30,6 +30,9 @@
 #include "htmlsearch.h"
 #include "htmlselection.h"
 
+/* backward-compatibility cruft */
+#include "gtk-compat.h"
+
 struct _GtkHTMLISearch {
 	GtkHTML  *html;
 	gboolean forward;
@@ -92,11 +95,11 @@ key_press (GtkWidget *widget, GdkEventKey *event, GtkHTMLISearch *data)
 {
 	gint rv = TRUE;
 
-	if (event->state & GDK_CONTROL_MASK && event->keyval == GDK_s) {
+	if (event->state & GDK_CONTROL_MASK && event->keyval == GDK_KEY_s) {
 		continue_search (data, TRUE);
-	} else if (event->state & GDK_CONTROL_MASK && event->keyval == GDK_r) {
+	} else if (event->state & GDK_CONTROL_MASK && event->keyval == GDK_KEY_r) {
 		continue_search (data, FALSE);
-	} else if (event->keyval == GDK_Escape) {
+	} else if (event->keyval == GDK_KEY_Escape) {
 		hide (data);
 	} else
 		rv = FALSE;

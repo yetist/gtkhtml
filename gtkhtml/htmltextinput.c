@@ -27,6 +27,9 @@
 #include "htmltextinput.h"
 #include "htmlform.h"
 
+/* backward-compatibility cruft */
+#include "gtk-compat.h"
+
 
 HTMLTextInputClass html_text_input_class;
 static HTMLEmbeddedClass *parent_class = NULL;
@@ -76,7 +79,7 @@ html_text_input_key_pressed (GtkWidget *w, GdkEventKey *ev, gpointer p)
 	gboolean found = FALSE;
 	GList *node = NULL;
 
-	if (ev->keyval == GDK_Return) {
+	if (ev->keyval == GDK_KEY_Return) {
 		for (node = e->form->elements; node; node = node->next) {
 			current = HTML_EMBEDDED (node->data);
 

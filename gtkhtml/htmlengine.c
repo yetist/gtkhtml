@@ -27,7 +27,6 @@
    If `e->flow' is not NULL, it must contain something.  */
 
 #include <config.h>
-#include "gtk-compat.h"
 #include "gtkhtml-compat.h"
 
 #include <stdio.h>
@@ -99,6 +98,9 @@
 #include "htmlmap.h"
 #include "htmlmarshal.h"
 #include "htmlstyle.h"
+
+/* backward-compatibility cruft */
+#include "gtk-compat.h"
 
 /* #define CHECK_CURSOR */
 

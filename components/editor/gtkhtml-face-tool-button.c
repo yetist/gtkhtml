@@ -30,6 +30,9 @@
 
 #include "gtkhtml-face-chooser.h"
 
+/* backward-compatibility cruft */
+#include "gtkhtml/gtk-compat.h"
+
 #define GTKHTML_FACE_TOOL_BUTTON_GET_PRIVATE(obj) \
 	(G_TYPE_INSTANCE_GET_PRIVATE \
 	((obj), GTKHTML_TYPE_FACE_TOOL_BUTTON, GtkhtmlFaceToolButtonPrivate))
@@ -486,20 +489,20 @@ face_tool_button_class_init (GtkhtmlFaceToolButtonClass *class)
 
 	gtk_binding_entry_add_signal (
 		gtk_binding_set_by_class (class),
-		GDK_Down, GDK_MOD1_MASK, "popup", 0);
+		GDK_KEY_Down, GDK_MOD1_MASK, "popup", 0);
 	gtk_binding_entry_add_signal (
 		gtk_binding_set_by_class (class),
-		GDK_KP_Down, GDK_MOD1_MASK, "popup", 0);
+		GDK_KEY_KP_Down, GDK_MOD1_MASK, "popup", 0);
 
 	gtk_binding_entry_add_signal (
 		gtk_binding_set_by_class (class),
-		GDK_Up, GDK_MOD1_MASK, "popdown", 0);
+		GDK_KEY_Up, GDK_MOD1_MASK, "popdown", 0);
 	gtk_binding_entry_add_signal (
 		gtk_binding_set_by_class (class),
-		GDK_KP_Up, GDK_MOD1_MASK, "popdown", 0);
+		GDK_KEY_KP_Up, GDK_MOD1_MASK, "popdown", 0);
 	gtk_binding_entry_add_signal (
 		gtk_binding_set_by_class (class),
-		GDK_Escape, 0, "popdown", 0);
+		GDK_KEY_Escape, 0, "popdown", 0);
 }
 
 static void

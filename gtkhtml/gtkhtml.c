@@ -69,6 +69,9 @@
 #include "gtkhtml-properties.h"
 #include "math.h"
 
+/* backward-compatibility cruft */
+#include "gtk-compat.h"
+
 enum DndTargetType {
 	DND_TARGET_TYPE_TEXT_URI_LIST,
 	DND_TARGET_TYPE_MOZILLA_URL,
@@ -1044,7 +1047,7 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 	html->priv->update_styles = FALSE;
 	html->priv->event_time = event->time;
 
-	if ((event->keyval == GDK_Control_L || event->keyval == GDK_Control_R)
+	if ((event->keyval == GDK_KEY_Control_L || event->keyval == GDK_KEY_Control_R)
 	    && html_engine_get_editable (html->engine))
 		url_test_mode = TRUE;
 	else
@@ -1083,8 +1086,8 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 	/* FIXME: use bindings */
 	if (!html_engine_get_editable (html->engine)) {
 		switch (event->keyval) {
-		case GDK_Return:
-		case GDK_KP_Enter:
+		case GDK_KEY_Return:
+		case GDK_KEY_KP_Enter:
 			/* the toplevel gtkhtml's focus object may be a frame or ifame */
 			focus_object = html_engine_get_focus_object (html->engine, &focus_object_offset);
 
@@ -5670,18 +5673,18 @@ add_bindings (GtkHTMLClass *klass)
 
 	/* layout scrolling */
 #define BSCROLL(m,key,orient,sc) \
-	gtk_binding_entry_add_signal (binding_set, GDK_ ## key, m, \
+	gtk_binding_entry_add_signal (binding_set, GDK_KEY_ ## key, m, \
 				      "scroll", 3, \
 				      GTK_TYPE_ORIENTATION, GTK_ORIENTATION_ ## orient, \
 				      GTK_TYPE_SCROLL_TYPE, GTK_SCROLL_ ## sc, \
-				      G_TYPE_FLOAT, 0.0); \
+				      G_TYPE_FLOAT, 0.0);
 
 #define BSPACESCROLL(m,key,orient,sc) \
-	gtk_binding_entry_add_signal (binding_set, GDK_ ## key, m, \
+	gtk_binding_entry_add_signal (binding_set, GDK_KEY_ ## key, m, \
 				      "scroll", 3, \
 				      GTK_TYPE_ORIENTATION, GTK_ORIENTATION_ ## orient, \
 				      GTK_TYPE_SCROLL_TYPE, GTK_SCROLL_ ## sc, \
-				      G_TYPE_FLOAT, 1.0); \
+				      G_TYPE_FLOAT, 1.0);
 
 	BSCROLL (0, Up, VERTICAL, STEP_BACKWARD);
 	BSCROLL (0, KP_Up, VERTICAL, STEP_BACKWARD);
@@ -5709,7 +5712,7 @@ add_bindings (GtkHTMLClass *klass)
 	/* editing */
 
 #define BMOVE(m,key,dir,sk) \
-	gtk_binding_entry_add_signal (binding_set, GDK_ ## key, m, \
+	gtk_binding_entry_add_signal (binding_set, GDK_KEY_ ## key, m, \
 				      "cursor_move", 2, \
 				      GTK_TYPE_DIRECTION_TYPE, GTK_DIR_ ## dir, \
 				      GTK_TYPE_HTML_CURSOR_SKIP, GTK_HTML_CURSOR_SKIP_ ## sk);
@@ -5750,9 +5753,10 @@ add_bindings (GtkHTMLClass *klass)
 	BMOVE (GDK_CONTROL_MASK, KP_End, DOWN, ALL);
 
 #define BCOM(m,key,com) \
-	gtk_binding_entry_add_signal (binding_set, GDK_ ## key, m, \
+	gtk_binding_entry_add_signal (binding_set, GDK_KEY_ ## key, m, \
 				      "command", 1, \
 				      GTK_TYPE_HTML_COMMAND, GTK_HTML_COMMAND_ ## com);
+
 	BCOM (0, Home, SCROLL_BOD);
 	BCOM (0, KP_Home, SCROLL_BOD);
 	BCOM (0, End, SCROLL_EOD);
