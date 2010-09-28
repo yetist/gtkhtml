@@ -30,7 +30,7 @@ if test "x${enable_gtk3}" = "xyes"; then
 else	
 	GTK_PACKAGE="gtk+-2.0"
 	GAIL_PACKAGE="gail"
-	gtk_minimum_version="2.20.0"
+	gtk_minimum_version="2.22.0"
 	GTKHTML_API_VERSION=3.14
 	EDITOR_API_VERSION=3.14
 fi

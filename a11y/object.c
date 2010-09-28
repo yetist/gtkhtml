@@ -68,11 +68,7 @@ do_action (AtkAction * action, gint i)
 	GtkWidget *widget;
 	gboolean return_value = TRUE;
 
-#if GTK_CHECK_VERSION(2,21,0)
 	widget = gtk_accessible_get_widget (GTK_ACCESSIBLE (action));
-#else
-	widget = GTK_ACCESSIBLE (action)->widget;
-#endif
 
 	if (widget == NULL) {
 	/*
