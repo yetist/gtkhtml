@@ -173,15 +173,14 @@ insert_html_file_ready_cb (GFile *file,
 
 	stream = gtk_html_begin (new_html);
 	gtk_html_write (html, stream, contents, length);
+	/* 'stream' is destroyed inside gtk_html_end */
 	gtk_html_end (html, stream, GTK_HTML_STREAM_OK);
-	gtk_html_stream_destroy (stream);
 
 	g_free (contents);
 
 	html = gtkhtml_editor_get_html (editor);
+	/* 'new_html' destroys gtk_html_insert_gtk_html itself */
 	gtk_html_insert_gtk_html (html, new_html);
-
-	g_object_unref (new_html);
 
 	goto exit;
 
