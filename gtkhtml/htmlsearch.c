@@ -21,11 +21,11 @@
 
     TODO:
 
-           - now we go thru the html tree without take care about vertical
-             position of paragraph. so it is possible to find first match
-             on bottom of page (ie. first column of table) and the second
-             one on top (ie. top of second comlumn)
-	   [also Netscape didn't take care of it]
+    - now we go thru the html tree without take care about vertical
+      position of paragraph. so it is possible to find first match
+      on bottom of page (ie. first column of table) and the second
+      one on top (ie. top of second comlumn)
+     [also Netscape didn't take care of it]
 
 */
 
