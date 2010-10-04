@@ -1,3 +1,22 @@
+GtkHTML-3.91.0 2010-10-04
+-------------------------
+
+Bug Fixes:
+	Bug #630360 - Crash when inserting html file in composer (Milan Crha)
+
+Other Changes:
+	* Use new GDK keysym names if available. (Matthew Barnes)
+	* Work around deprecation of gtk_dialog_set_has_separator().
+	  (Matthew Barnes)
+	* Bump gtk+-2.0 requirement to 2.22.0. (Matthew Barnes)
+
+Translations:
+	Khaled Hosny (ar)
+	Kenneth Nielsen (da)
+	Simos Xenitellis (el)
+	Takayuki KUSANO (ja)
+	Wouter Bolsterlee (nl)
+
 GtkHTML-3.31.92 2010-09-13
 --------------------------
 
