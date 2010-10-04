@@ -1,6 +1,6 @@
 ACLOCAL_AMFLAGS=-I m4
 
-DISTCHECK_CONFIGURE_FLAGS = --disable-gtk3
+DISTCHECK_CONFIGURE_FLAGS = --disable-gtk3 --disable-deprecated-warning-flags
 
 SUBDIRS =					\
 	a11y					\
