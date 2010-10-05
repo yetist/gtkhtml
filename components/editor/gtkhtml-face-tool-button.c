@@ -213,8 +213,8 @@ face_tool_button_child_key_press_event_cb (GtkhtmlFaceToolButton *button,
 {
 	GtkWidget *window = button->priv->window;
 
-	if (!gtk_bindings_activate_event (GTK_OBJECT (window), event))
-		gtk_bindings_activate_event (GTK_OBJECT (button), event);
+	if (!gtk_bindings_activate_event (G_OBJECT (window), event))
+		gtk_bindings_activate_event (G_OBJECT (button), event);
 
 	return TRUE;
 }

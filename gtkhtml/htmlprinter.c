@@ -65,7 +65,7 @@ html_printer_scale_to_gnome_print (HTMLPrinter *printer, gint x)
 }
 
 
-/* GtkObject methods.  */
+/* GObject methods.  */
 
 static void
 finalize (GObject *object)

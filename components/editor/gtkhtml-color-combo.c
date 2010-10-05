@@ -259,8 +259,8 @@ color_combo_child_key_press_event_cb (GtkhtmlColorCombo *combo,
 {
 	GtkWidget *window = combo->priv->window;
 
-	if (!gtk_bindings_activate_event (GTK_OBJECT (window), event))
-		gtk_bindings_activate_event (GTK_OBJECT (combo), event);
+	if (!gtk_bindings_activate_event (G_OBJECT (window), event))
+		gtk_bindings_activate_event (G_OBJECT (combo), event);
 
 	return TRUE;
 }

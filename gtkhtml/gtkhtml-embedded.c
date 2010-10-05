@@ -119,8 +119,8 @@ static void gtk_html_embedded_remove (GtkContainer *container, GtkWidget *child)
 	gtk_html_embedded_changed (GTK_HTML_EMBEDDED (container));
 }
 
-typedef void (*draw_print_signal)(GtkObject *, gpointer, gpointer);
-typedef void (*draw_gdk_signal)(GtkObject *, gpointer, gpointer, gint, gint, gpointer);
+typedef void (*draw_print_signal)(GObject *, gpointer, gpointer);
+typedef void (*draw_gdk_signal)(GObject *, gpointer, gpointer, gint, gint, gpointer);
 
 static void
 draw_gdk_signal_marshaller (GClosure     *closure,
@@ -160,12 +160,10 @@ static void
 gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *class)
 {
 	GObjectClass *gobject_class;
-	GtkObjectClass *object_class;
 	GtkWidgetClass *widget_class;
 	GtkContainerClass *container_class;
 
 	gobject_class = G_OBJECT_CLASS (class);
-	object_class = GTK_OBJECT_CLASS (class);
 	widget_class = GTK_WIDGET_CLASS (class);
 	container_class = GTK_CONTAINER_CLASS (class);
 
@@ -173,7 +171,7 @@ gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *class)
 
 	signals[CHANGED] =
 		g_signal_new ("changed",
-			      G_TYPE_FROM_CLASS (object_class),
+			      G_TYPE_FROM_CLASS (gobject_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLEmbeddedClass, changed),
 			      NULL, NULL,
@@ -181,7 +179,7 @@ gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *class)
 			      G_TYPE_NONE, 0);
 	signals[DRAW_GDK] =
 		g_signal_new ("draw_gdk",
-			      G_TYPE_FROM_CLASS (object_class),
+			      G_TYPE_FROM_CLASS (gobject_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLEmbeddedClass, draw_gdk),
 			      NULL, NULL,
@@ -191,7 +189,7 @@ gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *class)
 
 	signals[DRAW_PRINT] =
 		g_signal_new ("draw_print",
-			      G_TYPE_FROM_CLASS (object_class),
+			      G_TYPE_FROM_CLASS (gobject_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLEmbeddedClass, draw_print),
 			      NULL, NULL,
