@@ -1,26 +1,26 @@
 # translation of gtkhtml.HEAD.po to Lithuanian
 # Lithuanian translation of gtkhtml.
 # Copyright (C) 2000-2006, 2007, 2008 Free Software Foundation, Inc.
-#
-#
 # Gediminas Paulauskas <menesis@delfi.lt>, 2001-2004.
 # Tomas Kuliavas <tokul@users.sourceforge.net>, 2004.
 # Žygimantas Beručka <zygis@gnome.org>, 2004-2006.
 # Gintautas Miliauskas <gintas@akl.lt>, 2006, 2007, 2008.
+# Rimas Kudelis <rq@akl.lt>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-11 14:12+0200\n"
-"PO-Revision-Date: 2009-03-11 14:12+0200\n"
-"Last-Translator: Gintautas Miliauskas <gintas@akl.lt>\n"
-"Language-Team: Lithuanian <gnome-lt@lists.akl.lt>\n"
+"POT-Creation-Date: 2010-10-13 15:46+0300\n"
+"PO-Revision-Date: 2010-10-11 21:38+0300\n"
+"Last-Translator: Rimas Kudelis <rq@akl.lt>\n"
+"Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
+"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Virtaal 0.6.1\n"
 
 #: ../a11y/image.c:151
 #, c-format
@@ -32,1085 +32,809 @@ msgstr "URL yra %s, alternatyvus tekstas yra %s"
 msgid "URL is %s"
 msgstr "URL yra %s"
 
-#: ../a11y/object.c:52 ../a11y/object.c:61 ../a11y/text.c:126
+#: ../a11y/object.c:51 ../a11y/object.c:60 ../a11y/text.c:125
 msgid "grab focus"
 msgstr "fokusuoti"
 
-#: ../a11y/object.c:259
+#: ../a11y/object.c:257
 msgid "Panel containing HTML"
 msgstr "Skydelyje yra HTML"
 
 #: ../components/editor/gtkhtml-color-combo.c:79
-#: ../components/html-editor/gi-color-palette.c:555
 msgid "black"
 msgstr "juoda"
 
 #: ../components/editor/gtkhtml-color-combo.c:80
-#: ../components/html-editor/gi-color-palette.c:556
 msgid "light brown"
 msgstr "šviesiai ruda"
 
 #: ../components/editor/gtkhtml-color-combo.c:81
-#: ../components/html-editor/gi-color-palette.c:557
 msgid "brown gold"
 msgstr "rudai auksinė"
 
 #: ../components/editor/gtkhtml-color-combo.c:82
-#: ../components/html-editor/gi-color-palette.c:558
 msgid "dark green #2"
 msgstr "tamsiai žalia #2"
 
 #: ../components/editor/gtkhtml-color-combo.c:83
-#: ../components/html-editor/gi-color-palette.c:559
 msgid "navy"
 msgstr "jūros mėlynumo"
 
 #: ../components/editor/gtkhtml-color-combo.c:84
-#: ../components/html-editor/gi-color-palette.c:560
-#: ../components/html-editor/gi-color-palette.c:616
 msgid "dark blue"
 msgstr "tamsiai mėlyna"
 
 #: ../components/editor/gtkhtml-color-combo.c:85
-#: ../components/html-editor/gi-color-palette.c:561
 msgid "purple #2"
 msgstr "violetinė #2"
 
 #: ../components/editor/gtkhtml-color-combo.c:86
-#: ../components/html-editor/gi-color-palette.c:562
 msgid "very dark gray"
 msgstr "labai tamsiai pilka"
 
 #: ../components/editor/gtkhtml-color-combo.c:88
-#: ../components/html-editor/gi-color-palette.c:565
-#: ../components/html-editor/gi-color-palette.c:621
 msgid "dark red"
 msgstr "tamsi raudona"
 
 #: ../components/editor/gtkhtml-color-combo.c:89
-#: ../components/html-editor/gi-color-palette.c:566
 msgid "red-orange"
 msgstr "raudona-oranžinė"
 
 #: ../components/editor/gtkhtml-color-combo.c:90
-#: ../components/html-editor/gi-color-palette.c:567
 msgid "gold"
 msgstr "auksinė"
 
 #: ../components/editor/gtkhtml-color-combo.c:91
-#: ../components/html-editor/gi-color-palette.c:568
 msgid "dark green"
 msgstr "tamsiai žalia"
 
 #: ../components/editor/gtkhtml-color-combo.c:92
-#: ../components/html-editor/gi-color-palette.c:569
-#: ../components/html-editor/gi-color-palette.c:622
 msgid "dull blue"
 msgstr "neryški mėlyna"
 
 #: ../components/editor/gtkhtml-color-combo.c:93
-#: ../components/html-editor/gi-color-palette.c:570
-#: ../components/html-editor/gi-color-palette.c:623
 msgid "blue"
 msgstr "mėlyna"
 
 #: ../components/editor/gtkhtml-color-combo.c:94
-#: ../components/html-editor/gi-color-palette.c:571
 msgid "dull purple"
 msgstr "neryški violetinė"
 
 #: ../components/editor/gtkhtml-color-combo.c:95
-#: ../components/html-editor/gi-color-palette.c:572
 msgid "dark grey"
 msgstr "tamsiai pilka"
 
 #: ../components/editor/gtkhtml-color-combo.c:97
-#: ../components/html-editor/gi-color-palette.c:575
 msgid "red"
 msgstr "raudona"
 
 #: ../components/editor/gtkhtml-color-combo.c:98
-#: ../components/html-editor/gi-color-palette.c:576
 msgid "orange"
 msgstr "oranžinė"
 
 #: ../components/editor/gtkhtml-color-combo.c:99
-#: ../components/html-editor/gi-color-palette.c:577
 msgid "lime"
 msgstr "laimo"
 
 #: ../components/editor/gtkhtml-color-combo.c:100
-#: ../components/html-editor/gi-color-palette.c:578
 msgid "dull green"
 msgstr "neryški žalia"
 
 #: ../components/editor/gtkhtml-color-combo.c:101
-#: ../components/html-editor/gi-color-palette.c:579
 msgid "dull blue #2"
 msgstr "neryški mėlyna #2"
 
 #: ../components/editor/gtkhtml-color-combo.c:102
-#: ../components/html-editor/gi-color-palette.c:580
 msgid "sky blue #2"
 msgstr "dangaus mėlynumo #2"
 
 #: ../components/editor/gtkhtml-color-combo.c:103
-#: ../components/html-editor/gi-color-palette.c:581
-#: ../components/html-editor/gi-color-palette.c:620
 msgid "purple"
 msgstr "violetinė"
 
 #: ../components/editor/gtkhtml-color-combo.c:104
-#: ../components/html-editor/gi-color-palette.c:582
 msgid "gray"
 msgstr "pilka"
 
 #: ../components/editor/gtkhtml-color-combo.c:106
-#: ../components/html-editor/gi-color-palette.c:585
-#: ../components/html-editor/gi-color-palette.c:617
 msgid "magenta"
 msgstr "rausvai raudona"
 
 #: ../components/editor/gtkhtml-color-combo.c:107
-#: ../components/html-editor/gi-color-palette.c:586
 msgid "bright orange"
 msgstr "šviesiai oranžinė"
 
 #: ../components/editor/gtkhtml-color-combo.c:108
-#: ../components/html-editor/gi-color-palette.c:587
-#: ../components/html-editor/gi-color-palette.c:618
 msgid "yellow"
 msgstr "geltona"
 
 #: ../components/editor/gtkhtml-color-combo.c:109
-#: ../components/html-editor/gi-color-palette.c:588
 msgid "green"
 msgstr "žalia"
 
 #: ../components/editor/gtkhtml-color-combo.c:110
-#: ../components/html-editor/gi-color-palette.c:589
-#: ../components/html-editor/gi-color-palette.c:619
 msgid "cyan"
 msgstr "žalsvai mėlyna"
 
 #: ../components/editor/gtkhtml-color-combo.c:111
-#: ../components/html-editor/gi-color-palette.c:590
 msgid "bright blue"
 msgstr "šviesiai mėlyna"
 
 #: ../components/editor/gtkhtml-color-combo.c:112
-#: ../components/html-editor/gi-color-palette.c:591
-#: ../components/html-editor/gi-color-palette.c:608
 msgid "red purple"
 msgstr "raudonai violetinė"
 
 #: ../components/editor/gtkhtml-color-combo.c:113
-#: ../components/html-editor/gi-color-palette.c:592
 msgid "light grey"
 msgstr "šviesiai pilka"
 
 #: ../components/editor/gtkhtml-color-combo.c:115
-#: ../components/html-editor/gi-color-palette.c:595
-#: ../components/html-editor/gi-color-palette.c:612
 msgid "pink"
 msgstr "rožinė"
 
 #: ../components/editor/gtkhtml-color-combo.c:116
-#: ../components/html-editor/gi-color-palette.c:596
 msgid "light orange"
 msgstr "šviesiai oranžinė"
 
 #: ../components/editor/gtkhtml-color-combo.c:117
-#: ../components/html-editor/gi-color-palette.c:597
-#: ../components/html-editor/gi-color-palette.c:609
 msgid "light yellow"
 msgstr "šviesiai geltona"
 
 #: ../components/editor/gtkhtml-color-combo.c:118
-#: ../components/html-editor/gi-color-palette.c:598
 msgid "light green"
 msgstr "šviesiai žalia"
 
 #: ../components/editor/gtkhtml-color-combo.c:119
-#: ../components/html-editor/gi-color-palette.c:599
 msgid "light cyan"
 msgstr "šviesiai žalsvai mėlyna"
 
 #: ../components/editor/gtkhtml-color-combo.c:120
-#: ../components/html-editor/gi-color-palette.c:600
-#: ../components/html-editor/gi-color-palette.c:610
 msgid "light blue"
 msgstr "šviesiai mėlyna"
 
 #: ../components/editor/gtkhtml-color-combo.c:121
-#: ../components/html-editor/gi-color-palette.c:601
-#: ../components/html-editor/gi-color-palette.c:614
 msgid "light purple"
 msgstr "šviesiai violetinė"
 
 #: ../components/editor/gtkhtml-color-combo.c:122
-#: ../components/html-editor/gi-color-palette.c:602
 msgid "white"
 msgstr "balta"
 
-#: ../components/editor/gtkhtml-color-combo.c:274
-#: ../components/html-editor/gi-color-palette.c:422
+#: ../components/editor/gtkhtml-color-combo.c:277
 msgid "Choose Custom Color"
 msgstr "Pasirinkite kitą spalvą"
 
-#: ../components/editor/gtkhtml-color-combo.c:712
-#: ../components/editor/gtkhtml-color-state.c:205
-msgid "Current color"
-msgstr "Esama spalva"
-
-#: ../components/editor/gtkhtml-color-combo.c:713
-msgid "The currently selected color"
-msgstr "Pasirinkta spalva"
-
-#: ../components/editor/gtkhtml-color-combo.c:722
-#: ../components/editor/gtkhtml-color-state.c:215
-msgid "Default color"
-msgstr "Numatytoji spalva"
-
-#: ../components/editor/gtkhtml-color-combo.c:723
-msgid "The color associated with the default button"
-msgstr "Spalva, susieta su numatytuoju mygtukU"
-
-#: ../components/editor/gtkhtml-color-combo.c:733
-#: ../components/editor/gtkhtml-color-state.c:226
-msgid "Default label"
-msgstr "Numatytasis užrašas"
-
-#: ../components/editor/gtkhtml-color-combo.c:734
-msgid "The label for the default button"
-msgstr "Užrašas numatytajam mygtukui"
-
-#: ../components/editor/gtkhtml-color-combo.c:735
+#: ../components/editor/gtkhtml-color-combo.c:745
 #: ../components/editor/gtkhtml-color-state.c:228
 msgid "Default"
 msgstr "Numatytoji"
 
-#: ../components/editor/gtkhtml-color-combo.c:744
-#: ../components/editor/gtkhtml-color-state.c:237
-msgid "Default is transparent"
-msgstr "Numatytoji permatoma"
-
-#: ../components/editor/gtkhtml-color-combo.c:745
-#: ../components/editor/gtkhtml-color-state.c:238
-msgid "Whether the default color is transparent"
-msgstr "Ar numatytoji spalva permatoma"
-
-#: ../components/editor/gtkhtml-color-combo.c:755
-#: ../components/editor/gtkhtml-color-state.c:248
-msgid "Color palette"
-msgstr "Spalvų paletė"
-
-#: ../components/editor/gtkhtml-color-combo.c:756
-#: ../components/editor/gtkhtml-color-state.c:249
-msgid "Custom color palette"
-msgstr "Kita spalvų paletė"
-
-#. Translators: This is the nickname for a
-#. * GtkhtmlColorCombo property named "popup-shown",
-#. * based on a similar property in GtkComboBox.
-#: ../components/editor/gtkhtml-color-combo.c:768
-msgid "Popup shown"
-msgstr "Iššokantis langas rodomas"
-
-#. Translators: This is the blurb for a
-#. * GtkhtmlColorCombo property named "popup-shown",
-#. * based on a similar property in GtkComboBox.
-#: ../components/editor/gtkhtml-color-combo.c:772
-msgid "Whether the combo's dropdown is shown"
-msgstr "Ar rodyti kombinacijos išsiskleidžiantįjį lauką"
-
-#. Translators: This is the nickname for a
-#. GtkHtmlColorCombo property named "state". It holds all
-#. the internal values for a GtkHtml color combination box.
-#.
-#: ../components/editor/gtkhtml-color-combo.c:785
-msgid "Color state"
-msgstr "Spalvų būsena"
-
-#. Translators: This is the blurb for a
-#. GtkHtmlColorCombo property named "state". It holds all
-#. the internal values for a GtkHtml color combination box.
-#.
-#: ../components/editor/gtkhtml-color-combo.c:790
-msgid "The state of a color combo box"
-msgstr "Spalvų kombinacijos būsena"
-
-#. This is the default custom color
-#: ../components/editor/gtkhtml-color-combo.c:972
-#: ../components/html-editor/gi-color-palette.c:374
+#: ../components/editor/gtkhtml-color-combo.c:968
 msgid "custom"
 msgstr "kita"
 
-#: ../components/editor/gtkhtml-color-combo.c:980
+#: ../components/editor/gtkhtml-color-combo.c:976
 msgid "Custom Color..."
 msgstr "Nurodyta spalva"
 
-#: ../components/editor/gtkhtml-color-state.c:206
-#: ../components/editor/gtkhtml-color-swatch.c:183
-msgid "The current color"
-msgstr "Esama spalva"
-
-#: ../components/editor/gtkhtml-color-state.c:216
-msgid "The default color"
-msgstr "Numatytoji spalva"
-
-#: ../components/editor/gtkhtml-color-state.c:227
-msgid "Description of the default color"
-msgstr "Numatytosios spalvos aprašymas"
-
-#: ../components/editor/gtkhtml-color-swatch.c:182
-msgid "Color"
-msgstr "Spalva"
-
-#: ../components/editor/gtkhtml-color-swatch.c:192
-msgid "Frame Shadow"
-msgstr "Rėmelio šešėlis"
-
-#: ../components/editor/gtkhtml-color-swatch.c:193
-msgid "Appearance of the frame border"
-msgstr "Rėmelio krašto išvaizda"
-
-#: ../components/editor/gtkhtml-combo-box.c:323
-msgid "Action"
-msgstr "Veiksmas"
-
-#: ../components/editor/gtkhtml-combo-box.c:324
-msgid "A GtkRadioAction"
-msgstr "GtkRadioAction"
-
 #. Translators: :-)
-#: ../components/editor/gtkhtml-face-chooser.c:27
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:137
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:137
+#: ../components/editor/gtkhtml-face-chooser.c:34
 msgid "_Smile"
 msgstr "Šy_psena"
 
 #. Translators: :-(
-#: ../components/editor/gtkhtml-face-chooser.c:29
+#: ../components/editor/gtkhtml-face-chooser.c:36
 msgid "S_ad"
 msgstr "Liū_dnas"
 
 #. Translators: ;-)
-#: ../components/editor/gtkhtml-face-chooser.c:31
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:160
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:160
+#: ../components/editor/gtkhtml-face-chooser.c:38
 msgid "_Wink"
 msgstr "_Mirksnis"
 
 #. Translators: :-P
-#: ../components/editor/gtkhtml-face-chooser.c:33
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:101
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:101
+#: ../components/editor/gtkhtml-face-chooser.c:40
 msgid "Ton_gue"
 msgstr "_Liežuvis"
 
 #. Translators: :-))
-#: ../components/editor/gtkhtml-face-chooser.c:35
+#: ../components/editor/gtkhtml-face-chooser.c:42
 msgid "Laug_h"
 msgstr "Li_nksmutis"
 
 #. Translators: :-|
-#: ../components/editor/gtkhtml-face-chooser.c:37
+#: ../components/editor/gtkhtml-face-chooser.c:44
 msgid "_Plain"
 msgstr "_Paprastas"
 
 #. Translators: :-!
-#: ../components/editor/gtkhtml-face-chooser.c:39
+#: ../components/editor/gtkhtml-face-chooser.c:46
 msgid "Smi_rk"
 msgstr "_Šypsnis"
 
 #. Translators: :"-)
-#: ../components/editor/gtkhtml-face-chooser.c:41
+#: ../components/editor/gtkhtml-face-chooser.c:48
 msgid "_Embarrassed"
 msgstr "_Sumišęs"
 
 #. Translators: :-D
-#: ../components/editor/gtkhtml-face-chooser.c:43
+#: ../components/editor/gtkhtml-face-chooser.c:50
 msgid "_Big Smile"
 msgstr "Š_ypsena"
 
 #. Translators: :-/
-#: ../components/editor/gtkhtml-face-chooser.c:45
+#: ../components/editor/gtkhtml-face-chooser.c:52
 msgid "Uncer_tain"
 msgstr "_Abejojantis"
 
 #. Translators: :-O
-#: ../components/editor/gtkhtml-face-chooser.c:47
+#: ../components/editor/gtkhtml-face-chooser.c:54
 msgid "S_urprise"
 msgstr "N_ustebęs"
 
 #. Translators: :-S
-#: ../components/editor/gtkhtml-face-chooser.c:49
+#: ../components/editor/gtkhtml-face-chooser.c:56
 msgid "W_orried"
 msgstr "Susi_rūpinęs"
 
 #. Translators: :-*
-#: ../components/editor/gtkhtml-face-chooser.c:51
+#: ../components/editor/gtkhtml-face-chooser.c:58
 msgid "_Kiss"
 msgstr "_Bučinys"
 
 #. Translators: X-(
-#: ../components/editor/gtkhtml-face-chooser.c:53
+#: ../components/editor/gtkhtml-face-chooser.c:60
 msgid "A_ngry"
 msgstr "P_iktas"
 
 #. Translators: B-)
-#: ../components/editor/gtkhtml-face-chooser.c:55
+#: ../components/editor/gtkhtml-face-chooser.c:62
 msgid "_Cool"
 msgstr "_Šaunus"
 
 #. Translators: O:-)
-#: ../components/editor/gtkhtml-face-chooser.c:57
+#: ../components/editor/gtkhtml-face-chooser.c:64
 msgid "Ange_l"
 msgstr "Ange_las"
 
 #. Translators: :'(
-#: ../components/editor/gtkhtml-face-chooser.c:59
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:17
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:17
+#: ../components/editor/gtkhtml-face-chooser.c:66
 msgid "Cr_ying"
 msgstr "Verksn_ys"
 
 #. Translators: :-Q
-#: ../components/editor/gtkhtml-face-chooser.c:61
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:91
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:91
+#: ../components/editor/gtkhtml-face-chooser.c:68
 msgid "S_ick"
 msgstr "L_igonis"
 
 #. Translators: |-)
-#: ../components/editor/gtkhtml-face-chooser.c:63
+#: ../components/editor/gtkhtml-face-chooser.c:70
 msgid "Tire_d"
 msgstr "Pavar_gęs"
 
 #. Translators: >:-)
-#: ../components/editor/gtkhtml-face-chooser.c:65
+#: ../components/editor/gtkhtml-face-chooser.c:72
 msgid "De_vilish"
 msgstr "_Velniškas"
 
 #. Translators: :-(|)
-#: ../components/editor/gtkhtml-face-chooser.c:67
+#: ../components/editor/gtkhtml-face-chooser.c:74
 msgid "_Monkey"
 msgstr "_Beždžionė"
 
-#: ../components/editor/gtkhtml-editor-actions.c:632
-#: ../components/html-editor/menubar.c:348
+#: ../components/editor/gtkhtml-editor-actions.c:190
+msgid "Failed to insert HTML file."
+msgstr "Nepavyko įterpti HTML failo."
+
+#: ../components/editor/gtkhtml-editor-actions.c:227
+msgid "Failed to insert text file."
+msgstr "Nepavyko įterpti tekstinio failo."
+
+#: ../components/editor/gtkhtml-editor-actions.c:615
 msgid "Insert HTML File"
 msgstr "Įterpti HTML failą"
 
-#: ../components/editor/gtkhtml-editor-actions.c:641
-#: ../components/editor/gtkhtml-editor-actions.c:1540
+#: ../components/editor/gtkhtml-editor-actions.c:635
+#: ../components/editor/gtkhtml-editor-actions.c:1549
 msgid "Insert Image"
 msgstr "Įterpti paveikslėlį"
 
-#: ../components/editor/gtkhtml-editor-actions.c:688
-#: ../components/html-editor/menubar.c:348
+#: ../components/editor/gtkhtml-editor-actions.c:684
 msgid "Insert Text File"
 msgstr "Įterpti tekstinį failą"
 
 #. Replace Button
-#: ../components/editor/gtkhtml-editor-actions.c:1175
-#: ../components/editor/gtkhtml-spell-dialog.c:522
-#: ../components/html-editor/replace.c:85
+#: ../components/editor/gtkhtml-editor-actions.c:1184
+#: ../components/editor/gtkhtml-spell-dialog.c:520
 msgid "_Replace"
 msgstr "_Pakeisti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1182
-#: ../components/html-editor/replace.c:82
+#: ../components/editor/gtkhtml-editor-actions.c:1191
 msgid "Replace _All"
 msgstr "P_akeisti visus"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1196
-#: ../components/html-editor/replace.c:83
+#: ../components/editor/gtkhtml-editor-actions.c:1205
 msgid "_Next"
 msgstr "_Kitas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1203
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:111
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:111
+#: ../components/editor/gtkhtml-editor-actions.c:1212
 msgid "_Copy"
 msgstr "_Kopijuoti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1210
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:18
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:18
+#: ../components/editor/gtkhtml-editor-actions.c:1219
 msgid "Cu_t"
 msgstr "Iškirp_ti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1224
+#: ../components/editor/gtkhtml-editor-actions.c:1233
 msgid "Find A_gain"
 msgstr "Rasti _vėl"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1238
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:120
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:120
+#: ../components/editor/gtkhtml-editor-actions.c:1247
 msgid "_Increase Indent"
 msgstr "Pad_idinti įtrauką"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1240
+#: ../components/editor/gtkhtml-editor-actions.c:1249
 msgid "Increase Indent"
 msgstr "Pad_idinti įtrauką"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1245
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:117
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:117
+#: ../components/editor/gtkhtml-editor-actions.c:1254
 msgid "_HTML File..."
 msgstr "_HTML failą..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1252
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:100
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:100
+#: ../components/editor/gtkhtml-editor-actions.c:1261
 msgid "Te_xt File..."
 msgstr "Te_kstinį failą..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1259
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:129
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:129
+#: ../components/editor/gtkhtml-editor-actions.c:1268
 msgid "_Paste"
 msgstr "Į_dėti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1266
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:79
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:79
-#: ../components/html-editor/popup.c:446
+#: ../components/editor/gtkhtml-editor-actions.c:1275
 msgid "Paste _Quotation"
 msgstr "Įterpti _citatą"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1273
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:132
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:132
+#: ../components/editor/gtkhtml-editor-actions.c:1282
 msgid "_Redo"
 msgstr "Paka_rtoti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1280
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:92
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:92
+#: ../components/editor/gtkhtml-editor-actions.c:1289
 msgid "Select _All"
 msgstr "Pažy_mėti viską"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1287
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:114
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:114
+#: ../components/editor/gtkhtml-editor-actions.c:1296
 msgid "_Find..."
 msgstr "R_asti..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1294
+#: ../components/editor/gtkhtml-editor-actions.c:1303
 msgid "Re_place..."
 msgstr "_Pakeisti..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1301
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:12
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:12
+#: ../components/editor/gtkhtml-editor-actions.c:1310
 msgid "Check _Spelling..."
 msgstr "Tikrinti _rašybą..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1308
-#: ../components/editor/gtkhtml-editor.glade.h:77
-#: ../components/html-editor/utils.c:205
+#: ../components/editor/gtkhtml-editor-actions.c:1317
+#: ../components/editor/gtkhtml-editor-builder.ui.h:80
 msgid "_Test URL..."
 msgstr "_Patikrinti URL..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1315
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:159
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:159
+#: ../components/editor/gtkhtml-editor-actions.c:1324
 msgid "_Undo"
 msgstr "Atša_ukti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1322
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:112
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:112
+#: ../components/editor/gtkhtml-editor-actions.c:1331
 msgid "_Decrease Indent"
 msgstr "Su_mažinti įtrauką"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1324
+#: ../components/editor/gtkhtml-editor-actions.c:1333
 msgid "Decrease Indent"
 msgstr "Sumažinti įtrauką"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1329
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:161
+#: ../components/editor/gtkhtml-editor-actions.c:1338
 msgid "_Wrap Lines"
 msgstr "_Laužyti eilutes"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1338
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:113
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:113
+#: ../components/editor/gtkhtml-editor-actions.c:1347
 msgid "_Edit"
 msgstr "K_eisti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1345
+#: ../components/editor/gtkhtml-editor-actions.c:1354
 #: ../components/editor/main.c:327
 msgid "_File"
 msgstr "_Failas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1352
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:28
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:28
+#: ../components/editor/gtkhtml-editor-actions.c:1361
 msgid "For_mat"
 msgstr "For_matas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1359
+#: ../components/editor/gtkhtml-editor-actions.c:1368
 msgid "_Paragraph Style"
 msgstr "_Pastraipos stilius"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1366
+#: ../components/editor/gtkhtml-editor-actions.c:1375
 msgid "_Insert"
 msgstr "_Įterpti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1373
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:106
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:106
+#: ../components/editor/gtkhtml-editor-actions.c:1382
 msgid "_Alignment"
 msgstr "_Lygiavimas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1380
-#: ../components/html-editor/spellchecker.c:424
+#: ../components/editor/gtkhtml-editor-actions.c:1389
 msgid "Current _Languages"
 msgstr "Esamos ka_lbos"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1387
+#: ../components/editor/gtkhtml-editor-actions.c:1396
 #: ../components/editor/main.c:358
 msgid "_View"
 msgstr "_Rodymas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1397
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:110
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:110
+#: ../components/editor/gtkhtml-editor-actions.c:1406
 msgid "_Center"
 msgstr "_Centruoti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1399
+#: ../components/editor/gtkhtml-editor-actions.c:1408
 msgid "Center Alignment"
 msgstr "Centrinis lygiavimas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1404
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:124
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:124
+#: ../components/editor/gtkhtml-editor-actions.c:1413
 msgid "_Left"
 msgstr "Pagal _kairę"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1406
+#: ../components/editor/gtkhtml-editor-actions.c:1415
 msgid "Left Alignment"
 msgstr "Kairysis lygiavimas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1411
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:134
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:134
+#: ../components/editor/gtkhtml-editor-actions.c:1420
 msgid "_Right"
 msgstr "Pagal _dešinę"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1413
+#: ../components/editor/gtkhtml-editor-actions.c:1422
 msgid "Right Alignment"
 msgstr "Dešinysis lygiavimas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1421
+#: ../components/editor/gtkhtml-editor-actions.c:1430
 msgid "_HTML"
 msgstr "_HTML"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1423
+#: ../components/editor/gtkhtml-editor-actions.c:1432
 msgid "HTML editing mode"
 msgstr "HTML redagavimo veiksena"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1428
+#: ../components/editor/gtkhtml-editor-actions.c:1437
 msgid "Plain _Text"
 msgstr "_Paprastas tekstas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1430
+#: ../components/editor/gtkhtml-editor-actions.c:1439
 msgid "Plain text editing mode"
 msgstr "Paprasto teksto redagavimo veiksena"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1438
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:126
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:126
+#: ../components/editor/gtkhtml-editor-actions.c:1447
 msgid "_Normal"
 msgstr "_Paprastas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1445
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:29
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:29
+#: ../components/editor/gtkhtml-editor-actions.c:1454
 msgid "Header _1"
 msgstr "Antraštė _1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1452
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:30
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:30
+#: ../components/editor/gtkhtml-editor-actions.c:1461
 msgid "Header _2"
 msgstr "Antraštė _2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1459
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:31
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:31
+#: ../components/editor/gtkhtml-editor-actions.c:1468
 msgid "Header _3"
 msgstr "Antraštė _3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1466
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:32
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:32
+#: ../components/editor/gtkhtml-editor-actions.c:1475
 msgid "Header _4"
 msgstr "Antraštė _4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1473
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:33
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:33
+#: ../components/editor/gtkhtml-editor-actions.c:1482
 msgid "Header _5"
 msgstr "Antraštė _5"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1480
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:34
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:34
+#: ../components/editor/gtkhtml-editor-actions.c:1489
 msgid "Header _6"
 msgstr "Antraštė _6"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1487
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:8
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:8
+#: ../components/editor/gtkhtml-editor-actions.c:1496
 msgid "A_ddress"
 msgstr "A_dresas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1494
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:131
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:131
+#: ../components/editor/gtkhtml-editor-actions.c:1503
 msgid "_Preformatted"
 msgstr "_Preformatuotas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1501
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:109
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:109
+#: ../components/editor/gtkhtml-editor-actions.c:1510
 msgid "_Bulleted List"
 msgstr "Pun_ktų sąrašas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1508
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:135
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:135
+#: ../components/editor/gtkhtml-editor-actions.c:1517
 msgid "_Roman Numeral List"
 msgstr "_Romėniškai numeruotas sąrašas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1515
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:76
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:76
+#: ../components/editor/gtkhtml-editor-actions.c:1524
 msgid "Numbered _List"
 msgstr "Numeruotas _sąrašas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1522
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:107
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:107
+#: ../components/editor/gtkhtml-editor-actions.c:1531
 msgid "_Alphabetical List"
 msgstr "_Abėcėlinis Sąrašas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1538
-#: ../components/editor/gtkhtml-editor-actions.c:1573
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:119
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:119
+#: ../components/editor/gtkhtml-editor-actions.c:1547
+#: ../components/editor/gtkhtml-editor-actions.c:1584
 msgid "_Image..."
 msgstr "_Paveikslėlį..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1545
-#: ../components/editor/gtkhtml-editor-actions.c:1580
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:125
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:125
+#: ../components/editor/gtkhtml-editor-actions.c:1554
+#: ../components/editor/gtkhtml-editor-actions.c:1591
 msgid "_Link..."
 msgstr "_Nuorodą..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1547
+#: ../components/editor/gtkhtml-editor-actions.c:1556
 msgid "Insert Link"
 msgstr "Įterpti nuorodą"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1552
-#: ../components/editor/gtkhtml-editor-actions.c:1594
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:136
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:136
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1562
+#: ../components/editor/gtkhtml-editor-actions.c:1606
 msgid "_Rule..."
 msgstr "_Brūkšnį..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1554
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1565
 msgid "Insert Rule"
 msgstr "Įterpti brūkšnį"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1559
-#: ../components/editor/gtkhtml-editor-actions.c:1601
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:140
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:140
+#: ../components/editor/gtkhtml-editor-actions.c:1570
+#: ../components/editor/gtkhtml-editor-actions.c:1613
 msgid "_Table..."
 msgstr "_Lentelė..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1561
+#: ../components/editor/gtkhtml-editor-actions.c:1572
 msgid "Insert Table"
 msgstr "Įterpti lentelę"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1566
+#: ../components/editor/gtkhtml-editor-actions.c:1577
 msgid "_Cell..."
 msgstr "_Ląstelė..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1587
+#: ../components/editor/gtkhtml-editor-actions.c:1598
 msgid "Pa_ge..."
 msgstr "_Puslapis..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1610
+#: ../components/editor/gtkhtml-editor-actions.c:1622
 msgid "Font _Size"
 msgstr "Šri_fto dydis"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1617
+#: ../components/editor/gtkhtml-editor-actions.c:1629
 msgid "_Font Style"
 msgstr "Šrifto _stilius"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1627
-#: ../components/editor/gtkhtml-editor.glade.h:58
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:108
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:108
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:59
+#: ../components/editor/gtkhtml-editor-actions.c:1639
+#: ../components/editor/gtkhtml-editor-builder.ui.h:61
 msgid "_Bold"
 msgstr "Pus_juodis"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1629
-#: ../components/html-editor/toolbar.c:441
+#: ../components/editor/gtkhtml-editor-actions.c:1641
 msgid "Bold"
 msgstr "Storas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1635
-#: ../components/editor/gtkhtml-editor.glade.h:65
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:122
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:122
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:65
+#: ../components/editor/gtkhtml-editor-actions.c:1647
+#: ../components/editor/gtkhtml-editor-builder.ui.h:68
 msgid "_Italic"
 msgstr "Kursyv_inis"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1637
-#: ../components/html-editor/toolbar.c:444
+#: ../components/editor/gtkhtml-editor-actions.c:1649
 msgid "Italic"
 msgstr "Kursyvas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1643
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:130
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:130
+#: ../components/editor/gtkhtml-editor-actions.c:1655
 msgid "_Plain Text"
 msgstr "_Paprastas tekstas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1645
+#: ../components/editor/gtkhtml-editor-actions.c:1657
 msgid "Plain Text"
 msgstr "Paprastas tekstas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1651
-#: ../components/editor/gtkhtml-editor.glade.h:74
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:138
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:138
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:71
+#: ../components/editor/gtkhtml-editor-actions.c:1663
+#: ../components/editor/gtkhtml-editor-builder.ui.h:77
 msgid "_Strikethrough"
 msgstr "Perbraukta_s"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1653
+#: ../components/editor/gtkhtml-editor-actions.c:1665
 msgid "Strikethrough"
 msgstr "Perbrauktas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1659
-#: ../components/editor/gtkhtml-editor.glade.h:80
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:158
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:158
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:74
+#: ../components/editor/gtkhtml-editor-actions.c:1671
+#: ../components/editor/gtkhtml-editor-builder.ui.h:83
 msgid "_Underline"
 msgstr "Pabra_uktas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1661
-#: ../components/html-editor/toolbar.c:447
+#: ../components/editor/gtkhtml-editor-actions.c:1673
 msgid "Underline"
 msgstr "Pabrauktas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1670
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:7
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:7
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1683
 msgid "-2"
 msgstr "-2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1677
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:6
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:6
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1691
 msgid "-1"
 msgstr "-1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1684
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:1
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:1
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1699
 msgid "+0"
 msgstr "+0"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1691
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:2
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:2
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1707
 msgid "+1"
 msgstr "+1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1698
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:3
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:3
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1715
 msgid "+2"
 msgstr "+2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1705
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:4
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:4
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1723
 msgid "+3"
 msgstr "+3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1712
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:5
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:5
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1731
 msgid "+4"
 msgstr "+4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1731
+#: ../components/editor/gtkhtml-editor-actions.c:1750
 msgid "Cell Contents"
 msgstr "Ląstelės turinys"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1738
-#: ../components/html-editor/popup.c:523
+#: ../components/editor/gtkhtml-editor-actions.c:1757
 msgid "Column"
 msgstr "Stulpelis"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1745
-#: ../components/html-editor/popup.c:522
+#: ../components/editor/gtkhtml-editor-actions.c:1764
 msgid "Row"
 msgstr "Eilutė"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1752
-#: ../components/editor/gtkhtml-editor-actions.c:1835
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:98
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:98
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:50
-#: ../components/html-editor/menubar.c:217
-#: ../components/html-editor/popup.c:235 ../components/html-editor/popup.c:509
-#: ../components/html-editor/popup.c:521
+#: ../components/editor/gtkhtml-editor-actions.c:1771
+#: ../components/editor/gtkhtml-editor-actions.c:1856
 msgid "Table"
 msgstr "Lentelė"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1761
+#. Translators: Popup menu item caption, containing all the Delete options for a table
+#: ../components/editor/gtkhtml-editor-actions.c:1781
 msgid "Table Delete"
 msgstr "Lentelėje ištrinti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1768
-#: ../components/html-editor/popup.c:584
+#: ../components/editor/gtkhtml-editor-actions.c:1788
 msgid "Input Methods"
 msgstr "Įvesties metodai"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1775
+#. Translators: Popup menu item caption, containing all the Insert options for a table
+#: ../components/editor/gtkhtml-editor-actions.c:1796
 msgid "Table Insert"
 msgstr "Lentelėje įterpti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1782
-#: ../components/html-editor/editor-control-factory.c:187
-#: ../components/html-editor/popup.c:191 ../components/html-editor/popup.c:268
+#: ../components/editor/gtkhtml-editor-actions.c:1803
 msgid "Properties"
 msgstr "Savybės"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1800
+#: ../components/editor/gtkhtml-editor-actions.c:1821
 msgid "Column After"
 msgstr "Stulpelį po"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1807
+#: ../components/editor/gtkhtml-editor-actions.c:1828
 msgid "Column Before"
 msgstr "Stulpelį prieš"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1814
-#: ../components/html-editor/popup.c:450
+#: ../components/editor/gtkhtml-editor-actions.c:1835
 msgid "Insert _Link"
 msgstr "Įterpti _nuorodą"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1821
+#: ../components/editor/gtkhtml-editor-actions.c:1842
 msgid "Row Above"
 msgstr "Eilutę virš"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1828
+#: ../components/editor/gtkhtml-editor-actions.c:1849
 msgid "Row Below"
 msgstr "Eilutę apačioje"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1842
+#: ../components/editor/gtkhtml-editor-actions.c:1863
 msgid "Cell..."
 msgstr "Ląstelė..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1849
+#: ../components/editor/gtkhtml-editor-actions.c:1870
 msgid "Image..."
 msgstr "Paveikslėlis..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1856
+#: ../components/editor/gtkhtml-editor-actions.c:1877
 msgid "Link..."
 msgstr "Nuoroda..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1863
+#: ../components/editor/gtkhtml-editor-actions.c:1884
 msgid "Page..."
 msgstr "Puslapis..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1870
+#: ../components/editor/gtkhtml-editor-actions.c:1891
 msgid "Paragraph..."
 msgstr "_Pastraipa..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1877
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1899
 msgid "Rule..."
 msgstr "_Brūkšnys..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1884
+#: ../components/editor/gtkhtml-editor-actions.c:1906
 msgid "Table..."
 msgstr "Lentelė..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1891
+#: ../components/editor/gtkhtml-editor-actions.c:1913
 msgid "Text..."
 msgstr "Tekstas..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1898
-#: ../components/html-editor/popup.c:457
+#: ../components/editor/gtkhtml-editor-actions.c:1920
 msgid "Remove Link"
 msgstr "Pašalinti nuorodą"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1915
-#: ../components/html-editor/popup.c:578
+#: ../components/editor/gtkhtml-editor-actions.c:1937
 msgid "Add Word to Dictionary"
 msgstr "Įtraukti žodį į žodyną"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1922
-#: ../components/html-editor/popup.c:559
+#: ../components/editor/gtkhtml-editor-actions.c:1944
 msgid "Ignore Misspelled Word"
 msgstr "Ignoruoti klaidingai parašytą žodį"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1929
+#: ../components/editor/gtkhtml-editor-actions.c:1951
 msgid "Add Word To"
 msgstr "Įtraukti žodį į"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1938
+#: ../components/editor/gtkhtml-editor-actions.c:1960
 msgid "More Suggestions"
 msgstr "Daugiau pasiūlymų"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2105
+#. Translators: %s will be replaced with the actual dictionary name,
+#. where a user can add a word to. This is part of an "Add Word To" submenu.
+#: ../components/editor/gtkhtml-editor-actions.c:2061
+#, c-format
+msgid "%s Dictionary"
+msgstr "%s žodynas"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2129
 msgid "_Emoticon"
 msgstr "Šypsniu_kas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2106
+#: ../components/editor/gtkhtml-editor-actions.c:2130
 msgid "Insert Emoticon"
 msgstr "Įterpti šypsniuką"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2167
+#: ../components/editor/gtkhtml-editor-actions.c:2191
 msgid "_Find"
 msgstr "_Rasti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2170
+#: ../components/editor/gtkhtml-editor-actions.c:2194
 msgid "Re_place"
 msgstr "_Pakeisti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2173
+#: ../components/editor/gtkhtml-editor-actions.c:2197
 msgid "_Image"
 msgstr "_Paveikslėlis"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2176
+#: ../components/editor/gtkhtml-editor-actions.c:2200
 msgid "_Link"
 msgstr "_Nuoroda"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2179
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:2204
 msgid "_Rule"
 msgstr "_Brūkšnys"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2182
-#: ../components/editor/gtkhtml-editor.glade.h:76
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:72
+#: ../components/editor/gtkhtml-editor-actions.c:2207
+#: ../components/editor/gtkhtml-editor-builder.ui.h:79
 msgid "_Table"
 msgstr "_Lentelė:"
 
@@ -1131,497 +855,396 @@ msgid "Font Size"
 msgstr "Šrifto dydis"
 
 #: ../components/editor/gtkhtml-editor-private.c:336
-#: ../components/html-editor/body.c:237 ../components/html-editor/text.c:171
-#: ../components/html-editor/toolbar.c:199
 msgid "Automatic"
 msgstr "Automatinė"
 
-#: ../components/editor/gtkhtml-editor-private.c:608
+#: ../components/editor/gtkhtml-editor-private.c:589
 msgid "Could not open the link."
 msgstr "Nepavyko atverti nuorodos."
 
-#: ../components/editor/gtkhtml-editor.c:750
-msgid "Current Folder"
-msgstr "Esamas aplankas"
+#: ../components/editor/gtkhtml-editor.c:897
+msgid "Changed property"
+msgstr "Pakyčio požymis"
 
-#: ../components/editor/gtkhtml-editor.c:751
-msgid "The initial folder for file chooser dialogs"
-msgstr "Pradinis failų pasirinktuvo aplankas"
+#: ../components/editor/gtkhtml-editor.c:898
+msgid "Whether editor changed"
+msgstr "Ar redaktorius pakito"
 
-#: ../components/editor/gtkhtml-editor.c:761
-msgid "Filename"
-msgstr "Failo vardas"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:2
+#, no-c-format
+msgid "%"
+msgstr "%"
 
-#: ../components/editor/gtkhtml-editor.c:762
-msgid "The filename to use when saving"
-msgstr "Failo vardas įrašymui"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:3
+msgid "Alignment"
+msgstr "Lygiavimas"
 
-#: ../components/editor/gtkhtml-editor.c:772
-msgid "HTML Mode"
-msgstr "HTML veiksena"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:4
+msgid "Alignment & Behavior"
+msgstr "Lygiavimas ir elgesys"
 
-#: ../components/editor/gtkhtml-editor.c:773
-msgid "Edit HTML or plain text"
-msgstr "Redaguoti HTML ar paprastą tekstą"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:5
+msgid "Background"
+msgstr "Fonas"
 
-#: ../components/editor/gtkhtml-editor.c:783
-msgid "Inline Spelling"
-msgstr "Tikrinti rašybą iškart"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:6
+msgid "Background Image"
+msgstr "Fono paveikslėlis"
 
-#: ../components/editor/gtkhtml-editor.c:784
-msgid "Check your spelling as you type"
-msgstr "Tikrinti rašybą iškart rašant"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:7
+msgid "Blue Ink"
+msgstr "Mėlynas rašalas"
 
-#: ../components/editor/gtkhtml-editor.c:794
-msgid "Magic Links"
-msgstr "Magiškos nuorodos"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:8
+msgid "Bottom"
+msgstr "Apačia"
 
-#: ../components/editor/gtkhtml-editor.c:795
-msgid "Make URIs clickable as you type"
-msgstr "Padaryti nuorodas paspaudžiamas rašymo metu"
-
-#: ../components/editor/gtkhtml-editor.c:805
-msgid "Magic Smileys"
-msgstr "Magiški šypsniai"
-
-#: ../components/editor/gtkhtml-editor.c:806
-msgid "Convert emoticons to images as you type"
-msgstr "Keisti šypsnius į paveikslėlius rašymo metu"
-
-#: ../components/editor/gtkhtml-editor.glade.h:1
-msgid "<b>Alignment &amp; Behavior</b>"
-msgstr "<b>Lygiavimas ir elgesys</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:2
-msgid "<b>Alignment</b>"
-msgstr "<b>Lygiavimas</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:3
-msgid "<b>Background Image</b>"
-msgstr "<b>Foninis paveikslėlis</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:4
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:11
-msgid "<b>Background</b>"
-msgstr "<b>Fonas</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:5
-msgid "<b>Colors</b>"
-msgstr "<b>Spalvos</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:6
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:12
-msgid "<b>General</b>"
-msgstr "<b>Bendra</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:7
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:13
-msgid "<b>Layout</b>"
-msgstr "<b>Išdėstymas</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:8
-msgid "<b>Link</b>"
-msgstr "<b>Nuoroda</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:9
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:14
-msgid "<b>Scope</b>"
-msgstr "<b>Sritis</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:10
-msgid "<b>Size</b>"
-msgstr "<b>Dydis</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:11
-msgid "<b>Style</b>"
-msgstr "<b>Stilius</b>"
-
-#: ../components/editor/gtkhtml-editor.glade.h:12
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:23
+#: ../components/editor/gtkhtml-editor-builder.ui.h:9
 msgid "C_ell"
 msgstr "Ląst_elė"
 
-#: ../components/editor/gtkhtml-editor.glade.h:13
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:24
+#: ../components/editor/gtkhtml-editor-builder.ui.h:10
 msgid "C_olor:"
 msgstr "S_palva:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:14
+#: ../components/editor/gtkhtml-editor-builder.ui.h:11
 msgid "C_olumns:"
 msgstr "_Stulpeliai:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:15
-#: ../components/html-editor/body.c:286
+#: ../components/editor/gtkhtml-editor-builder.ui.h:12
 msgid "C_ustom:"
 msgstr "_Kita:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:16
-#: ../components/html-editor/replace.c:180
-#: ../components/html-editor/search.c:116
+#: ../components/editor/gtkhtml-editor-builder.ui.h:13
 msgid "Case _sensitive"
 msgstr "Jautrus _raidžių dydžiui"
 
-#: ../components/editor/gtkhtml-editor.glade.h:17
+#: ../components/editor/gtkhtml-editor-builder.ui.h:14
 msgid "Cell Properties"
 msgstr "Ląstelės savybės"
 
-#: ../components/editor/gtkhtml-editor.glade.h:18
+#: ../components/editor/gtkhtml-editor-builder.ui.h:15
+msgid "Center"
+msgstr "Centruoti"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:16
 msgid "Co_lor:"
 msgstr "S_palva:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:19
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:26
+#: ../components/editor/gtkhtml-editor-builder.ui.h:17
 msgid "Col_umn"
 msgstr "St_ulpelis"
 
-#: ../components/editor/gtkhtml-editor.glade.h:20
+#: ../components/editor/gtkhtml-editor-builder.ui.h:18
+msgid "Colors"
+msgstr "Spalvos"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:19
 msgid "Column Span:"
 msgstr "Stulpelių suliejimas:"
 
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/editor/gtkhtml-editor.glade.h:21
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:23
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:23
-#: ../components/html-editor/search.c:110
-#: ../components/html-editor/search.c:171
+#: ../components/editor/gtkhtml-editor-builder.ui.h:20
+msgid "Confidential"
+msgstr "Konfidencialus"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:21
+msgid "Draft"
+msgstr "Juodraštis"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:22
 msgid "Find"
 msgstr "Rasti"
 
-#: ../components/editor/gtkhtml-editor.glade.h:22
+#: ../components/editor/gtkhtml-editor-builder.ui.h:23
+msgid "General"
+msgstr "Bendra"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:24
+msgid "Graph Paper"
+msgstr "Milimetrinis popierius"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:25
 msgid "Hea_der Style"
 msgstr "Ant_raštės stilius"
 
-#: ../components/editor/gtkhtml-editor.glade.h:23
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:34
+#: ../components/editor/gtkhtml-editor-builder.ui.h:26
 msgid "I_mage:"
 msgstr "Pa_veikslėlis:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:24
+#: ../components/editor/gtkhtml-editor-builder.ui.h:27
 msgid "Image Properties"
 msgstr "Paveikslėlio savybės"
 
-#: ../components/editor/gtkhtml-editor.glade.h:25
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:36
-msgid ""
-"Left\n"
-"Center\n"
-"Right"
-msgstr ""
-"Kairė\n"
-"Vidurys\n"
-"Dešinė"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:28
+msgid "Layout"
+msgstr "Išdėstymas"
 
-#: ../components/editor/gtkhtml-editor.glade.h:28
+#: ../components/editor/gtkhtml-editor-builder.ui.h:29
+msgid "Left"
+msgstr "Pagal kairę"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:30
+msgid "Link"
+msgstr "Nuoroda"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:31
 msgid "Link Properties"
 msgstr "Nuorodos savybės"
 
-#: ../components/editor/gtkhtml-editor.glade.h:29
-msgid ""
-"None\n"
-"Perforated Paper\n"
-"Blue Ink\n"
-"Paper\n"
-"Ribbon\n"
-"Midnight\n"
-"Confidential\n"
-"Draft\n"
-"Graph Paper"
-msgstr ""
-"Joks\n"
-"Perforuotas popierius\n"
-"Mėlynas rašalas\n"
-"Popierius\n"
-"Kaspinas\n"
-"Vidurnaktis\n"
-"Slapta\n"
-"Juodraštis\n"
-"Braižybinis popierius"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:32
+msgid "Middle"
+msgstr "Vidurys"
 
-#: ../components/editor/gtkhtml-editor.glade.h:38
+#: ../components/editor/gtkhtml-editor-builder.ui.h:33
+msgid "Midnight"
+msgstr "Vidurnaktis"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:34
+msgid "None"
+msgstr "Joks"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:35
 msgid "Page Properties"
 msgstr "Puslapio savybės"
 
-#: ../components/editor/gtkhtml-editor.glade.h:39
+#: ../components/editor/gtkhtml-editor-builder.ui.h:36
+msgid "Paper"
+msgstr "Popierius"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:37
 msgid "Paragraph Properties"
 msgstr "Pastraipos savybės"
 
-#: ../components/editor/gtkhtml-editor.glade.h:40
-#: ../components/html-editor/replace.c:190
+#: ../components/editor/gtkhtml-editor-builder.ui.h:38
+msgid "Perforated Paper"
+msgstr "Perforuotas popierius"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:39
 msgid "R_eplace:"
 msgstr "P_akeisti:"
 
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/editor/gtkhtml-editor.glade.h:41
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:87
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:87
-#: ../components/html-editor/replace.c:171
-#: ../components/html-editor/replace.c:236
+#: ../components/editor/gtkhtml-editor-builder.ui.h:40
 msgid "Replace"
 msgstr "Pakeisti"
 
-#: ../components/editor/gtkhtml-editor.glade.h:42
+#: ../components/editor/gtkhtml-editor-builder.ui.h:41
 msgid "Replace Confirmation"
 msgstr "Pakeitimo patvirtinimas"
 
-#: ../components/editor/gtkhtml-editor.glade.h:43
+#: ../components/editor/gtkhtml-editor-builder.ui.h:42
+msgid "Ribbon"
+msgstr "Juostelė"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:43
+msgid "Right"
+msgstr "Pagal dešinę"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:44
 msgid "Row Span:"
 msgstr "Eilučių suliejimas:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:44
+#. Translators: Caption of a window. 'Rule' here means a horizontal line in an HTML text.
+#: ../components/editor/gtkhtml-editor-builder.ui.h:46
 msgid "Rule Properties"
 msgstr "Brūkšnio savybės"
 
-#: ../components/editor/gtkhtml-editor.glade.h:45
+#: ../components/editor/gtkhtml-editor-builder.ui.h:47
 msgid "S_haded"
 msgstr "Su _šešėliu"
 
-#: ../components/editor/gtkhtml-editor.glade.h:46
+#: ../components/editor/gtkhtml-editor-builder.ui.h:48
+msgid "Scope"
+msgstr "Taikymo sritis"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:49
 msgid "Search _backwards"
 msgstr "Ieškoti _atgal"
 
-#: ../components/editor/gtkhtml-editor.glade.h:47
+#: ../components/editor/gtkhtml-editor-builder.ui.h:50
 msgid "Select An Image"
 msgstr "Pasirinkite paveikslėlį"
 
-#: ../components/editor/gtkhtml-editor.glade.h:48
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:48
+#: ../components/editor/gtkhtml-editor-builder.ui.h:51
 msgid "Si_ze:"
 msgstr "_Dydis:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:49
-#: ../components/html-editor/body.c:282
+#: ../components/editor/gtkhtml-editor-builder.ui.h:52
+msgid "Size"
+msgstr "Dydis"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:53
+msgid "Style"
+msgstr "Stilius"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:54
 msgid "T_emplate:"
 msgstr "Ša_blonas:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:50
+#: ../components/editor/gtkhtml-editor-builder.ui.h:55
 msgid "Table Properties"
 msgstr "Lentelės savybės"
 
-#: ../components/editor/gtkhtml-editor.glade.h:51
+#: ../components/editor/gtkhtml-editor-builder.ui.h:56
 msgid "Text Properties"
 msgstr "Teksto savybės"
 
-#: ../components/editor/gtkhtml-editor.glade.h:52
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:53
-msgid ""
-"Top\n"
-"Middle\n"
-"Bottom"
-msgstr ""
-"Viršus\n"
-"Vidurys\n"
-"Apačia"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:57
+msgid "Top"
+msgstr "Viršus"
 
-#: ../components/editor/gtkhtml-editor.glade.h:55
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:57
+#: ../components/editor/gtkhtml-editor-builder.ui.h:58
 msgid "Width:"
 msgstr "Plotis:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:56
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:58
+#: ../components/editor/gtkhtml-editor-builder.ui.h:59
 msgid "_Alignment:"
 msgstr "_Lygiavimas:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:57
-#: ../components/html-editor/body.c:252
+#: ../components/editor/gtkhtml-editor-builder.ui.h:60
 msgid "_Background:"
 msgstr "_Fonas:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:59
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:60
+#: ../components/editor/gtkhtml-editor-builder.ui.h:62
 msgid "_Border:"
 msgstr "_Rėmelis:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:60
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:61
+#: ../components/editor/gtkhtml-editor-builder.ui.h:63
 msgid "_Color:"
 msgstr "_Spalva:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:61
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:62
+#: ../components/editor/gtkhtml-editor-builder.ui.h:64
 msgid "_Description:"
 msgstr "_Aprašymas:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:62
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:63
+#: ../components/editor/gtkhtml-editor-builder.ui.h:65
 msgid "_Height:"
 msgstr "_Aukštis:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:63
+#: ../components/editor/gtkhtml-editor-builder.ui.h:66
 msgid "_Horizontal:"
 msgstr "_Horizontaliai:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:64
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:64
+#: ../components/editor/gtkhtml-editor-builder.ui.h:67
 msgid "_Image:"
 msgstr "_Paveikslėlis:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:66
-#: ../components/html-editor/body.c:251
+#: ../components/editor/gtkhtml-editor-builder.ui.h:69
 msgid "_Link:"
 msgstr "_Nuoroda:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:67
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:66
+#: ../components/editor/gtkhtml-editor-builder.ui.h:70
 msgid "_Padding:"
 msgstr "_Apvalkalas:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:68
+#: ../components/editor/gtkhtml-editor-builder.ui.h:71
 msgid "_Regular expression"
 msgstr "_Reguliarioji išraiška"
 
-#: ../components/editor/gtkhtml-editor.glade.h:69
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:67
+#: ../components/editor/gtkhtml-editor-builder.ui.h:72
 msgid "_Row"
 msgstr "_Eilutė"
 
-#: ../components/editor/gtkhtml-editor.glade.h:70
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:68
+#: ../components/editor/gtkhtml-editor-builder.ui.h:73
 msgid "_Rows:"
 msgstr "_Eilutės:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:71
+#: ../components/editor/gtkhtml-editor-builder.ui.h:74
 msgid "_Size:"
 msgstr "_Dydis:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:72
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:69
+#: ../components/editor/gtkhtml-editor-builder.ui.h:75
 msgid "_Source:"
 msgstr "Š_altinis:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:73
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:70
+#: ../components/editor/gtkhtml-editor-builder.ui.h:76
 msgid "_Spacing:"
 msgstr "_Tankis:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:75
-#: ../components/html-editor/paragraph.c:69
+#: ../components/editor/gtkhtml-editor-builder.ui.h:78
 msgid "_Style:"
 msgstr "_Stilius:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:78
-#: ../components/html-editor/body.c:250
+#: ../components/editor/gtkhtml-editor-builder.ui.h:81
 msgid "_Text:"
 msgstr "_Tekstas:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:79
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:73
+#: ../components/editor/gtkhtml-editor-builder.ui.h:82
 msgid "_URL:"
 msgstr "_URL:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:81
+#: ../components/editor/gtkhtml-editor-builder.ui.h:84
 msgid "_Vertical:"
 msgstr "_Vertikaliai:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:82
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:75
+#: ../components/editor/gtkhtml-editor-builder.ui.h:85
 msgid "_Width:"
 msgstr "_Plotis:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:83
-#: ../components/html-editor/replace.c:194
+#: ../components/editor/gtkhtml-editor-builder.ui.h:86
 msgid "_With:"
 msgstr "_Plotis:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:84
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:76
+#: ../components/editor/gtkhtml-editor-builder.ui.h:87
 msgid "_Wrap Text"
 msgstr "_Laužyti tekstą"
 
-#: ../components/editor/gtkhtml-editor.glade.h:85
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:77
+#: ../components/editor/gtkhtml-editor-builder.ui.h:88
 msgid "_X-Padding:"
 msgstr "_X-apvalkalas:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:86
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:78
+#: ../components/editor/gtkhtml-editor-builder.ui.h:89
 msgid "_Y-Padding:"
 msgstr "_Y-apvalkalas:"
 
-#: ../components/editor/gtkhtml-editor.glade.h:87
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:79
+#: ../components/editor/gtkhtml-editor-builder.ui.h:90
+msgid "follow"
+msgstr "sekti"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:91
 msgid "px"
 msgstr "px"
-
-#: ../components/editor/gtkhtml-editor.glade.h:89
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:81
-#, no-c-format
-msgid ""
-"px\n"
-"%"
-msgstr ""
-"px\n"
-"%"
-
-#: ../components/editor/gtkhtml-editor.glade.h:92
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:84
-#, no-c-format
-msgid ""
-"px\n"
-"%\n"
-"follow"
-msgstr ""
-"px\n"
-"%\n"
-"sekti"
-
-#: ../components/editor/gtkhtml-spell-checker.c:200
-msgid "Language"
-msgstr "Kalba"
-
-#: ../components/editor/gtkhtml-spell-checker.c:201
-msgid "The language used by the spell checker"
-msgstr "Kalba, naudojama rašybos tikrintuvo"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:117
 #, c-format
 msgid "Suggestions for \"%s\""
 msgstr "Pasiūlymai „%s“"
 
-#: ../components/editor/gtkhtml-spell-dialog.c:358
-msgid "Misspelled Word"
-msgstr "Klaidingai parašytas žodis"
-
-#: ../components/editor/gtkhtml-spell-dialog.c:359
-msgid "The current misspelled word"
-msgstr "Esamas klaidingai parašytas žodis"
-
-#: ../components/editor/gtkhtml-spell-dialog.c:449
+#: ../components/editor/gtkhtml-spell-dialog.c:447
 msgid "Spell Checker"
 msgstr "Rašybos tikrintuvas"
 
 #. Replace All Button
-#: ../components/editor/gtkhtml-spell-dialog.c:536
+#: ../components/editor/gtkhtml-spell-dialog.c:534
 msgid "R_eplace All"
 msgstr "P_akeisti visus"
 
 #. Ignore Button
-#: ../components/editor/gtkhtml-spell-dialog.c:550
+#: ../components/editor/gtkhtml-spell-dialog.c:548
 msgid "_Ignore"
 msgstr "_Ignoruoti"
 
 #. Skip Button
-#: ../components/editor/gtkhtml-spell-dialog.c:564
+#: ../components/editor/gtkhtml-spell-dialog.c:562
 msgid "_Skip"
 msgstr "_Praleisti"
 
 #. Back Button
-#: ../components/editor/gtkhtml-spell-dialog.c:577
+#: ../components/editor/gtkhtml-spell-dialog.c:575
 msgid "_Back"
 msgstr "_Atgal"
 
 #. Dictionary Label
-#: ../components/editor/gtkhtml-spell-dialog.c:590
+#: ../components/editor/gtkhtml-spell-dialog.c:588
 msgid "Dictionary"
 msgstr "Žodynas"
 
 #. Add Word Button
-#: ../components/editor/gtkhtml-spell-dialog.c:619
+#: ../components/editor/gtkhtml-spell-dialog.c:617
 msgid "_Add Word"
 msgstr "_Įtraukti žodį į"
 
 #. Translators: %s is the language ISO code.
-#: ../components/editor/gtkhtml-spell-language.c:180
+#: ../components/editor/gtkhtml-spell-language.c:255
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
@@ -1629,8 +1252,8 @@ msgstr "Nežinoma (%s)"
 
 #. Translators: The first %s is the language name, and the
 #. * second is the country name. Example: "French (France)"
-#: ../components/editor/gtkhtml-spell-language.c:195
-#: ../components/editor/gtkhtml-spell-language.c:200
+#: ../components/editor/gtkhtml-spell-language.c:270
+#: ../components/editor/gtkhtml-spell-language.c:275
 #, c-format
 msgctxt "language"
 msgid "%s (%s)"
@@ -1638,7 +1261,7 @@ msgstr "%s (%s)"
 
 #. Translators: This refers to the default language used
 #. * by the spell checker.
-#: ../components/editor/gtkhtml-spell-language.c:385
+#: ../components/editor/gtkhtml-spell-language.c:460
 msgctxt "language"
 msgid "Default"
 msgstr "Numatytoji"
@@ -1695,1129 +1318,866 @@ msgstr "_HTML kodas"
 msgid "_Plain Source"
 msgstr "_Paprastas tekstas"
 
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:9
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:9
-#: ../components/html-editor/paragraph-style.c:56
-msgid "Alphabetical List"
-msgstr "Abėcėlinis sąrašas"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:10
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:10
-#: ../components/html-editor/paragraph-style.c:47
-msgid "Bulleted List"
-msgstr "Punktų sąrašas"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:11
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:11
-#: ../components/html-editor/toolbar.c:415
-msgid "Center justifies the paragraphs"
-msgstr "Sulygiuoja pastraipas pagal centrą"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:13
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:13
-msgid "Check spelling of the document"
-msgstr "Patikrinti dokumento rašybą"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:14
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:14
-msgid "Copy"
-msgstr "Kopijuoti"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:15
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:15
-msgid "Copy selection to clipboard"
-msgstr "Kopijuoti pažymėjimą į krepšį"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:16
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:16
-msgid "Copy the selection"
-msgstr "Kopijuoti pažymėjimą"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:19
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:19
-msgid "Cut"
-msgstr "Iškirpti"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:20
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:20
-msgid "Cut selection to clipboard"
-msgstr "Iškirpti pažymėjimą į krepšį"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:21
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:21
-msgid "Cut the selection"
-msgstr "Iškirpti pažymėjimą"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:22
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:22
-msgid "Emoti_con"
-msgstr "Šypsniu_kas"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:24
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:24
-msgid "Find _Again"
-msgstr "Rasti _vėl"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:25
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:25
-msgid "Find again"
-msgstr "Rasti vėl"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:26
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:26
-msgid "Find and Replace"
-msgstr "Rasti ir pakeisti"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:27
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:27
-msgid "Find and replace"
-msgstr "Rasti ir pakeisti"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:35
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:35
-msgid "I_nsert"
-msgstr "Į_terpti"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:36
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:36
-#: ../components/html-editor/editor-control-factory.c:197
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:35
-#: ../components/html-editor/popup.c:211
-msgid "Image"
-msgstr "Paveikslėlis"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:37
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:37
-msgid "Insert Crying emoticon into document..."
-msgstr "Įterpti verkiantį šypsniuką į dokumentą..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:38
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:38
-msgid "Insert Frown emoticon into document..."
-msgstr "Įterpti rimtą šypsniuką į dokumentą..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:39
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:39
-msgid "Insert HTML file into document..."
-msgstr "Įterpti HTML failą į dokumentą..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:40
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:40
-msgid "Insert HTML link into document..."
-msgstr "Įterpti HTML nuorodą į dokumentą..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:41
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:41
-msgid "Insert HTML template into document..."
-msgstr "Įterpti HTML šabloną į dokumentą..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:42
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:42
-msgid "Insert Indifferent emoticon into document..."
-msgstr "Įterpti nesidomintį šypsniuką į dokumentą..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:43
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:43
-msgid "Insert Laughing emoticon into document..."
-msgstr "Įterpti besijuokiantį šypsniuką į dokumentą..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:44
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:44
-msgid "Insert Oh no! emoticon into document..."
-msgstr "Įterpti „O ne!“ šypsniuką į dokumentą..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:45
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:45
-msgid "Insert Sick emoticon into document..."
-msgstr "Įterpti ligotą šypsniuką į dokumentą..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:46
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:46
-msgid "Insert Smile emoticon into document..."
-msgstr "Įterpti besišypsantį šypsniuką į dokumentą..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:47
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:47
-msgid "Insert Surprised emoticon into document..."
-msgstr "Įterpti nustebusį šypsniuką į dokumentą..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:48
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:48
-msgid "Insert Tongue emoticon into document..."
-msgstr "Įterpti rodantį liežuvį šypsniuką į dokumentą..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:49
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:49
-msgid "Insert Undecided emoticon into document..."
-msgstr "Įterpti neapsisprendusį šypsniuką į dokumentą..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:50
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:50
-msgid "Insert Wink emoticon into document..."
-msgstr "Įterpti mirksintį šypsniuką į dokumentą..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:51
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:51
-#: ../components/html-editor/menubar.c:129
-msgid "Insert image"
-msgstr "Įterpti paveikslėlį"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:52
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:52
-msgid "Insert image into document..."
-msgstr "Įterpti paveikslėlį į dokumentą..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:53
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:53
-msgid "Insert link"
-msgstr "Įterpti nuorodą"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:54
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:54
-msgid "Insert rule"
-msgstr "Įterpti brūkšnį"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:55
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:55
-msgid "Insert rule into document..."
-msgstr "Įterpti brūkšnį į dokumentą..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:56
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:56
-msgid "Insert table"
-msgstr "Įterpti lentelę"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:57
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:57
-msgid "Insert table into document..."
-msgstr "Įterpti lentelę į dokumentą..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:58
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:58
-msgid "Insert text file into document..."
-msgstr "Įterpti tekstinį failą į dokumentą..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:59
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:59
-#: ../components/html-editor/toolbar.c:412
-msgid "Left justifies the paragraphs"
-msgstr "Sulygiuoja pastraipas pagal kairę"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:60
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:60
-#: ../components/html-editor/menubar.c:174
-#: ../components/html-editor/popup.c:111 ../components/html-editor/popup.c:205
-#: ../components/html-editor/popup.c:271
-msgid "Link"
-msgstr "Nuoroda"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:61
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:61
-msgid "Make the current Paragraph style Normal"
-msgstr "Padaryti esamos pastraipos stilių normalų"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:62
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:62
-msgid "Make the current Paragraph style Preformat"
-msgstr "Padaryti esamos pastraipos stilių preformatuotą"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:63
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:63
-msgid "Make the current paragraph a bulleted list"
-msgstr "Padaryti esamą pastraipą punktų sąrašu"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:64
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:64
-msgid "Make the current paragraph a list with roman numerals"
-msgstr "Padaryti esamą pastraipą sąrašu su romėniškais skaičiais"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:65
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:65
-msgid "Make the current paragraph a numbered list"
-msgstr "Padaryti esamą pastraipą numeruotu sąrašu"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:66
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:66
-msgid "Make the current paragraph an H1 header"
-msgstr "Padaryti esamą pastraipą H1 antrašte"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:67
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:67
-msgid "Make the current paragraph an H2 header"
-msgstr "Padaryti esamą pastraipą H2 antrašte"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:68
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:68
-msgid "Make the current paragraph an H3 header"
-msgstr "Padaryti esamą pastraipą H3 antrašte"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:69
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:69
-msgid "Make the current paragraph an H4 header"
-msgstr "Padaryti esamą pastraipą H4 antrašte"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:70
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:70
-msgid "Make the current paragraph an H5 header"
-msgstr "Padaryti esamą pastraipą H5 antrašte"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:71
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:71
-msgid "Make the current paragraph an H6 header"
-msgstr "Padaryti esamą pastraipą H6 antrašte"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:72
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:72
-msgid "Make the current paragraph an address"
-msgstr "Padaryti esamą pastraipą adresu"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:73
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:73
-msgid "Make the current paragraph an alphabetical list"
-msgstr "Padaryti esamą pastraipą abėcėliniu sąrašu"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:74
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:74
-#: ../components/html-editor/paragraph-style.c:41
-msgid "Normal"
-msgstr "Paprastas"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:75
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:75
-#: ../components/html-editor/paragraph-style.c:50
-msgid "Numbered List"
-msgstr "Numeruotas sąrašas"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:77
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:77
-msgid "Oh _No!"
-msgstr "O _ne!"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:78
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:78
-msgid "Paste"
-msgstr "Įdėti"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:80
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:80
-msgid "Paste from clipboard"
-msgstr "Įdėti iš atmintinės"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:81
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:81
-msgid "Paste the clipboard"
-msgstr "Įdėti atmintinės turinį"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:82
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:82
-msgid "Paste the clipboard as a quotation"
-msgstr "Įdėti atmintinės turinį kaip citatą"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:83
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:83
-#: ../components/html-editor/paragraph-style.c:44
-msgid "Preformat"
-msgstr "Preformatuotas"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:84
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:84
-msgid "Redo"
-msgstr "Pakartoti"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:85
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:85
-msgid "Redo previously undone change"
-msgstr "Pakartoti prieš tai atšauktą veiksmą"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:86
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:86
-msgid "Redo the undone action"
-msgstr "Pakartoti atšauktą veiksmą"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:88
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:88
-#: ../components/html-editor/toolbar.c:418
-msgid "Right justifies the paragraphs"
-msgstr "Sulygiuoja pastraipas pagal dešinę"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:89
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:89
-msgid "Roman Numeral List"
-msgstr "Romeniškai numeruotas sąrašas"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:90
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:90
-#: ../components/html-editor/editor-control-factory.c:215
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:46
-#: ../components/html-editor/menubar.c:193
-#: ../components/html-editor/popup.c:229
-msgid "Rule"
-msgstr "Brūkšnys"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:93
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:93
-msgid "Select the entire contents of the document"
-msgstr "Pažymėti visą dokumento turinį"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:94
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:94
-#: ../components/html-editor/toolbar.c:450
-msgid "Strikeout"
-msgstr "Perbrauktas"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:95
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:95
-msgid "Su_rprised"
-msgstr "N_ustebęs"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:96
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:96
-msgid "Subscript"
-msgstr "Rodyklė"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:97
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:97
-msgid "Superscript"
-msgstr "Indeksas"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:99
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:99
-msgid "Te_mplate..."
-msgstr "Šab_loną..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:102
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:102
-#: ../components/html-editor/toolbar.c:439
-msgid "Typewriter"
-msgstr "Rašomoji mašinėlė"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:103
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:103
-msgid "Undo"
-msgstr "Atšaukti"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:104
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:104
-msgid "Undo previous changes"
-msgstr "Atšaukti ankstesnius pakeitimus"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:105
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:105
-msgid "Undo the last action"
-msgstr "Atšaukti paskutinį veiksmą"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:115
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:115
-msgid "_Font Size"
-msgstr "Šri_fto dydis"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:116
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:116
-msgid "_Frown"
-msgstr "_Rimtuolis"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:118
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:118
-msgid "_Heading"
-msgstr "_Antraštė"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:121
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:121
-msgid "_Indifferent"
-msgstr "Nes_idomintis"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:123
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:123
-msgid "_Laughing"
-msgstr "_Linksmutis"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:127
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:127
-msgid "_Page..."
-msgstr "_Puslapis..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:128
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:128
-msgid "_Paragraph..."
-msgstr "_Pastraipa..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:133
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:133
-msgid "_Replace..."
-msgstr "_Pakeisti..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:139
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:139
-msgid "_Style"
-msgstr "_Stilius"
-
-#.
-#. <submenu name="BackgroundColor" _label="Background Color">
-#. <menuitem name="ColorRed" verb="" _label="Red"/>
-#. <menuitem name="ColorOrange" verb="" _label="Orange"/>
-#. <menuitem name="ColorYellow" verb="" _label="Yellow"/>
-#. <menuitem name="ColorGreen" verb="" _label="Green"/>
-#. <menuitem name="ColorBlue" verb="" _label="Blue"/>
-#. <menuitem name="ColorPurple" verb="" _label="Purple"/>
-#. <menuitem name="etc" verb="" _label="etc..."/>
-#.
-#. <separator/>
-#.
-#. <menuitem name="Other" verb="" _label="Other..."/>
-#. </submenu>
-#.
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:156
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:156
-msgid "_Text..."
-msgstr "_Tekstas..."
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor-emacs.xml.in.h:157
-#: ../components/html-editor/GNOME_GtkHTML_Editor.xml.in.h:157
-msgid "_Undecided"
-msgstr "_Neapsisprendėlis"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:1
-msgid "GNOME HTML Editor"
-msgstr "GNOME HTML redaktorius"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:2
-msgid "GNOME HTML Editor Control"
-msgstr "GNOME HTML redaktoriaus valdymas"
-
-#: ../components/html-editor/GNOME_GtkHTML_Editor.server.in.in.h:3
-msgid "GNOME HTML Editor Factory"
-msgstr "GNOME HTML redaktoriaus gamykla"
-
-#: ../components/html-editor/body.c:64
-msgid "None"
-msgstr "Joks"
-
-#: ../components/html-editor/body.c:72
-msgid "Perforated paper"
-msgstr "Perforuotas popierius"
-
-#: ../components/html-editor/body.c:80
-msgid "Blue ink"
-msgstr "Mėlynas rašalas"
-
-#: ../components/html-editor/body.c:88
-msgid "Paper"
-msgstr "Popierius"
-
-#: ../components/html-editor/body.c:96
-msgid "Ribbon"
-msgstr "Juostelė"
-
-#: ../components/html-editor/body.c:104
-msgid "Midnight"
-msgstr "Vidurnaktis"
-
-#: ../components/html-editor/body.c:112
-msgid "Confidential"
-msgstr "Konfidencialus"
-
-#: ../components/html-editor/body.c:120
-msgid "Draft"
-msgstr "Juodraštis"
-
-#: ../components/html-editor/body.c:128
-msgid "Graph paper"
-msgstr "Grafinis popierius"
-
-#: ../components/html-editor/body.c:254
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:27
-msgid "Colors"
-msgstr "Spalvos"
-
-#: ../components/html-editor/body.c:256 ../components/html-editor/body.c:288
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:22
-msgid "Background Image"
-msgstr "Fono paveikslėlis"
-
-#: ../components/html-editor/body.c:267
-msgid "Background Image File Path"
-msgstr "Fono paveikslėlio failo kelias"
-
-#: ../components/html-editor/body.c:275
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:51
-#: ../components/html-editor/menubar.c:239
-msgid "Template"
-msgstr "Šablonas"
-
-#: ../components/html-editor/cell.c:342 ../components/html-editor/image.c:344
-#: ../components/html-editor/link.c:214 ../components/html-editor/rule.c:179
-#: ../components/html-editor/table.c:229
-#: ../components/html-editor/template.c:287
-#: ../components/html-editor/text.c:168
-msgid "Could not load glade file."
-msgstr "Nepavyko įkelti glade failo."
-
-#: ../components/html-editor/cell.c:346 ../components/html-editor/table.c:233
-msgid "Transparent"
-msgstr "Permatomas"
-
-#: ../components/html-editor/editor-control-factory.c:205
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:52
-#: ../components/html-editor/menubar.c:425
-#: ../components/html-editor/popup.c:199
-msgid "Text"
-msgstr "Tekstas"
-
-#: ../components/html-editor/editor-control-factory.c:224
-#: ../components/html-editor/menubar.c:442
-#: ../components/html-editor/popup.c:217
-msgid "Paragraph"
-msgstr "Pastraipa"
-
-#: ../components/html-editor/editor-control-factory.c:228
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:44
-#: ../components/html-editor/menubar.c:408
-#: ../components/html-editor/popup.c:223
-msgid "Page"
-msgstr "Puslapis"
-
-#: ../components/html-editor/gi-color-combo.c:189
-msgid "color preview"
-msgstr "spalvos peržiūra"
-
-#. "Custom" color - we'll pop up a GtkColorDialog
-#: ../components/html-editor/gi-color-palette.c:414
-msgid "Custom Color:"
-msgstr "Kita spalva:"
-
-#: ../components/html-editor/gi-color-palette.c:607
-msgid "purplish blue"
-msgstr "violetiniai mėlyna"
-
-#: ../components/html-editor/gi-color-palette.c:611
-msgid "dark purple"
-msgstr "tamsiai violetinė"
-
-#: ../components/html-editor/gi-color-palette.c:613
-msgid "sky blue"
-msgstr "dangaus mėlynumo"
-
-#. set the a11y name
-#: ../components/html-editor/gi-combo-box.c:411
-msgid "Popup"
-msgstr "Iššokantis langas"
-
-#: ../components/html-editor/gnome-gtkhtml-editor.c:74
-msgid "GtkHTML Editor Control"
-msgstr "GtkHTML redaktoriaus valdymas"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:1
-msgid "    "
-msgstr "    "
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:2
-msgid "*"
-msgstr "*"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:3
-msgid ""
-"-2\n"
-"-1\n"
-"Standard\n"
-"+1\n"
-"+2\n"
-"+3\n"
-"+4"
-msgstr ""
-"-2\n"
-"-1\n"
-"Įprastas\n"
-"+1\n"
-"+2\n"
-"+3\n"
-"+4"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:10
-msgid "<b>Alignment &amp; Behaviour</b>"
-msgstr "<b>Lygiavimas ir elgesys</b>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:15
-msgid "<span weight=\"bold\">General</span>"
-msgstr "<span weight=\"bold\">Bendra</span>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:16
-msgid "<span weight=\"bold\">Layout</span>"
-msgstr "<span weight=\"bold\">Išdėstymas</span>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:17
-msgid "<span weight=\"bold\">Link</span>"
-msgstr "<span weight=\"bold\">Nuoroda</span>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:18
-msgid "<span weight=\"bold\">Size</span>"
-msgstr "<span weight=\"bold\">Dydis</span>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:19
-msgid "<span weight=\"bold\">Style</span>"
-msgstr "<span weight=\"bold\">Stilius</span>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:20
-msgid "<span weight=\"bold\">Template</span>"
-msgstr "<span weight=\"bold\">Šablonas</span>"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:21
-msgid "Alignment:"
-msgstr "Lygiavimas:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:25
-#: ../components/html-editor/popup.c:241
-msgid "Cell"
-msgstr "Ląstelė"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:28
-msgid "Colu_mns:"
-msgstr "_Stulpeliai:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:29
-msgid "Column span:"
-msgstr "Stulpelių suliejimas:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:30
-msgid "Enable"
-msgstr "Leisti"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:31
-msgid "Hea_der style"
-msgstr "Ant_raštės stlius"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:32
-msgid "Horizontal alignment:"
-msgstr "Horizontalus lygiavimas:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:33
-msgid "Horizontal:"
-msgstr "Horizontaliai:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:39
-msgid ""
-"Left\n"
-"Center\n"
-"Right\n"
-"None"
-msgstr ""
-"Kairė\n"
-"Vidurys\n"
-"Dešinė\n"
-"Jokio"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:43
-msgid "Link properties"
-msgstr "Nuorodos savybės"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:45
-msgid "Row span:"
-msgstr "Eilučių suliejimas:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:47
-msgid "Shade"
-msgstr "Su šešėliu"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:49
-msgid "Size:"
-msgstr "Dydis:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:56
-msgid "Vertical:"
-msgstr "Vertikaliai:"
-
-#: ../components/html-editor/gtkhtml-editor-properties.glade.h:87
-msgid "xxxxxxxxxxxxxx"
-msgstr "xxxxxxxxxxxxxx"
-
-#: ../components/html-editor/link.c:226
-msgid "URL:"
-msgstr "URL:"
-
-#: ../components/html-editor/link.c:230
-msgid "Description:"
-msgstr "Aprašymas:"
-
-#: ../components/html-editor/menubar.c:171
-#: ../components/html-editor/menubar.c:190
-#: ../components/html-editor/menubar.c:214
-#: ../components/html-editor/menubar.c:236
-#: ../components/html-editor/popup.c:108
-msgid "Insert"
-msgstr "Įterpti"
-
-#: ../components/html-editor/menubar.c:323
-#, c-format
-msgid "Error loading file '%s': %s"
-msgstr "Klaida įkeliant failą „%s“: %s"
-
-#: ../components/html-editor/menubar.c:405
-#: ../components/html-editor/menubar.c:422
-#: ../components/html-editor/menubar.c:439
-msgid "Format"
-msgstr "Formatas"
-
-#: ../components/html-editor/paragraph.c:72
-msgid "General"
-msgstr "Bendra"
-
-#: ../components/html-editor/paragraph.c:87
-msgid "Left"
-msgstr "Pagal kairę"
-
-#: ../components/html-editor/paragraph.c:88
-#: ../components/html-editor/toolbar.c:415
-msgid "Center"
-msgstr "Centruoti"
-
-#: ../components/html-editor/paragraph.c:89
-msgid "Right"
-msgstr "Pagal dešinę"
-
-#: ../components/html-editor/paragraph.c:91
-msgid "Alignment"
-msgstr "Lygiavimas"
-
-#: ../components/html-editor/paragraph-style.c:53
-msgid "Roman List"
-msgstr "Romėniškas sąrašas"
-
-#: ../components/html-editor/paragraph-style.c:59
-msgid "Header 1"
-msgstr "Antraštė 1"
-
-#: ../components/html-editor/paragraph-style.c:62
-msgid "Header 2"
-msgstr "Antraštė 2"
-
-#: ../components/html-editor/paragraph-style.c:65
-msgid "Header 3"
-msgstr "Antraštė 3"
-
-#: ../components/html-editor/paragraph-style.c:68
-msgid "Header 4"
-msgstr "Antraštė 4"
-
-#: ../components/html-editor/paragraph-style.c:71
-msgid "Header 5"
-msgstr "Antraštė 5"
-
-#: ../components/html-editor/paragraph-style.c:74
-msgid "Header 6"
-msgstr "Antraštė 6"
-
-#: ../components/html-editor/paragraph-style.c:77
-msgid "Address"
-msgstr "Adresas"
-
-#: ../components/html-editor/popup.c:464
-msgid "Style"
-msgstr "Stilius"
-
-#: ../components/html-editor/popup.c:467
-msgid "Text Style..."
-msgstr "Teksto stilius..."
-
-#: ../components/html-editor/popup.c:469 ../components/html-editor/popup.c:475
-#: ../components/html-editor/popup.c:485
-msgid "Paragraph Style..."
-msgstr "Pastraipos stilius..."
-
-#: ../components/html-editor/popup.c:473
-msgid "Link Style..."
-msgstr "Nuorodos stilius..."
-
-#: ../components/html-editor/popup.c:479
-msgid "Rule Style..."
-msgstr "Linijos stilius..."
-
-#: ../components/html-editor/popup.c:483
-msgid "Image Style..."
-msgstr "Paveikslėlio stilius..."
-
-#: ../components/html-editor/popup.c:494
-msgid "Cell Style..."
-msgstr "Ląstelės stilius..."
-
-#: ../components/html-editor/popup.c:497
-msgid "Table Style..."
-msgstr "Lentelės stilius"
-
-#: ../components/html-editor/popup.c:503
-msgid "Page Style..."
-msgstr "Puslapio stilius..."
-
-#: ../components/html-editor/popup.c:508
-msgid "Table insert"
-msgstr "Lentelėje įterpti"
-
-#: ../components/html-editor/popup.c:511
-msgid "Row above"
-msgstr "Eilutę virš"
-
-#: ../components/html-editor/popup.c:512
-msgid "Row below"
-msgstr "Eilutę apačioje"
-
-#: ../components/html-editor/popup.c:514
-msgid "Column before"
-msgstr "Stulpelį prieš"
-
-#: ../components/html-editor/popup.c:515
-msgid "Column after"
-msgstr "Stulpelį po"
-
-#: ../components/html-editor/popup.c:520
-msgid "Table delete"
-msgstr "Lentelėje ištrinti"
-
-#: ../components/html-editor/popup.c:524
-msgid "Cell contents"
-msgstr "Ląstelės turinį"
-
-#: ../components/html-editor/popup.c:564
-msgid "Add Word to"
-msgstr "Įtraukti žodį į"
-
-#. Translators: %s is the language name.
-#: ../components/html-editor/popup.c:569
-#, c-format
-msgid "%s Dictionary"
-msgstr "%s žodynas"
-
-#. we use CANCEL response for close, because we want Esc to close the dialog - see gtkdialog.c
-#: ../components/html-editor/replace.c:81
-msgid "Replace confirmation"
-msgstr "Pakeitimo patvirtinimas"
-
-#: ../components/html-editor/replace.c:179
-msgid "Search _backward"
-msgstr "Ieškoti _atgal"
-
-#: ../components/html-editor/search.c:115
-msgid "_Backward"
-msgstr "Ieškoti _atgal"
-
-#: ../components/html-editor/search.c:117
-msgid "_Regular Expression"
-msgstr "_Reguliari išraiška"
-
-#: ../components/html-editor/search.c:121
-msgid "Input the words you want to search here"
-msgstr "Čia įveskite ieškomus žodžius"
-
-#: ../components/html-editor/spellchecker.c:116
-msgid ""
-"Unable to add word to dictionary,\n"
-"language settings are broken.\n"
-msgstr ""
-"Nepavyko į žodyną įdėti žodžio,\n"
-"kalbos nustatymai yra sugadinti.\n"
-
-#: ../components/html-editor/spellchecker.c:322
-msgid "No misspelled word found"
-msgstr "Nerasta rašybos klaidų"
-
-#: ../components/html-editor/spellchecker.c:329
-msgid "Spell checker"
-msgstr "Rašybos tikrinimas"
-
-#: ../components/html-editor/template.c:90
-msgid "Note"
-msgstr "Pastaba"
-
-#: ../components/html-editor/template.c:101
-#: ../components/html-editor/template.c:121
-msgid "Place your text here"
-msgstr "Savo tekstą rašykite čia"
-
-#: ../components/html-editor/template.c:104
-msgid "Image frame"
-msgstr "Paveikslėlio rėmelis"
-
-#: ../components/html-editor/template.c:296
-msgid "Template Labels"
-msgstr "Šablono užrašai"
-
-#: ../components/html-editor/test-html-editor-control.c:263
-msgid "Open file..."
-msgstr "Atidaryti failą..."
-
-#: ../components/html-editor/test-html-editor-control.c:270
-msgid "Save file as..."
-msgstr "Išsaugoti failą kaip..."
-
-#: ../components/html-editor/test-html-editor-control.c:542
-msgid "GtkHTML Editor Test Container"
-msgstr "Bandomasis GtkHTML redaktoriaus konteineris"
-
-#: ../components/html-editor/toolbar.c:412
-msgid "Left align"
-msgstr "Lygiuoti pagal kairę"
-
-#: ../components/html-editor/toolbar.c:418
-msgid "Right align"
-msgstr "Lygiuoti pagal dešinę"
-
-#: ../components/html-editor/toolbar.c:439
-msgid "Toggle typewriter font style"
-msgstr "Perjungti rašomosios mašinėlės šrifto stilių"
-
-#: ../components/html-editor/toolbar.c:441
-msgid "Makes the text bold"
-msgstr "Padaro tekstą pusjuodį"
-
-#: ../components/html-editor/toolbar.c:444
-msgid "Makes the text italic"
-msgstr "Padaro tekstą kursyvinį"
-
-#: ../components/html-editor/toolbar.c:447
-msgid "Underlines the text"
-msgstr "Pabraukia tekstą"
-
-#: ../components/html-editor/toolbar.c:450
-msgid "Strikes out the text"
-msgstr "Perbraukia tekstą"
-
-#: ../components/html-editor/toolbar.c:460
-msgid "Unindent"
-msgstr "Atitraukti"
-
-#: ../components/html-editor/toolbar.c:460
-msgid "Indents the paragraphs less"
-msgstr "Mažiau įtraukia pastraipą"
-
-#: ../components/html-editor/toolbar.c:463
-msgid "Indent"
-msgstr "Įtraukti"
-
-#: ../components/html-editor/toolbar.c:463
-msgid "Indents the paragraphs more"
-msgstr "Labiau įtraukia pastraipą"
-
-#: ../components/html-editor/toolbar.c:540
-msgid "Text Color"
-msgstr "Teksto spalva"
-
-#: ../components/html-editor/utils.c:132
-msgid "Sample"
-msgstr "Pavyzdys"
-
-#: ../components/html-editor/utils.c:248
-msgid ""
-"The edited object was removed from the document.\n"
-"Cannot apply your changes."
-msgstr ""
-"Redaguojamas tekstas buvo pašalintas iš dokumento.\n"
-"Negalima pritaikyti Jūsų pakeitimų."
-
-#: ../gtkhtml/gtkhtml.c:3032
-msgid "Editable"
-msgstr "Redaguojamas"
-
-#: ../gtkhtml/gtkhtml.c:3033
-msgid "Whether the html can be edited"
-msgstr "Ar html gali būti keičiamas"
-
-#: ../gtkhtml/gtkhtml.c:3039
-msgid "Document Title"
-msgstr "Dokumento antraštė"
-
-#: ../gtkhtml/gtkhtml.c:3040
-msgid "The title of the current document"
-msgstr "Esamo dokumento antraštė"
-
-#: ../gtkhtml/gtkhtml.c:3046
-msgid "Document Base"
-msgstr "Dokumento pagrindas"
-
-#: ../gtkhtml/gtkhtml.c:3047
-msgid "The base URL for relative references"
-msgstr "Santykinių nuorodų bazinis URL"
-
-#: ../gtkhtml/gtkhtml.c:3053
-msgid "Target Base"
-msgstr "Adresato pagrindas"
-
-#: ../gtkhtml/gtkhtml.c:3054
-msgid "The base URL of the target frame"
-msgstr "Tikslinio rėmelio bazinis URL"
-
-#: ../gtkhtml/gtkhtml.c:3063
-msgid "Fixed Width Font"
-msgstr "Fiksuoto pločio šriftas"
-
-#: ../gtkhtml/gtkhtml.c:3064
-msgid "The Monospace font to use for typewriter text"
-msgstr "Lygiaplotis šriftas naudojamas atvaizduoti mašininiam tekstui"
-
-#: ../gtkhtml/gtkhtml.c:3070
-msgid "New Link Color"
-msgstr "Naujos nuorodos spalva"
-
-#: ../gtkhtml/gtkhtml.c:3071
-msgid "The color of new link elements"
-msgstr "Naujų nuorodų elementų spalva"
-
-#: ../gtkhtml/gtkhtml.c:3076
-msgid "Visited Link Color"
-msgstr "Aplankytos nuorodos spalva"
-
-#: ../gtkhtml/gtkhtml.c:3077
-msgid "The color of visited link elements"
-msgstr "Aplankytų nuorodų elementų spalva"
-
-#: ../gtkhtml/gtkhtml.c:3082
-msgid "Active Link Color"
-msgstr "Aktyvios nuorodos spalva"
-
-#: ../gtkhtml/gtkhtml.c:3083
-msgid "The color of active link elements"
-msgstr "Aktyvių nuorodų elementų spalva"
-
-#: ../gtkhtml/gtkhtml.c:3088
-msgid "Spelling Error Color"
-msgstr "Rašybos klaidų spalva"
-
-#: ../gtkhtml/gtkhtml.c:3089
-msgid "The color of the spelling error markers"
-msgstr "Rašybos klaidų žymėjimo spalva"
-
-#: ../gtkhtml/gtkhtml.c:3094
-msgid "Cite Quotation Color"
-msgstr "Citatos skyrybos spalva"
-
-#: ../gtkhtml/gtkhtml.c:3095
-msgid "The color of the cited text"
-msgstr "Cituoto teksto spalva"
-
-#: ../gtkhtml/htmlbutton.c:139
+#: ../gtkhtml/htmlbutton.c:138
 msgid "Submit Query"
 msgstr "Vykdyti užklausą"
 
-#: ../gtkhtml/htmlbutton.c:142
+#: ../gtkhtml/htmlbutton.c:141
 msgid "Reset"
 msgstr "Atstatyti"
 
 #. TODO2 dialog instead of warning
-#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:310
+#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:309
 msgid "Cannot allocate default font for printing"
 msgstr "Nepavyko priskirti numatytojo spausdinimo šrifto"
 
-#: ../gtkhtml/test.c:365
+#: ../gtkhtml/test.c:364
 msgid "GtkHTML Test"
 msgstr "GtkHTML testas"
 
-#: ../gtkhtml/testgtkhtml.c:114
-msgid "Print pre_view"
-msgstr "Spaudinio p_eržiūra"
+#~ msgid "Current color"
+#~ msgstr "Esama spalva"
 
-#: ../gtkhtml/testgtkhtml.c:114
-msgid "Print preview"
-msgstr "Spaudinio peržiūra"
+#~ msgid "The currently selected color"
+#~ msgstr "Pasirinkta spalva"
 
-#: ../gtkhtml/testgtkhtml.c:1028
-msgid "GtkHTML Test Application"
-msgstr "GtkHTML bandomoji programa"
+#~ msgid "Default color"
+#~ msgstr "Numatytoji spalva"
+
+#~ msgid "The color associated with the default button"
+#~ msgstr "Spalva, susieta su numatytuoju mygtukU"
+
+#~ msgid "Default label"
+#~ msgstr "Numatytasis užrašas"
+
+#~ msgid "The label for the default button"
+#~ msgstr "Užrašas numatytajam mygtukui"
+
+#~ msgid "Default is transparent"
+#~ msgstr "Numatytoji permatoma"
+
+#~ msgid "Whether the default color is transparent"
+#~ msgstr "Ar numatytoji spalva permatoma"
+
+#~ msgid "Color palette"
+#~ msgstr "Spalvų paletė"
+
+#~ msgid "Custom color palette"
+#~ msgstr "Kita spalvų paletė"
+
+#~ msgid "Popup shown"
+#~ msgstr "Iššokantis langas rodomas"
+
+#~ msgid "Whether the combo's dropdown is shown"
+#~ msgstr "Ar rodyti kombinacijos išsiskleidžiantįjį lauką"
+
+#~ msgid "Color state"
+#~ msgstr "Spalvų būsena"
+
+#~ msgid "The state of a color combo box"
+#~ msgstr "Spalvų kombinacijos būsena"
+
+#~ msgid "The current color"
+#~ msgstr "Esama spalva"
+
+#~ msgid "The default color"
+#~ msgstr "Numatytoji spalva"
+
+#~ msgid "Description of the default color"
+#~ msgstr "Numatytosios spalvos aprašymas"
+
+#~ msgid "Color"
+#~ msgstr "Spalva"
+
+#~ msgid "Frame Shadow"
+#~ msgstr "Rėmelio šešėlis"
+
+#~ msgid "Appearance of the frame border"
+#~ msgstr "Rėmelio krašto išvaizda"
+
+#~ msgid "Action"
+#~ msgstr "Veiksmas"
+
+#~ msgid "A GtkRadioAction"
+#~ msgstr "GtkRadioAction"
+
+#~ msgid "Current Folder"
+#~ msgstr "Esamas aplankas"
+
+#~ msgid "The initial folder for file chooser dialogs"
+#~ msgstr "Pradinis failų pasirinktuvo aplankas"
+
+#~ msgid "Filename"
+#~ msgstr "Failo vardas"
+
+#~ msgid "The filename to use when saving"
+#~ msgstr "Failo vardas įrašymui"
+
+#~ msgid "HTML Mode"
+#~ msgstr "HTML veiksena"
+
+#~ msgid "Edit HTML or plain text"
+#~ msgstr "Redaguoti HTML ar paprastą tekstą"
+
+#~ msgid "Inline Spelling"
+#~ msgstr "Tikrinti rašybą iškart"
+
+#~ msgid "Check your spelling as you type"
+#~ msgstr "Tikrinti rašybą iškart rašant"
+
+#~ msgid "Magic Links"
+#~ msgstr "Magiškos nuorodos"
+
+#~ msgid "Make URIs clickable as you type"
+#~ msgstr "Padaryti nuorodas paspaudžiamas rašymo metu"
+
+#~ msgid "Magic Smileys"
+#~ msgstr "Magiški šypsniai"
+
+#~ msgid "Convert emoticons to images as you type"
+#~ msgstr "Keisti šypsnius į paveikslėlius rašymo metu"
+
+#~ msgid "<b>Alignment</b>"
+#~ msgstr "<b>Lygiavimas</b>"
+
+#~ msgid "<b>Background Image</b>"
+#~ msgstr "<b>Foninis paveikslėlis</b>"
+
+#~ msgid "<b>Background</b>"
+#~ msgstr "<b>Fonas</b>"
+
+#~ msgid "<b>Colors</b>"
+#~ msgstr "<b>Spalvos</b>"
+
+#~ msgid "<b>General</b>"
+#~ msgstr "<b>Bendra</b>"
+
+#~ msgid "<b>Link</b>"
+#~ msgstr "<b>Nuoroda</b>"
+
+#~ msgid "<b>Scope</b>"
+#~ msgstr "<b>Sritis</b>"
+
+#~ msgid "<b>Size</b>"
+#~ msgstr "<b>Dydis</b>"
+
+#~ msgid "<b>Style</b>"
+#~ msgstr "<b>Stilius</b>"
+
+#~ msgid ""
+#~ "Left\n"
+#~ "Center\n"
+#~ "Right"
+#~ msgstr ""
+#~ "Kairė\n"
+#~ "Vidurys\n"
+#~ "Dešinė"
+
+#~ msgid ""
+#~ "None\n"
+#~ "Perforated Paper\n"
+#~ "Blue Ink\n"
+#~ "Paper\n"
+#~ "Ribbon\n"
+#~ "Midnight\n"
+#~ "Confidential\n"
+#~ "Draft\n"
+#~ "Graph Paper"
+#~ msgstr ""
+#~ "Joks\n"
+#~ "Perforuotas popierius\n"
+#~ "Mėlynas rašalas\n"
+#~ "Popierius\n"
+#~ "Kaspinas\n"
+#~ "Vidurnaktis\n"
+#~ "Slapta\n"
+#~ "Juodraštis\n"
+#~ "Braižybinis popierius"
+
+#~ msgid ""
+#~ "Top\n"
+#~ "Middle\n"
+#~ "Bottom"
+#~ msgstr ""
+#~ "Viršus\n"
+#~ "Vidurys\n"
+#~ "Apačia"
+
+#~ msgid ""
+#~ "px\n"
+#~ "%"
+#~ msgstr ""
+#~ "px\n"
+#~ "%"
+
+#~ msgid "Language"
+#~ msgstr "Kalba"
+
+#~ msgid "The language used by the spell checker"
+#~ msgstr "Kalba, naudojama rašybos tikrintuvo"
+
+#~ msgid "Misspelled Word"
+#~ msgstr "Klaidingai parašytas žodis"
+
+#~ msgid "The current misspelled word"
+#~ msgstr "Esamas klaidingai parašytas žodis"
+
+#~ msgid "Alphabetical List"
+#~ msgstr "Abėcėlinis sąrašas"
+
+#~ msgid "Bulleted List"
+#~ msgstr "Punktų sąrašas"
+
+#~ msgid "Center justifies the paragraphs"
+#~ msgstr "Sulygiuoja pastraipas pagal centrą"
+
+#~ msgid "Check spelling of the document"
+#~ msgstr "Patikrinti dokumento rašybą"
+
+#~ msgid "Copy"
+#~ msgstr "Kopijuoti"
+
+#~ msgid "Copy selection to clipboard"
+#~ msgstr "Kopijuoti pažymėjimą į krepšį"
+
+#~ msgid "Copy the selection"
+#~ msgstr "Kopijuoti pažymėjimą"
+
+#~ msgid "Cut"
+#~ msgstr "Iškirpti"
+
+#~ msgid "Cut selection to clipboard"
+#~ msgstr "Iškirpti pažymėjimą į krepšį"
+
+#~ msgid "Cut the selection"
+#~ msgstr "Iškirpti pažymėjimą"
+
+#~ msgid "Emoti_con"
+#~ msgstr "Šypsniu_kas"
+
+#~ msgid "Find _Again"
+#~ msgstr "Rasti _vėl"
+
+#~ msgid "Find again"
+#~ msgstr "Rasti vėl"
+
+#~ msgid "Find and Replace"
+#~ msgstr "Rasti ir pakeisti"
+
+#~ msgid "Find and replace"
+#~ msgstr "Rasti ir pakeisti"
+
+#~ msgid "I_nsert"
+#~ msgstr "Į_terpti"
+
+#~ msgid "Image"
+#~ msgstr "Paveikslėlis"
+
+#~ msgid "Insert Crying emoticon into document..."
+#~ msgstr "Įterpti verkiantį šypsniuką į dokumentą..."
+
+#~ msgid "Insert Frown emoticon into document..."
+#~ msgstr "Įterpti rimtą šypsniuką į dokumentą..."
+
+#~ msgid "Insert HTML file into document..."
+#~ msgstr "Įterpti HTML failą į dokumentą..."
+
+#~ msgid "Insert HTML link into document..."
+#~ msgstr "Įterpti HTML nuorodą į dokumentą..."
+
+#~ msgid "Insert HTML template into document..."
+#~ msgstr "Įterpti HTML šabloną į dokumentą..."
+
+#~ msgid "Insert Indifferent emoticon into document..."
+#~ msgstr "Įterpti nesidomintį šypsniuką į dokumentą..."
+
+#~ msgid "Insert Laughing emoticon into document..."
+#~ msgstr "Įterpti besijuokiantį šypsniuką į dokumentą..."
+
+#~ msgid "Insert Oh no! emoticon into document..."
+#~ msgstr "Įterpti „O ne!“ šypsniuką į dokumentą..."
+
+#~ msgid "Insert Sick emoticon into document..."
+#~ msgstr "Įterpti ligotą šypsniuką į dokumentą..."
+
+#~ msgid "Insert Smile emoticon into document..."
+#~ msgstr "Įterpti besišypsantį šypsniuką į dokumentą..."
+
+#~ msgid "Insert Surprised emoticon into document..."
+#~ msgstr "Įterpti nustebusį šypsniuką į dokumentą..."
+
+#~ msgid "Insert Tongue emoticon into document..."
+#~ msgstr "Įterpti rodantį liežuvį šypsniuką į dokumentą..."
+
+#~ msgid "Insert Undecided emoticon into document..."
+#~ msgstr "Įterpti neapsisprendusį šypsniuką į dokumentą..."
+
+#~ msgid "Insert Wink emoticon into document..."
+#~ msgstr "Įterpti mirksintį šypsniuką į dokumentą..."
+
+#~ msgid "Insert image"
+#~ msgstr "Įterpti paveikslėlį"
+
+#~ msgid "Insert image into document..."
+#~ msgstr "Įterpti paveikslėlį į dokumentą..."
+
+#~ msgid "Insert link"
+#~ msgstr "Įterpti nuorodą"
+
+#~ msgid "Insert rule"
+#~ msgstr "Įterpti brūkšnį"
+
+#~ msgid "Insert rule into document..."
+#~ msgstr "Įterpti brūkšnį į dokumentą..."
+
+#~ msgid "Insert table"
+#~ msgstr "Įterpti lentelę"
+
+#~ msgid "Insert table into document..."
+#~ msgstr "Įterpti lentelę į dokumentą..."
+
+#~ msgid "Insert text file into document..."
+#~ msgstr "Įterpti tekstinį failą į dokumentą..."
+
+#~ msgid "Left justifies the paragraphs"
+#~ msgstr "Sulygiuoja pastraipas pagal kairę"
+
+#~ msgid "Make the current Paragraph style Normal"
+#~ msgstr "Padaryti esamos pastraipos stilių normalų"
+
+#~ msgid "Make the current Paragraph style Preformat"
+#~ msgstr "Padaryti esamos pastraipos stilių preformatuotą"
+
+#~ msgid "Make the current paragraph a bulleted list"
+#~ msgstr "Padaryti esamą pastraipą punktų sąrašu"
+
+#~ msgid "Make the current paragraph a list with roman numerals"
+#~ msgstr "Padaryti esamą pastraipą sąrašu su romėniškais skaičiais"
+
+#~ msgid "Make the current paragraph a numbered list"
+#~ msgstr "Padaryti esamą pastraipą numeruotu sąrašu"
+
+#~ msgid "Make the current paragraph an H1 header"
+#~ msgstr "Padaryti esamą pastraipą H1 antrašte"
+
+#~ msgid "Make the current paragraph an H2 header"
+#~ msgstr "Padaryti esamą pastraipą H2 antrašte"
+
+#~ msgid "Make the current paragraph an H3 header"
+#~ msgstr "Padaryti esamą pastraipą H3 antrašte"
+
+#~ msgid "Make the current paragraph an H4 header"
+#~ msgstr "Padaryti esamą pastraipą H4 antrašte"
+
+#~ msgid "Make the current paragraph an H5 header"
+#~ msgstr "Padaryti esamą pastraipą H5 antrašte"
+
+#~ msgid "Make the current paragraph an H6 header"
+#~ msgstr "Padaryti esamą pastraipą H6 antrašte"
+
+#~ msgid "Make the current paragraph an address"
+#~ msgstr "Padaryti esamą pastraipą adresu"
+
+#~ msgid "Make the current paragraph an alphabetical list"
+#~ msgstr "Padaryti esamą pastraipą abėcėliniu sąrašu"
+
+#~ msgid "Normal"
+#~ msgstr "Paprastas"
+
+#~ msgid "Numbered List"
+#~ msgstr "Numeruotas sąrašas"
+
+#~ msgid "Oh _No!"
+#~ msgstr "O _ne!"
+
+#~ msgid "Paste"
+#~ msgstr "Įdėti"
+
+#~ msgid "Paste from clipboard"
+#~ msgstr "Įdėti iš atmintinės"
+
+#~ msgid "Paste the clipboard"
+#~ msgstr "Įdėti atmintinės turinį"
+
+#~ msgid "Paste the clipboard as a quotation"
+#~ msgstr "Įdėti atmintinės turinį kaip citatą"
+
+#~ msgid "Preformat"
+#~ msgstr "Preformatuotas"
+
+#~ msgid "Redo"
+#~ msgstr "Pakartoti"
+
+#~ msgid "Redo previously undone change"
+#~ msgstr "Pakartoti prieš tai atšauktą veiksmą"
+
+#~ msgid "Redo the undone action"
+#~ msgstr "Pakartoti atšauktą veiksmą"
+
+#~ msgid "Right justifies the paragraphs"
+#~ msgstr "Sulygiuoja pastraipas pagal dešinę"
+
+#~ msgid "Roman Numeral List"
+#~ msgstr "Romeniškai numeruotas sąrašas"
+
+#~ msgid "Rule"
+#~ msgstr "Brūkšnys"
+
+#~ msgid "Select the entire contents of the document"
+#~ msgstr "Pažymėti visą dokumento turinį"
+
+#~ msgid "Strikeout"
+#~ msgstr "Perbrauktas"
+
+#~ msgid "Su_rprised"
+#~ msgstr "N_ustebęs"
+
+#~ msgid "Subscript"
+#~ msgstr "Rodyklė"
+
+#~ msgid "Superscript"
+#~ msgstr "Indeksas"
+
+#~ msgid "Te_mplate..."
+#~ msgstr "Šab_loną..."
+
+#~ msgid "Typewriter"
+#~ msgstr "Rašomoji mašinėlė"
+
+#~ msgid "Undo"
+#~ msgstr "Atšaukti"
+
+#~ msgid "Undo previous changes"
+#~ msgstr "Atšaukti ankstesnius pakeitimus"
+
+#~ msgid "Undo the last action"
+#~ msgstr "Atšaukti paskutinį veiksmą"
+
+#~ msgid "_Font Size"
+#~ msgstr "Šri_fto dydis"
+
+#~ msgid "_Frown"
+#~ msgstr "_Rimtuolis"
+
+#~ msgid "_Heading"
+#~ msgstr "_Antraštė"
+
+#~ msgid "_Indifferent"
+#~ msgstr "Nes_idomintis"
+
+#~ msgid "_Laughing"
+#~ msgstr "_Linksmutis"
+
+#~ msgid "_Page..."
+#~ msgstr "_Puslapis..."
+
+#~ msgid "_Paragraph..."
+#~ msgstr "_Pastraipa..."
+
+#~ msgid "_Replace..."
+#~ msgstr "_Pakeisti..."
+
+#~ msgid "_Style"
+#~ msgstr "_Stilius"
+
+#~ msgid "_Text..."
+#~ msgstr "_Tekstas..."
+
+#~ msgid "_Undecided"
+#~ msgstr "_Neapsisprendėlis"
+
+#~ msgid "GNOME HTML Editor"
+#~ msgstr "GNOME HTML redaktorius"
+
+#~ msgid "GNOME HTML Editor Control"
+#~ msgstr "GNOME HTML redaktoriaus valdymas"
+
+#~ msgid "GNOME HTML Editor Factory"
+#~ msgstr "GNOME HTML redaktoriaus gamykla"
+
+#~ msgid "Background Image File Path"
+#~ msgstr "Fono paveikslėlio failo kelias"
+
+#~ msgid "Template"
+#~ msgstr "Šablonas"
+
+#~ msgid "Could not load glade file."
+#~ msgstr "Nepavyko įkelti glade failo."
+
+#~ msgid "Transparent"
+#~ msgstr "Permatomas"
+
+#~ msgid "Text"
+#~ msgstr "Tekstas"
+
+#~ msgid "Paragraph"
+#~ msgstr "Pastraipa"
+
+#~ msgid "Page"
+#~ msgstr "Puslapis"
+
+#~ msgid "color preview"
+#~ msgstr "spalvos peržiūra"
+
+#~ msgid "Custom Color:"
+#~ msgstr "Kita spalva:"
+
+#~ msgid "purplish blue"
+#~ msgstr "violetiniai mėlyna"
+
+#~ msgid "dark purple"
+#~ msgstr "tamsiai violetinė"
+
+#~ msgid "sky blue"
+#~ msgstr "dangaus mėlynumo"
+
+#~ msgid "Popup"
+#~ msgstr "Iššokantis langas"
+
+#~ msgid "GtkHTML Editor Control"
+#~ msgstr "GtkHTML redaktoriaus valdymas"
+
+#~ msgid "    "
+#~ msgstr "    "
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid ""
+#~ "-2\n"
+#~ "-1\n"
+#~ "Standard\n"
+#~ "+1\n"
+#~ "+2\n"
+#~ "+3\n"
+#~ "+4"
+#~ msgstr ""
+#~ "-2\n"
+#~ "-1\n"
+#~ "Įprastas\n"
+#~ "+1\n"
+#~ "+2\n"
+#~ "+3\n"
+#~ "+4"
+
+#~ msgid "<b>Alignment &amp; Behaviour</b>"
+#~ msgstr "<b>Lygiavimas ir elgesys</b>"
+
+#~ msgid "<span weight=\"bold\">General</span>"
+#~ msgstr "<span weight=\"bold\">Bendra</span>"
+
+#~ msgid "<span weight=\"bold\">Layout</span>"
+#~ msgstr "<span weight=\"bold\">Išdėstymas</span>"
+
+#~ msgid "<span weight=\"bold\">Link</span>"
+#~ msgstr "<span weight=\"bold\">Nuoroda</span>"
+
+#~ msgid "<span weight=\"bold\">Size</span>"
+#~ msgstr "<span weight=\"bold\">Dydis</span>"
+
+#~ msgid "<span weight=\"bold\">Style</span>"
+#~ msgstr "<span weight=\"bold\">Stilius</span>"
+
+#~ msgid "<span weight=\"bold\">Template</span>"
+#~ msgstr "<span weight=\"bold\">Šablonas</span>"
+
+#~ msgid "Alignment:"
+#~ msgstr "Lygiavimas:"
+
+#~ msgid "Cell"
+#~ msgstr "Ląstelė"
+
+#~ msgid "Colu_mns:"
+#~ msgstr "_Stulpeliai:"
+
+#~ msgid "Column span:"
+#~ msgstr "Stulpelių suliejimas:"
+
+#~ msgid "Enable"
+#~ msgstr "Leisti"
+
+#~ msgid "Hea_der style"
+#~ msgstr "Ant_raštės stlius"
+
+#~ msgid "Horizontal alignment:"
+#~ msgstr "Horizontalus lygiavimas:"
+
+#~ msgid "Horizontal:"
+#~ msgstr "Horizontaliai:"
+
+#~ msgid ""
+#~ "Left\n"
+#~ "Center\n"
+#~ "Right\n"
+#~ "None"
+#~ msgstr ""
+#~ "Kairė\n"
+#~ "Vidurys\n"
+#~ "Dešinė\n"
+#~ "Jokio"
+
+#~ msgid "Link properties"
+#~ msgstr "Nuorodos savybės"
+
+#~ msgid "Row span:"
+#~ msgstr "Eilučių suliejimas:"
+
+#~ msgid "Shade"
+#~ msgstr "Su šešėliu"
+
+#~ msgid "Vertical:"
+#~ msgstr "Vertikaliai:"
+
+#~ msgid "xxxxxxxxxxxxxx"
+#~ msgstr "xxxxxxxxxxxxxx"
+
+#~ msgid "URL:"
+#~ msgstr "URL:"
+
+#~ msgid "Description:"
+#~ msgstr "Aprašymas:"
+
+#~ msgid "Insert"
+#~ msgstr "Įterpti"
+
+#~ msgid "Error loading file '%s': %s"
+#~ msgstr "Klaida įkeliant failą „%s“: %s"
+
+#~ msgid "Format"
+#~ msgstr "Formatas"
+
+#~ msgid "Roman List"
+#~ msgstr "Romėniškas sąrašas"
+
+#~ msgid "Header 1"
+#~ msgstr "Antraštė 1"
+
+#~ msgid "Header 2"
+#~ msgstr "Antraštė 2"
+
+#~ msgid "Header 3"
+#~ msgstr "Antraštė 3"
+
+#~ msgid "Header 4"
+#~ msgstr "Antraštė 4"
+
+#~ msgid "Header 5"
+#~ msgstr "Antraštė 5"
+
+#~ msgid "Header 6"
+#~ msgstr "Antraštė 6"
+
+#~ msgid "Address"
+#~ msgstr "Adresas"
+
+#~ msgid "Text Style..."
+#~ msgstr "Teksto stilius..."
+
+#~ msgid "Paragraph Style..."
+#~ msgstr "Pastraipos stilius..."
+
+#~ msgid "Link Style..."
+#~ msgstr "Nuorodos stilius..."
+
+#~ msgid "Rule Style..."
+#~ msgstr "Linijos stilius..."
+
+#~ msgid "Image Style..."
+#~ msgstr "Paveikslėlio stilius..."
+
+#~ msgid "Cell Style..."
+#~ msgstr "Ląstelės stilius..."
+
+#~ msgid "Table Style..."
+#~ msgstr "Lentelės stilius"
+
+#~ msgid "Page Style..."
+#~ msgstr "Puslapio stilius..."
+
+#~ msgid "Table insert"
+#~ msgstr "Lentelėje įterpti"
+
+#~ msgid "Row above"
+#~ msgstr "Eilutę virš"
+
+#~ msgid "Row below"
+#~ msgstr "Eilutę apačioje"
+
+#~ msgid "Column before"
+#~ msgstr "Stulpelį prieš"
+
+#~ msgid "Column after"
+#~ msgstr "Stulpelį po"
+
+#~ msgid "Table delete"
+#~ msgstr "Lentelėje ištrinti"
+
+#~ msgid "Cell contents"
+#~ msgstr "Ląstelės turinį"
+
+#~ msgid "Add Word to"
+#~ msgstr "Įtraukti žodį į"
+
+#~ msgid "Replace confirmation"
+#~ msgstr "Pakeitimo patvirtinimas"
+
+#~ msgid "Search _backward"
+#~ msgstr "Ieškoti _atgal"
+
+#~ msgid "_Backward"
+#~ msgstr "Ieškoti _atgal"
+
+#~ msgid "_Regular Expression"
+#~ msgstr "_Reguliari išraiška"
+
+#~ msgid "Input the words you want to search here"
+#~ msgstr "Čia įveskite ieškomus žodžius"
+
+#~ msgid ""
+#~ "Unable to add word to dictionary,\n"
+#~ "language settings are broken.\n"
+#~ msgstr ""
+#~ "Nepavyko į žodyną įdėti žodžio,\n"
+#~ "kalbos nustatymai yra sugadinti.\n"
+
+#~ msgid "No misspelled word found"
+#~ msgstr "Nerasta rašybos klaidų"
+
+#~ msgid "Spell checker"
+#~ msgstr "Rašybos tikrinimas"
+
+#~ msgid "Note"
+#~ msgstr "Pastaba"
+
+#~ msgid "Place your text here"
+#~ msgstr "Savo tekstą rašykite čia"
+
+#~ msgid "Image frame"
+#~ msgstr "Paveikslėlio rėmelis"
+
+#~ msgid "Template Labels"
+#~ msgstr "Šablono užrašai"
+
+#~ msgid "Open file..."
+#~ msgstr "Atidaryti failą..."
+
+#~ msgid "Save file as..."
+#~ msgstr "Išsaugoti failą kaip..."
+
+#~ msgid "GtkHTML Editor Test Container"
+#~ msgstr "Bandomasis GtkHTML redaktoriaus konteineris"
+
+#~ msgid "Left align"
+#~ msgstr "Lygiuoti pagal kairę"
+
+#~ msgid "Right align"
+#~ msgstr "Lygiuoti pagal dešinę"
+
+#~ msgid "Toggle typewriter font style"
+#~ msgstr "Perjungti rašomosios mašinėlės šrifto stilių"
+
+#~ msgid "Makes the text bold"
+#~ msgstr "Padaro tekstą pusjuodį"
+
+#~ msgid "Makes the text italic"
+#~ msgstr "Padaro tekstą kursyvinį"
+
+#~ msgid "Underlines the text"
+#~ msgstr "Pabraukia tekstą"
+
+#~ msgid "Strikes out the text"
+#~ msgstr "Perbraukia tekstą"
+
+#~ msgid "Unindent"
+#~ msgstr "Atitraukti"
+
+#~ msgid "Indents the paragraphs less"
+#~ msgstr "Mažiau įtraukia pastraipą"
+
+#~ msgid "Indent"
+#~ msgstr "Įtraukti"
+
+#~ msgid "Indents the paragraphs more"
+#~ msgstr "Labiau įtraukia pastraipą"
+
+#~ msgid "Text Color"
+#~ msgstr "Teksto spalva"
+
+#~ msgid "Sample"
+#~ msgstr "Pavyzdys"
+
+#~ msgid ""
+#~ "The edited object was removed from the document.\n"
+#~ "Cannot apply your changes."
+#~ msgstr ""
+#~ "Redaguojamas tekstas buvo pašalintas iš dokumento.\n"
+#~ "Negalima pritaikyti Jūsų pakeitimų."
+
+#~ msgid "Editable"
+#~ msgstr "Redaguojamas"
+
+#~ msgid "Document Title"
+#~ msgstr "Dokumento antraštė"
+
+#~ msgid "The title of the current document"
+#~ msgstr "Esamo dokumento antraštė"
+
+#~ msgid "Document Base"
+#~ msgstr "Dokumento pagrindas"
+
+#~ msgid "The base URL for relative references"
+#~ msgstr "Santykinių nuorodų bazinis URL"
+
+#~ msgid "Target Base"
+#~ msgstr "Adresato pagrindas"
+
+#~ msgid "The base URL of the target frame"
+#~ msgstr "Tikslinio rėmelio bazinis URL"
+
+#~ msgid "Fixed Width Font"
+#~ msgstr "Fiksuoto pločio šriftas"
+
+#~ msgid "The Monospace font to use for typewriter text"
+#~ msgstr "Lygiaplotis šriftas naudojamas atvaizduoti mašininiam tekstui"
+
+#~ msgid "New Link Color"
+#~ msgstr "Naujos nuorodos spalva"
+
+#~ msgid "The color of new link elements"
+#~ msgstr "Naujų nuorodų elementų spalva"
+
+#~ msgid "Visited Link Color"
+#~ msgstr "Aplankytos nuorodos spalva"
+
+#~ msgid "The color of visited link elements"
+#~ msgstr "Aplankytų nuorodų elementų spalva"
+
+#~ msgid "Active Link Color"
+#~ msgstr "Aktyvios nuorodos spalva"
+
+#~ msgid "The color of active link elements"
+#~ msgstr "Aktyvių nuorodų elementų spalva"
+
+#~ msgid "Spelling Error Color"
+#~ msgstr "Rašybos klaidų spalva"
+
+#~ msgid "The color of the spelling error markers"
+#~ msgstr "Rašybos klaidų žymėjimo spalva"
+
+#~ msgid "Cite Quotation Color"
+#~ msgstr "Citatos skyrybos spalva"
+
+#~ msgid "The color of the cited text"
+#~ msgstr "Cituoto teksto spalva"
+
+#~ msgid "Print pre_view"
+#~ msgstr "Spaudinio p_eržiūra"
+
+#~ msgid "Print preview"
+#~ msgstr "Spaudinio peržiūra"
+
+#~ msgid "GtkHTML Test Application"
+#~ msgstr "GtkHTML bandomoji programa"
 
 #~ msgid "_Tongue"
 #~ msgstr "_Liežuvis"
