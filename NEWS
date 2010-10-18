@@ -1,3 +1,15 @@
+GtkHTML-3.91.1 2010-10-18
+-------------------------
+Bug Fixes:
+	Bug #631321 - GtkObject is gone in GTK3 (Milan Crha)
+
+Miscellaneous Fixes:
+	Disable deprecation warnings in DISTCHECK_CONFIGURE_FLAGS. (Matthew Barnes)
+
+Translations:
+	Changwoo Ryu (ko)
+	Gintautas Miliauskas (lt)
+
 GtkHTML-3.91.0 2010-10-04
 -------------------------
 
