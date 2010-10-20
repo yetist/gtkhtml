@@ -242,7 +242,16 @@ html_select_init (HTMLSelect *select,
 			select->view, 120, req.height * size);
 		gtk_list_store_remove (store, &iter);
 	} else {
+#if GTK_CHECK_VERSION(2,23,0)
+		widget = g_object_new (
+			GTK_TYPE_COMBO_BOX,
+			"model", select->model,
+			"has-entry", TRUE,
+			"entry-text-column", 0,
+			NULL);
+#else
 		widget = gtk_combo_box_entry_new_with_model (select->model, 0);
+#endif
 		gtk_widget_set_size_request (widget, 120, -1);
 	}
 
