@@ -38,6 +38,9 @@
 
 #include "htmlengine.h"
 
+/* backward-compatibility cruft */
+#include "gtk-compat.h"
+
 typedef struct _Example Example;
 
 struct _Example {
@@ -338,10 +341,10 @@ main (gint argc, gchar **argv)
 	gtk_box_pack_start (GTK_BOX (vbox), swindow, TRUE, TRUE, 0);
 	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
 
-	combo_box = gtk_combo_box_new_text ();
+	combo_box = gtk_combo_box_text_new ();
 	for (i = 0; i < examples->len; i++) {
 		Example *example = examples->pdata[i];
-		gtk_combo_box_append_text (GTK_COMBO_BOX (combo_box), example->title);
+		gtk_combo_box_text_append_text (GTK_COMBO_BOX (combo_box), example->title);
 	}
 	gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), 0);
 	g_signal_connect (combo_box, "changed", G_CALLBACK (example_changed_cb), NULL);
