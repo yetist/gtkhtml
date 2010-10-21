@@ -1,0 +1,1330 @@
+# Uyghur translation for gtkhtml
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Sahran <sahran@live.com>, 2010.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: gtkhtml\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gtkhtml&component=general\n"
+"POT-Creation-Date: 2010-10-13 12:46+0000\n"
+"PO-Revision-Date: 2010-10-20 15:31+0600\n"
+"Last-Translator: Sahran <sahran@live.com>\n"
+"Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../a11y/image.c:151
+#, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr "URL بولسا %s، ئالماشتۇرىدىغان تېكىست %s"
+
+#: ../a11y/image.c:153
+#, c-format
+msgid "URL is %s"
+msgstr "URL بولسا %s"
+
+#: ../a11y/object.c:51 ../a11y/object.c:60 ../a11y/text.c:125
+msgid "grab focus"
+msgstr "فوكۇسقا ئېرىش"
+
+#: ../a11y/object.c:257
+msgid "Panel containing HTML"
+msgstr "تاختا HTML نى ئۆز ئىچىگە ئالىدۇ"
+
+#: ../components/editor/gtkhtml-color-combo.c:79
+msgid "black"
+msgstr "قارا"
+
+#: ../components/editor/gtkhtml-color-combo.c:80
+msgid "light brown"
+msgstr "سۇس جىگەر رەڭ"
+
+#: ../components/editor/gtkhtml-color-combo.c:81
+msgid "brown gold"
+msgstr "سارغۇچ قوڭۇر"
+
+#: ../components/editor/gtkhtml-color-combo.c:82
+msgid "dark green #2"
+msgstr "توق يېشىل #2"
+
+#: ../components/editor/gtkhtml-color-combo.c:83
+msgid "navy"
+msgstr "ئاسمان كۆكى"
+
+#: ../components/editor/gtkhtml-color-combo.c:84
+msgid "dark blue"
+msgstr "توق كۆك"
+
+#: ../components/editor/gtkhtml-color-combo.c:85
+msgid "purple #2"
+msgstr "بىنەپشە #2"
+
+#: ../components/editor/gtkhtml-color-combo.c:86
+msgid "very dark gray"
+msgstr "قېنىق كۈل رەڭ"
+
+#: ../components/editor/gtkhtml-color-combo.c:88
+msgid "dark red"
+msgstr "توق قىزىل"
+
+#: ../components/editor/gtkhtml-color-combo.c:89
+msgid "red-orange"
+msgstr "سارغۇچ قىزىل"
+
+#: ../components/editor/gtkhtml-color-combo.c:90
+msgid "gold"
+msgstr "ئالتۇن"
+
+#: ../components/editor/gtkhtml-color-combo.c:91
+msgid "dark green"
+msgstr "توق يېشىل"
+
+#: ../components/editor/gtkhtml-color-combo.c:92
+msgid "dull blue"
+msgstr "تۇتۇق كۆك"
+
+#: ../components/editor/gtkhtml-color-combo.c:93
+msgid "blue"
+msgstr "كۆك"
+
+#: ../components/editor/gtkhtml-color-combo.c:94
+msgid "dull purple"
+msgstr "تۇتۇق بىنەپشە"
+
+#: ../components/editor/gtkhtml-color-combo.c:95
+msgid "dark grey"
+msgstr "توق كۈلرەڭ"
+
+#: ../components/editor/gtkhtml-color-combo.c:97
+msgid "red"
+msgstr "قىزىل"
+
+#: ../components/editor/gtkhtml-color-combo.c:98
+msgid "orange"
+msgstr "قىزغۇچ سېرىق"
+
+#: ../components/editor/gtkhtml-color-combo.c:99
+msgid "lime"
+msgstr "سارغۇچ يېشىل"
+
+#: ../components/editor/gtkhtml-color-combo.c:100
+msgid "dull green"
+msgstr "تۇتۇق يېشىل"
+
+#: ../components/editor/gtkhtml-color-combo.c:101
+msgid "dull blue #2"
+msgstr "تۇتۇق كۆك #2"
+
+#: ../components/editor/gtkhtml-color-combo.c:102
+msgid "sky blue #2"
+msgstr "ئاسمان كۆك #2"
+
+#: ../components/editor/gtkhtml-color-combo.c:103
+msgid "purple"
+msgstr "بىنەپشە"
+
+#: ../components/editor/gtkhtml-color-combo.c:104
+msgid "gray"
+msgstr "كۈلرەڭ"
+
+#: ../components/editor/gtkhtml-color-combo.c:106
+msgid "magenta"
+msgstr "ئاچ قىزىل"
+
+#: ../components/editor/gtkhtml-color-combo.c:107
+msgid "bright orange"
+msgstr "ئوچۇق قىزغۇچ سېرىق"
+
+#: ../components/editor/gtkhtml-color-combo.c:108
+msgid "yellow"
+msgstr "سېرىق"
+
+#: ../components/editor/gtkhtml-color-combo.c:109
+msgid "green"
+msgstr "يېشىل"
+
+#: ../components/editor/gtkhtml-color-combo.c:110
+msgid "cyan"
+msgstr "توق يېشىل"
+
+#: ../components/editor/gtkhtml-color-combo.c:111
+msgid "bright blue"
+msgstr "ئوچۇق كۆك"
+
+#: ../components/editor/gtkhtml-color-combo.c:112
+msgid "red purple"
+msgstr "قىزىل بىنەپشە"
+
+#: ../components/editor/gtkhtml-color-combo.c:113
+msgid "light grey"
+msgstr "سۇس كۈلرەڭ"
+
+#: ../components/editor/gtkhtml-color-combo.c:115
+msgid "pink"
+msgstr "ھالرەڭ"
+
+#: ../components/editor/gtkhtml-color-combo.c:116
+msgid "light orange"
+msgstr "سۇس قىزغۇچ سېرىق"
+
+#: ../components/editor/gtkhtml-color-combo.c:117
+msgid "light yellow"
+msgstr "سۇس سېرىق"
+
+#: ../components/editor/gtkhtml-color-combo.c:118
+msgid "light green"
+msgstr "سۇس يېشىل"
+
+#: ../components/editor/gtkhtml-color-combo.c:119
+msgid "light cyan"
+msgstr "ئاچراق توق يېشىل"
+
+#: ../components/editor/gtkhtml-color-combo.c:120
+msgid "light blue"
+msgstr "ئاچ كۆك"
+
+#: ../components/editor/gtkhtml-color-combo.c:121
+msgid "light purple"
+msgstr "سۇس بىنەپشە"
+
+#: ../components/editor/gtkhtml-color-combo.c:122
+msgid "white"
+msgstr "ئاق"
+
+#: ../components/editor/gtkhtml-color-combo.c:277
+msgid "Choose Custom Color"
+msgstr "ئىختىيارى رەڭ تاللا"
+
+#: ../components/editor/gtkhtml-color-combo.c:745
+#: ../components/editor/gtkhtml-color-state.c:228
+msgid "Default"
+msgstr "كۆڭۈلدىكى"
+
+#: ../components/editor/gtkhtml-color-combo.c:968
+msgid "custom"
+msgstr "ئىختىيارى"
+
+#: ../components/editor/gtkhtml-color-combo.c:976
+msgid "Custom Color..."
+msgstr "ئىختىيارى رەڭ…"
+
+#. Translators: :-)
+#: ../components/editor/gtkhtml-face-chooser.c:34
+msgid "_Smile"
+msgstr "كۈلۈمسىرەش(_S)"
+
+#. Translators: :-(
+#: ../components/editor/gtkhtml-face-chooser.c:36
+msgid "S_ad"
+msgstr "قايغۇ(_A)"
+
+#. Translators: ;-)
+#: ../components/editor/gtkhtml-face-chooser.c:38
+msgid "_Wink"
+msgstr "كۆز قىسىش(_W)"
+
+#. Translators: :-P
+#: ../components/editor/gtkhtml-face-chooser.c:40
+msgid "Ton_gue"
+msgstr "تىل(_G)"
+
+#. Translators: :-))
+#: ../components/editor/gtkhtml-face-chooser.c:42
+msgid "Laug_h"
+msgstr "كۈلكە(_H)"
+
+#. Translators: :-|
+#: ../components/editor/gtkhtml-face-chooser.c:44
+msgid "_Plain"
+msgstr "ئاددىي(_P)"
+
+#. Translators: :-!
+#: ../components/editor/gtkhtml-face-chooser.c:46
+msgid "Smi_rk"
+msgstr "ھىجاق(_R)"
+
+#. Translators: :"-)
+#: ../components/editor/gtkhtml-face-chooser.c:48
+msgid "_Embarrassed"
+msgstr "خىجالەتچىلىك(_E)"
+
+#. Translators: :-D
+#: ../components/editor/gtkhtml-face-chooser.c:50
+msgid "_Big Smile"
+msgstr "قاقاقلاش(_B)"
+
+#. Translators: :-/
+#: ../components/editor/gtkhtml-face-chooser.c:52
+msgid "Uncer_tain"
+msgstr "خۇدۈك(_T)"
+
+#. Translators: :-O
+#: ../components/editor/gtkhtml-face-chooser.c:54
+msgid "S_urprise"
+msgstr "ھەيرانلىق(_U)"
+
+#. Translators: :-S
+#: ../components/editor/gtkhtml-face-chooser.c:56
+msgid "W_orried"
+msgstr "خاپىلىق(_O)"
+
+#. Translators: :-*
+#: ../components/editor/gtkhtml-face-chooser.c:58
+msgid "_Kiss"
+msgstr "سۆيۈش(_K)"
+
+#. Translators: X-(
+#: ../components/editor/gtkhtml-face-chooser.c:60
+msgid "A_ngry"
+msgstr "ئاچچىقلانغان(_N)"
+
+#. Translators: B-)
+#: ../components/editor/gtkhtml-face-chooser.c:62
+msgid "_Cool"
+msgstr "پەيزى(_C)"
+
+#. Translators: O:-)
+#: ../components/editor/gtkhtml-face-chooser.c:64
+msgid "Ange_l"
+msgstr "پەرىشتە(_L)"
+
+#. Translators: :'(
+#: ../components/editor/gtkhtml-face-chooser.c:66
+msgid "Cr_ying"
+msgstr "يىغلاڭغۇ(_Y)"
+
+#. Translators: :-Q
+#: ../components/editor/gtkhtml-face-chooser.c:68
+msgid "S_ick"
+msgstr "ئاغرىق(_I)"
+
+#. Translators: |-)
+#: ../components/editor/gtkhtml-face-chooser.c:70
+msgid "Tire_d"
+msgstr "ھارغىن(_D)"
+
+#. Translators: >:-)
+#: ../components/editor/gtkhtml-face-chooser.c:72
+msgid "De_vilish"
+msgstr "قورقۇنچلۇق(_V)"
+
+#. Translators: :-(|)
+#: ../components/editor/gtkhtml-face-chooser.c:74
+msgid "_Monkey"
+msgstr "مايمۇن(_M)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:190
+msgid "Failed to insert HTML file."
+msgstr "HTML ھۆججەت قىستۇرالمىدى."
+
+#: ../components/editor/gtkhtml-editor-actions.c:227
+msgid "Failed to insert text file."
+msgstr "تېكىست ھۆججەت قىستۇرالمىدى."
+
+#: ../components/editor/gtkhtml-editor-actions.c:615
+msgid "Insert HTML File"
+msgstr "HTML ھۆججەت قىستۇر"
+
+#: ../components/editor/gtkhtml-editor-actions.c:635
+#: ../components/editor/gtkhtml-editor-actions.c:1549
+msgid "Insert Image"
+msgstr "سۈرەت قىستۇر"
+
+#: ../components/editor/gtkhtml-editor-actions.c:684
+msgid "Insert Text File"
+msgstr "تېكىست ھۆججەت قىستۇر"
+
+#. Replace Button
+#: ../components/editor/gtkhtml-editor-actions.c:1184
+#: ../components/editor/gtkhtml-spell-dialog.c:520
+msgid "_Replace"
+msgstr "ئالماشتۇر(_R)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1191
+msgid "Replace _All"
+msgstr "ھەممىنى ئالماشتۇر(_A)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1205
+msgid "_Next"
+msgstr "كېيىنكى(_N)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1212
+msgid "_Copy"
+msgstr "كۆچۈر(_C)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1219
+msgid "Cu_t"
+msgstr "كەس(_T)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1233
+msgid "Find A_gain"
+msgstr "قايتا ئىزدە(_G)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1247
+msgid "_Increase Indent"
+msgstr "كېڭەيت(_I)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1249
+msgid "Increase Indent"
+msgstr "كېڭەيت"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1254
+msgid "_HTML File..."
+msgstr "HTML ھۆججەت(_H)…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1261
+msgid "Te_xt File..."
+msgstr "تېكىست ھۆججەت(_X)…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1268
+msgid "_Paste"
+msgstr "چاپلا(_P)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1275
+msgid "Paste _Quotation"
+msgstr "نەقىل چاپلا(_Q)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1282
+msgid "_Redo"
+msgstr "قايتىلا(_R)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1289
+msgid "Select _All"
+msgstr "ھەممىنى تاللا(_A)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1296
+msgid "_Find..."
+msgstr "ئىزدە(_F)…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1303
+msgid "Re_place..."
+msgstr "ئالماشتۇر(_P)…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1310
+msgid "Check _Spelling..."
+msgstr "ئىملا تەكشۈر(_S)…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1317
+#: ../components/editor/gtkhtml-editor-builder.ui.h:80
+msgid "_Test URL..."
+msgstr "URL سىنا(_T)…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1324
+msgid "_Undo"
+msgstr "يېنىۋال(_U)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1331
+msgid "_Decrease Indent"
+msgstr "تارايت(_D)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1333
+msgid "Decrease Indent"
+msgstr "تارايت"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1338
+msgid "_Wrap Lines"
+msgstr "قۇر ئالماشتۇر(_W)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1347
+msgid "_Edit"
+msgstr "تەھرىر(_E)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1354
+#: ../components/editor/main.c:327
+msgid "_File"
+msgstr "ھۆججەت(_F)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1361
+msgid "For_mat"
+msgstr "فورمات(_M)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1368
+msgid "_Paragraph Style"
+msgstr "ئابزاس ئۇسلۇبى(_P)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1375
+msgid "_Insert"
+msgstr "قىستۇر(_I)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1382
+msgid "_Alignment"
+msgstr "توغرىلا(_A)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1389
+msgid "Current _Languages"
+msgstr "نۆۋەتتىكى تىل(_L)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1396
+#: ../components/editor/main.c:358
+msgid "_View"
+msgstr "كۆرۈنۈش(_V)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1406
+msgid "_Center"
+msgstr "ئوتتۇرا(_C)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1408
+msgid "Center Alignment"
+msgstr "ئۇتتۇرىغا توغرىلا"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1413
+msgid "_Left"
+msgstr "سول(_L)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1415
+msgid "Left Alignment"
+msgstr "سولغا توغرىلا"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1420
+msgid "_Right"
+msgstr "ئوڭ(_R)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1422
+msgid "Right Alignment"
+msgstr "ئوڭغا توغرىلا"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1430
+msgid "_HTML"
+msgstr "_HTML"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1432
+msgid "HTML editing mode"
+msgstr "HTML تەھرىرلەش ھالىتى"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1437
+msgid "Plain _Text"
+msgstr "ساپ تېكىست(_T)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1439
+msgid "Plain text editing mode"
+msgstr "ساپ تېكىست تەھرىرلەش ھالىتى"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1447
+msgid "_Normal"
+msgstr "نورمال(_N)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1454
+msgid "Header _1"
+msgstr "تېما _1"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1461
+msgid "Header _2"
+msgstr "تېما _2"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1468
+msgid "Header _3"
+msgstr "تېما _3"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1475
+msgid "Header _4"
+msgstr "تېما _4"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1482
+msgid "Header _5"
+msgstr "تېما _5"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1489
+msgid "Header _6"
+msgstr "تېما _6"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1496
+msgid "A_ddress"
+msgstr "مەنزىل(_D)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1503
+msgid "_Preformatted"
+msgstr "ئالدىن فورماتلانغان(_P)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1510
+msgid "_Bulleted List"
+msgstr "بەلگە تىزىملىكى(_B)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1517
+msgid "_Roman Numeral List"
+msgstr "رىم رەقەم تىزىملىكى(_R)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1524
+msgid "Numbered _List"
+msgstr "تەرتىپ نومۇر تىزىملىكى(_L)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1531
+msgid "_Alphabetical List"
+msgstr "ئېلىپبەلىك تىزىملىك(_A)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1547
+#: ../components/editor/gtkhtml-editor-actions.c:1584
+msgid "_Image..."
+msgstr "سۈرەت(_I)…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1554
+#: ../components/editor/gtkhtml-editor-actions.c:1591
+msgid "_Link..."
+msgstr "ئۇلانما(_L)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1556
+msgid "Insert Link"
+msgstr "ئۇلانما قىستۇر"
+
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1562
+#: ../components/editor/gtkhtml-editor-actions.c:1606
+msgid "_Rule..."
+msgstr "سىزغۇچ(_R)…"
+
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1565
+msgid "Insert Rule"
+msgstr "سىزغۇچ قىستۇر"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1570
+#: ../components/editor/gtkhtml-editor-actions.c:1613
+msgid "_Table..."
+msgstr "جەدۋەل(_T)…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1572
+msgid "Insert Table"
+msgstr "جەدۋەل قىستۇر"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1577
+msgid "_Cell..."
+msgstr "كاتەكچە(_C)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1598
+msgid "Pa_ge..."
+msgstr "بەت(_G)…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1622
+msgid "Font _Size"
+msgstr "خەت چوڭلۇقى(_S)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1629
+msgid "_Font Style"
+msgstr "خەت نۇسخا ئۇسلۇبى(_F)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1639
+#: ../components/editor/gtkhtml-editor-builder.ui.h:61
+msgid "_Bold"
+msgstr "توم(_B)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1641
+msgid "Bold"
+msgstr "توم"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1647
+#: ../components/editor/gtkhtml-editor-builder.ui.h:68
+msgid "_Italic"
+msgstr "يانتۇ(_I)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1649
+msgid "Italic"
+msgstr "يانتۇ"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1655
+msgid "_Plain Text"
+msgstr "ساپ تېكىست(_P)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1657
+msgid "Plain Text"
+msgstr "ساپ تېكىست"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1663
+#: ../components/editor/gtkhtml-editor-builder.ui.h:77
+msgid "_Strikethrough"
+msgstr "ئۆچۈرۈش سىزىقى(_S)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1665
+msgid "Strikethrough"
+msgstr "ئۆچۈرۈش سىزىقى"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1671
+#: ../components/editor/gtkhtml-editor-builder.ui.h:83
+msgid "_Underline"
+msgstr "ئاستى سىزىق(_U)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1673
+msgid "Underline"
+msgstr "ئاستى سىزىق"
+
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1683
+msgid "-2"
+msgstr "-2"
+
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1691
+msgid "-1"
+msgstr "-1"
+
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1699
+msgid "+0"
+msgstr "+0"
+
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1707
+msgid "+1"
+msgstr "+1"
+
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1715
+msgid "+2"
+msgstr "+2"
+
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1723
+msgid "+3"
+msgstr "+3"
+
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1731
+msgid "+4"
+msgstr "+4"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1750
+msgid "Cell Contents"
+msgstr "كاتەكچە مەزمۇنى"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1757
+msgid "Column"
+msgstr "ئىستون"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1764
+msgid "Row"
+msgstr "قۇر"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1771
+#: ../components/editor/gtkhtml-editor-actions.c:1856
+msgid "Table"
+msgstr "جەدۋەل"
+
+#. Translators: Popup menu item caption, containing all the Delete options for a table
+#: ../components/editor/gtkhtml-editor-actions.c:1781
+msgid "Table Delete"
+msgstr "جەدۋەل ئۆچۈر"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1788
+msgid "Input Methods"
+msgstr "كىرگۈزگۈچ"
+
+#. Translators: Popup menu item caption, containing all the Insert options for a table
+#: ../components/editor/gtkhtml-editor-actions.c:1796
+msgid "Table Insert"
+msgstr "جەدۋەل قىستۇر"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1803
+msgid "Properties"
+msgstr "خاسلىق"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1821
+msgid "Column After"
+msgstr "ئىستوندىن كېيىن"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1828
+msgid "Column Before"
+msgstr "ئىستوندىن ئىلگىرى"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1835
+msgid "Insert _Link"
+msgstr "ئۇلانما قىستۇر(_L)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1842
+msgid "Row Above"
+msgstr "قۇر ئۈستى"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1849
+msgid "Row Below"
+msgstr "قۇر ئاستى"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1863
+msgid "Cell..."
+msgstr "كاتەكچە…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1870
+msgid "Image..."
+msgstr "سۈرەت…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1877
+msgid "Link..."
+msgstr "ئۇلانما…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1884
+msgid "Page..."
+msgstr "بەت…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1891
+msgid "Paragraph..."
+msgstr "ئابزاس…"
+
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1899
+msgid "Rule..."
+msgstr "سىزغۇچ…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1906
+msgid "Table..."
+msgstr "جەدۋەل…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1913
+msgid "Text..."
+msgstr "تېكىست…"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1920
+msgid "Remove Link"
+msgstr "ئۇلانما چىقىرىۋەت"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1937
+msgid "Add Word to Dictionary"
+msgstr "لۇغەتكە سۆز قوش"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1944
+msgid "Ignore Misspelled Word"
+msgstr "ئىملاسى خاتا سۆزگە پەرۋا قىلما"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1951
+msgid "Add Word To"
+msgstr "سۆزنى قوشۇش ئورنى"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1960
+msgid "More Suggestions"
+msgstr "تېخىمۇ كۆپ تەۋسىيە"
+
+#. Translators: %s will be replaced with the actual dictionary name,
+#. where a user can add a word to. This is part of an "Add Word To" submenu.
+#: ../components/editor/gtkhtml-editor-actions.c:2061
+#, c-format
+msgid "%s Dictionary"
+msgstr "%s لۇغەت"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2129
+msgid "_Emoticon"
+msgstr "چىراي ئىپادە(_E)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2130
+msgid "Insert Emoticon"
+msgstr "چىراي ئىپادە قىستۇر"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2191
+msgid "_Find"
+msgstr "ئىزدە(_F)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2194
+msgid "Re_place"
+msgstr "ئالماشتۇر(_P)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2197
+msgid "_Image"
+msgstr "سۈرەت(_I)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2200
+msgid "_Link"
+msgstr "ئۇلانما(_L)"
+
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:2204
+msgid "_Rule"
+msgstr "سىزغۇچ(_R)"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2207
+#: ../components/editor/gtkhtml-editor-builder.ui.h:79
+msgid "_Table"
+msgstr "جەدۋەل(_T)"
+
+#: ../components/editor/gtkhtml-editor-private.c:273
+msgid "Paragraph Style"
+msgstr "ئابزاس ئۇسلۇبى"
+
+#: ../components/editor/gtkhtml-editor-private.c:287
+msgid "Editing Mode"
+msgstr "تەھرىرلەش ھالىتى"
+
+#: ../components/editor/gtkhtml-editor-private.c:299
+msgid "Font Color"
+msgstr "خەت رەڭگى"
+
+#: ../components/editor/gtkhtml-editor-private.c:309
+msgid "Font Size"
+msgstr "خەت چوڭلۇقى"
+
+#: ../components/editor/gtkhtml-editor-private.c:336
+msgid "Automatic"
+msgstr "ئاپتوماتىك"
+
+#: ../components/editor/gtkhtml-editor-private.c:589
+msgid "Could not open the link."
+msgstr "ئۇلانمىنى ئاچالمايدۇ"
+
+#: ../components/editor/gtkhtml-editor.c:897
+msgid "Changed property"
+msgstr "ئۆزگەرگەن خاسلىق"
+
+#: ../components/editor/gtkhtml-editor.c:898
+msgid "Whether editor changed"
+msgstr "تەھرىرلىگۈچ ئۆزگەرتىلىدىمۇ يوق"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:2
+#, no-c-format
+msgid "%"
+msgstr "%"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:3
+msgid "Alignment"
+msgstr "توغرىلا"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:4
+msgid "Alignment & Behavior"
+msgstr "توغرىلاش ۋە ھەرىكەت"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:5
+msgid "Background"
+msgstr "تەگلىك"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:6
+msgid "Background Image"
+msgstr "تەگلىك سۈرەت"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:7
+msgid "Blue Ink"
+msgstr "كۆك سىياھ"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:8
+msgid "Bottom"
+msgstr "ئاستى"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:9
+msgid "C_ell"
+msgstr "كاتەكچە(_E)"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:10
+msgid "C_olor:"
+msgstr "رەڭ(_O):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:11
+msgid "C_olumns:"
+msgstr "ئىستون(_O):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:12
+msgid "C_ustom:"
+msgstr "ئىختىيارى(_U):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:13
+msgid "Case _sensitive"
+msgstr "چوڭ كىچىك يېزىلىشنى پەرقلەندۈر(_S)"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:14
+msgid "Cell Properties"
+msgstr "كاتەكچە خاسلىقى"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:15
+msgid "Center"
+msgstr "ئوتتۇرا"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:16
+msgid "Co_lor:"
+msgstr "رەڭ(_L):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:17
+msgid "Col_umn"
+msgstr "ئىستون(_U)"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:18
+msgid "Colors"
+msgstr "رەڭلەر"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:19
+msgid "Column Span:"
+msgstr "ئىستون ھالقىش:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:20
+msgid "Confidential"
+msgstr "مەخپىي"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:21
+msgid "Draft"
+msgstr "دەسلەپكى نۇسخا"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:22
+msgid "Find"
+msgstr "ئىزدە"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:23
+msgid "General"
+msgstr "ئادەتتىكى"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:24
+msgid "Graph Paper"
+msgstr "گرافىك قەغەز"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:25
+msgid "Hea_der Style"
+msgstr "تېما ئۇسلۇبى(_D)"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:26
+msgid "I_mage:"
+msgstr "سۈرەت(_M):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:27
+msgid "Image Properties"
+msgstr "سۈرەت خاسلىقى"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:28
+msgid "Layout"
+msgstr "ئۇسلۇب"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:29
+msgid "Left"
+msgstr "سول"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:30
+msgid "Link"
+msgstr "ئۇلانما"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:31
+msgid "Link Properties"
+msgstr "ئۇلانما خاسلىقى"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:32
+msgid "Middle"
+msgstr "ئوتتۇرا"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:33
+msgid "Midnight"
+msgstr "يېرىم كېچە"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:34
+msgid "None"
+msgstr "يوق"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:35
+msgid "Page Properties"
+msgstr "بەت خاسلىقى"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:36
+msgid "Paper"
+msgstr "قەغەز"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:37
+msgid "Paragraph Properties"
+msgstr "ئابزاس خاسلىقى"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:38
+msgid "Perforated Paper"
+msgstr "تۆشۈكلۈك قەغەز"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:39
+msgid "R_eplace:"
+msgstr "ئالماشتۇر(_E)"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:40
+msgid "Replace"
+msgstr "ئالماشتۇر"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:41
+msgid "Replace Confirmation"
+msgstr "ئالماشتۇرۇش جەزملە"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:42
+msgid "Ribbon"
+msgstr "تاسما"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:43
+msgid "Right"
+msgstr "ئوڭ"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:44
+msgid "Row Span:"
+msgstr "قۇر ھالقىش:"
+
+#. Translators: Caption of a window. 'Rule' here means a horizontal line in an HTML text.
+#: ../components/editor/gtkhtml-editor-builder.ui.h:46
+msgid "Rule Properties"
+msgstr "سىزغۇچ خاسلىقى"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:47
+msgid "S_haded"
+msgstr "سايە(_H)"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:48
+msgid "Scope"
+msgstr "دائىرە"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:49
+msgid "Search _backwards"
+msgstr "ئارقىغا ئىزدە(_B)"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:50
+msgid "Select An Image"
+msgstr "سۈرەت تاللاڭ"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:51
+msgid "Si_ze:"
+msgstr "چوڭلۇقى(_Z):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:52
+msgid "Size"
+msgstr "چوڭلۇقى"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:53
+msgid "Style"
+msgstr "ئۇسلۇب"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:54
+msgid "T_emplate:"
+msgstr "قېلىپ(_E):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:55
+msgid "Table Properties"
+msgstr "جەدۋەل خاسلىقى"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:56
+msgid "Text Properties"
+msgstr "تېكىست خاسلىقى"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:57
+msgid "Top"
+msgstr "ئۈستى"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:58
+msgid "Width:"
+msgstr "كەڭلىك:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:59
+msgid "_Alignment:"
+msgstr "توغرىلا(_A):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:60
+msgid "_Background:"
+msgstr "تەگلىك(_B):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:62
+msgid "_Border:"
+msgstr "گىرۋەك(_B):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:63
+msgid "_Color:"
+msgstr "رەڭ(_C):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:64
+msgid "_Description:"
+msgstr "چۈشەندۈرۈش(_D):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:65
+msgid "_Height:"
+msgstr "ئېگىزلىك(_H):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:66
+msgid "_Horizontal:"
+msgstr "توغرىسىغا(_H):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:67
+msgid "_Image:"
+msgstr "سۈرەت(_I):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:69
+msgid "_Link:"
+msgstr "ئۇلانما(_L):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:70
+msgid "_Padding:"
+msgstr "بوش قالدۇر(_P):："
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:71
+msgid "_Regular expression"
+msgstr "مۇنتىزىم ئىپادە(_R)"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:72
+msgid "_Row"
+msgstr "قۇر(_R)"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:73
+msgid "_Rows:"
+msgstr "قۇرلار(_R):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:74
+msgid "_Size:"
+msgstr "چوڭلۇقى(_S):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:75
+msgid "_Source:"
+msgstr "مەنبە(_S):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:76
+msgid "_Spacing:"
+msgstr "ئارىلىق(_S):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:78
+msgid "_Style:"
+msgstr "ئۇسلۇب(_S):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:81
+msgid "_Text:"
+msgstr "تېكىست(_T):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:82
+msgid "_URL:"
+msgstr "_URL:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:84
+msgid "_Vertical:"
+msgstr "بويىغا(_V):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:85
+msgid "_Width:"
+msgstr "كەڭلىك(_W):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:86
+msgid "_With:"
+msgstr "بىللە(_W):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:87
+msgid "_Wrap Text"
+msgstr "تېكىستنى قۇر ئالماشتۇر(_W)"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:88
+msgid "_X-Padding:"
+msgstr "توغرىسىغا بوش قالدۇر(_X):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:89
+msgid "_Y-Padding:"
+msgstr "بويىغا بوش قالدۇر(_Y):"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:90
+msgid "follow"
+msgstr "ئەگەش"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:91
+msgid "px"
+msgstr "px"
+
+#: ../components/editor/gtkhtml-spell-dialog.c:117
+#, c-format
+msgid "Suggestions for \"%s\""
+msgstr "\"%s\" نىڭ تەكلىپى"
+
+#: ../components/editor/gtkhtml-spell-dialog.c:447
+msgid "Spell Checker"
+msgstr "ئىملا تەكشۈرگۈچ "
+
+#. Replace All Button
+#: ../components/editor/gtkhtml-spell-dialog.c:534
+msgid "R_eplace All"
+msgstr "ھەممىنى ئالماشتۇر(_E)"
+
+#. Ignore Button
+#: ../components/editor/gtkhtml-spell-dialog.c:548
+msgid "_Ignore"
+msgstr "پەرۋا قىلما(_I)"
+
+#. Skip Button
+#: ../components/editor/gtkhtml-spell-dialog.c:562
+msgid "_Skip"
+msgstr "ئاتلا(_S)"
+
+#. Back Button
+#: ../components/editor/gtkhtml-spell-dialog.c:575
+msgid "_Back"
+msgstr "كەينىگە(_B)"
+
+#. Dictionary Label
+#: ../components/editor/gtkhtml-spell-dialog.c:588
+msgid "Dictionary"
+msgstr "لۇغەت"
+
+#. Add Word Button
+#: ../components/editor/gtkhtml-spell-dialog.c:617
+msgid "_Add Word"
+msgstr "سۆز قوش(_A)"
+
+#. Translators: %s is the language ISO code.
+#: ../components/editor/gtkhtml-spell-language.c:255
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "نامەلۇم (%s)"
+
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)"
+#: ../components/editor/gtkhtml-spell-language.c:270
+#: ../components/editor/gtkhtml-spell-language.c:275
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#. Translators: This refers to the default language used
+#. * by the spell checker.
+#: ../components/editor/gtkhtml-spell-language.c:460
+msgctxt "language"
+msgid "Default"
+msgstr "كۆڭۈلدىكى"
+
+#: ../components/editor/main.c:93
+msgid "Save As"
+msgstr "باشقا ئاتتا ساقلا"
+
+#: ../components/editor/main.c:111
+msgid "Untitled document"
+msgstr "ماۋزۇسىز پۈتۈك"
+
+#: ../components/editor/main.c:271
+msgid "HTML Output"
+msgstr "HTML چىقار"
+
+#: ../components/editor/main.c:278
+msgid "HTML Source"
+msgstr "HTML ئەسلى كودى"
+
+#: ../components/editor/main.c:285
+msgid "Plain Source"
+msgstr "ساپ ئەسلى كود"
+
+#: ../components/editor/main.c:292
+msgid "_Print..."
+msgstr "باس(_P)…"
+
+#: ../components/editor/main.c:299
+msgid "Print Pre_view"
+msgstr "بېسىشنى ئالدىن كۆزەت(_V)"
+
+#: ../components/editor/main.c:306
+msgid "_Quit"
+msgstr "چېكىن(_Q)"
+
+#: ../components/editor/main.c:313
+msgid "_Save"
+msgstr "ساقلا(_S)"
+
+#: ../components/editor/main.c:320
+msgid "Save _As..."
+msgstr "باشقا ئاتتا ساقلا(_A)…"
+
+#: ../components/editor/main.c:337
+msgid "HTML _Output"
+msgstr "HTML چىقار(_O)"
+
+#: ../components/editor/main.c:344
+msgid "_HTML Source"
+msgstr "_HTML ئەسلى كودى"
+
+#: ../components/editor/main.c:351
+msgid "_Plain Source"
+msgstr "ساپ ئەسلى كود(_P)"
+
+#: ../gtkhtml/htmlbutton.c:138
+msgid "Submit Query"
+msgstr "سۈرۈشتۈرۈش تاپشۇر"
+
+#: ../gtkhtml/htmlbutton.c:141
+msgid "Reset"
+msgstr "ئەسلىگە قايتۇر"
+
+#. TODO2 dialog instead of warning
+#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:309
+msgid "Cannot allocate default font for printing"
+msgstr "بېسىشقا ئىشلىتىدىغان خەت نۇسخىنى تەقسىملىيەلمەيدۇ"
+
+#: ../gtkhtml/test.c:364
+msgid "GtkHTML Test"
+msgstr "GtkHTML سىناق"
