@@ -73,11 +73,9 @@ draw_background (HTMLPainter *painter,
 		return;
 
 	if (color) {
-		gdk_gc_set_foreground (gdk_painter->gc, color);
-		gdk_draw_rectangle (gdk_painter->pixmap, gdk_painter->gc,
-				    TRUE, paint.x - clip.x, paint.y - clip.y,
-				    paint.width, paint.height);
-
+		gdk_cairo_set_source_color (gdk_painter->cr, color);
+		cairo_rectangle (gdk_painter->cr, paint.x - clip.x, paint.y - clip.y, paint.width, paint.height);
+		cairo_fill (gdk_painter->cr);
 	}
 
 	return;
@@ -101,9 +99,8 @@ fill_rect (HTMLPainter *painter,
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
-	gdk_draw_rectangle (gdk_painter->pixmap, gdk_painter->gc,
-			    TRUE, x - gdk_painter->x1, y - gdk_painter->y1,
-			    width, height);
+	cairo_rectangle (gdk_painter->cr, x - gdk_painter->x1, y - gdk_painter->y1, width, height);
+	cairo_fill (gdk_painter->cr);
 }
 
 static void

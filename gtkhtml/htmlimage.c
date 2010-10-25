@@ -378,8 +378,8 @@ static void
 draw_focus  (HTMLImage *image, HTMLPainter *painter, GdkRectangle *box)
 {
 	HTMLGdkPainter *p;
-	GdkGCValues values;
-	gint8 dash_list[] = { 1, 1 };
+	const double dashes[] = { 1, 1 };
+	int ndash = G_N_ELEMENTS (dashes);
 	HTMLEngine *e;
 
 	if (painter->widget && GTK_IS_HTML (painter->widget))
@@ -393,14 +393,15 @@ draw_focus  (HTMLImage *image, HTMLPainter *painter, GdkRectangle *box)
 	p = HTML_GDK_PAINTER (painter);
 	/* printf ("draw_image_focus\n"); */
 
-	gdk_gc_set_foreground (p->gc, &html_colorset_get_color_allocated (e->settings->color_set,
-									  painter, HTMLTextColor)->color);
-	gdk_gc_get_values (p->gc, &values);
-
-	gdk_gc_set_line_attributes (p->gc, 1, GDK_LINE_ON_OFF_DASH, values.cap_style, values.join_style);
-	gdk_gc_set_dashes (p->gc, 2, dash_list, 2);
-	gdk_draw_rectangle (p->pixmap, p->gc, 0, box->x - p->x1, box->y - p->y1, box->width - 1, box->height - 1);
-	gdk_gc_set_line_attributes (p->gc, 1, values.line_style, values.cap_style, values.join_style);
+	cairo_save (p->cr);
+	gdk_cairo_set_source_color (p->cr,
+				    &html_colorset_get_color_allocated (e->settings->color_set,
+									painter, HTMLTextColor)->color);
+	cairo_set_line_cap (p->cr, CAIRO_LINE_CAP_ROUND);
+	cairo_set_dash (p->cr, dashes, ndash, 2);
+	cairo_rectangle (p->cr, box->x - p->x1, box->y - p->y1, box->width - 1, box->height - 1);
+	cairo_stroke (p->cr);
+	cairo_restore (p->cr);
 }
 
 static void

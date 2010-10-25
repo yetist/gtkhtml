@@ -38,13 +38,11 @@ struct _HTMLGdkPainter {
 
 	/* GdkWindow to draw on */
 	GdkWindow *window;
-
-	/* The current GC used.  */
-	GdkGC *gc;
+	cairo_t *cr;
 
 	/* For the double-buffering system.  */
 	gboolean double_buffer;
-	GdkPixmap *pixmap;
+	cairo_surface_t *surface;
 	gint x1, y1, x2, y2;
 	GdkColor background;
 	gboolean set_background;

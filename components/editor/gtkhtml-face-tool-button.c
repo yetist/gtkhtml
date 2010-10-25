@@ -213,8 +213,8 @@ face_tool_button_child_key_press_event_cb (GtkhtmlFaceToolButton *button,
 {
 	GtkWidget *window = button->priv->window;
 
-	if (!gtk_bindings_activate_event (G_OBJECT (window), event))
-		gtk_bindings_activate_event (G_OBJECT (button), event);
+	if (!gtk_bindings_activate_event (COMPAT_BINDING_TYPE (window), event))
+		gtk_bindings_activate_event (COMPAT_BINDING_TYPE (button), event);
 
 	return TRUE;
 }
@@ -361,7 +361,7 @@ face_tool_button_popup (GtkhtmlFaceToolButton *button)
 		status = gdk_keyboard_grab (window, TRUE, GDK_CURRENT_TIME);
 		if (status != GDK_GRAB_SUCCESS)
 			gdk_display_pointer_ungrab (
-				gdk_drawable_get_display (window),
+				gdk_window_get_display (window),
 				GDK_CURRENT_TIME);
 	}
 

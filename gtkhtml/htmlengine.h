@@ -60,7 +60,6 @@ struct _HTMLEngine {
 	HTMLUndo *undo;
 
 	GdkWindow *window;
-	GdkGC *invert_gc;
 
 	gboolean editable;
 	gboolean caret_mode;
@@ -336,8 +335,13 @@ void  html_engine_draw                 (HTMLEngine *e,
 					gint        y,
 					gint        width,
 					gint        height);
+#if GTK_CHECK_VERSION(2,91,0)
+void  html_engine_expose               (HTMLEngine *e,
+					cairo_t    *cr);
+#else
 void  html_engine_expose               (HTMLEngine *e,
 					GdkEventExpose *event);
+#endif
 void  html_engine_draw_background      (HTMLEngine *e,
 					gint        x,
 					gint        y,

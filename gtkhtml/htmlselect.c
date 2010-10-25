@@ -25,6 +25,9 @@
 #include "htmlselect.h"
 #include <string.h>
 
+/* backward-compatibility cruft */
+#include "gtk-compat.h"
+
 HTMLSelectClass html_select_class;
 static HTMLEmbeddedClass *parent_class = NULL;
 
@@ -237,7 +240,7 @@ html_select_init (HTMLSelect *select,
 
 		gtk_list_store_append (store, &iter);
 		gtk_list_store_set (store, &iter, 0, "height", -1);
-		gtk_widget_size_request (select->view, &req);
+		gtk_widget_get_preferred_size (select->view, &req, NULL);
 		gtk_widget_set_size_request (
 			select->view, 120, req.height * size);
 		gtk_list_store_remove (store, &iter);
@@ -351,11 +354,11 @@ html_select_set_text (HTMLSelect *select, const gchar *text)
 		gint width;
 
 		scrollbar = gtk_scrolled_window_get_vscrollbar (GTK_SCROLLED_WINDOW (w));
-		gtk_widget_size_request (select->view, &req);
+		gtk_widget_get_preferred_size (select->view, &req, NULL);
 		width = req.width;
 
 		if (n_children > select->size && scrollbar != NULL) {
-			gtk_widget_size_request (scrollbar, &req);
+			gtk_widget_get_preferred_size (scrollbar, &req, NULL);
 			width += req.width + 8;
 		}
 

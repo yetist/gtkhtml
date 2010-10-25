@@ -36,6 +36,9 @@
 /*For use converter based on g_iconv*/
 #include "htmltokenizer.h"
 
+/* backward-compatibility cruft */
+#include "gtk-compat.h"
+
 HTMLEmbeddedClass html_embedded_class;
 static HTMLObjectClass *parent_class = NULL;
 
@@ -154,7 +157,7 @@ calc_min_width (HTMLObject *self,
 		return 0;
 
 	requisition.width = requisition.height = 0;
-	gtk_widget_size_request (widget, &requisition);
+	gtk_widget_get_preferred_size (widget, &requisition, NULL);
 	pixel_size = html_painter_get_pixel_size (painter);
 
 	min_width = requisition.width * pixel_size;
@@ -181,7 +184,7 @@ html_embedded_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList **ch
 	old_ascent = self->ascent;
 
 	requisition.width = requisition.height = 0;
-	gtk_widget_size_request (widget, &requisition);
+	gtk_widget_get_preferred_size (widget, &requisition, NULL);
 
 	if (GTK_IS_HTML_EMBEDDED (widget))
 		self->descent = GTK_HTML_EMBEDDED (widget)->descent * pixel_size;

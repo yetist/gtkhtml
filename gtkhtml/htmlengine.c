@@ -4094,11 +4094,6 @@ html_engine_finalize (GObject *object)
 	}
 	html_engine_clipboard_clear (engine);
 
-	if (engine->invert_gc != NULL) {
-		g_object_unref (engine->invert_gc);
-		engine->invert_gc = NULL;
-	}
-
 	if (engine->cursor) {
 		html_cursor_destroy (engine->cursor);
 		engine->cursor = NULL;
@@ -4393,7 +4388,6 @@ html_engine_init (HTMLEngine *engine)
 	engine->pending_expose = NULL;
 
 	engine->window = NULL;
-	engine->invert_gc = NULL;
 
 	/* settings, colors and painter init */
 
@@ -4497,8 +4491,6 @@ void
 html_engine_realize (HTMLEngine *e,
 		     GdkWindow *window)
 {
-	GdkGCValues gc_values;
-
 	g_return_if_fail (e != NULL);
 	g_return_if_fail (window != NULL);
 	g_return_if_fail (e->window == NULL);
@@ -4508,9 +4500,6 @@ html_engine_realize (HTMLEngine *e,
 	if (HTML_IS_GDK_PAINTER (e->painter))
 		html_gdk_painter_realize (
 			HTML_GDK_PAINTER (e->painter), window);
-
-	gc_values.function = GDK_INVERT;
-	e->invert_gc = gdk_gc_new_with_values (e->window, &gc_values, GDK_GC_FUNCTION);
 
 	if (e->need_update)
 		html_engine_schedule_update (e);
@@ -5139,6 +5128,19 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, g
 	e->expose = FALSE;
 }
 
+#if GTK_CHECK_VERSION(2,91,0)
+void
+html_engine_expose (HTMLEngine *e, cairo_t *cr)
+{
+	GdkRectangle rect;
+
+	gdk_cairo_get_clip_rectangle (cr, &rect);
+	if (html_engine_frozen (e))
+		html_engine_add_expose (e, rect.x, rect.y, rect.width, rect.height, TRUE);
+	else
+		html_engine_draw_real (e, rect.x, rect.y, rect.width, rect.height, TRUE);
+}
+#else
 void
 html_engine_expose (HTMLEngine *e, GdkEventExpose *event)
 {
@@ -5147,6 +5149,7 @@ html_engine_expose (HTMLEngine *e, GdkEventExpose *event)
 	else
 		html_engine_draw_real (e, event->area.x, event->area.y, event->area.width, event->area.height, TRUE);
 }
+#endif
 
 void
 html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint height)

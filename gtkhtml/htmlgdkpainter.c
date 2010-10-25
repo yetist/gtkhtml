@@ -24,6 +24,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include <glib/gi18n-lib.h>
 
@@ -51,14 +52,14 @@ finalize (GObject *object)
 
 	painter = HTML_GDK_PAINTER (object);
 
-	if (painter->gc != NULL) {
-		g_object_unref (painter->gc);
-		painter->gc = NULL;
+	if (painter->cr != NULL) {
+		cairo_destroy (painter->cr);
+		painter->cr = NULL;
 	}
 
-	if (painter->pixmap != NULL) {
-		g_object_unref (painter->pixmap);
-		painter->pixmap = NULL;
+	if (painter->surface != NULL) {
+		cairo_surface_destroy (painter->surface);
+		painter->surface = NULL;
 	}
 
 	if (G_OBJECT_CLASS (parent_class)->finalize) {
@@ -70,20 +71,86 @@ static void
 alloc_color (HTMLPainter *painter,
 	     GdkColor *color)
 {
-	HTMLGdkPainter *gdk_painter;
-	GdkColormap *colormap;
-
-	gdk_painter = HTML_GDK_PAINTER (painter);
-	g_return_if_fail (gdk_painter->window != NULL);
-
-	colormap = gdk_drawable_get_colormap (gdk_painter->window);
-	gdk_rgb_find_color (colormap, color);
 }
 
 static void
 free_color (HTMLPainter *painter,
 	    GdkColor *color)
 {
+}
+
+static void
+_cairo_draw_line (cairo_t  *cr,
+                  gint      x1,
+                  gint      y1,
+                  gint      x2,
+                  gint      y2)
+{
+  cairo_save (cr);
+
+  cairo_set_line_cap (cr, CAIRO_LINE_CAP_SQUARE);
+
+  cairo_move_to (cr, x1 + 0.5, y1 + 0.5);
+  cairo_line_to (cr, x2 + 0.5, y2 + 0.5);
+  cairo_stroke (cr);
+
+  cairo_restore (cr);
+}
+
+static void
+_cairo_draw_rectangle (cairo_t *cr,
+                       gboolean filled,
+                       gint x,
+                       gint y,
+                       gint width,
+                       gint height)
+{
+  if (filled)
+    {
+      cairo_rectangle (cr, x, y, width, height);
+      cairo_fill (cr);
+    }
+  else
+    {
+      cairo_rectangle (cr, x + 0.5, y + 0.5, width, height);
+      cairo_stroke (cr);
+    }
+}
+
+static void
+_cairo_draw_ellipse (cairo_t *cr,
+		     gboolean filled,
+		     gint x,
+		     gint y,
+		     gint width,
+		     gint height)
+{
+	cairo_save (cr);
+
+	cairo_translate (cr, x + width / 2.0, y + height / 2.0);
+	cairo_scale (cr, width / 2.0, height / 2.0);
+	cairo_arc (cr, 0.0, 0.0, 1.0, 0.0, 2 * M_PI);
+
+	if (filled) {
+		cairo_fill (cr);
+	} else {
+		cairo_stroke (cr);
+	}
+
+	cairo_restore (cr);
+}
+
+static void
+_cairo_draw_glyphs (cairo_t          *cr,
+		    PangoFont        *font,
+		    int               x,
+		    int               y,
+		    PangoGlyphString *glyphs)
+{
+	cairo_save (cr);
+	cairo_move_to (cr, x, y);
+	pango_cairo_show_glyph_string (cr, font, glyphs);
+	cairo_restore (cr);
 }
 
 
@@ -97,62 +164,73 @@ begin (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2)
 	gdk_painter = HTML_GDK_PAINTER (painter);
 	g_return_if_fail (gdk_painter->window != NULL);
 
-	set_clip_rectangle (painter, 0, 0, 0, 0);
+	/* FIXME: Ideally it should be NULL before coming here. */
+	if (gdk_painter->cr)
+		cairo_destroy (gdk_painter->cr);
+	if (gdk_painter->surface)
+		cairo_surface_destroy (gdk_painter->surface);
 
 	if (gdk_painter->double_buffer) {
 		const gint width = x2 - x1 + 1;
 		const gint height = y2 - y1 + 1;
 
-		/* FIXME: Ideally it should be NULL before coming here. */
-		if (gdk_painter->pixmap && gdk_painter->pixmap != gdk_painter->window)
-			g_object_unref (gdk_painter->pixmap);
-
-		gdk_painter->pixmap = gdk_pixmap_new (gdk_painter->window, width, height, -1);
+		gdk_painter->surface = gdk_window_create_similar_surface (gdk_painter->window,
+									  CAIRO_CONTENT_COLOR,
+									  MAX (width, 1),
+									  MAX (height, 1));
 		gdk_painter->x1 = x1;
 		gdk_painter->y1 = y1;
 		gdk_painter->x2 = x2;
 		gdk_painter->y2 = y2;
 
 		if (gdk_painter->set_background) {
-			gdk_gc_set_background (gdk_painter->gc, &gdk_painter->background);
 			gdk_painter->set_background = FALSE;
 		}
 
-		gdk_gc_set_foreground (gdk_painter->gc, &gdk_painter->background);
-		gdk_draw_rectangle (gdk_painter->pixmap, gdk_painter->gc,
-				    TRUE, 0, 0, width, height);
+		gdk_painter->cr = cairo_create (gdk_painter->surface);
+		gdk_cairo_set_source_color (gdk_painter->cr, &gdk_painter->background);
+		_cairo_draw_rectangle (gdk_painter->cr,
+				       TRUE, 0, 0, width, height);
 	} else {
-		gdk_painter->pixmap = gdk_painter->window;
+		gdk_painter->cr = gdk_cairo_create (gdk_painter->window);
+		gdk_painter->surface = NULL;
 		gdk_painter->x1 = 0;
 		gdk_painter->y1 = 0;
 		gdk_painter->x2 = 0;
 		gdk_painter->y2 = 0;
 	}
-
-	g_return_if_fail (gdk_drawable_get_colormap (gdk_painter->pixmap) != NULL);
 }
 
 static void
 end (HTMLPainter *painter)
 {
 	HTMLGdkPainter *gdk_painter;
+	cairo_t *cr;
 
 	/* printf ("painter end\n"); */
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
+	cairo_destroy (gdk_painter->cr);
+	gdk_painter->cr = NULL;
+
 	if (!gdk_painter->double_buffer)
 		return;
 
-	gdk_draw_drawable (gdk_painter->window, gdk_painter->gc,
-			   gdk_painter->pixmap,
-			   0, 0,
-			   gdk_painter->x1, gdk_painter->y1,
-			   gdk_painter->x2 - gdk_painter->x1,
-			   gdk_painter->y2 - gdk_painter->y1);
+	cr = gdk_cairo_create (gdk_painter->window);
+	cairo_set_source_surface (cr, gdk_painter->surface,
+				  gdk_painter->x1,
+				  gdk_painter->y1);
+	cairo_rectangle (cr,
+			 gdk_painter->x1,
+			 gdk_painter->y1,
+			 gdk_painter->x2 - gdk_painter->x1,
+			 gdk_painter->y2 - gdk_painter->y1);
+	cairo_fill (cr);
+	cairo_destroy (cr);
 
-	g_object_unref (gdk_painter->pixmap);
-	gdk_painter->pixmap = NULL;
+	cairo_surface_destroy (gdk_painter->surface);
+	gdk_painter->surface = NULL;
 }
 
 static void
@@ -163,15 +241,16 @@ clear (HTMLPainter *painter)
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
 	if (!gdk_painter->double_buffer) {
-		gdk_window_clear (gdk_painter->window);
+		gdk_cairo_set_source_color (gdk_painter->cr, &gdk_painter->background);
+		cairo_paint (gdk_painter->cr);
 	} else {
-		if (gdk_painter->pixmap != NULL)
-			gdk_window_clear (gdk_painter->pixmap);
-		else
+		if (gdk_painter->surface != NULL) {
+			gdk_cairo_set_source_color (gdk_painter->cr, &gdk_painter->background);
+			cairo_paint (gdk_painter->cr);
+		} else {
 			gdk_painter->do_clear = TRUE;
+		}
 	}
-
-	g_return_if_fail (gdk_drawable_get_colormap (gdk_painter->pixmap) != NULL);
 }
 
 
@@ -186,7 +265,6 @@ set_clip_rectangle (HTMLPainter *painter,
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
 	if (width == 0 || height == 0) {
-		gdk_gc_set_clip_rectangle (gdk_painter->gc, NULL);
 		return;
 	}
 
@@ -195,7 +273,8 @@ set_clip_rectangle (HTMLPainter *painter,
 	rect.width = CLAMP (width, 0, gdk_painter->x2 - gdk_painter->x1 - rect.x);
 	rect.height = CLAMP (height, 0, gdk_painter->y2 - gdk_painter->y1 - rect.y);
 
-	gdk_gc_set_clip_rectangle (gdk_painter->gc, &rect);
+	gdk_cairo_rectangle (gdk_painter->cr, &rect);
+	cairo_clip (gdk_painter->cr);
 }
 
 static void
@@ -214,7 +293,7 @@ set_pen (HTMLPainter *painter,
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
 	/* GdkColor API not const-safe!  */
-	gdk_gc_set_foreground (gdk_painter->gc, (GdkColor *) color);
+	gdk_cairo_set_source_color (gdk_painter->cr, (GdkColor *) color);
 }
 
 static const GdkColor *
@@ -243,7 +322,7 @@ draw_line (HTMLPainter *painter,
 	x2 -= gdk_painter->x1;
 	y2 -= gdk_painter->y1;
 
-	gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, x1, y1, x2, y2);
+	_cairo_draw_line (gdk_painter->cr, x1, y1, x2, y2);
 }
 
 static void
@@ -255,10 +334,8 @@ draw_ellipse (HTMLPainter *painter,
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
-	gdk_draw_arc (gdk_painter->pixmap, gdk_painter->gc, TRUE,
-		      x - gdk_painter->x1, y - gdk_painter->y1,
-		      width, height,
-		      0, 360 * 64);
+	_cairo_draw_ellipse (gdk_painter->cr, TRUE,
+			     x, y, width, height);
 }
 
 static void
@@ -270,9 +347,9 @@ draw_rect (HTMLPainter *painter,
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
-	gdk_draw_rectangle (gdk_painter->pixmap, gdk_painter->gc, FALSE,
-			    x - gdk_painter->x1, y - gdk_painter->y1,
-			    width, height);
+	_cairo_draw_rectangle (gdk_painter->cr, FALSE,
+			       x - gdk_painter->x1, y - gdk_painter->y1,
+			       width, height);
 }
 
 static void
@@ -298,9 +375,6 @@ draw_border (HTMLPainter *painter,
 	LIGHT (green);
 	LIGHT (blue);
 
-	alloc_color (painter, &dark);
-	alloc_color (painter, &light);
-
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
 	switch (style) {
@@ -324,21 +398,21 @@ draw_border (HTMLPainter *painter,
 
 	while (bordersize > 0) {
 		if (col2) {
-			gdk_gc_set_foreground (gdk_painter->gc, col2);
+			gdk_cairo_set_source_color (gdk_painter->cr, col2);
 		}
 
-		gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc,
-			       x + width - 1, y, x + width - 1, y + height - 1);
-		gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc,
-			       x + 1, y + height - 1, x + width - 1, y + height - 1);
+		_cairo_draw_line (gdk_painter->cr,
+				  x + width - 1, y, x + width - 1, y + height - 1);
+		_cairo_draw_line (gdk_painter->cr,
+				  x + 1, y + height - 1, x + width - 1, y + height - 1);
 		if (col1) {
-			gdk_gc_set_foreground (gdk_painter->gc, col1);
+			gdk_cairo_set_source_color (gdk_painter->cr, col1);
 		}
 
-		gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc,
-			       x, y, x + width - 2, y);
-		gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc,
-			       x, y, x, y + height - 1);
+		_cairo_draw_line (gdk_painter->cr,
+				  x, y, x + width - 2, y);
+		_cairo_draw_line (gdk_painter->cr,
+				  x, y, x, y + height - 1);
 		bordersize--;
 		x++;
 		y++;
@@ -362,7 +436,6 @@ draw_background (HTMLPainter *painter,
 	gint pw;
 	gint ph;
 	gint tile_width, tile_height;
-	gint w, h;
 	GdkRectangle expose, paint, clip;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
@@ -387,10 +460,10 @@ draw_background (HTMLPainter *painter,
 		return;
 
 	if (color && !pixbuf) {
-		gdk_gc_set_foreground (gdk_painter->gc, color);
-		gdk_draw_rectangle (gdk_painter->pixmap, gdk_painter->gc,
-				    TRUE, paint.x - clip.x, paint.y - clip.y,
-				    paint.width, paint.height);
+		gdk_cairo_set_source_color (gdk_painter->cr, color);
+		_cairo_draw_rectangle (gdk_painter->cr,
+				       TRUE, paint.x - clip.x, paint.y - clip.y,
+				       paint.width, paint.height);
 
 	}
 
@@ -412,15 +485,14 @@ draw_background (HTMLPainter *painter,
 			pixcol.green = p[1] * 0xff;
 			pixcol.blue = p[2] * 0xff;
 
-			html_painter_alloc_color (painter, &pixcol);
 			color = &pixcol;
 		}
 
 		if (color) {
-			gdk_gc_set_foreground (gdk_painter->gc, color);
-			gdk_draw_rectangle (gdk_painter->pixmap, gdk_painter->gc,
-					    TRUE, paint.x - clip.x, paint.y - clip.y,
-					    paint.width, paint.height);
+			gdk_cairo_set_source_color (gdk_painter->cr, color);
+			_cairo_draw_rectangle (gdk_painter->cr,
+					       TRUE, paint.x - clip.x, paint.y - clip.y,
+					       paint.width, paint.height);
 		}
 
 		return;
@@ -431,94 +503,42 @@ draw_background (HTMLPainter *painter,
 
 	/* do tiling */
 	if (tile_width > pw || tile_height > ph) {
-		GdkPixmap *pixmap = NULL;
-		gint cw, ch, cx, cy;
 		gint dw, dh;
-		GdkGC *gc;
 
 		dw = MIN (pw, tile_width);
 		dh = MIN (ph, tile_height);
 
-		gc = gdk_gc_new (gdk_painter->window);
-
-		if (color || !gdk_pixbuf_get_has_alpha (pixbuf)) {
-			pixmap = gdk_pixmap_new (gdk_painter->window, dw, dh, -1);
-
-			if (color) {
-				gdk_gc_set_foreground (gc, color);
-				gdk_draw_rectangle (pixmap, gc,
-						    TRUE, 0, 0,
-						    dw, dh);
-			}
-
-			gdk_draw_pixbuf (pixmap, NULL, pixbuf,
-					 0, 0,
-					 0, 0,
-					 dw, dh,
-					 GDK_RGB_DITHER_NORMAL,
-					 paint.x, paint.y);
-
-			gdk_gc_set_tile (gc, pixmap);
-			gdk_gc_set_fill (gc, GDK_TILED);
-			gdk_gc_set_ts_origin (gc,
-					      paint.x - (tile_x % pw) - clip.x,
-					      paint.y - (tile_y % ph) - clip.y);
-
-			gdk_draw_rectangle (gdk_painter->pixmap, gc, TRUE,
-					    paint.x - clip.x, paint.y - clip.y,
-					    paint.width, paint.height);
-
-			g_object_unref (pixmap);
-			g_object_unref (gc);
-		} else {
-			gint incr_x = 0;
-			gint incr_y = 0;
-
-			cy = paint.y;
-			ch = paint.height;
-			h = tile_y % ph;
-			while (ch > 0) {
-				incr_y = dh - h;
-
-				cx = paint.x;
-				cw = paint.width;
-				w = tile_x % pw;
-				while (cw > 0) {
-					incr_x = dw - w;
-
-					gdk_draw_pixbuf (gdk_painter->pixmap, NULL, pixbuf,
-							 w, h,
-							 cx - clip.x, cy - clip.y,
-							 (cw >= incr_x) ? incr_x : cw,
-							 (ch >= incr_y) ? incr_y : ch,
-							 GDK_RGB_DITHER_NORMAL,
-							 cx, cy);
-
-					cw -= incr_x;
-					cx += incr_x;
-					w = 0;
-				}
-				ch -= incr_y;
-				cy += incr_y;
-				h = 0;
-			}
-
-			g_object_unref (gc);
+		if (color) {
+			gdk_cairo_set_source_color (gdk_painter->cr, color);
+			_cairo_draw_rectangle (gdk_painter->cr,
+					       TRUE, 0, 0,
+					       dw, dh);
 		}
+
+		gdk_cairo_set_source_pixbuf (gdk_painter->cr, pixbuf,
+					     paint.x - (tile_x % pw) - clip.x,
+					     paint.y - (tile_y % ph) - clip.y);
+		cairo_pattern_set_extend (cairo_get_source (gdk_painter->cr), CAIRO_EXTEND_REPEAT);
+
+		cairo_rectangle (gdk_painter->cr, paint.x - clip.x, paint.y - clip.y,
+				 paint.width, paint.height);
+		cairo_fill (gdk_painter->cr);
 	} else {
 		if (color && gdk_pixbuf_get_has_alpha (pixbuf)) {
-			gdk_gc_set_foreground (gdk_painter->gc, color);
-			gdk_draw_rectangle (gdk_painter->pixmap, gdk_painter->gc, TRUE,
-					    paint.x - clip.x, paint.y - clip.y,
-					    paint.width, paint.height);
+			gdk_cairo_set_source_color (gdk_painter->cr, color);
+			_cairo_draw_rectangle (gdk_painter->cr,
+					       TRUE,
+					       paint.x - clip.x, paint.y - clip.y,
+					       paint.width, paint.height);
 		}
 
-		gdk_draw_pixbuf (gdk_painter->pixmap, NULL, pixbuf,
-				 tile_x % pw, tile_y % ph,
+		gdk_cairo_set_source_pixbuf (gdk_painter->cr,
+					     pixbuf,
+					     tile_x % pw, tile_y % ph);
+		cairo_rectangle (gdk_painter->cr,
 				 paint.x - clip.x, paint.y - clip.y,
-				 paint.width, paint.height,
-				 GDK_RGB_DITHER_NORMAL,
-				 paint.x, paint.y);
+				 paint.width, paint.height);
+		cairo_fill (gdk_painter->cr);
 	}
 }
 
@@ -561,22 +581,20 @@ draw_pixmap (HTMLPainter *painter,
 	    return;
 
 	if (scale_width == orig_width && scale_height == orig_height && color == NULL) {
-		gdk_draw_pixbuf (gdk_painter->pixmap, NULL, pixbuf,
-				 paint.x - image.x,
-				 paint.y - image.y,
-				 paint.x - clip.x,
-				 paint.y - clip.y,
-				 paint.width,
-				 paint.height,
-				 GDK_RGB_DITHER_NORMAL,
-				 paint.x, paint.y);
+		gdk_cairo_set_source_pixbuf (gdk_painter->cr, pixbuf,
+					     image.x - clip.x,
+					     image.y - clip.y);
+		cairo_rectangle (gdk_painter->cr,
+				 image.x - clip.x, image.y - clip.y,
+				 image.width, image.height);
+		cairo_fill (gdk_painter->cr);
 		return;
 	}
 
 	tmp_pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB,
 				     gdk_pixbuf_get_has_alpha (pixbuf),
 				     gdk_pixbuf_get_bits_per_sample (pixbuf),
-				     paint.width, paint.height);
+				     image.width, image.height);
 
 	gdk_pixbuf_fill (tmp_pixbuf, 0xff000000);
 
@@ -594,9 +612,9 @@ draw_pixmap (HTMLPainter *painter,
 	gdk_pixbuf_composite (pixbuf, tmp_pixbuf,
 			      0,
 			      0,
-			      paint.width, paint.height,
-			      (double)-(paint.x - image.x),
-			      (double)-(paint.y - image.y),
+			      image.width, image.height,
+			      (double) 0.,
+			      (double) 0.,
 			      (gdouble) scale_width/ (gdouble) orig_width,
 			      (gdouble) scale_height/ (gdouble) orig_height,
 			      bilinear ? GDK_INTERP_BILINEAR : GDK_INTERP_NEAREST,
@@ -608,10 +626,10 @@ draw_pixmap (HTMLPainter *painter,
 
 		n_channels = gdk_pixbuf_get_n_channels (tmp_pixbuf);
 		q = gdk_pixbuf_get_pixels (tmp_pixbuf);
-		for (i = 0; i < paint.height; i++) {
+		for (i = 0; i < image.height; i++) {
 			guchar *p = q;
 
-			for (j = 0; j < paint.width; j++) {
+			for (j = 0; j < image.width; j++) {
 				gint r, g, b, a;
 
 				if (n_channels > 3)
@@ -637,15 +655,13 @@ draw_pixmap (HTMLPainter *painter,
 		}
 	}
 
-	gdk_draw_pixbuf (gdk_painter->pixmap, NULL, tmp_pixbuf,
-			 0,
-			 0,
-			 paint.x - clip.x,
-			 paint.y - clip.y,
-			 paint.width,
-			 paint.height,
-			 GDK_RGB_DITHER_NORMAL,
-			 paint.x, paint.y);
+	gdk_cairo_set_source_pixbuf (gdk_painter->cr, tmp_pixbuf,
+				     image.x - clip.x,
+				     image.y - clip.y);
+	cairo_rectangle (gdk_painter->cr,
+			 image.x - clip.x, image.y - clip.y,
+			 image.width, image.height);
+	cairo_fill (gdk_painter->cr);
 	g_object_unref (tmp_pixbuf);
 }
 
@@ -658,33 +674,31 @@ fill_rect (HTMLPainter *painter,
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
-	gdk_draw_rectangle (gdk_painter->pixmap, gdk_painter->gc,
-			    TRUE, x - gdk_painter->x1, y - gdk_painter->y1,
-			    width, height);
+	_cairo_draw_rectangle (gdk_painter->cr,
+			       TRUE, x - gdk_painter->x1, y - gdk_painter->y1,
+			       width, height);
 }
 
 static gint
 draw_spell_error (HTMLPainter *painter, gint x, gint y, gint width)
 {
 	HTMLGdkPainter *gdk_painter;
-	GdkGCValues values;
-	gint8 dash_list[] = { 2, 2 };
+	const double dashes[] = { 2, 2 };
+	int ndash  = sizeof (dashes) / sizeof (dashes[0]);
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
 
-	gdk_gc_get_values (gdk_painter->gc, &values);
-	gdk_gc_set_fill (gdk_painter->gc, GDK_OPAQUE_STIPPLED);
-	gdk_gc_set_line_attributes (gdk_painter->gc, 1, GDK_LINE_ON_OFF_DASH, values.cap_style, values.join_style);
-	gdk_gc_set_dashes (gdk_painter->gc, 2, dash_list, 2);
-	gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, x, y, x + width, y);
-	gdk_gc_set_dashes (gdk_painter->gc, 0, dash_list, 2);
-	gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, x, y + 1, x + width, y + 1);
-	gdk_gc_set_fill (gdk_painter->gc, values.fill);
-	gdk_gc_set_line_attributes (gdk_painter->gc, values.line_width,
-				    values.line_style, values.cap_style, values.join_style);
+	cairo_save (gdk_painter->cr);
+
+	cairo_set_dash (gdk_painter->cr, dashes, ndash, 2);
+	_cairo_draw_line (gdk_painter->cr, x, y, x + width, y);
+	cairo_set_dash (gdk_painter->cr, dashes, ndash, 0);
+	_cairo_draw_line (gdk_painter->cr, x, y + 1, x + width, y + 1);
+
+	cairo_restore (gdk_painter->cr);
 
 	return width;
 }
@@ -699,8 +713,7 @@ draw_embedded (HTMLPainter * p, HTMLEmbedded *o, gint x, gint y)
 	if (embedded_widget && GTK_IS_HTML_EMBEDDED (embedded_widget)) {
 		g_signal_emit_by_name (embedded_widget,
 				       "draw_gdk", 0,
-				       gdk_painter->pixmap,
-				       gdk_painter->gc,
+				       gdk_painter->cr,
 				       x, y);
 	}
 }
@@ -732,7 +745,7 @@ set_item_gc (HTMLPainter *p, HTMLPangoProperties *properties, GdkColor **fg_colo
 }
 
 static gint
-draw_lines (PangoGlyphString *str, gint x, gint y, GdkDrawable *drawable, GdkGC *gc, PangoItem *item, HTMLPangoProperties *properties)
+draw_lines (PangoGlyphString *str, gint x, gint y, cairo_t *cr, PangoItem *item, HTMLPangoProperties *properties)
 {
 	PangoRectangle log_rect;
 	gint width, dsc, asc;
@@ -744,10 +757,10 @@ draw_lines (PangoGlyphString *str, gint x, gint y, GdkDrawable *drawable, GdkGC 
 	asc = PANGO_PIXELS (PANGO_ASCENT (log_rect));
 
 	if (properties->underline)
-		gdk_draw_line (drawable, gc, x, y + dsc - 2, x + PANGO_PIXELS (width), y + dsc - 2);
+		_cairo_draw_line (cr, x, y + dsc - 2, x + PANGO_PIXELS (width), y + dsc - 2);
 
 	if (properties->strikethrough)
-		gdk_draw_line (drawable, gc, x, y - asc + (asc + dsc)/2, x + PANGO_PIXELS (width), y - asc + (asc + dsc)/2);
+		_cairo_draw_line (cr, x, y - asc + (asc + dsc)/2, x + PANGO_PIXELS (width), y - asc + (asc + dsc)/2);
 
 	return width;
 }
@@ -760,7 +773,6 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 	HTMLPangoProperties properties;
 	GdkColor *fg_text_color;
 	GdkColor *bg_text_color;
-	GdkGCValues orig_fg;
 	gint cw = 0;
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
@@ -775,35 +787,38 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 	if (bg_text_color || bg) {
 		PangoRectangle log_rect;
 
-		gdk_gc_get_values (gdk_painter->gc, &orig_fg);
+		cairo_save (gdk_painter->cr);
+
 		if (bg)
-			gdk_gc_set_rgb_fg_color (gdk_painter->gc, bg);
+			gdk_cairo_set_source_color (gdk_painter->cr, bg);
 		else
-			gdk_gc_set_rgb_fg_color (gdk_painter->gc, bg_text_color);
+			gdk_cairo_set_source_color (gdk_painter->cr, bg_text_color);
+
 		pango_glyph_string_extents (glyphs, item->analysis.font, NULL, &log_rect);
-		gdk_draw_rectangle (gdk_painter->pixmap, gdk_painter->gc, TRUE, x, y - PANGO_PIXELS (PANGO_ASCENT (log_rect)),
-				    PANGO_PIXELS (log_rect.width), PANGO_PIXELS (log_rect.height));
-		gdk_gc_set_foreground (gdk_painter->gc, &orig_fg.foreground);
+		_cairo_draw_rectangle (gdk_painter->cr, TRUE, x, y - PANGO_PIXELS (PANGO_ASCENT (log_rect)),
+				       PANGO_PIXELS (log_rect.width), PANGO_PIXELS (log_rect.height));
+		cairo_restore (gdk_painter->cr);
 	}
 
 	if (fg_text_color || fg) {
-		gdk_gc_get_values (gdk_painter->gc, &orig_fg);
+		cairo_save (gdk_painter->cr);
+
 		if (fg)
-			gdk_gc_set_rgb_fg_color (gdk_painter->gc, fg);
+			gdk_cairo_set_source_color (gdk_painter->cr, fg);
 		else
-			gdk_gc_set_rgb_fg_color (gdk_painter->gc, fg_text_color);
+			gdk_cairo_set_source_color (gdk_painter->cr, fg_text_color);
 	}
 
-	gdk_draw_glyphs (gdk_painter->pixmap, gdk_painter->gc,
-			 item->analysis.font, x, y, glyphs);
+	_cairo_draw_glyphs (gdk_painter->cr,
+			    item->analysis.font, x, y, glyphs);
 	if (properties.strikethrough || properties.underline)
-		cw = draw_lines (glyphs, x, y, gdk_painter->pixmap, gdk_painter->gc, item, &properties);
+		cw = draw_lines (glyphs, x, y, gdk_painter->cr, item, &properties);
 	else
 		for (i=0; i < glyphs->num_glyphs; i++)
 			cw += glyphs->glyphs[i].geometry.width;
 
 	if (fg_text_color || fg)
-		gdk_gc_set_foreground (gdk_painter->gc, &orig_fg.foreground);
+		cairo_restore (gdk_painter->cr);
 
 	if (fg_text_color)
 		g_free (fg_text_color);
@@ -826,10 +841,10 @@ draw_shade_line (HTMLPainter *painter,
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
 
-	gdk_gc_set_foreground (gdk_painter->gc, &gdk_painter->dark);
-	gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, x, y, x+width, y);
-	gdk_gc_set_foreground (gdk_painter->gc, &gdk_painter->light);
-	gdk_draw_line (gdk_painter->pixmap, gdk_painter->gc, x, y + 1, x + width, y + 1);
+	gdk_cairo_set_source_color (gdk_painter->cr, &gdk_painter->dark);
+	_cairo_draw_line (gdk_painter->cr, x, y, x+width, y);
+	gdk_cairo_set_source_color (gdk_painter->cr, &gdk_painter->light);
+	_cairo_draw_line (gdk_painter->cr, x, y + 1, x + width, y + 1);
 }
 
 static guint
@@ -872,10 +887,10 @@ html_gdk_painter_init (GObject *object)
 
 	gdk_painter->window = NULL;
 
-	gdk_painter->gc = NULL;
+	gdk_painter->cr = NULL;
 
 	gdk_painter->double_buffer = TRUE;
-	gdk_painter->pixmap = NULL;
+	gdk_painter->surface = NULL;
 	gdk_painter->x1 = gdk_painter->y1 = 0;
 	gdk_painter->x2 = gdk_painter->y2 = 0;
 	gdk_painter->set_background = FALSE;
@@ -977,23 +992,19 @@ html_gdk_painter_realize (HTMLGdkPainter *gdk_painter,
 	g_return_if_fail (gdk_painter != NULL);
 	g_return_if_fail (window != NULL);
 
-	gdk_painter->gc = gdk_gc_new (window);
 	gdk_painter->window = window;
 
 	gdk_painter->light.red = 0xffff;
 	gdk_painter->light.green = 0xffff;
 	gdk_painter->light.blue = 0xffff;
-	html_painter_alloc_color (HTML_PAINTER (gdk_painter), &gdk_painter->light);
 
 	gdk_painter->dark.red = 0x7fff;
 	gdk_painter->dark.green = 0x7fff;
 	gdk_painter->dark.blue = 0x7fff;
-	html_painter_alloc_color (HTML_PAINTER (gdk_painter), &gdk_painter->dark);
 
 	gdk_painter->black.red = 0x0000;
 	gdk_painter->black.green = 0x0000;
 	gdk_painter->black.blue = 0x0000;
-	html_painter_alloc_color (HTML_PAINTER (gdk_painter), &gdk_painter->black);
 }
 
 void
@@ -1003,9 +1014,6 @@ html_gdk_painter_unrealize (HTMLGdkPainter *painter)
 	g_return_if_fail (HTML_IS_GDK_PAINTER (painter));
 
 	if (html_gdk_painter_realized (painter)) {
-		g_object_unref (painter->gc);
-		painter->gc = NULL;
-
 		painter->window = NULL;
 	}
 }

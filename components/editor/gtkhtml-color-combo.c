@@ -259,8 +259,8 @@ color_combo_child_key_press_event_cb (GtkhtmlColorCombo *combo,
 {
 	GtkWidget *window = combo->priv->window;
 
-	if (!gtk_bindings_activate_event (G_OBJECT (window), event))
-		gtk_bindings_activate_event (G_OBJECT (combo), event);
+	if (!gtk_bindings_activate_event (COMPAT_BINDING_TYPE (window), event))
+		gtk_bindings_activate_event (COMPAT_BINDING_TYPE (combo), event);
 
 	return TRUE;
 }
@@ -610,7 +610,7 @@ color_combo_size_request (GtkWidget *widget,
 
 	priv = GTKHTML_COLOR_COMBO_GET_PRIVATE (widget);
 
-	gtk_widget_size_request (priv->toggle_button, requisition);
+	gtk_widget_get_preferred_size (priv->toggle_button, requisition, NULL);
 }
 
 static void
@@ -666,7 +666,7 @@ color_combo_popup (GtkhtmlColorCombo *combo)
 		status = gdk_keyboard_grab (window, TRUE, GDK_CURRENT_TIME);
 		if (status != GDK_GRAB_SUCCESS)
 			gdk_display_pointer_ungrab (
-				gdk_drawable_get_display (window),
+				gdk_window_get_display (window),
 				GDK_CURRENT_TIME);
 	}
 

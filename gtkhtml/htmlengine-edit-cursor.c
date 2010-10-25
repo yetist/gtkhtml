@@ -119,24 +119,23 @@ draw_cursor_rectangle (HTMLEngine *e, gint x1, gint y1, gint x2, gint y2,
 		       GdkColor *on_color, GdkColor *off_color,
 		       gint offset)
 {
-	GdkGC *gc;
+	cairo_t *cr;
 	GdkColor color;
-	gint8 dashes[2] = { 1, 3 };
+	const double dashes[2] = { 1, 3 };
+	int ndash = G_N_ELEMENTS (dashes);
 
 	if (x1 > x2 || y1 > y2 || !e->window)
 		return;
 
-	gc = gdk_gc_new (e->window);
+	/* FIXME: what is the off color for? */
+	cr = gdk_cairo_create (e->window);
 	color = *on_color;
-	gdk_rgb_find_color (gdk_drawable_get_colormap (e->window), &color);
-	gdk_gc_set_foreground (gc, &color);
-	color = *off_color;
-	gdk_rgb_find_color (gdk_drawable_get_colormap (e->window), &color);
-	gdk_gc_set_background (gc, &color);
-	gdk_gc_set_line_attributes (gc, 1, GDK_LINE_DOUBLE_DASH, GDK_CAP_ROUND, GDK_JOIN_ROUND);
-	gdk_gc_set_dashes (gc, offset, dashes, 2);
-	gdk_draw_rectangle (e->window, gc, 0, x1, y1, x2 - x1, y2 - y1);
-	g_object_unref (gc);
+	gdk_cairo_set_source_color (cr, &color);
+	cairo_set_line_cap (cr, CAIRO_LINE_CAP_ROUND);
+	cairo_set_dash (cr, dashes, ndash, offset);
+	cairo_rectangle (cr, x1 + 0.5, y1 + 0.5, x2 - x1, y2 - y1);
+	cairo_stroke (cr);
+	cairo_destroy (cr);
 }
 
 static gint cursor_enabled = TRUE;
@@ -341,7 +340,15 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 	gtk_im_context_set_cursor_location (GTK_HTML (engine->widget)->priv->im_context, &pos);
 
 	if (clip_cursor (engine, x, y, width, height, &x1, &y1, &x2, &y2)) {
-		gdk_draw_line (engine->window, engine->invert_gc, x1, y1, x2, y2);
+		cairo_t *cr;
+		cr = gdk_cairo_create (engine->window);
+		cairo_set_source_rgb (cr, 1, 1, 1);
+		cairo_set_operator (cr, CAIRO_OPERATOR_DIFFERENCE);
+		cairo_set_line_cap (cr, CAIRO_LINE_CAP_SQUARE);
+		cairo_move_to (cr, x1 + 0.5, y1 + 0.5);
+		cairo_line_to (cr, x2 + 0.5, y2 + 0.5);
+		cairo_stroke (cr);
+		cairo_destroy (cr);
 	}
 }
 

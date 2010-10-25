@@ -995,6 +995,7 @@ set_caret_mode (HTMLEngine *engine, gboolean caret_mode)
 }
 
 /* GtkWidget methods.  */
+
 static void
 style_set (GtkWidget *widget, GtkStyle  *previous_style)
 {
@@ -1067,7 +1068,7 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 	}
 
 	if (html_class->use_emacs_bindings && html_class->emacs_bindings && !html->binding_handled)
-		gtk_binding_set_activate (html_class->emacs_bindings, event->keyval, event->state, G_OBJECT (widget));
+		gtk_binding_set_activate (html_class->emacs_bindings, event->keyval, event->state, COMPAT_BINDING_TYPE (widget));
 
 	if (!html->binding_handled) {
 		html->priv->in_key_binding = TRUE;
@@ -1192,7 +1193,7 @@ realize (GtkWidget *widget)
 
 	/* This sets the backing pixmap to None, so that scrolling does not
            erase the newly exposed area, thus making the thing smoother.  */
-	gdk_window_set_back_pixmap (bin_window, NULL, FALSE);
+	gdk_window_set_background_pattern (bin_window, NULL);
 
 	/* If someone was silly enough to stick us in something that doesn't
 	 * have adjustments, go ahead and create them now since we expect them
@@ -1230,6 +1231,21 @@ unrealize (GtkWidget *widget)
 		(* GTK_WIDGET_CLASS (parent_class)->unrealize) (widget);
 }
 
+#if GTK_CHECK_VERSION(2,91,0)
+static gboolean
+draw (GtkWidget *widget, cairo_t *cr)
+{
+	/* printf ("draw x: %d y: %d\n", GTK_HTML (widget)->engine->x_offset, GTK_HTML (widget)->engine->y_offset); */
+
+	html_engine_expose (GTK_HTML (widget)->engine, cr);
+
+	if (GTK_WIDGET_CLASS (parent_class)->draw)
+		(* GTK_WIDGET_CLASS (parent_class)->draw) (widget, cr);
+	/* printf ("draw END\n"); */
+
+	return FALSE;
+}
+#else
 static gboolean
 expose (GtkWidget *widget, GdkEventExpose *event)
 {
@@ -1243,6 +1259,7 @@ expose (GtkWidget *widget, GdkEventExpose *event)
 
 	return FALSE;
 }
+#endif
 
 static void
 gtk_html_size_request (GtkWidget *widget, GtkRequisition *requisition)
@@ -2878,7 +2895,7 @@ gtk_html_direction_changed (GtkWidget *widget, GtkTextDirection previous_dir)
 static void
 gtk_html_class_init (GtkHTMLClass *klass)
 {
-	GObjectClass      *gobject_class;
+	GObjectClass      *object_class;
 	GtkHTMLClass      *html_class;
 	GtkWidgetClass    *widget_class;
 	GtkLayoutClass    *layout_class;
@@ -2887,7 +2904,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	GConfClient *client;
 
 	html_class = (GtkHTMLClass *) klass;
-	gobject_class = (GObjectClass *) klass;
+	object_class = (GObjectClass *) klass;
 	widget_class = (GtkWidgetClass *) klass;
 	layout_class = (GtkLayoutClass *) klass;
 	container_class = (GtkContainerClass *) klass;
@@ -2896,7 +2913,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	signals[TITLE_CHANGED] =
 		g_signal_new ("title_changed",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, title_changed),
 			      NULL, NULL,
@@ -2905,7 +2922,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_STRING);
 	signals[URL_REQUESTED] =
 		g_signal_new ("url_requested",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, url_requested),
 			      NULL, NULL,
@@ -2915,7 +2932,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_POINTER);
 	signals[LOAD_DONE] =
 		g_signal_new ("load_done",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, load_done),
 			      NULL, NULL,
@@ -2923,7 +2940,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_NONE, 0);
 	signals[LINK_CLICKED] =
 		g_signal_new ("link_clicked",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, link_clicked),
 			      NULL, NULL,
@@ -2932,7 +2949,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_STRING);
 	signals[SET_BASE] =
 		g_signal_new ("set_base",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, set_base),
 			      NULL, NULL,
@@ -2941,7 +2958,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_STRING);
 	signals[SET_BASE_TARGET] =
 		g_signal_new ("set_base_target",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, set_base_target),
 			      NULL, NULL,
@@ -2951,7 +2968,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	signals[ON_URL] =
 		g_signal_new ("on_url",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, on_url),
 			      NULL, NULL,
@@ -2961,7 +2978,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	signals[REDIRECT] =
 		g_signal_new ("redirect",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, redirect),
 			      NULL, NULL,
@@ -2972,7 +2989,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	signals[SUBMIT] =
 		g_signal_new ("submit",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, submit),
 			      NULL, NULL,
@@ -2984,7 +3001,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	signals[OBJECT_REQUESTED] =
 		g_signal_new ("object_requested",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_LAST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, object_requested),
 			      NULL, NULL,
@@ -2994,7 +3011,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	signals[CURRENT_PARAGRAPH_STYLE_CHANGED] =
 		g_signal_new ("current_paragraph_style_changed",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, current_paragraph_style_changed),
 			      NULL, NULL,
@@ -3004,7 +3021,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	signals[CURRENT_PARAGRAPH_INDENTATION_CHANGED] =
 		g_signal_new ("current_paragraph_indentation_changed",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, current_paragraph_indentation_changed),
 			      NULL, NULL,
@@ -3014,7 +3031,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	signals[CURRENT_PARAGRAPH_ALIGNMENT_CHANGED] =
 		g_signal_new ("current_paragraph_alignment_changed",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, current_paragraph_alignment_changed),
 			      NULL, NULL,
@@ -3024,7 +3041,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	signals[INSERTION_FONT_STYLE_CHANGED] =
 		g_signal_new ("insertion_font_style_changed",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, insertion_font_style_changed),
 			      NULL, NULL,
@@ -3034,7 +3051,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	signals[INSERTION_COLOR_CHANGED] =
 		g_signal_new ("insertion_color_changed",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, insertion_color_changed),
 			      NULL, NULL,
@@ -3044,7 +3061,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	signals[SIZE_CHANGED] =
 		g_signal_new ("size_changed",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, size_changed),
 			      NULL, NULL,
@@ -3052,7 +3069,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 			      G_TYPE_NONE, 0);
 	signals[IFRAME_CREATED] =
 		g_signal_new ("iframe_created",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, iframe_created),
 			      NULL, NULL,
@@ -3062,7 +3079,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	signals[SCROLL] =
 		g_signal_new ("scroll",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 			      G_STRUCT_OFFSET (GtkHTMLClass, scroll),
 			      NULL, NULL,
@@ -3073,7 +3090,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	signals[CURSOR_MOVE] =
 		g_signal_new ("cursor_move",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 			      G_STRUCT_OFFSET (GtkHTMLClass, cursor_move),
 			      NULL, NULL,
@@ -3082,7 +3099,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	signals[COMMAND] =
 		g_signal_new ("command",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 			      G_STRUCT_OFFSET (GtkHTMLClass, command),
 			      NULL, NULL,
@@ -3091,7 +3108,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	signals[CURSOR_CHANGED] =
 		g_signal_new ("cursor_changed",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, cursor_changed),
 			      NULL, NULL,
@@ -3100,7 +3117,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	signals[OBJECT_INSERTED] =
 		g_signal_new ("object_inserted",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, object_inserted),
 			      NULL, NULL,
@@ -3110,41 +3127,41 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	signals[OBJECT_DELETE] =
 		g_signal_new ("object_delete",
-			      G_TYPE_FROM_CLASS (gobject_class),
+			      G_TYPE_FROM_CLASS (object_class),
 			      G_SIGNAL_RUN_FIRST,
 			      G_STRUCT_OFFSET (GtkHTMLClass, object_delete),
 			      NULL, NULL,
 			      html_g_cclosure_marshal_VOID__INT_INT,
 			      G_TYPE_NONE, 2,
 			      G_TYPE_INT, G_TYPE_INT);
-	gobject_class->dispose = dispose;
+	object_class->dispose = dispose;
 
 #ifdef USE_PROPS
-	gobject_class->get_property = gtk_html_get_property;
-	gobject_class->set_property = gtk_html_set_property;
+	object_class->get_property = gtk_html_get_property;
+	object_class->set_property = gtk_html_set_property;
 
-	g_object_class_install_property (gobject_class,
+	g_object_class_install_property (object_class,
 					 PROP_EDITABLE,
 					 g_param_spec_boolean ("editable",
 							       "Editable",
 							       "Whether the html can be edited",
 							       FALSE,
 							       G_PARAM_READABLE | G_PARAM_WRITABLE));
-	g_object_class_install_property (gobject_class,
+	g_object_class_install_property (object_class,
 					 PROP_TITLE,
 					 g_param_spec_string ("title",
 							      "Document Title",
 							      "The title of the current document",
 							      NULL,
 							      G_PARAM_WRITABLE | G_PARAM_READABLE));
-	g_object_class_install_property (gobject_class,
+	g_object_class_install_property (object_class,
 					 PROP_DOCUMENT_BASE,
 					 g_param_spec_string ("document_base",
 							      "Document Base",
 							      "The base URL for relative references",
 							      NULL,
 							      G_PARAM_WRITABLE | G_PARAM_READABLE));
-	g_object_class_install_property (gobject_class,
+	g_object_class_install_property (object_class,
 					 PROP_TARGET_BASE,
 					 g_param_spec_string ("target_base",
 							      "Target Base",
@@ -3197,7 +3214,11 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	widget_class->style_set = style_set;
 	widget_class->key_press_event = key_press_event;
 	widget_class->key_release_event = key_release_event;
-	widget_class->expose_event  = expose;
+#if GTK_CHECK_VERSION(2,91,0)
+	widget_class->draw = draw;
+#else
+	widget_class->expose_event = expose;
+#endif
 	widget_class->size_request = gtk_html_size_request;
 	widget_class->size_allocate = size_allocate;
 	widget_class->motion_notify_event = motion_notify_event;

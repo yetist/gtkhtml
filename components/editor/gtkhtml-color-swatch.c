@@ -22,6 +22,9 @@
 
 #include <glib/gi18n-lib.h>
 
+/* backward-compatibility cruft */
+#include "gtkhtml/gtk-compat.h"
+
 #define GTKHTML_COLOR_SWATCH_GET_PRIVATE(obj) \
 	(G_TYPE_INSTANCE_GET_PRIVATE \
 	((obj), GTKHTML_TYPE_COLOR_SWATCH, GtkhtmlColorSwatchPrivate))
@@ -141,7 +144,7 @@ color_swatch_size_request (GtkWidget *widget,
 
 	priv = GTKHTML_COLOR_SWATCH_GET_PRIVATE (widget);
 
-	gtk_widget_size_request (priv->frame, requisition);
+	gtk_widget_get_preferred_size (priv->frame, requisition, NULL);
 }
 
 static void

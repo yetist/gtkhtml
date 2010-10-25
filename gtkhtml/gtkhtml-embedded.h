@@ -54,7 +54,7 @@ struct _GtkHTMLEmbeddedClass {
         GtkBinClass parent_class;
 
         void (*changed)(GtkHTMLEmbedded *);
-        void (*draw_gdk)(GtkHTMLEmbedded *, GdkPixmap *, GdkGC *,
+        void (*draw_gdk)(GtkHTMLEmbedded *, cairo_t *,
                          gint, gint);
         void (*draw_print)(GtkHTMLEmbedded *, GtkPrintContext *);
 };
