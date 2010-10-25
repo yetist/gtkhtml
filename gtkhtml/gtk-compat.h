@@ -5,13 +5,15 @@
 
 /* Provide a GTK+ compatibility layer. */
 
-#if !GTK_CHECK_VERSION (2,91,0)
+#if !GTK_CHECK_VERSION (2,23,1)
+#define GTK_COMBO_BOX_TEXT		GTK_COMBO_BOX
 #define gtk_combo_box_text_new		gtk_combo_box_new_text
 #define gtk_combo_box_text_append_text	gtk_combo_box_append_text
 #endif
 
-#if !GTK_CHECK_VERSION (2,23,0)
-#define gdk_window_get_visual	gdk_drawable_get_visual
+#if !GTK_CHECK_VERSION (2,23,1)
+#define gdk_window_get_display		gdk_drawable_get_display
+#define gdk_window_get_visual		gdk_drawable_get_visual
 #endif
 
 /* For use with GTK+ key binding functions. */
@@ -25,9 +27,6 @@
 
 #define gtk_widget_get_preferred_size(widget, minimum_size, natural_size) \
 	(gtk_widget_size_request ((widget), (minimum_size)))
-
-#define gdk_window_get_display(window) \
-	(gdk_drawable_get_display (window))
 
 #define gdk_window_set_background_pattern(window, pattern) \
 	(gdk_window_set_back_pixmap ((window), NULL, FALSE))

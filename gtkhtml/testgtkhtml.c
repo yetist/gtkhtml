@@ -451,7 +451,7 @@ create_toolbars ()
 	test_combo_box = gtk_combo_box_text_new ();
 	for (i = 0; i < examples->len; i++) {
 		Example *example = examples->pdata[i];
-		gtk_combo_box_text_append_text (GTK_COMBO_BOX (test_combo_box), example->title);
+		gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (test_combo_box), example->title);
 	}
 	gtk_combo_box_set_active (GTK_COMBO_BOX (test_combo_box), 0);
 	g_signal_connect (test_combo_box, "changed", G_CALLBACK (example_changed_cb), NULL);
