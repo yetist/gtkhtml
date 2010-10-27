@@ -5,13 +5,13 @@
 
 /* Provide a GTK+ compatibility layer. */
 
-#if !GTK_CHECK_VERSION (2,23,1)
+#if !GTK_CHECK_VERSION (2,23,0)
 #define GTK_COMBO_BOX_TEXT		GTK_COMBO_BOX
 #define gtk_combo_box_text_new		gtk_combo_box_new_text
 #define gtk_combo_box_text_append_text	gtk_combo_box_append_text
 #endif
 
-#if !GTK_CHECK_VERSION (2,23,1)
+#if !GTK_CHECK_VERSION (2,23,0)
 #define gdk_window_get_display		gdk_drawable_get_display
 #define gdk_window_get_visual		gdk_drawable_get_visual
 #endif
