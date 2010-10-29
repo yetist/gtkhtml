@@ -86,15 +86,16 @@ _cairo_draw_line (cairo_t  *cr,
                   gint      x2,
                   gint      y2)
 {
-  cairo_save (cr);
+	cairo_save (cr);
 
-  cairo_set_line_cap (cr, CAIRO_LINE_CAP_SQUARE);
+	cairo_set_line_cap (cr, CAIRO_LINE_CAP_SQUARE);
+	cairo_set_line_width (cr, 1);
 
-  cairo_move_to (cr, x1 + 0.5, y1 + 0.5);
-  cairo_line_to (cr, x2 + 0.5, y2 + 0.5);
-  cairo_stroke (cr);
+	cairo_move_to (cr, x1 + 0.5, y1 + 0.5);
+	cairo_line_to (cr, x2 + 0.5, y2 + 0.5);
+	cairo_stroke (cr);
 
-  cairo_restore (cr);
+	cairo_restore (cr);
 }
 
 static void
@@ -396,6 +397,8 @@ draw_border (HTMLPainter *painter,
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
 
+	cairo_save (gdk_painter->cr);
+
 	while (bordersize > 0) {
 		if (col2) {
 			gdk_cairo_set_source_color (gdk_painter->cr, col2);
@@ -419,6 +422,8 @@ draw_border (HTMLPainter *painter,
 		width-=2;
 		height-=2;
 	}
+
+	cairo_restore (gdk_painter->cr);
 
 	free_color (painter, &dark);
 	free_color (painter, &light);
@@ -841,10 +846,14 @@ draw_shade_line (HTMLPainter *painter,
 	x -= gdk_painter->x1;
 	y -= gdk_painter->y1;
 
+	cairo_save (gdk_painter->cr);
+
 	gdk_cairo_set_source_color (gdk_painter->cr, &gdk_painter->dark);
 	_cairo_draw_line (gdk_painter->cr, x, y, x+width, y);
 	gdk_cairo_set_source_color (gdk_painter->cr, &gdk_painter->light);
 	_cairo_draw_line (gdk_painter->cr, x, y + 1, x + width, y + 1);
+
+	cairo_restore (gdk_painter->cr);
 }
 
 static guint
