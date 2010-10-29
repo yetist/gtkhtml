@@ -854,7 +854,7 @@ static void
 draw_focus_rectangle  (HTMLTextSlave *slave, HTMLPainter *painter, GdkRectangle *box)
 {
 	HTMLGdkPainter *p;
-	const double dashes[] = { 1, 1 };
+	const double dashes[] = { 1, 2 };
 	int ndash = G_N_ELEMENTS (dashes);
 	HTMLEngine *e;
 
@@ -874,8 +874,13 @@ draw_focus_rectangle  (HTMLTextSlave *slave, HTMLPainter *painter, GdkRectangle 
 				    &html_colorset_get_color_allocated (e->settings->color_set,
 									painter, HTMLTextColor)->color);
 	cairo_set_line_cap (p->cr, CAIRO_LINE_CAP_ROUND);
+	cairo_set_line_width (p->cr, 1);
 	cairo_set_dash (p->cr, dashes, ndash, 2);
-	cairo_rectangle (p->cr, box->x - p->x1, box->y - p->y1, box->width - 1, box->height - 1);
+	cairo_rectangle (
+		p->cr,
+		box->x - p->x1 - 0.5,
+		box->y - p->y1 + 0.5,
+		box->width + 1, box->height);
 	cairo_stroke (p->cr);
 	cairo_restore (p->cr);
 }
