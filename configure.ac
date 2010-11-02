@@ -11,6 +11,7 @@ PACKAGE=gtkhtml
 dnl Required Package Versions
 m4_define([enchant_minimum_version], [1.1.7])
 m4_define([gnome_icon_theme_minimum_version], [2.22.0])
+m4_define([cairo_minimum_version], [1.10.0])
 
 dnl **********************************
 dnl GTK version
@@ -174,7 +175,7 @@ AC_SUBST(GAIL_MODULES)
 dnl **********************************
 dnl GTKHTML modules
 dnl **********************************
-GTKHTML_MODULES="$GTK_PACKAGE >= $gtk_minimum_version enchant >= enchant_minimum_version gconf-2.0 iso-codes"
+GTKHTML_MODULES="$GTK_PACKAGE >= $gtk_minimum_version enchant >= enchant_minimum_version gconf-2.0 iso-codes cairo >= cairo_minimum_version"
 PKG_CHECK_MODULES(GTKHTML, $GTKHTML_MODULES)
 AC_SUBST(GTKHTML_CFLAGS)
 AC_SUBST(GTKHTML_LIBS)
