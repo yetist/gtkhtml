@@ -1,3 +1,15 @@
+GtkHTML-3.91.2 2010-11-08
+-------------------------
+
+Bug Fixes:
+	Bug 632601 - Handle combo box text API going away (Matthias Clasen)
+	Bug 632596 - Don't use GtkComboBoxEntry (Matthias Clasen)
+	Bug 640072 - Convert rendering from GdkGC to cairo (Matthew Barnes)
+
+Translations:
+	Carles Ferrando (ca@valencia)
+	Gheyret T.Kenji (ug)
+
 GtkHTML-3.91.1 2010-10-18
 -------------------------
 Bug Fixes:
