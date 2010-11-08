@@ -121,7 +121,7 @@ draw_cursor_rectangle (HTMLEngine *e, gint x1, gint y1, gint x2, gint y2,
 {
 	cairo_t *cr;
 	const double dashes[2] = { 1, 3 };
-	int ndash = G_N_ELEMENTS (dashes);
+	gint ndash = G_N_ELEMENTS (dashes);
 
 	if (x1 > x2 || y1 > y2 || !e->window)
 		return;

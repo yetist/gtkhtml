@@ -855,7 +855,7 @@ draw_focus_rectangle  (HTMLTextSlave *slave, HTMLPainter *painter, GdkRectangle 
 {
 	HTMLGdkPainter *p;
 	const double dashes[] = { 1, 2 };
-	int ndash = G_N_ELEMENTS (dashes);
+	gint ndash = G_N_ELEMENTS (dashes);
 	HTMLEngine *e;
 
 	if (painter->widget && GTK_IS_HTML (painter->widget))

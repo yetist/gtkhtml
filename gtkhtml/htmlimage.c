@@ -379,7 +379,7 @@ draw_focus  (HTMLImage *image, HTMLPainter *painter, GdkRectangle *box)
 {
 	HTMLGdkPainter *p;
 	const double dashes[] = { 1, 1 };
-	int ndash = G_N_ELEMENTS (dashes);
+	gint ndash = G_N_ELEMENTS (dashes);
 	HTMLEngine *e;
 
 	if (painter->widget && GTK_IS_HTML (painter->widget))

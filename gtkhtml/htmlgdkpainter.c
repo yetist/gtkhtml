@@ -144,8 +144,8 @@ _cairo_draw_ellipse (cairo_t *cr,
 static void
 _cairo_draw_glyphs (cairo_t          *cr,
 		    PangoFont        *font,
-		    int               x,
-		    int               y,
+		    gint              x,
+		    gint              y,
 		    PangoGlyphString *glyphs)
 {
 	cairo_save (cr);
@@ -689,7 +689,7 @@ draw_spell_error (HTMLPainter *painter, gint x, gint y, gint width)
 {
 	HTMLGdkPainter *gdk_painter;
 	const double dashes[] = { 2, 2 };
-	int ndash  = sizeof (dashes) / sizeof (dashes[0]);
+	gint ndash = G_N_ELEMENTS (dashes);
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
