@@ -265,9 +265,10 @@ set_clip_rectangle (HTMLPainter *painter,
 
 	gdk_painter = HTML_GDK_PAINTER (painter);
 
-	if (width == 0 || height == 0) {
+	cairo_reset_clip (gdk_painter->cr);
+
+	if (width == 0 || height == 0)
 		return;
-	}
 
 	rect.x = CLAMP (x - gdk_painter->x1, 0, gdk_painter->x2 - gdk_painter->x1);
 	rect.y = CLAMP (y - gdk_painter->y1, 0, gdk_painter->y2 - gdk_painter->y1);
