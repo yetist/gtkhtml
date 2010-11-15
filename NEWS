@@ -1,3 +1,18 @@
+GtkHTML-3.32.1 2010-11-15
+--------------------------
+
+Bug Fixes:
+	Bug #630360 - Crash when inserting html file in composer (Milan Crha)
+
+Miscellaneous Fixes:
+	Updated Basque language (Inaki Larranaga Murgoitio)
+
+Translations:
+	Changwoo Ryu (ko)
+	Valencian translation (ca)
+	Simos Xenitellis (el)
+	Gintautas Miliauskas (lt)
+
 GtkHTML-3.31.92 2010-09-13
 --------------------------
 
