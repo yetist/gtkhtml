@@ -1162,13 +1162,13 @@ html_image_pointer_queue_animation (HTMLImagePointer *ip)
 		delay = gdk_pixbuf_animation_iter_get_delay_time (ip->iter);
 
 		ip->animation_timeout = g_timeout_add (delay,
-						       (GtkFunction) html_image_pointer_update,
+						       (GSourceFunc) html_image_pointer_update,
 						       (gpointer) ip);
 	}
 
 }
 
-static gint
+static gboolean
 html_image_pointer_update (HTMLImagePointer *ip)
 {
 	HTMLEngine *engine;
@@ -1319,7 +1319,7 @@ html_image_pointer_new (const gchar *filename, HTMLImageFactory *factory)
 	retval->factory = factory;
 	retval->stall = FALSE;
 	retval->stall_timeout = g_timeout_add (STALL_INTERVAL,
-					       (GtkFunction)html_image_pointer_timeout,
+					       (GSourceFunc)html_image_pointer_timeout,
 					       retval);
 	retval->animation_timeout = 0;
 	return retval;

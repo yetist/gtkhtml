@@ -4750,7 +4750,7 @@ html_engine_stream_write (GtkHTMLStream *handle,
 	html_tokenizer_write (e->ht, buffer, size == -1 ? strlen (buffer) : size);
 
 	if (e->parsing && e->timerId == 0) {
-		e->timerId = g_timeout_add (10, (GtkFunction) html_engine_timer_event, e);
+		e->timerId = g_timeout_add (10, (GSourceFunc) html_engine_timer_event, e);
 	}
 }
 
@@ -4868,7 +4868,7 @@ html_engine_schedule_update (HTMLEngine *e)
 		return;
 	DI (printf ("html_engine_schedule_update - timer %d\n", e->updateTimer));
 	if (e->updateTimer == 0)
-		e->updateTimer = g_idle_add ((GtkFunction) html_engine_update_event, e);
+		e->updateTimer = g_idle_add ((GSourceFunc) html_engine_update_event, e);
 }
 
 
@@ -5160,7 +5160,7 @@ html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint height)
 		html_engine_draw_real (e, x, y, width, height, FALSE);
 }
 
-static gint
+static gboolean
 redraw_idle (HTMLEngine *e)
 {
 	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
@@ -5184,7 +5184,7 @@ html_engine_schedule_redraw (HTMLEngine *e)
 	else if (e->redraw_idle_id == 0) {
 		clear_pending_expose (e);
 		html_draw_queue_clear (e->draw_queue);
-		e->redraw_idle_id = g_idle_add ((GtkFunction) redraw_idle, e);
+		e->redraw_idle_id = g_idle_add ((GSourceFunc) redraw_idle, e);
 	}
 }
 
@@ -5398,7 +5398,7 @@ html_engine_parse (HTMLEngine *e)
 
 	e->avoid_para = FALSE;
 
-	e->timerId = g_idle_add ((GtkFunction) html_engine_timer_event, e);
+	e->timerId = g_idle_add ((GSourceFunc) html_engine_timer_event, e);
 }
 
 

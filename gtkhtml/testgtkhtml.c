@@ -769,7 +769,7 @@ on_redirect (GtkHTML *html, const gchar *url, gint delay, gpointer data) {
 
 		redirect_url = g_strdup (url);
 
-		redirect_timerId = g_timeout_add (delay * 1000,(GtkFunction) redirect_timer_event, NULL);
+		redirect_timerId = g_timeout_add (delay * 1000,(GSourceFunc) redirect_timer_event, NULL);
 	}
 }
 
@@ -825,7 +825,7 @@ on_link_clicked (GtkHTML *html, const gchar *url, gpointer data)
 }
 
 /* simulate an async object isntantiation */
-static gint
+static gboolean
 object_timeout (GtkHTMLEmbedded *eb)
 {
 	GtkWidget *w;
@@ -850,7 +850,7 @@ object_requested_cmd (GtkHTML *html, GtkHTMLEmbedded *eb, gpointer data)
 		return FALSE;
 
 	g_object_ref (eb);
-	g_timeout_add (rand () % 5000 + 1000, (GtkFunction) object_timeout, eb);
+	g_timeout_add (rand () % 5000 + 1000, (GSourceFunc) object_timeout, eb);
 	/* object_timeout (eb); */
 
 	return TRUE;
