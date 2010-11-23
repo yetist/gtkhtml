@@ -82,7 +82,7 @@ endif
 gtkhtml_editor_test_SOURCES = main.c
 
 gtkhtml_editor_test_LDADD = \
-	$(GTHREAD_LIBS)				\
+	@GTKHTML_LIBS@				\
 	libgtkhtml-editor-@EDITOR_API_VERSION@.la			\
 	$(top_builddir)/gtkhtml/libgtkhtml-@EDITOR_API_VERSION@.la
 
