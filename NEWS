@@ -1,3 +1,13 @@
+GtkHTML-3.91.3 2010-11-29
+-------------------------
+Bug Fixes:
+	Bug 635576 - gtkhtml-editor-test link failure (Diego Escalante Urrelo)
+	Bug #634578 - Highlighting text in preview renders it invisible (Milan Crha)
+
+Translations:
+	Theppitak Karoonboonyanan (th)
+	Gheyret T.Kenji (ug)
+
 GtkHTML-3.91.2 2010-11-08
 -------------------------
 
