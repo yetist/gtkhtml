@@ -154,9 +154,6 @@ struct _GtkhtmlEditorPrivate {
 
 	/*** Link Properties State ***/
 
-	HTMLObject *link_object;
-	gint link_start_offset;
-	gint link_end_offset;
 	gboolean link_custom_description;
 
 	/*** Rule Properties State ***/
