@@ -29,7 +29,8 @@
 static void gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *class);
 static void gtk_html_embedded_init       (GtkHTMLEmbedded *gspaper);
 
-static void gtk_html_embedded_size_request (GtkWidget *widget, GtkRequisition *requisition);
+static void gtk_html_embedded_get_preferred_width (GtkWidget *widget, gint *minimum_width, gint *natural_width);
+static void gtk_html_embedded_get_preferred_height (GtkWidget *widget, gint *minimum_height, gint *natural_height);
 static void gtk_html_embedded_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
 
 /* saved parent calls */
@@ -198,7 +199,8 @@ gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *class)
 
 	object_class->finalize = gtk_html_embedded_finalize;
 
-	widget_class->size_request = gtk_html_embedded_size_request;
+	widget_class->get_preferred_width = gtk_html_embedded_get_preferred_width;
+	widget_class->get_preferred_height = gtk_html_embedded_get_preferred_height;
 	widget_class->size_allocate = gtk_html_embedded_size_allocate;
 
 	old_add = container_class->add;
@@ -208,23 +210,40 @@ gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *class)
 }
 
 static void
-gtk_html_embedded_size_request (GtkWidget *widget, GtkRequisition *requisition)
+gtk_html_embedded_get_preferred_height (GtkWidget *widget, gint *minimum_height, gint *natural_height)
 {
 	GtkWidget *child;
 
 	g_return_if_fail (widget != NULL);
-	g_return_if_fail (requisition != NULL);
 
 	child = gtk_bin_get_child (GTK_BIN (widget));
 
 	if (child) {
-		gtk_widget_get_preferred_size (child, requisition, NULL);
+		gtk_widget_get_preferred_height (child, minimum_height, natural_height);
 	} else {
 		GtkRequisition self_requisition;
 
 		gtk_widget_get_requisition (widget, &self_requisition);
-		requisition->width = self_requisition.width;
-		requisition->height = self_requisition.height;
+		*minimum_height = *natural_height = self_requisition.height;
+	}
+}
+
+static void
+gtk_html_embedded_get_preferred_width (GtkWidget *widget, gint *minimum_width, gint *natural_width)
+{
+	GtkWidget *child;
+
+	g_return_if_fail (widget != NULL);
+
+	child = gtk_bin_get_child (GTK_BIN (widget));
+
+	if (child) {
+		gtk_widget_get_preferred_width (child, minimum_width, natural_width);
+	} else {
+		GtkRequisition self_requisition;
+
+		gtk_widget_get_requisition (widget, &self_requisition);
+		*minimum_width = *natural_width = self_requisition.width;
 	}
 }
 

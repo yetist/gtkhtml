@@ -1272,25 +1272,38 @@ expose (GtkWidget *widget, GdkEventExpose *event)
 #endif
 
 static void
-gtk_html_size_request (GtkWidget *widget, GtkRequisition *requisition)
+gtk_html_get_preferred_height (GtkWidget *widget, gint *minimum_height, gint *natural_height)
 {
 	HTMLEngine *e = GTK_HTML (widget)->engine;
 	if (!e->writing) {
-		gint old_width, old_height;
+		gint old_height;
 
-		old_width = e->width;
 		old_height = e->height;
-		e->width = requisition->width;
-		e->height = requisition->height;
+		e->height = *minimum_height;
 		html_engine_calc_size (e, NULL);
-		requisition->width = html_engine_get_doc_width (e);
-		requisition->height = html_engine_get_doc_height (e);
-		e->width = old_width;
+		*minimum_height = *natural_height = html_engine_get_doc_height (e);
 		e->height = old_height;
 		html_engine_calc_size (e, NULL);
 	} else {
-		requisition->width = html_engine_get_doc_width (e);
-		requisition->height = html_engine_get_doc_height (e);
+		*minimum_height = *natural_height = html_engine_get_doc_height (e);
+	}
+}
+
+static void
+gtk_html_get_preferred_width (GtkWidget *widget, gint *minimum_width, gint *natural_width)
+{
+	HTMLEngine *e = GTK_HTML (widget)->engine;
+	if (!e->writing) {
+		gint old_width;
+
+		old_width = e->width;
+		e->width = *minimum_width;
+		html_engine_calc_size (e, NULL);
+		*minimum_width = *natural_width = html_engine_get_doc_width (e);
+		e->width = old_width;
+		html_engine_calc_size (e, NULL);
+	} else {
+		*minimum_width = *natural_width = html_engine_get_doc_width (e);
 	}
 }
 
@@ -3215,7 +3228,8 @@ gtk_html_class_init (GtkHTMLClass *klass)
 #else
 	widget_class->expose_event = expose;
 #endif
-	widget_class->size_request = gtk_html_size_request;
+	widget_class->get_preferred_width = gtk_html_get_preferred_width;
+	widget_class->get_preferred_height = gtk_html_get_preferred_height;
 	widget_class->size_allocate = size_allocate;
 	widget_class->motion_notify_event = motion_notify_event;
 	widget_class->visibility_notify_event = visibility_notify_event;

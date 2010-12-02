@@ -600,14 +600,27 @@ color_combo_dispose (GObject *object)
 }
 
 static void
-color_combo_size_request (GtkWidget *widget,
-                          GtkRequisition *requisition)
+color_combo_get_preferred_width (GtkWidget *widget,
+				gint *minimum_width,
+				gint *natural_width)
 {
 	GtkhtmlColorComboPrivate *priv;
 
 	priv = GTKHTML_COLOR_COMBO_GET_PRIVATE (widget);
 
-	gtk_widget_get_preferred_size (priv->toggle_button, requisition, NULL);
+	gtk_widget_get_preferred_width (priv->toggle_button, minimum_width, natural_width);
+}
+
+static void
+color_combo_get_preferred_height (GtkWidget *widget,
+				gint *minimum_height,
+				gint *natural_height)
+{
+	GtkhtmlColorComboPrivate *priv;
+
+	priv = GTKHTML_COLOR_COMBO_GET_PRIVATE (widget);
+
+	gtk_widget_get_preferred_height (priv->toggle_button, minimum_height, natural_height);
 }
 
 static void
@@ -708,7 +721,8 @@ color_combo_class_init (GtkhtmlColorComboClass *class)
 	object_class->dispose = color_combo_dispose;
 
 	widget_class = GTK_WIDGET_CLASS (class);
-	widget_class->size_request = color_combo_size_request;
+	widget_class->get_preferred_width = color_combo_get_preferred_width;
+	widget_class->get_preferred_height = color_combo_get_preferred_height;
 	widget_class->size_allocate = color_combo_size_allocate;
 
 	class->popup = color_combo_popup;

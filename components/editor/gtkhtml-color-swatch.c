@@ -134,14 +134,27 @@ color_swatch_dispose (GObject *object)
 }
 
 static void
-color_swatch_size_request (GtkWidget *widget,
-                           GtkRequisition *requisition)
+color_swatch_get_preferred_width (GtkWidget *widget,
+                           	  gint *minimum_width,
+				  gint *natural_width)
 {
 	GtkhtmlColorSwatchPrivate *priv;
 
 	priv = GTKHTML_COLOR_SWATCH_GET_PRIVATE (widget);
 
-	gtk_widget_get_preferred_size (priv->frame, requisition, NULL);
+	gtk_widget_get_preferred_width (priv->frame, minimum_width, natural_width);
+}
+
+static void
+color_swatch_get_preferred_height (GtkWidget *widget,
+                           	  gint *minimum_height,
+				  gint *natural_height)
+{
+	GtkhtmlColorSwatchPrivate *priv;
+
+	priv = GTKHTML_COLOR_SWATCH_GET_PRIVATE (widget);
+
+	gtk_widget_get_preferred_height (priv->frame, minimum_height, natural_height);
 }
 
 static void
@@ -171,7 +184,8 @@ color_swatch_class_init (GtkhtmlColorSwatchClass *class)
 	object_class->dispose = color_swatch_dispose;
 
 	widget_class = GTK_WIDGET_CLASS (class);
-	widget_class->size_request = color_swatch_size_request;
+	widget_class->get_preferred_width = color_swatch_get_preferred_width;
+	widget_class->get_preferred_height = color_swatch_get_preferred_height;
 	widget_class->size_allocate = color_swatch_size_allocate;
 
 	g_object_class_install_property (
