@@ -32,6 +32,8 @@ AM_CFLAGS = 						\
 
 libgtkhtmldir = $(includedir)/libgtkhtml-@GTKHTML_API_VERSION@/gtkhtml
 
+lib_LTLIBRARIES = libgtkhtml-4.0.la
+
 # FIXME not all the stuff should be installed!
 
 libgtkhtml_HEADERS =				\
@@ -47,7 +49,7 @@ libgtkhtml_HEADERS =				\
 	htmltokenizer.h				\
 	$(NULL)
 
-csources =					\
+libgtkhtml_4_0_la_SOURCES =			\
 	gtkhtml-embedded.c			\
 	gtkhtml-properties.c			\
 	gtkhtml-search.c			\
@@ -202,17 +204,13 @@ csources =					\
 	$(PLATFORM_DEP_SOURCES)			\
 	$(NULL)
 
-if ENABLE_GTK3
-lib_LTLIBRARIES = libgtkhtml-4.0.la
-libgtkhtml_4_0_la_SOURCES = $(csources)
-libgtkhtml_4_0_la_LDFLAGS = -version-info $(GTKHTML_GTK3_CURRENT):$(GTKHTML_GTK3_REVISION):$(GTKHTML_GTK3_AGE) -no-undefined
-libgtkhtml_4_0_la_LIBADD = $(GTKHTML_LIBS) ../a11y/libgtkhtml-a11y.la $(GAIL_LIBS) $(REGEX_LIBS)
-else
-lib_LTLIBRARIES = libgtkhtml-3.15.la
-libgtkhtml_3_15_la_SOURCES = $(csources)
-libgtkhtml_3_15_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE) -no-undefined
-libgtkhtml_3_15_la_LIBADD = $(GTKHTML_LIBS) ../a11y/libgtkhtml-a11y.la $(GAIL_LIBS) $(REGEX_LIBS)
-endif
+libgtkhtml_4_0_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE) -no-undefined
+
+libgtkhtml_4_0_la_LIBADD =			\
+	$(GTKHTML_LIBS)				\
+	../a11y/libgtkhtml-a11y.la		\
+	$(GAIL_LIBS)				\
+	$(REGEX_LIBS)
 
 dist-hook:
 	mkdir $(distdir)/tests

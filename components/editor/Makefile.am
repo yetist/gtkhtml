@@ -3,6 +3,7 @@
 gtkhtml_data = $(datadir)/gtkhtml-@GTKHTML_API_VERSION@
 
 bin_PROGRAMS = gtkhtml-editor-test
+lib_LTLIBRARIES = libgtkhtml-editor-4.0.la
 
 AM_CFLAGS = \
 	@GTKHTML_CFLAGS@			\
@@ -23,7 +24,7 @@ BUILT_SOURCES = \
 
 libgtkhtml_editordir = $(includedir)/libgtkhtml-@GTKHTML_API_VERSION@/editor
 
-csources = 					\
+libgtkhtml_editor_4_0_la_SOURCES = \
 	$(BUILT_SOURCES)			\
 	gtkhtml-color-combo.c			\
 	gtkhtml-color-combo.h			\
@@ -63,21 +64,11 @@ libgtkhtml_editor_HEADERS = \
 	gtkhtml-spell-checker.h			\
 	gtkhtml-spell-language.h
 
-if ENABLE_GTK3
-lib_LTLIBRARIES = libgtkhtml-editor-4.0.la
-libgtkhtml_editor_4_0_la_SOURCES = $(csources) 
 libgtkhtml_editor_4_0_la_LIBADD = \
 	@GTKHTML_LIBS@				\
 	$(top_builddir)/gtkhtml/libgtkhtml-@GTKHTML_API_VERSION@.la
+
 libgtkhtml_editor_4_0_la_LDFLAGS = -no-undefined
-else
-lib_LTLIBRARIES = libgtkhtml-editor-3.14.la
-libgtkhtml_editor_3_14_la_SOURCES = $(csources) 
-libgtkhtml_editor_3_14_la_LIBADD = \
-	@GTKHTML_LIBS@				\
-	$(top_builddir)/gtkhtml/libgtkhtml-@GTKHTML_API_VERSION@.la
-libgtkhtml_editor_3_14_la_LDFLAGS = -no-undefined
-endif
 
 gtkhtml_editor_test_SOURCES = main.c
 
