@@ -574,20 +574,11 @@ static void
 vertical_scroll_cb (GtkAdjustment *adjustment, gpointer data)
 {
 	GtkHTML *html = GTK_HTML (data);
-	gdouble page_increment;
-	gdouble value;
 
-	value = gtk_adjustment_get_value (adjustment);
-	page_increment = gtk_adjustment_get_page_increment (adjustment);
-
-	/* check if adjustment is valid, it's changed in
-	   Layout::size_allocate and we can't do anything about it,
-	   because it uses private fields we cannot access, so we have
-	   to use it*/
-	if (html->engine->keep_scroll || html->engine->height != page_increment)
+	if (html->engine->keep_scroll)
 		return;
 
-	html->engine->y_offset = (gint) value;
+	html->engine->y_offset = (gint) gtk_adjustment_get_value (adjustment);
 	scroll_update_mouse (GTK_WIDGET (data));
 }
 
@@ -595,20 +586,11 @@ static void
 horizontal_scroll_cb (GtkAdjustment *adjustment, gpointer data)
 {
 	GtkHTML *html = GTK_HTML (data);
-	gdouble page_increment;
-	gdouble value;
 
-	value = gtk_adjustment_get_value (adjustment);
-	page_increment = gtk_adjustment_get_page_increment (adjustment);
-
-	/* check if adjustment is valid, it's changed in
-	   Layout::size_allocate and we can't do anything about it,
-	   because it uses private fields we cannot access, so we have
-	   to use it*/
-	if (html->engine->keep_scroll || html->engine->width != page_increment)
+	if (html->engine->keep_scroll)
 		return;
 
-	html->engine->x_offset = (gint) value;
+	html->engine->x_offset = (gint) gtk_adjustment_get_value (adjustment);
 	scroll_update_mouse (GTK_WIDGET (data));
 }
 
@@ -618,19 +600,27 @@ hadjustment_notify_cb (GtkHTML *html)
 	GtkScrollable *scrollable;
 	GtkAdjustment *hadjustment;
 
+	if (!html->priv)
+		return;
+
 	scrollable = GTK_SCROLLABLE (html);
 	hadjustment = gtk_scrollable_get_hadjustment (scrollable);
 
-	if (html->hadj_connection > 0)
+	if (html->hadj_connection > 0) {
 		g_signal_handler_disconnect (
-			hadjustment, html->hadj_connection);
+			html->priv->hadjustment, html->hadj_connection);
+		g_object_unref (html->priv->hadjustment);
+	}
 
-	if (hadjustment != NULL)
+	if (hadjustment != NULL) {
 		html->hadj_connection = g_signal_connect (
 			hadjustment, "value_changed",
 			G_CALLBACK (horizontal_scroll_cb), html);
-	else
+		html->priv->hadjustment = g_object_ref (hadjustment);
+	} else {
 		html->hadj_connection = 0;
+		html->priv->hadjustment = NULL;
+	}
 }
 
 static void
@@ -639,19 +629,27 @@ vadjustment_notify_cb (GtkHTML *html)
 	GtkScrollable *scrollable;
 	GtkAdjustment *vadjustment;
 
+	if (!html->priv)
+		return;
+
 	scrollable = GTK_SCROLLABLE (html);
 	vadjustment = gtk_scrollable_get_vadjustment (scrollable);
 
-	if (html->vadj_connection != 0)
+	if (html->vadj_connection != 0) {
 		g_signal_handler_disconnect (
-			vadjustment, html->vadj_connection);
+			html->priv->vadjustment, html->vadj_connection);
+		g_object_unref (html->priv->vadjustment);
+	}
 
-	if (vadjustment != NULL)
+	if (vadjustment != NULL) {
 		html->vadj_connection = g_signal_connect (
 			vadjustment, "value_changed",
 			G_CALLBACK (vertical_scroll_cb), html);
-	else
+		html->priv->vadjustment = g_object_ref (vadjustment);
+	} else {
 		html->vadj_connection = 0;
+		html->priv->vadjustment = NULL;
+	}
 }
 
 
@@ -790,10 +788,16 @@ dispose (GObject *object)
 		html->ibeam_cursor = NULL;
 	}
 
-	gtk_scrollable_set_hadjustment (GTK_SCROLLABLE (html), NULL);
-	gtk_scrollable_set_vadjustment (GTK_SCROLLABLE (html), NULL);
-
 	if (html->priv) {
+		gtk_scrollable_set_hadjustment (GTK_SCROLLABLE (html), NULL);
+		gtk_scrollable_set_vadjustment (GTK_SCROLLABLE (html), NULL);
+
+		hadjustment_notify_cb (html);
+		vadjustment_notify_cb (html);
+
+		g_signal_handlers_disconnect_by_func (html, hadjustment_notify_cb, NULL);
+		g_signal_handlers_disconnect_by_func (html, vadjustment_notify_cb, NULL);
+
 		if (html->priv->idle_handler_id != 0) {
 			g_source_remove (html->priv->idle_handler_id);
 			html->priv->idle_handler_id = 0;
@@ -1241,13 +1245,12 @@ unrealize (GtkWidget *widget)
 		(* GTK_WIDGET_CLASS (parent_class)->unrealize) (widget);
 }
 
-#if GTK_CHECK_VERSION(2,91,0)
 static gboolean
 draw (GtkWidget *widget, cairo_t *cr)
 {
 	/* printf ("draw x: %d y: %d\n", GTK_HTML (widget)->engine->x_offset, GTK_HTML (widget)->engine->y_offset); */
 
-	html_engine_expose (GTK_HTML (widget)->engine, cr);
+	html_engine_draw_cb (GTK_HTML (widget)->engine, cr);
 
 	if (GTK_WIDGET_CLASS (parent_class)->draw)
 		(* GTK_WIDGET_CLASS (parent_class)->draw) (widget, cr);
@@ -1255,21 +1258,6 @@ draw (GtkWidget *widget, cairo_t *cr)
 
 	return FALSE;
 }
-#else
-static gboolean
-expose (GtkWidget *widget, GdkEventExpose *event)
-{
-	/* printf ("expose x: %d y: %d\n", GTK_HTML (widget)->engine->x_offset, GTK_HTML (widget)->engine->y_offset); */
-
-	html_engine_expose (GTK_HTML (widget)->engine, event);
-
-	if (GTK_WIDGET_CLASS (parent_class)->expose_event)
-		(* GTK_WIDGET_CLASS (parent_class)->expose_event) (widget, event);
-	/* printf ("expose END\n"); */
-
-	return FALSE;
-}
-#endif
 
 static void
 gtk_html_get_preferred_height (GtkWidget *widget, gint *minimum_height, gint *natural_height)
@@ -3223,11 +3211,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	widget_class->style_set = style_set;
 	widget_class->key_press_event = key_press_event;
 	widget_class->key_release_event = key_release_event;
-#if GTK_CHECK_VERSION(2,91,0)
 	widget_class->draw = draw;
-#else
-	widget_class->expose_event = expose;
-#endif
 	widget_class->get_preferred_width = gtk_html_get_preferred_width;
 	widget_class->get_preferred_height = gtk_html_get_preferred_height;
 	widget_class->size_allocate = size_allocate;
@@ -3542,6 +3526,9 @@ gtk_html_init (GtkHTML* html)
 
 	html->priv->caret_first_focus_anchor = NULL;
 	html->priv->is_first_focus = TRUE;
+
+	html->priv->hadjustment = NULL;
+	html->priv->vadjustment = NULL;
 
 	/* IM Context */
 	html->priv->im_context = gtk_im_multicontext_new ();

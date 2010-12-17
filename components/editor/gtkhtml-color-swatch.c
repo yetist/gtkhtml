@@ -40,28 +40,22 @@ struct _GtkhtmlColorSwatchPrivate {
 static gpointer parent_class;
 
 static gboolean
-color_swatch_expose_cb (GtkWidget *drawing_area,
-                        GdkEventExpose *event)
+color_swatch_draw_cb (GtkWidget *drawing_area, cairo_t *cr)
 {
 	GtkStyle *style;
-	GdkWindow *window;
 	GdkColor *color;
-	cairo_t *cr;
+	GdkRectangle rect;
 
 	style = gtk_widget_get_style (drawing_area);
-	window = gtk_widget_get_window (drawing_area);
-
-	if (window == NULL)
+	if (!style)
 		return FALSE;
 
-	cr = gdk_cairo_create (window);
-
 	color = &style->bg[GTK_STATE_NORMAL];
-	gdk_cairo_set_source_color (cr, color);
-	gdk_cairo_rectangle (cr, &event->area);
-	cairo_fill (cr);
 
-	cairo_destroy (cr);
+	gdk_cairo_get_clip_rectangle (cr, &rect);
+	gdk_cairo_set_source_color (cr, color);
+	gdk_cairo_rectangle (cr, &rect);
+	cairo_fill (cr);
 
 	return FALSE;
 }
@@ -232,8 +226,8 @@ color_swatch_init (GtkhtmlColorSwatch *swatch)
 	gtk_widget_show (widget);
 
 	g_signal_connect (
-		widget, "expose-event",
-		G_CALLBACK (color_swatch_expose_cb), swatch);
+		widget, "draw",
+		G_CALLBACK (color_swatch_draw_cb), swatch);
 }
 
 GType

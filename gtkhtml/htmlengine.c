@@ -5125,28 +5125,27 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, g
 	e->expose = FALSE;
 }
 
-#if GTK_CHECK_VERSION(2,91,0)
 void
-html_engine_expose (HTMLEngine *e, cairo_t *cr)
+html_engine_draw_cb (HTMLEngine *e, cairo_t *cr)
 {
 	GdkRectangle rect;
+	GdkWindow *bin_window;
 
 	gdk_cairo_get_clip_rectangle (cr, &rect);
+
+	bin_window = gtk_layout_get_bin_window (GTK_LAYOUT (e->widget));
+	if (bin_window) {
+		gdk_window_get_position (bin_window, &e->x_offset, &e->y_offset);
+
+		e->x_offset = ABS (e->x_offset);
+		e->y_offset = ABS (e->y_offset);
+	}
+
 	if (html_engine_frozen (e))
-		html_engine_add_expose (e, rect.x, rect.y, rect.width, rect.height, TRUE);
+		html_engine_add_expose (e, e->x_offset + rect.x, e->y_offset + rect.y, rect.width, rect.height, TRUE);
 	else
-		html_engine_draw_real (e, rect.x, rect.y, rect.width, rect.height, TRUE);
+		html_engine_draw_real (e, e->x_offset + rect.x, e->y_offset + rect.y, rect.width, rect.height, TRUE);
 }
-#else
-void
-html_engine_expose (HTMLEngine *e, GdkEventExpose *event)
-{
-	if (html_engine_frozen (e))
-		html_engine_add_expose (e, event->area.x, event->area.y, event->area.width, event->area.height, TRUE);
-	else
-		html_engine_draw_real (e, event->area.x, event->area.y, event->area.width, event->area.height, TRUE);
-}
-#endif
 
 void
 html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint height)
