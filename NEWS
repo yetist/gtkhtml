@@ -1,3 +1,13 @@
+GtkHTML-3.91.4 2010-12-20
+-------------------------
+
+Bug Fixes:
+	Bug #612344 - Crash in html_object_prev_not_type at htmlobject.c (Milan Crha)
+
+Miscellaneous Fixes:
+	Replace erroneous gtkhtml version with editor API version (Chenthill Palanisamy)
+	Bump gtkhtml API version to accomodate api break (Chenthill Palanisamy)
+
 GtkHTML-3.91.3 2010-11-29
 -------------------------
 Bug Fixes:
