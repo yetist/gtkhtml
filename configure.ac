@@ -32,7 +32,7 @@ else
 	GTK_PACKAGE="gtk+-2.0"
 	GAIL_PACKAGE="gail"
 	gtk_minimum_version="2.22.0"
-	GTKHTML_API_VERSION=3.14
+	GTKHTML_API_VERSION=3.15
 	EDITOR_API_VERSION=3.14
 fi
 AM_CONDITIONAL([ENABLE_GTK3], [test "$enable_gtk3" = yes])
