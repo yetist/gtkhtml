@@ -21,7 +21,7 @@ BUILT_SOURCES = \
 	gtkhtml-spell-marshal.c			\
 	gtkhtml-spell-marshal.h
 
-libgtkhtml_editordir = $(includedir)/libgtkhtml-@EDITOR_API_VERSION@/editor
+libgtkhtml_editordir = $(includedir)/libgtkhtml-@GTKHTML_API_VERSION@/editor
 
 csources = 					\
 	$(BUILT_SOURCES)			\
@@ -68,14 +68,14 @@ lib_LTLIBRARIES = libgtkhtml-editor-4.0.la
 libgtkhtml_editor_4_0_la_SOURCES = $(csources) 
 libgtkhtml_editor_4_0_la_LIBADD = \
 	@GTKHTML_LIBS@				\
-	$(top_builddir)/gtkhtml/libgtkhtml-@EDITOR_API_VERSION@.la
+	$(top_builddir)/gtkhtml/libgtkhtml-@GTKHTML_API_VERSION@.la
 libgtkhtml_editor_4_0_la_LDFLAGS = -no-undefined
 else
 lib_LTLIBRARIES = libgtkhtml-editor-3.14.la
 libgtkhtml_editor_3_14_la_SOURCES = $(csources) 
 libgtkhtml_editor_3_14_la_LIBADD = \
 	@GTKHTML_LIBS@				\
-	$(top_builddir)/gtkhtml/libgtkhtml-@EDITOR_API_VERSION@.la
+	$(top_builddir)/gtkhtml/libgtkhtml-@GTKHTML_API_VERSION@.la
 libgtkhtml_editor_3_14_la_LDFLAGS = -no-undefined
 endif
 
@@ -84,7 +84,7 @@ gtkhtml_editor_test_SOURCES = main.c
 gtkhtml_editor_test_LDADD = \
 	@GTKHTML_LIBS@				\
 	libgtkhtml-editor-@EDITOR_API_VERSION@.la			\
-	$(top_builddir)/gtkhtml/libgtkhtml-@EDITOR_API_VERSION@.la
+	$(top_builddir)/gtkhtml/libgtkhtml-@GTKHTML_API_VERSION@.la
 
 gtkhtml-editor-marshal.h: gtkhtml-editor-marshal.list $(GLIB_GENMARSHAL)
 	$(GLIB_GENMARSHAL) $< --header --prefix=gtkhtml_editor_marshal > $@
