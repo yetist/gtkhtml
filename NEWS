@@ -1,3 +1,10 @@
+GtkHTML-3.91.4.1 2010-12-21
+-------------------------
+
+Miscellaneous Fixes:
+	Fix a build break of the editor (Milan Crha)
+	Fix version mismatches (Milan Crha)
+
 GtkHTML-3.91.4 2010-12-20
 -------------------------
 
