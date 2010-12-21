@@ -1,6 +1,6 @@
 ### Process this file with automake to produce Makefile.in
 
-gtkhtml_data = $(datadir)/gtkhtml-@EDITOR_API_VERSION@
+gtkhtml_data = $(datadir)/gtkhtml-@GTKHTML_API_VERSION@
 
 bin_PROGRAMS = gtkhtml-editor-test
 
