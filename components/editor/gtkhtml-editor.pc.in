@@ -7,7 +7,7 @@ gtkhtml_api_version=@EDITOR_API_VERSION@
 
 Name: gtkhtml-editor
 Description: HTML editor widget
-Requires: libgtkhtml-@EDITOR_API_VERSION@
+Requires: libgtkhtml-@GTKHTML_API_VERSION@
 Version: @VERSION@
 Libs: -L${libdir} -lgtkhtml-editor-@EDITOR_API_VERSION@
-Cflags: -I${includedir}/libgtkhtml-@EDITOR_API_VERSION@/editor
+Cflags: -I${includedir}/libgtkhtml-@GTKHTML_API_VERSION@/editor
