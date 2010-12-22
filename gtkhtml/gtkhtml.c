@@ -779,12 +779,12 @@ dispose (GObject *object)
 	html->pointer_url = NULL;
 
 	if (html->hand_cursor) {
-		gdk_cursor_unref (html->hand_cursor);
+		g_object_unref (html->hand_cursor);
 		html->hand_cursor = NULL;
 	}
 
 	if (html->ibeam_cursor) {
-		gdk_cursor_unref (html->ibeam_cursor);
+		g_object_unref (html->ibeam_cursor);
 		html->ibeam_cursor = NULL;
 	}
 
@@ -816,7 +816,7 @@ dispose (GObject *object)
 		}
 
 		if (html->priv->resize_cursor) {
-			gdk_cursor_unref (html->priv->resize_cursor);
+			g_object_unref (html->priv->resize_cursor);
 			html->priv->resize_cursor = NULL;
 		}
 
