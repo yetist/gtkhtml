@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gtkhtml&component=general\n"
-"POT-Creation-Date: 2010-11-18 11:14+0000\n"
+"POT-Creation-Date: 2010-12-20 13:21+0000\n"
 "PO-Revision-Date: 2010-10-20 15:31+0600\n"
 "Last-Translator: Sahran <sahran@live.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -715,7 +715,7 @@ msgstr "جەدۋەل قىستۇر"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1803
 msgid "Properties"
-msgstr "ئالاھىدىلىكى"
+msgstr "خاسلىق"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1821
 msgid "Column After"
@@ -950,7 +950,7 @@ msgstr "ئىزدە"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:23
 msgid "General"
-msgstr "ئادەتتە"
+msgstr "ئادەتتىكى"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:24
 msgid "Graph Paper"
@@ -1224,7 +1224,7 @@ msgstr "ئۆتكۈزۈۋەت(_S)"
 #. Back Button
 #: ../components/editor/gtkhtml-spell-dialog.c:577
 msgid "_Back"
-msgstr "كەينىگە(_B)"
+msgstr "كەينى(_B)"
 
 #. Dictionary Label
 #: ../components/editor/gtkhtml-spell-dialog.c:590
