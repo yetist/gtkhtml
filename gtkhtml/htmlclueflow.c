@@ -1673,6 +1673,7 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 	HTMLClueFlow *prev = NULL;
 	HTMLHAlignType halign;
 	const gchar *br_str = "<BR>\n";
+	gboolean has_div_tag = FALSE;
 
 	if (HTML_IS_CLUEFLOW (HTML_OBJECT (self)->next))
 		next = HTML_CLUEFLOW (HTML_OBJECT (self)->next);
@@ -1727,7 +1728,8 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 
 	halign = HTML_CLUE (self)->halign;
 	/* Alignment tag.  */
-	if (halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT) {
+	has_div_tag = halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT;
+	if (has_div_tag) {
 		if (!html_engine_save_output_string
 		    (state, "<DIV ALIGN=%s>",
 		     html_engine_save_get_paragraph_align (html_alignment_to_paragraph (halign))))
@@ -1742,19 +1744,19 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 		return FALSE;
 
 	/* Close alignment tag.  */
-	if (halign != HTML_HALIGN_NONE && halign != HTML_HALIGN_LEFT) {
+	if (has_div_tag) {
 		if (!html_engine_save_output_string (state, "</DIV>"))
 			return FALSE;
 	}
 
 	if (is_item (self)) {
-		if (next && is_levels_equal (self, next) && !is_item (next) && !html_clueflow_contains_table (self)) {
+		if (!has_div_tag && next && is_levels_equal (self, next) && !is_item (next) && !html_clueflow_contains_table (self)) {
 			if (!html_engine_save_output_string (state, "%s", br_str))
 				return FALSE;
 		} else if (!html_engine_save_output_string (state, "\n"))
 			return FALSE;
 	} else if (is_levels_equal (self, next) && self->style == next->style) {
-		if (self->style != HTML_CLUEFLOW_STYLE_PRE && !html_clueflow_contains_table (self)) {
+		if (!has_div_tag && self->style != HTML_CLUEFLOW_STYLE_PRE && !html_clueflow_contains_table (self)) {
 			if (!html_engine_save_output_string (state, "%s", br_str))
 				return FALSE;
 		} else {
@@ -1765,7 +1767,7 @@ write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
 		const gchar *end = get_start_tag (self);
 
 		if (self->style != HTML_CLUEFLOW_STYLE_PRE) {
-			if ((!html_clueflow_contains_table (self) && !end && next && self->style == next->style) || html_clueflow_is_empty (self)) {
+			if (!has_div_tag && ((!html_clueflow_contains_table (self) && !end && next && self->style == next->style) || html_clueflow_is_empty (self))) {
 				if (!html_engine_save_output_string (state, "%s", br_str))
 					return FALSE;
 			} else {
