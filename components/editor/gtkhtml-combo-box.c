@@ -279,6 +279,34 @@ combo_box_finalize (GObject *object)
 }
 
 static void
+combo_box_constructed (GObject *object)
+{
+	GtkComboBox *combo_box;
+	GtkCellRenderer *renderer;
+
+	combo_box = GTK_COMBO_BOX (object);
+
+	/* This needs to happen after constructor properties are set
+	 * so that GtkCellLayout.get_area() returns something valid. */
+
+	renderer = gtk_cell_renderer_pixbuf_new ();
+	gtk_cell_layout_pack_start (
+		GTK_CELL_LAYOUT (combo_box), renderer, FALSE);
+	gtk_cell_layout_set_cell_data_func (
+		GTK_CELL_LAYOUT (combo_box), renderer,
+		(GtkCellLayoutDataFunc) combo_box_render_pixbuf,
+		combo_box, NULL);
+
+	renderer = gtk_cell_renderer_text_new ();
+	gtk_cell_layout_pack_start (
+		GTK_CELL_LAYOUT (combo_box), renderer, TRUE);
+	gtk_cell_layout_set_cell_data_func (
+		GTK_CELL_LAYOUT (combo_box), renderer,
+		(GtkCellLayoutDataFunc) combo_box_render_text,
+		combo_box, NULL);
+}
+
+static void
 combo_box_changed (GtkComboBox *combo_box)
 {
 	GtkRadioAction *action;
@@ -311,6 +339,7 @@ combo_box_class_init (GtkhtmlComboBoxClass *class)
 	object_class->get_property = combo_box_get_property;
 	object_class->dispose = combo_box_dispose;
 	object_class->finalize = combo_box_finalize;
+	object_class->constructed = combo_box_constructed;
 
 	combo_box_class = GTK_COMBO_BOX_CLASS (class);
 	combo_box_class->changed = combo_box_changed;
@@ -329,25 +358,7 @@ combo_box_class_init (GtkhtmlComboBoxClass *class)
 static void
 combo_box_init (GtkhtmlComboBox *combo_box)
 {
-	GtkCellRenderer *renderer;
-
 	combo_box->priv = GTKHTML_COMBO_BOX_GET_PRIVATE (combo_box);
-
-	renderer = gtk_cell_renderer_pixbuf_new ();
-	gtk_cell_layout_pack_start (
-		GTK_CELL_LAYOUT (combo_box), renderer, FALSE);
-	gtk_cell_layout_set_cell_data_func (
-		GTK_CELL_LAYOUT (combo_box), renderer,
-		(GtkCellLayoutDataFunc) combo_box_render_pixbuf,
-		combo_box, NULL);
-
-	renderer = gtk_cell_renderer_text_new ();
-	gtk_cell_layout_pack_start (
-		GTK_CELL_LAYOUT (combo_box), renderer, TRUE);
-	gtk_cell_layout_set_cell_data_func (
-		GTK_CELL_LAYOUT (combo_box), renderer,
-		(GtkCellLayoutDataFunc) combo_box_render_text,
-		combo_box, NULL);
 
 	combo_box->priv->index = g_hash_table_new_full (
 		g_direct_hash, g_direct_equal,
