@@ -1,3 +1,20 @@
+GtkHTML-3.91.5 2010-01-10
+-------------------------
+
+Bug Fixes:
+	Bug 402693 - Sending centered or right-aligned text doubles the
+	             spacing (Milan Crha)
+
+Other Changes:
+	Fix version mismatch in gtkhtml-editor.pc.in (Milan Crha)
+	GtkhtmlComboBox: Fix runtime warnings with GTK3. (Matthew Barnes)
+
+Translations:
+	Torstein Adolf Winterseth (nb)
+	Gheyret T.Kenji (ug)
+	Wei-Lun Chao (zh_HK)
+
+
 GtkHTML-3.91.4.1 2010-12-21
 -------------------------
 
