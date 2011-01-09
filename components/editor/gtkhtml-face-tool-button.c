@@ -30,9 +30,6 @@
 
 #include "gtkhtml-face-chooser.h"
 
-/* backward-compatibility cruft */
-#include "gtkhtml/gtk-compat.h"
-
 #define GTKHTML_FACE_TOOL_BUTTON_GET_PRIVATE(obj) \
 	(G_TYPE_INSTANCE_GET_PRIVATE \
 	((obj), GTKHTML_TYPE_FACE_TOOL_BUTTON, GtkhtmlFaceToolButtonPrivate))
@@ -213,8 +210,8 @@ face_tool_button_child_key_press_event_cb (GtkhtmlFaceToolButton *button,
 {
 	GtkWidget *window = button->priv->window;
 
-	if (!gtk_bindings_activate_event (COMPAT_BINDING_TYPE (window), event))
-		gtk_bindings_activate_event (COMPAT_BINDING_TYPE (button), event);
+	if (!gtk_bindings_activate_event (G_OBJECT (window), event))
+		gtk_bindings_activate_event (G_OBJECT (button), event);
 
 	return TRUE;
 }

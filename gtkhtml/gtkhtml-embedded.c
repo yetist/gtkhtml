@@ -26,9 +26,6 @@
 #include "gtkhtml-embedded.h"
 #include "htmlengine.h"
 
-/* backward-compatibility cruft */
-#include "gtk-compat.h"
-
 static void gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *class);
 static void gtk_html_embedded_init       (GtkHTMLEmbedded *gspaper);
 

@@ -49,9 +49,6 @@
 
 #include "gtkhtmldebug.h"
 
-/* backward-compatibility cruft */
-#include "gtk-compat.h"
-
 #ifndef O_BINARY
 #define O_BINARY 0
 #endif

@@ -22,9 +22,6 @@
 
 #include <glib/gi18n-lib.h>
 
-/* backward-compatibility cruft */
-#include "gtkhtml/gtk-compat.h"
-
 #define GTKHTML_COLOR_SWATCH_GET_PRIVATE(obj) \
 	(G_TYPE_INSTANCE_GET_PRIVATE \
 	((obj), GTKHTML_TYPE_COLOR_SWATCH, GtkhtmlColorSwatchPrivate))

@@ -28,9 +28,6 @@
 #include <gdk/gdkkeysyms.h>
 #include "gtkhtml-color-swatch.h"
 
-/* backward-compatibility cruft */
-#include "gtkhtml/gtk-compat.h"
-
 #define NUM_CUSTOM_COLORS	8
 
 #define GTKHTML_COLOR_COMBO_GET_PRIVATE(obj) \
@@ -259,8 +256,8 @@ color_combo_child_key_press_event_cb (GtkhtmlColorCombo *combo,
 {
 	GtkWidget *window = combo->priv->window;
 
-	if (!gtk_bindings_activate_event (COMPAT_BINDING_TYPE (window), event))
-		gtk_bindings_activate_event (COMPAT_BINDING_TYPE (combo), event);
+	if (!gtk_bindings_activate_event (G_OBJECT (window), event))
+		gtk_bindings_activate_event (G_OBJECT (combo), event);
 
 	return TRUE;
 }

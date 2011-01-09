@@ -157,10 +157,6 @@ view_source_dialog (GtkhtmlEditor *editor,
 		GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
 		NULL);
 
-#if !GTK_CHECK_VERSION(2,90,7)
-	g_object_set (dialog, "has-separator", FALSE, NULL);
-#endif
-
 	content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 
 	scrolled_window = gtk_scrolled_window_new (NULL, NULL);

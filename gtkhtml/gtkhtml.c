@@ -69,9 +69,6 @@
 #include "gtkhtml-properties.h"
 #include "math.h"
 
-/* backward-compatibility cruft */
-#include "gtk-compat.h"
-
 enum DndTargetType {
 	DND_TARGET_TYPE_TEXT_URI_LIST,
 	DND_TARGET_TYPE_MOZILLA_URL,
@@ -1068,7 +1065,7 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 	}
 
 	if (html_class->use_emacs_bindings && html_class->emacs_bindings && !html->binding_handled)
-		gtk_binding_set_activate (html_class->emacs_bindings, event->keyval, event->state, COMPAT_BINDING_TYPE (widget));
+		gtk_binding_set_activate (html_class->emacs_bindings, event->keyval, event->state, G_OBJECT (widget));
 
 	if (!html->binding_handled) {
 		html->priv->in_key_binding = TRUE;

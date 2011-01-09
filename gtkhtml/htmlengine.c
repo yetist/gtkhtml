@@ -99,9 +99,6 @@
 #include "htmlmarshal.h"
 #include "htmlstyle.h"
 
-/* backward-compatibility cruft */
-#include "gtk-compat.h"
-
 /* #define CHECK_CURSOR */
 
 static void      html_engine_class_init       (HTMLEngineClass     *klass);
@@ -5775,7 +5772,7 @@ html_engine_intersection (HTMLEngine *e, gint *x1, gint *y1, gint *x2, gint *y2)
 }
 
 static void
-get_changed_objects (HTMLEngine *e, GdkRegion *region, GList *changed_objs)
+get_changed_objects (HTMLEngine *e, cairo_region_t *region, GList *changed_objs)
 {
 	GList *cur;
 
@@ -5806,7 +5803,8 @@ get_changed_objects (HTMLEngine *e, GdkRegion *region, GList *changed_objs)
 				paint.width = cr->width;
 				paint.height = cr->height;
 
-				gdk_region_union_with_rect (region, &paint);
+				if (paint.width > 0 && paint.height > 0)
+					cairo_region_union_rectangle (region, &paint);
 			}
 			g_free (cur->data);
 		}
@@ -5820,7 +5818,7 @@ struct HTMLEngineExpose {
 };
 
 static void
-get_pending_expose (HTMLEngine *e, GdkRegion *region)
+get_pending_expose (HTMLEngine *e, cairo_region_t *region)
 {
 	GSList *l, *next;
 
@@ -5834,7 +5832,8 @@ get_pending_expose (HTMLEngine *e, GdkRegion *region)
 		next = l->next;
 		r = (struct HTMLEngineExpose *) l->data;
 
-		gdk_region_union_with_rect (region, &r->area);
+		if (r->area.width > 0 && r->area.height > 0)
+			cairo_region_union_rectangle (region, &r->area);
 		g_free (r);
 	}
 }
@@ -5931,7 +5930,7 @@ thaw_idle (gpointer data)
 		html_engine_queue_redraw_all (e);
 	} else if (gtk_widget_get_realized (GTK_WIDGET (e->widget))) {
 		gint nw, nh;
-		GdkRegion *region = gdk_region_new ();
+		cairo_region_t *region = cairo_region_create ();
 		GdkRectangle paint;
 
 		get_pending_expose (e, region);
@@ -5946,21 +5945,23 @@ thaw_idle (gpointer data)
 			paint.width = e->width;
 			paint.height = e->height + e->y_offset - nh;
 
-			gdk_region_union_with_rect (region, &paint);
+			if (paint.width > 0 && paint.height > 0)
+				cairo_region_union_rectangle (region, &paint);
 		}
 		if (nw < w && nw - e->x_offset < e->width) {
 			paint.x = nw;
 			paint.y = e->y_offset;
 			paint.width = e->width + e->x_offset - nw;
 
-			gdk_region_union_with_rect (region, &paint);
+			if (paint.width > 0 && paint.height > 0)
+				cairo_region_union_rectangle (region, &paint);
 		}
 		g_list_free (changed_objs);
 		if (HTML_IS_GDK_PAINTER (e->painter))
 			gdk_window_invalidate_region (
 				HTML_GDK_PAINTER (e->painter)->window,
 				region, FALSE);
-		gdk_region_destroy (region);
+		cairo_region_destroy (region);
 		html_engine_flush_draw_queue (e);
 	}
 	g_slist_free (e->pending_expose);

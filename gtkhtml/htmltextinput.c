@@ -27,9 +27,6 @@
 #include "htmltextinput.h"
 #include "htmlform.h"
 
-/* backward-compatibility cruft */
-#include "gtk-compat.h"
-
 
 HTMLTextInputClass html_text_input_class;
 static HTMLEmbeddedClass *parent_class = NULL;

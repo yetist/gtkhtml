@@ -36,9 +36,6 @@
 /*For use converter based on g_iconv*/
 #include "htmltokenizer.h"
 
-/* backward-compatibility cruft */
-#include "gtk-compat.h"
-
 HTMLEmbeddedClass html_embedded_class;
 static HTMLObjectClass *parent_class = NULL;
 

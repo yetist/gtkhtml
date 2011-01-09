@@ -30,9 +30,6 @@
 #include "htmlsearch.h"
 #include "htmlselection.h"
 
-/* backward-compatibility cruft */
-#include "gtk-compat.h"
-
 struct _GtkHTMLISearch {
 	GtkHTML  *html;
 	gboolean forward;

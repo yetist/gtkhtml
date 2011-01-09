@@ -38,9 +38,6 @@
 
 #include "htmlengine.h"
 
-/* backward-compatibility cruft */
-#include "gtk-compat.h"
-
 typedef struct _Example Example;
 
 struct _Example {

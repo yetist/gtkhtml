@@ -32,9 +32,6 @@
 #include "htmlsettings.h"
 #include "gtkhtml.h"
 
-/* backward-compatibility cruft */
-#include "gtk-compat.h"
-
 /* HTMLDrawQueueClearElement handling.  */
 
 static HTMLDrawQueueClearElement *
