@@ -1417,20 +1417,8 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 						      &changed_x, &changed_y);
 	}
 
-	if (!html->engine->keep_scroll) {
-		GtkAdjustment *adjustment;
-
+	if (!html->engine->keep_scroll)
 		gtk_html_private_calc_scrollbars (html, &changed_x, &changed_y);
-
-		if (changed_x) {
-			adjustment = gtk_layout_get_hadjustment (layout);
-			gtk_adjustment_value_changed (adjustment);
-		}
-		if (changed_y) {
-			adjustment = gtk_layout_get_vadjustment (layout);
-			gtk_adjustment_value_changed (adjustment);
-		}
-	}
 
 	if (html->engine->clue)
 		html_object_forall (html->engine->clue, html->engine, child_size_allocate, NULL);
