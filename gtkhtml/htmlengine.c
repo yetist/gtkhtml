@@ -5135,10 +5135,30 @@ html_engine_draw_cb (HTMLEngine *e, cairo_t *cr)
 
 	bin_window = gtk_layout_get_bin_window (GTK_LAYOUT (e->widget));
 	if (bin_window) {
+		HTMLEngine *parent_engine;
+
 		gdk_window_get_position (bin_window, &e->x_offset, &e->y_offset);
 
 		e->x_offset = ABS (e->x_offset);
 		e->y_offset = ABS (e->y_offset);
+
+		/* also update parent frames, if any */
+		parent_engine = e;
+		while (parent_engine->widget->iframe_parent) {
+			GtkHTML *parent = GTK_HTML (parent_engine->widget->iframe_parent);
+
+			if (!parent)
+				break;
+
+			parent_engine = parent->engine;
+			bin_window = gtk_layout_get_bin_window (GTK_LAYOUT (parent_engine->widget));
+			if (!bin_window)
+				break;
+
+			gdk_window_get_position (bin_window, &parent_engine->x_offset, &parent_engine->y_offset);
+			parent_engine->x_offset = ABS (parent_engine->x_offset);
+			parent_engine->y_offset = ABS (parent_engine->y_offset);
+		}
 	}
 
 	if (html_engine_frozen (e))
