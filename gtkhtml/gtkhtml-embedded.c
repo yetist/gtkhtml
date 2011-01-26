@@ -218,14 +218,10 @@ gtk_html_embedded_get_preferred_height (GtkWidget *widget, gint *minimum_height,
 
 	child = gtk_bin_get_child (GTK_BIN (widget));
 
-	if (child) {
+	if (child && gtk_widget_get_visible (child))
 		gtk_widget_get_preferred_height (child, minimum_height, natural_height);
-	} else {
-		GtkRequisition self_requisition;
-
-		gtk_widget_get_requisition (widget, &self_requisition);
-		*minimum_height = *natural_height = self_requisition.height;
-	}
+	else
+		*minimum_height = *natural_height = 0;
 }
 
 static void
@@ -237,14 +233,10 @@ gtk_html_embedded_get_preferred_width (GtkWidget *widget, gint *minimum_width, g
 
 	child = gtk_bin_get_child (GTK_BIN (widget));
 
-	if (child) {
+	if (child && gtk_widget_get_visible (child))
 		gtk_widget_get_preferred_width (child, minimum_width, natural_width);
-	} else {
-		GtkRequisition self_requisition;
-
-		gtk_widget_get_requisition (widget, &self_requisition);
-		*minimum_width = *natural_width = self_requisition.width;
-	}
+	else
+		*minimum_width = *natural_width = 0;
 }
 
 static void
@@ -257,9 +249,9 @@ gtk_html_embedded_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 
 	child = gtk_bin_get_child (GTK_BIN (widget));
 
-	if (child && gtk_widget_get_visible (child)) {
+	if (child && gtk_widget_get_visible (child))
 		gtk_widget_size_allocate (child, allocation);
-	}
+
 	gtk_widget_set_allocation (widget, allocation);
 }
 
