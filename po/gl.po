@@ -12,20 +12,20 @@
 # Ignacio Casal Quinteiro <icq@svn.gnome.org>, 2008.
 # Mancomún - Centro de Referencia e Servizos de Software Libre <g11n@mancomun.org>, 2009.
 # Antón Méixome <meixome@mancomun.org>, 2009.
-# Fran Diéguez <frandieguez@ubuntu.com>, 2010.
+# Fran Diéguez <frandieguez@ubuntu.com>, 2010, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-20 13:50+0200\n"
-"PO-Revision-Date: 2010-07-20 13:50+0200\n"
+"POT-Creation-Date: 2011-01-27 03:27+0100\n"
+"PO-Revision-Date: 2011-01-24 23:43+0100\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
 "Language-Team: Galician <gnome-gl-list@gnome.org>\n"
+"Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Generator: KBabel 1.11.4\n"
 
@@ -43,186 +43,186 @@ msgstr "O URL é %s"
 msgid "grab focus"
 msgstr "obter o foco"
 
-#: ../a11y/object.c:257
+#: ../a11y/object.c:253
 msgid "Panel containing HTML"
 msgstr "Panel con contido HTML"
 
-#: ../components/editor/gtkhtml-color-combo.c:79
+#: ../components/editor/gtkhtml-color-combo.c:82
 msgid "black"
 msgstr "negro"
 
-#: ../components/editor/gtkhtml-color-combo.c:80
+#: ../components/editor/gtkhtml-color-combo.c:83
 msgid "light brown"
 msgstr "castaño claro"
 
-#: ../components/editor/gtkhtml-color-combo.c:81
+#: ../components/editor/gtkhtml-color-combo.c:84
 msgid "brown gold"
 msgstr "castaño dourado"
 
-#: ../components/editor/gtkhtml-color-combo.c:82
+#: ../components/editor/gtkhtml-color-combo.c:85
 msgid "dark green #2"
 msgstr "verde escuro #2"
 
-#: ../components/editor/gtkhtml-color-combo.c:83
+#: ../components/editor/gtkhtml-color-combo.c:86
 msgid "navy"
 msgstr "azul media noite"
 
-#: ../components/editor/gtkhtml-color-combo.c:84
+#: ../components/editor/gtkhtml-color-combo.c:87
 msgid "dark blue"
 msgstr "azul escuro"
 
-#: ../components/editor/gtkhtml-color-combo.c:85
+#: ../components/editor/gtkhtml-color-combo.c:88
 msgid "purple #2"
 msgstr "púrpura #2"
 
-#: ../components/editor/gtkhtml-color-combo.c:86
+#: ../components/editor/gtkhtml-color-combo.c:89
 msgid "very dark gray"
 msgstr "gris marengo"
 
-#: ../components/editor/gtkhtml-color-combo.c:88
+#: ../components/editor/gtkhtml-color-combo.c:91
 msgid "dark red"
 msgstr "vermello escuro"
 
-#: ../components/editor/gtkhtml-color-combo.c:89
+#: ../components/editor/gtkhtml-color-combo.c:92
 msgid "red-orange"
 msgstr "vermello laranxa"
 
-#: ../components/editor/gtkhtml-color-combo.c:90
+#: ../components/editor/gtkhtml-color-combo.c:93
 msgid "gold"
 msgstr "dourado"
 
-#: ../components/editor/gtkhtml-color-combo.c:91
+#: ../components/editor/gtkhtml-color-combo.c:94
 msgid "dark green"
 msgstr "verde escuro"
 
-#: ../components/editor/gtkhtml-color-combo.c:92
+#: ../components/editor/gtkhtml-color-combo.c:95
 msgid "dull blue"
 msgstr "azul mate"
 
-#: ../components/editor/gtkhtml-color-combo.c:93
+#: ../components/editor/gtkhtml-color-combo.c:96
 msgid "blue"
 msgstr "azul"
 
-#: ../components/editor/gtkhtml-color-combo.c:94
+#: ../components/editor/gtkhtml-color-combo.c:97
 msgid "dull purple"
 msgstr "púrpura mate"
 
-#: ../components/editor/gtkhtml-color-combo.c:95
+#: ../components/editor/gtkhtml-color-combo.c:98
 msgid "dark grey"
 msgstr "gris escuro"
 
-#: ../components/editor/gtkhtml-color-combo.c:97
+#: ../components/editor/gtkhtml-color-combo.c:100
 msgid "red"
 msgstr "vermello"
 
-#: ../components/editor/gtkhtml-color-combo.c:98
+#: ../components/editor/gtkhtml-color-combo.c:101
 msgid "orange"
 msgstr "laranxa"
 
-#: ../components/editor/gtkhtml-color-combo.c:99
+#: ../components/editor/gtkhtml-color-combo.c:102
 msgid "lime"
 msgstr "lima"
 
-#: ../components/editor/gtkhtml-color-combo.c:100
+#: ../components/editor/gtkhtml-color-combo.c:103
 msgid "dull green"
 msgstr "verde mate"
 
-#: ../components/editor/gtkhtml-color-combo.c:101
+#: ../components/editor/gtkhtml-color-combo.c:104
 msgid "dull blue #2"
 msgstr "azul mate #2"
 
-#: ../components/editor/gtkhtml-color-combo.c:102
+#: ../components/editor/gtkhtml-color-combo.c:105
 msgid "sky blue #2"
 msgstr "azul ceo #2"
 
-#: ../components/editor/gtkhtml-color-combo.c:103
+#: ../components/editor/gtkhtml-color-combo.c:106
 msgid "purple"
 msgstr "púrpura"
 
-#: ../components/editor/gtkhtml-color-combo.c:104
+#: ../components/editor/gtkhtml-color-combo.c:107
 msgid "gray"
 msgstr "gris"
 
-#: ../components/editor/gtkhtml-color-combo.c:106
+#: ../components/editor/gtkhtml-color-combo.c:109
 msgid "magenta"
 msgstr "fucsia"
 
-#: ../components/editor/gtkhtml-color-combo.c:107
+#: ../components/editor/gtkhtml-color-combo.c:110
 msgid "bright orange"
 msgstr "laranxa brillante"
 
-#: ../components/editor/gtkhtml-color-combo.c:108
+#: ../components/editor/gtkhtml-color-combo.c:111
 msgid "yellow"
 msgstr "amarelo"
 
-#: ../components/editor/gtkhtml-color-combo.c:109
+#: ../components/editor/gtkhtml-color-combo.c:112
 msgid "green"
 msgstr "verde"
 
-#: ../components/editor/gtkhtml-color-combo.c:110
+#: ../components/editor/gtkhtml-color-combo.c:113
 msgid "cyan"
 msgstr "cian"
 
-#: ../components/editor/gtkhtml-color-combo.c:111
+#: ../components/editor/gtkhtml-color-combo.c:114
 msgid "bright blue"
 msgstr "azul brillante"
 
-#: ../components/editor/gtkhtml-color-combo.c:112
+#: ../components/editor/gtkhtml-color-combo.c:115
 msgid "red purple"
 msgstr "vermello púrpura"
 
-#: ../components/editor/gtkhtml-color-combo.c:113
+#: ../components/editor/gtkhtml-color-combo.c:116
 msgid "light grey"
 msgstr "gris claro"
 
-#: ../components/editor/gtkhtml-color-combo.c:115
+#: ../components/editor/gtkhtml-color-combo.c:118
 msgid "pink"
 msgstr "rosa"
 
-#: ../components/editor/gtkhtml-color-combo.c:116
+#: ../components/editor/gtkhtml-color-combo.c:119
 msgid "light orange"
 msgstr "laranxa claro"
 
-#: ../components/editor/gtkhtml-color-combo.c:117
+#: ../components/editor/gtkhtml-color-combo.c:120
 msgid "light yellow"
 msgstr "amarelo claro"
 
-#: ../components/editor/gtkhtml-color-combo.c:118
+#: ../components/editor/gtkhtml-color-combo.c:121
 msgid "light green"
 msgstr "verde claro"
 
-#: ../components/editor/gtkhtml-color-combo.c:119
+#: ../components/editor/gtkhtml-color-combo.c:122
 msgid "light cyan"
 msgstr "cian claro"
 
-#: ../components/editor/gtkhtml-color-combo.c:120
+#: ../components/editor/gtkhtml-color-combo.c:123
 msgid "light blue"
 msgstr "azul claro"
 
-#: ../components/editor/gtkhtml-color-combo.c:121
+#: ../components/editor/gtkhtml-color-combo.c:124
 msgid "light purple"
 msgstr "púrpura claro"
 
-#: ../components/editor/gtkhtml-color-combo.c:122
+#: ../components/editor/gtkhtml-color-combo.c:125
 msgid "white"
 msgstr "branco"
 
-#: ../components/editor/gtkhtml-color-combo.c:277
+#: ../components/editor/gtkhtml-color-combo.c:280
 msgid "Choose Custom Color"
 msgstr "Escoller unha cor personalizada"
 
-#: ../components/editor/gtkhtml-color-combo.c:745
+#: ../components/editor/gtkhtml-color-combo.c:748
 #: ../components/editor/gtkhtml-color-state.c:228
 msgid "Default"
-msgstr "Predefinido"
+msgstr "Predeterminado"
 
-#: ../components/editor/gtkhtml-color-combo.c:968
+#: ../components/editor/gtkhtml-color-combo.c:971
 msgid "custom"
 msgstr "personalizada"
 
-#: ../components/editor/gtkhtml-color-combo.c:976
+#: ../components/editor/gtkhtml-color-combo.c:979
 msgid "Custom Color..."
-msgstr "Cor personalizada..."
+msgstr "Cor personalizada…"
 
 #. Translators: :-)
 #: ../components/editor/gtkhtml-face-chooser.c:34
@@ -352,7 +352,7 @@ msgstr "Inserir un ficheiro de texto"
 
 #. Replace Button
 #: ../components/editor/gtkhtml-editor-actions.c:1184
-#: ../components/editor/gtkhtml-spell-dialog.c:520
+#: ../components/editor/gtkhtml-spell-dialog.c:522
 msgid "_Replace"
 msgstr "S_ubstituír"
 
@@ -386,11 +386,11 @@ msgstr "Aumentar a sangría"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1254
 msgid "_HTML File..."
-msgstr "Ficheiro _HTML..."
+msgstr "Ficheiro _HTML…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1261
 msgid "Te_xt File..."
-msgstr "Ficheiro de te_xto..."
+msgstr "Ficheiro de te_xto…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1268
 msgid "_Paste"
@@ -410,7 +410,7 @@ msgstr "Seleccionar _todo"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1296
 msgid "_Find..."
-msgstr "_Buscar..."
+msgstr "_Buscar…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1303
 msgid "Re_place..."
@@ -418,12 +418,12 @@ msgstr "_Substituír…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1310
 msgid "Check _Spelling..."
-msgstr "Verificación da _ortografía..."
+msgstr "Verificación da _ortografía…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1317
 #: ../components/editor/gtkhtml-editor-builder.ui.h:80
 msgid "_Test URL..."
-msgstr "_Probar o URL..."
+msgstr "_Probar o URL…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1324
 msgid "_Undo"
@@ -446,7 +446,7 @@ msgid "_Edit"
 msgstr "_Editar"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1354
-#: ../components/editor/main.c:327
+#: ../components/editor/main.c:330
 msgid "_File"
 msgstr "_Ficheiro"
 
@@ -471,7 +471,7 @@ msgid "Current _Languages"
 msgstr "_Idiomas actuais"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1396
-#: ../components/editor/main.c:358
+#: ../components/editor/main.c:361
 msgid "_View"
 msgstr "_Ver"
 
@@ -570,12 +570,12 @@ msgstr "Lista alf_abética"
 #: ../components/editor/gtkhtml-editor-actions.c:1547
 #: ../components/editor/gtkhtml-editor-actions.c:1584
 msgid "_Image..."
-msgstr "_Imaxe..."
+msgstr "_Imaxe…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1554
 #: ../components/editor/gtkhtml-editor-actions.c:1591
 msgid "_Link..."
-msgstr "_Ligazón..."
+msgstr "_Ligazón…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1556
 msgid "Insert Link"
@@ -585,7 +585,7 @@ msgstr "Inserir unha ligazón"
 #: ../components/editor/gtkhtml-editor-actions.c:1562
 #: ../components/editor/gtkhtml-editor-actions.c:1606
 msgid "_Rule..."
-msgstr "_Regra..."
+msgstr "_Regra…"
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
 #: ../components/editor/gtkhtml-editor-actions.c:1565
@@ -595,7 +595,7 @@ msgstr "Inserir unha regra"
 #: ../components/editor/gtkhtml-editor-actions.c:1570
 #: ../components/editor/gtkhtml-editor-actions.c:1613
 msgid "_Table..."
-msgstr "_Táboa..."
+msgstr "_Táboa…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1572
 msgid "Insert Table"
@@ -603,11 +603,11 @@ msgstr "Inserir unha táboa"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1577
 msgid "_Cell..."
-msgstr "_Cela..."
+msgstr "_Cela…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1598
 msgid "Pa_ge..."
-msgstr "Pá_xina..."
+msgstr "Pá_xina…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1622
 msgid "Font _Size"
@@ -753,36 +753,36 @@ msgstr "Fila inferior"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1863
 msgid "Cell..."
-msgstr "Cela..."
+msgstr "Cela…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1870
 msgid "Image..."
-msgstr "Imaxe..."
+msgstr "Imaxe…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1877
 msgid "Link..."
-msgstr "Ligazón..."
+msgstr "Ligazón…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1884
 msgid "Page..."
-msgstr "Páxina..."
+msgstr "Páxina…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1891
 msgid "Paragraph..."
-msgstr "Parágrafo..."
+msgstr "Parágrafo…"
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
 #: ../components/editor/gtkhtml-editor-actions.c:1899
 msgid "Rule..."
-msgstr "Regra..."
+msgstr "Regra…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1906
 msgid "Table..."
-msgstr "Táboa..."
+msgstr "Táboa…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1913
 msgid "Text..."
-msgstr "Texto..."
+msgstr "Texto…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1920
 msgid "Remove Link"
@@ -1216,37 +1216,37 @@ msgstr "px"
 msgid "Suggestions for \"%s\""
 msgstr "Suxestións para «%s»"
 
-#: ../components/editor/gtkhtml-spell-dialog.c:447
+#: ../components/editor/gtkhtml-spell-dialog.c:449
 msgid "Spell Checker"
 msgstr "Corrector ortográfico"
 
 #. Replace All Button
-#: ../components/editor/gtkhtml-spell-dialog.c:534
+#: ../components/editor/gtkhtml-spell-dialog.c:536
 msgid "R_eplace All"
 msgstr "S_ubstituír todo"
 
 #. Ignore Button
-#: ../components/editor/gtkhtml-spell-dialog.c:548
+#: ../components/editor/gtkhtml-spell-dialog.c:550
 msgid "_Ignore"
 msgstr "_Ignorar"
 
 #. Skip Button
-#: ../components/editor/gtkhtml-spell-dialog.c:562
+#: ../components/editor/gtkhtml-spell-dialog.c:564
 msgid "_Skip"
 msgstr "_Omitir"
 
 #. Back Button
-#: ../components/editor/gtkhtml-spell-dialog.c:575
+#: ../components/editor/gtkhtml-spell-dialog.c:577
 msgid "_Back"
 msgstr "_Atrás"
 
 #. Dictionary Label
-#: ../components/editor/gtkhtml-spell-dialog.c:588
+#: ../components/editor/gtkhtml-spell-dialog.c:590
 msgid "Dictionary"
 msgstr "Dicionario"
 
 #. Add Word Button
-#: ../components/editor/gtkhtml-spell-dialog.c:617
+#: ../components/editor/gtkhtml-spell-dialog.c:619
 msgid "_Add Word"
 msgstr "_Engadir palabra"
 
@@ -1271,7 +1271,7 @@ msgstr "%s (%s)"
 #: ../components/editor/gtkhtml-spell-language.c:460
 msgctxt "language"
 msgid "Default"
-msgstr "Predefinida"
+msgstr "Predeterminada"
 
 #: ../components/editor/main.c:93
 msgid "Save As"
@@ -1281,47 +1281,47 @@ msgstr "Gardar como"
 msgid "Untitled document"
 msgstr "Documento sen título"
 
-#: ../components/editor/main.c:271
+#: ../components/editor/main.c:274
 msgid "HTML Output"
 msgstr "Saída HTML"
 
-#: ../components/editor/main.c:278
+#: ../components/editor/main.c:281
 msgid "HTML Source"
 msgstr "Fonte HTML"
 
-#: ../components/editor/main.c:285
+#: ../components/editor/main.c:288
 msgid "Plain Source"
 msgstr "Fonte en texto plano"
 
-#: ../components/editor/main.c:292
+#: ../components/editor/main.c:295
 msgid "_Print..."
-msgstr "I_mprimir..."
+msgstr "I_mprimir…"
 
-#: ../components/editor/main.c:299
+#: ../components/editor/main.c:302
 msgid "Print Pre_view"
 msgstr "Pre_visualización de impresión"
 
-#: ../components/editor/main.c:306
+#: ../components/editor/main.c:309
 msgid "_Quit"
 msgstr "_Saír"
 
-#: ../components/editor/main.c:313
+#: ../components/editor/main.c:316
 msgid "_Save"
 msgstr "_Gardar"
 
-#: ../components/editor/main.c:320
+#: ../components/editor/main.c:323
 msgid "Save _As..."
-msgstr "Gardar c_omo..."
+msgstr "Gardar c_omo…"
 
-#: ../components/editor/main.c:337
+#: ../components/editor/main.c:340
 msgid "HTML _Output"
 msgstr "Saí_da HTML"
 
-#: ../components/editor/main.c:344
+#: ../components/editor/main.c:347
 msgid "_HTML Source"
 msgstr "_Fonte HTML"
 
-#: ../components/editor/main.c:351
+#: ../components/editor/main.c:354
 msgid "_Plain Source"
 msgstr "Fonte _texto plano"
 
@@ -1336,8 +1336,8 @@ msgstr "Restaurar"
 #. TODO2 dialog instead of warning
 #: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:309
 msgid "Cannot allocate default font for printing"
-msgstr "Non é posíbel asignar o tipo de letra predefinida para imprimir"
+msgstr "Non é posíbel asignar o tipo de letra predeterminada para imprimir"
 
-#: ../gtkhtml/test.c:364
+#: ../gtkhtml/test.c:367
 msgid "GtkHTML Test"
 msgstr "Proba de GtkHTML"
