@@ -36,6 +36,7 @@
 #include "gtkhtml-combo-box.h"
 #include "gtkhtml-face-action.h"
 #include "gtkhtml-face-chooser.h"
+#include "gtkhtml-image-chooser-dialog.h"
 #include "gtkhtml-spell-dialog.h"
 
 /* GtkHTML internals */
@@ -203,9 +204,6 @@ void		gtkhtml_editor_private_finalize	(GtkhtmlEditor *editor);
 
 void		gtkhtml_editor_actions_init	(GtkhtmlEditor *editor);
 gchar *		gtkhtml_editor_find_data_file	(const gchar *basename);
-gint		gtkhtml_editor_insert_file	(GtkhtmlEditor *editor,
-						 const gchar *title,
-						 GCallback response_cb);
 GFile *		gtkhtml_editor_run_open_dialog	(GtkhtmlEditor *editor,
 						 const gchar *title,
 						 GtkCallback customize_func,

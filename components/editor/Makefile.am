@@ -51,6 +51,8 @@ libgtkhtml_editor_4_0_la_SOURCES = \
 	gtkhtml-face-chooser-menu.h		\
 	gtkhtml-face-tool-button.c		\
 	gtkhtml-face-tool-button.h		\
+	gtkhtml-image-chooser-dialog.c		\
+	gtkhtml-image-chooser-dialog.h		\
 	gtkhtml-spell-dialog.c			\
 	gtkhtml-spell-dialog.h			\
 	gtkhtml-spell-checker.c			\

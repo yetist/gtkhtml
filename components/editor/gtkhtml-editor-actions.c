@@ -136,21 +136,6 @@
  *****************************************************************************/
 
 static void
-insert_image_response_cb (GtkFileChooser *file_chooser,
-                          gint response,
-                          GtkhtmlEditor *editor)
-{
-	gchar *uri;
-
-	if (response != GTK_RESPONSE_OK)
-		return;
-
-	uri = gtk_file_chooser_get_uri (file_chooser);
-	gtkhtml_editor_insert_image (editor, uri);
-	g_free (uri);
-}
-
-static void
 insert_html_file_ready_cb (GFile *file,
                            GAsyncResult *result,
                            GtkhtmlEditor *editor)
@@ -631,9 +616,32 @@ static void
 action_insert_image_cb (GtkAction *action,
                         GtkhtmlEditor *editor)
 {
-	gtkhtml_editor_insert_file (
-		editor, _("Insert Image"),
-		G_CALLBACK (insert_image_response_cb));
+	GtkWidget *dialog;
+	GFile *file;
+
+	dialog = gtkhtml_image_chooser_dialog_new (
+		_("Insert Image"), GTK_WINDOW (editor));
+
+	g_object_bind_property (
+		editor, "current-folder",
+		dialog, "current-folder",
+		G_BINDING_BIDIRECTIONAL |
+		G_BINDING_SYNC_CREATE);
+
+	file = gtkhtml_image_chooser_dialog_run (
+		GTKHTML_IMAGE_CHOOSER_DIALOG (dialog));
+
+	if (file != NULL) {
+		gchar *uri;
+
+		uri = gtk_file_chooser_get_uri (GTK_FILE_CHOOSER (dialog));
+		gtkhtml_editor_insert_image (editor, uri);
+		g_free (uri);
+
+		g_object_unref (file);
+	}
+
+	gtk_widget_destroy (dialog);
 }
 
 static void

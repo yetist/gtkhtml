@@ -482,36 +482,6 @@ gtkhtml_editor_find_data_file (const gchar *basename)
 	return NULL;  /* never gets here */
 }
 
-gint
-gtkhtml_editor_insert_file (GtkhtmlEditor *editor,
-                            const gchar *title,
-                            GCallback response_cb)
-{
-	GtkWidget *dialog;
-	gint response;
-
-	g_return_val_if_fail (GTKHTML_IS_EDITOR (editor), GTK_RESPONSE_CANCEL);
-	g_return_val_if_fail (response_cb != NULL, GTK_RESPONSE_CANCEL);
-
-	dialog = gtk_file_chooser_dialog_new (
-		title, GTK_WINDOW (editor),
-		GTK_FILE_CHOOSER_ACTION_OPEN,
-		GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-		GTK_STOCK_OPEN, GTK_RESPONSE_OK,
-		NULL);
-
-	gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (dialog), FALSE);
-	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_OK);
-
-	g_signal_connect (dialog, "response", response_cb, editor);
-
-	response = gtkhtml_editor_file_chooser_dialog_run (editor, dialog);
-
-	gtk_widget_destroy (dialog);
-
-	return response;
-}
-
 GFile *
 gtkhtml_editor_run_open_dialog (GtkhtmlEditor *editor,
                                 const gchar *title,
