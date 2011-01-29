@@ -1,33 +1,33 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
-
-    Copyright (C) 2000 Helix Code, Inc.
-    Authors:           Radek Doulik (rodo@helixcode.com)
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
-
-    TODO:
-
-    - now we go thru the html tree without take care about vertical
-      position of paragraph. so it is possible to find first match
-      on bottom of page (ie. first column of table) and the second
-      one on top (ie. top of second comlumn)
-      [also Netscape didn't take care of it]
-
-*/
+ *
+ *  Copyright (C) 2000 Helix Code, Inc.
+ *  Authors:           Radek Doulik (rodo@helixcode.com)
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
+ *
+ *  TODO:
+ *
+ *  - now we go thru the html tree without take care about vertical
+ *    position of paragraph. so it is possible to find first match
+ *    on bottom of page (ie. first column of table) and the second
+ *    one on top (ie. top of second comlumn)
+ *    [also Netscape didn't take care of it]
+ *
+ */
 
 #include <config.h>
 #include <string.h>

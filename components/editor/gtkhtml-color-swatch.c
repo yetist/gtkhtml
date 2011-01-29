@@ -129,26 +129,28 @@ color_swatch_dispose (GObject *object)
 
 static void
 color_swatch_get_preferred_width (GtkWidget *widget,
-                           	  gint *minimum_width,
-				  gint *natural_width)
+                                  gint *minimum_width,
+                                  gint *natural_width)
 {
 	GtkhtmlColorSwatchPrivate *priv;
 
 	priv = GTKHTML_COLOR_SWATCH_GET_PRIVATE (widget);
 
-	gtk_widget_get_preferred_width (priv->frame, minimum_width, natural_width);
+	gtk_widget_get_preferred_width (
+		priv->frame, minimum_width, natural_width);
 }
 
 static void
 color_swatch_get_preferred_height (GtkWidget *widget,
-                           	  gint *minimum_height,
-				  gint *natural_height)
+                                   gint *minimum_height,
+                                   gint *natural_height)
 {
 	GtkhtmlColorSwatchPrivate *priv;
 
 	priv = GTKHTML_COLOR_SWATCH_GET_PRIVATE (widget);
 
-	gtk_widget_get_preferred_height (priv->frame, minimum_height, natural_height);
+	gtk_widget_get_preferred_height (
+		priv->frame, minimum_height, natural_height);
 }
 
 static void
