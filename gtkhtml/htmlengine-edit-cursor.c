@@ -79,7 +79,7 @@ html_engine_hide_cursor  (HTMLEngine *engine)
 void
 html_engine_show_cursor  (HTMLEngine *engine)
 {
-        HTMLEngine * e = engine;
+	HTMLEngine * e = engine;
 
 	g_return_if_fail (engine != NULL);
 	g_return_if_fail (HTML_IS_ENGINE (engine));
@@ -322,8 +322,8 @@ html_engine_draw_cursor_in_area (HTMLEngine *engine,
 			y2 -= HTML_EMBEDDED (obj)->abs_y;
 			break;
 		}
-                obj = obj->parent;
-        }
+		obj = obj->parent;
+	}
 
 	/* get scroll offset */
 	hadj = gtk_layout_get_hadjustment (GTK_LAYOUT (engine->widget));

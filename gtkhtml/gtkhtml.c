@@ -1111,7 +1111,7 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 				url = html_object_get_complete_url (focus_object, focus_object_offset);
 				if (url) {
 					/* printf ("link clicked: %s\n", url); */
-                                        if (HTML_IS_TEXT (focus_object)) {
+					if (HTML_IS_TEXT (focus_object)) {
 						html_text_set_link_visited (HTML_TEXT (focus_object), focus_object_offset, html->engine, TRUE);
 					g_signal_emit (html, signals[LINK_CLICKED], 0, url);
 					}
@@ -1206,7 +1206,7 @@ realize (GtkWidget *widget)
 	gdk_window_set_cursor (window, NULL);
 
 	/* This sets the backing pixmap to None, so that scrolling does not
-           erase the newly exposed area, thus making the thing smoother.  */
+	   erase the newly exposed area, thus making the thing smoother.  */
 	gdk_window_set_background_pattern (bin_window, NULL);
 
 	/* If someone was silly enough to stick us in something that doesn't
@@ -1583,7 +1583,7 @@ mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y, gint sta
 			remove_scroll_timeout (html);
 
 		/* This will put the mark at the position of the
-                   previous click.  */
+		   previous click.  */
 		if (engine->mark == NULL && engine->editable)
 			html_engine_set_mark (engine);
 
@@ -1822,7 +1822,7 @@ gtk_html_get_url_object_relative (GtkHTML *html, HTMLObject *o, const gchar *url
 	if (e == html->engine)
 		g_warning ("engine matches engine");
 	*/
-        return url ? expand_frame_url (e->widget, url) : NULL;
+	return url ? expand_frame_url (e->widget, url) : NULL;
 }
 
 static GtkWidget *
@@ -2766,24 +2766,24 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 			selection_data, widget);
 		pasted = TRUE;
 		break;
-        case DND_TARGET_TYPE_MOZILLA_URL  :
+	case DND_TARGET_TYPE_MOZILLA_URL  :
 		break;
-        case DND_TARGET_TYPE_TEXT_URI_LIST:
+	case DND_TARGET_TYPE_TEXT_URI_LIST:
 		if (!HTML_IS_PLAIN_PAINTER (engine->painter)) {
-                 HTMLObject *obj;
-                 gint list_len, len;
-                 gchar *uri;
+		 HTMLObject *obj;
+		 gint list_len, len;
+		 gchar *uri;
                  html_undo_level_begin (engine->undo, "Dropped URI(s)", "Remove Dropped URI(s)");
-                 list_len = length;
-                 do {
-                         uri = next_uri ((guchar **) &data, &len, &list_len);
-                         obj = new_img_obj_from_uri (engine, uri, NULL, -1);
-                         if (obj) {
-                                 html_engine_paste_object (engine, obj, html_object_get_length (obj));
-                                 pasted = TRUE;
-                         }
-                 } while (list_len);
-                 html_undo_level_end (engine->undo, engine);
+		 list_len = length;
+		 do {
+			 uri = next_uri ((guchar **) &data, &len, &list_len);
+			 obj = new_img_obj_from_uri (engine, uri, NULL, -1);
+			 if (obj) {
+				 html_engine_paste_object (engine, obj, html_object_get_length (obj));
+				 pasted = TRUE;
+			 }
+		 } while (list_len);
+		 html_undo_level_end (engine->undo, engine);
 	}
 	break;
 	}
@@ -3271,17 +3271,17 @@ gtk_html_im_commit_cb (GtkIMContext *context, const gchar *str, GtkHTML *html)
 
 	html->priv->im_block_reset = TRUE;
 
-        if (html->priv->im_pre_len > 0) {
+	if (html->priv->im_pre_len > 0) {
                 D_IM (printf ("IM delete last preedit %d + %d\n", html->priv->im_pre_pos, html->priv->im_pre_len);)
 
-                html_undo_freeze (html->engine->undo);
-                html_cursor_exactly_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos);
-                html_engine_set_mark (html->engine);
-                html_cursor_exactly_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos + html->priv->im_pre_len);
-                html_engine_delete (html->engine);
-                html->priv->im_pre_len = 0;
-                html_undo_thaw (html->engine->undo);
-        }
+		html_undo_freeze (html->engine->undo);
+		html_cursor_exactly_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos);
+		html_engine_set_mark (html->engine);
+		html_cursor_exactly_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos + html->priv->im_pre_len);
+		html_engine_delete (html->engine);
+		html->priv->im_pre_len = 0;
+		html_undo_thaw (html->engine->undo);
+	}
 
 	pos = html->engine->cursor->position;
 	if (html->engine->mark && html->engine->mark->position > pos)

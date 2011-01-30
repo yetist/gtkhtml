@@ -334,8 +334,8 @@ html_engine_scroll_up (HTMLEngine *engine,
 		html_object_get_cursor_base (cursor->object, engine->painter, cursor->offset, &x, &new_y);
 
 		/* FIXME html_cursor_down() is broken.  It should
-                   return FALSE and TRUE appropriately.  But I am lazy
-                   now.  */
+		   return FALSE and TRUE appropriately.  But I am lazy
+		   now.  */
 		if (new_y == y)
 			break;
 

@@ -138,7 +138,7 @@ html_url_new (const gchar *s)
 
 	/* Scan for the protocol part.  */
 	/* FIXME I am assuming that the correct regexp for detecting it is
-           `^[a-zA-Z0-9]:'.  */
+	   `^[a-zA-Z0-9]:'.  */
 
 	p = s;
 	while ((*p >= 'a' && *p <= 'z')
@@ -447,7 +447,7 @@ html_url_to_string (const HTMLURL *url)
 	}
 
 	/* Notice that the `path' part is always supposed to start with a
-           slash, so we don't need to append the slash here.  */
+	   slash, so we don't need to append the slash here.  */
 
 	if (path_length != 0)
 		APPEND_MEMBER (path);

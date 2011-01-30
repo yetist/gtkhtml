@@ -104,7 +104,7 @@ calc_dimension (GPtrArray *dim, gint *span, gint total)
 
 		if (len->type == HTML_LENGTH_TYPE_PIXELS)
 			span[i] = len->val;
-                else if (len->type == HTML_LENGTH_TYPE_FRACTION)
+		else if (len->type == HTML_LENGTH_TYPE_FRACTION)
 			num_frac += len->val;
 		else if (len->type == HTML_LENGTH_TYPE_PERCENT)
 			span[i] = (total * len->val) / 100;

@@ -823,7 +823,7 @@ action_mode_cb (GtkRadioAction *action,
 	action_group = editor->priv->html_context_actions;
 	gtk_action_group_set_visible (action_group, html_mode);
 
-        gtk_widget_set_sensitive (editor->priv->color_combo_box, html_mode);
+	gtk_widget_set_sensitive (editor->priv->color_combo_box, html_mode);
 
 	if (html_mode)
 		gtk_widget_show (editor->priv->html_toolbar);

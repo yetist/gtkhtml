@@ -356,7 +356,7 @@ relayout (HTMLObject *self,
 	  HTMLObject *child)
 {
 	/* FIXME gint types of this stuff might change in `htmlobject.h',
-           remember to sync.  */
+	   remember to sync.  */
 	guint prev_width;
 	guint prev_ascent, prev_descent;
 	gboolean changed;
@@ -369,7 +369,7 @@ relayout (HTMLObject *self,
 	prev_descent = self->descent;
 
 	/* Notice that this will reset ascent and descent which we
-           need afterwards.  Yeah, yuck, bleargh.  */
+	   need afterwards.  Yeah, yuck, bleargh.  */
 	html_object_reset (self);
 
 	/* Crappy hack to make crappy htmlclueflow.c happy.  */

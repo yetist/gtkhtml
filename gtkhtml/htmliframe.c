@@ -233,8 +233,8 @@ static void
 copy (HTMLObject *self,
       HTMLObject *dest)
 {
-        HTMLIFrame *s = HTML_IFRAME (self);
-        HTMLIFrame *d = HTML_IFRAME (dest);
+	HTMLIFrame *s = HTML_IFRAME (self);
+	HTMLIFrame *d = HTML_IFRAME (dest);
 
 	(* HTML_OBJECT_CLASS (parent_class)->copy) (self, dest);
 	/*

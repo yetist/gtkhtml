@@ -42,40 +42,40 @@ static gchar *
 replace_prefix (const gchar *runtime_prefix,
                 const gchar *configure_time_path)
 {
-        if (runtime_prefix &&
+	if (runtime_prefix &&
             strncmp (configure_time_path, PREFIX "/",
-                     strlen (PREFIX) + 1) == 0)
-                return g_strconcat (runtime_prefix,
-                                    configure_time_path + strlen (PREFIX),
-                                    NULL);
-        else
-                return g_strdup (configure_time_path);
+		     strlen (PREFIX) + 1) == 0)
+		return g_strconcat (runtime_prefix,
+				    configure_time_path + strlen (PREFIX),
+				    NULL);
+	else
+		return g_strdup (configure_time_path);
 }
 
 static void
 setup (void)
 {
-        gchar *cp_prefix;
+	gchar *cp_prefix;
 
-        G_LOCK (mutex);
-        if (localedir != NULL) {
-                G_UNLOCK (mutex);
-                return;
-        }
+	G_LOCK (mutex);
+	if (localedir != NULL) {
+		G_UNLOCK (mutex);
+		return;
+	}
 
-        prefix = g_win32_get_package_installation_directory_of_module (hmodule);
-        cp_prefix = g_win32_locale_filename_from_utf8 (prefix);
+	prefix = g_win32_get_package_installation_directory_of_module (hmodule);
+	cp_prefix = g_win32_locale_filename_from_utf8 (prefix);
 
-        localedir = replace_prefix (cp_prefix, GNOMELOCALEDIR);
-        g_free (cp_prefix);
+	localedir = replace_prefix (cp_prefix, GNOMELOCALEDIR);
+	g_free (cp_prefix);
 
-        libdir = replace_prefix (prefix, LIBDIR);
-        datadir = replace_prefix (prefix, DATADIR);
-        sysconfdir = replace_prefix (prefix, SYSCONFDIR);
-        icondir = replace_prefix (prefix, ICONDIR);
-        gtkhtml_datadir = replace_prefix (prefix, GTKHTML_DATADIR);
+	libdir = replace_prefix (prefix, LIBDIR);
+	datadir = replace_prefix (prefix, DATADIR);
+	sysconfdir = replace_prefix (prefix, SYSCONFDIR);
+	icondir = replace_prefix (prefix, ICONDIR);
+	gtkhtml_datadir = replace_prefix (prefix, GTKHTML_DATADIR);
 
-        G_UNLOCK (mutex);
+	G_UNLOCK (mutex);
 }
 
 /* <windows.h> drags in a definition of DATADIR, argh. So #undef
@@ -95,12 +95,12 @@ DllMain (HINSTANCE hinstDLL,
 	 DWORD     fdwReason,
 	 LPVOID    lpvReserved)
 {
-        switch (fdwReason) {
-        case DLL_PROCESS_ATTACH:
-                hmodule = hinstDLL;
-                break;
-        }
-        return TRUE;
+	switch (fdwReason) {
+	case DLL_PROCESS_ATTACH:
+		hmodule = hinstDLL;
+		break;
+	}
+	return TRUE;
 }
 
 /* Include gtkhtml-private.h now to get prototypes for the getter
@@ -114,8 +114,8 @@ DllMain (HINSTANCE hinstDLL,
 const gchar *					\
 _get_##varbl (void)				\
 {						\
-        setup ();				\
-        return varbl;				\
+	setup ();				\
+	return varbl;				\
 }
 
 GETTER (prefix)

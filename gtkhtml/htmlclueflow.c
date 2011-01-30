@@ -450,7 +450,7 @@ need_blockquote_padding  (HTMLClueFlow *flow, HTMLClueFlow *prev)
 	if (i < flow->levels->len || flow->levels->len == 0) {
 		if (i < prev->levels->len)
 			return TRUE;
-                else
+		else
 			return FALSE;
 	}
 
@@ -821,35 +821,35 @@ update_top_height (HTMLObject *begin, HTMLObject *end, gint *a, gint *d, gint *h
 inline HTMLHAlignType
 html_clueflow_get_halignment (HTMLClueFlow *flow)
 {
-        g_return_val_if_fail (flow != NULL, HTML_HALIGN_NONE);
+	g_return_val_if_fail (flow != NULL, HTML_HALIGN_NONE);
 
-        if (HTML_CLUE (flow)->halign == HTML_HALIGN_NONE) {
-                HTMLHAlignType halign;
+	if (HTML_CLUE (flow)->halign == HTML_HALIGN_NONE) {
+		HTMLHAlignType halign;
 
-                if (HTML_OBJECT (flow)->parent && HTML_IS_TABLE_CELL (HTML_OBJECT (flow)->parent))
-                        halign = HTML_CLUE (HTML_OBJECT (flow)->parent)->halign == HTML_HALIGN_NONE
-                                ? HTML_TABLE_CELL (HTML_OBJECT (flow)->parent)->heading ? HTML_HALIGN_CENTER : HTML_HALIGN_NONE
-                                : HTML_CLUE (HTML_OBJECT (flow)->parent)->halign;
-                else
-                        halign = HTML_CLUE (HTML_OBJECT (flow)->parent)->halign;
+		if (HTML_OBJECT (flow)->parent && HTML_IS_TABLE_CELL (HTML_OBJECT (flow)->parent))
+			halign = HTML_CLUE (HTML_OBJECT (flow)->parent)->halign == HTML_HALIGN_NONE
+				? HTML_TABLE_CELL (HTML_OBJECT (flow)->parent)->heading ? HTML_HALIGN_CENTER : HTML_HALIGN_NONE
+				: HTML_CLUE (HTML_OBJECT (flow)->parent)->halign;
+		else
+			halign = HTML_CLUE (HTML_OBJECT (flow)->parent)->halign;
 
-                if (halign == HTML_HALIGN_NONE) {
-                        switch (html_object_get_direction (HTML_OBJECT (flow))) {
-                        case HTML_DIRECTION_LTR:
-                                halign = HTML_HALIGN_LEFT;
-                                break;
-                        case HTML_DIRECTION_RTL:
-                                halign = HTML_HALIGN_RIGHT;
-                                break;
-                        default:
-                                break;
-                        }
-                }
+		if (halign == HTML_HALIGN_NONE) {
+			switch (html_object_get_direction (HTML_OBJECT (flow))) {
+			case HTML_DIRECTION_LTR:
+				halign = HTML_HALIGN_LEFT;
+				break;
+			case HTML_DIRECTION_RTL:
+				halign = HTML_HALIGN_RIGHT;
+				break;
+			default:
+				break;
+			}
+		}
 
-                return halign;
+		return halign;
 
-        } else
-                return HTML_CLUE (flow)->halign;
+	} else
+		return HTML_CLUE (flow)->halign;
 }
 
 static inline void
@@ -1885,8 +1885,8 @@ plain_padding (HTMLClueFlow *flow, GString *out, gboolean firstline)
 	pad_string = g_string_new ("");
 
 #define APPEND_PLAIN(w) \
-        pad_len += strlen (w); \
-        if (out) g_string_append (pad_string, w);
+	pad_len += strlen (w); \
+	if (out) g_string_append (pad_string, w);
 
 	if (flow->levels->len) {
 		for (i = 0; i < flow->levels->len; i++) {
@@ -1921,7 +1921,7 @@ static void
 append_selection_string (HTMLObject *self,
 			 GString *buffer)
 {
-        (*HTML_OBJECT_CLASS (parent_class)->append_selection_string) (self, buffer);
+	(*HTML_OBJECT_CLASS (parent_class)->append_selection_string) (self, buffer);
 
 	if (self->selected) {
 		g_string_append_c (buffer, '\n');
@@ -2363,7 +2363,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 					unicode_info = g_utf8_get_char (info->text + eq_bytes);
 					unicode_par = g_utf8_get_char ((gchar *) par + index);
 					if (!info->case_sensitive) {
-                                             unicode_info = g_unichar_toupper (unicode_info);
+					     unicode_info = g_unichar_toupper (unicode_info);
 					     unicode_par  = g_unichar_toupper (unicode_par);
 					}
 

@@ -1627,7 +1627,7 @@ element_parse_object (HTMLEngine *e, HTMLObject *clue, const gchar *attr)
 	parse_object_params (e, clue);
 
 	/* create the object */
-        object_found = FALSE;
+	object_found = FALSE;
 	gtk_html_debug_log (e->widget,
 			    "requesting object classid: %s\n",
 			    classid ? classid : "(null)");
@@ -1773,7 +1773,7 @@ element_parse_iframe (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		else if (g_ascii_strcasecmp ("bottom", value) == 0)
 			valign = HTML_VALIGN_BOTTOM;
 	}
-        element->style = html_style_set_display (element->style, DISPLAY_NONE);
+	element->style = html_style_set_display (element->style, DISPLAY_NONE);
 	/*
 	html_element_get_attr (element, "longdesc", &value);
 	html_element_get_attr (element, "name", &value);
@@ -3188,7 +3188,7 @@ block_end_table (HTMLEngine *e, HTMLObject *clue, HTMLElement *elem)
 	table = html_stack_top (e->table_stack);
 	html_stack_pop (e->table_stack);
 
-        if (table) {
+	if (table) {
 		if (table->col == 0 && table->row == 0) {
 			DT(printf ("deleting empty table %p\n", table);)
 			html_object_destroy (HTML_OBJECT (table));

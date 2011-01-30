@@ -238,9 +238,9 @@ html_embedded_encode_string (const gchar *before, const gchar *codepage)
 {
 	    const gchar * str = before;
 	    static const gchar *safe = "$-._!*(),"; /* RFC 1738 */
-        unsigned pos = 0;
+	unsigned pos = 0;
         GString *encoded = g_string_new ("");
-        gchar buffer[5], *ptr;
+	gchar buffer[5], *ptr;
 		guchar c;
 
 	    GIConv iconv_cd = generate_iconv_to (codepage);
@@ -250,7 +250,7 @@ html_embedded_encode_string (const gchar *before, const gchar *codepage)
 		g_iconv_close (iconv_cd);
 	    }
 
-        while (pos < strlen (str)) {
+	while (pos < strlen (str)) {
 
 		c = (guchar) str[pos];
 

@@ -1228,29 +1228,29 @@ main (gint argc, gchar *argv[])
 	main_table = gtk_table_new (1, 4, FALSE);
 
 	gtk_table_attach (GTK_TABLE (main_table),
-                        bar,
+			bar,
                         /* X direction */       /* Y direction */
-                        0, 1,                   0, 1,
-                        GTK_EXPAND | GTK_FILL,  GTK_SHRINK,
-                        0,                      0);
+			0, 1,                   0, 1,
+			GTK_EXPAND | GTK_FILL,  GTK_SHRINK,
+			0,                      0);
 	gtk_table_attach (GTK_TABLE (main_table),
-                        create_toolbars (),
+			create_toolbars (),
                         /* X direction */       /* Y direction */
-                        0, 1,                   1, 2,
-                        GTK_EXPAND | GTK_FILL,  GTK_SHRINK,
-                        0,                      0);
+			0, 1,                   1, 2,
+			GTK_EXPAND | GTK_FILL,  GTK_SHRINK,
+			0,                      0);
 	gtk_table_attach (GTK_TABLE (main_table),
-                        scrolled_window,
+			scrolled_window,
                         /* X direction */       /* Y direction */
-                        0, 1,                   2, 3,
-                        GTK_EXPAND | GTK_FILL,  GTK_EXPAND | GTK_FILL,
-                        0,                      0);
+			0, 1,                   2, 3,
+			GTK_EXPAND | GTK_FILL,  GTK_EXPAND | GTK_FILL,
+			0,                      0);
 	gtk_table_attach (GTK_TABLE (main_table),
-                        statusbar,
+			statusbar,
                         /* X direction */       /* Y direction */
-                        0, 1,                   3, 4,
-                        GTK_EXPAND | GTK_FILL,  GTK_SHRINK,
-                        0,                      0);
+			0, 1,                   3, 4,
+			GTK_EXPAND | GTK_FILL,  GTK_SHRINK,
+			0,                      0);
 	/*app*/
 	gtk_container_add (GTK_CONTAINER (app), main_table);
 

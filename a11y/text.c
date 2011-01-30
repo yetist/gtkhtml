@@ -115,37 +115,37 @@ static AtkObjectClass *parent_class = NULL;
 static gint
 get_n_actions (AtkAction *action)
 {
-        return 1;
+	return 1;
 }
 
 static G_CONST_RETURN gchar *
 action_get_name (AtkAction *action, gint      i)
 {
-        if (i == 0)
+	if (i == 0)
                 return _("grab focus");
 
-        return NULL;
+	return NULL;
 }
 
 static gboolean
 do_action (AtkAction * action, gint i)
 {
-        switch (i) {
-        case 0:
+	switch (i) {
+	case 0:
 		return html_a11y_text_grab_focus (ATK_COMPONENT (action));
-        default:
-                return FALSE;
-        }
+	default:
+		return FALSE;
+	}
 }
 
 static void
 atk_action_interface_init (AtkActionIface *iface)
 {
-        g_return_if_fail (iface != NULL);
+	g_return_if_fail (iface != NULL);
 
-        iface->do_action = do_action;
-        iface->get_n_actions = get_n_actions;
-        iface->get_name = action_get_name;
+	iface->do_action = do_action;
+	iface->get_n_actions = get_n_actions;
+	iface->get_name = action_get_name;
 }
 
 GType
@@ -245,14 +245,14 @@ atk_text_interface_init (AtkTextIface *iface)
 static void
 html_a11y_text_finalize (GObject *obj)
 {
-        HTMLA11YText *ato = HTML_A11Y_TEXT (obj);
+	HTMLA11YText *ato = HTML_A11Y_TEXT (obj);
 
-        if (ato->util != NULL) {
-                g_object_unref (ato->util);
-                ato->util = NULL;
-        }
+	if (ato->util != NULL) {
+		g_object_unref (ato->util);
+		ato->util = NULL;
+	}
 
-        G_OBJECT_CLASS (parent_class)->finalize (obj);
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
@@ -413,7 +413,7 @@ html_a11y_text_grab_focus (AtkComponent *comp)
 	html_engine_jump_to_object (html->engine, HTML_A11Y_HTML (comp), HTML_TEXT (HTML_A11Y_HTML (comp))->text_len);
 	g_signal_emit_by_name (html, "grab_focus");
 
-        return TRUE;
+	return TRUE;
 }
 
 /*
@@ -1006,18 +1006,18 @@ html_a11y_text_set_text_contents (AtkEditableText *text,
 	/* fprintf(stderr, "atk set text contents called text %p\n", text);*/
 	g_return_if_fail (string);
 
-        html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
+	html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
 	g_return_if_fail (html && html->engine && html_engine_get_editable (html->engine));
 	t = HTML_TEXT (HTML_A11Y_HTML (text));
 	g_return_if_fail (t);
 
-        html_engine_hide_cursor (html->engine);
+	html_engine_hide_cursor (html->engine);
 	html_cursor_jump_to (html->engine->cursor, html->engine, HTML_OBJECT (t), 0);
 	html_engine_set_mark (html->engine);
 	html_cursor_jump_to (html->engine->cursor, html->engine, HTML_OBJECT (t), t->text_len);
 	html_engine_update_selection_if_necessary (html->engine);
 	html_engine_paste_text (html->engine, string, -1);
-        html_engine_show_cursor (html->engine);
+	html_engine_show_cursor (html->engine);
 
         g_signal_emit_by_name(html, "grab_focus");
 }
@@ -1037,7 +1037,7 @@ html_a11y_text_insert_text (AtkEditableText *text,
 	t = HTML_TEXT (HTML_A11Y_HTML (text));
 	g_return_if_fail (t);
 
-        html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
+	html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
 	g_return_if_fail (html && html->engine && html_engine_get_editable (html->engine));
 	html_cursor_jump_to (html->engine->cursor, html->engine, HTML_OBJECT (t), *position);
 	html_engine_paste_text (html->engine, string, -1);
@@ -1052,19 +1052,19 @@ html_a11y_text_copy_text	(AtkEditableText *text,
 	HTMLText *t;
 
 	/* fprintf(stderr, "atk copy text called \n"); */
-        html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
+	html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
 	g_return_if_fail (html && html->engine && html_engine_get_editable (html->engine));
 	t = HTML_TEXT (HTML_A11Y_HTML (text));
 	g_return_if_fail (t);
 
-        html_engine_hide_cursor (html->engine);
+	html_engine_hide_cursor (html->engine);
 	html_cursor_jump_to (html->engine->cursor, html->engine, HTML_OBJECT (t), start_pos);
 	html_engine_set_mark (html->engine);
 	html_cursor_jump_to (html->engine->cursor, html->engine, HTML_OBJECT (t), end_pos);
 	html_engine_update_selection_if_necessary (html->engine);
 
 	html_engine_copy (html->engine);
-        html_engine_show_cursor (html->engine);
+	html_engine_show_cursor (html->engine);
 }
 
 static void
@@ -1076,12 +1076,12 @@ html_a11y_text_cut_text (AtkEditableText *text,
 	HTMLText *t;
 
 	/* fprintf(stderr, "atk cut text called.\n"); */
-        html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
+	html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
 	g_return_if_fail (html && html->engine && html_engine_get_editable (html->engine));
 	t = HTML_TEXT (HTML_A11Y_HTML (text));
 	g_return_if_fail (t);
 
-        html_engine_hide_cursor (html->engine);
+	html_engine_hide_cursor (html->engine);
 	html_cursor_jump_to (html->engine->cursor, html->engine, HTML_OBJECT (t), start_pos);
 	html_engine_set_mark (html->engine);
 	html_cursor_jump_to (html->engine->cursor, html->engine, HTML_OBJECT (t), end_pos);
@@ -1101,7 +1101,7 @@ html_a11y_text_delete_text	(AtkEditableText *text,
 	HTMLText *t;
 
 	/* fprintf(stderr, "atk delete text called.\n"); */
-        html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
+	html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
 	g_return_if_fail (html && html->engine && html_engine_get_editable (html->engine));
 	t = HTML_TEXT (HTML_A11Y_HTML (text));
 	g_return_if_fail (t);
@@ -1120,15 +1120,15 @@ html_a11y_text_paste_text	(AtkEditableText *text,
 
 	/* fprintf(stderr, "atk paste text called.\n"); */
 
-        html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
+	html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
 	g_return_if_fail (html && html->engine && html_engine_get_editable (html->engine));
 	t = HTML_TEXT (HTML_A11Y_HTML (text));
 	g_return_if_fail (t);
 
-        html_engine_show_cursor (html->engine);
+	html_engine_show_cursor (html->engine);
 	html_cursor_jump_to (html->engine->cursor, html->engine, HTML_OBJECT (t), position);
 	html_engine_paste (html->engine);
-        html_engine_show_cursor (html->engine);
+	html_engine_show_cursor (html->engine);
 
         g_signal_emit_by_name(html, "grab_focus");
 }

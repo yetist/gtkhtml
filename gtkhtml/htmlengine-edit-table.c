@@ -470,12 +470,12 @@ html_engine_delete_table_column (HTMLEngine *e)
 	gint start_col, end_col;
 	HTMLTable *table;
 
-        table = html_engine_get_table (e);
-        if (!table || !HTML_IS_TABLE (table) ||
-                !html_engine_get_table_start_end_cells (e, &start_cell, &end_cell))       {
+	table = html_engine_get_table (e);
+	if (!table || !HTML_IS_TABLE (table) ||
+		!html_engine_get_table_start_end_cells (e, &start_cell, &end_cell))       {
                 g_warning ("Invalid table object! Row deletion failed!");
-                return;
-        }
+		return;
+	}
 
 	start_col = start_cell->col;
 	end_col = end_cell->col;

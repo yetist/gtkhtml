@@ -1208,7 +1208,7 @@ html_text_prepare_attrs (HTMLText *text, HTMLPainter *painter)
 
 	if (flow && e) {
 		html_text_add_cite_color (attrs, text, flow, e);
-        }
+	}
 
 	if (HTML_IS_PLAIN_PAINTER (painter)) {
 		attr = pango_attr_family_new (painter->font_manager.fixed.face);
@@ -3990,13 +3990,13 @@ html_text_change_set (HTMLText *text, HTMLChangeFlags flags)
 void
 html_text_set_link_visited (HTMLText *text, gint offset, HTMLEngine *engine, gboolean is_visited)
 {
-        HTMLEngine *object_engine=html_object_engine (HTML_OBJECT (text),engine);
-        Link *link = html_text_get_link_at_offset (text,offset);
+	HTMLEngine *object_engine=html_object_engine (HTML_OBJECT (text),engine);
+	Link *link = html_text_get_link_at_offset (text,offset);
 
 	if (link) {
-                link->is_visited  = is_visited;
-                html_text_change_set (text, HTML_CHANGE_RECALC_PI);
-                html_text_queue_draw (text, object_engine, offset, 1);
-                html_engine_flush_draw_queue (object_engine);
-        }
+		link->is_visited  = is_visited;
+		html_text_change_set (text, HTML_CHANGE_RECALC_PI);
+		html_text_queue_draw (text, object_engine, offset, 1);
+		html_engine_flush_draw_queue (object_engine);
+	}
 }

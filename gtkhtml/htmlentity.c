@@ -95,10 +95,10 @@ hash (register const gchar *str, register guint len)
       739, 739, 739, 739, 739, 739, 739, 739, 739,  10,
        35,  20,   0, 739, 739, 739, 739, 739, 739, 739,
       739, 739, 739, 739, 739, 175, 135,  30,  60,  95,
-        5,   0,   5, 180, 739,  15,   5,   0,  15, 110,
+	5,   0,   5, 180, 739,  15,   5,   0,  15, 110,
       110, 739,   5,   5,   5, 100, 739, 739,   0,  20,
-        0, 739, 739, 739, 739, 739, 739,   5,  60,  50,
-        0,  15, 144, 115, 215,  10, 225,  10,  95, 125,
+	0, 739, 739, 739, 739, 739, 739,   5,  60,  50,
+	0,  15, 144, 115, 215,  10, 225,  10,  95, 125,
        25,   0,   5, 218,  90,  20,   0,  65,  35,  55,
        45, 115,   5,  15, 739, 739, 739, 739, 739, 739,
       739, 739, 739, 739, 739, 739, 739, 739, 739, 739,
@@ -120,18 +120,18 @@ hash (register const gchar *str, register guint len)
   switch (hval)
     {
       default:
-        hval += asso_values[(guchar)str[4]];
+	hval += asso_values[(guchar)str[4]];
       /*FALLTHROUGH*/
       case 4:
       case 3:
-        hval += asso_values[(guchar)str[2]];
+	hval += asso_values[(guchar)str[2]];
       /*FALLTHROUGH*/
       case 2:
-        hval += asso_values[(guchar)str[1]+1];
+	hval += asso_values[(guchar)str[1]+1];
       /*FALLTHROUGH*/
       case 1:
-        hval += asso_values[(guchar)str[0]];
-        break;
+	hval += asso_values[(guchar)str[0]];
+	break;
     }
   return hval + asso_values[(guchar)str[len - 1]];
 }
@@ -853,13 +853,13 @@ html_entity_hash (register const gchar *str, register guint len)
       register gint key = hash (str, len);
 
       if (key <= MAX_HASH_VALUE && key >= 0)
-        if (len == lengthtable[key])
-          {
-            register const gchar *s = wordlist[key].name;
+	if (len == lengthtable[key])
+	  {
+	    register const gchar *s = wordlist[key].name;
 
-            if (*str == *s && !memcmp (str + 1, s + 1, len - 1))
-              return &wordlist[key];
-          }
+	    if (*str == *s && !memcmp (str + 1, s + 1, len - 1))
+	      return &wordlist[key];
+	  }
     }
   return 0;
 }

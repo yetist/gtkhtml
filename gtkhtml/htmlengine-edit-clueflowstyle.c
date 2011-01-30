@@ -197,7 +197,7 @@ undo_or_redo (HTMLEngine *engine, HTMLUndoData *data, HTMLUndoDirection dir, gui
 			break;
 
 		/* Go forward object by object, until we find one
-                   whose parent (i.e. paragraph) is different.  */
+		   whose parent (i.e. paragraph) is different.  */
 		do {
 			if (op->forward)
 				obj = html_object_next_leaf (obj);

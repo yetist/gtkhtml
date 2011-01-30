@@ -103,7 +103,7 @@ atk_table_interface_init (AtkTableIface *iface)
 static void
 html_a11y_table_finalize (GObject *obj)
 {
-        G_OBJECT_CLASS (parent_class)->finalize (obj);
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
@@ -174,7 +174,7 @@ is_valid (AtkObject *table)
 		g_object_unref (ss);
 		return FALSE;
 	}
-        g_object_unref (ss);
+	g_object_unref (ss);
 
 	return TRUE;
 }

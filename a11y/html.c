@@ -100,7 +100,7 @@ atk_component_interface_init (AtkComponentIface *iface)
 static void
 html_a11y_finalize (GObject *obj)
 {
-        G_OBJECT_CLASS (parent_class)->finalize (obj);
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void

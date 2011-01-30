@@ -151,7 +151,7 @@ gtk_html_a11y_get_type (void)
 static void
 gtk_html_a11y_finalize (GObject *obj)
 {
-        G_OBJECT_CLASS (parent_class)->finalize (obj);
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void
@@ -279,7 +279,7 @@ gtk_html_a11y_get_focus_object (GtkWidget * widget)
 {
 	GtkHTML * html;
 	HTMLObject * htmlobj = NULL;
-        AtkObject *obj = NULL;
+	AtkObject *obj = NULL;
 	gint offset;
 
 	html = GTK_HTML (widget);
@@ -302,7 +302,7 @@ static AtkObject * gtk_html_a11y_focus_object = NULL;
 static void
 gtk_html_a11y_grab_focus_cb (GtkWidget * widget)
 {
-        AtkObject *focus_object, *obj, *clue;
+	AtkObject *focus_object, *obj, *clue;
 
 	focus_object = gtk_html_a11y_get_focus_object (widget);
 	if (focus_object == NULL)

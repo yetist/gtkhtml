@@ -88,7 +88,7 @@ atk_image_interface_init (AtkImageIface *iface)
 static void
 html_a11y_image_finalize (GObject *obj)
 {
-        G_OBJECT_CLASS (parent_class)->finalize (obj);
+	G_OBJECT_CLASS (parent_class)->finalize (obj);
 }
 
 static void

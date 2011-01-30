@@ -56,8 +56,8 @@ html_g_cclosure_marshal_BOOLEAN__OBJECT (GClosure     *closure,
                                          gpointer      marshal_data)
 {
   typedef gboolean (*GMarshalFunc_BOOLEAN__OBJECT) (gpointer     data1,
-                                                    gpointer     arg_1,
-                                                    gpointer     data2);
+						    gpointer     arg_1,
+						    gpointer     data2);
   register GMarshalFunc_BOOLEAN__OBJECT callback;
   register GCClosure *cc = (GCClosure*) closure;
   register gpointer data1, data2;
@@ -79,8 +79,8 @@ html_g_cclosure_marshal_BOOLEAN__OBJECT (GClosure     *closure,
   callback = (GMarshalFunc_BOOLEAN__OBJECT) (marshal_data ? marshal_data : cc->callback);
 
   v_return = callback (data1,
-                       g_marshal_value_peek_object (param_values + 1),
-                       data2);
+		       g_marshal_value_peek_object (param_values + 1),
+		       data2);
 
   g_value_set_boolean (return_value, v_return);
 }
@@ -95,8 +95,8 @@ html_g_cclosure_marshal_BOOLEAN__ENUM (GClosure     *closure,
                                        gpointer      marshal_data)
 {
   typedef gboolean (*GMarshalFunc_BOOLEAN__ENUM) (gpointer     data1,
-                                                  gint         arg_1,
-                                                  gpointer     data2);
+						  gint         arg_1,
+						  gpointer     data2);
   register GMarshalFunc_BOOLEAN__ENUM callback;
   register GCClosure *cc = (GCClosure*) closure;
   register gpointer data1, data2;
@@ -118,8 +118,8 @@ html_g_cclosure_marshal_BOOLEAN__ENUM (GClosure     *closure,
   callback = (GMarshalFunc_BOOLEAN__ENUM) (marshal_data ? marshal_data : cc->callback);
 
   v_return = callback (data1,
-                       g_marshal_value_peek_enum (param_values + 1),
-                       data2);
+		       g_marshal_value_peek_enum (param_values + 1),
+		       data2);
 
   g_value_set_boolean (return_value, v_return);
 }
@@ -134,9 +134,9 @@ html_g_cclosure_marshal_VOID__STRING_POINTER (GClosure     *closure,
                                               gpointer      marshal_data)
 {
   typedef void (*GMarshalFunc_VOID__STRING_POINTER) (gpointer     data1,
-                                                     gpointer     arg_1,
-                                                     gpointer     arg_2,
-                                                     gpointer     data2);
+						     gpointer     arg_1,
+						     gpointer     arg_2,
+						     gpointer     data2);
   register GMarshalFunc_VOID__STRING_POINTER callback;
   register GCClosure *cc = (GCClosure*) closure;
   register gpointer data1, data2;
@@ -156,9 +156,9 @@ html_g_cclosure_marshal_VOID__STRING_POINTER (GClosure     *closure,
   callback = (GMarshalFunc_VOID__STRING_POINTER) (marshal_data ? marshal_data : cc->callback);
 
   callback (data1,
-            g_marshal_value_peek_string (param_values + 1),
-            g_marshal_value_peek_pointer (param_values + 2),
-            data2);
+	    g_marshal_value_peek_string (param_values + 1),
+	    g_marshal_value_peek_pointer (param_values + 2),
+	    data2);
 }
 
 /* VOID:POINTER,INT (htmlclosures.list:4) */
@@ -171,9 +171,9 @@ html_g_cclosure_marshal_VOID__POINTER_INT (GClosure     *closure,
                                            gpointer      marshal_data)
 {
   typedef void (*GMarshalFunc_VOID__POINTER_INT) (gpointer     data1,
-                                                  gpointer     arg_1,
-                                                  gint         arg_2,
-                                                  gpointer     data2);
+						  gpointer     arg_1,
+						  gint         arg_2,
+						  gpointer     data2);
   register GMarshalFunc_VOID__POINTER_INT callback;
   register GCClosure *cc = (GCClosure*) closure;
   register gpointer data1, data2;
@@ -193,9 +193,9 @@ html_g_cclosure_marshal_VOID__POINTER_INT (GClosure     *closure,
   callback = (GMarshalFunc_VOID__POINTER_INT) (marshal_data ? marshal_data : cc->callback);
 
   callback (data1,
-            g_marshal_value_peek_pointer (param_values + 1),
-            g_marshal_value_peek_int (param_values + 2),
-            data2);
+	    g_marshal_value_peek_pointer (param_values + 1),
+	    g_marshal_value_peek_int (param_values + 2),
+	    data2);
 }
 
 /* VOID:STRING,STRING,STRING (htmlclosures.list:5) */
@@ -208,10 +208,10 @@ html_g_cclosure_marshal_VOID__STRING_STRING_STRING (GClosure     *closure,
                                                     gpointer      marshal_data)
 {
   typedef void (*GMarshalFunc_VOID__STRING_STRING_STRING) (gpointer     data1,
-                                                           gpointer     arg_1,
-                                                           gpointer     arg_2,
-                                                           gpointer     arg_3,
-                                                           gpointer     data2);
+							   gpointer     arg_1,
+							   gpointer     arg_2,
+							   gpointer     arg_3,
+							   gpointer     data2);
   register GMarshalFunc_VOID__STRING_STRING_STRING callback;
   register GCClosure *cc = (GCClosure*) closure;
   register gpointer data1, data2;
@@ -231,10 +231,10 @@ html_g_cclosure_marshal_VOID__STRING_STRING_STRING (GClosure     *closure,
   callback = (GMarshalFunc_VOID__STRING_STRING_STRING) (marshal_data ? marshal_data : cc->callback);
 
   callback (data1,
-            g_marshal_value_peek_string (param_values + 1),
-            g_marshal_value_peek_string (param_values + 2),
-            g_marshal_value_peek_string (param_values + 3),
-            data2);
+	    g_marshal_value_peek_string (param_values + 1),
+	    g_marshal_value_peek_string (param_values + 2),
+	    g_marshal_value_peek_string (param_values + 3),
+	    data2);
 }
 
 /* VOID:INT,INT,FLOAT (htmlclosures.list:6) */
@@ -247,10 +247,10 @@ html_g_cclosure_marshal_VOID__INT_INT_FLOAT (GClosure     *closure,
                                              gpointer      marshal_data)
 {
   typedef void (*GMarshalFunc_VOID__INT_INT_FLOAT) (gpointer     data1,
-                                                    gint         arg_1,
-                                                    gint         arg_2,
-                                                    gfloat       arg_3,
-                                                    gpointer     data2);
+						    gint         arg_1,
+						    gint         arg_2,
+						    gfloat       arg_3,
+						    gpointer     data2);
   register GMarshalFunc_VOID__INT_INT_FLOAT callback;
   register GCClosure *cc = (GCClosure*) closure;
   register gpointer data1, data2;
@@ -270,10 +270,10 @@ html_g_cclosure_marshal_VOID__INT_INT_FLOAT (GClosure     *closure,
   callback = (GMarshalFunc_VOID__INT_INT_FLOAT) (marshal_data ? marshal_data : cc->callback);
 
   callback (data1,
-            g_marshal_value_peek_int (param_values + 1),
-            g_marshal_value_peek_int (param_values + 2),
-            g_marshal_value_peek_float (param_values + 3),
-            data2);
+	    g_marshal_value_peek_int (param_values + 1),
+	    g_marshal_value_peek_int (param_values + 2),
+	    g_marshal_value_peek_float (param_values + 3),
+	    data2);
 }
 
 /* VOID:ENUM,ENUM,FLOAT (htmlclosures.list:7) */
@@ -286,10 +286,10 @@ html_g_cclosure_marshal_VOID__ENUM_ENUM_FLOAT (GClosure     *closure,
                                                gpointer      marshal_data)
 {
   typedef void (*GMarshalFunc_VOID__ENUM_ENUM_FLOAT) (gpointer     data1,
-                                                      gint         arg_1,
-                                                      gint         arg_2,
-                                                      gfloat       arg_3,
-                                                      gpointer     data2);
+						      gint         arg_1,
+						      gint         arg_2,
+						      gfloat       arg_3,
+						      gpointer     data2);
   register GMarshalFunc_VOID__ENUM_ENUM_FLOAT callback;
   register GCClosure *cc = (GCClosure*) closure;
   register gpointer data1, data2;
@@ -309,10 +309,10 @@ html_g_cclosure_marshal_VOID__ENUM_ENUM_FLOAT (GClosure     *closure,
   callback = (GMarshalFunc_VOID__ENUM_ENUM_FLOAT) (marshal_data ? marshal_data : cc->callback);
 
   callback (data1,
-            g_marshal_value_peek_enum (param_values + 1),
-            g_marshal_value_peek_enum (param_values + 2),
-            g_marshal_value_peek_float (param_values + 3),
-            data2);
+	    g_marshal_value_peek_enum (param_values + 1),
+	    g_marshal_value_peek_enum (param_values + 2),
+	    g_marshal_value_peek_float (param_values + 3),
+	    data2);
 }
 
 /* VOID:INT,INT (htmlclosures.list:8) */
@@ -325,9 +325,9 @@ html_g_cclosure_marshal_VOID__INT_INT (GClosure     *closure,
                                        gpointer      marshal_data)
 {
   typedef void (*GMarshalFunc_VOID__INT_INT) (gpointer     data1,
-                                              gint         arg_1,
-                                              gint         arg_2,
-                                              gpointer     data2);
+					      gint         arg_1,
+					      gint         arg_2,
+					      gpointer     data2);
   register GMarshalFunc_VOID__INT_INT callback;
   register GCClosure *cc = (GCClosure*) closure;
   register gpointer data1, data2;
@@ -347,9 +347,9 @@ html_g_cclosure_marshal_VOID__INT_INT (GClosure     *closure,
   callback = (GMarshalFunc_VOID__INT_INT) (marshal_data ? marshal_data : cc->callback);
 
   callback (data1,
-            g_marshal_value_peek_int (param_values + 1),
-            g_marshal_value_peek_int (param_values + 2),
-            data2);
+	    g_marshal_value_peek_int (param_values + 1),
+	    g_marshal_value_peek_int (param_values + 2),
+	    data2);
 }
 
 /* VOID:ENUM,ENUM (htmlclosures.list:9) */
@@ -362,9 +362,9 @@ html_g_cclosure_marshal_VOID__ENUM_ENUM (GClosure     *closure,
                                          gpointer      marshal_data)
 {
   typedef void (*GMarshalFunc_VOID__ENUM_ENUM) (gpointer     data1,
-                                                gint         arg_1,
-                                                gint         arg_2,
-                                                gpointer     data2);
+						gint         arg_1,
+						gint         arg_2,
+						gpointer     data2);
   register GMarshalFunc_VOID__ENUM_ENUM callback;
   register GCClosure *cc = (GCClosure*) closure;
   register gpointer data1, data2;
@@ -384,9 +384,9 @@ html_g_cclosure_marshal_VOID__ENUM_ENUM (GClosure     *closure,
   callback = (GMarshalFunc_VOID__ENUM_ENUM) (marshal_data ? marshal_data : cc->callback);
 
   callback (data1,
-            g_marshal_value_peek_enum (param_values + 1),
-            g_marshal_value_peek_enum (param_values + 2),
-            data2);
+	    g_marshal_value_peek_enum (param_values + 1),
+	    g_marshal_value_peek_enum (param_values + 2),
+	    data2);
 }
 
 /* VOID:POINTER,BOOL,BOOL,BOOL (htmlclosures.list:10) */
@@ -399,11 +399,11 @@ html_g_cclosure_marshal_VOID__POINTER_BOOLEAN_BOOLEAN_BOOLEAN (GClosure     *clo
                                                                gpointer      marshal_data)
 {
   typedef void (*GMarshalFunc_VOID__POINTER_BOOLEAN_BOOLEAN_BOOLEAN) (gpointer     data1,
-                                                                      gpointer     arg_1,
-                                                                      gboolean     arg_2,
-                                                                      gboolean     arg_3,
-                                                                      gboolean     arg_4,
-                                                                      gpointer     data2);
+								      gpointer     arg_1,
+								      gboolean     arg_2,
+								      gboolean     arg_3,
+								      gboolean     arg_4,
+								      gpointer     data2);
   register GMarshalFunc_VOID__POINTER_BOOLEAN_BOOLEAN_BOOLEAN callback;
   register GCClosure *cc = (GCClosure*) closure;
   register gpointer data1, data2;
@@ -423,11 +423,11 @@ html_g_cclosure_marshal_VOID__POINTER_BOOLEAN_BOOLEAN_BOOLEAN (GClosure     *clo
   callback = (GMarshalFunc_VOID__POINTER_BOOLEAN_BOOLEAN_BOOLEAN) (marshal_data ? marshal_data : cc->callback);
 
   callback (data1,
-            g_marshal_value_peek_pointer (param_values + 1),
-            g_marshal_value_peek_boolean (param_values + 2),
-            g_marshal_value_peek_boolean (param_values + 3),
-            g_marshal_value_peek_boolean (param_values + 4),
-            data2);
+	    g_marshal_value_peek_pointer (param_values + 1),
+	    g_marshal_value_peek_boolean (param_values + 2),
+	    g_marshal_value_peek_boolean (param_values + 3),
+	    g_marshal_value_peek_boolean (param_values + 4),
+	    data2);
 }
 
 /* POINTER:VOID (htmlclosures.list:11) */
@@ -440,7 +440,7 @@ html_g_cclosure_marshal_POINTER__VOID (GClosure     *closure,
                                        gpointer      marshal_data)
 {
   typedef gpointer (*GMarshalFunc_POINTER__VOID) (gpointer     data1,
-                                                  gpointer     data2);
+						  gpointer     data2);
   register GMarshalFunc_POINTER__VOID callback;
   register GCClosure *cc = (GCClosure*) closure;
   register gpointer data1, data2;
@@ -462,7 +462,7 @@ html_g_cclosure_marshal_POINTER__VOID (GClosure     *closure,
   callback = (GMarshalFunc_POINTER__VOID) (marshal_data ? marshal_data : cc->callback);
 
   v_return = callback (data1,
-                       data2);
+		       data2);
 
   g_value_set_pointer (return_value, v_return);
 }

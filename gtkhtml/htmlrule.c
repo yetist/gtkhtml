@@ -168,7 +168,7 @@ html_rule_draw (HTMLObject *o,
 		w = o->width;
 	else
 		/* The cast to `gdouble' is to avoid overflow (eg. when
-                   printing).  */
+		   printing).  */
 		w = ((gdouble) o->width * o->percent) / 100;
 
 	switch (rule->halign) {

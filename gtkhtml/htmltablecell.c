@@ -307,7 +307,7 @@ save (HTMLObject *self,
 		SB " NOWRAP" SE;
 	if (HTML_CLUE (cell)->halign != HTML_HALIGN_NONE)
 		SB " ALIGN=\"%s\"",
-                   html_engine_save_get_paragraph_align (html_alignment_to_paragraph (HTML_CLUE (cell)->halign)) SE;
+		   html_engine_save_get_paragraph_align (html_alignment_to_paragraph (HTML_CLUE (cell)->halign)) SE;
 	if (HTML_CLUE (cell)->valign != HTML_VALIGN_MIDDLE)
 		SB " VALIGN=\"%s\"",
                    HTML_CLUE (cell)->valign == HTML_VALIGN_TOP ? "top" : "bottom" SE;

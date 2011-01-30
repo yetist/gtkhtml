@@ -81,7 +81,7 @@ html_image_get_actual_width (HTMLImage *image, HTMLPainter *painter)
 
 	if (image->percent_width) {
 		/* The cast to `gdouble' is to avoid overflow (eg. when
-                   printing).  */
+		   printing).  */
 		width = ((gdouble) HTML_OBJECT (image)->max_width
 			 * image->specified_width) / 100;
 	} else if (image->specified_width > 0) {
@@ -114,7 +114,7 @@ html_image_get_actual_height (HTMLImage *image, HTMLPainter *painter)
 
 	if (image->percent_height) {
 		/* The cast to `gdouble' is to avoid overflow (eg. when
-                   printing).  */
+		   printing).  */
 		height = ((gdouble) html_engine_get_view_height (image->image_ptr->factory->engine)
 			  * image->specified_height) / 100;
 	} else if (image->specified_height > 0) {
