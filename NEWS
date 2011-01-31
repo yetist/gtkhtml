@@ -1,3 +1,22 @@
+GtkHTML-3.91.6 2011-01-31
+-------------------------
+
+Bug Fixes:
+	Bug #640533 - Incorrect rendering with inner frames (Milan Crha)
+	Bug #635571 - Adapt size_request to gtk-3.0 change (Vibha Yadav)
+
+Miscellaneous Fixes:
+	Add preview in Insert Image dialog. (Matthew Barnes)
+	Require the latest gtk+-3.0 release until 3.0. (Matthew Barnes)
+	No GtkWidget::extension-events property in Gtk3 (Milan Crha)
+	Adapt to recent GTK+ changes (Matthias Clasen)
+	Fix drawing with gtk3 (Milan Crha)
+	Adapt to new GtkScrollable interface. (Matthew Barnes)
+	Drop support for gtk+-2.0. (Matthew Barnes)
+
+Translations:
+	Fran Diéguez (gl)
+
 GtkHTML-3.91.5 2010-01-10
 -------------------------
 
