@@ -1,3 +1,14 @@
+GtkHTML-3.32.2 2011-02-07
+-------------------------
+
+Bug Fixes:
+	Bug 402693 - Sending centered or right-aligned text doubles the
+	             spacing (Milan Crha)
+	Bug 612344 - Crash in html_object_prev_not_type at htmlobject.c
+	             (Milan Crha)
+	Bug 635576 - gtkhtml-editor-test link failure (Diego Escalante Urrelo)
+
+
 GtkHTML-3.32.1 2010-11-15
 --------------------------
 
