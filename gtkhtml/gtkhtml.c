@@ -1385,7 +1385,6 @@ static void
 size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 {
 	GtkHTML *html;
-	GtkLayout *layout;
 	gboolean changed_x = FALSE, changed_y = FALSE;
 
 	g_return_if_fail (widget != NULL);
@@ -1393,10 +1392,10 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 	g_return_if_fail (allocation != NULL);
 
 	html = GTK_HTML (widget);
-	layout = GTK_LAYOUT (widget);
 
-	/* isolate childs from layout - we want to set them after calc size is performed
-	   and we know the children positions */
+	/* isolate children from layout - we want to set them after calc size is performed
+	   and we know the position of the children */
+
 	gtk_layout_faux_size_allocate (widget, allocation);
 
 	if (html->engine->width != allocation->width
@@ -2883,7 +2882,6 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	GObjectClass      *object_class;
 	GtkHTMLClass      *html_class;
 	GtkWidgetClass    *widget_class;
-	GtkLayoutClass    *layout_class;
 	GtkContainerClass *container_class;
 	gchar *filename;
 	GConfClient *client;
@@ -2891,7 +2889,6 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	html_class = (GtkHTMLClass *) klass;
 	object_class = (GObjectClass *) klass;
 	widget_class = (GtkWidgetClass *) klass;
-	layout_class = (GtkLayoutClass *) klass;
 	container_class = (GtkContainerClass *) klass;
 
 	parent_class = g_type_class_peek_parent (klass);

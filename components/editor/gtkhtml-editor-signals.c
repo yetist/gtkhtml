@@ -1141,8 +1141,6 @@ gtkhtml_editor_link_properties_show_window_cb (GtkWidget *window))
 	gchar *url = NULL, *dsc = NULL;
 	gboolean sensitive;
 	HTMLCursor *cursor;
-	gint start_offset = 0;
-	gint end_offset = 0;
 
 	editor = extract_gtkhtml_editor (window);
 	html = gtkhtml_editor_get_html (editor);
@@ -1159,25 +1157,17 @@ gtkhtml_editor_link_properties_show_window_cb (GtkWidget *window))
 			cursor->object, cursor->offset);
 
 	if (url != NULL) {
-		if (HTML_IS_IMAGE (cursor->object)) {
-			start_offset = 0;
-			end_offset = 1;
-		} else {
+		if (!HTML_IS_IMAGE (cursor->object)) {
 			Link *link;
 
 			link = html_text_get_link_at_offset (
 				HTML_TEXT (cursor->object),
 				cursor->offset);
 			if (link != NULL) {
-				start_offset = link->start_offset;
-				end_offset = link->end_offset;
 				dsc = html_text_get_link_text (HTML_TEXT (cursor->object), cursor->offset);
 				editor->priv->link_custom_description = dsc && !g_str_equal (dsc, url);
 			}
 		}
-	} else if (HTML_IS_TEXT (cursor->object)) {
-		start_offset = cursor->offset;
-		end_offset = start_offset;
 	}
 
 	sensitive = (url == NULL);
