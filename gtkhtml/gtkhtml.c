@@ -836,8 +836,8 @@ dispose (GObject *object)
 		html->engine = NULL;
 	}
 
-	if (G_OBJECT_CLASS (parent_class)->dispose != NULL)
-		(* G_OBJECT_CLASS (parent_class)->dispose) (object);
+	/* Chain up to parent's dispose() method. */
+	G_OBJECT_CLASS (parent_class)->dispose (object);
 }
 
 GtkHTML *

@@ -62,9 +62,8 @@ finalize (GObject *object)
 		painter->surface = NULL;
 	}
 
-	if (G_OBJECT_CLASS (parent_class)->finalize) {
-		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
-	}
+	/* Chain up to parent's finalize() method. */
+	G_OBJECT_CLASS (parent_class)->finalize (object);
 }
 
 static void
