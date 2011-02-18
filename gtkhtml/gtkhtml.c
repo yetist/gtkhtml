@@ -1248,13 +1248,10 @@ unrealize (GtkWidget *widget)
 static gboolean
 draw (GtkWidget *widget, cairo_t *cr)
 {
-	/* printf ("draw x: %d y: %d\n", GTK_HTML (widget)->engine->x_offset, GTK_HTML (widget)->engine->y_offset); */
-
 	html_engine_draw_cb (GTK_HTML (widget)->engine, cr);
 
 	if (GTK_WIDGET_CLASS (parent_class)->draw)
 		(* GTK_WIDGET_CLASS (parent_class)->draw) (widget, cr);
-	/* printf ("draw END\n"); */
 
 	return FALSE;
 }
@@ -3475,6 +3472,7 @@ gtk_html_init (GtkHTML* html)
 {
 	gtk_widget_set_can_focus (GTK_WIDGET (html), TRUE);
 	gtk_widget_set_app_paintable (GTK_WIDGET (html), TRUE);
+	gtk_widget_set_double_buffered (GTK_WIDGET (html), TRUE);
 
 	html->editor_api = NULL;
 	html->debug = FALSE;

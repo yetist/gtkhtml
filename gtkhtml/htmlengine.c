@@ -5047,56 +5047,11 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, g
 	if (e->block && e->opened_streams)
 		return;
 
-	/* printf ("html_engine_draw_real\n"); */
-
 	/* This case happens when the widget has not been shown yet.  */
 	if (width == 0 || height == 0)
 		return;
 
 	parent = gtk_widget_get_parent (GTK_WIDGET (e->widget));
-
-	/* don't draw in case we are longer than available space and scrollbar is going to be shown */
-	if (e->clue && e->clue->ascent + e->clue->descent > e->height - (html_engine_get_top_border (e) + html_engine_get_bottom_border (e))) {
-		if (GTK_IS_SCROLLED_WINDOW (parent)) {
-			GtkWidget *vscrollbar;
-
-			vscrollbar = gtk_scrolled_window_get_vscrollbar (
-				GTK_SCROLLED_WINDOW (parent));
-			if (vscrollbar != NULL && !gtk_widget_get_visible (vscrollbar)) {
-				GtkPolicyType vscrollbar_policy;
-
-				gtk_scrolled_window_get_policy (
-					GTK_SCROLLED_WINDOW (parent),
-					NULL, &vscrollbar_policy);
-				if (vscrollbar_policy == GTK_POLICY_AUTOMATIC)
-					return;
-			}
-		}
-	}
-
-	/* don't draw in case we are shorter than available space and scrollbar is going to be hidden */
-	if (e->clue && e->clue->ascent + e->clue->descent <= e->height - (html_engine_get_top_border (e) + html_engine_get_bottom_border (e))) {
-		if (GTK_IS_SCROLLED_WINDOW (parent)) {
-			GtkWidget *vscrollbar;
-
-			vscrollbar = gtk_scrolled_window_get_vscrollbar (
-				GTK_SCROLLED_WINDOW (parent));
-			if (vscrollbar != NULL && gtk_widget_get_visible (vscrollbar)) {
-				GtkPolicyType vscrollbar_policy;
-
-				gtk_scrolled_window_get_policy (
-					GTK_SCROLLED_WINDOW (parent),
-					NULL, &vscrollbar_policy);
-				if (vscrollbar_policy == GTK_POLICY_AUTOMATIC)
-					return;
-			}
-		}
-	}
-
-	/* printf ("html_engine_draw_real THRU\n"); */
-
-	/* printf ("html_engine_draw_real %d x %d, %d\n",
-	   e->width, e->height, e->clue ? e->clue->ascent + e->clue->descent : 0); */
 
 	e->expose = expose;
 
@@ -5161,9 +5116,14 @@ html_engine_draw_cb (HTMLEngine *e, cairo_t *cr)
 		}
 	}
 
-	if (html_engine_frozen (e))
+	if (html_engine_frozen (e)) {
+		/* always draw background, at least */
+		gdk_cairo_set_source_color (cr, &html_colorset_get_color_allocated (e->settings->color_set, e->painter, HTMLBgColor)->color);
+		cairo_rectangle (cr, rect.x, rect.y, rect.width, rect.height);
+		cairo_fill (cr);
+
 		html_engine_add_expose (e, e->x_offset + rect.x, e->y_offset + rect.y, rect.width, rect.height, TRUE);
-	else
+	} else
 		html_engine_draw_real (e, e->x_offset + rect.x, e->y_offset + rect.y, rect.width, rect.height, TRUE);
 }
 
@@ -5728,7 +5688,7 @@ html_engine_freeze (HTMLEngine *engine)
 		gtk_html_im_reset (engine->widget);
 		html_engine_flush_draw_queue (engine);
 		if ((HTML_IS_GDK_PAINTER (engine->painter) || HTML_IS_PLAIN_PAINTER (engine->painter)) && HTML_GDK_PAINTER (engine->painter)->window)
-		gdk_window_process_updates (HTML_GDK_PAINTER (engine->painter)->window, FALSE);
+			gdk_window_process_updates (HTML_GDK_PAINTER (engine->painter)->window, FALSE);
 	}
 
 	html_engine_flush_draw_queue (engine);
