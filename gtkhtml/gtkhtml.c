@@ -185,7 +185,7 @@ static void update_primary_selection    (GtkHTML *html);
 static void clipboard_paste_received_cb (GtkClipboard     *clipboard,
 					 GtkSelectionData *selection_data,
 					 gpointer          user_data);
-static gint motion_notify_event (GtkWidget *widget, GdkEventMotion *event);
+static gboolean motion_notify_event (GtkWidget *widget, GdkEventMotion *event);
 
 /* keybindings signal hadlers */
 static void     scroll                 (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);
@@ -1841,9 +1841,9 @@ shift_to_iframe_parent (GtkWidget *widget, gint *x, gint *y)
 	return widget;
 }
 
-static gint
+static gboolean
 motion_notify_event (GtkWidget *widget,
-		     GdkEventMotion *event)
+                     GdkEventMotion *event)
 {
 	GdkWindow *window;
 	GdkWindow *bin_window;

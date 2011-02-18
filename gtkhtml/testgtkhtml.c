@@ -39,7 +39,6 @@
 
 #include <libsoup/soup.h>
 
-#include "config.h"
 #include "gtkhtml.h"
 #include "htmlurl.h"
 #include "htmlengine.h"

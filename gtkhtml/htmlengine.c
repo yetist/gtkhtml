@@ -52,9 +52,7 @@
 #include "htmlengine-print.h"
 #include "htmlcolor.h"
 #include "htmlinterval.h"
-#include "htmlobject.h"
 #include "htmlsettings.h"
-#include "htmltext.h"
 #include "htmltokenizer.h"
 #include "htmltype.h"
 #include "htmlundo.h"
@@ -77,7 +75,6 @@
 #include "htmltext.h"
 #include "htmltextslave.h"
 #include "htmlclueflow.h"
-#include "htmlstack.h"
 #include "htmlstringtokenizer.h"
 #include "htmlselection.h"
 #include "htmlform.h"
@@ -5039,7 +5036,6 @@ html_engine_stream_end (GtkHTMLStream *stream,
 static void
 html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, gboolean expose)
 {
-	GtkWidget *parent;
 	gint x1, x2, y1, y2;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
@@ -5050,8 +5046,6 @@ html_engine_draw_real (HTMLEngine *e, gint x, gint y, gint width, gint height, g
 	/* This case happens when the widget has not been shown yet.  */
 	if (width == 0 || height == 0)
 		return;
-
-	parent = gtk_widget_get_parent (GTK_WIDGET (e->widget));
 
 	e->expose = expose;
 
@@ -5139,13 +5133,13 @@ html_engine_draw (HTMLEngine *e, gint x, gint y, gint width, gint height)
 static gboolean
 redraw_idle (HTMLEngine *e)
 {
-	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
 
-       e->redraw_idle_id = 0;
-       e->need_redraw = FALSE;
-       html_engine_queue_redraw_all (e);
+	e->redraw_idle_id = 0;
+	e->need_redraw = FALSE;
+	html_engine_queue_redraw_all (e);
 
-       return FALSE;
+	return FALSE;
 }
 
 void
@@ -5271,7 +5265,7 @@ html_engine_calc_size (HTMLEngine *e, GList **changed_objs)
 	gint max_width; /* , max_height; */
 	gboolean redraw_whole;
 
-	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
 
 	if (e->clue == 0)
 		return FALSE;
@@ -5870,7 +5864,7 @@ check_cursor (HTMLEngine *e)
 }
 #endif
 
-static gint
+static gboolean
 thaw_idle (gpointer data)
 {
 	HTMLEngine *e = HTML_ENGINE (data);
@@ -5878,7 +5872,7 @@ thaw_idle (gpointer data)
 	gboolean redraw_whole;
 	gint w, h;
 
-	g_return_val_if_fail (HTML_IS_ENGINE (e), 0);
+	g_return_val_if_fail (HTML_IS_ENGINE (e), FALSE);
 
 	DF (printf ("thaw_idle %d\n", e->freeze_count); fflush (stdout));
 

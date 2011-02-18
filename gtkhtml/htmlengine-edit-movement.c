@@ -256,15 +256,15 @@ html_engine_end_of_paragraph (HTMLEngine *engine)
 
 gint
 html_engine_scroll_down (HTMLEngine *engine,
-			 gint amount)
+                         gint amount)
 {
 	HTMLCursor *cursor;
 	HTMLCursor prev_cursor;
 	gint start_x, start_y;
 	gint x, y, new_y;
 
-	g_return_val_if_fail (engine != NULL, FALSE);
-	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
+	g_return_val_if_fail (engine != NULL, 0);
+	g_return_val_if_fail (HTML_IS_ENGINE (engine), 0);
 
 	cursor = engine->cursor;
 
@@ -309,15 +309,15 @@ html_engine_scroll_down (HTMLEngine *engine,
 
 gint
 html_engine_scroll_up (HTMLEngine *engine,
-		       gint amount)
+                       gint amount)
 {
 	HTMLCursor *cursor;
 	HTMLCursor prev_cursor;
 	gint start_x, start_y;
 	gint x, y, new_y;
 
-	g_return_val_if_fail (engine != NULL, FALSE);
-	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
+	g_return_val_if_fail (engine != NULL, 0);
+	g_return_val_if_fail (HTML_IS_ENGINE (engine), 0);
 
 	cursor = engine->cursor;
 
