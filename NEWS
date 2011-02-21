@@ -1,3 +1,13 @@
+GtkHTML-3.91.90 2011-02-21
+--------------------------
+Bug Fixes:
+	Bug 641833 - Cleanups and fixes for compiler warnings (Kjartan Maraas)
+	Bug #642656 - Screen flickers black in body when replying email (Milan Crha)
+	Bug 641765 - Fix warnings from GCC 4.6 (Kjartan Maraas)
+
+Miscellaneous Fixes:
+	Bump GTK+ requirement to 3.0. (Matthew Barnes)
+
 GtkHTML-3.91.6 2011-01-31
 -------------------------
 
