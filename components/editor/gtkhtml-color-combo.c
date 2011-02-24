@@ -30,10 +30,6 @@
 
 #define NUM_CUSTOM_COLORS	8
 
-#define GTKHTML_COLOR_COMBO_GET_PRIVATE(obj) \
-	(G_TYPE_INSTANCE_GET_PRIVATE \
-	((obj), GTKHTML_TYPE_COLOR_COMBO, GtkhtmlColorComboPrivate))
-
 enum {
 	PROP_0,
 	PROP_CURRENT_COLOR,
@@ -499,7 +495,7 @@ color_combo_get_property (GObject *object,
 	GtkhtmlColorComboPrivate *priv;
 	GdkColor color;
 
-	priv = GTKHTML_COLOR_COMBO_GET_PRIVATE (object);
+	priv = GTKHTML_COLOR_COMBO (object)->priv;
 
 	switch (property_id) {
 		case PROP_CURRENT_COLOR:
@@ -553,7 +549,7 @@ color_combo_dispose (GObject *object)
 	GtkhtmlColorComboPrivate *priv;
 	gint ii;
 
-	priv = GTKHTML_COLOR_COMBO_GET_PRIVATE (object);
+	priv = GTKHTML_COLOR_COMBO (object)->priv;
 
 	if (priv->color_button != NULL) {
 		g_object_unref (priv->color_button);
@@ -606,7 +602,7 @@ color_combo_get_preferred_width (GtkWidget *widget,
 {
 	GtkhtmlColorComboPrivate *priv;
 
-	priv = GTKHTML_COLOR_COMBO_GET_PRIVATE (widget);
+	priv = GTKHTML_COLOR_COMBO (widget)->priv;
 
 	gtk_widget_get_preferred_width (priv->toggle_button, minimum_width, natural_width);
 }
@@ -618,7 +614,7 @@ color_combo_get_preferred_height (GtkWidget *widget,
 {
 	GtkhtmlColorComboPrivate *priv;
 
-	priv = GTKHTML_COLOR_COMBO_GET_PRIVATE (widget);
+	priv = GTKHTML_COLOR_COMBO (widget)->priv;
 
 	gtk_widget_get_preferred_height (priv->toggle_button, minimum_height, natural_height);
 }
@@ -629,7 +625,7 @@ color_combo_size_allocate (GtkWidget *widget,
 {
 	GtkhtmlColorComboPrivate *priv;
 
-	priv = GTKHTML_COLOR_COMBO_GET_PRIVATE (widget);
+	priv = GTKHTML_COLOR_COMBO (widget)->priv;
 
 	gtk_widget_set_allocation (widget, allocation);
 	gtk_widget_size_allocate (priv->toggle_button, allocation);
@@ -855,7 +851,7 @@ color_combo_init (GtkhtmlColorCombo *combo)
 	GtkWidget *window;
 	guint ii;
 
-	combo->priv = GTKHTML_COLOR_COMBO_GET_PRIVATE (combo);
+	combo->priv = G_TYPE_INSTANCE_GET_PRIVATE (combo, GTKHTML_TYPE_COLOR_COMBO, GtkhtmlColorComboPrivate);
 
 	state = gtkhtml_color_state_new ();
 	gtkhtml_color_combo_set_state (combo, state);

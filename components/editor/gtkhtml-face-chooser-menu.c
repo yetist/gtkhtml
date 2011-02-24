@@ -23,10 +23,6 @@
 
 #include <glib/gi18n-lib.h>
 
-#define GTKHTML_FACE_CHOOSER_MENU_GET_PRIVATE(obj) \
-	(G_TYPE_INSTANCE_GET_PRIVATE \
-	((obj), GTKHTML_TYPE_FACE_CHOOSER_MENU, GtkhtmlFaceChooserMenuPrivate))
-
 struct _GtkhtmlFaceChooserMenuPrivate {
 	gint dummy;
 };
@@ -140,8 +136,7 @@ face_chooser_menu_init (GtkhtmlFaceChooserMenu *chooser_menu)
 	GtkhtmlFaceChooser *chooser;
 	GList *list, *iter;
 
-	chooser_menu->priv =
-		GTKHTML_FACE_CHOOSER_MENU_GET_PRIVATE (chooser_menu);
+	chooser_menu->priv = G_TYPE_INSTANCE_GET_PRIVATE (chooser_menu, GTKHTML_TYPE_FACE_CHOOSER_MENU, GtkhtmlFaceChooserMenuPrivate);
 
 	chooser = GTKHTML_FACE_CHOOSER (chooser_menu);
 	list = gtkhtml_face_chooser_get_items (chooser);

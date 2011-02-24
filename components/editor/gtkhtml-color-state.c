@@ -22,10 +22,6 @@
 
 #include <glib/gi18n-lib.h>
 
-#define GTKHTML_COLOR_STATE_GET_PRIVATE(obj) \
-	(G_TYPE_INSTANCE_GET_PRIVATE \
-	((obj), GTKHTML_TYPE_COLOR_STATE, GtkhtmlColorStatePrivate))
-
 enum {
 	PROP_0,
 	PROP_CURRENT_COLOR,
@@ -150,7 +146,7 @@ color_state_dispose (GObject *object)
 {
 	GtkhtmlColorStatePrivate *priv;
 
-	priv = GTKHTML_COLOR_STATE_GET_PRIVATE (object);
+	priv = GTKHTML_COLOR_STATE (object)->priv;
 
 	if (priv->palette != NULL) {
 		g_signal_handler_disconnect (
@@ -169,7 +165,7 @@ color_state_finalize (GObject *object)
 {
 	GtkhtmlColorStatePrivate *priv;
 
-	priv = GTKHTML_COLOR_STATE_GET_PRIVATE (object);
+	priv = GTKHTML_COLOR_STATE (object)->priv;
 
 	if (priv->current_color != NULL)
 		gdk_color_free (priv->current_color);
@@ -264,7 +260,7 @@ color_state_init (GtkhtmlColorState *state)
 {
 	GtkhtmlColorPalette *palette;
 
-	state->priv = GTKHTML_COLOR_STATE_GET_PRIVATE (state);
+	state->priv = G_TYPE_INSTANCE_GET_PRIVATE (state, GTKHTML_TYPE_COLOR_STATE, GtkhtmlColorStatePrivate);
 
 	palette = gtkhtml_color_palette_new ();
 	gtkhtml_color_state_set_palette (state, palette);

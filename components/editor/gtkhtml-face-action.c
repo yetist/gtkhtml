@@ -23,10 +23,6 @@
 #include "gtkhtml-face-chooser-menu.h"
 #include "gtkhtml-face-tool-button.h"
 
-#define GTKHTML_FACE_ACTION_GET_PRIVATE(obj) \
-	(G_TYPE_INSTANCE_GET_PRIVATE \
-	((obj), GTKHTML_TYPE_FACE_ACTION, GtkhtmlFaceActionPrivate))
-
 struct _GtkhtmlFaceActionPrivate {
 	GList *choosers;
 	GtkhtmlFaceChooser *current_chooser;
@@ -87,7 +83,7 @@ face_action_finalize (GObject *object)
 {
 	GtkhtmlFaceActionPrivate *priv;
 
-	priv = GTKHTML_FACE_ACTION_GET_PRIVATE (object);
+	priv = GTKHTML_FACE_ACTION (object)->priv;
 
 	g_list_free (priv->choosers);
 
@@ -100,7 +96,7 @@ face_action_activate (GtkAction *action)
 {
 	GtkhtmlFaceActionPrivate *priv;
 
-	priv = GTKHTML_FACE_ACTION_GET_PRIVATE (action);
+	priv = GTKHTML_FACE_ACTION (action)->priv;
 
 	priv->current_chooser = NULL;
 }
@@ -131,7 +127,7 @@ face_action_connect_proxy (GtkAction *action,
 {
 	GtkhtmlFaceActionPrivate *priv;
 
-	priv = GTKHTML_FACE_ACTION_GET_PRIVATE (action);
+	priv = GTKHTML_FACE_ACTION (action)->priv;
 
 	if (!GTKHTML_IS_FACE_CHOOSER (proxy))
 		goto chainup;
@@ -154,7 +150,7 @@ face_action_disconnect_proxy (GtkAction *action,
 {
 	GtkhtmlFaceActionPrivate *priv;
 
-	priv = GTKHTML_FACE_ACTION_GET_PRIVATE (action);
+	priv = GTKHTML_FACE_ACTION (action)->priv;
 
 	priv->choosers = g_list_remove (priv->choosers, proxy);
 
@@ -168,7 +164,7 @@ face_action_create_menu (GtkAction *action)
 	GtkhtmlFaceActionPrivate *priv;
 	GtkWidget *widget;
 
-	priv = GTKHTML_FACE_ACTION_GET_PRIVATE (action);
+	priv = GTKHTML_FACE_ACTION (action)->priv;
 
 	widget = gtkhtml_face_chooser_menu_new ();
 
@@ -187,7 +183,7 @@ face_action_get_current_face (GtkhtmlFaceChooser *chooser)
 	GtkhtmlFaceActionPrivate *priv;
 	GtkhtmlFace *face = NULL;
 
-	priv = GTKHTML_FACE_ACTION_GET_PRIVATE (chooser);
+	priv = GTKHTML_FACE_ACTION (chooser)->priv;
 
 	if (priv->current_chooser != NULL)
 		face = gtkhtml_face_chooser_get_current_face (
@@ -203,7 +199,7 @@ face_action_set_current_face (GtkhtmlFaceChooser *chooser,
 	GtkhtmlFaceActionPrivate *priv;
 	GList *iter;
 
-	priv = GTKHTML_FACE_ACTION_GET_PRIVATE (chooser);
+	priv = GTKHTML_FACE_ACTION (chooser)->priv;
 
 	for (iter = priv->choosers; iter != NULL; iter = iter->next) {
 		GtkhtmlFaceChooser *proxy_chooser = iter->data;
@@ -248,7 +244,7 @@ face_action_iface_init (GtkhtmlFaceChooserIface *iface)
 static void
 face_action_init (GtkhtmlFaceAction *action)
 {
-	action->priv = GTKHTML_FACE_ACTION_GET_PRIVATE (action);
+	action->priv = G_TYPE_INSTANCE_GET_PRIVATE (action, GTKHTML_TYPE_FACE_ACTION, GtkhtmlFaceActionPrivate);
 }
 
 GType

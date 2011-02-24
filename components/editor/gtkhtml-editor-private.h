@@ -73,10 +73,6 @@
 /* Marshalling */
 #include "gtkhtml-editor-marshal.h"
 
-#define GTKHTML_EDITOR_GET_PRIVATE(obj) \
-	(G_TYPE_INSTANCE_GET_PRIVATE \
-	((obj), GTKHTML_TYPE_EDITOR, GtkhtmlEditorPrivate))
-
 /* Shorthand, requires a variable named "editor". */
 #define ACTION(name)	(GTKHTML_EDITOR_ACTION_##name (editor))
 #define WIDGET(name)	(GTKHTML_EDITOR_WIDGET_##name (editor))

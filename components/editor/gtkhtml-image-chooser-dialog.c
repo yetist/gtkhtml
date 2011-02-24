@@ -18,11 +18,6 @@
 
 #include "gtkhtml-image-chooser-dialog.h"
 
-#define GTKHTML_IMAGE_CHOOSER_DIALOG_GET_PRIVATE(obj) \
-	(G_TYPE_INSTANCE_GET_PRIVATE \
-	((obj), GTKHTML_TYPE_IMAGE_CHOOSER_DIALOG, \
-	GtkhtmlImageChooserDialogPrivate))
-
 #define PREVIEW_WIDTH	256
 #define PREVIEW_HEIGHT	256
 
@@ -106,7 +101,7 @@ image_chooser_dialog_update_preview (GtkFileChooser *file_chooser)
 	GFile *preview_file;
 	Context *context;
 
-	priv = GTKHTML_IMAGE_CHOOSER_DIALOG_GET_PRIVATE (file_chooser);
+	priv = GTKHTML_IMAGE_CHOOSER_DIALOG (file_chooser)->priv;
 	preview_file = gtk_file_chooser_get_preview_file (file_chooser);
 	preview_widget = gtk_file_chooser_get_preview_widget (file_chooser);
 
@@ -176,7 +171,7 @@ image_chooser_dialog_dispose (GObject *object)
 {
 	GtkhtmlImageChooserDialogPrivate *priv;
 
-	priv = GTKHTML_IMAGE_CHOOSER_DIALOG_GET_PRIVATE (object);
+	priv = GTKHTML_IMAGE_CHOOSER_DIALOG (object)->priv;
 
 	if (priv->cancellable != NULL) {
 		g_cancellable_cancel (priv->cancellable);
@@ -194,7 +189,7 @@ image_chooser_dialog_finalize (GObject *object)
 {
 	GtkhtmlImageChooserDialogPrivate *priv;
 
-	priv = GTKHTML_IMAGE_CHOOSER_DIALOG_GET_PRIVATE (object);
+	priv = GTKHTML_IMAGE_CHOOSER_DIALOG (object)->priv;
 
 	g_free (priv->current_folder);
 
@@ -258,7 +253,7 @@ gtkhtml_image_chooser_dialog_class_init (GtkhtmlImageChooserDialogClass *class)
 static void
 gtkhtml_image_chooser_dialog_init (GtkhtmlImageChooserDialog *dialog)
 {
-	dialog->priv = GTKHTML_IMAGE_CHOOSER_DIALOG_GET_PRIVATE (dialog);
+	dialog->priv = G_TYPE_INSTANCE_GET_PRIVATE (dialog, GTKHTML_TYPE_IMAGE_CHOOSER_DIALOG, GtkhtmlImageChooserDialogPrivate);
 
 	g_signal_connect (
 		dialog, "update-preview",

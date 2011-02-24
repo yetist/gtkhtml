@@ -22,10 +22,6 @@
 
 #include <glib/gi18n-lib.h>
 
-#define GTKHTML_COLOR_SWATCH_GET_PRIVATE(obj) \
-	(G_TYPE_INSTANCE_GET_PRIVATE \
-	((obj), GTKHTML_TYPE_COLOR_SWATCH, GtkhtmlColorSwatchPrivate))
-
 enum {
 	PROP_0,
 	PROP_COLOR,
@@ -134,7 +130,7 @@ color_swatch_get_preferred_width (GtkWidget *widget,
 {
 	GtkhtmlColorSwatchPrivate *priv;
 
-	priv = GTKHTML_COLOR_SWATCH_GET_PRIVATE (widget);
+	priv = GTKHTML_COLOR_SWATCH (widget)->priv;
 
 	gtk_widget_get_preferred_width (
 		priv->frame, minimum_width, natural_width);
@@ -147,7 +143,7 @@ color_swatch_get_preferred_height (GtkWidget *widget,
 {
 	GtkhtmlColorSwatchPrivate *priv;
 
-	priv = GTKHTML_COLOR_SWATCH_GET_PRIVATE (widget);
+	priv = GTKHTML_COLOR_SWATCH (widget)->priv;
 
 	gtk_widget_get_preferred_height (
 		priv->frame, minimum_height, natural_height);
@@ -159,7 +155,7 @@ color_swatch_size_allocate (GtkWidget *widget,
 {
 	GtkhtmlColorSwatchPrivate *priv;
 
-	priv = GTKHTML_COLOR_SWATCH_GET_PRIVATE (widget);
+	priv = GTKHTML_COLOR_SWATCH (widget)->priv;
 
 	gtk_widget_set_allocation (widget, allocation);
 	gtk_widget_size_allocate (priv->frame, allocation);
@@ -212,7 +208,7 @@ color_swatch_init (GtkhtmlColorSwatch *swatch)
 	GtkWidget *container;
 	GtkWidget *widget;
 
-	swatch->priv = GTKHTML_COLOR_SWATCH_GET_PRIVATE (swatch);
+	swatch->priv = G_TYPE_INSTANCE_GET_PRIVATE (swatch, GTKHTML_TYPE_COLOR_SWATCH, GtkhtmlColorSwatchPrivate);
 
 	widget = gtk_frame_new (NULL);
 	gtk_container_add (GTK_CONTAINER (swatch), widget);

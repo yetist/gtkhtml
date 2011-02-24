@@ -30,10 +30,6 @@
 
 #include "gtkhtml-face-chooser.h"
 
-#define GTKHTML_FACE_TOOL_BUTTON_GET_PRIVATE(obj) \
-	(G_TYPE_INSTANCE_GET_PRIVATE \
-	((obj), GTKHTML_TYPE_FACE_TOOL_BUTTON, GtkhtmlFaceToolButtonPrivate))
-
 /* XXX Should calculate this dynamically. */
 #define NUM_ROWS	7
 #define NUM_COLS	3
@@ -250,7 +246,7 @@ face_tool_button_get_property (GObject *object,
 {
 	GtkhtmlFaceToolButtonPrivate *priv;
 
-	priv = GTKHTML_FACE_TOOL_BUTTON_GET_PRIVATE (object);
+	priv = GTKHTML_FACE_TOOL_BUTTON (object)->priv;
 
 	switch (property_id) {
 		case PROP_CURRENT_FACE:
@@ -273,7 +269,7 @@ face_tool_button_dispose (GObject *object)
 {
 	GtkhtmlFaceToolButtonPrivate *priv;
 
-	priv = GTKHTML_FACE_TOOL_BUTTON_GET_PRIVATE (object);
+	priv = GTKHTML_FACE_TOOL_BUTTON (object)->priv;
 
 	if (priv->window != NULL) {
 		g_object_unref (priv->window);
@@ -393,7 +389,7 @@ face_tool_button_get_current_face (GtkhtmlFaceChooser *chooser)
 {
 	GtkhtmlFaceToolButtonPrivate *priv;
 
-	priv = GTKHTML_FACE_TOOL_BUTTON_GET_PRIVATE (chooser);
+	priv = GTKHTML_FACE_TOOL_BUTTON (chooser)->priv;
 
 	if (priv->active_button == NULL)
 		return NULL;
@@ -408,7 +404,7 @@ face_tool_button_set_current_face (GtkhtmlFaceChooser *chooser,
 	GtkhtmlFaceToolButtonPrivate *priv;
 	GList *list, *iter;
 
-	priv = GTKHTML_FACE_TOOL_BUTTON_GET_PRIVATE (chooser);
+	priv = GTKHTML_FACE_TOOL_BUTTON (chooser)->priv;
 
 	list = gtk_container_get_children (GTK_CONTAINER (priv->table));
 
@@ -520,7 +516,7 @@ face_tool_button_init (GtkhtmlFaceToolButton *button)
 	GList *list, *iter;
 	gint ii;
 
-	button->priv = GTKHTML_FACE_TOOL_BUTTON_GET_PRIVATE (button);
+	button->priv = G_TYPE_INSTANCE_GET_PRIVATE (button, GTKHTML_TYPE_FACE_TOOL_BUTTON, GtkhtmlFaceToolButtonPrivate);
 
 	/* Build the pop-up window. */
 

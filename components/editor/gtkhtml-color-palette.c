@@ -27,10 +27,6 @@
 #include <string.h>
 #include <glib/gi18n-lib.h>
 
-#define GTKHTML_COLOR_PALETTE_GET_PRIVATE(obj) \
-	(G_TYPE_INSTANCE_GET_PRIVATE \
-	((obj), GTKHTML_TYPE_COLOR_PALETTE, GtkhtmlColorPalettePrivate))
-
 enum {
 	CHANGED,
 	LAST_SIGNAL
@@ -49,7 +45,7 @@ color_palette_finalize (GObject *object)
 {
 	GtkhtmlColorPalettePrivate *priv;
 
-	priv = GTKHTML_COLOR_PALETTE_GET_PRIVATE (object);
+	priv = GTKHTML_COLOR_PALETTE (object)->priv;
 
 	g_hash_table_destroy (priv->index);
 	g_slist_free (priv->list);
@@ -89,7 +85,7 @@ color_palette_init (GtkhtmlColorPalette *palette)
 		(GDestroyNotify) gdk_color_free,
 		(GDestroyNotify) NULL);
 
-	palette->priv = GTKHTML_COLOR_PALETTE_GET_PRIVATE (palette);
+	palette->priv = G_TYPE_INSTANCE_GET_PRIVATE (palette, GTKHTML_TYPE_COLOR_PALETTE, GtkhtmlColorPalettePrivate);
 	palette->priv->index = index;
 }
 

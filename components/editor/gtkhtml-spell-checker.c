@@ -26,10 +26,6 @@
 
 #include "gtkhtml-spell-marshal.h"
 
-#define GTKHTML_SPELL_CHECKER_GET_PRIVATE(obj) \
-	(G_TYPE_INSTANCE_GET_PRIVATE \
-	((obj), GTKHTML_TYPE_SPELL_CHECKER, GtkhtmlSpellCheckerPrivate))
-
 enum {
 	PROP_0,
 	PROP_LANGUAGE
@@ -135,7 +131,7 @@ spell_checker_set_property (GObject *object,
 {
 	GtkhtmlSpellCheckerPrivate *priv;
 
-	priv = GTKHTML_SPELL_CHECKER_GET_PRIVATE (object);
+	priv = GTKHTML_SPELL_CHECKER (object)->priv;
 
 	switch (property_id) {
 		case PROP_LANGUAGE:
@@ -168,7 +164,7 @@ spell_checker_finalize (GObject *object)
 {
 	GtkhtmlSpellCheckerPrivate *priv;
 
-	priv = GTKHTML_SPELL_CHECKER_GET_PRIVATE (object);
+	priv = GTKHTML_SPELL_CHECKER (object)->priv;
 
 	if (priv->dict != NULL)
 		enchant_broker_free_dict (priv->broker, priv->dict);
@@ -241,7 +237,7 @@ spell_checker_class_init (GtkhtmlSpellCheckerClass *class)
 static void
 spell_checker_init (GtkhtmlSpellChecker *checker)
 {
-	checker->priv = GTKHTML_SPELL_CHECKER_GET_PRIVATE (checker);
+	checker->priv = G_TYPE_INSTANCE_GET_PRIVATE (checker, GTKHTML_TYPE_SPELL_CHECKER, GtkhtmlSpellCheckerPrivate);
 	checker->priv->broker = enchant_broker_init ();
 }
 

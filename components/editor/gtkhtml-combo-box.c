@@ -22,10 +22,6 @@
 
 #include <glib/gi18n-lib.h>
 
-#define GTKHTML_COMBO_BOX_GET_PRIVATE(obj) \
-	(G_TYPE_INSTANCE_GET_PRIVATE \
-	((obj), GTKHTML_TYPE_COMBO_BOX, GtkhtmlComboBoxPrivate))
-
 enum {
 	COLUMN_ACTION,
 	COLUMN_SORT
@@ -249,7 +245,7 @@ combo_box_get_property (GObject *object,
 static void
 combo_box_dispose (GObject *object)
 {
-	GtkhtmlComboBoxPrivate *priv = GTKHTML_COMBO_BOX_GET_PRIVATE (object);
+	GtkhtmlComboBoxPrivate *priv = GTKHTML_COMBO_BOX (object)->priv;
 
 	if (priv->action != NULL) {
 		g_object_unref (priv->action);
@@ -270,7 +266,7 @@ combo_box_dispose (GObject *object)
 static void
 combo_box_finalize (GObject *object)
 {
-	GtkhtmlComboBoxPrivate *priv = GTKHTML_COMBO_BOX_GET_PRIVATE (object);
+	GtkhtmlComboBoxPrivate *priv = GTKHTML_COMBO_BOX (object)->priv;
 
 	g_hash_table_destroy (priv->index);
 
@@ -358,7 +354,7 @@ combo_box_class_init (GtkhtmlComboBoxClass *class)
 static void
 combo_box_init (GtkhtmlComboBox *combo_box)
 {
-	combo_box->priv = GTKHTML_COMBO_BOX_GET_PRIVATE (combo_box);
+	combo_box->priv = G_TYPE_INSTANCE_GET_PRIVATE (combo_box, GTKHTML_TYPE_COMBO_BOX, GtkhtmlComboBoxPrivate);
 
 	combo_box->priv->index = g_hash_table_new_full (
 		g_direct_hash, g_direct_equal,

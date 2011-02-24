@@ -23,10 +23,6 @@
 #include <glib/gi18n-lib.h>
 #include "gtkhtml-spell-checker.h"
 
-#define GTKHTML_SPELL_DIALOG_GET_PRIVATE(obj) \
-	(G_TYPE_INSTANCE_GET_PRIVATE \
-	((obj), GTKHTML_TYPE_SPELL_DIALOG, GtkhtmlSpellDialogPrivate))
-
 enum {
 	COMBO_COLUMN_CHECKER,		/* GTKHTML_TYPE_SPELL_CHECKER */
 	COMBO_COLUMN_TEXT		/* G_TYPE_STRING */
@@ -277,7 +273,7 @@ spell_dialog_dispose (GObject *object)
 {
 	GtkhtmlSpellDialogPrivate *priv;
 
-	priv = GTKHTML_SPELL_DIALOG_GET_PRIVATE (object);
+	priv = GTKHTML_SPELL_DIALOG (object)->priv;
 
 	if (priv->add_word_button != NULL) {
 		g_object_unref (priv->add_word_button);
@@ -328,7 +324,7 @@ spell_dialog_finalize (GObject *object)
 {
 	GtkhtmlSpellDialogPrivate *priv;
 
-	priv = GTKHTML_SPELL_DIALOG_GET_PRIVATE (object);
+	priv = GTKHTML_SPELL_DIALOG (object)->priv;
 
 	g_free (priv->word);
 
@@ -423,7 +419,7 @@ spell_dialog_init (GtkhtmlSpellDialog *dialog)
 	GtkWidget *widget;
 	gchar *markup;
 
-	dialog->priv = GTKHTML_SPELL_DIALOG_GET_PRIVATE (dialog);
+	dialog->priv = G_TYPE_INSTANCE_GET_PRIVATE (dialog, GTKHTML_TYPE_SPELL_DIALOG, GtkhtmlSpellDialogPrivate);
 
 	g_signal_connect (
 		dialog, "notify::word", G_CALLBACK (
