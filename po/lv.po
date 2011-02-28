@@ -8,19 +8,20 @@
 # Raivis Dejus <orvils@gmail.com>, 2006.
 # Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>, 2010.
 # Anita Reitere <nitalynx@gmail.com>, 2010.
+# Rudolfs <rudolfs.mazurs@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml.HEAD.lv2\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
 "cgi?product=gtkhtml&component=general\n"
-"POT-Creation-Date: 2010-03-17 15:38+0000\n"
-"PO-Revision-Date: 2010-06-21 12:14+0300\n"
-"Last-Translator: Anita Reitere <nitalynx@gmail.com>\n"
-"Language-Team: Latviešu <lata-l10n@googlegroups.com>\n"
+"POT-Creation-Date: 2010-06-22 00:23+0000\n"
+"PO-Revision-Date: 2011-02-07 02:43+0200\n"
+"Last-Translator: Rudolfs <rudolfs.mazurs@gmail.com>\n"
+"Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.1\n"
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 
@@ -38,7 +39,7 @@ msgstr "URL ir %s"
 msgid "grab focus"
 msgstr "pārņemt fokusu"
 
-#: ../a11y/object.c:253
+#: ../a11y/object.c:257
 msgid "Panel containing HTML"
 msgstr "Panelis, kas satur HTML"
 
@@ -202,140 +203,22 @@ msgstr "gaiši violets"
 msgid "white"
 msgstr "balts"
 
-#: ../components/editor/gtkhtml-color-combo.c:274
+#: ../components/editor/gtkhtml-color-combo.c:277
 msgid "Choose Custom Color"
 msgstr "Izvēlēties citu krāsu"
 
-#: ../components/editor/gtkhtml-color-combo.c:727
-#: ../components/editor/gtkhtml-color-state.c:205
-#| msgid "Foreground color"
-msgid "Current color"
-msgstr "Pašreizējā krāsa"
-
-#: ../components/editor/gtkhtml-color-combo.c:728
-msgid "The currently selected color"
-msgstr "Šobrīd izvēlētā krāsa"
-
-#: ../components/editor/gtkhtml-color-combo.c:737
-#: ../components/editor/gtkhtml-color-state.c:215
-msgid "Default color"
-msgstr "Noklusētā krāsa"
-
-#: ../components/editor/gtkhtml-color-combo.c:738
-msgid "The color associated with the default button"
-msgstr "Standartpogas krāsa"
-
-#: ../components/editor/gtkhtml-color-combo.c:748
-#: ../components/editor/gtkhtml-color-state.c:226
-msgid "Default label"
-msgstr "Noklusētā etiķete"
-
-#: ../components/editor/gtkhtml-color-combo.c:749
-msgid "The label for the default button"
-msgstr "Standartpogas etiķete"
-
-#: ../components/editor/gtkhtml-color-combo.c:750
+#: ../components/editor/gtkhtml-color-combo.c:745
 #: ../components/editor/gtkhtml-color-state.c:228
 msgid "Default"
 msgstr "Noklusētais"
 
-#: ../components/editor/gtkhtml-color-combo.c:759
-#: ../components/editor/gtkhtml-color-state.c:237
-#| msgid "Transparent"
-msgid "Default is transparent"
-msgstr "Noklusētais caurspīdīgs"
-
-#: ../components/editor/gtkhtml-color-combo.c:760
-#: ../components/editor/gtkhtml-color-state.c:238
-msgid "Whether the default color is transparent"
-msgstr "Vai noklusētā krāsa ir caurspīdīga"
-
-#: ../components/editor/gtkhtml-color-combo.c:770
-#: ../components/editor/gtkhtml-color-state.c:248
-#| msgid "color preview"
-msgid "Color palette"
-msgstr "Krāsu palete"
-
-#: ../components/editor/gtkhtml-color-combo.c:771
-#: ../components/editor/gtkhtml-color-state.c:249
-#| msgid "Custom Color:"
-msgid "Custom color palette"
-msgstr "Pielāgotā krāsu palete"
-
-#. Translators: This is the nickname for a
-#. * GtkhtmlColorCombo property named "popup-shown",
-#. * based on a similar property in GtkComboBox.
-#: ../components/editor/gtkhtml-color-combo.c:783
-#| msgid "Popup"
-msgid "Popup shown"
-msgstr "Saraksts redzams"
-
-#. Translators: This is the blurb for a
-#. * GtkhtmlColorCombo property named "popup-shown",
-#. * based on a similar property in GtkComboBox.
-#: ../components/editor/gtkhtml-color-combo.c:787
-msgid "Whether the combo's dropdown is shown"
-msgstr "Vai kombo lauka izkrītošais izvēles saraksts ir redzams"
-
-#. Translators: This is the nickname for a
-#. GtkHtmlColorCombo property named "state". It holds all
-#. the internal values for a GtkHtml color combination box.
-#.
-#: ../components/editor/gtkhtml-color-combo.c:800
-#| msgid "Colors"
-msgid "Color state"
-msgstr "Krāsu stāvoklis"
-
-#. Translators: This is the blurb for a
-#. GtkHtmlColorCombo property named "state". It holds all
-#. the internal values for a GtkHtml color combination box.
-#.
-#: ../components/editor/gtkhtml-color-combo.c:805
-msgid "The state of a color combo box"
-msgstr "Krāsu kombo lauka stāvoklis"
-
-#: ../components/editor/gtkhtml-color-combo.c:987
+#: ../components/editor/gtkhtml-color-combo.c:968
 msgid "custom"
 msgstr "nestandarta"
 
-#: ../components/editor/gtkhtml-color-combo.c:995
-#| msgid "Custom Color:"
+#: ../components/editor/gtkhtml-color-combo.c:976
 msgid "Custom Color..."
 msgstr "Cita krāsa..."
-
-#: ../components/editor/gtkhtml-color-state.c:206
-#: ../components/editor/gtkhtml-color-swatch.c:183
-msgid "The current color"
-msgstr "Pašreizējā krāsa"
-
-#: ../components/editor/gtkhtml-color-state.c:216
-msgid "The default color"
-msgstr "Noklusētā krāsa"
-
-#: ../components/editor/gtkhtml-color-state.c:227
-msgid "Description of the default color"
-msgstr "Noklusētās krāsas apraksts"
-
-#: ../components/editor/gtkhtml-color-swatch.c:182
-msgid "Color"
-msgstr "Krāsa"
-
-#: ../components/editor/gtkhtml-color-swatch.c:192
-msgid "Frame Shadow"
-msgstr "Rāmja ēna"
-
-#: ../components/editor/gtkhtml-color-swatch.c:193
-msgid "Appearance of the frame border"
-msgstr "Rāmja robežas izskats"
-
-#: ../components/editor/gtkhtml-combo-box.c:323
-#| msgid "Location"
-msgid "Action"
-msgstr "Darbība"
-
-#: ../components/editor/gtkhtml-combo-box.c:324
-msgid "A GtkRadioAction"
-msgstr "GtkRadioAction darbība"
 
 #. Translators: :-)
 #: ../components/editor/gtkhtml-face-chooser.c:34
@@ -344,7 +227,6 @@ msgstr "_Smaida"
 
 #. Translators: :-(
 #: ../components/editor/gtkhtml-face-chooser.c:36
-#| msgid "Shade"
 msgid "S_ad"
 msgstr "S_kumīgs"
 
@@ -360,13 +242,11 @@ msgstr "_Rāda mēli"
 
 #. Translators: :-))
 #: ../components/editor/gtkhtml-face-chooser.c:42
-#| msgid "_Laughing"
 msgid "Laug_h"
 msgstr "Sme_jas"
 
 #. Translators: :-|
 #: ../components/editor/gtkhtml-face-chooser.c:44
-#| msgid "Plain"
 msgid "_Plain"
 msgstr "Nopie_tns"
 
@@ -382,25 +262,21 @@ msgstr "Sarkst"
 
 #. Translators: :-D
 #: ../components/editor/gtkhtml-face-chooser.c:50
-#| msgid "_Smile"
 msgid "_Big Smile"
 msgstr "P_lati smaida"
 
 #. Translators: :-/
 #: ../components/editor/gtkhtml-face-chooser.c:52
-#| msgid "Underline"
 msgid "Uncer_tain"
 msgstr "_Domīgs"
 
 #. Translators: :-O
 #: ../components/editor/gtkhtml-face-chooser.c:54
-#| msgid "Su_rprised"
 msgid "S_urprise"
 msgstr "_Pārsteigts"
 
 #. Translators: :-S
 #: ../components/editor/gtkhtml-face-chooser.c:56
-#| msgid "Su_rprised"
 msgid "W_orried"
 msgstr "Norūpējies"
 
@@ -411,13 +287,11 @@ msgstr "_Buča"
 
 #. Translators: X-(
 #: ../components/editor/gtkhtml-face-chooser.c:60
-#| msgid "gray"
 msgid "A_ngry"
 msgstr "Nikns"
 
 #. Translators: B-)
 #: ../components/editor/gtkhtml-face-chooser.c:62
-#| msgid "_Color:"
 msgid "_Cool"
 msgstr "Apmierināts"
 
@@ -438,7 +312,6 @@ msgstr "Sl_ims"
 
 #. Translators: |-)
 #: ../components/editor/gtkhtml-face-chooser.c:70
-#| msgid "red"
 msgid "Tire_d"
 msgstr "Noguris"
 
@@ -453,12 +326,10 @@ msgid "_Monkey"
 msgstr "Pērtiķis"
 
 #: ../components/editor/gtkhtml-editor-actions.c:190
-#| msgid "Insert HTML File"
 msgid "Failed to insert HTML file."
 msgstr "Neizdevās ievietot HTML failu."
 
 #: ../components/editor/gtkhtml-editor-actions.c:227
-#| msgid "Insert Text File"
 msgid "Failed to insert text file."
 msgstr "Neizdevās ievietot teksta failu."
 
@@ -468,7 +339,6 @@ msgstr "Ievietot HTML failu"
 
 #: ../components/editor/gtkhtml-editor-actions.c:631
 #: ../components/editor/gtkhtml-editor-actions.c:1541
-#| msgid "Insert image"
 msgid "Insert Image"
 msgstr "Ievietot attēlu"
 
@@ -499,7 +369,6 @@ msgid "Cu_t"
 msgstr "Izgiez_t"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1225
-#| msgid "Find _Again"
 msgid "Find A_gain"
 msgstr "Atrast _vēlreiz"
 
@@ -508,7 +377,6 @@ msgid "_Increase Indent"
 msgstr "_Palielināt atkāpi"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1241
-#| msgid "_Increase Indent"
 msgid "Increase Indent"
 msgstr "Palielināt atkāpi"
 
@@ -541,7 +409,6 @@ msgid "_Find..."
 msgstr "_Atrast..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1295
-#| msgid "_Replace..."
 msgid "Re_place..."
 msgstr "Ai_zvietot..."
 
@@ -550,7 +417,7 @@ msgid "Check _Spelling..."
 msgstr "Pārbaudīt pareizrak_stību..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1309
-#: ../components/editor/gtkhtml-editor-builder.ui.h:79
+#: ../components/editor/gtkhtml-editor-builder.ui.h:80
 msgid "_Test URL..."
 msgstr "Pārbaudī_t URL..."
 
@@ -563,7 +430,6 @@ msgid "_Decrease Indent"
 msgstr "_Samazināt atkāpi"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1325
-#| msgid "_Decrease Indent"
 msgid "Decrease Indent"
 msgstr "Samazināt atkāpi"
 
@@ -577,7 +443,6 @@ msgstr "R_ediģēt"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1346
 #: ../components/editor/main.c:327
-#| msgid "_Smile"
 msgid "_File"
 msgstr "_Fails"
 
@@ -586,7 +451,6 @@ msgid "For_mat"
 msgstr "For_matēt"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1360
-#| msgid "Paragraph Style..."
 msgid "_Paragraph Style"
 msgstr "_Rindkopas stils"
 
@@ -612,7 +476,6 @@ msgid "_Center"
 msgstr "_Centrēt"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1400
-#| msgid "Alignment"
 msgid "Center Alignment"
 msgstr "Līdzināt pa viduslīniju"
 
@@ -621,7 +484,6 @@ msgid "_Left"
 msgstr "_Pa kreisi"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1407
-#| msgid "Alignment"
 msgid "Left Alignment"
 msgstr "Līdzināt pēc kreisās malas"
 
@@ -630,7 +492,6 @@ msgid "_Right"
 msgstr "Pa _labi"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1414
-#| msgid "Right align"
 msgid "Right Alignment"
 msgstr "Līdzināt pēc labās malas"
 
@@ -643,7 +504,6 @@ msgid "HTML editing mode"
 msgstr "HTML rediģēšanas režīms"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1429
-#| msgid "_Plain Text"
 msgid "Plain _Text"
 msgstr "Vienkāršs _teksts"
 
@@ -704,12 +564,12 @@ msgid "_Alphabetical List"
 msgstr "_Alfabētisks saraksts"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1539
-#: ../components/editor/gtkhtml-editor-actions.c:1574
+#: ../components/editor/gtkhtml-editor-actions.c:1576
 msgid "_Image..."
 msgstr "_Attēls..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1546
-#: ../components/editor/gtkhtml-editor-actions.c:1581
+#: ../components/editor/gtkhtml-editor-actions.c:1583
 msgid "_Link..."
 msgstr "_Saite..."
 
@@ -717,368 +577,304 @@ msgstr "_Saite..."
 msgid "Insert Link"
 msgstr "Ievietot saiti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1553
-#: ../components/editor/gtkhtml-editor-actions.c:1595
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1554
+#: ../components/editor/gtkhtml-editor-actions.c:1598
 msgid "_Rule..."
 msgstr "At_dalītājs"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1555
-#| msgid "Insert rule"
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1557
 msgid "Insert Rule"
 msgstr "Ievietot atdalītāju"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1560
-#: ../components/editor/gtkhtml-editor-actions.c:1602
+#: ../components/editor/gtkhtml-editor-actions.c:1562
+#: ../components/editor/gtkhtml-editor-actions.c:1605
 msgid "_Table..."
 msgstr "_Tabula..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1562
-#| msgid "Insert table"
+#: ../components/editor/gtkhtml-editor-actions.c:1564
 msgid "Insert Table"
 msgstr "Ievietot tabulu"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1567
-#| msgid "Cell"
+#: ../components/editor/gtkhtml-editor-actions.c:1569
 msgid "_Cell..."
 msgstr "Šū_na..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1588
-#| msgid "_Page..."
+#: ../components/editor/gtkhtml-editor-actions.c:1590
 msgid "Pa_ge..."
 msgstr "La_pa..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1611
-#| msgid "_Font Size"
+#: ../components/editor/gtkhtml-editor-actions.c:1614
 msgid "Font _Size"
 msgstr "_Fonta izmērs"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1618
-#| msgid "_Font Size"
+#: ../components/editor/gtkhtml-editor-actions.c:1621
 msgid "_Font Style"
 msgstr "_Fonta stils"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1628
-#: ../components/editor/gtkhtml-editor-builder.ui.h:60
+#: ../components/editor/gtkhtml-editor-actions.c:1631
+#: ../components/editor/gtkhtml-editor-builder.ui.h:61
 msgid "_Bold"
 msgstr "_Treknraksts"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1630
+#: ../components/editor/gtkhtml-editor-actions.c:1633
 msgid "Bold"
 msgstr "Treknraksts"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1636
-#: ../components/editor/gtkhtml-editor-builder.ui.h:67
+#: ../components/editor/gtkhtml-editor-actions.c:1639
+#: ../components/editor/gtkhtml-editor-builder.ui.h:68
 msgid "_Italic"
 msgstr "_Slīpraksts"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1638
+#: ../components/editor/gtkhtml-editor-actions.c:1641
 msgid "Italic"
 msgstr "Slīpraksts"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1644
+#: ../components/editor/gtkhtml-editor-actions.c:1647
 msgid "_Plain Text"
 msgstr "_Vienkāršs teksts"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1646
-#| msgid "_Plain Text"
+#: ../components/editor/gtkhtml-editor-actions.c:1649
 msgid "Plain Text"
 msgstr "Vienkāršs teksts"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1652
-#: ../components/editor/gtkhtml-editor-builder.ui.h:76
+#: ../components/editor/gtkhtml-editor-actions.c:1655
+#: ../components/editor/gtkhtml-editor-builder.ui.h:77
 msgid "_Strikethrough"
 msgstr "_Nosvītrots"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1654
-#| msgid "_Strikethrough"
+#: ../components/editor/gtkhtml-editor-actions.c:1657
 msgid "Strikethrough"
 msgstr "Nosvītrots"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1660
-#: ../components/editor/gtkhtml-editor-builder.ui.h:82
+#: ../components/editor/gtkhtml-editor-actions.c:1663
+#: ../components/editor/gtkhtml-editor-builder.ui.h:83
 msgid "_Underline"
 msgstr "_Pasvītrots"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1662
+#: ../components/editor/gtkhtml-editor-actions.c:1665
 msgid "Underline"
 msgstr "Pasvītrots"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1671
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1675
 msgid "-2"
 msgstr "-2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1678
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1683
 msgid "-1"
 msgstr "-1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1685
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1691
 msgid "+0"
 msgstr "+0"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1692
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1699
 msgid "+1"
 msgstr "+1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1699
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1707
 msgid "+2"
 msgstr "+2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1706
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1715
 msgid "+3"
 msgstr "+3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1713
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1723
 msgid "+4"
 msgstr "+4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1732
-#| msgid "Cell contents"
+#: ../components/editor/gtkhtml-editor-actions.c:1742
 msgid "Cell Contents"
 msgstr "Šūnas saturs"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1739
+#: ../components/editor/gtkhtml-editor-actions.c:1749
 msgid "Column"
 msgstr "Kolonna"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1746
+#: ../components/editor/gtkhtml-editor-actions.c:1756
 msgid "Row"
 msgstr "Rinda"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1753
-#: ../components/editor/gtkhtml-editor-actions.c:1836
+#: ../components/editor/gtkhtml-editor-actions.c:1763
+#: ../components/editor/gtkhtml-editor-actions.c:1848
 msgid "Table"
 msgstr "Tabula"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1762
-#| msgid "Table delete"
+#. Translators: Popup menu item caption, containing all the Delete options for a table
+#: ../components/editor/gtkhtml-editor-actions.c:1773
 msgid "Table Delete"
 msgstr "Dzēst no tabulas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1769
+#: ../components/editor/gtkhtml-editor-actions.c:1780
 msgid "Input Methods"
 msgstr "Ievades metodes"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1776
+#. Translators: Popup menu item caption, containing all the Insert options for a table
+#: ../components/editor/gtkhtml-editor-actions.c:1788
 msgid "Table Insert"
 msgstr "Ievietot tabulā"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1783
+#: ../components/editor/gtkhtml-editor-actions.c:1795
 msgid "Properties"
 msgstr "Īpašības"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1801
-#| msgid "Column after"
+#: ../components/editor/gtkhtml-editor-actions.c:1813
 msgid "Column After"
 msgstr "Kolonna pēc"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1808
-#| msgid "Column before"
+#: ../components/editor/gtkhtml-editor-actions.c:1820
 msgid "Column Before"
 msgstr "Kolonna pirms"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1815
-#| msgid "Insert Link"
+#: ../components/editor/gtkhtml-editor-actions.c:1827
 msgid "Insert _Link"
 msgstr "Ievietot _saiti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1822
-#| msgid "Row above"
+#: ../components/editor/gtkhtml-editor-actions.c:1834
 msgid "Row Above"
 msgstr "Rinda virs"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1829
-#| msgid "Row below"
+#: ../components/editor/gtkhtml-editor-actions.c:1841
 msgid "Row Below"
 msgstr "Rinda zem"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1843
-#| msgid "Cell"
+#: ../components/editor/gtkhtml-editor-actions.c:1855
 msgid "Cell..."
 msgstr "Šūna..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1850
-#| msgid "_Image..."
+#: ../components/editor/gtkhtml-editor-actions.c:1862
 msgid "Image..."
 msgstr "Attēls..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1857
-#| msgid "_Link..."
+#: ../components/editor/gtkhtml-editor-actions.c:1869
 msgid "Link..."
 msgstr "Saite..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1864
-#| msgid "_Page..."
+#: ../components/editor/gtkhtml-editor-actions.c:1876
 msgid "Page..."
 msgstr "Lapa..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1871
-#| msgid "_Paragraph..."
+#: ../components/editor/gtkhtml-editor-actions.c:1883
 msgid "Paragraph..."
 msgstr "Rindkopa..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1878
-#| msgid "_Rule..."
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1891
 msgid "Rule..."
 msgstr "Atdalītājs..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1885
-#| msgid "_Table..."
+#: ../components/editor/gtkhtml-editor-actions.c:1898
 msgid "Table..."
 msgstr "Tabula..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1892
+#: ../components/editor/gtkhtml-editor-actions.c:1905
 msgid "Text..."
 msgstr "Teksts..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1899
+#: ../components/editor/gtkhtml-editor-actions.c:1912
 msgid "Remove Link"
 msgstr "Izņemt saiti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1916
+#: ../components/editor/gtkhtml-editor-actions.c:1929
 msgid "Add Word to Dictionary"
 msgstr "Pievienot vārdu vārdnīcai"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1923
+#: ../components/editor/gtkhtml-editor-actions.c:1936
 msgid "Ignore Misspelled Word"
 msgstr "Ignorēt šo vārdu"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1930
-#| msgid "Add Word to"
+#: ../components/editor/gtkhtml-editor-actions.c:1943
 msgid "Add Word To"
 msgstr "Pievienot vārdu"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1939
+#: ../components/editor/gtkhtml-editor-actions.c:1952
 msgid "More Suggestions"
 msgstr "Citi ieteikumi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2106
-#| msgid "Emoti_con"
+#. Translators: %s will be replaced with the actual dictionary name,
+#. where a user can add a word to. This is part of an "Add Word To" submenu.
+#: ../components/editor/gtkhtml-editor-actions.c:2053
+#, c-format
+#| msgid "Dictionary"
+msgid "%s Dictionary"
+msgstr "vārdnīcai %s"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2121
 msgid "_Emoticon"
 msgstr "_Emocijzīme"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2107
-#| msgid "Insert link"
+#: ../components/editor/gtkhtml-editor-actions.c:2122
 msgid "Insert Emoticon"
 msgstr "Ievietot emocijzīmi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2168
-#| msgid "Find"
+#: ../components/editor/gtkhtml-editor-actions.c:2183
 msgid "_Find"
 msgstr "_Atrast"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2171
-#| msgid "Replace"
+#: ../components/editor/gtkhtml-editor-actions.c:2186
 msgid "Re_place"
 msgstr "Ai_zvietot"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2174
-#| msgid "_Image:"
+#: ../components/editor/gtkhtml-editor-actions.c:2189
 msgid "_Image"
 msgstr "At_tēls"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2177
-#| msgid "_Link:"
+#: ../components/editor/gtkhtml-editor-actions.c:2192
 msgid "_Link"
 msgstr "_Saite"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2180
-#| msgid "Rule"
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:2196
 msgid "_Rule"
 msgstr "_Atdalītājs"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2183
-#: ../components/editor/gtkhtml-editor-builder.ui.h:78
+#: ../components/editor/gtkhtml-editor-actions.c:2199
+#: ../components/editor/gtkhtml-editor-builder.ui.h:79
 msgid "_Table"
 msgstr "_Tabula"
 
-#: ../components/editor/gtkhtml-editor-private.c:271
-#| msgid "Paragraph Style..."
+#: ../components/editor/gtkhtml-editor-private.c:273
 msgid "Paragraph Style"
 msgstr "Rindkopas stils"
 
-#: ../components/editor/gtkhtml-editor-private.c:285
+#: ../components/editor/gtkhtml-editor-private.c:287
 msgid "Editing Mode"
 msgstr "Rediģēšanas režīms"
 
-#: ../components/editor/gtkhtml-editor-private.c:297
-#| msgid "Color"
+#: ../components/editor/gtkhtml-editor-private.c:299
 msgid "Font Color"
 msgstr "Fonta krāsa"
 
-#: ../components/editor/gtkhtml-editor-private.c:307
-#| msgid "_Font Size"
+#: ../components/editor/gtkhtml-editor-private.c:309
 msgid "Font Size"
 msgstr "Fonta izmērs"
 
-#: ../components/editor/gtkhtml-editor-private.c:334
+#: ../components/editor/gtkhtml-editor-private.c:336
 msgid "Automatic"
 msgstr "Automātiski"
 
-#: ../components/editor/gtkhtml-editor-private.c:587
-#| msgid "Could not load glade file."
+#: ../components/editor/gtkhtml-editor-private.c:589
 msgid "Could not open the link."
 msgstr "Neizdevās atvērt saiti."
 
-#: ../components/editor/gtkhtml-editor.c:778
-#| msgid "Center"
-msgid "Current Folder"
-msgstr "Aktīvā mape"
+#: ../components/editor/gtkhtml-editor.c:897
+#| msgid "Page Properties"
+msgid "Changed property"
+msgstr "Mainītās īpašības"
 
-#: ../components/editor/gtkhtml-editor.c:779
-msgid "The initial folder for file chooser dialogs"
-msgstr "Sākuma mape faila izvēles dialogiem"
-
-#: ../components/editor/gtkhtml-editor.c:789
-#| msgid "Frame"
-msgid "Filename"
-msgstr "Faila nosaukums"
-
-#: ../components/editor/gtkhtml-editor.c:790
-msgid "The filename to use when saving"
-msgstr "Faila nosaukums, ko lietot saglabāšanai"
-
-#: ../components/editor/gtkhtml-editor.c:800
-msgid "HTML Editing Widget"
-msgstr "HTML rediģēšanas logdaļa"
-
-#: ../components/editor/gtkhtml-editor.c:801
-msgid "The main HTML editing widget"
-msgstr "Galvenā HTML rediģēšanas logdaļa"
-
-#: ../components/editor/gtkhtml-editor.c:811
-msgid "HTML Mode"
-msgstr "HTML režīms"
-
-#: ../components/editor/gtkhtml-editor.c:812
-msgid "Edit HTML or plain text"
-msgstr "Rediģēt HTML vai vienkāršu tekstu"
-
-#: ../components/editor/gtkhtml-editor.c:822
-#| msgid "Enable spell checking"
-msgid "Inline Spelling"
-msgstr "Iekļautā pareizrakstība"
-
-#: ../components/editor/gtkhtml-editor.c:823
-#| msgid "Check spelling of the document"
-msgid "Check your spelling as you type"
-msgstr "Pārbaudīt pareizrakstību rakstīšanas laikā"
-
-#: ../components/editor/gtkhtml-editor.c:833
-msgid "Magic Links"
-msgstr "Automaģiskās saites"
-
-#: ../components/editor/gtkhtml-editor.c:834
-msgid "Make URIs clickable as you type"
-msgstr "Uzreiz pārvērst URI par saitēm"
-
-#: ../components/editor/gtkhtml-editor.c:844
-#| msgid "_Smiley"
-msgid "Magic Smileys"
-msgstr "Smaidiņi attēlos"
-
-#: ../components/editor/gtkhtml-editor.c:845
-msgid "Convert emoticons to images as you type"
-msgstr "Uzreiz pārvērst emocijzīmes par attēliem"
+#: ../components/editor/gtkhtml-editor.c:898
+#| msgid "Whether the html can be edited"
+msgid "Whether editor changed"
+msgstr "Vai redaktors ir mainīts"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:2
 #, no-c-format
@@ -1090,12 +886,10 @@ msgid "Alignment"
 msgstr "Līdzināšana"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:4
-#| msgid "<b>Alignment &amp; Behaviour</b>"
 msgid "Alignment & Behavior"
 msgstr "Līdzināšana un uzvedība"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:5
-#| msgid "_Background:"
 msgid "Background"
 msgstr "Fons"
 
@@ -1104,7 +898,6 @@ msgid "Background Image"
 msgstr "Fona attēls"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:7
-#| msgid "Blue ink"
 msgid "Blue Ink"
 msgstr "Zila tinte"
 
@@ -1121,7 +914,6 @@ msgid "C_olor:"
 msgstr "_Krāsa:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:11
-#| msgid "_Columns:"
 msgid "C_olumns:"
 msgstr "_Kolonnas:"
 
@@ -1134,7 +926,6 @@ msgid "Case _sensitive"
 msgstr "Reģistrjūtīg_s"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:14
-#| msgid "Properties"
 msgid "Cell Properties"
 msgstr "Šūnas īpašības"
 
@@ -1143,7 +934,6 @@ msgid "Center"
 msgstr "Centrēt"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:16
-#| msgid "C_olor:"
 msgid "Co_lor:"
 msgstr "_Krāsa:"
 
@@ -1156,7 +946,6 @@ msgid "Colors"
 msgstr "Krāsas"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:19
-#| msgid "Column span:"
 msgid "Column Span:"
 msgstr "Kolonnu diapazons:"
 
@@ -1177,12 +966,10 @@ msgid "General"
 msgstr "Vispārējs"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:24
-#| msgid "Graph paper"
 msgid "Graph Paper"
 msgstr "Milimetrpapīrs"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:25
-#| msgid "Hea_der style"
 msgid "Hea_der Style"
 msgstr "_Virsraksta stils"
 
@@ -1191,12 +978,10 @@ msgid "I_mage:"
 msgstr "A_ttēls:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:27
-#| msgid "Properties"
 msgid "Image Properties"
 msgstr "Attēla īpašības"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:28
-#| msgid "<b>Layout</b>"
 msgid "Layout"
 msgstr "Izkārtojums"
 
@@ -1209,7 +994,6 @@ msgid "Link"
 msgstr "Saite"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:31
-#| msgid "Link properties"
 msgid "Link Properties"
 msgstr "Saites īpašības"
 
@@ -1226,7 +1010,6 @@ msgid "None"
 msgstr "Nekas"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:35
-#| msgid "Properties"
 msgid "Page Properties"
 msgstr "Lapas īpašības"
 
@@ -1235,12 +1018,10 @@ msgid "Paper"
 msgstr "Papīrs"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:37
-#| msgid "Properties"
 msgid "Paragraph Properties"
 msgstr "Rindkopas īpašības"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:38
-#| msgid "Perforated paper"
 msgid "Perforated Paper"
 msgstr "Perforētais papīrs"
 
@@ -1253,7 +1034,6 @@ msgid "Replace"
 msgstr "Aizvietot"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:41
-#| msgid "Replace confirmation"
 msgid "Replace Confirmation"
 msgstr "Aizvietošanas apstiprinājums"
 
@@ -1266,220 +1046,186 @@ msgid "Right"
 msgstr "Pa labi"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:44
-#| msgid "Row span:"
 msgid "Row Span:"
 msgstr "Rindu diapazons:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:45
-#| msgid "Properties"
+#. Translators: Caption of a window. 'Rule' here means a horizontal line in an HTML text.
+#: ../components/editor/gtkhtml-editor-builder.ui.h:46
 msgid "Rule Properties"
 msgstr "Atdalītāja īpašības"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:46
-#| msgid "Shade"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:47
 msgid "S_haded"
 msgstr "Ē_nots"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:47
+#: ../components/editor/gtkhtml-editor-builder.ui.h:48
 msgid "Scope"
 msgstr "Darbības apgabals"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:48
-#| msgid "Search _backward"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:49
 msgid "Search _backwards"
 msgstr "Meklēt _atpakaļ"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:49
-#| msgid "Select _All"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:50
 msgid "Select An Image"
 msgstr "Izvēlieties attēlu"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:50
+#: ../components/editor/gtkhtml-editor-builder.ui.h:51
 msgid "Si_ze:"
 msgstr "I_zmērs:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:51
-#| msgid "Size:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:52
 msgid "Size"
 msgstr "Izmērs"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:52
+#: ../components/editor/gtkhtml-editor-builder.ui.h:53
 msgid "Style"
 msgstr "Stils"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:53
+#: ../components/editor/gtkhtml-editor-builder.ui.h:54
 msgid "T_emplate:"
 msgstr "V_eidne:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:54
-#| msgid "Properties"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:55
 msgid "Table Properties"
 msgstr "Tabulas īpašības"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:55
-#| msgid "Properties"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:56
 msgid "Text Properties"
 msgstr "Teksta īpašības"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:56
+#: ../components/editor/gtkhtml-editor-builder.ui.h:57
 msgid "Top"
 msgstr "Augša"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:57
+#: ../components/editor/gtkhtml-editor-builder.ui.h:58
 msgid "Width:"
 msgstr "Platums:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:58
+#: ../components/editor/gtkhtml-editor-builder.ui.h:59
 msgid "_Alignment:"
 msgstr "_Līdzinājums:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:59
+#: ../components/editor/gtkhtml-editor-builder.ui.h:60
 msgid "_Background:"
 msgstr "_Fons:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:61
+#: ../components/editor/gtkhtml-editor-builder.ui.h:62
 msgid "_Border:"
 msgstr "_Robeža:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:62
+#: ../components/editor/gtkhtml-editor-builder.ui.h:63
 msgid "_Color:"
 msgstr "_Krāsa:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:63
+#: ../components/editor/gtkhtml-editor-builder.ui.h:64
 msgid "_Description:"
 msgstr "_Apraksts:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:64
+#: ../components/editor/gtkhtml-editor-builder.ui.h:65
 msgid "_Height:"
 msgstr "Au_gstums:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:65
-#| msgid "Horizontal:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:66
 msgid "_Horizontal:"
 msgstr "_Horizontāli:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:66
+#: ../components/editor/gtkhtml-editor-builder.ui.h:67
 msgid "_Image:"
 msgstr "At_tēls:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:68
+#: ../components/editor/gtkhtml-editor-builder.ui.h:69
 msgid "_Link:"
 msgstr "_Saite:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:69
+#: ../components/editor/gtkhtml-editor-builder.ui.h:70
 msgid "_Padding:"
 msgstr "_Iekšmale:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:70
-#| msgid "_Regular Expression"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:71
 msgid "_Regular expression"
 msgstr "_Regulārā izteiksme"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:71
+#: ../components/editor/gtkhtml-editor-builder.ui.h:72
 msgid "_Row"
 msgstr "_Rinda"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:72
+#: ../components/editor/gtkhtml-editor-builder.ui.h:73
 msgid "_Rows:"
 msgstr "_Rindas:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:73
-#| msgid "Size:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:74
 msgid "_Size:"
 msgstr "_Izmērs:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:74
+#: ../components/editor/gtkhtml-editor-builder.ui.h:75
 msgid "_Source:"
 msgstr "_Avots:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:75
+#: ../components/editor/gtkhtml-editor-builder.ui.h:76
 msgid "_Spacing:"
 msgstr "At_starpe:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:77
+#: ../components/editor/gtkhtml-editor-builder.ui.h:78
 msgid "_Style:"
 msgstr "_Stils:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:80
+#: ../components/editor/gtkhtml-editor-builder.ui.h:81
 msgid "_Text:"
 msgstr "_Teksts:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:81
+#: ../components/editor/gtkhtml-editor-builder.ui.h:82
 msgid "_URL:"
 msgstr "_URL:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:83
-#| msgid "Vertical:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:84
 msgid "_Vertical:"
 msgstr "_Vertikāli:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:84
+#: ../components/editor/gtkhtml-editor-builder.ui.h:85
 msgid "_Width:"
 msgstr "P_latums:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:85
+#: ../components/editor/gtkhtml-editor-builder.ui.h:86
 msgid "_With:"
 msgstr "_Ar:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:86
+#: ../components/editor/gtkhtml-editor-builder.ui.h:87
 msgid "_Wrap Text"
 msgstr "_Apliekt tekstu"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:87
+#: ../components/editor/gtkhtml-editor-builder.ui.h:88
 msgid "_X-Padding:"
 msgstr "_X-iekšmale:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:88
+#: ../components/editor/gtkhtml-editor-builder.ui.h:89
 msgid "_Y-Padding:"
 msgstr "_Y-iekšmale:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:89
+#: ../components/editor/gtkhtml-editor-builder.ui.h:90
 msgid "follow"
 msgstr "sekot"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:90
+#: ../components/editor/gtkhtml-editor-builder.ui.h:91
 msgid "px"
 msgstr "px"
 
-#: ../components/editor/gtkhtml-spell-checker.c:200
-#| msgid "Current _Languages"
-msgid "Language"
-msgstr "Valoda"
-
-#: ../components/editor/gtkhtml-spell-checker.c:201
-msgid "The language used by the spell checker"
-msgstr "Valoda pareizrakstības pārbaudei"
-
 #: ../components/editor/gtkhtml-spell-dialog.c:117
 #, c-format
-#| msgid "Suggest word"
 msgid "Suggestions for \"%s\""
 msgstr "Ieteikumi \"%s\""
 
-#: ../components/editor/gtkhtml-spell-dialog.c:358
-#| msgid "Ignore Misspelled Word"
-msgid "Misspelled Word"
-msgstr "Nepareizi uzrakstīts vārds"
-
-#: ../components/editor/gtkhtml-spell-dialog.c:359
-#| msgid "Ignore Misspelled Word"
-msgid "The current misspelled word"
-msgstr "Aktīvais nepareizi uzrakstītais vārds"
-
 #: ../components/editor/gtkhtml-spell-dialog.c:447
-#| msgid "Spell checker"
 msgid "Spell Checker"
 msgstr "Pareizrakstības pārbaude"
 
 #. Replace All Button
 #: ../components/editor/gtkhtml-spell-dialog.c:534
-#| msgid "Replace _All"
 msgid "R_eplace All"
 msgstr "Aizvietot _visus"
 
 #. Ignore Button
 #: ../components/editor/gtkhtml-spell-dialog.c:548
-#| msgid "Ignore '%s'"
 msgid "_Ignore"
 msgstr "_Ignorēt"
 
@@ -1490,24 +1236,21 @@ msgstr "Izlai_st"
 
 #. Back Button
 #: ../components/editor/gtkhtml-spell-dialog.c:575
-#| msgid "_Backward"
 msgid "_Back"
 msgstr "Atpa_kaļ"
 
 #. Dictionary Label
 #: ../components/editor/gtkhtml-spell-dialog.c:588
-#| msgid "%s Dictionary"
 msgid "Dictionary"
 msgstr "Vārdnīca"
 
 #. Add Word Button
 #: ../components/editor/gtkhtml-spell-dialog.c:617
-#| msgid "Add Word to"
 msgid "_Add Word"
 msgstr "_Pievienot vārdu"
 
 #. Translators: %s is the language ISO code.
-#: ../components/editor/gtkhtml-spell-language.c:184
+#: ../components/editor/gtkhtml-spell-language.c:255
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
@@ -1515,8 +1258,8 @@ msgstr "Nezināma (%s)"
 
 #. Translators: The first %s is the language name, and the
 #. * second is the country name. Example: "French (France)"
-#: ../components/editor/gtkhtml-spell-language.c:199
-#: ../components/editor/gtkhtml-spell-language.c:204
+#: ../components/editor/gtkhtml-spell-language.c:270
+#: ../components/editor/gtkhtml-spell-language.c:275
 #, c-format
 msgctxt "language"
 msgid "%s (%s)"
@@ -1524,7 +1267,7 @@ msgstr "%s (%s)"
 
 #. Translators: This refers to the default language used
 #. * by the spell checker.
-#: ../components/editor/gtkhtml-spell-language.c:389
+#: ../components/editor/gtkhtml-spell-language.c:460
 msgctxt "language"
 msgid "Default"
 msgstr "Noklusētā"
@@ -1534,7 +1277,6 @@ msgid "Save As"
 msgstr "Saglabāt kā"
 
 #: ../components/editor/main.c:111
-#| msgid "Insert table into document..."
 msgid "Untitled document"
 msgstr "Nenosaukts dokuments"
 
@@ -1543,37 +1285,30 @@ msgid "HTML Output"
 msgstr "HTML izvade"
 
 #: ../components/editor/main.c:278
-#| msgid "_Source:"
 msgid "HTML Source"
 msgstr "HTML avots"
 
 #: ../components/editor/main.c:285
-#| msgid "_Plain Text"
 msgid "Plain Source"
 msgstr "Vienkāršs avots"
 
 #: ../components/editor/main.c:292
-#| msgid "_Find..."
 msgid "_Print..."
 msgstr "_Drukāt..."
 
 #: ../components/editor/main.c:299
-#| msgid "Print pre_view"
 msgid "Print Pre_view"
 msgstr "Drukas priekš_skatījums"
 
 #: ../components/editor/main.c:306
-#| msgid "_Edit"
 msgid "_Quit"
 msgstr "_Iziet"
 
 #: ../components/editor/main.c:313
-#| msgid "Shade"
 msgid "_Save"
 msgstr "_Saglabāt"
 
 #: ../components/editor/main.c:320
-#| msgid "Save file as..."
 msgid "Save _As..."
 msgstr "S_aglabāt kā..."
 
@@ -1582,94 +1317,12 @@ msgid "HTML _Output"
 msgstr "HTML _izvade"
 
 #: ../components/editor/main.c:344
-#| msgid "_Source:"
 msgid "_HTML Source"
 msgstr "_HTML avots"
 
 #: ../components/editor/main.c:351
-#| msgid "_Plain Text"
 msgid "_Plain Source"
 msgstr "_Vienkāršs avots"
-
-#: ../gtkhtml/gtkhtml.c:3068
-msgid "Editable"
-msgstr "Rediģējams"
-
-#: ../gtkhtml/gtkhtml.c:3069
-msgid "Whether the html can be edited"
-msgstr "Vai HTML var tikt rediģēts"
-
-#: ../gtkhtml/gtkhtml.c:3075
-msgid "Document Title"
-msgstr "Dokumenta nosaukums"
-
-#: ../gtkhtml/gtkhtml.c:3076
-msgid "The title of the current document"
-msgstr "Pašreizējā dokumenta nosaukums"
-
-#: ../gtkhtml/gtkhtml.c:3082
-msgid "Document Base"
-msgstr "Dokumenta bāze"
-
-#: ../gtkhtml/gtkhtml.c:3083
-msgid "The base URL for relative references"
-msgstr "Relatīvo atsauču bāzes URL"
-
-#: ../gtkhtml/gtkhtml.c:3089
-msgid "Target Base"
-msgstr "Mērķa bāze"
-
-#: ../gtkhtml/gtkhtml.c:3090
-msgid "The base URL of the target frame"
-msgstr "Mērķa ietvara bāzes URL"
-
-#: ../gtkhtml/gtkhtml.c:3098
-msgid "Fixed Width Font"
-msgstr "Fiksēta platuma fonts"
-
-#: ../gtkhtml/gtkhtml.c:3099
-msgid "The Monospace font to use for typewriter text"
-msgstr "Vienplatuma fonts, ko lietot rakstāmmašīnas tekstam"
-
-#: ../gtkhtml/gtkhtml.c:3105
-msgid "New Link Color"
-msgstr "Jaunas saites krāsa"
-
-#: ../gtkhtml/gtkhtml.c:3106
-msgid "The color of new link elements"
-msgstr "Jaunu saites elementu krāsa"
-
-#: ../gtkhtml/gtkhtml.c:3111
-msgid "Visited Link Color"
-msgstr "Apmeklētas saites krāsa"
-
-#: ../gtkhtml/gtkhtml.c:3112
-msgid "The color of visited link elements"
-msgstr "Apmeklētas saites elementu krāsa"
-
-#: ../gtkhtml/gtkhtml.c:3117
-msgid "Active Link Color"
-msgstr "Aktīvās saites krāsa"
-
-#: ../gtkhtml/gtkhtml.c:3118
-msgid "The color of active link elements"
-msgstr "Aktīvās saites elementu krāsa"
-
-#: ../gtkhtml/gtkhtml.c:3123
-msgid "Spelling Error Color"
-msgstr "Pareizrakstības kļūdu krāsa"
-
-#: ../gtkhtml/gtkhtml.c:3124
-msgid "The color of the spelling error markers"
-msgstr "Pareizrakstības kļūdu marķiera krāsa"
-
-#: ../gtkhtml/gtkhtml.c:3129
-msgid "Cite Quotation Color"
-msgstr "Citāta krāsa"
-
-#: ../gtkhtml/gtkhtml.c:3130
-msgid "The color of the cited text"
-msgstr "Citēta teksta krāsa"
 
 #: ../gtkhtml/htmlbutton.c:138
 msgid "Submit Query"
@@ -1681,13 +1334,204 @@ msgstr "Pārstatīt"
 
 #. TODO2 dialog instead of warning
 #: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:309
-#| msgid "Cannot allocate default font for printing\n"
 msgid "Cannot allocate default font for printing"
 msgstr "Nav atrasts noklusētais fonts drukāšanai"
 
 #: ../gtkhtml/test.c:364
 msgid "GtkHTML Test"
 msgstr "GtkHTML tests"
+
+#~| msgid "Foreground color"
+#~ msgid "Current color"
+#~ msgstr "Pašreizējā krāsa"
+
+#~ msgid "The currently selected color"
+#~ msgstr "Šobrīd izvēlētā krāsa"
+
+#~ msgid "Default color"
+#~ msgstr "Noklusētā krāsa"
+
+#~ msgid "The color associated with the default button"
+#~ msgstr "Standartpogas krāsa"
+
+#~ msgid "Default label"
+#~ msgstr "Noklusētā etiķete"
+
+#~ msgid "The label for the default button"
+#~ msgstr "Standartpogas etiķete"
+
+#~| msgid "Transparent"
+#~ msgid "Default is transparent"
+#~ msgstr "Noklusētais caurspīdīgs"
+
+#~ msgid "Whether the default color is transparent"
+#~ msgstr "Vai noklusētā krāsa ir caurspīdīga"
+
+#~| msgid "color preview"
+#~ msgid "Color palette"
+#~ msgstr "Krāsu palete"
+
+#~| msgid "Custom Color:"
+#~ msgid "Custom color palette"
+#~ msgstr "Pielāgotā krāsu palete"
+
+#~| msgid "Popup"
+#~ msgid "Popup shown"
+#~ msgstr "Saraksts redzams"
+
+#~ msgid "Whether the combo's dropdown is shown"
+#~ msgstr "Vai kombo lauka izkrītošais izvēles saraksts ir redzams"
+
+#~| msgid "Colors"
+#~ msgid "Color state"
+#~ msgstr "Krāsu stāvoklis"
+
+#~ msgid "The state of a color combo box"
+#~ msgstr "Krāsu kombo lauka stāvoklis"
+
+#~ msgid "The current color"
+#~ msgstr "Pašreizējā krāsa"
+
+#~ msgid "The default color"
+#~ msgstr "Noklusētā krāsa"
+
+#~ msgid "Description of the default color"
+#~ msgstr "Noklusētās krāsas apraksts"
+
+#~ msgid "Color"
+#~ msgstr "Krāsa"
+
+#~ msgid "Frame Shadow"
+#~ msgstr "Rāmja ēna"
+
+#~ msgid "Appearance of the frame border"
+#~ msgstr "Rāmja robežas izskats"
+
+#~| msgid "Location"
+#~ msgid "Action"
+#~ msgstr "Darbība"
+
+#~ msgid "A GtkRadioAction"
+#~ msgstr "GtkRadioAction darbība"
+
+#~| msgid "Center"
+#~ msgid "Current Folder"
+#~ msgstr "Aktīvā mape"
+
+#~ msgid "The initial folder for file chooser dialogs"
+#~ msgstr "Sākuma mape faila izvēles dialogiem"
+
+#~| msgid "Frame"
+#~ msgid "Filename"
+#~ msgstr "Faila nosaukums"
+
+#~ msgid "The filename to use when saving"
+#~ msgstr "Faila nosaukums, ko lietot saglabāšanai"
+
+#~ msgid "HTML Editing Widget"
+#~ msgstr "HTML rediģēšanas logdaļa"
+
+#~ msgid "The main HTML editing widget"
+#~ msgstr "Galvenā HTML rediģēšanas logdaļa"
+
+#~ msgid "HTML Mode"
+#~ msgstr "HTML režīms"
+
+#~ msgid "Edit HTML or plain text"
+#~ msgstr "Rediģēt HTML vai vienkāršu tekstu"
+
+#~| msgid "Enable spell checking"
+#~ msgid "Inline Spelling"
+#~ msgstr "Iekļautā pareizrakstība"
+
+#~| msgid "Check spelling of the document"
+#~ msgid "Check your spelling as you type"
+#~ msgstr "Pārbaudīt pareizrakstību rakstīšanas laikā"
+
+#~ msgid "Magic Links"
+#~ msgstr "Automaģiskās saites"
+
+#~ msgid "Make URIs clickable as you type"
+#~ msgstr "Uzreiz pārvērst URI par saitēm"
+
+#~| msgid "_Smiley"
+#~ msgid "Magic Smileys"
+#~ msgstr "Smaidiņi attēlos"
+
+#~ msgid "Convert emoticons to images as you type"
+#~ msgstr "Uzreiz pārvērst emocijzīmes par attēliem"
+
+#~| msgid "Current _Languages"
+#~ msgid "Language"
+#~ msgstr "Valoda"
+
+#~ msgid "The language used by the spell checker"
+#~ msgstr "Valoda pareizrakstības pārbaudei"
+
+#~| msgid "Ignore Misspelled Word"
+#~ msgid "Misspelled Word"
+#~ msgstr "Nepareizi uzrakstīts vārds"
+
+#~| msgid "Ignore Misspelled Word"
+#~ msgid "The current misspelled word"
+#~ msgstr "Aktīvais nepareizi uzrakstītais vārds"
+
+#~ msgid "Editable"
+#~ msgstr "Rediģējams"
+
+#~ msgid "Document Title"
+#~ msgstr "Dokumenta nosaukums"
+
+#~ msgid "The title of the current document"
+#~ msgstr "Pašreizējā dokumenta nosaukums"
+
+#~ msgid "Document Base"
+#~ msgstr "Dokumenta bāze"
+
+#~ msgid "The base URL for relative references"
+#~ msgstr "Relatīvo atsauču bāzes URL"
+
+#~ msgid "Target Base"
+#~ msgstr "Mērķa bāze"
+
+#~ msgid "The base URL of the target frame"
+#~ msgstr "Mērķa ietvara bāzes URL"
+
+#~ msgid "Fixed Width Font"
+#~ msgstr "Fiksēta platuma fonts"
+
+#~ msgid "The Monospace font to use for typewriter text"
+#~ msgstr "Vienplatuma fonts, ko lietot rakstāmmašīnas tekstam"
+
+#~ msgid "New Link Color"
+#~ msgstr "Jaunas saites krāsa"
+
+#~ msgid "The color of new link elements"
+#~ msgstr "Jaunu saites elementu krāsa"
+
+#~ msgid "Visited Link Color"
+#~ msgstr "Apmeklētas saites krāsa"
+
+#~ msgid "The color of visited link elements"
+#~ msgstr "Apmeklētas saites elementu krāsa"
+
+#~ msgid "Active Link Color"
+#~ msgstr "Aktīvās saites krāsa"
+
+#~ msgid "The color of active link elements"
+#~ msgstr "Aktīvās saites elementu krāsa"
+
+#~ msgid "Spelling Error Color"
+#~ msgstr "Pareizrakstības kļūdu krāsa"
+
+#~ msgid "The color of the spelling error markers"
+#~ msgstr "Pareizrakstības kļūdu marķiera krāsa"
+
+#~ msgid "Cite Quotation Color"
+#~ msgstr "Citāta krāsa"
+
+#~ msgid "The color of the cited text"
+#~ msgstr "Citēta teksta krāsa"
 
 #~ msgid "Alphabetical List"
 #~ msgstr "Alfabētisks Saraksts"
