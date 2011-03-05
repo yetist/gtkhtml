@@ -208,7 +208,8 @@ color_swatch_init (GtkhtmlColorSwatch *swatch)
 	GtkWidget *container;
 	GtkWidget *widget;
 
-	swatch->priv = G_TYPE_INSTANCE_GET_PRIVATE (swatch, GTKHTML_TYPE_COLOR_SWATCH, GtkhtmlColorSwatchPrivate);
+	swatch->priv = G_TYPE_INSTANCE_GET_PRIVATE (
+		swatch, GTKHTML_TYPE_COLOR_SWATCH, GtkhtmlColorSwatchPrivate);
 
 	widget = gtk_frame_new (NULL);
 	gtk_container_add (GTK_CONTAINER (swatch), widget);

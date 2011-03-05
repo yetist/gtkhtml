@@ -136,7 +136,9 @@ face_chooser_menu_init (GtkhtmlFaceChooserMenu *chooser_menu)
 	GtkhtmlFaceChooser *chooser;
 	GList *list, *iter;
 
-	chooser_menu->priv = G_TYPE_INSTANCE_GET_PRIVATE (chooser_menu, GTKHTML_TYPE_FACE_CHOOSER_MENU, GtkhtmlFaceChooserMenuPrivate);
+	chooser_menu->priv = G_TYPE_INSTANCE_GET_PRIVATE (
+		chooser_menu, GTKHTML_TYPE_FACE_CHOOSER_MENU,
+		GtkhtmlFaceChooserMenuPrivate);
 
 	chooser = GTKHTML_FACE_CHOOSER (chooser_menu);
 	list = gtkhtml_face_chooser_get_items (chooser);

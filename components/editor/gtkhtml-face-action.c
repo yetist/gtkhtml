@@ -244,7 +244,8 @@ face_action_iface_init (GtkhtmlFaceChooserIface *iface)
 static void
 face_action_init (GtkhtmlFaceAction *action)
 {
-	action->priv = G_TYPE_INSTANCE_GET_PRIVATE (action, GTKHTML_TYPE_FACE_ACTION, GtkhtmlFaceActionPrivate);
+	action->priv = G_TYPE_INSTANCE_GET_PRIVATE (
+		action, GTKHTML_TYPE_FACE_ACTION, GtkhtmlFaceActionPrivate);
 }
 
 GType

@@ -354,7 +354,8 @@ combo_box_class_init (GtkhtmlComboBoxClass *class)
 static void
 combo_box_init (GtkhtmlComboBox *combo_box)
 {
-	combo_box->priv = G_TYPE_INSTANCE_GET_PRIVATE (combo_box, GTKHTML_TYPE_COMBO_BOX, GtkhtmlComboBoxPrivate);
+	combo_box->priv = G_TYPE_INSTANCE_GET_PRIVATE (
+		combo_box, GTKHTML_TYPE_COMBO_BOX, GtkhtmlComboBoxPrivate);
 
 	combo_box->priv->index = g_hash_table_new_full (
 		g_direct_hash, g_direct_equal,

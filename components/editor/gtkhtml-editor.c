@@ -963,7 +963,8 @@ editor_class_init (GtkhtmlEditorClass *class)
 static void
 editor_init (GtkhtmlEditor *editor)
 {
-	editor->priv = G_TYPE_INSTANCE_GET_PRIVATE (editor, GTKHTML_TYPE_EDITOR, GtkhtmlEditorPrivate);
+	editor->priv = G_TYPE_INSTANCE_GET_PRIVATE (
+		editor, GTKHTML_TYPE_EDITOR, GtkhtmlEditorPrivate);
 	editor->vbox = g_object_ref_sink (gtk_vbox_new (FALSE, 0));
 	gtk_widget_show (editor->vbox);
 

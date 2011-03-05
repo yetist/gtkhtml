@@ -260,7 +260,8 @@ color_state_init (GtkhtmlColorState *state)
 {
 	GtkhtmlColorPalette *palette;
 
-	state->priv = G_TYPE_INSTANCE_GET_PRIVATE (state, GTKHTML_TYPE_COLOR_STATE, GtkhtmlColorStatePrivate);
+	state->priv = G_TYPE_INSTANCE_GET_PRIVATE (
+		state, GTKHTML_TYPE_COLOR_STATE, GtkhtmlColorStatePrivate);
 
 	palette = gtkhtml_color_palette_new ();
 	gtkhtml_color_state_set_palette (state, palette);

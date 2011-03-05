@@ -516,7 +516,9 @@ face_tool_button_init (GtkhtmlFaceToolButton *button)
 	GList *list, *iter;
 	gint ii;
 
-	button->priv = G_TYPE_INSTANCE_GET_PRIVATE (button, GTKHTML_TYPE_FACE_TOOL_BUTTON, GtkhtmlFaceToolButtonPrivate);
+	button->priv = G_TYPE_INSTANCE_GET_PRIVATE (
+		button, GTKHTML_TYPE_FACE_TOOL_BUTTON,
+		GtkhtmlFaceToolButtonPrivate);
 
 	/* Build the pop-up window. */
 

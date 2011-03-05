@@ -237,7 +237,10 @@ spell_checker_class_init (GtkhtmlSpellCheckerClass *class)
 static void
 spell_checker_init (GtkhtmlSpellChecker *checker)
 {
-	checker->priv = G_TYPE_INSTANCE_GET_PRIVATE (checker, GTKHTML_TYPE_SPELL_CHECKER, GtkhtmlSpellCheckerPrivate);
+	checker->priv = G_TYPE_INSTANCE_GET_PRIVATE (
+		checker, GTKHTML_TYPE_SPELL_CHECKER,
+		GtkhtmlSpellCheckerPrivate);
+
 	checker->priv->broker = enchant_broker_init ();
 }
 

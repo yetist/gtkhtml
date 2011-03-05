@@ -85,7 +85,9 @@ color_palette_init (GtkhtmlColorPalette *palette)
 		(GDestroyNotify) gdk_color_free,
 		(GDestroyNotify) NULL);
 
-	palette->priv = G_TYPE_INSTANCE_GET_PRIVATE (palette, GTKHTML_TYPE_COLOR_PALETTE, GtkhtmlColorPalettePrivate);
+	palette->priv = G_TYPE_INSTANCE_GET_PRIVATE (
+		palette, GTKHTML_TYPE_COLOR_PALETTE,
+		GtkhtmlColorPalettePrivate);
 	palette->priv->index = index;
 }
 

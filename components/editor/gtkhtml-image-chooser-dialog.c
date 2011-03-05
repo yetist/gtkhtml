@@ -253,7 +253,9 @@ gtkhtml_image_chooser_dialog_class_init (GtkhtmlImageChooserDialogClass *class)
 static void
 gtkhtml_image_chooser_dialog_init (GtkhtmlImageChooserDialog *dialog)
 {
-	dialog->priv = G_TYPE_INSTANCE_GET_PRIVATE (dialog, GTKHTML_TYPE_IMAGE_CHOOSER_DIALOG, GtkhtmlImageChooserDialogPrivate);
+	dialog->priv = G_TYPE_INSTANCE_GET_PRIVATE (
+		dialog, GTKHTML_TYPE_IMAGE_CHOOSER_DIALOG,
+		GtkhtmlImageChooserDialogPrivate);
 
 	g_signal_connect (
 		dialog, "update-preview",

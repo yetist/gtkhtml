@@ -851,7 +851,8 @@ color_combo_init (GtkhtmlColorCombo *combo)
 	GtkWidget *window;
 	guint ii;
 
-	combo->priv = G_TYPE_INSTANCE_GET_PRIVATE (combo, GTKHTML_TYPE_COLOR_COMBO, GtkhtmlColorComboPrivate);
+	combo->priv = G_TYPE_INSTANCE_GET_PRIVATE (
+		combo, GTKHTML_TYPE_COLOR_COMBO, GtkhtmlColorComboPrivate);
 
 	state = gtkhtml_color_state_new ();
 	gtkhtml_color_combo_set_state (combo, state);

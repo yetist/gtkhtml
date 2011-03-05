@@ -419,7 +419,8 @@ spell_dialog_init (GtkhtmlSpellDialog *dialog)
 	GtkWidget *widget;
 	gchar *markup;
 
-	dialog->priv = G_TYPE_INSTANCE_GET_PRIVATE (dialog, GTKHTML_TYPE_SPELL_DIALOG, GtkhtmlSpellDialogPrivate);
+	dialog->priv = G_TYPE_INSTANCE_GET_PRIVATE (
+		dialog, GTKHTML_TYPE_SPELL_DIALOG, GtkhtmlSpellDialogPrivate);
 
 	g_signal_connect (
 		dialog, "notify::word", G_CALLBACK (
