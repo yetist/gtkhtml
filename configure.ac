@@ -9,7 +9,7 @@ AC_CONFIG_SRCDIR(README)
 PACKAGE=gtkhtml
 
 dnl Required Package Versions
-m4_define([gtk_minimum_version], [3.0])
+m4_define([gtk_minimum_version], [3.0.2])
 m4_define([enchant_minimum_version], [1.1.7])
 m4_define([gnome_icon_theme_minimum_version], [2.22.0])
 m4_define([cairo_minimum_version], [1.10.0])

@@ -235,6 +235,10 @@ gtkhtml_editor_private_constructed (GtkhtmlEditor *editor)
 	priv->main_toolbar = g_object_ref (widget);
 	gtk_widget_show (widget);
 
+	gtk_style_context_add_class (
+		gtk_widget_get_style_context (widget),
+		GTK_STYLE_CLASS_PRIMARY_TOOLBAR);
+
 	widget = gtkhtml_editor_get_managed_widget (editor, "/edit-toolbar");
 	gtk_toolbar_set_style (GTK_TOOLBAR (widget), GTK_TOOLBAR_BOTH_HORIZ);
 	gtk_box_pack_start (GTK_BOX (editor->vbox), widget, FALSE, FALSE, 0);
