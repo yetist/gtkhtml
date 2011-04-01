@@ -375,7 +375,7 @@ msgstr "У_величить отступ"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1257
 msgid "Increase Indent"
-msgstr "У_величить отступ"
+msgstr "Увеличить отступ"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1262
 msgid "_HTML File..."
@@ -428,7 +428,7 @@ msgstr "У_меньшить отступ"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1341
 msgid "Decrease Indent"
-msgstr "У_меньшить отступ"
+msgstr "Уменьшить отступ"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1346
 msgid "_Wrap Lines"
