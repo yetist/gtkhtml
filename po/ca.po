@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-08-22 09:59+0200\n"
-"PO-Revision-Date: 2010-08-22 10:00+0200\n"
+"PO-Revision-Date: 2011-04-04 21:30+0200\n"
 "Last-Translator: Gil Forcada <gilforcada@guifi.net>\n"
 "Language-Team: Catalan <tradgnome@softcatala.org>\n"
 "Language: ca\n"
@@ -199,7 +199,7 @@ msgstr "blanc"
 
 #: ../components/editor/gtkhtml-color-combo.c:277
 msgid "Choose Custom Color"
-msgstr "Escolliu el color personalitzat"
+msgstr "Trieu el color personalitzat"
 
 #: ../components/editor/gtkhtml-color-combo.c:745
 #: ../components/editor/gtkhtml-color-state.c:228
@@ -297,7 +297,7 @@ msgstr "Ànge_l"
 #. Translators: :'(
 #: ../components/editor/gtkhtml-face-chooser.c:66
 msgid "Cr_ying"
-msgstr "_Plorant"
+msgstr "_Plors"
 
 #. Translators: :-Q
 #: ../components/editor/gtkhtml-face-chooser.c:68
