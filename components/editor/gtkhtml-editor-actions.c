@@ -505,6 +505,11 @@ action_find_cb (GtkAction *action,
 			GTK_TOGGLE_BUTTON (WIDGET (FIND_REGULAR_EXPRESSION))));
 
 	gtk_action_set_sensitive (ACTION (FIND), found);
+
+	if (!found)
+		gtk_label_set_label (
+			GTK_LABEL (WIDGET (FIND_RESULT_LABEL)),
+			N_("No match found"));
 }
 
 static void

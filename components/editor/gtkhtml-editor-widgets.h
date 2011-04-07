@@ -71,6 +71,8 @@
 	GTKHTML_EDITOR_WIDGET ((editor), "find-entry")
 #define GTKHTML_EDITOR_WIDGET_FIND_REGULAR_EXPRESSION(editor) \
 	GTKHTML_EDITOR_WIDGET ((editor), "find-regular-expression")
+#define GTKHTML_EDITOR_WIDGET_FIND_RESULT_LABEL(editor) \
+	GTKHTML_EDITOR_WIDGET ((editor), "find-result-label")
 
 /* Image Properties Window */
 #define GTKHTML_EDITOR_WIDGET_IMAGE_PROPERTIES_ALIGNMENT_COMBO_BOX(editor) \

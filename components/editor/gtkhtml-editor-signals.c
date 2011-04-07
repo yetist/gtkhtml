@@ -625,6 +625,7 @@ sensitize_find_action (GtkWidget *window)
 
 	editor = extract_gtkhtml_editor (window);
 	gtk_action_set_sensitive (ACTION (FIND), TRUE);
+	gtk_label_set_label (GTK_LABEL (WIDGET (FIND_RESULT_LABEL)), "");
 	g_object_unref (editor);
 }
 
