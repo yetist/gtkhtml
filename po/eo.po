@@ -1,0 +1,1720 @@
+# Esperanto translation for gtkhtml3.14
+# Copyright (c) 2011 Rosetta Contributors and Canonical Ltd 2011
+# This file is distributed under the same license as the gtkhtml3.14 package.
+# Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gtkhtml3.14\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gtkhtml&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-04-04 19:55+0000\n"
+"PO-Revision-Date: 2011-04-10 01:08+0200\n"
+"Last-Translator: Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>\n"
+"Language-Team: Esperanto <ubuntu-l10n-eo@lists.launchpad.net>\n"
+"Language: eo\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2011-04-09 23:00+0000\n"
+"X-Generator: Launchpad (build 12757)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: ../a11y/image.c:151
+#, c-format
+msgid "URL is %s, Alternative Text is %s"
+msgstr "URL estas %s, alternativa teksto estas %s"
+
+#: ../a11y/image.c:153
+#, c-format
+msgid "URL is %s"
+msgstr "URL estas %s"
+
+#: ../a11y/object.c:51 ../a11y/object.c:60 ../a11y/text.c:125
+msgid "grab focus"
+msgstr ""
+
+#: ../a11y/object.c:253
+msgid "Panel containing HTML"
+msgstr "Panelo enhavanta HTML"
+
+#: ../components/editor/gtkhtml-color-combo.c:75
+msgid "black"
+msgstr "nigra"
+
+#: ../components/editor/gtkhtml-color-combo.c:76
+msgid "light brown"
+msgstr "helbruna"
+
+#: ../components/editor/gtkhtml-color-combo.c:77
+msgid "brown gold"
+msgstr "orflava"
+
+#: ../components/editor/gtkhtml-color-combo.c:78
+msgid "dark green #2"
+msgstr "malhelverda #2"
+
+#: ../components/editor/gtkhtml-color-combo.c:79
+msgid "navy"
+msgstr "mararmeblua"
+
+#: ../components/editor/gtkhtml-color-combo.c:80
+msgid "dark blue"
+msgstr "malhelblua"
+
+#: ../components/editor/gtkhtml-color-combo.c:81
+msgid "purple #2"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-combo.c:82
+msgid "very dark gray"
+msgstr "malhelega griza"
+
+#: ../components/editor/gtkhtml-color-combo.c:84
+msgid "dark red"
+msgstr "malhela ruĝa"
+
+#: ../components/editor/gtkhtml-color-combo.c:85
+msgid "red-orange"
+msgstr "ruĝ-oranĝkolora"
+
+#: ../components/editor/gtkhtml-color-combo.c:86
+msgid "gold"
+msgstr "ora"
+
+#: ../components/editor/gtkhtml-color-combo.c:87
+msgid "dark green"
+msgstr "malhelverda"
+
+#: ../components/editor/gtkhtml-color-combo.c:88
+msgid "dull blue"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-combo.c:89
+msgid "blue"
+msgstr "blua"
+
+#: ../components/editor/gtkhtml-color-combo.c:90
+msgid "dull purple"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-combo.c:91
+msgid "dark grey"
+msgstr "malhelgriza"
+
+#: ../components/editor/gtkhtml-color-combo.c:93
+msgid "red"
+msgstr "ruĝa"
+
+#: ../components/editor/gtkhtml-color-combo.c:94
+msgid "orange"
+msgstr "oranĝkolora"
+
+#: ../components/editor/gtkhtml-color-combo.c:95
+msgid "lime"
+msgstr "limonverda"
+
+#: ../components/editor/gtkhtml-color-combo.c:96
+msgid "dull green"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-combo.c:97
+msgid "dull blue #2"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-combo.c:98
+msgid "sky blue #2"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-combo.c:99
+msgid "purple"
+msgstr "purpura"
+
+#: ../components/editor/gtkhtml-color-combo.c:100
+msgid "gray"
+msgstr "griza"
+
+#: ../components/editor/gtkhtml-color-combo.c:102
+msgid "magenta"
+msgstr "malva"
+
+#: ../components/editor/gtkhtml-color-combo.c:103
+msgid "bright orange"
+msgstr "hela oranĝkolora"
+
+#: ../components/editor/gtkhtml-color-combo.c:104
+msgid "yellow"
+msgstr "flava"
+
+#: ../components/editor/gtkhtml-color-combo.c:105
+msgid "green"
+msgstr "verda"
+
+#: ../components/editor/gtkhtml-color-combo.c:106
+msgid "cyan"
+msgstr "cejana"
+
+#: ../components/editor/gtkhtml-color-combo.c:107
+msgid "bright blue"
+msgstr "helblua"
+
+#: ../components/editor/gtkhtml-color-combo.c:108
+msgid "red purple"
+msgstr ""
+
+#: ../components/editor/gtkhtml-color-combo.c:109
+msgid "light grey"
+msgstr "helgriza"
+
+#: ../components/editor/gtkhtml-color-combo.c:111
+msgid "pink"
+msgstr "roza"
+
+#: ../components/editor/gtkhtml-color-combo.c:112
+msgid "light orange"
+msgstr "hela oranĝkolora"
+
+#: ../components/editor/gtkhtml-color-combo.c:113
+msgid "light yellow"
+msgstr "helflava"
+
+#: ../components/editor/gtkhtml-color-combo.c:114
+msgid "light green"
+msgstr "helverda"
+
+#: ../components/editor/gtkhtml-color-combo.c:115
+msgid "light cyan"
+msgstr "hela cejana"
+
+#: ../components/editor/gtkhtml-color-combo.c:116
+msgid "light blue"
+msgstr "helblua"
+
+#: ../components/editor/gtkhtml-color-combo.c:117
+msgid "light purple"
+msgstr "hela purpura"
+
+#: ../components/editor/gtkhtml-color-combo.c:118
+msgid "white"
+msgstr "blanka"
+
+#: ../components/editor/gtkhtml-color-combo.c:273
+msgid "Choose Custom Color"
+msgstr "Elekti propran koloron"
+
+#: ../components/editor/gtkhtml-color-combo.c:755
+#: ../components/editor/gtkhtml-color-state.c:224
+msgid "Default"
+msgstr "Defaŭlte"
+
+#: ../components/editor/gtkhtml-color-combo.c:979
+msgid "custom"
+msgstr "propra"
+
+#: ../components/editor/gtkhtml-color-combo.c:987
+msgid "Custom Color..."
+msgstr "Propra koloro..."
+
+#. Translators: :-)
+#: ../components/editor/gtkhtml-face-chooser.c:34
+msgid "_Smile"
+msgstr "_Rideto"
+
+#. Translators: :-(
+#: ../components/editor/gtkhtml-face-chooser.c:36
+msgid "S_ad"
+msgstr "M_alĝoje"
+
+#. Translators: ;-)
+#: ../components/editor/gtkhtml-face-chooser.c:38
+msgid "_Wink"
+msgstr "_Palpebrumo"
+
+#. Translators: :-P
+#: ../components/editor/gtkhtml-face-chooser.c:40
+msgid "Ton_gue"
+msgstr "Lan_go"
+
+#. Translators: :-))
+#: ../components/editor/gtkhtml-face-chooser.c:42
+msgid "Laug_h"
+msgstr "Ri_do"
+
+#. Translators: :-|
+#: ../components/editor/gtkhtml-face-chooser.c:44
+msgid "_Plain"
+msgstr "_Ebene"
+
+#. Translators: :-!
+#: ../components/editor/gtkhtml-face-chooser.c:46
+msgid "Smi_rk"
+msgstr "_Rikano"
+
+#. Translators: :"-)
+#: ../components/editor/gtkhtml-face-chooser.c:48
+msgid "_Embarrassed"
+msgstr "_Embarase"
+
+#. Translators: :-D
+#: ../components/editor/gtkhtml-face-chooser.c:50
+msgid "_Big Smile"
+msgstr "Rid_ego"
+
+#. Translators: :-/
+#: ../components/editor/gtkhtml-face-chooser.c:52
+msgid "Uncer_tain"
+msgstr "_Necerte"
+
+#. Translators: :-O
+#: ../components/editor/gtkhtml-face-chooser.c:54
+msgid "S_urprise"
+msgstr "S_urprizo"
+
+#. Translators: :-S
+#: ../components/editor/gtkhtml-face-chooser.c:56
+msgid "W_orried"
+msgstr "_Zorge"
+
+#. Translators: :-*
+#: ../components/editor/gtkhtml-face-chooser.c:58
+msgid "_Kiss"
+msgstr "_Kiso"
+
+#. Translators: X-(
+#: ../components/editor/gtkhtml-face-chooser.c:60
+msgid "A_ngry"
+msgstr "_Kolere"
+
+#. Translators: B-)
+#: ../components/editor/gtkhtml-face-chooser.c:62
+msgid "_Cool"
+msgstr "_Mojose"
+
+#. Translators: O:-)
+#: ../components/editor/gtkhtml-face-chooser.c:64
+msgid "Ange_l"
+msgstr "Anĝe_lo"
+
+#. Translators: :'(
+#: ../components/editor/gtkhtml-face-chooser.c:66
+msgid "Cr_ying"
+msgstr "_Larmo"
+
+#. Translators: :-Q
+#: ../components/editor/gtkhtml-face-chooser.c:68
+msgid "S_ick"
+msgstr "Mal_sana"
+
+#. Translators: |-)
+#: ../components/editor/gtkhtml-face-chooser.c:70
+msgid "Tire_d"
+msgstr "_Lace"
+
+#. Translators: >:-)
+#: ../components/editor/gtkhtml-face-chooser.c:72
+msgid "De_vilish"
+msgstr "_Diable"
+
+#. Translators: :-(|)
+#: ../components/editor/gtkhtml-face-chooser.c:74
+msgid "_Monkey"
+msgstr "Si_mio"
+
+#: ../components/editor/gtkhtml-editor-actions.c:175
+msgid "Failed to insert HTML file."
+msgstr "Fiaskis enmeti HTML-dosieron."
+
+#: ../components/editor/gtkhtml-editor-actions.c:212
+msgid "Failed to insert text file."
+msgstr "Fiaskis enmeti tekstdosieron."
+
+#: ../components/editor/gtkhtml-editor-actions.c:600
+msgid "Insert HTML File"
+msgstr "Enmeti HTML-dosieron"
+
+#: ../components/editor/gtkhtml-editor-actions.c:623
+#: ../components/editor/gtkhtml-editor-actions.c:1557
+msgid "Insert Image"
+msgstr "Enmeti bildon"
+
+#: ../components/editor/gtkhtml-editor-actions.c:692
+msgid "Insert Text File"
+msgstr "Enmeti tekstdosieron"
+
+#. Replace Button
+#: ../components/editor/gtkhtml-editor-actions.c:1192
+#: ../components/editor/gtkhtml-spell-dialog.c:516
+msgid "_Replace"
+msgstr "_Anstataŭigi"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1199
+msgid "Replace _All"
+msgstr "Anstataŭigi ĉ_iujn"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1213
+msgid "_Next"
+msgstr "_Sekva"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1220
+msgid "_Copy"
+msgstr "_Kopii"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1227
+msgid "Cu_t"
+msgstr "El_tondi"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1241
+msgid "Find A_gain"
+msgstr "Serĉi _denove"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1255
+msgid "_Increase Indent"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1257
+msgid "Increase Indent"
+msgstr "Pligrandigi krommarĝenon"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1262
+msgid "_HTML File..."
+msgstr "_HTML-dosiero..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1269
+msgid "Te_xt File..."
+msgstr "Te_kstdosiero..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1276
+msgid "_Paste"
+msgstr "_Alglui"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1283
+msgid "Paste _Quotation"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1290
+msgid "_Redo"
+msgstr "_Refari"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1297
+msgid "Select _All"
+msgstr "Elekti ĉi_on"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1304
+msgid "_Find..."
+msgstr "_Serĉi..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1311
+msgid "Re_place..."
+msgstr "An_stataŭigi..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1318
+msgid "Check _Spelling..."
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1325
+#: ../components/editor/gtkhtml-editor-builder.ui.h:80
+msgid "_Test URL..."
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1332
+msgid "_Undo"
+msgstr "_Malfari"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1339
+msgid "_Decrease Indent"
+msgstr "_Malpligrandigi krommarĝenon"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1341
+msgid "Decrease Indent"
+msgstr "Malpligrandigi krommarĝenon"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1346
+msgid "_Wrap Lines"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1355
+msgid "_Edit"
+msgstr "R_edakti"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1362
+#: ../components/editor/main.c:326
+msgid "_File"
+msgstr "_Dosiero"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1369
+msgid "For_mat"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1376
+msgid "_Paragraph Style"
+msgstr "_Alineostilo"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1383
+msgid "_Insert"
+msgstr "_Enmeti"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1390
+msgid "_Alignment"
+msgstr "Ĝisr_andigo"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1397
+msgid "Current _Languages"
+msgstr "Aktualaj _lingvoj"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1404
+#: ../components/editor/main.c:357
+msgid "_View"
+msgstr "_Vido"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1414
+msgid "_Center"
+msgstr "_Centre"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1416
+msgid "Center Alignment"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1421
+msgid "_Left"
+msgstr "Ma_ldekstre"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1423
+msgid "Left Alignment"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1428
+msgid "_Right"
+msgstr "Dekst_re"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1430
+msgid "Right Alignment"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1438
+msgid "_HTML"
+msgstr "_HTML"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1440
+msgid "HTML editing mode"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1445
+msgid "Plain _Text"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1447
+msgid "Plain text editing mode"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1455
+msgid "_Normal"
+msgstr "_Normale"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1462
+msgid "Header _1"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1469
+msgid "Header _2"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1476
+msgid "Header _3"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1483
+msgid "Header _4"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1490
+msgid "Header _5"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1497
+msgid "Header _6"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1504
+msgid "A_ddress"
+msgstr "A_dreso"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1511
+msgid "_Preformatted"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1518
+msgid "_Bulleted List"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1525
+msgid "_Roman Numeral List"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1532
+msgid "Numbered _List"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1539
+msgid "_Alphabetical List"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1555
+#: ../components/editor/gtkhtml-editor-actions.c:1592
+msgid "_Image..."
+msgstr "_Bildo..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1562
+#: ../components/editor/gtkhtml-editor-actions.c:1599
+msgid "_Link..."
+msgstr "_Ligilo..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1564
+msgid "Insert Link"
+msgstr "Enmeti ligilon"
+
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1570
+#: ../components/editor/gtkhtml-editor-actions.c:1614
+msgid "_Rule..."
+msgstr ""
+
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1573
+msgid "Insert Rule"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1578
+#: ../components/editor/gtkhtml-editor-actions.c:1621
+msgid "_Table..."
+msgstr "_Tabelo..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1580
+msgid "Insert Table"
+msgstr "Enmeti tabelon"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1585
+msgid "_Cell..."
+msgstr "_Ĉ_elo..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1606
+msgid "Pa_ge..."
+msgstr "P_aĝo..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1630
+msgid "Font _Size"
+msgstr "Tipar_grando"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1637
+msgid "_Font Style"
+msgstr "Tipar_stilo"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1647
+#: ../components/editor/gtkhtml-editor-builder.ui.h:61
+msgid "_Bold"
+msgstr "_Dike"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1649
+msgid "Bold"
+msgstr "Dike"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1655
+#: ../components/editor/gtkhtml-editor-builder.ui.h:68
+msgid "_Italic"
+msgstr "Kurs_ive"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1657
+msgid "Italic"
+msgstr "Kursive"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1663
+msgid "_Plain Text"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1665
+msgid "Plain Text"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1671
+#: ../components/editor/gtkhtml-editor-builder.ui.h:77
+msgid "_Strikethrough"
+msgstr "Tra_streki"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1673
+msgid "Strikethrough"
+msgstr "Trastreki"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1679
+#: ../components/editor/gtkhtml-editor-builder.ui.h:83
+msgid "_Underline"
+msgstr "_Substrekite"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1681
+msgid "Underline"
+msgstr "Substreki"
+
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1691
+msgid "-2"
+msgstr "-2"
+
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1699
+msgid "-1"
+msgstr "-1"
+
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1707
+msgid "+0"
+msgstr "+0"
+
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1715
+msgid "+1"
+msgstr "+1"
+
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1723
+msgid "+2"
+msgstr "+2"
+
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1731
+msgid "+3"
+msgstr "+3"
+
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1739
+msgid "+4"
+msgstr "+4"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1758
+msgid "Cell Contents"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1765
+msgid "Column"
+msgstr "Kolumno"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1772
+msgid "Row"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1779
+#: ../components/editor/gtkhtml-editor-actions.c:1864
+msgid "Table"
+msgstr "Tabelo"
+
+#. Translators: Popup menu item caption, containing all the Delete options for a table
+#: ../components/editor/gtkhtml-editor-actions.c:1789
+msgid "Table Delete"
+msgstr "Forigi tabelon"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1796
+msgid "Input Methods"
+msgstr "Enigaj metodoj"
+
+#. Translators: Popup menu item caption, containing all the Insert options for a table
+#: ../components/editor/gtkhtml-editor-actions.c:1804
+msgid "Table Insert"
+msgstr "Enmeti tabelon"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1811
+msgid "Properties"
+msgstr "Ecoj"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1829
+msgid "Column After"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1836
+msgid "Column Before"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1843
+msgid "Insert _Link"
+msgstr "Enmeti _ligilon"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1850
+msgid "Row Above"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1857
+msgid "Row Below"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1871
+msgid "Cell..."
+msgstr "Ĉelo..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1878
+msgid "Image..."
+msgstr "Bildo..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1885
+msgid "Link..."
+msgstr "Ligilo..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1892
+msgid "Page..."
+msgstr "Paĝo..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1899
+msgid "Paragraph..."
+msgstr "Alineo..."
+
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1907
+msgid "Rule..."
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1914
+msgid "Table..."
+msgstr "Tabelo …"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1921
+msgid "Text..."
+msgstr "Teksto..."
+
+#: ../components/editor/gtkhtml-editor-actions.c:1928
+msgid "Remove Link"
+msgstr "Forigi ligilon"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1945
+msgid "Add Word to Dictionary"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1952
+msgid "Ignore Misspelled Word"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1959
+msgid "Add Word To"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:1968
+msgid "More Suggestions"
+msgstr ""
+
+#. Translators: %s will be replaced with the actual dictionary name,
+#. where a user can add a word to. This is part of an "Add Word To" submenu.
+#: ../components/editor/gtkhtml-editor-actions.c:2069
+#, c-format
+msgid "%s Dictionary"
+msgstr "%s-vortaro"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2137
+msgid "_Emoticon"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:2138
+msgid "Insert Emoticon"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:2199
+msgid "_Find"
+msgstr "_Serĉi"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2202
+msgid "Re_place"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:2205
+msgid "_Image"
+msgstr "_Bildo"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2208
+msgid "_Link"
+msgstr "_Ligilo"
+
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:2212
+msgid "_Rule"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:2215
+#: ../components/editor/gtkhtml-editor-builder.ui.h:79
+msgid "_Table"
+msgstr "_Tabelo"
+
+#: ../components/editor/gtkhtml-editor-private.c:277
+msgid "Paragraph Style"
+msgstr "Alineostilo"
+
+#: ../components/editor/gtkhtml-editor-private.c:291
+msgid "Editing Mode"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-private.c:303
+msgid "Font Color"
+msgstr "Tiparkoloro"
+
+#: ../components/editor/gtkhtml-editor-private.c:313
+msgid "Font Size"
+msgstr "Tipargrando"
+
+#: ../components/editor/gtkhtml-editor-private.c:340
+msgid "Automatic"
+msgstr "Aŭtomate"
+
+#: ../components/editor/gtkhtml-editor-private.c:563
+msgid "Could not open the link."
+msgstr "Ne eblis malfermi la ligilon."
+
+#: ../components/editor/gtkhtml-editor.c:897
+msgid "Changed property"
+msgstr "Ŝanĝi atributojn"
+
+#: ../components/editor/gtkhtml-editor.c:898
+msgid "Whether editor changed"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:2
+#, no-c-format
+msgid "%"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:3
+msgid "Alignment"
+msgstr "Ĝisrandigo"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:4
+msgid "Alignment & Behavior"
+msgstr "Ĝisrandigo kaj konduto"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:5
+msgid "Background"
+msgstr "Fono"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:6
+msgid "Background Image"
+msgstr "Fonbildo"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:7
+msgid "Blue Ink"
+msgstr "Blua inko"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:8
+msgid "Bottom"
+msgstr "Malsupre"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:9
+msgid "C_ell"
+msgstr "Ĉ_elo"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:10
+msgid "C_olor:"
+msgstr "K_oloro:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:11
+msgid "C_olumns:"
+msgstr "K_olumnoj:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:12
+msgid "C_ustom:"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:13
+msgid "Case _sensitive"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:14
+msgid "Cell Properties"
+msgstr "Atributoj de ĉelo"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:15
+msgid "Center"
+msgstr "Centre"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:16
+msgid "Co_lor:"
+msgstr "Ko_loro:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:17
+msgid "Col_umn"
+msgstr "Kol_umno"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:18
+msgid "Colors"
+msgstr "Koloroj"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:19
+msgid "Column Span:"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:20
+msgid "Confidential"
+msgstr "Konfidence"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:21
+msgid "Draft"
+msgstr "Malneto"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:22
+msgid "Find"
+msgstr "Serĉi"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:23
+msgid "General"
+msgstr "Ĝenerale"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:24
+msgid "Graph Paper"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:25
+msgid "Hea_der Style"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:26
+msgid "I_mage:"
+msgstr "_Bildo:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:27
+msgid "Image Properties"
+msgstr "Bild-atributoj"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:28
+msgid "Layout"
+msgstr "Aranĝo"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:29
+msgid "Left"
+msgstr "Maldekstre"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:30
+msgid "Link"
+msgstr "Ligilo"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:31
+msgid "Link Properties"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:32
+msgid "Middle"
+msgstr "Meze"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:33
+msgid "Midnight"
+msgstr "Noktomezo"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:34
+msgid "None"
+msgstr "Neniu"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:35
+msgid "Page Properties"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:36
+msgid "Paper"
+msgstr "Papero"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:37
+msgid "Paragraph Properties"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:38
+msgid "Perforated Paper"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:39
+msgid "R_eplace:"
+msgstr "_Anstataŭigi_"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:40
+msgid "Replace"
+msgstr "Anstataŭigi"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:41
+msgid "Replace Confirmation"
+msgstr "Konfirmi anstataŭigon"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:42
+msgid "Ribbon"
+msgstr "Rubando"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:43
+msgid "Right"
+msgstr "Dekstre"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:44
+msgid "Row Span:"
+msgstr ""
+
+#. Translators: Caption of a window. 'Rule' here means a horizontal line in an HTML text.
+#: ../components/editor/gtkhtml-editor-builder.ui.h:46
+msgid "Rule Properties"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:47
+msgid "S_haded"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:48
+msgid "Scope"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:49
+msgid "Search _backwards"
+msgstr "Serĉi _malantaŭen"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:50
+msgid "Select An Image"
+msgstr "Elekti bildon"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:51
+msgid "Si_ze:"
+msgstr "_Grando:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:52
+msgid "Size"
+msgstr "Grando"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:53
+msgid "Style"
+msgstr "Stilo"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:54
+msgid "T_emplate:"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:55
+msgid "Table Properties"
+msgstr "Atributoj de tabelo"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:56
+msgid "Text Properties"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:57
+msgid "Top"
+msgstr "Supre"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:58
+msgid "Width:"
+msgstr "Larĝo:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:59
+msgid "_Alignment:"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:60
+msgid "_Background:"
+msgstr "_Fono:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:62
+msgid "_Border:"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:63
+msgid "_Color:"
+msgstr "_Koloro:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:64
+msgid "_Description:"
+msgstr "_Priskribo:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:65
+msgid "_Height:"
+msgstr "_Alto:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:66
+msgid "_Horizontal:"
+msgstr "_Horizontale:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:67
+msgid "_Image:"
+msgstr "B_ildo:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:69
+msgid "_Link:"
+msgstr "_Ligilo:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:70
+msgid "_Padding:"
+msgstr "Ŝto_pado:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:71
+msgid "_Regular expression"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:72
+msgid "_Row"
+msgstr "Ho_rizontalo"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:73
+msgid "_Rows:"
+msgstr "Ho_rizontaloj:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:74
+msgid "_Size:"
+msgstr "_Grando:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:75
+msgid "_Source:"
+msgstr "_Fonto:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:76
+msgid "_Spacing:"
+msgstr "Inter_spaco:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:78
+msgid "_Style:"
+msgstr "_Stilo:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:81
+msgid "_Text:"
+msgstr "_Teksto:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:82
+msgid "_URL:"
+msgstr "_URL:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:84
+msgid "_Vertical:"
+msgstr "_Vertikale:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:85
+msgid "_Width:"
+msgstr "_Larĝo:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:86
+msgid "_With:"
+msgstr "_Kun:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:87
+msgid "_Wrap Text"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:88
+msgid "_X-Padding:"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:89
+msgid "_Y-Padding:"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:90
+msgid "follow"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:91
+msgid "px"
+msgstr ""
+
+#: ../components/editor/gtkhtml-spell-dialog.c:113
+#, c-format
+msgid "Suggestions for \"%s\""
+msgstr ""
+
+#: ../components/editor/gtkhtml-spell-dialog.c:443
+msgid "Spell Checker"
+msgstr "Literumilo"
+
+#. Replace All Button
+#: ../components/editor/gtkhtml-spell-dialog.c:530
+msgid "R_eplace All"
+msgstr ""
+
+#. Ignore Button
+#: ../components/editor/gtkhtml-spell-dialog.c:544
+msgid "_Ignore"
+msgstr "_Ignori"
+
+#. Skip Button
+#: ../components/editor/gtkhtml-spell-dialog.c:558
+msgid "_Skip"
+msgstr "_Transsalti"
+
+#. Back Button
+#: ../components/editor/gtkhtml-spell-dialog.c:571
+msgid "_Back"
+msgstr "_Reen"
+
+#. Dictionary Label
+#: ../components/editor/gtkhtml-spell-dialog.c:584
+msgid "Dictionary"
+msgstr "Vortaro"
+
+#. Add Word Button
+#: ../components/editor/gtkhtml-spell-dialog.c:613
+msgid "_Add Word"
+msgstr "_Aldoni vorton"
+
+#. Translators: %s is the language ISO code.
+#: ../components/editor/gtkhtml-spell-language.c:255
+#, c-format
+msgctxt "language"
+msgid "Unknown (%s)"
+msgstr "Nekonate (%s)"
+
+#. Translators: The first %s is the language name, and the
+#. * second is the country name. Example: "French (France)"
+#: ../components/editor/gtkhtml-spell-language.c:270
+#: ../components/editor/gtkhtml-spell-language.c:275
+#, c-format
+msgctxt "language"
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#. Translators: This refers to the default language used
+#. * by the spell checker.
+#: ../components/editor/gtkhtml-spell-language.c:460
+msgctxt "language"
+msgid "Default"
+msgstr "Defaŭlte"
+
+#: ../components/editor/main.c:93
+msgid "Save As"
+msgstr "Konservi kiel"
+
+#: ../components/editor/main.c:111
+msgid "Untitled document"
+msgstr "Sennoma dokumento"
+
+#: ../components/editor/main.c:270
+msgid "HTML Output"
+msgstr "HTML-eligo"
+
+#: ../components/editor/main.c:277
+msgid "HTML Source"
+msgstr "HTML-fonto"
+
+#: ../components/editor/main.c:284
+msgid "Plain Source"
+msgstr ""
+
+#: ../components/editor/main.c:291
+msgid "_Print..."
+msgstr "_Presi..."
+
+#: ../components/editor/main.c:298
+msgid "Print Pre_view"
+msgstr "Presi antaŭ_rigardon"
+
+#: ../components/editor/main.c:305
+msgid "_Quit"
+msgstr "Ĉ_esi"
+
+#: ../components/editor/main.c:312
+msgid "_Save"
+msgstr "Kon_servi"
+
+#: ../components/editor/main.c:319
+msgid "Save _As..."
+msgstr "_Konservi kiel..."
+
+#: ../components/editor/main.c:336
+msgid "HTML _Output"
+msgstr "HTML-_eligo"
+
+#: ../components/editor/main.c:343
+msgid "_HTML Source"
+msgstr "_HTML-fonto"
+
+#: ../components/editor/main.c:350
+msgid "_Plain Source"
+msgstr ""
+
+#: ../gtkhtml/htmlbutton.c:138
+msgid "Submit Query"
+msgstr ""
+
+#: ../gtkhtml/htmlbutton.c:141
+msgid "Reset"
+msgstr "Reagordi"
+
+#. TODO2 dialog instead of warning
+#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:309
+msgid "Cannot allocate default font for printing"
+msgstr ""
+
+#: ../gtkhtml/test.c:364
+msgid "GtkHTML Test"
+msgstr ""
+
+#~ msgid "Current color"
+#~ msgstr "Aktuala koloro"
+
+#~ msgid "The currently selected color"
+#~ msgstr "La aktuala elektita koloro"
+
+#~ msgid "Default color"
+#~ msgstr "Defaŭlta koloro"
+
+#~ msgid "Default label"
+#~ msgstr "Defaŭlta etikedo"
+
+#~ msgid "The label for the default button"
+#~ msgstr "La etikedo de la defaŭlta butono"
+
+#~ msgid "Default is transparent"
+#~ msgstr "Defaŭlto estas travidebla"
+
+#~ msgid "Whether the default color is transparent"
+#~ msgstr "Ĉu la defaŭlta koloro estu travidebla?"
+
+#~ msgid "Color palette"
+#~ msgstr "Kolorpaletro"
+
+#~ msgid "Custom color palette"
+#~ msgstr "Propra kolorpaletro"
+
+#~ msgid "Color state"
+#~ msgstr "Kolorstato"
+
+#~ msgid "The current color"
+#~ msgstr "La aktuala koloro"
+
+#~ msgid "The default color"
+#~ msgstr "La defaŭlta koloro"
+
+#~ msgid "Description of the default color"
+#~ msgstr "Priskribo de la defaŭlta koloro"
+
+#~ msgid "Color"
+#~ msgstr "Koloro"
+
+#~ msgid "Action"
+#~ msgstr "Ago"
+
+#~ msgid "Current Folder"
+#~ msgstr "Aktuala dosierujo"
+
+#~ msgid "Filename"
+#~ msgstr "Dosiernomo"
+
+#~ msgid "HTML Mode"
+#~ msgstr "HTML-reĝimo"
+
+#~ msgid "<b>Alignment</b>"
+#~ msgstr "<b>Ĝisrandigo</b>"
+
+#~ msgid "<b>Background Image</b>"
+#~ msgstr "<b>Fona bildo</b>"
+
+#~ msgid "<b>Background</b>"
+#~ msgstr "<b>Fono</b>"
+
+#~ msgid "<b>Colors</b>"
+#~ msgstr "<b>Koloroj</b>"
+
+#~ msgid "<b>General</b>"
+#~ msgstr "<b>Ĝenerale</b>"
+
+#~ msgid "<b>Link</b>"
+#~ msgstr "<b>Ligilo</b>"
+
+#~ msgid "<b>Scope</b>"
+#~ msgstr "<b>Amplekso</b>"
+
+#~ msgid "<b>Size</b>"
+#~ msgstr "<b>Grando</b>"
+
+#~ msgid "<b>Style</b>"
+#~ msgstr "<b>Stilo</b>"
+
+#~ msgid ""
+#~ "Left\n"
+#~ "Center\n"
+#~ "Right"
+#~ msgstr ""
+#~ "Maldekste\n"
+#~ "Meze\n"
+#~ "Dekstre"
+
+#~ msgid ""
+#~ "Top\n"
+#~ "Middle\n"
+#~ "Bottom"
+#~ msgstr ""
+#~ "Supre\n"
+#~ "Meze\n"
+#~ "Malsupre"
+
+#~ msgid "Language"
+#~ msgstr "Lingvo"
+
+#~ msgid "Alphabetical List"
+#~ msgstr "Laŭalfabeta listo"
+
+#~ msgid "Copy"
+#~ msgstr "Kopii"
+
+#~ msgid "Copy selection to clipboard"
+#~ msgstr "Kopii la elektaĵon en la tondujo"
+
+#~ msgid "Copy the selection"
+#~ msgstr "Kopii la elektaĵon"
+
+#~ msgid "Cut"
+#~ msgstr "Eltondi"
+
+#~ msgid "Cut selection to clipboard"
+#~ msgstr "Eltondi la elektaĵon en la tondujo"
+
+#~ msgid "Cut the selection"
+#~ msgstr "Eltondi la elektaĵon"
+
+#~ msgid "Emoti_con"
+#~ msgstr "_Miensimbolo"
+
+#~ msgid "Find _Again"
+#~ msgstr "Serĉi _denove"
+
+#~ msgid "Find again"
+#~ msgstr "Serĉi denove"
+
+#~ msgid "Find and Replace"
+#~ msgstr "Serĉi kaj anstataŭigi"
+
+#~ msgid "Find and replace"
+#~ msgstr "Serĉi kaj anstataŭigi"
+
+#~ msgid "I_nsert"
+#~ msgstr "E_nmeti"
+
+#~ msgid "Image"
+#~ msgstr "Bildo"
+
+#~ msgid "Insert image"
+#~ msgstr "Enmeti bildon"
+
+#~ msgid "Insert image into document..."
+#~ msgstr "Enmeti bildon en la dokumenton..."
+
+#~ msgid "Insert link"
+#~ msgstr "Enmeti ligilon"
+
+#~ msgid "Insert table"
+#~ msgstr "Enmeti tabelon"
+
+#~ msgid "Insert table into document..."
+#~ msgstr "Enmeti tabelon en la dokumenton..."
+
+#~ msgid "Insert text file into document..."
+#~ msgstr "Enmeti tekstdosieron en la dokumenton..."
+
+#~ msgid "Normal"
+#~ msgstr "Normale"
+
+#~ msgid "Paste"
+#~ msgstr "Alglui"
+
+#~ msgid "Paste from clipboard"
+#~ msgstr "Alglui de tondujo"
+
+#~ msgid "Paste the clipboard"
+#~ msgstr "Alglui la tondujon"
+
+#~ msgid "Redo"
+#~ msgstr "Refari"
+
+#~ msgid "Redo the undone action"
+#~ msgstr "Refari la malfaritan agon"
+
+#~ msgid "Subscript"
+#~ msgstr "Suba skribo"
+
+#~ msgid "Superscript"
+#~ msgstr "Supra skribo"
+
+#~ msgid "Undo"
+#~ msgstr "Malfari"
+
+#~ msgid "Undo previous changes"
+#~ msgstr "Malfari la antaŭajn agojn"
+
+#~ msgid "Undo the last action"
+#~ msgstr "Malfari la lastan agon"
+
+#~ msgid "_Font Size"
+#~ msgstr "_Tipargrando"
+
+#~ msgid "_Laughing"
+#~ msgstr "_Ridante"
+
+#~ msgid "_Page..."
+#~ msgstr "_Paĝo..."
+
+#~ msgid "_Paragraph..."
+#~ msgstr "_Alineo..."
+
+#~ msgid "_Replace..."
+#~ msgstr "_Anstataŭigi..."
+
+#~ msgid "_Style"
+#~ msgstr "_Stilo"
+
+#~ msgid "_Text..."
+#~ msgstr "_Teksto..."
+
+#~ msgid "GNOME HTML Editor"
+#~ msgstr "HTML-redaktilo de GNOME"
+
+#~ msgid "Template"
+#~ msgstr "Ŝablono"
+
+#~ msgid "Transparent"
+#~ msgstr "Travideble"
+
+#~ msgid "Text"
+#~ msgstr "Teksto"
+
+#~ msgid "Paragraph"
+#~ msgstr "Alineo"
+
+#~ msgid "Page"
+#~ msgstr "Paĝo"
+
+#~ msgid "Custom Color:"
+#~ msgstr "Propra koloro:"
+
+#~ msgid "purplish blue"
+#~ msgstr "purpura blua"
+
+#~ msgid "dark purple"
+#~ msgstr "malhela purpura"
+
+#~ msgid "sky blue"
+#~ msgstr "ĉiela blua"
+
+#~ msgid "Popup"
+#~ msgstr "Ŝprucfenestro"
+
+#~ msgid "    "
+#~ msgstr "    "
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "<span weight=\"bold\">Link</span>"
+#~ msgstr "<span weight=\"bold\">Ligilo</span>"
+
+#~ msgid "<span weight=\"bold\">Size</span>"
+#~ msgstr "<span weight=\"Grando\">Size</span>"
+
+#~ msgid "<span weight=\"bold\">Style</span>"
+#~ msgstr "<span weight=\"bold\">Stilo</span>"
+
+#~ msgid "Alignment:"
+#~ msgstr "Ĝisrandigo:"
+
+#~ msgid "Cell"
+#~ msgstr "Ĉelo"
+
+#~ msgid "Colu_mns:"
+#~ msgstr "Kolu_mnoj:"
+
+#~ msgid "Enable"
+#~ msgstr "Enŝalti"
+
+#~ msgid "Horizontal:"
+#~ msgstr "Horizontale:"
+
+#~ msgid ""
+#~ "Left\n"
+#~ "Center\n"
+#~ "Right\n"
+#~ "None"
+#~ msgstr ""
+#~ "Maldekste\n"
+#~ "Meze\n"
+#~ "Dekstre\n"
+#~ "Nenio"
+
+#~ msgid "Shade"
+#~ msgstr "Ombrigi"
+
+#~ msgid "Vertical:"
+#~ msgstr "Vertikale:"
+
+#~ msgid "xxxxxxxxxxxxxx"
+#~ msgstr "xxxxxxxxxxxxxx"
+
+#~ msgid "URL:"
+#~ msgstr "URL:"
+
+#~ msgid "Description:"
+#~ msgstr "Priskribo:"
+
+#~ msgid "Insert"
+#~ msgstr "Enmeti"
+
+#~ msgid "Address"
+#~ msgstr "Adreso"
+
+#~ msgid "Text Style..."
+#~ msgstr "Tekststilo..."
+
+#~ msgid "Paragraph Style..."
+#~ msgstr "Alineostilo..."
+
+#~ msgid "Link Style..."
+#~ msgstr "Ligilstilo..."
+
+#~ msgid "Image Style..."
+#~ msgstr "Bildstilo..."
+
+#~ msgid "Cell Style..."
+#~ msgstr "Ĉelostilo..."
+
+#~ msgid "Table Style..."
+#~ msgstr "Tabelostilo..."
+
+#~ msgid "Page Style..."
+#~ msgstr "Paĝstilo..."
+
+#~ msgid "Table insert"
+#~ msgstr "Enmeti tabelon"
+
+#~ msgid "Table delete"
+#~ msgstr "Forigi tabelon"
+
+#~ msgid "Cell contents"
+#~ msgstr "Ĉelenhavoj"
+
+#~ msgid "Add Word to"
+#~ msgstr "Aldoni vorton al"
+
+#~ msgid "Spell checker"
+#~ msgstr "Literumilo"
+
+#~ msgid "Note"
+#~ msgstr "Noto"
+
+#~ msgid "Open file..."
+#~ msgstr "Malfermi dosieron..."
+
+#~ msgid "Save file as..."
+#~ msgstr "Konservi dosieron kiel..."
+
+#~ msgid "Indent"
+#~ msgstr "Krommarĝeno"
+
+#~ msgid "Text Color"
+#~ msgstr "Tekstkoloro"
+
+#~ msgid "Sample"
+#~ msgstr "Specimeno"
+
+#~ msgid "Editable"
+#~ msgstr "Redakteble"
+
+#~ msgid "Document Title"
+#~ msgstr "Dokumentotitolo"
+
+#~ msgid "New Link Color"
+#~ msgstr "Koloro de novaj ligiloj"
+
+#~ msgid "Visited Link Color"
+#~ msgstr "Koloro de vizititaj ligiloj"
+
+#~ msgid "Active Link Color"
+#~ msgstr "Koloro de aktivaj ligiloj"
+
+#~ msgid "Print pre_view"
+#~ msgstr "Presada _antaŭrigardo"
+
+#~ msgid "Print preview"
+#~ msgstr "Presada antaŭrigardo"
