@@ -380,8 +380,10 @@ gtk_html_a11y_delete_object_cb (GtkWidget * widget, gint pos, gint len)
 AtkObject*
 gtk_html_a11y_new (GtkWidget *widget)
 {
+	GtkHTML *html;
 	GObject *object;
-	AtkObject *accessible, *focus_object;
+	AtkObject *accessible;
+	AtkObject *focus_object = NULL;
 
 	g_return_val_if_fail (GTK_IS_HTML (widget), NULL);
 
@@ -404,12 +406,12 @@ gtk_html_a11y_new (GtkWidget *widget)
 			G_CALLBACK (gtk_html_a11y_delete_object_cb),
 			NULL);
 
-	if (GTK_HTML (widget)->engine->clue)
-		html_utils_get_accessible (GTK_HTML (widget)->engine->clue, accessible);
+	html = GTK_HTML (widget);
 
-	/* printf ("created new gtkhtml accessible object\n"); */
-
-	focus_object = gtk_html_a11y_get_focus_object (widget);
+	if (html->engine != NULL && html->engine->clue != NULL) {
+		html_utils_get_accessible (html->engine->clue, accessible);
+		focus_object = gtk_html_a11y_get_focus_object (widget);
+	}
 
 	if (focus_object && gtk_html_a11y_focus_object != focus_object) {
 		gtk_html_a11y_focus_object = focus_object;
