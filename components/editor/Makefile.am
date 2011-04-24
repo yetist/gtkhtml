@@ -117,10 +117,10 @@ DISTCLEANFILES = $(pkgconfig_DATA)
 if GLADE_CATALOG
 
 gladecatalog_DATA = gtkhtml-editor.xml
-gladecatalogdir = `$(PKG_CONFIG) --variable=catalogdir gladeui-1.0`
+gladecatalogdir = `$(PKG_CONFIG) --variable=catalogdir gladeui-2.0`
 
 libglade_gtkhtml_editor_LTLIBRARIES = libglade-gtkhtml-editor.la
-libglade_gtkhtml_editordir = `$(PKG_CONFIG) --variable=moduledir gladeui-1.0`
+libglade_gtkhtml_editordir = `$(PKG_CONFIG) --variable=moduledir gladeui-2.0`
 
 libglade_gtkhtml_editor_la_CFLAGS = @GTKHTML_CFLAGS@
 

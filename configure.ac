@@ -168,7 +168,7 @@ AC_ARG_WITH(glade-catalog,
 	[(for maintainers only) @<:@default=no@:>@]),
 	[glade_catalog="$withval"], [glade_catalog="no"])
 if test "x$glade_catalog" = "xyes"; then
-	PKG_CHECK_MODULES(GLADEUI, gladeui-1.0)
+	PKG_CHECK_MODULES(GLADEUI, gladeui-2.0)
 fi
 AM_CONDITIONAL(GLADE_CATALOG, test x$glade_catalog = xyes)
 
