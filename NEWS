@@ -1,3 +1,37 @@
+GtkHTML-4.1.1 2011-05-09
+------------------------
+
+Bug Fixes:
+	Bug 593572 - Lack of feedback when there are no search hits
+	             (Dan Vrátil)
+
+Other Changes:
+	* Work around an accessibility crash. (Matthew Barnes)
+	* Require gladeui-2.0 for Glade catalogs. (Matthew Barnes)
+
+Translations:
+	Jordi Serratosa (ca)
+	Lukas Lommer (cs)
+	Kristjan SCHMIDT (eo)
+	Daniel Mustieles (es)
+	Inaki Larranaga Murgoitio (eu)
+	Sweta Kothari (gu)
+	Gabor Kelemen (hu)
+	Jiro MATSUZAWA (ja)
+	Rodrigo Padula de Oliveira (pt_BR)
+	Abduxukur Abdurixit (ug)
+
+
+GtkHTML-4.0.0 2011-04-04
+------------------------
+
+Translations:
+	Lukas Lommer (cs)
+	Sweta Kothari (gu)
+	Gabor Kelemen (hu)
+	Rodrigo Padula de Oliveira (pt_BR)
+
+
 GtkHTML-3.91.92 2011-03-21
 --------------------------
 
