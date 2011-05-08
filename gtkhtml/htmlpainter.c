@@ -1060,19 +1060,19 @@ html_pango_get_item_properties (PangoItem *item, HTMLPangoProperties *properties
 
 		switch (attr->klass->type) {
 		case PANGO_ATTR_UNDERLINE:
-			properties->underline = ((PangoAttrInt *)attr)->value != PANGO_UNDERLINE_NONE;
+			properties->underline = ((PangoAttrInt *) attr)->value != PANGO_UNDERLINE_NONE;
 			break;
 
 		case PANGO_ATTR_STRIKETHROUGH:
-			properties->strikethrough = ((PangoAttrInt *)attr)->value;
+			properties->strikethrough = ((PangoAttrInt *) attr)->value;
 			break;
 
 		case PANGO_ATTR_FOREGROUND:
-			properties->fg_color = &((PangoAttrColor *)attr)->color;
+			properties->fg_color = &((PangoAttrColor *) attr)->color;
 			break;
 
 		case PANGO_ATTR_BACKGROUND:
-			properties->bg_color = &((PangoAttrColor *)attr)->color;
+			properties->bg_color = &((PangoAttrColor *) attr)->color;
 			break;
 
 		default:

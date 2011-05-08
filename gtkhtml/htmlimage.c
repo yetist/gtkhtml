@@ -1319,7 +1319,7 @@ html_image_pointer_new (const gchar *filename, HTMLImageFactory *factory)
 	retval->factory = factory;
 	retval->stall = FALSE;
 	retval->stall_timeout = g_timeout_add (STALL_INTERVAL,
-					       (GSourceFunc)html_image_pointer_timeout,
+					       (GSourceFunc) html_image_pointer_timeout,
 					       retval);
 	retval->animation_timeout = 0;
 	return retval;
@@ -1344,7 +1344,7 @@ html_image_pointer_timeout (HTMLImagePointer *ip)
 	 */
 	if (ip->animation == NULL) {
 		while (list) {
-			image = (HTMLImage *)list->data;
+			image = (HTMLImage *) list->data;
 
 			if (image)
 				html_engine_queue_draw (ip->factory->engine,

@@ -221,8 +221,8 @@ static gint
 compare_examples (gconstpointer a,
 		  gconstpointer b)
 {
-	const Example *example_a = *(const Example *const *)a;
-	const Example *example_b = *(const Example *const *)b;
+	const Example *example_a = *(const Example *const *) a;
+	const Example *example_b = *(const Example *const *) b;
 	gchar *a_fold, *b_fold;
 	const guchar *p, *q;
 	gint result = 0;
@@ -235,8 +235,8 @@ compare_examples (gconstpointer a,
 
 	a_fold = g_utf8_casefold (example_a->title, -1);
 	b_fold = g_utf8_casefold (example_b->title, -1);
-	p = (const guchar *)a_fold;
-	q = (const guchar *)b_fold;
+	p = (const guchar *) a_fold;
+	q = (const guchar *) b_fold;
 
 	while (*p && *q) {
 		gboolean p_digit = g_ascii_isdigit (*p);
@@ -1018,7 +1018,7 @@ go_list_cb (GtkWidget *widget, gpointer data)
 }
 
 static void remove_go_list (gpointer data, gpointer user_data) {
-	go_item *item = (go_item *)data;
+	go_item *item = (go_item *) data;
 
 	if (item->widget)
 		gtk_widget_destroy (item->widget);
@@ -1045,7 +1045,7 @@ goto_url (const gchar *url, gint back_or_forward)
 	}
 
 	/* TODO2 animator start */
-	html_stream_handle = gtk_html_begin_content (html, (gchar *)gtk_html_get_default_content_type (html));
+	html_stream_handle = gtk_html_begin_content (html, (gchar *) gtk_html_get_default_content_type (html));
 
 	/* Yuck yuck yuck.  Well this code is butt-ugly already
 	anyway.  */

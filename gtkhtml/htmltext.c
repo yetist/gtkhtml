@@ -2442,7 +2442,7 @@ append_selection_string (HTMLObject *self,
 				   text->select_start + text->select_length);
 	*/
 	html_engine_save_string_append_nonbsp (buffer,
-					       (guchar *)p,
+					       (guchar *) p,
 					       last - p);
 
 }

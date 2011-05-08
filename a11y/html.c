@@ -292,7 +292,7 @@ html_a11y_get_top_gtkhtml_parent (HTMLA11Y *a11y)
 
 	gtkhtml = gtk_html_get_top_html (gtkhtml);
 
-	return (GtkHTMLA11Y *)gtk_widget_get_accessible (GTK_WIDGET (gtkhtml));
+	return (GtkHTMLA11Y *) gtk_widget_get_accessible (GTK_WIDGET (gtkhtml));
 }
 
 void

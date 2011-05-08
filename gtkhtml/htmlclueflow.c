@@ -2290,9 +2290,9 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 		eq_bytes = 0;
 		if (info->found) {
 			if (info->start_pos > 0)
-				index = ((guchar *)g_utf8_offset_to_pointer ((gchar *) par, info->start_pos + ((info->forward) ? 0 : -1))) - par;
+				index = ((guchar *) g_utf8_offset_to_pointer ((gchar *) par, info->start_pos + ((info->forward) ? 0 : -1))) - par;
 			else
-				index = info->forward ? ((guchar *)g_utf8_offset_to_pointer ((gchar *) par, info->start_pos) - par) : -1;
+				index = info->forward ? ((guchar *) g_utf8_offset_to_pointer ((gchar *) par, info->start_pos) - par) : -1;
 		} else {
 			index = (info->forward) ? 0 : text_bytes;
 		}
@@ -2368,7 +2368,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 					}
 
 					if (unicode_info == unicode_par) {
-						eq_bytes += (guchar *)g_utf8_next_char (par + index) - par - index;
+						eq_bytes += (guchar *) g_utf8_next_char (par + index) - par - index;
 
 						if (eq_bytes == info->text_bytes) {
 							/* The above par + index is always at the beginning of the last character matched */

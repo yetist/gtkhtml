@@ -377,12 +377,12 @@ print_pixbuf (GtkPrintContext *pc, GdkPixbuf *pixbuf)
 	cr = gtk_print_context_get_cairo_context (pc);
 	if (gdk_pixbuf_get_has_alpha (pixbuf)) {
 		gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
-		cairo_rectangle (cr, 0, 0, (double)gdk_pixbuf_get_width (pixbuf), (double)gdk_pixbuf_get_height (pixbuf));                 cairo_clip (cr);
+		cairo_rectangle (cr, 0, 0, (double) gdk_pixbuf_get_width (pixbuf), (double) gdk_pixbuf_get_height (pixbuf));                 cairo_clip (cr);
 		cairo_paint (cr);
 
 	} else {
 		gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
-		cairo_rectangle (cr, 0, 0, (double)gdk_pixbuf_get_width (pixbuf), (double)gdk_pixbuf_get_height (pixbuf));
+		cairo_rectangle (cr, 0, 0, (double) gdk_pixbuf_get_width (pixbuf), (double) gdk_pixbuf_get_height (pixbuf));
 		cairo_clip (cr);
 		cairo_paint (cr);
 	}
@@ -405,7 +405,7 @@ draw_pixmap (HTMLPainter *painter, GdkPixbuf *pixbuf, gint x, gint y, gint scale
 	print_scale_height = SCALE_ENGINE_TO_GNOME_PRINT (scale_height);
 	cairo_save (cr);
 	cairo_translate (cr, print_x, print_y);
-	cairo_scale (cr, print_scale_width / (double)gdk_pixbuf_get_width (pixbuf), print_scale_height / (double)gdk_pixbuf_get_height (pixbuf));
+	cairo_scale (cr, print_scale_width / (double) gdk_pixbuf_get_width (pixbuf), print_scale_height / (double) gdk_pixbuf_get_height (pixbuf));
 	print_pixbuf (printer->context, pixbuf);
 	cairo_restore (cr);
 }

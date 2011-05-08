@@ -403,7 +403,7 @@ html_engine_save_buffer_receiver (const HTMLEngine *engine,
 				  guint             len,
 				  gpointer          user_data)
 {
-	g_string_append ((GString *)user_data, (gchar *)data);
+	g_string_append ((GString *) user_data, (gchar *) data);
 
 	return TRUE;
 }
@@ -415,7 +415,7 @@ html_engine_save_buffer_free (HTMLEngineSaveState *state, gboolean free_string)
 	gchar *rv = NULL;
 
 	g_return_val_if_fail (state != NULL, NULL);
-	string = (GString *)state->user_data;
+	string = (GString *) state->user_data;
 
 	if (!free_string)
 		rv = string->str;
@@ -432,7 +432,7 @@ html_engine_save_buffer_peek_text (HTMLEngineSaveState *state)
 	GString *string;
 
 	g_return_val_if_fail (state != NULL, NULL);
-	string = (GString *)state->user_data;
+	string = (GString *) state->user_data;
 
 	return (guchar *) string->str;
 }
@@ -443,7 +443,7 @@ html_engine_save_buffer_peek_text_bytes (HTMLEngineSaveState *state)
 	GString *string;
 
 	g_return_val_if_fail (state != NULL, 0);
-	string = (GString *)state->user_data;
+	string = (GString *) state->user_data;
 
 	return string->len;
 }
@@ -455,7 +455,7 @@ html_engine_save_buffer_new (HTMLEngine *engine, gboolean inline_frames)
 
 	if (state) {
 		state->engine = engine;
-		state->receiver = (HTMLEngineSaveReceiverFn)html_engine_save_buffer_receiver;
+		state->receiver = (HTMLEngineSaveReceiverFn) html_engine_save_buffer_receiver;
 		state->br_count = 0;
 		state->error = FALSE;
 		state->inline_frames = inline_frames;

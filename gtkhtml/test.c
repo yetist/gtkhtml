@@ -182,8 +182,8 @@ static gint
 compare_examples (gconstpointer a,
 		  gconstpointer b)
 {
-	const Example *example_a = *(const Example *const *)a;
-	const Example *example_b = *(const Example *const *)b;
+	const Example *example_a = *(const Example *const *) a;
+	const Example *example_b = *(const Example *const *) b;
 	gchar *a_fold, *b_fold;
 	const guchar *p, *q;
 	gint result = 0;
@@ -196,8 +196,8 @@ compare_examples (gconstpointer a,
 
 	a_fold = g_utf8_casefold (example_a->title, -1);
 	b_fold = g_utf8_casefold (example_b->title, -1);
-	p = (const guchar *)a_fold;
-	q = (const guchar *)b_fold;
+	p = (const guchar *) a_fold;
+	q = (const guchar *) b_fold;
 
 	while (*p && *q) {
 		gboolean p_digit = g_ascii_isdigit (*p);

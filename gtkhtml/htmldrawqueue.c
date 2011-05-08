@@ -234,7 +234,7 @@ html_draw_queue_clear (HTMLDrawQueue *queue)
 		obj->redraw_pending = FALSE;
 		if (obj->free_pending) {
 			g_free (obj);
-			p->data = (gpointer)0xdeadbeef;
+			p->data = (gpointer) 0xdeadbeef;
 		}
 	}
 

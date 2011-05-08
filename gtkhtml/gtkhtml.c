@@ -970,7 +970,7 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 	}
 
 	html_font_manager_set_default (&painter->font_manager,
-				       (gchar *)font_var, (gchar *)fixed_family,
+				       (gchar *) font_var, (gchar *) fixed_family,
 				       font_var_size, font_var_points,
 				       fixed_size, fixed_points);
 	if (fixed_desc)
@@ -2348,7 +2348,7 @@ get_selection_string (GtkHTML *html, gint *len, gboolean selection, gboolean pri
 			GString *buffer;
 
 			state = html_engine_save_buffer_new (html->engine, TRUE);
-			buffer = (GString *)state->user_data;
+			buffer = (GString *) state->user_data;
 
 			html_object_save (selection_object, state);
 			g_string_append_unichar (buffer, 0x0000);
@@ -4373,7 +4373,7 @@ gtk_html_modify_indent_by_delta (GtkHTML *html,
 void
 gtk_html_indent_push_level (GtkHTML *html, HTMLListType level_type)
 {
-	guint8 type = (guint8)level_type;
+	guint8 type = (guint8) level_type;
 	gtk_html_modify_indent_by_delta (html, +1, &type);
 }
 
@@ -4476,11 +4476,11 @@ clipboard_get_contents_cb (GtkClipboard     *clipboard,
 		gtk_selection_data_set (selection_data,
 					gdk_atom_intern ("text/html", FALSE), 8,
 					(const guchar *) contents->html_text,
-					(gint )strlen (contents->html_text));
+					(gint ) strlen (contents->html_text));
 	} else if (contents->plain_text) {
 		gtk_selection_data_set_text (selection_data,
 					     contents->plain_text,
-					     (gint )strlen (contents->plain_text));
+					     (gint ) strlen (contents->plain_text));
 	}
 }
 
@@ -6192,7 +6192,7 @@ gtk_html_insert_html_generic (GtkHTML *html, GtkHTML *tmp, const gchar *html_src
 	html_image_factory_move_images (html->engine->image_factory, tmp->engine->image_factory);
 
 	/* copy the forms */
-	g_list_foreach (tmp->engine->formList, (GFunc)html_form_set_engine, html->engine);
+	g_list_foreach (tmp->engine->formList, (GFunc) html_form_set_engine, html->engine);
 
 	/* move top level iframes and embedded widgets from tmp to html */
 	html_object_forall (tmp->engine->clue, html->engine, reparent_embedded, html);
@@ -6486,7 +6486,7 @@ gtk_html_get_image_src_at (GtkHTML *html, gint x, gint y)
 	obj = html_engine_get_object_at (html->engine, x, y, (guint *) &offset, FALSE);
 
 	if (obj && HTML_IS_IMAGE (obj)) {
-		HTMLImage *image = (HTMLImage*)obj;
+		HTMLImage *image = (HTMLImage*) obj;
 
 		if (!image->image_ptr)
 			return NULL;
@@ -6512,7 +6512,7 @@ gtk_html_get_cursor_image_src (GtkHTML *html)
 		obj = html_engine_get_focus_object (html->engine, &offset);
 
 	if (obj && HTML_IS_IMAGE (obj)) {
-		HTMLImage *image = (HTMLImage*)obj;
+		HTMLImage *image = (HTMLImage*) obj;
 
 		if (!image->image_ptr)
 			return NULL;

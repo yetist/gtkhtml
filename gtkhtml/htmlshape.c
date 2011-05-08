@@ -108,7 +108,7 @@ html_shape_point (HTMLShape *shape, gint x, gint y)
 	gint j = 0;
 	gint odd = 0;
 
-	HTMLLength **poly = (HTMLLength **)shape->coords->pdata;
+	HTMLLength **poly = (HTMLLength **) shape->coords->pdata;
 
 	/*
 	 * TODO: Add support for percentage lengths, The information is stored

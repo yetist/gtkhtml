@@ -743,7 +743,7 @@ flow_new (HTMLEngine *e, HTMLClueFlowStyle style, HTMLListType item_type, gint i
 	if (e->listStack && e->listStack->list) {
 		l = e->listStack->list;
 		while (l) {
-			guint8 val = ((HTMLList *)l->data)->type;
+			guint8 val = ((HTMLList *) l->data)->type;
 
 			g_byte_array_prepend (levels, &val, 1);
 			l = l->next;
@@ -3261,7 +3261,7 @@ push_clue_style_for_table (HTMLEngine *e)
 
 	push_clue_style (e);
 	html_stack_push (e->body_stack, e->listStack);
-	e->listStack = html_stack_new ((HTMLStackFreeFunc)html_list_destroy);
+	e->listStack = html_stack_new ((HTMLStackFreeFunc) html_list_destroy);
 }
 
 static void
@@ -3332,7 +3332,7 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 		html_element_set_coreattr_to_object (element, HTML_OBJECT (table), e);
 
 		if (element->style->bg_color)
-			table->bgColor = gdk_color_copy ((GdkColor *)element->style->bg_color);
+			table->bgColor = gdk_color_copy ((GdkColor *) element->style->bg_color);
 
 		if (element->style->bg_image)
 			table->bgPixmap = html_image_factory_register (e->image_factory, NULL, element->style->bg_image, FALSE);
@@ -3356,7 +3356,7 @@ element_parse_table (HTMLEngine *e, HTMLObject *clue, const gchar *str)
 						    padding, spacing, border));
 
 		if (element->style->bg_color)
-			table->bgColor = gdk_color_copy ((GdkColor *)element->style->bg_color);
+			table->bgColor = gdk_color_copy ((GdkColor *) element->style->bg_color);
 
 		if (element->style->bg_image)
 			table->bgPixmap = html_image_factory_register (e->image_factory, NULL, element->style->bg_image, FALSE);
@@ -5762,7 +5762,7 @@ get_changed_objects (HTMLEngine *e, cairo_region_t *region, GList *changed_objs)
 		} else {
 			cur = cur->next;
 			if (e->window) {
-				HTMLObjectClearRectangle *cr = (HTMLObjectClearRectangle *)cur->data;
+				HTMLObjectClearRectangle *cr = (HTMLObjectClearRectangle *) cur->data;
 				HTMLObject *o;
 				GdkRectangle paint;
 				gint tx, ty;

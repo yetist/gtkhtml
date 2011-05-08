@@ -120,20 +120,20 @@ hash (register const gchar *str, register guint len)
   switch (hval)
     {
       default:
-	hval += asso_values[(guchar)str[4]];
+	hval += asso_values[(guchar) str[4]];
       /*FALLTHROUGH*/
       case 4:
       case 3:
-	hval += asso_values[(guchar)str[2]];
+	hval += asso_values[(guchar) str[2]];
       /*FALLTHROUGH*/
       case 2:
-	hval += asso_values[(guchar)str[1]+1];
+	hval += asso_values[(guchar) str[1]+1];
       /*FALLTHROUGH*/
       case 1:
-	hval += asso_values[(guchar)str[0]];
+	hval += asso_values[(guchar) str[0]];
 	break;
     }
-  return hval + asso_values[(guchar)str[len - 1]];
+  return hval + asso_values[(guchar) str[len - 1]];
 }
 
 #ifdef __GNUC__

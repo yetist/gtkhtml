@@ -110,7 +110,7 @@ html_form_destroy (HTMLForm *form)
 	g_list_free (form->elements);
 	g_list_free (form->hidden);
 
-	g_hash_table_foreach (form->radio_group, (GHFunc)destroy_radio, NULL);
+	g_hash_table_foreach (form->radio_group, (GHFunc) destroy_radio, NULL);
 	g_hash_table_destroy (form->radio_group);
 
 	g_free (form->action);

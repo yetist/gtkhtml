@@ -287,7 +287,7 @@ gtk_html_embedded_new (gchar *classid, gchar *name, gchar *type, gchar *data, gi
 	em->name = g_strdup (name);
 	em->data = g_strdup (data);
 
-	return (GtkWidget *)em;
+	return (GtkWidget *) em;
 }
 
 /**
