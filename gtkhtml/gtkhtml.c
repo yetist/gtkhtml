@@ -788,51 +788,50 @@ dispose (GObject *object)
 		html->ibeam_cursor = NULL;
 	}
 
-	if (html->priv) {
-		gtk_scrollable_set_hadjustment (GTK_SCROLLABLE (html), NULL);
-		gtk_scrollable_set_vadjustment (GTK_SCROLLABLE (html), NULL);
+	gtk_scrollable_set_hadjustment (GTK_SCROLLABLE (html), NULL);
+	gtk_scrollable_set_vadjustment (GTK_SCROLLABLE (html), NULL);
 
-		hadjustment_notify_cb (html);
-		vadjustment_notify_cb (html);
+	hadjustment_notify_cb (html);
+	vadjustment_notify_cb (html);
 
-		g_signal_handlers_disconnect_by_func (html, hadjustment_notify_cb, NULL);
-		g_signal_handlers_disconnect_by_func (html, vadjustment_notify_cb, NULL);
+	g_signal_handlers_disconnect_by_func (html, hadjustment_notify_cb, NULL);
+	g_signal_handlers_disconnect_by_func (html, vadjustment_notify_cb, NULL);
 
-		if (html->priv->idle_handler_id != 0) {
-			g_source_remove (html->priv->idle_handler_id);
-			html->priv->idle_handler_id = 0;
-		}
-
-		if (html->priv->scroll_timeout_id != 0) {
-			g_source_remove (html->priv->scroll_timeout_id);
-			html->priv->scroll_timeout_id = 0;
-		}
-
-		if (html->priv->notify_monospace_font_id) {
-			gconf_client_notify_remove (
-				gconf_client_get_default (),
-				html->priv->notify_monospace_font_id);
-			html->priv->notify_monospace_font_id = 0;
-		}
-
-		if (html->priv->resize_cursor) {
-			g_object_unref (html->priv->resize_cursor);
-			html->priv->resize_cursor = NULL;
-		}
-
-		if (html->priv->im_context) {
-			g_object_unref (html->priv->im_context);
-			html->priv->im_context = NULL;
-		}
-
-		g_free (html->priv->base_url);
-		g_free (html->priv->caret_first_focus_anchor);
-		g_free (html->priv);
-		html->priv = NULL;
+	if (html->priv->idle_handler_id != 0) {
+		g_source_remove (html->priv->idle_handler_id);
+		html->priv->idle_handler_id = 0;
 	}
 
+	if (html->priv->scroll_timeout_id != 0) {
+		g_source_remove (html->priv->scroll_timeout_id);
+		html->priv->scroll_timeout_id = 0;
+	}
+
+	if (html->priv->notify_monospace_font_id) {
+		gconf_client_notify_remove (
+			gconf_client_get_default (),
+			html->priv->notify_monospace_font_id);
+		html->priv->notify_monospace_font_id = 0;
+	}
+
+	if (html->priv->resize_cursor) {
+		g_object_unref (html->priv->resize_cursor);
+		html->priv->resize_cursor = NULL;
+	}
+
+	if (html->priv->im_context) {
+		g_object_unref (html->priv->im_context);
+		html->priv->im_context = NULL;
+	}
+
+	g_free (html->priv->base_url);
+	html->priv->base_url = NULL;
+
+	g_free (html->priv->caret_first_focus_anchor);
+	html->priv->caret_first_focus_anchor = NULL;
+
 	if (html->engine) {
-		g_object_unref (G_OBJECT (html->engine));
+		g_object_unref (html->engine);
 		html->engine = NULL;
 	}
 
@@ -2883,6 +2882,8 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	gchar *filename;
 	GConfClient *client;
 
+	g_type_class_add_private (klass, sizeof (GtkHTMLPrivate));
+
 	html_class = (GtkHTMLClass *) klass;
 	object_class = (GObjectClass *) klass;
 	widget_class = (GtkWidgetClass *) klass;
@@ -3490,7 +3491,9 @@ gtk_html_init (GtkHTML* html)
 	html->in_selection = FALSE;
 	html->in_selection_drag = FALSE;
 
-	html->priv = g_new0 (GtkHTMLPrivate, 1);
+	html->priv = G_TYPE_INSTANCE_GET_PRIVATE (
+		html, GTK_TYPE_HTML, GtkHTMLPrivate);
+
 	html->priv->idle_handler_id = 0;
 	html->priv->scroll_timeout_id = 0;
 	html->priv->skip_update_cursor = FALSE;
