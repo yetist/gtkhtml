@@ -329,6 +329,9 @@ gchar *                     gtk_html_get_image_src_at              (GtkHTML     
 								   gint                        x,
 								   gint                        y);
 gchar *                     gtk_html_get_cursor_image_src          (GtkHTML                   *html);
+GdkPixbufAnimation *        gtk_html_get_image_at		   (GtkHTML                   *html,
+								    gint		      x,
+								    gint		      y);
 
 void                       gtk_html_set_tokenizer                 (GtkHTML                   *html,
 								   HTMLTokenizer             *tokenizer);

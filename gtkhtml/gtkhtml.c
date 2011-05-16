@@ -6500,6 +6500,29 @@ gtk_html_get_image_src_at (GtkHTML *html, gint x, gint y)
 	return NULL;
 }
 
+/* Unref when done with it */
+GdkPixbufAnimation *
+gtk_html_get_image_at (GtkHTML *html, gint x, gint y)
+{
+	HTMLObject *obj;
+	gint offset;
+
+	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
+
+	obj = html_engine_get_object_at (html->engine, x, y, (guint *) &offset, FALSE);
+
+	if (obj && HTML_IS_IMAGE (obj)) {
+		HTMLImage *image = (HTMLImage*)obj;
+
+		if (!image->image_ptr || !image->image_ptr->animation)
+			return NULL;
+
+		return g_object_ref (image->image_ptr->animation);
+	}
+
+	return NULL;
+}
+
 gchar *
 gtk_html_get_cursor_image_src (GtkHTML *html)
 {
