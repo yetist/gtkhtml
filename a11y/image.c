@@ -35,11 +35,11 @@ static void html_a11y_image_class_init    (HTMLA11YImageClass *klass);
 static void html_a11y_image_init          (HTMLA11YImage *a11y_image);
 static void atk_image_interface_init      (AtkImageIface *iface);
 
-static G_CONST_RETURN gchar * html_a11y_image_get_name (AtkObject *accessible);
+static const gchar * html_a11y_image_get_name (AtkObject *accessible);
 
 static void html_a11y_image_get_image_position (AtkImage *image, gint *x, gint *y, AtkCoordType coord_type);
 static void html_a11y_image_get_image_size (AtkImage *image, gint *width, gint *height);
-static G_CONST_RETURN gchar *html_a11y_image_get_image_description (AtkImage *image);
+static const gchar *html_a11y_image_get_image_description (AtkImage *image);
 
 static AtkObjectClass *parent_class = NULL;
 
@@ -138,7 +138,7 @@ html_a11y_image_new (HTMLObject *html_obj)
 	return accessible;
 }
 
-static G_CONST_RETURN gchar *
+static const gchar *
 html_a11y_image_get_name (AtkObject *accessible)
 {
 	HTMLImage *img = HTML_IMAGE (HTML_A11Y_HTML (accessible));
@@ -184,7 +184,7 @@ html_a11y_image_get_image_size (AtkImage *image, gint *width, gint *height)
 	*height -= 2*(img->vspace + img->border);
 }
 
-static G_CONST_RETURN gchar *
+static const gchar *
 html_a11y_image_get_image_description (AtkImage *image)
 {
 	return  html_a11y_image_get_name (ATK_OBJECT (image));

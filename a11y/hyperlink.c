@@ -37,8 +37,8 @@ static void atk_action_interface_init (AtkActionIface *iface);
 
 static gboolean html_a11y_hyper_link_do_action (AtkAction *action, gint i);
 static gint html_a11y_hyper_link_get_n_actions (AtkAction *action);
-static G_CONST_RETURN gchar * html_a11y_hyper_link_get_description (AtkAction *action, gint i);
-static G_CONST_RETURN gchar * html_a11y_hyper_link_get_name (AtkAction *action, gint i);
+static const gchar * html_a11y_hyper_link_get_description (AtkAction *action, gint i);
+static const gchar * html_a11y_hyper_link_get_name (AtkAction *action, gint i);
 static gboolean html_a11y_hyper_link_set_description (AtkAction *action, gint i, const gchar *description);
 
 static AtkObjectClass *parent_class = NULL;
@@ -187,7 +187,7 @@ html_a11y_hyper_link_get_n_actions (AtkAction *action)
 	return 1;
 }
 
-static G_CONST_RETURN gchar *
+static const gchar *
 html_a11y_hyper_link_get_description (AtkAction *action, gint i)
 {
 	if (i == 0) {
@@ -201,7 +201,7 @@ html_a11y_hyper_link_get_description (AtkAction *action, gint i)
 	return NULL;
 }
 
-static G_CONST_RETURN gchar *
+static const gchar *
 html_a11y_hyper_link_get_name (AtkAction *action, gint i)
 {
 	return i == 0 ? "link click" : NULL;
