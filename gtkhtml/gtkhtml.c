@@ -6512,7 +6512,7 @@ gtk_html_get_image_at (GtkHTML *html, gint x, gint y)
 	obj = html_engine_get_object_at (html->engine, x, y, (guint *) &offset, FALSE);
 
 	if (obj && HTML_IS_IMAGE (obj)) {
-		HTMLImage *image = (HTMLImage*)obj;
+		HTMLImage *image = (HTMLImage*) obj;
 
 		if (!image->image_ptr || !image->image_ptr->animation)
 			return NULL;
