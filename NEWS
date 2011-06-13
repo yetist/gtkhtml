@@ -1,3 +1,19 @@
+GtkHTML-4.1.2 2011-06-13
+------------------------
+
+Bug Fixes:
+	Bug 601541 - Add 'Copy Image' Option On Inline Email Images
+	             (Milan Crha)
+
+Other Changes:
+	* GtkHTML: Use g_type_class_add_private(). (Matthew Barnes)
+	* Use 'const' instead G_CONST_RETURN (Javier Jardón)
+
+Translations:
+	Fran Diéguez (gl)
+	Yaron Shahrabani (he)
+
+
 GtkHTML-4.1.1 2011-05-09
 ------------------------
 
