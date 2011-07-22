@@ -2835,16 +2835,6 @@ GtkHTMLClassProperties *p1,GtkHTMLClassProperties *p2
 <FUNCTION>
 <NAME>gtk_html_class_properties_load</NAME>
 <RETURNS>void  </RETURNS>
-GtkHTMLClassProperties *p,GConfClient *client
-</FUNCTION>
-<FUNCTION>
-<NAME>gtk_html_class_properties_update</NAME>
-<RETURNS>void  </RETURNS>
-GtkHTMLClassProperties *p,GConfClient *client,GtkHTMLClassProperties *old
-</FUNCTION>
-<FUNCTION>
-<NAME>gtk_html_class_properties_load</NAME>
-<RETURNS>void  </RETURNS>
 GtkHTMLClassProperties *p
 </FUNCTION>
 <FUNCTION>
