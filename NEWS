@@ -1,3 +1,16 @@
+GtkHTML-4.1.4 2011-07-25
+------------------------
+
+Bug Fixes:
+	Bug 655002 - GtkHTML still gets font settings from GConf
+	             (Matthew Barnes)
+
+Translations:
+	Marek Černocký (cs)
+	Rudolfs Mazurs (lv)
+	Abduxukur Abdurixit (ug)
+
+
 GtkHTML-4.1.3 2011-07-04
 ------------------------
 
