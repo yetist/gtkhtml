@@ -420,10 +420,11 @@ editor_method_set_language (GtkHTML *html,
 	action = gtk_action_group_get_action (action_group, action_name);
 	g_free (action_name);
 
+	/* silently ignore when such language doesn't exist, it might mean that
+	   user doesn't have installed language for locale the editor is run in
+	*/
 	if (action != NULL)
 		gtk_action_activate (action);
-	else
-		g_warning ("%s: No such language", language);
 }
 
 static GtkHTMLEditorAPI editor_api = {
