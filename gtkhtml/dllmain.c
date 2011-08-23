@@ -92,8 +92,8 @@ BOOL WINAPI DllMain (HINSTANCE hinstDLL,
 /* DllMain used to tuck away the the DLL's HMODULE */
 BOOL WINAPI
 DllMain (HINSTANCE hinstDLL,
-	 DWORD     fdwReason,
-	 LPVOID    lpvReserved)
+         DWORD fdwReason,
+         LPVOID lpvReserved)
 {
 	switch (fdwReason) {
 	case DLL_PROCESS_ATTACH:

@@ -61,7 +61,8 @@ html_a11y_paragraph_finalize (GObject *obj)
 }
 
 static void
-html_a11y_paragraph_initialize (AtkObject *obj, gpointer data)
+html_a11y_paragraph_initialize (AtkObject *obj,
+                                gpointer data)
 {
 	/* printf ("html_a11y_paragraph_initialize\n"); */
 

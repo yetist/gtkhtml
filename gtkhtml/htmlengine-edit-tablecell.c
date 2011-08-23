@@ -1,23 +1,23 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
-
-    Copyright (C) 2001 Ximian, Inc.
-    Authors: Radek Doulik
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
+ *
+ *  Copyright (C) 2001 Ximian, Inc.
+ *  Authors: Radek Doulik
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -117,7 +117,10 @@ attr_undo_new (HTMLTableCellAttrType type)
 static void table_cell_set_bg_color (HTMLEngine *e, HTMLTableCell *cell, GdkColor *c, HTMLUndoDirection dir);
 
 static void
-table_cell_set_bg_color_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir, guint position_after)
+table_cell_set_bg_color_undo_action (HTMLEngine *e,
+                                     HTMLUndoData *undo_data,
+                                     HTMLUndoDirection dir,
+                                     guint position_after)
 {
 	HTMLTableCellSetAttrUndo *data = (HTMLTableCellSetAttrUndo *) undo_data;
 
@@ -126,7 +129,10 @@ table_cell_set_bg_color_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTM
 }
 
 static void
-table_cell_set_bg_color (HTMLEngine *e, HTMLTableCell *cell, GdkColor *c, HTMLUndoDirection dir)
+table_cell_set_bg_color (HTMLEngine *e,
+                         HTMLTableCell *cell,
+                         GdkColor *c,
+                         HTMLUndoDirection dir)
 {
 	HTMLTableCellSetAttrUndo *undo;
 
@@ -144,7 +150,9 @@ table_cell_set_bg_color (HTMLEngine *e, HTMLTableCell *cell, GdkColor *c, HTMLUn
 }
 
 void
-html_engine_table_cell_set_bg_color (HTMLEngine *e, HTMLTableCell *cell, GdkColor *c)
+html_engine_table_cell_set_bg_color (HTMLEngine *e,
+                                     HTMLTableCell *cell,
+                                     GdkColor *c)
 {
 	table_cell_set_bg_color (e, cell, c, HTML_UNDO_UNDO);
 }
@@ -157,7 +165,10 @@ html_engine_table_cell_set_bg_color (HTMLEngine *e, HTMLTableCell *cell, GdkColo
 static void table_cell_set_bg_pixmap (HTMLEngine *e, HTMLTableCell *cell, gchar *url, HTMLUndoDirection dir);
 
 static void
-table_cell_set_bg_pixmap_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir, guint position_after)
+table_cell_set_bg_pixmap_undo_action (HTMLEngine *e,
+                                      HTMLUndoData *undo_data,
+                                      HTMLUndoDirection dir,
+                                      guint position_after)
 {
 	HTMLTableCellSetAttrUndo *data = (HTMLTableCellSetAttrUndo *) undo_data;
 
@@ -165,7 +176,10 @@ table_cell_set_bg_pixmap_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HT
 }
 
 static void
-table_cell_set_bg_pixmap (HTMLEngine *e, HTMLTableCell *cell, gchar *url, HTMLUndoDirection dir)
+table_cell_set_bg_pixmap (HTMLEngine *e,
+                          HTMLTableCell *cell,
+                          gchar *url,
+                          HTMLUndoDirection dir)
 {
 	HTMLImagePointer *iptr;
 	HTMLTableCellSetAttrUndo *undo;
@@ -187,7 +201,9 @@ table_cell_set_bg_pixmap (HTMLEngine *e, HTMLTableCell *cell, gchar *url, HTMLUn
 }
 
 void
-html_engine_table_cell_set_bg_pixmap (HTMLEngine *e, HTMLTableCell *cell, gchar *url)
+html_engine_table_cell_set_bg_pixmap (HTMLEngine *e,
+                                      HTMLTableCell *cell,
+                                      gchar *url)
 {
 	table_cell_set_bg_pixmap (e, cell, url, HTML_UNDO_UNDO);
 }
@@ -200,7 +216,10 @@ html_engine_table_cell_set_bg_pixmap (HTMLEngine *e, HTMLTableCell *cell, gchar 
 static void table_cell_set_halign (HTMLEngine *e, HTMLTableCell *cell, HTMLHAlignType halign, HTMLUndoDirection dir);
 
 static void
-table_cell_set_halign_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir, guint position_after)
+table_cell_set_halign_undo_action (HTMLEngine *e,
+                                   HTMLUndoData *undo_data,
+                                   HTMLUndoDirection dir,
+                                   guint position_after)
 {
 	HTMLTableCellSetAttrUndo *data = (HTMLTableCellSetAttrUndo *) undo_data;
 
@@ -208,7 +227,10 @@ table_cell_set_halign_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLU
 }
 
 static void
-table_cell_set_halign (HTMLEngine *e, HTMLTableCell *cell, HTMLHAlignType halign, HTMLUndoDirection dir)
+table_cell_set_halign (HTMLEngine *e,
+                       HTMLTableCell *cell,
+                       HTMLHAlignType halign,
+                       HTMLUndoDirection dir)
 {
 	HTMLTableCellSetAttrUndo *undo;
 
@@ -225,7 +247,9 @@ table_cell_set_halign (HTMLEngine *e, HTMLTableCell *cell, HTMLHAlignType halign
 }
 
 void
-html_engine_table_cell_set_halign (HTMLEngine *e, HTMLTableCell *cell, HTMLHAlignType halign)
+html_engine_table_cell_set_halign (HTMLEngine *e,
+                                   HTMLTableCell *cell,
+                                   HTMLHAlignType halign)
 {
 	table_cell_set_halign (e, cell, halign, HTML_UNDO_UNDO);
 }
@@ -238,7 +262,10 @@ html_engine_table_cell_set_halign (HTMLEngine *e, HTMLTableCell *cell, HTMLHAlig
 static void table_cell_set_valign (HTMLEngine *e, HTMLTableCell *cell, HTMLVAlignType valign, HTMLUndoDirection dir);
 
 static void
-table_cell_set_valign_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir, guint position_after)
+table_cell_set_valign_undo_action (HTMLEngine *e,
+                                   HTMLUndoData *undo_data,
+                                   HTMLUndoDirection dir,
+                                   guint position_after)
 {
 	HTMLTableCellSetAttrUndo *data = (HTMLTableCellSetAttrUndo *) undo_data;
 
@@ -246,7 +273,10 @@ table_cell_set_valign_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLU
 }
 
 static void
-table_cell_set_valign (HTMLEngine *e, HTMLTableCell *cell, HTMLVAlignType valign, HTMLUndoDirection dir)
+table_cell_set_valign (HTMLEngine *e,
+                       HTMLTableCell *cell,
+                       HTMLVAlignType valign,
+                       HTMLUndoDirection dir)
 {
 	HTMLTableCellSetAttrUndo *undo;
 
@@ -263,7 +293,9 @@ table_cell_set_valign (HTMLEngine *e, HTMLTableCell *cell, HTMLVAlignType valign
 }
 
 void
-html_engine_table_cell_set_valign (HTMLEngine *e, HTMLTableCell *cell, HTMLVAlignType valign)
+html_engine_table_cell_set_valign (HTMLEngine *e,
+                                   HTMLTableCell *cell,
+                                   HTMLVAlignType valign)
 {
 	table_cell_set_valign (e, cell, valign, HTML_UNDO_UNDO);
 }
@@ -276,7 +308,10 @@ html_engine_table_cell_set_valign (HTMLEngine *e, HTMLTableCell *cell, HTMLVAlig
 static void table_cell_set_no_wrap (HTMLEngine *e, HTMLTableCell *cell, gboolean no_wrap, HTMLUndoDirection dir);
 
 static void
-table_cell_set_no_wrap_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir, guint position_after)
+table_cell_set_no_wrap_undo_action (HTMLEngine *e,
+                                    HTMLUndoData *undo_data,
+                                    HTMLUndoDirection dir,
+                                    guint position_after)
 {
 	HTMLTableCellSetAttrUndo *data = (HTMLTableCellSetAttrUndo *) undo_data;
 
@@ -284,7 +319,10 @@ table_cell_set_no_wrap_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTML
 }
 
 static void
-table_cell_set_no_wrap (HTMLEngine *e, HTMLTableCell *cell, gboolean no_wrap, HTMLUndoDirection dir)
+table_cell_set_no_wrap (HTMLEngine *e,
+                        HTMLTableCell *cell,
+                        gboolean no_wrap,
+                        HTMLUndoDirection dir)
 {
 	if (cell->no_wrap != no_wrap) {
 		HTMLTableCellSetAttrUndo *undo;
@@ -303,7 +341,9 @@ table_cell_set_no_wrap (HTMLEngine *e, HTMLTableCell *cell, gboolean no_wrap, HT
 }
 
 void
-html_engine_table_cell_set_no_wrap (HTMLEngine *e, HTMLTableCell *cell, gboolean no_wrap)
+html_engine_table_cell_set_no_wrap (HTMLEngine *e,
+                                    HTMLTableCell *cell,
+                                    gboolean no_wrap)
 {
 	table_cell_set_no_wrap (e, cell, no_wrap, HTML_UNDO_UNDO);
 }
@@ -316,7 +356,10 @@ html_engine_table_cell_set_no_wrap (HTMLEngine *e, HTMLTableCell *cell, gboolean
 static void table_cell_set_heading (HTMLEngine *e, HTMLTableCell *cell, gboolean heading, HTMLUndoDirection dir);
 
 static void
-table_cell_set_heading_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir, guint position_after)
+table_cell_set_heading_undo_action (HTMLEngine *e,
+                                    HTMLUndoData *undo_data,
+                                    HTMLUndoDirection dir,
+                                    guint position_after)
 {
 	HTMLTableCellSetAttrUndo *data = (HTMLTableCellSetAttrUndo *) undo_data;
 
@@ -324,7 +367,10 @@ table_cell_set_heading_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTML
 }
 
 static void
-table_cell_set_heading (HTMLEngine *e, HTMLTableCell *cell, gboolean heading, HTMLUndoDirection dir)
+table_cell_set_heading (HTMLEngine *e,
+                        HTMLTableCell *cell,
+                        gboolean heading,
+                        HTMLUndoDirection dir)
 {
 	if (cell->heading != heading) {
 		HTMLTableCellSetAttrUndo *undo;
@@ -345,7 +391,9 @@ table_cell_set_heading (HTMLEngine *e, HTMLTableCell *cell, gboolean heading, HT
 }
 
 void
-html_engine_table_cell_set_heading (HTMLEngine *e, HTMLTableCell *cell, gboolean heading)
+html_engine_table_cell_set_heading (HTMLEngine *e,
+                                    HTMLTableCell *cell,
+                                    gboolean heading)
 {
 	table_cell_set_heading (e, cell, heading, HTML_UNDO_UNDO);
 }
@@ -357,7 +405,10 @@ html_engine_table_cell_set_heading (HTMLEngine *e, HTMLTableCell *cell, gboolean
 
 static void table_cell_set_width (HTMLEngine *e, HTMLTableCell *cell, gint width, gboolean percent, HTMLUndoDirection dir);
 static void
-table_cell_set_width_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir, guint position_after)
+table_cell_set_width_undo_action (HTMLEngine *e,
+                                  HTMLUndoData *undo_data,
+                                  HTMLUndoDirection dir,
+                                  guint position_after)
 {
 	HTMLTableCellSetAttrUndo *data = (HTMLTableCellSetAttrUndo *) undo_data;
 
@@ -366,7 +417,11 @@ table_cell_set_width_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUn
 }
 
 static void
-table_cell_set_width (HTMLEngine *e, HTMLTableCell *cell, gint width, gboolean percent, HTMLUndoDirection dir)
+table_cell_set_width (HTMLEngine *e,
+                      HTMLTableCell *cell,
+                      gint width,
+                      gboolean percent,
+                      HTMLUndoDirection dir)
 {
 	if (cell->percent_width != percent || cell->fixed_width != width) {
 		HTMLTableCellSetAttrUndo *undo;
@@ -392,7 +447,10 @@ table_cell_set_width (HTMLEngine *e, HTMLTableCell *cell, gint width, gboolean p
 }
 
 void
-html_engine_table_cell_set_width (HTMLEngine *e, HTMLTableCell *cell, gint width, gboolean percent)
+html_engine_table_cell_set_width (HTMLEngine *e,
+                                  HTMLTableCell *cell,
+                                  gint width,
+                                  gboolean percent)
 {
 	table_cell_set_width (e, cell, width, percent, HTML_UNDO_UNDO);
 }
@@ -431,15 +489,16 @@ struct MoveCellRDUndo {
 };
 
 static struct MoveCellRDUndo *
-move_cell_rd_undo_new (gint rspan, gint cspan)
+move_cell_rd_undo_new (gint rspan,
+                       gint cspan)
 {
 	struct MoveCellRDUndo *undo;
 
 	undo = g_new (struct MoveCellRDUndo, 1);
 	undo->rspan = rspan;
 	undo->cspan = cspan;
-	undo->moved = g_new0 (struct Move, rspan*cspan);
-	undo->removed = g_new0 (HTMLTableCell *, rspan*cspan);
+	undo->moved = g_new0 (struct Move, rspan * cspan);
+	undo->removed = g_new0 (HTMLTableCell *, rspan * cspan);
 
 	return undo;
 }
@@ -449,7 +508,7 @@ move_cell_rd_undo_free (struct MoveCellRDUndo *undo)
 {
 	gint i;
 
-	for (i = 0; i < undo->rspan*undo->cspan; i++)
+	for (i = 0; i < undo->rspan * undo->cspan; i++)
 		if (undo->removed[i])
 			html_object_destroy (HTML_OBJECT (undo->removed[i]));
 	g_free (undo->removed);
@@ -457,7 +516,10 @@ move_cell_rd_undo_free (struct MoveCellRDUndo *undo)
 }
 
 static struct MoveCellRDUndo *
-move_cell_rd (HTMLTable *t, HTMLTableCell *cell, gint rs, gint cs)
+move_cell_rd (HTMLTable *t,
+              HTMLTableCell *cell,
+              gint rs,
+              gint cs)
 {
 	struct MoveCellRDUndo *undo;
 	gint r, c;
@@ -474,7 +536,7 @@ move_cell_rd (HTMLTable *t, HTMLTableCell *cell, gint rs, gint cs)
 				/* printf ("exchange: %dx%d <--> %dx%d (%p)\n", rs + r, cs + c, nr, nc, t->cells [rs][nc]); */
 				t->cells[nr][nc] = t->cells[rs + r][cs + c];
 				if (t->cells[nr][nc]) {
-					struct Move *move = &undo->moved[(r - cell->row)*cell->cspan + c - cell->col];
+					struct Move *move = &undo->moved[(r - cell->row) * cell->cspan + c - cell->col];
 
 					html_table_cell_set_position (t->cells[nr][nc], nr, nc);
 					move->rs = rs + r;
@@ -490,7 +552,7 @@ move_cell_rd (HTMLTable *t, HTMLTableCell *cell, gint rs, gint cs)
 						/* printf ("move destroy: %dx%d\n", rs + r, cs + c); */
 						/* html_object_destroy (HTML_OBJECT (t->cells [rs + r][cs + c])); */
 						/* printf ("removed: %dx%d (%d, %d)\n", rs + r, cs + c, r - cell->row, c - cell->col); */
-						undo->removed[(r - cell->row)*cell->cspan + c - cell->col] = t->cells[r][c];
+						undo->removed[(r - cell->row) * cell->cspan + c - cell->col] = t->cells[r][c];
 					}
 					t->cells[r][c] = NULL;
 				}
@@ -530,7 +592,8 @@ expand_undo_destroy (HTMLUndoData *undo_data)
 }
 
 static HTMLUndoData *
-expand_undo_data_new (gint span, GSList *slist)
+expand_undo_data_new (gint span,
+                      GSList *slist)
 {
 	ExpandSpanUndo *ud = g_new0 (ExpandSpanUndo, 1);
 
@@ -543,15 +606,16 @@ expand_undo_data_new (gint span, GSList *slist)
 }
 
 static void
-move_cell_rd_undo (HTMLTable *table, struct MoveCellRDUndo *undo)
+move_cell_rd_undo (HTMLTable *table,
+                   struct MoveCellRDUndo *undo)
 {
 	HTMLTableCell *cell = table->cells[undo->move.rt][undo->move.ct];
 	gint r, c;
 
 	for (r = 0; r < undo->rspan; r++)
 		for (c = 0; c < undo->cspan; c++)
-			if (undo->moved[r*undo->cspan + c].move) {
-				struct Move *move = &undo->moved[r*undo->cspan + c];
+			if (undo->moved[r * undo->cspan + c].move) {
+				struct Move *move = &undo->moved[r * undo->cspan + c];
 
 				/* printf ("move back: %dx%d --> %dx%d (%d, %d) %p\n", move->rt, move->ct, move->rs, move->cs, r, c, table->cells [move->rt][move->ct]); */
 				table->cells[move->rs][move->cs] = table->cells[move->rt][move->ct];
@@ -570,7 +634,10 @@ move_cell_rd_undo (HTMLTable *table, struct MoveCellRDUndo *undo)
 }
 
 static void
-expand_cspan_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, guint position_after)
+expand_cspan_undo_action (HTMLEngine *e,
+                          HTMLUndoData *data,
+                          HTMLUndoDirection dir,
+                          guint position_after)
 {
 	GSList *slist;
 
@@ -582,7 +649,11 @@ expand_cspan_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection d
 }
 
 static void
-expand_cspan_setup_undo (HTMLEngine *e, GSList *slist, gint cspan, guint position_before, HTMLUndoDirection dir)
+expand_cspan_setup_undo (HTMLEngine *e,
+                         GSList *slist,
+                         gint cspan,
+                         guint position_before,
+                         HTMLUndoDirection dir)
 {
 	html_undo_add_action (e->undo, e,
 			      html_undo_action_new ("Expand Column Span", expand_cspan_undo_action,
@@ -592,7 +663,10 @@ expand_cspan_setup_undo (HTMLEngine *e, GSList *slist, gint cspan, guint positio
 }
 
 static void
-expand_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirection dir)
+expand_cspan (HTMLEngine *e,
+              HTMLTableCell *cell,
+              gint cspan,
+              HTMLUndoDirection dir)
 {
 	HTMLTable *table = HTML_TABLE (HTML_OBJECT (cell)->parent);
 	GSList *slist = NULL;
@@ -656,7 +730,10 @@ collapse_undo_data_new (gint span)
 }
 
 static void
-collapse_cspan_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, guint position_after)
+collapse_cspan_undo_action (HTMLEngine *e,
+                            HTMLUndoData *data,
+                            HTMLUndoDirection dir,
+                            guint position_after)
 {
 	html_engine_freeze (e);
 	expand_cspan (e, html_engine_get_table_cell (e), COLLAPSE_UNDO (data)->span, html_undo_direction_reverse (dir));
@@ -664,7 +741,10 @@ collapse_cspan_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection
 }
 
 static void
-collapse_cspan_setup_undo (HTMLEngine *e, gint cspan, guint position_before, HTMLUndoDirection dir)
+collapse_cspan_setup_undo (HTMLEngine *e,
+                           gint cspan,
+                           guint position_before,
+                           HTMLUndoDirection dir)
 {
 	html_undo_add_action (e->undo, e,
 			      html_undo_action_new ("Collapse Column Span", collapse_cspan_undo_action,
@@ -674,7 +754,10 @@ collapse_cspan_setup_undo (HTMLEngine *e, gint cspan, guint position_before, HTM
 }
 
 static void
-collapse_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirection dir)
+collapse_cspan (HTMLEngine *e,
+                HTMLTableCell *cell,
+                gint cspan,
+                HTMLUndoDirection dir)
 {
 	HTMLTable *table;
 	guint position_before = e->cursor->position;
@@ -694,7 +777,8 @@ collapse_cspan (HTMLEngine *e, HTMLTableCell *cell, gint cspan, HTMLUndoDirectio
 }
 
 void
-html_engine_set_cspan (HTMLEngine *e, gint cspan)
+html_engine_set_cspan (HTMLEngine *e,
+                       gint cspan)
 {
 	HTMLTableCell *cell = html_engine_get_table_cell (e);
 
@@ -713,7 +797,8 @@ html_engine_set_cspan (HTMLEngine *e, gint cspan)
 }
 
 static gint
-calc_rspan_max_move (HTMLTableCell *cell, gint rspan)
+calc_rspan_max_move (HTMLTableCell *cell,
+                     gint rspan)
 {
 	HTMLTable *table = HTML_TABLE (HTML_OBJECT (cell)->parent);
 	gint r, c, *move_cols, max_move;
@@ -734,7 +819,10 @@ calc_rspan_max_move (HTMLTableCell *cell, gint rspan)
 }
 
 static void
-expand_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirection dir)
+expand_rspan (HTMLEngine *e,
+              HTMLTableCell *cell,
+              gint rspan,
+              HTMLUndoDirection dir)
 {
 	HTMLTable *table = HTML_TABLE (HTML_OBJECT (cell)->parent);
 	GSList *slist = NULL;
@@ -767,7 +855,10 @@ expand_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirection 
 }
 
 static void
-collapse_rspan_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, guint position_after)
+collapse_rspan_undo_action (HTMLEngine *e,
+                            HTMLUndoData *data,
+                            HTMLUndoDirection dir,
+                            guint position_after)
 {
 	html_engine_freeze (e);
 	expand_rspan (e, html_engine_get_table_cell (e), COLLAPSE_UNDO (data)->span, html_undo_direction_reverse (dir));
@@ -775,7 +866,10 @@ collapse_rspan_undo_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection
 }
 
 static void
-collapse_rspan_setup_undo (HTMLEngine *e, gint rspan, guint position_before, HTMLUndoDirection dir)
+collapse_rspan_setup_undo (HTMLEngine *e,
+                           gint rspan,
+                           guint position_before,
+                           HTMLUndoDirection dir)
 {
 	html_undo_add_action (e->undo, e,
 			      html_undo_action_new ("Collapse Row Span", collapse_rspan_undo_action,
@@ -785,7 +879,10 @@ collapse_rspan_setup_undo (HTMLEngine *e, gint rspan, guint position_before, HTM
 }
 
 static void
-collapse_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirection dir)
+collapse_rspan (HTMLEngine *e,
+                HTMLTableCell *cell,
+                gint rspan,
+                HTMLUndoDirection dir)
 {
 	HTMLTable *table;
 	guint position_before = e->cursor->position;
@@ -805,7 +902,8 @@ collapse_rspan (HTMLEngine *e, HTMLTableCell *cell, gint rspan, HTMLUndoDirectio
 }
 
 void
-html_engine_set_rspan (HTMLEngine *e, gint rspan)
+html_engine_set_rspan (HTMLEngine *e,
+                       gint rspan)
 {
 	HTMLTableCell *cell = html_engine_get_table_cell (e);
 
@@ -824,7 +922,8 @@ html_engine_set_rspan (HTMLEngine *e, gint rspan)
 }
 
 gboolean
-html_engine_cspan_delta (HTMLEngine *e, gint delta)
+html_engine_cspan_delta (HTMLEngine *e,
+                         gint delta)
 {
 	HTMLTableCell *cell;
 
@@ -840,7 +939,8 @@ html_engine_cspan_delta (HTMLEngine *e, gint delta)
 }
 
 gboolean
-html_engine_rspan_delta (HTMLEngine *e, gint delta)
+html_engine_rspan_delta (HTMLEngine *e,
+                         gint delta)
 {
 	HTMLTableCell *cell;
 

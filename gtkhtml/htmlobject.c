@@ -1,24 +1,24 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
-
-    Copyright (C) 1997 Martin Jones (mjones@kde.org)
-    Copyright (C) 1997 Torben Weis (weis@kde.org)
-    Copyright (C) 1999, 2000 Helix Code, Inc.
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
+ *
+ *  Copyright (C) 1997 Martin Jones (mjones@kde.org)
+ *  Copyright (C) 1997 Torben Weis (weis@kde.org)
+ *  Copyright (C) 1999, 2000 Helix Code, Inc.
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -113,7 +113,12 @@ copy (HTMLObject *self,
 }
 
 static HTMLObject *
-op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList *to, guint *len)
+op_copy (HTMLObject *self,
+         HTMLObject *parent,
+         HTMLEngine *e,
+         GList *from,
+         GList *to,
+         guint *len)
 {
 	if ((!from || GPOINTER_TO_INT (from->data) == 0)
 	    && (!to || GPOINTER_TO_INT (to->data) == html_object_get_length (self))) {
@@ -125,7 +130,13 @@ op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList
 }
 
 static HTMLObject *
-op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
+op_cut (HTMLObject *self,
+        HTMLEngine *e,
+        GList *from,
+        GList *to,
+        GList *left,
+        GList *right,
+        guint *len)
 {
 	if ((!from || GPOINTER_TO_INT (from->data) == 0)
 	    && (!to || GPOINTER_TO_INT (to->data) == html_object_get_length (self))) {
@@ -153,7 +164,12 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 }
 
 static gboolean
-merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **right, HTMLCursor *cursor)
+merge (HTMLObject *self,
+       HTMLObject *with,
+       HTMLEngine *e,
+       GList **left,
+       GList **right,
+       HTMLCursor *cursor)
 {
 	if (self->parent) {
 		html_object_change_set (self->parent, HTML_CHANGE_ALL_CALC);
@@ -164,7 +180,8 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 }
 
 static void
-remove_child (HTMLObject *self, HTMLObject *child)
+remove_child (HTMLObject *self,
+              HTMLObject *child)
 {
 	g_warning ("REMOVE CHILD unimplemented for ");
 	gtk_html_debug_dump_object_type (self);
@@ -172,7 +189,13 @@ remove_child (HTMLObject *self, HTMLObject *child)
 }
 
 static void
-split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
+split (HTMLObject *self,
+       HTMLEngine *e,
+       HTMLObject *child,
+       gint offset,
+       gint level,
+       GList **left,
+       GList **right)
 {
 	if (child || (offset && html_object_get_length (self) != offset)) {
 		g_warning ("don't know how to SPLIT ");
@@ -204,9 +227,12 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
-      gint x, gint y,
-      gint width, gint height,
-      gint tx, gint ty)
+      gint x,
+      gint y,
+      gint width,
+      gint height,
+      gint tx,
+      gint ty)
 {
 	/* Do nothing by default.  We don't know how to paint ourselves.  */
 }
@@ -219,60 +245,75 @@ is_transparent (HTMLObject *self)
 
 static HTMLFitType
 fit_line (HTMLObject *o,
-	  HTMLPainter *painter,
-	  gboolean start_of_line,
-	  gboolean first_run,
-	  gboolean next_to_floating,
-	  gint width_left)
+          HTMLPainter *painter,
+          gboolean start_of_line,
+          gboolean first_run,
+          gboolean next_to_floating,
+          gint width_left)
 {
 	return (o->width <= width_left || (first_run && !next_to_floating)) ? HTML_FIT_COMPLETE : HTML_FIT_NONE;
 }
 
 static gboolean
-html_object_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
+html_object_real_calc_size (HTMLObject *o,
+                            HTMLPainter *painter,
+                            GList **changed_objs)
 {
 	return FALSE;
 }
 
 static gint
-calc_min_width (HTMLObject *o, HTMLPainter *painter)
+calc_min_width (HTMLObject *o,
+                HTMLPainter *painter)
 {
 	html_object_calc_size (o, painter, NULL);
 	return o->width;
 }
 
 static gint
-calc_preferred_width (HTMLObject *o, HTMLPainter *painter)
+calc_preferred_width (HTMLObject *o,
+                      HTMLPainter *painter)
 {
 	html_object_calc_size (o, painter, NULL);
 	return o->width;
 }
 
 static void
-set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
+set_max_width (HTMLObject *o,
+               HTMLPainter *painter,
+               gint max_width)
 {
 	o->max_width = max_width;
 }
 
 static void
-set_max_height (HTMLObject *o, HTMLPainter *painter, gint max_height)
+set_max_height (HTMLObject *o,
+                HTMLPainter *painter,
+                gint max_height)
 {
 }
 
 static gint
-get_left_margin (HTMLObject *self, HTMLPainter *painter, gint y, gboolean with_aligned)
+get_left_margin (HTMLObject *self,
+                 HTMLPainter *painter,
+                 gint y,
+                 gboolean with_aligned)
 {
 	return 0;
 }
 
 static gint
-get_right_margin (HTMLObject *self, HTMLPainter *painter, gint y, gboolean with_aligned)
+get_right_margin (HTMLObject *self,
+                  HTMLPainter *painter,
+                  gint y,
+                  gboolean with_aligned)
 {
 	return MAX (self->max_width, self->width);
 }
 
 static void
-set_painter (HTMLObject *o, HTMLPainter *painter)
+set_painter (HTMLObject *o,
+             HTMLPainter *painter)
 {
 }
 
@@ -280,18 +321,20 @@ static void
 reset (HTMLObject *o)
 {
 	/* o->width = 0;
-	   o->ascent = 0;
-	   o->descent = 0; */
+	 * o->ascent = 0;
+	 * o->descent = 0; */
 }
 
 static const gchar *
-get_url (HTMLObject *o, gint offset)
+get_url (HTMLObject *o,
+         gint offset)
 {
 	return NULL;
 }
 
 static const gchar *
-get_target (HTMLObject *o, gint offset)
+get_target (HTMLObject *o,
+            gint offset)
 {
 	return NULL;
 }
@@ -304,21 +347,22 @@ get_src (HTMLObject *o)
 
 static HTMLAnchor *
 find_anchor (HTMLObject *o,
-	     const gchar *name,
-	     gint *x, gint *y)
+             const gchar *name,
+             gint *x,
+             gint *y)
 {
 	return NULL;
 }
 
 static void
 set_bg_color (HTMLObject *o,
-	      GdkColor *color)
+              GdkColor *color)
 {
 }
 
 static GdkColor *
 get_bg_color (HTMLObject *o,
-	      HTMLPainter *p)
+              HTMLPainter *p)
 {
 	if (o->parent)
 		return html_object_get_bg_color (o->parent, p);
@@ -331,12 +375,13 @@ get_bg_color (HTMLObject *o,
 	return NULL;
 }
 
-static HTMLObject*
+static HTMLObject *
 check_point (HTMLObject *self,
-	     HTMLPainter *painter,
-	     gint x, gint y,
-	     guint *offset_return,
-	     gboolean for_cursor)
+             HTMLPainter *painter,
+             gint x,
+             gint y,
+             guint *offset_return,
+             gboolean for_cursor)
 {
 	if (x >= self->x
 	    && x < self->x + self->width
@@ -352,11 +397,11 @@ check_point (HTMLObject *self,
 
 static gboolean
 relayout (HTMLObject *self,
-	  HTMLEngine *engine,
-	  HTMLObject *child)
+          HTMLEngine *engine,
+          HTMLObject *child)
 {
 	/* FIXME gint types of this stuff might change in `htmlobject.h',
-	   remember to sync.  */
+	 * remember to sync.  */
 	guint prev_width;
 	guint prev_ascent, prev_descent;
 	gboolean changed;
@@ -369,7 +414,7 @@ relayout (HTMLObject *self,
 	prev_descent = self->descent;
 
 	/* Notice that this will reset ascent and descent which we
-	   need afterwards.  Yeah, yuck, bleargh.  */
+	 * need afterwards.  Yeah, yuck, bleargh.  */
 	html_object_reset (self);
 
 	/* Crappy hack to make crappy htmlclueflow.c happy.  */
@@ -413,9 +458,9 @@ relayout (HTMLObject *self,
 	}
 
 	/* If the object has shrunk, we have to clean the areas around
-	   it so that we don't leave garbage on the screen.  FIXME:
-	   this wastes some time if there is an object on the right of
-	   or under this one.  */
+	 * it so that we don't leave garbage on the screen.  FIXME:
+	 * this wastes some time if there is an object on the right of
+	 * or under this one.  */
 
 	if (prev_ascent + prev_descent > self->ascent + self->descent)
 		html_engine_queue_clear (engine,
@@ -449,10 +494,12 @@ accepts_cursor (HTMLObject *self)
 
 static void
 get_cursor (HTMLObject *self,
-	    HTMLPainter *painter,
-	    guint offset,
-	    gint *x1, gint *y1,
-	    gint *x2, gint *y2)
+            HTMLPainter *painter,
+            guint offset,
+            gint *x1,
+            gint *y1,
+            gint *x2,
+            gint *y2)
 {
 	html_object_get_cursor_base (self, painter, offset, x2, y2);
 
@@ -463,9 +510,10 @@ get_cursor (HTMLObject *self,
 
 static void
 get_cursor_base (HTMLObject *self,
-		 HTMLPainter *painter,
-		 guint offset,
-		 gint *x, gint *y)
+                 HTMLPainter *painter,
+                 guint offset,
+                 gint *x,
+                 gint *y)
 {
 	html_object_calc_abs_position (self, x, y);
 
@@ -480,7 +528,9 @@ get_length (HTMLObject *self)
 }
 
 static guint
-get_line_length (HTMLObject *self, HTMLPainter *p, gint line_offset)
+get_line_length (HTMLObject *self,
+                 HTMLPainter *p,
+                 gint line_offset)
 {
 	return html_object_get_length (self);
 }
@@ -493,10 +543,10 @@ get_recursive_length (HTMLObject *self)
 
 static gboolean
 select_range (HTMLObject *self,
-	      HTMLEngine *engine,
-	      guint start,
-	      gint length,
-	      gboolean queue_draw)
+              HTMLEngine *engine,
+              guint start,
+              gint length,
+              gboolean queue_draw)
 {
 	gboolean selected;
 	gboolean changed;
@@ -511,22 +561,22 @@ select_range (HTMLObject *self,
 
 static void
 append_selection_string (HTMLObject *self,
-			 GString *buffer)
+                         GString *buffer)
 {
 }
 
 static void
 forall (HTMLObject *self,
-	HTMLEngine *e,
-	HTMLObjectForallFunc func,
-	gpointer data)
+        HTMLEngine *e,
+        HTMLObjectForallFunc func,
+        gpointer data)
 {
 	(* func) (self, e, data);
 }
 
 static HTMLEngine *
 get_engine (HTMLObject *self,
-	    HTMLEngine *e)
+            HTMLEngine *e)
 {
 	return e;
 }
@@ -546,33 +596,38 @@ save (HTMLObject *self,
 
 static gboolean
 save_plain (HTMLObject *self,
-	    HTMLEngineSaveState *state,
-	    gint requested_width)
+            HTMLEngineSaveState *state,
+            gint requested_width)
 {
 	return TRUE;
 }
 
 static gint
-check_page_split (HTMLObject *self, HTMLPainter *p, gint y)
+check_page_split (HTMLObject *self,
+                  HTMLPainter *p,
+                  gint y)
 {
 	return 0;
 }
 
 static gboolean
-search (HTMLObject *self, HTMLSearch *info)
+search (HTMLObject *self,
+        HTMLSearch *info)
 {
 	/* not found by default */
 	return FALSE;
 }
 
 static HTMLObject *
-next (HTMLObject *self, HTMLObject *child)
+next (HTMLObject *self,
+      HTMLObject *child)
 {
 	return child->next;
 }
 
 static HTMLObject *
-prev (HTMLObject *self, HTMLObject *child)
+prev (HTMLObject *self,
+      HTMLObject *child)
 {
 	return child->prev;
 }
@@ -605,7 +660,9 @@ html_object_real_get_direction (HTMLObject *o)
 }
 
 static gboolean
-html_object_real_cursor_forward (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
+html_object_real_cursor_forward (HTMLObject *self,
+                                 HTMLCursor *cursor,
+                                 HTMLEngine *engine)
 {
 	gint len;
 
@@ -625,7 +682,8 @@ html_object_real_cursor_forward (HTMLObject *self, HTMLCursor *cursor, HTMLEngin
 }
 
 static gboolean
-html_cursor_allow_zero_offset (HTMLCursor *cursor, HTMLObject *o)
+html_cursor_allow_zero_offset (HTMLCursor *cursor,
+                               HTMLObject *o)
 {
 	if (cursor->offset == 1) {
 		HTMLObject *prev;
@@ -646,7 +704,9 @@ html_cursor_allow_zero_offset (HTMLCursor *cursor, HTMLObject *o)
 }
 
 static gboolean
-html_object_real_cursor_backward (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
+html_object_real_cursor_backward (HTMLObject *self,
+                                  HTMLCursor *cursor,
+                                  HTMLEngine *engine)
 {
 	g_assert (self);
 	g_assert (cursor->object == self);
@@ -664,7 +724,9 @@ html_object_real_cursor_backward (HTMLObject *self, HTMLCursor *cursor, HTMLEngi
 }
 
 static gboolean
-html_object_real_cursor_right (HTMLObject *self, HTMLPainter *painter, HTMLCursor *cursor)
+html_object_real_cursor_right (HTMLObject *self,
+                               HTMLPainter *painter,
+                               HTMLCursor *cursor)
 {
 	HTMLDirection dir = html_object_get_direction (self);
 
@@ -696,7 +758,9 @@ html_object_real_cursor_right (HTMLObject *self, HTMLPainter *painter, HTMLCurso
 }
 
 static gboolean
-html_object_real_cursor_left (HTMLObject *self, HTMLPainter *painter, HTMLCursor *cursor)
+html_object_real_cursor_left (HTMLObject *self,
+                              HTMLPainter *painter,
+                              HTMLCursor *cursor)
 {
 	HTMLDirection dir = html_object_get_direction (self);
 
@@ -728,7 +792,9 @@ html_object_real_cursor_left (HTMLObject *self, HTMLPainter *painter, HTMLCursor
 }
 
 static gboolean
-html_object_real_backspace (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
+html_object_real_backspace (HTMLObject *self,
+                            HTMLCursor *cursor,
+                            HTMLEngine *engine)
 {
 	html_cursor_backward (cursor, engine);
 	html_engine_delete (engine);
@@ -737,13 +803,17 @@ html_object_real_backspace (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *en
 }
 
 static gint
-html_object_real_get_right_edge_offset (HTMLObject *o, HTMLPainter *painter, gint offset)
+html_object_real_get_right_edge_offset (HTMLObject *o,
+                                        HTMLPainter *painter,
+                                        gint offset)
 {
 	return html_object_get_length (o);
 }
 
 static gint
-html_object_real_get_left_edge_offset (HTMLObject *o, HTMLPainter *painter, gint offset)
+html_object_real_get_left_edge_offset (HTMLObject *o,
+                                       HTMLPainter *painter,
+                                       gint offset)
 {
 	return 0;
 }
@@ -758,8 +828,8 @@ html_object_type_init (void)
 
 void
 html_object_class_init (HTMLObjectClass *klass,
-			HTMLType type,
-			guint object_size)
+                        HTMLType type,
+                        guint object_size)
 {
 	g_return_if_fail (klass != NULL);
 
@@ -832,7 +902,7 @@ html_object_class_init (HTMLObjectClass *klass,
 
 void
 html_object_init (HTMLObject *o,
-		  HTMLObjectClass *klass)
+                  HTMLObjectClass *klass)
 {
 	o->klass = klass;
 
@@ -896,19 +966,35 @@ html_object_dup (HTMLObject *object)
 }
 
 HTMLObject *
-html_object_op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList *to, guint *len)
+html_object_op_copy (HTMLObject *self,
+                     HTMLObject *parent,
+                     HTMLEngine *e,
+                     GList *from,
+                     GList *to,
+                     guint *len)
 {
 	return (* HO_CLASS (self)->op_copy) (self, parent, e, from, to, len);
 }
 
 HTMLObject *
-html_object_op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
+html_object_op_cut (HTMLObject *self,
+                    HTMLEngine *e,
+                    GList *from,
+                    GList *to,
+                    GList *left,
+                    GList *right,
+                    guint *len)
 {
 	return (* HO_CLASS (self)->op_cut) (self, e, from, to, left, right, len);
 }
 
 gboolean
-html_object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **right, HTMLCursor *cursor)
+html_object_merge (HTMLObject *self,
+                   HTMLObject *with,
+                   HTMLEngine *e,
+                   GList **left,
+                   GList **right,
+                   HTMLCursor *cursor)
 {
 	if ((HTML_OBJECT_TYPE (self) == HTML_OBJECT_TYPE (with)
 	     /* FIXME */
@@ -924,7 +1010,8 @@ html_object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **le
 }
 
 void
-html_object_remove_child (HTMLObject *self, HTMLObject *child)
+html_object_remove_child (HTMLObject *self,
+                          HTMLObject *child)
 {
 	g_assert (self);
 	g_assert (child);
@@ -933,8 +1020,13 @@ html_object_remove_child (HTMLObject *self, HTMLObject *child)
 }
 
 void
-html_object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint level,
-		   GList **left, GList **right)
+html_object_split (HTMLObject *self,
+                   HTMLEngine *e,
+                   HTMLObject *child,
+                   gint offset,
+                   gint level,
+                   GList **left,
+                   GList **right)
 {
 	g_assert (self);
 
@@ -943,14 +1035,16 @@ html_object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offs
 
 
 void
-html_object_set_parent (HTMLObject *o, HTMLObject *parent)
+html_object_set_parent (HTMLObject *o,
+                        HTMLObject *parent)
 {
 	o->parent = parent;
 }
 
 static void
 frame_offset (HTMLObject *o,
-	      gint *x_return, gint *y_return)
+              gint *x_return,
+              gint *y_return)
 {
 	if (html_object_is_frame (o)) {
 		HTMLEngine *e = html_object_get_engine (o, NULL);
@@ -961,7 +1055,8 @@ frame_offset (HTMLObject *o,
 
 void
 html_object_calc_abs_position (HTMLObject *o,
-			       gint *x_return, gint *y_return)
+                               gint *x_return,
+                               gint *y_return)
 {
 	HTMLObject *p;
 
@@ -981,7 +1076,9 @@ html_object_calc_abs_position (HTMLObject *o,
 }
 
 void
-html_object_calc_abs_position_in_frame (HTMLObject *o, gint *x_return, gint *y_return)
+html_object_calc_abs_position_in_frame (HTMLObject *o,
+                                        gint *x_return,
+                                        gint *y_return)
 {
 	HTMLObject *p;
 
@@ -1001,7 +1098,8 @@ html_object_calc_abs_position_in_frame (HTMLObject *o, gint *x_return, gint *y_r
 }
 
 GdkRectangle *
-html_object_get_bounds (HTMLObject *o, GdkRectangle *bounds)
+html_object_get_bounds (HTMLObject *o,
+                        GdkRectangle *bounds)
 {
 	if (!bounds)
 		bounds = g_new (GdkRectangle, 1);
@@ -1015,7 +1113,12 @@ html_object_get_bounds (HTMLObject *o, GdkRectangle *bounds)
 }
 
 gboolean
-html_object_intersect (HTMLObject *o, GdkRectangle *result, gint x, gint y, gint width, gint height)
+html_object_intersect (HTMLObject *o,
+                       GdkRectangle *result,
+                       gint x,
+                       gint y,
+                       gint width,
+                       gint height)
 {
 	GdkRectangle b;
 	GdkRectangle a;
@@ -1039,17 +1142,20 @@ html_object_destroy (HTMLObject *self)
 
 void
 html_object_copy (HTMLObject *self,
-		  HTMLObject *dest)
+                  HTMLObject *dest)
 {
 	(* HO_CLASS (self)->copy) (self, dest);
 }
 
 void
 html_object_draw (HTMLObject *o,
-		  HTMLPainter *p,
-		  gint x, gint y,
-		  gint width, gint height,
-		  gint tx, gint ty)
+                  HTMLPainter *p,
+                  gint x,
+                  gint y,
+                  gint width,
+                  gint height,
+                  gint tx,
+                  gint ty)
 {
 	(* HO_CLASS (o)->draw) (o, p, x, y, width, height, tx, ty);
 }
@@ -1064,17 +1170,19 @@ html_object_is_transparent (HTMLObject *self)
 
 HTMLFitType
 html_object_fit_line (HTMLObject *o,
-		      HTMLPainter *painter,
-		      gboolean start_of_line,
-		      gboolean first_run,
-		      gboolean next_to_floating,
-		      gint width_left)
+                      HTMLPainter *painter,
+                      gboolean start_of_line,
+                      gboolean first_run,
+                      gboolean next_to_floating,
+                      gint width_left)
 {
 	return (* HO_CLASS (o)->fit_line) (o, painter, start_of_line, first_run, next_to_floating, width_left);
 }
 
 gboolean
-html_object_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
+html_object_calc_size (HTMLObject *o,
+                       HTMLPainter *painter,
+                       GList **changed_objs)
 {
 	gboolean rv;
 
@@ -1085,37 +1193,50 @@ html_object_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs
 }
 
 void
-html_object_set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
+html_object_set_max_width (HTMLObject *o,
+                           HTMLPainter *painter,
+                           gint max_width)
 {
 	(* HO_CLASS (o)->set_max_width) (o, painter, max_width);
 }
 
 void
-html_object_set_max_height (HTMLObject *o, HTMLPainter *painter, gint max_height)
+html_object_set_max_height (HTMLObject *o,
+                            HTMLPainter *painter,
+                            gint max_height)
 {
 	(* HO_CLASS (o)->set_max_height) (o, painter, max_height);
 }
 
 gint
-html_object_get_left_margin (HTMLObject *self, HTMLPainter *painter, gint y, gboolean with_aligned)
+html_object_get_left_margin (HTMLObject *self,
+                             HTMLPainter *painter,
+                             gint y,
+                             gboolean with_aligned)
 {
 	return (* HO_CLASS (self)->get_left_margin) (self, painter, y, with_aligned);
 }
 
 gint
-html_object_get_right_margin (HTMLObject *self, HTMLPainter *painter, gint y, gboolean with_aligned)
+html_object_get_right_margin (HTMLObject *self,
+                              HTMLPainter *painter,
+                              gint y,
+                              gboolean with_aligned)
 {
 	return (* HO_CLASS (self)->get_right_margin) (self, painter, y, with_aligned);
 }
 
 static void
-set_painter_forall (HTMLObject *o, HTMLEngine *e, gpointer data)
+set_painter_forall (HTMLObject *o,
+                    HTMLEngine *e,
+                    gpointer data)
 {
 	(* HO_CLASS (o)->set_painter) (o, HTML_PAINTER (data));
 }
 
 void
-html_object_set_painter (HTMLObject *o, HTMLPainter *painter)
+html_object_set_painter (HTMLObject *o,
+                         HTMLPainter *painter)
 {
 	html_object_forall (o, NULL, set_painter_forall, painter);
 }
@@ -1128,7 +1249,7 @@ html_object_reset (HTMLObject *o)
 
 gint
 html_object_calc_min_width (HTMLObject *o,
-			    HTMLPainter *painter)
+                            HTMLPainter *painter)
 {
 	if (o->change & HTML_CHANGE_MIN_WIDTH) {
 		o->min_width = (* HO_CLASS (o)->calc_min_width) (o, painter);
@@ -1139,7 +1260,7 @@ html_object_calc_min_width (HTMLObject *o,
 
 gint
 html_object_calc_preferred_width (HTMLObject *o,
-				  HTMLPainter *painter)
+                                  HTMLPainter *painter)
 {
 	if (o->change & HTML_CHANGE_PREF_WIDTH) {
 		o->pref_width = (* HO_CLASS (o)->calc_preferred_width) (o, painter);
@@ -1150,26 +1271,32 @@ html_object_calc_preferred_width (HTMLObject *o,
 
 #if 0
 gint
-html_object_get_uris (HTMLObject *o, gchar **link, gchar **target, gchar **src)
+html_object_get_uris (HTMLObject *o,
+                      gchar **link,
+                      gchar **target,
+                      gchar **src)
 {
 	return TRUE;
 }
 #endif
 
 const gchar *
-html_object_get_url (HTMLObject *o, gint offset)
+html_object_get_url (HTMLObject *o,
+                     gint offset)
 {
 	return (* HO_CLASS (o)->get_url) (o, offset);
 }
 
 const gchar *
-html_object_get_target (HTMLObject *o, gint offset)
+html_object_get_target (HTMLObject *o,
+                        gint offset)
 {
 	return (* HO_CLASS (o)->get_target) (o, offset);
 }
 
 gchar *
-html_object_get_complete_url (HTMLObject *o, gint offset)
+html_object_get_complete_url (HTMLObject *o,
+                              gint offset)
 {
 	const gchar *url, *target;
 
@@ -1187,30 +1314,34 @@ html_object_get_src (HTMLObject *o)
 
 HTMLAnchor *
 html_object_find_anchor (HTMLObject *o,
-			 const gchar *name,
-			 gint *x, gint *y)
+                         const gchar *name,
+                         gint *x,
+                         gint *y)
 {
 	return (* HO_CLASS (o)->find_anchor) (o, name, x, y);
 }
 
 void
-html_object_set_bg_color (HTMLObject *o, GdkColor *color)
+html_object_set_bg_color (HTMLObject *o,
+                          GdkColor *color)
 {
 	(* HO_CLASS (o)->set_bg_color) (o, color);
 }
 
 GdkColor *
-html_object_get_bg_color (HTMLObject *o, HTMLPainter *p)
+html_object_get_bg_color (HTMLObject *o,
+                          HTMLPainter *p)
 {
 	return (* HO_CLASS (o)->get_bg_color) (o, p);
 }
 
 HTMLObject *
 html_object_check_point (HTMLObject *self,
-			 HTMLPainter *painter,
-			 gint x, gint y,
-			 guint *offset_return,
-			 gboolean for_cursor)
+                         HTMLPainter *painter,
+                         gint x,
+                         gint y,
+                         guint *offset_return,
+                         gboolean for_cursor)
 {
 	if (self->width == 0 || self->ascent + self->descent == 0)
 		return NULL;
@@ -1220,8 +1351,8 @@ html_object_check_point (HTMLObject *self,
 
 gboolean
 html_object_relayout (HTMLObject *self,
-		      HTMLEngine *engine,
-		      HTMLObject *child)
+                      HTMLEngine *engine,
+                      HTMLObject *child)
 {
 	g_return_val_if_fail (self != NULL, TRUE);
 	return (* HO_CLASS (self)->relayout) (self, engine, child);
@@ -1242,13 +1373,15 @@ html_object_accepts_cursor (HTMLObject *self)
 }
 
 /* Warning: `calc_size()' must have been called on `self' before this so that
-   this works correctly.  */
+ * this works correctly.  */
 void
 html_object_get_cursor (HTMLObject *self,
-			HTMLPainter *painter,
-			guint offset,
-			gint *x1, gint *y1,
-			gint *x2, gint *y2)
+                        HTMLPainter *painter,
+                        guint offset,
+                        gint *x1,
+                        gint *y1,
+                        gint *x2,
+                        gint *y2)
 {
 	(* HO_CLASS (self)->get_cursor) (self, painter, offset, x1, y1, x2, y2);
 
@@ -1264,12 +1397,13 @@ html_object_get_cursor (HTMLObject *self,
 }
 
 /* Warning: `calc_size()' must have been called on `self' before this so that
-   this works correctly.  */
+ * this works correctly.  */
 void
 html_object_get_cursor_base (HTMLObject *self,
-			     HTMLPainter *painter,
-			     guint offset,
-			     gint *x, gint *y)
+                             HTMLPainter *painter,
+                             guint offset,
+                             gint *x,
+                             gint *y)
 {
 	(* HO_CLASS (self)->get_cursor_base) (self, painter, offset, x, y);
 }
@@ -1277,17 +1411,17 @@ html_object_get_cursor_base (HTMLObject *self,
 
 gboolean
 html_object_select_range (HTMLObject *self,
-			  HTMLEngine *engine,
-			  guint start,
-			  gint length,
-			  gboolean queue_draw)
+                          HTMLEngine *engine,
+                          guint start,
+                          gint length,
+                          gboolean queue_draw)
 {
 	return (* HO_CLASS (self)->select_range) (self, engine, start, length, queue_draw);
 }
 
 void
 html_object_append_selection_string (HTMLObject *self,
-				     GString *buffer)
+                                     GString *buffer)
 {
 	g_return_if_fail (self != NULL);
 	g_return_if_fail (buffer != NULL);
@@ -1296,13 +1430,15 @@ html_object_append_selection_string (HTMLObject *self,
 }
 
 HTMLEngine *
-html_object_get_engine (HTMLObject *self, HTMLEngine *e)
+html_object_get_engine (HTMLObject *self,
+                        HTMLEngine *e)
 {
 	return (* HO_CLASS (self)->get_engine) (self, e);
 }
 
 HTMLEngine *
-html_object_engine (HTMLObject *o, HTMLEngine *e)
+html_object_engine (HTMLObject *o,
+                    HTMLEngine *e)
 {
 	while (o) {
 		e = html_object_get_engine (o, e);
@@ -1316,9 +1452,9 @@ html_object_engine (HTMLObject *o, HTMLEngine *e)
 
 void
 html_object_forall (HTMLObject *self,
-		    HTMLEngine *e,
-		    HTMLObjectForallFunc func,
-		    gpointer data)
+                    HTMLEngine *e,
+                    HTMLObjectForallFunc func,
+                    gpointer data)
 {
 	(* HO_CLASS (self)->forall) (self, e, func, data);
 }
@@ -1359,7 +1495,8 @@ html_object_is_clue (HTMLObject *object)
 }
 
 HTMLObject *
-html_object_next_not_type (HTMLObject *object, HTMLType t)
+html_object_next_not_type (HTMLObject *object,
+                           HTMLType t)
 {
 	HTMLObject *p;
 
@@ -1374,7 +1511,8 @@ html_object_next_not_type (HTMLObject *object, HTMLType t)
 }
 
 HTMLObject *
-html_object_prev_not_type (HTMLObject *object, HTMLType t)
+html_object_prev_not_type (HTMLObject *object,
+                           HTMLType t)
 {
 	HTMLObject *p;
 
@@ -1403,21 +1541,23 @@ html_object_prev_not_slave (HTMLObject *object)
 
 gboolean
 html_object_save (HTMLObject *self,
-		  HTMLEngineSaveState *state)
+                  HTMLEngineSaveState *state)
 {
 	return (* HO_CLASS (self)->save) (self, state);
 }
 
 gboolean
 html_object_save_plain (HTMLObject *self,
-			HTMLEngineSaveState *state,
-			gint requested_width)
+                        HTMLEngineSaveState *state,
+                        gint requested_width)
 {
 	return (* HO_CLASS (self)->save_plain) (self, state, requested_width);
 }
 
 gint
-html_object_check_page_split  (HTMLObject *self, HTMLPainter *p, gint y)
+html_object_check_page_split (HTMLObject *self,
+                               HTMLPainter *p,
+                               gint y)
 {
 	g_return_val_if_fail (self != NULL, 0);
 
@@ -1425,7 +1565,8 @@ html_object_check_page_split  (HTMLObject *self, HTMLPainter *p, gint y)
 }
 
 void
-html_object_change_set (HTMLObject *self, HTMLChangeFlags f)
+html_object_change_set (HTMLObject *self,
+                        HTMLChangeFlags f)
 {
 	HTMLObject *obj = self;
 
@@ -1440,41 +1581,46 @@ html_object_change_set (HTMLObject *self, HTMLChangeFlags f)
 }
 
 static void
-change (HTMLObject *o, HTMLEngine *e, gpointer data)
+change (HTMLObject *o,
+        HTMLEngine *e,
+        gpointer data)
 {
 	o->change |= GPOINTER_TO_INT (data);
 }
 
 void
-html_object_change_set_down (HTMLObject *self, HTMLChangeFlags f)
+html_object_change_set_down (HTMLObject *self,
+                             HTMLChangeFlags f)
 {
 	html_object_forall (self, NULL, (HTMLObjectForallFunc) change, GINT_TO_POINTER (f));
 }
 
 gboolean
-html_object_search (HTMLObject *self, HTMLSearch *info)
+html_object_search (HTMLObject *self,
+                    HTMLSearch *info)
 {
 	return (* HO_CLASS (self)->search) (self, info);
 }
 
 gboolean
-html_object_search_next (HTMLObject *self, HTMLSearch *info)
+html_object_search_next (HTMLObject *self,
+                         HTMLSearch *info)
 {
 	return (* HO_CLASS (self)->search_next) (self, info);
 }
 
 HTMLObject *
 html_object_set_link (HTMLObject *self,
-		      HTMLColor *color,
-		      const gchar *url,
-		      const gchar *target)
+                      HTMLColor *color,
+                      const gchar *url,
+                      const gchar *target)
 {
 	return (HO_CLASS (self)->set_link) ? (* HO_CLASS (self)->set_link) (self, color, url, target) : NULL;
 }
 
 HTMLObject *
 html_object_remove_link (HTMLObject *self,
-			 HTMLColor *color)
+                         HTMLColor *color)
 {
 	return (HO_CLASS (self)->set_link) ? (* HO_CLASS (self)->set_link) (self, color, NULL, NULL) : NULL;
 }
@@ -1486,7 +1632,9 @@ html_object_get_length (HTMLObject *self)
 }
 
 guint
-html_object_get_line_length (HTMLObject *self, HTMLPainter *p, gint line_offset)
+html_object_get_line_length (HTMLObject *self,
+                             HTMLPainter *p,
+                             gint line_offset)
 {
 	return (* HO_CLASS (self)->get_line_length) (self, p, line_offset);
 }
@@ -1498,7 +1646,8 @@ html_object_get_recursive_length (HTMLObject *self)
 }
 
 HTMLObject *
-html_object_next_by_type (HTMLObject *self, HTMLType t)
+html_object_next_by_type (HTMLObject *self,
+                          HTMLType t)
 {
 	HTMLObject *next;
 
@@ -1512,7 +1661,8 @@ html_object_next_by_type (HTMLObject *self, HTMLType t)
 }
 
 HTMLObject *
-html_object_prev_by_type (HTMLObject *self, HTMLType t)
+html_object_prev_by_type (HTMLObject *self,
+                          HTMLType t)
 {
 	HTMLObject *prev;
 
@@ -1528,13 +1678,15 @@ html_object_prev_by_type (HTMLObject *self, HTMLType t)
 /* Movement functions */
 
 HTMLObject *
-html_object_next (HTMLObject *self, HTMLObject *child)
+html_object_next (HTMLObject *self,
+                  HTMLObject *child)
 {
 	return (* HO_CLASS (self)->next) (self, child);
 }
 
 HTMLObject *
-html_object_prev (HTMLObject *self, HTMLObject *child)
+html_object_prev (HTMLObject *self,
+                  HTMLObject *child)
 {
 	return (* HO_CLASS (self)->prev) (self, child);
 }
@@ -1562,43 +1714,57 @@ html_object_tail_not_slave (HTMLObject *self)
 }
 
 gboolean
-html_object_cursor_forward (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
+html_object_cursor_forward (HTMLObject *self,
+                            HTMLCursor *cursor,
+                            HTMLEngine *engine)
 {
 	return (* HO_CLASS (self)->cursor_forward) (self, cursor, engine);
 }
 
 gboolean
-html_object_cursor_forward_one (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
+html_object_cursor_forward_one (HTMLObject *self,
+                                HTMLCursor *cursor,
+                                HTMLEngine *engine)
 {
 	return (* HO_CLASS (self)->cursor_forward_one) (self, cursor, engine);
 }
 
 gboolean
-html_object_cursor_backward (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
+html_object_cursor_backward (HTMLObject *self,
+                             HTMLCursor *cursor,
+                             HTMLEngine *engine)
 {
 	return (* HO_CLASS (self)->cursor_backward) (self, cursor, engine);
 }
 
 gboolean
-html_object_cursor_backward_one (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
+html_object_cursor_backward_one (HTMLObject *self,
+                                 HTMLCursor *cursor,
+                                 HTMLEngine *engine)
 {
 	return (* HO_CLASS (self)->cursor_backward_one) (self, cursor, engine);
 }
 
 gboolean
-html_object_cursor_right (HTMLObject *self, HTMLPainter *painter, HTMLCursor *cursor)
+html_object_cursor_right (HTMLObject *self,
+                          HTMLPainter *painter,
+                          HTMLCursor *cursor)
 {
 	return (* HO_CLASS (self)->cursor_right) (self, painter, cursor);
 }
 
 gboolean
-html_object_cursor_left (HTMLObject *self, HTMLPainter *painter, HTMLCursor *cursor)
+html_object_cursor_left (HTMLObject *self,
+                         HTMLPainter *painter,
+                         HTMLCursor *cursor)
 {
 	return (* HO_CLASS (self)->cursor_left) (self, painter, cursor);
 }
 
 gboolean
-html_object_backspace (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
+html_object_backspace (HTMLObject *self,
+                       HTMLCursor *cursor,
+                       HTMLEngine *engine)
 {
 	return (* HO_CLASS (self)->backspace) (self, cursor, engine);
 }
@@ -1610,7 +1776,9 @@ html_object_backspace (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
 /* go up in tree so long as we can get object in neighborhood given by function next_fn */
 
 static HTMLObject *
-next_object_uptree (HTMLObject *obj, HTMLObject * (*next_fn ) (HTMLObject *, HTMLObject *))
+next_object_uptree (HTMLObject *obj,
+                    HTMLObject * (*next_fn) (HTMLObject *,
+                    HTMLObject *))
 {
 	HTMLObject *next = NULL;
 
@@ -1623,7 +1791,8 @@ next_object_uptree (HTMLObject *obj, HTMLObject * (*next_fn ) (HTMLObject *, HTM
 /* go down in tree to leaf in way given by down_fn children */
 
 static HTMLObject *
-move_object_downtree (HTMLObject *obj, HTMLObject * (*down_fn ) (HTMLObject *))
+move_object_downtree (HTMLObject *obj,
+                      HTMLObject * (*down_fn) (HTMLObject *))
 {
 	HTMLObject *down;
 
@@ -1634,7 +1803,10 @@ move_object_downtree (HTMLObject *obj, HTMLObject * (*down_fn ) (HTMLObject *))
 }
 
 static HTMLObject *
-move_object (HTMLObject *obj, HTMLObject * (*next_fn ) (HTMLObject *, HTMLObject *), HTMLObject * (*down_fn ) (HTMLObject *))
+move_object (HTMLObject *obj,
+             HTMLObject * (*next_fn) (HTMLObject *,
+             HTMLObject *),
+             HTMLObject * (*down_fn) (HTMLObject *))
 {
 	obj = next_object_uptree (obj, next_fn);
 	if (obj)
@@ -1649,7 +1821,8 @@ html_object_next_leaf (HTMLObject *self)
 }
 
 HTMLObject *
-html_object_next_leaf_not_type (HTMLObject *self, HTMLType t)
+html_object_next_leaf_not_type (HTMLObject *self,
+                                HTMLType t)
 {
 	HTMLObject *rv = self;
 	while ((rv = html_object_next_leaf (rv)) && HTML_OBJECT_TYPE (rv) == t);
@@ -1664,7 +1837,8 @@ html_object_prev_leaf (HTMLObject *self)
 }
 
 HTMLObject *
-html_object_prev_leaf_not_type (HTMLObject *self, HTMLType t)
+html_object_prev_leaf_not_type (HTMLObject *self,
+                                HTMLType t)
 {
 	HTMLObject *rv = self;
 	while ((rv = html_object_prev_leaf (rv)) && HTML_OBJECT_TYPE (rv) == t);
@@ -1677,7 +1851,8 @@ html_object_prev_leaf_not_type (HTMLObject *self, HTMLType t)
 /* go up in tree so long as we can get object in neighborhood given by function next_fn */
 
 static HTMLObject *
-next_object_uptree_cursor (HTMLObject *obj, HTMLObject * (*next_fn ) (HTMLObject *))
+next_object_uptree_cursor (HTMLObject *obj,
+                           HTMLObject * (*next_fn) (HTMLObject *))
 {
 	HTMLObject *next = NULL;
 
@@ -1693,7 +1868,9 @@ next_object_uptree_cursor (HTMLObject *obj, HTMLObject * (*next_fn ) (HTMLObject
 /* go down in tree to leaf in way given by down_fn children */
 
 static HTMLObject *
-move_object_downtree_cursor (HTMLObject *obj, HTMLObject * (*down_fn ) (HTMLObject *), HTMLObject * (*next_fn ) (HTMLObject *))
+move_object_downtree_cursor (HTMLObject *obj,
+                             HTMLObject * (*down_fn) (HTMLObject *),
+                             HTMLObject * (*next_fn) (HTMLObject *))
 {
 	HTMLObject *last_obj = obj;
 
@@ -1720,8 +1897,10 @@ move_object_downtree_cursor (HTMLObject *obj, HTMLObject * (*down_fn ) (HTMLObje
 }
 
 static HTMLObject *
-move_object_cursor (HTMLObject *obj, gint *offset, gboolean forward,
-		    HTMLObject * (*next_fn ) (HTMLObject *), HTMLObject * (*down_fn ) (HTMLObject *))
+move_object_cursor (HTMLObject *obj,
+                    gint *offset,
+                    gboolean forward,
+                    HTMLObject * (*next_fn) (HTMLObject *), HTMLObject * (*down_fn) (HTMLObject *))
 {
 	HTMLObject *down, *before;
 
@@ -1765,13 +1944,15 @@ move_object_cursor (HTMLObject *obj, gint *offset, gboolean forward,
 }
 
 HTMLObject *
-html_object_next_cursor (HTMLObject *self, gint *offset)
+html_object_next_cursor (HTMLObject *self,
+                         gint *offset)
 {
 	return move_object_cursor (self, offset, TRUE, html_object_next_not_slave, html_object_head);
 }
 
 HTMLObject *
-html_object_prev_cursor (HTMLObject *self, gint *offset)
+html_object_prev_cursor (HTMLObject *self,
+                         gint *offset)
 {
 	return move_object_cursor (self, offset, FALSE, html_object_prev_not_slave, html_object_tail_not_slave);
 }
@@ -1785,49 +1966,64 @@ html_object_get_bytes (HTMLObject *self)
 }
 
 guint
-html_object_get_index (HTMLObject *self, guint offset)
+html_object_get_index (HTMLObject *self,
+                       guint offset)
 {
 	return html_object_is_text (self) ? html_text_get_index (HTML_TEXT (self), offset) : offset;
 }
 
 void
-html_object_set_data_nocp (HTMLObject *object, const gchar *key, const gchar *value)
+html_object_set_data_nocp (HTMLObject *object,
+                           const gchar *key,
+                           const gchar *value)
 {
 	g_datalist_set_data_full (&object->object_data_nocp, key, g_strdup (value), g_free);
 }
 
 void
-html_object_set_data_full_nocp (HTMLObject *object, const gchar *key, gconstpointer value, GDestroyNotify func)
+html_object_set_data_full_nocp (HTMLObject *object,
+                                const gchar *key,
+                                gconstpointer value,
+                                GDestroyNotify func)
 {
 	g_datalist_set_data_full (&object->object_data_nocp, key, (gpointer) value, func);
 }
 
 gpointer
-html_object_get_data_nocp (HTMLObject *object, const gchar *key)
+html_object_get_data_nocp (HTMLObject *object,
+                           const gchar *key)
 {
 	return g_datalist_get_data (&object->object_data_nocp, key);
 }
 
 void
-html_object_set_data (HTMLObject *object, const gchar *key, const gchar *value)
+html_object_set_data (HTMLObject *object,
+                      const gchar *key,
+                      const gchar *value)
 {
 	g_datalist_set_data_full (&object->object_data, key, g_strdup (value), g_free);
 }
 
 void
-html_object_set_data_full (HTMLObject *object, const gchar *key, gconstpointer value, GDestroyNotify func)
+html_object_set_data_full (HTMLObject *object,
+                           const gchar *key,
+                           gconstpointer value,
+                           GDestroyNotify func)
 {
 	g_datalist_set_data_full (&object->object_data, key, (gpointer) value, func);
 }
 
 gpointer
-html_object_get_data (HTMLObject *object, const gchar *key)
+html_object_get_data (HTMLObject *object,
+                      const gchar *key)
 {
 	return g_datalist_get_data (&object->object_data, key);
 }
 
 static void
-copy_data (GQuark key_id, gpointer data, gpointer user_data)
+copy_data (GQuark key_id,
+           gpointer data,
+           gpointer user_data)
 {
 	HTMLObject *o = HTML_OBJECT (user_data);
 
@@ -1837,13 +2033,16 @@ copy_data (GQuark key_id, gpointer data, gpointer user_data)
 }
 
 void
-html_object_copy_data_from_object (HTMLObject *dst, HTMLObject *src)
+html_object_copy_data_from_object (HTMLObject *dst,
+                                   HTMLObject *src)
 {
 	g_datalist_foreach (&src->object_data, copy_data, dst);
 }
 
 static void
-object_save_data (GQuark key_id, gpointer data, gpointer user_data)
+object_save_data (GQuark key_id,
+                  gpointer data,
+                  gpointer user_data)
 {
 	HTMLEngineSaveState *state = (HTMLEngineSaveState *) user_data;
 	const gchar *str;
@@ -1862,7 +2061,9 @@ object_save_data (GQuark key_id, gpointer data, gpointer user_data)
 }
 
 static void
-handle_object_data (gpointer key, gpointer value, gpointer data)
+handle_object_data (gpointer key,
+                    gpointer value,
+                    gpointer data)
 {
 	HTMLEngineSaveState *state = (HTMLEngineSaveState *) data;
 	gchar *str;
@@ -1888,13 +2089,15 @@ handle_object_data (gpointer key, gpointer value, gpointer data)
 }
 
 static void
-clear_data (gchar *key, HTMLEngineSaveState *state)
+clear_data (gchar *key,
+            HTMLEngineSaveState *state)
 {
 	html_engine_clear_class_data (state->engine, state->save_data_class_name, key);
 }
 
 gboolean
-html_object_save_data (HTMLObject *self, HTMLEngineSaveState *state)
+html_object_save_data (HTMLObject *self,
+                       HTMLEngineSaveState *state)
 {
 	if (state->engine->save_data) {
 		GHashTable *t;
@@ -1915,7 +2118,8 @@ html_object_save_data (HTMLObject *self, HTMLEngineSaveState *state)
 }
 
 GList *
-html_object_get_bound_list (HTMLObject *self, GList *list)
+html_object_get_bound_list (HTMLObject *self,
+                            GList *list)
 {
 	return list && list->next
 		? (HTML_OBJECT (list->data) == self ? list->next : NULL)
@@ -1923,7 +2127,8 @@ html_object_get_bound_list (HTMLObject *self, GList *list)
 }
 
 void
-html_object_move_cursor_before_remove (HTMLObject *o, HTMLEngine *e)
+html_object_move_cursor_before_remove (HTMLObject *o,
+                                       HTMLEngine *e)
 {
 	if (e->cursor->object == o) {
 		if (html_object_next_not_slave (o))
@@ -1934,7 +2139,11 @@ html_object_move_cursor_before_remove (HTMLObject *o, HTMLEngine *e)
 }
 
 gboolean
-html_object_could_remove_whole (HTMLObject *o, GList *from, GList *to, GList *left, GList *right)
+html_object_could_remove_whole (HTMLObject *o,
+                                GList *from,
+                                GList *to,
+                                GList *left,
+                                GList *right)
 {
 	return ((!from && !to)
 		|| html_object_next_not_slave (HTML_OBJECT (o))
@@ -1944,7 +2153,10 @@ html_object_could_remove_whole (HTMLObject *o, GList *from, GList *to, GList *le
 }
 
 void
-html_object_check_cut_lists (HTMLObject *self, HTMLObject *replacement, GList *left, GList *right)
+html_object_check_cut_lists (HTMLObject *self,
+                             HTMLObject *replacement,
+                             GList *left,
+                             GList *right)
 {
 	if (left && left->data == self)
 		left->data = replacement;
@@ -1959,7 +2171,9 @@ typedef struct {
 } tmpSelData;
 
 static void
-select_object (HTMLObject *o, HTMLEngine *e, gpointer data)
+select_object (HTMLObject *o,
+               HTMLEngine *e,
+               gpointer data)
 {
 	tmpSelData *d = (tmpSelData *) data;
 
@@ -1975,13 +2189,16 @@ select_object (HTMLObject *o, HTMLEngine *e, gpointer data)
 }
 
 static void
-unselect_object (HTMLObject *o, HTMLEngine *e, gpointer data)
+unselect_object (HTMLObject *o,
+                 HTMLEngine *e,
+                 gpointer data)
 {
 	o->selected = FALSE;
 }
 
 gchar *
-html_object_get_selection_string (HTMLObject *o, HTMLEngine *e)
+html_object_get_selection_string (HTMLObject *o,
+                                  HTMLEngine *e)
 {
 	HTMLObject *tail;
 	tmpSelData data;
@@ -2034,7 +2251,8 @@ html_object_get_head_leaf (HTMLObject *o)
 }
 
 HTMLObject *
-html_object_nth_parent (HTMLObject *self, gint n)
+html_object_nth_parent (HTMLObject *self,
+                        gint n)
 {
 	while (self && n > 0) {
 		self = self->parent;
@@ -2088,7 +2306,9 @@ html_object_tails_list (HTMLObject *o)
 }
 
 static void
-merge_down (HTMLEngine *e, GList *left, GList *right)
+merge_down (HTMLEngine *e,
+            GList *left,
+            GList *right)
 {
 	HTMLObject *lo;
 	HTMLObject *ro;
@@ -2104,13 +2324,16 @@ merge_down (HTMLEngine *e, GList *left, GList *right)
 }
 
 void
-html_object_merge_down (HTMLObject *o, HTMLObject *w, HTMLEngine *e)
+html_object_merge_down (HTMLObject *o,
+                        HTMLObject *w,
+                        HTMLEngine *e)
 {
 	merge_down (e, html_object_tails_list (o), html_object_heads_list (w));
 }
 
 gboolean
-html_object_is_parent (HTMLObject *parent, HTMLObject *child)
+html_object_is_parent (HTMLObject *parent,
+                       HTMLObject *child)
 {
 	g_assert (parent && child);
 
@@ -2147,7 +2370,10 @@ html_object_get_insert_level (HTMLObject *o)
 }
 
 void
-html_object_engine_translation (HTMLObject *o, HTMLEngine *e, gint *tx, gint *ty)
+html_object_engine_translation (HTMLObject *o,
+                                HTMLEngine *e,
+                                gint *tx,
+                                gint *ty)
 {
 	HTMLObject *p;
 
@@ -2164,7 +2390,14 @@ html_object_engine_translation (HTMLObject *o, HTMLEngine *e, gint *tx, gint *ty
 }
 
 gboolean
-html_object_engine_intersection (HTMLObject *o, HTMLEngine *e, gint tx, gint ty, gint *x1, gint *y1, gint *x2, gint *y2)
+html_object_engine_intersection (HTMLObject *o,
+                                 HTMLEngine *e,
+                                 gint tx,
+                                 gint ty,
+                                 gint *x1,
+                                 gint *y1,
+                                 gint *x2,
+                                 gint *y2)
 {
 	*x1 = o->x + tx;
 	*y1 = o->y - o->ascent + ty;
@@ -2175,7 +2408,8 @@ html_object_engine_intersection (HTMLObject *o, HTMLEngine *e, gint tx, gint ty,
 }
 
 void
-html_object_add_to_changed (GList **changed_objs, HTMLObject *o)
+html_object_add_to_changed (GList **changed_objs,
+                            HTMLObject *o)
 {
 	GList *l, *next;
 
@@ -2206,13 +2440,15 @@ html_object_get_n_children (HTMLObject *self)
 }
 
 HTMLObject *
-html_object_get_child (HTMLObject *self, gint index)
+html_object_get_child (HTMLObject *self,
+                       gint index)
 {
 	return HO_CLASS (self)->get_child ? (* HO_CLASS (self)->get_child) (self, index) : NULL;
 }
 
 gint
-html_object_get_child_index (HTMLObject *self, HTMLObject *child)
+html_object_get_child_index (HTMLObject *self,
+                             HTMLObject *child)
 {
 	return HO_CLASS (self)->get_child_index ? (* HO_CLASS (self)->get_child_index) (self, child) : -1;
 }
@@ -2224,7 +2460,10 @@ html_object_get_clear (HTMLObject *self)
 }
 
 static HTMLObject *
-next_prev_cursor_object (HTMLObject *o, HTMLEngine *e, gint *offset, gboolean forward)
+next_prev_cursor_object (HTMLObject *o,
+                         HTMLEngine *e,
+                         gint *offset,
+                         gboolean forward)
 {
 	HTMLCursor cursor;
 	gboolean result;
@@ -2238,19 +2477,24 @@ next_prev_cursor_object (HTMLObject *o, HTMLEngine *e, gint *offset, gboolean fo
 }
 
 HTMLObject *
-html_object_next_cursor_object (HTMLObject *o, HTMLEngine *e, gint *offset)
+html_object_next_cursor_object (HTMLObject *o,
+                                HTMLEngine *e,
+                                gint *offset)
 {
 	return next_prev_cursor_object (o, e, offset, TRUE);
 }
 
 HTMLObject *
-html_object_prev_cursor_object (HTMLObject *o, HTMLEngine *e, gint *offset)
+html_object_prev_cursor_object (HTMLObject *o,
+                                HTMLEngine *e,
+                                gint *offset)
 {
 	return next_prev_cursor_object (o, e, offset, FALSE);
 }
 
 HTMLObject *
-html_object_next_cursor_leaf (HTMLObject *o, HTMLEngine *e)
+html_object_next_cursor_leaf (HTMLObject *o,
+                              HTMLEngine *e)
 {
 	gint offset = html_object_get_length (o);
 
@@ -2262,7 +2506,8 @@ html_object_next_cursor_leaf (HTMLObject *o, HTMLEngine *e)
 }
 
 HTMLObject *
-html_object_prev_cursor_leaf (HTMLObject *o, HTMLEngine *e)
+html_object_prev_cursor_leaf (HTMLObject *o,
+                              HTMLEngine *e)
 {
 	gint offset = html_object_get_length (o);
 
@@ -2286,7 +2531,8 @@ html_object_get_id (HTMLObject *o)
 }
 
 void
-html_object_set_id (HTMLObject *o, const gchar *id)
+html_object_set_id (HTMLObject *o,
+                    const gchar *id)
 {
 	g_free (o->id);
 	o->id = g_strdup (id);
@@ -2302,13 +2548,17 @@ html_object_get_flow (HTMLObject *o)
 }
 
 gint
-html_object_get_right_edge_offset (HTMLObject *o, HTMLPainter *painter, gint offset)
+html_object_get_right_edge_offset (HTMLObject *o,
+                                   HTMLPainter *painter,
+                                   gint offset)
 {
 	return (* HO_CLASS (o)->get_right_edge_offset) (o, painter, offset);
 }
 
 gint
-html_object_get_left_edge_offset (HTMLObject *o, HTMLPainter *painter, gint offset)
+html_object_get_left_edge_offset (HTMLObject *o,
+                                  HTMLPainter *painter,
+                                  gint offset)
 {
 	return (* HO_CLASS (o)->get_left_edge_offset) (o, painter, offset);
 }

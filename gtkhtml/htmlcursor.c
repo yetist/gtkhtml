@@ -1,28 +1,28 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-
-   Copyright 1999, 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright 1999, 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 /* This file is a bit of a hack.  To make things work in a really nice way, we
-   should have some extra methods in the various subclasses to implement cursor
-   movement.  But for now, I think this is a reasonable way to get things to
-   work.  */
+ * should have some extra methods in the various subclasses to implement cursor
+ * movement.  But for now, I think this is a reasonable way to get things to
+ * work.  */
 
 #include <config.h>
 #include <stdlib.h>
@@ -78,7 +78,7 @@ debug_location (const HTMLCursor *cursor)
 
 static void
 normalize (HTMLObject **object,
-	   guint *offset)
+           guint *offset)
 {
 	if (*offset == 0 && (*object)->prev != NULL) {
 		*object = html_object_prev_not_slave (*object);
@@ -89,7 +89,9 @@ normalize (HTMLObject **object,
 
 
 inline void
-html_cursor_init (HTMLCursor *cursor, HTMLObject *o, guint offset)
+html_cursor_init (HTMLCursor *cursor,
+                  HTMLObject *o,
+                  guint offset)
 {
 	cursor->object = o;
 	cursor->offset = offset;
@@ -130,7 +132,7 @@ html_cursor_destroy (HTMLCursor *cursor)
  **/
 void
 html_cursor_copy (HTMLCursor *dest,
-		  const HTMLCursor *src)
+                  const HTMLCursor *src)
 {
 	g_return_if_fail (dest != NULL);
 	g_return_if_fail (src != NULL);
@@ -163,7 +165,7 @@ html_cursor_normalize (HTMLCursor *cursor)
 
 void
 html_cursor_home (HTMLCursor *cursor,
-		  HTMLEngine *engine)
+                  HTMLEngine *engine)
 {
 	HTMLObject *obj;
 
@@ -205,8 +207,8 @@ html_cursor_home (HTMLCursor *cursor,
 
 static gboolean
 forward (HTMLCursor *cursor,
-	 HTMLEngine *engine,
-	 gboolean    exact_position)
+         HTMLEngine *engine,
+         gboolean exact_position)
 {
 	gboolean retval;
 	gboolean (*forward_func) (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine);
@@ -234,8 +236,8 @@ forward (HTMLCursor *cursor,
 
 static gboolean
 html_cursor_real_forward (HTMLCursor *cursor,
-			  HTMLEngine *engine,
-			  gboolean    exact_position)
+                          HTMLEngine *engine,
+                          gboolean exact_position)
 {
 	gboolean retval;
 
@@ -257,22 +259,22 @@ html_cursor_real_forward (HTMLCursor *cursor,
 
 gboolean
 html_cursor_forward (HTMLCursor *cursor,
-		     HTMLEngine *engine)
+                     HTMLEngine *engine)
 {
 	return html_cursor_real_forward (cursor, engine, FALSE);
 }
 
 gboolean
 html_cursor_forward_one (HTMLCursor *cursor,
-			 HTMLEngine *engine)
+                         HTMLEngine *engine)
 {
 	return html_cursor_real_forward (cursor, engine, TRUE);
 }
 
 static gboolean
 backward (HTMLCursor *cursor,
-	  HTMLEngine *engine,
-	  gboolean    exact_position)
+          HTMLEngine *engine,
+          gboolean exact_position)
 {
 	gboolean retval;
 	gboolean (*backward_func) (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine);
@@ -299,8 +301,8 @@ backward (HTMLCursor *cursor,
 
 static gboolean
 html_cursor_real_backward (HTMLCursor *cursor,
-			   HTMLEngine *engine,
-			   gboolean    exact_position)
+                           HTMLEngine *engine,
+                           gboolean exact_position)
 {
 	gboolean retval;
 
@@ -322,14 +324,14 @@ html_cursor_real_backward (HTMLCursor *cursor,
 
 gboolean
 html_cursor_backward (HTMLCursor *cursor,
-		      HTMLEngine *engine)
+                      HTMLEngine *engine)
 {
 	return html_cursor_real_backward (cursor, engine, FALSE);
 }
 
 gboolean
 html_cursor_backward_one (HTMLCursor *cursor,
-			  HTMLEngine *engine)
+                          HTMLEngine *engine)
 {
 	return html_cursor_real_backward (cursor, engine, TRUE);
 }
@@ -337,7 +339,7 @@ html_cursor_backward_one (HTMLCursor *cursor,
 
 gboolean
 html_cursor_up (HTMLCursor *cursor,
-		HTMLEngine *engine)
+                HTMLEngine *engine)
 {
 	HTMLCursor orig_cursor;
 	HTMLCursor prev_cursor;
@@ -417,7 +419,7 @@ html_cursor_up (HTMLCursor *cursor,
 				}
 
 				/* Choose the character which is the nearest to the
-				   target X.  */
+				 * target X.  */
 				if (prev_y == y && x - target_x >= target_x - prev_x) {
 					cursor->object = prev_cursor.object;
 					cursor->offset = prev_cursor.offset;
@@ -435,7 +437,7 @@ html_cursor_up (HTMLCursor *cursor,
 				}
 
 				/* Choose the character which is the nearest to the
-				   target X.  */
+				 * target X.  */
 				if (prev_y == y && target_x - x >= prev_x - target_x) {
 					cursor->object = prev_cursor.object;
 					cursor->offset = prev_cursor.offset;
@@ -452,7 +454,7 @@ html_cursor_up (HTMLCursor *cursor,
 
 gboolean
 html_cursor_down (HTMLCursor *cursor,
-		  HTMLEngine *engine)
+                  HTMLEngine *engine)
 {
 	HTMLCursor orig_cursor;
 	HTMLCursor prev_cursor;
@@ -536,7 +538,7 @@ html_cursor_down (HTMLCursor *cursor,
 				}
 
 				/* Choose the character which is the nearest to the
-				   target X.  */
+				 * target X.  */
 				if (prev_y == y && target_x - x >= prev_x - target_x) {
 					cursor->object = prev_cursor.object;
 					cursor->offset = prev_cursor.offset;
@@ -554,7 +556,7 @@ html_cursor_down (HTMLCursor *cursor,
 				}
 
 				/* Choose the character which is the nearest to the
-				   target X.  */
+				 * target X.  */
 				if (prev_y == y && x - target_x >= target_x - prev_x) {
 					cursor->object = prev_cursor.object;
 					cursor->offset = prev_cursor.offset;
@@ -571,10 +573,10 @@ html_cursor_down (HTMLCursor *cursor,
 
 static gboolean
 html_cursor_real_jump_to (HTMLCursor *cursor,
-			  HTMLEngine *engine,
-			  HTMLObject *object,
-			  guint       offset,
-			  gboolean    exact_position)
+                          HTMLEngine *engine,
+                          HTMLObject *object,
+                          guint offset,
+                          gboolean exact_position)
 {
 	HTMLCursor original;
 
@@ -623,9 +625,9 @@ html_cursor_real_jump_to (HTMLCursor *cursor,
  **/
 gboolean
 html_cursor_jump_to (HTMLCursor *cursor,
-		     HTMLEngine *engine,
-		     HTMLObject *object,
-		     guint       offset)
+                     HTMLEngine *engine,
+                     HTMLObject *object,
+                     guint offset)
 {
 	return html_cursor_real_jump_to (cursor, engine, object, offset, FALSE);
 }
@@ -642,9 +644,9 @@ html_cursor_jump_to (HTMLCursor *cursor,
  **/
 gboolean
 html_cursor_exactly_jump_to (HTMLCursor *cursor,
-			     HTMLEngine *engine,
-			     HTMLObject *object,
-			     guint       offset)
+                             HTMLEngine *engine,
+                             HTMLObject *object,
+                             guint offset)
 {
 	return html_cursor_real_jump_to (cursor, engine, object, offset, TRUE);
 }
@@ -654,7 +656,7 @@ html_cursor_exactly_jump_to (HTMLCursor *cursor,
 
 void
 html_cursor_beginning_of_document (HTMLCursor *cursor,
-				   HTMLEngine *engine)
+                                   HTMLEngine *engine)
 {
 	g_return_if_fail (cursor != NULL);
 	g_return_if_fail (engine != NULL);
@@ -671,7 +673,7 @@ html_cursor_beginning_of_document (HTMLCursor *cursor,
 
 void
 html_cursor_end_of_document (HTMLCursor *cursor,
-			     HTMLEngine *engine)
+                             HTMLEngine *engine)
 {
 	g_return_if_fail (cursor != NULL);
 	g_return_if_fail (engine != NULL);
@@ -696,9 +698,9 @@ html_cursor_get_position (HTMLCursor *cursor)
 
 static void
 html_cursor_real_jump_to_position (HTMLCursor *cursor,
-				   HTMLEngine *engine,
-				   gint        position,
-				   gboolean    exact_position)
+                                   HTMLEngine *engine,
+                                   gint position,
+                                   gboolean exact_position)
 {
 	g_return_if_fail (cursor != NULL);
 	g_return_if_fail (position >= 0);
@@ -722,25 +724,25 @@ html_cursor_real_jump_to_position (HTMLCursor *cursor,
 
 void
 html_cursor_jump_to_position (HTMLCursor *cursor,
-			      HTMLEngine *engine,
-			      gint        position)
+                              HTMLEngine *engine,
+                              gint position)
 {
 	html_cursor_real_jump_to_position (cursor, engine, position, FALSE);
 }
 
 void
 html_cursor_exactly_jump_to_position (HTMLCursor *cursor,
-				      HTMLEngine *engine,
-				      gint        position)
+                                      HTMLEngine *engine,
+                                      gint position)
 {
 	html_cursor_real_jump_to_position (cursor, engine, position, TRUE);
 }
 
 static void
 html_cursor_real_jump_to_position_no_spell (HTMLCursor *cursor,
-					    HTMLEngine *engine,
-					    gint        position,
-					    gboolean    exact_position)
+                                            HTMLEngine *engine,
+                                            gint position,
+                                            gboolean exact_position)
 {
 	gboolean need_spell_check;
 
@@ -752,16 +754,16 @@ html_cursor_real_jump_to_position_no_spell (HTMLCursor *cursor,
 
 void
 html_cursor_jump_to_position_no_spell (HTMLCursor *cursor,
-				       HTMLEngine *engine,
-				       gint        position)
+                                       HTMLEngine *engine,
+                                       gint position)
 {
 	html_cursor_real_jump_to_position_no_spell (cursor, engine, position, FALSE);
 }
 
 void
 html_cursor_exactly_jump_to_position_no_spell (HTMLCursor *cursor,
-					       HTMLEngine *engine,
-					       gint        position)
+                                               HTMLEngine *engine,
+                                               gint position)
 {
 	html_cursor_real_jump_to_position_no_spell (cursor, engine, position, TRUE);
 }
@@ -771,7 +773,7 @@ html_cursor_exactly_jump_to_position_no_spell (HTMLCursor *cursor,
 
 gboolean
 html_cursor_equal (const HTMLCursor *a,
-		   const HTMLCursor *b)
+                   const HTMLCursor *b)
 {
 	g_return_val_if_fail (a != NULL, FALSE);
 	g_return_val_if_fail (b != NULL, FALSE);
@@ -781,7 +783,7 @@ html_cursor_equal (const HTMLCursor *a,
 
 gboolean
 html_cursor_precedes (const HTMLCursor *a,
-		      const HTMLCursor *b)
+                      const HTMLCursor *b)
 {
 	g_return_val_if_fail (a != NULL, FALSE);
 	g_return_val_if_fail (b != NULL, FALSE);
@@ -791,7 +793,7 @@ html_cursor_precedes (const HTMLCursor *a,
 
 gboolean
 html_cursor_follows (const HTMLCursor *a,
-		     const HTMLCursor *b)
+                     const HTMLCursor *b)
 {
 	g_return_val_if_fail (a != NULL, FALSE);
 	g_return_val_if_fail (b != NULL, FALSE);
@@ -846,7 +848,8 @@ html_cursor_get_prev_char (const HTMLCursor *cursor)
 }
 
 gboolean
-html_cursor_beginning_of_paragraph (HTMLCursor *cursor, HTMLEngine *engine)
+html_cursor_beginning_of_paragraph (HTMLCursor *cursor,
+                                    HTMLEngine *engine)
 {
 	HTMLCursor copy;
 	HTMLObject *flow;
@@ -884,7 +887,8 @@ html_cursor_beginning_of_paragraph (HTMLCursor *cursor, HTMLEngine *engine)
 }
 
 gboolean
-html_cursor_end_of_paragraph (HTMLCursor *cursor, HTMLEngine *engine)
+html_cursor_end_of_paragraph (HTMLCursor *cursor,
+                              HTMLEngine *engine)
 {
 	HTMLCursor copy;
 	HTMLObject *flow;
@@ -922,7 +926,9 @@ html_cursor_end_of_paragraph (HTMLCursor *cursor, HTMLEngine *engine)
 }
 
 gboolean
-html_cursor_forward_n (HTMLCursor *cursor, HTMLEngine *e, guint n)
+html_cursor_forward_n (HTMLCursor *cursor,
+                       HTMLEngine *e,
+                       guint n)
 {
 	gboolean rv = FALSE;
 
@@ -935,7 +941,9 @@ html_cursor_forward_n (HTMLCursor *cursor, HTMLEngine *e, guint n)
 }
 
 gboolean
-html_cursor_backward_n (HTMLCursor *cursor, HTMLEngine *e, guint n)
+html_cursor_backward_n (HTMLCursor *cursor,
+                        HTMLEngine *e,
+                        guint n)
 {
 	gboolean rv = FALSE;
 
@@ -948,7 +956,8 @@ html_cursor_backward_n (HTMLCursor *cursor, HTMLEngine *e, guint n)
 }
 
 HTMLObject *
-html_cursor_child_of (HTMLCursor *cursor, HTMLObject *parent)
+html_cursor_child_of (HTMLCursor *cursor,
+                      HTMLObject *parent)
 {
 	HTMLObject *child = cursor->object;
 
@@ -962,7 +971,8 @@ html_cursor_child_of (HTMLCursor *cursor, HTMLObject *parent)
 }
 
 static gboolean
-move_to_next_object (HTMLCursor *cursor, HTMLEngine *e)
+move_to_next_object (HTMLCursor *cursor,
+                     HTMLEngine *e)
 {
 	HTMLObject *next;
 
@@ -986,7 +996,8 @@ move_to_next_object (HTMLCursor *cursor, HTMLEngine *e)
 }
 
 static gboolean
-move_to_prev_object (HTMLCursor *cursor, HTMLEngine *e)
+move_to_prev_object (HTMLCursor *cursor,
+                     HTMLEngine *e)
 {
 	HTMLObject *prev;
 
@@ -1010,7 +1021,8 @@ move_to_prev_object (HTMLCursor *cursor, HTMLEngine *e)
 }
 
 static gboolean
-move_left (HTMLCursor *cursor, HTMLEngine *e)
+move_left (HTMLCursor *cursor,
+           HTMLEngine *e)
 {
 	if (!html_object_cursor_left (cursor->object, e->painter, cursor)) {
 		if (cursor->object->parent) {
@@ -1025,7 +1037,8 @@ move_left (HTMLCursor *cursor, HTMLEngine *e)
 }
 
 gboolean
-html_cursor_left (HTMLCursor *cursor, HTMLEngine *engine)
+html_cursor_left (HTMLCursor *cursor,
+                  HTMLEngine *engine)
 {
 	gboolean retval;
 
@@ -1046,7 +1059,8 @@ html_cursor_left (HTMLCursor *cursor, HTMLEngine *engine)
 }
 
 static gboolean
-left_in_flow (HTMLCursor *cursor, HTMLEngine *e)
+left_in_flow (HTMLCursor *cursor,
+              HTMLEngine *e)
 {
 	gboolean retval;
 
@@ -1071,7 +1085,8 @@ left_in_flow (HTMLCursor *cursor, HTMLEngine *e)
 }
 
 static gboolean
-html_cursor_left_edge_of_line (HTMLCursor *cursor, HTMLEngine *engine)
+html_cursor_left_edge_of_line (HTMLCursor *cursor,
+                               HTMLEngine *engine)
 {
 	HTMLCursor prev_cursor;
 	gint x, y, prev_y;
@@ -1109,7 +1124,8 @@ html_cursor_left_edge_of_line (HTMLCursor *cursor, HTMLEngine *engine)
 }
 
 static gboolean
-move_right (HTMLCursor *cursor, HTMLEngine *e)
+move_right (HTMLCursor *cursor,
+            HTMLEngine *e)
 {
 	gboolean retval;
 
@@ -1137,7 +1153,8 @@ move_right (HTMLCursor *cursor, HTMLEngine *e)
 }
 
 gboolean
-html_cursor_right (HTMLCursor *cursor, HTMLEngine *engine)
+html_cursor_right (HTMLCursor *cursor,
+                   HTMLEngine *engine)
 {
 	gboolean retval;
 
@@ -1158,7 +1175,8 @@ html_cursor_right (HTMLCursor *cursor, HTMLEngine *engine)
 }
 
 static gboolean
-right_in_flow (HTMLCursor *cursor, HTMLEngine *e)
+right_in_flow (HTMLCursor *cursor,
+               HTMLEngine *e)
 {
 	gboolean retval;
 
@@ -1184,7 +1202,8 @@ right_in_flow (HTMLCursor *cursor, HTMLEngine *e)
 }
 
 static gboolean
-html_cursor_right_edge_of_line (HTMLCursor *cursor, HTMLEngine *engine)
+html_cursor_right_edge_of_line (HTMLCursor *cursor,
+                                HTMLEngine *engine)
 {
 	HTMLCursor prev_cursor;
 	gint x, y, prev_y;
@@ -1221,7 +1240,8 @@ html_cursor_right_edge_of_line (HTMLCursor *cursor, HTMLEngine *engine)
 }
 
 gboolean
-html_cursor_beginning_of_line (HTMLCursor *cursor, HTMLEngine *engine)
+html_cursor_beginning_of_line (HTMLCursor *cursor,
+                               HTMLEngine *engine)
 {
 	if (html_object_get_direction (cursor->object) == HTML_DIRECTION_RTL)
 		return html_cursor_right_edge_of_line (cursor, engine);
@@ -1230,7 +1250,8 @@ html_cursor_beginning_of_line (HTMLCursor *cursor, HTMLEngine *engine)
 }
 
 gboolean
-html_cursor_end_of_line (HTMLCursor *cursor, HTMLEngine *engine)
+html_cursor_end_of_line (HTMLCursor *cursor,
+                         HTMLEngine *engine)
 {
 	if (html_object_get_direction (cursor->object) == HTML_DIRECTION_RTL)
 		return html_cursor_left_edge_of_line (cursor, engine);

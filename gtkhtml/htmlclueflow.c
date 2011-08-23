@@ -1,24 +1,24 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-
-   Copyright (C) 1997 Martin Jones (mjones@kde.org)
-   Copyright (C) 1997 Torben Weis (weis@kde.org)
-   Copyright (C) 1999, 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright (C) 1997 Martin Jones (mjones@kde.org)
+ * Copyright (C) 1997 Torben Weis (weis@kde.org)
+ * Copyright (C) 1999, 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 /* This is the object that defines a paragraph in the HTML document.  */
@@ -63,7 +63,8 @@ static gint            get_similar_depth                     (HTMLClueFlow *self
 							     HTMLClueFlow *neighbor);
 
 static void
-copy_levels (GByteArray *dst, GByteArray *src)
+copy_levels (GByteArray *dst,
+             GByteArray *src)
 {
 	gint i;
 
@@ -74,7 +75,8 @@ copy_levels (GByteArray *dst, GByteArray *src)
 }
 
 static gboolean
-is_levels_equal (HTMLClueFlow *me, HTMLClueFlow *you)
+is_levels_equal (HTMLClueFlow *me,
+                 HTMLClueFlow *you)
 {
 	if (!you)
 		return FALSE;
@@ -138,7 +140,8 @@ is_blockquote (HTMLListType type)
 }
 
 static inline gboolean
-items_are_relative (HTMLObject *self, HTMLObject *next_object)
+items_are_relative (HTMLObject *self,
+                    HTMLObject *next_object)
 {
 	HTMLClueFlow *flow, *next;
 
@@ -197,7 +200,8 @@ get_next_relative_item (HTMLObject *self)
 }
 
 static void
-update_item_number (HTMLObject *self, HTMLEngine *e)
+update_item_number (HTMLObject *self,
+                    HTMLEngine *e)
 {
 	HTMLObject *prev, *next;
 
@@ -254,7 +258,14 @@ prev_flow_in_cluevs (HTMLObject *o)
 }
 
 static HTMLObject *
-op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len, gboolean cut)
+op_helper (HTMLObject *self,
+           HTMLEngine *e,
+           GList *from,
+           GList *to,
+           GList *left,
+           GList *right,
+           guint *len,
+           gboolean cut)
 {
 	HTMLObject *o;
 
@@ -267,7 +278,7 @@ op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left,
 	if (!from && prev_flow_in_cluevs (self)) {
 		(*len) ++;
 		/* if (cut)
-		   e->cursor->position--; */
+		 * e->cursor->position--; */
 	}
 	if (cut)
 		html_clue_remove_text_slaves (HTML_CLUE (self));
@@ -283,13 +294,24 @@ op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left,
 }
 
 static HTMLObject *
-op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList *to, guint *len)
+op_copy (HTMLObject *self,
+         HTMLObject *parent,
+         HTMLEngine *e,
+         GList *from,
+         GList *to,
+         guint *len)
 {
 	return op_helper (self, e, from, to, NULL, NULL, len, FALSE);
 }
 
 static HTMLObject *
-op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
+op_cut (HTMLObject *self,
+        HTMLEngine *e,
+        GList *from,
+        GList *to,
+        GList *left,
+        GList *right,
+        guint *len)
 {
 	HTMLObject *rv, *prev, *next;
 
@@ -329,17 +351,23 @@ set_tail_size (HTMLObject *o)
 
 static void
 set_around_size (HTMLObject *o) {
-	if (o) {
-		o->change |= HTML_CHANGE_SIZE;
-		if (o->next)
-			o->next->change |= HTML_CHANGE_SIZE;
-		if (o->prev)
-			o->prev->change |= HTML_CHANGE_SIZE;
-	}
+        if (o) {
+                o->change |= HTML_CHANGE_SIZE;
+                if (o->next)
+                        o->next->change |= HTML_CHANGE_SIZE;
+                if (o->prev)
+                        o->prev->change |= HTML_CHANGE_SIZE;
+        }
 }
 
 static void
-split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
+split (HTMLObject *self,
+       HTMLEngine *e,
+       HTMLObject *child,
+       gint offset,
+       gint level,
+       GList **left,
+       GList **right)
 {
 	set_around_size (child);
 	html_clue_remove_text_slaves (HTML_CLUE (self));
@@ -349,7 +377,12 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 }
 
 static gboolean
-merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **right, HTMLCursor *cursor)
+merge (HTMLObject *self,
+       HTMLObject *with,
+       HTMLEngine *e,
+       GList **left,
+       GList **right,
+       HTMLCursor *cursor)
 {
 	HTMLClueFlow *cf1, *cf2;
 	HTMLObject *cf2_next_relative;
@@ -383,8 +416,8 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 	if (rv) {
 		if (is_item (cf1)) {
 			/* cf2 will be removed, update item numbers around
-			   as if it was already removed - it has to have
-			   the same item style as cf1 to not break item lists*/
+			 * as if it was already removed - it has to have
+			 * the same item style as cf1 to not break item lists*/
 			g_byte_array_free (cf2->levels, TRUE);
 			cf2->levels = html_clueflow_dup_levels (cf1);
 			cf2->style = cf1->style;
@@ -414,7 +447,8 @@ calc_padding (HTMLPainter *painter)
 }
 
 static gboolean
-is_cite (HTMLClueFlow *flow, gint level)
+is_cite (HTMLClueFlow *flow,
+         gint level)
 {
 	if (flow->levels->data[level] == HTML_LIST_TYPE_BLOCKQUOTE_CITE)
 		return TRUE;
@@ -439,7 +473,8 @@ is_header (HTMLClueFlow *flow)
 }
 
 static gboolean
-need_blockquote_padding  (HTMLClueFlow *flow, HTMLClueFlow *prev)
+need_blockquote_padding (HTMLClueFlow *flow,
+                          HTMLClueFlow *prev)
 {
 	gint i = get_similar_depth (flow, prev);
 
@@ -478,7 +513,8 @@ need_blockquote_padding  (HTMLClueFlow *flow, HTMLClueFlow *prev)
 }
 
 static guint
-get_pre_padding (HTMLClueFlow *flow, guint pad)
+get_pre_padding (HTMLClueFlow *flow,
+                 guint pad)
 {
 	HTMLObject *prev_object;
 
@@ -520,7 +556,7 @@ get_pre_padding (HTMLClueFlow *flow, guint pad)
 
 static guint
 get_post_padding (HTMLClueFlow *flow,
-		  guint pad)
+                  guint pad)
 {
 	HTMLObject *next_object;
 
@@ -559,7 +595,7 @@ get_post_padding (HTMLClueFlow *flow,
 
 static void
 add_pre_padding (HTMLClueFlow *flow,
-		 guint pad)
+                 guint pad)
 {
 	guint real_pad;
 
@@ -571,7 +607,7 @@ add_pre_padding (HTMLClueFlow *flow,
 
 static void
 add_post_padding (HTMLClueFlow *flow,
-		  guint pad)
+                  guint pad)
 {
 	guint real_pad;
 
@@ -583,8 +619,8 @@ add_post_padding (HTMLClueFlow *flow,
 
 static guint
 get_level_indent (HTMLClueFlow *flow,
-		  gint level,
-		  HTMLPainter *painter)
+                  gint level,
+                  HTMLPainter *painter)
 {
 	HTMLDirection dir = html_object_get_direction (HTML_OBJECT (flow));
 	guint indent = 0;
@@ -622,14 +658,15 @@ get_level_indent (HTMLClueFlow *flow,
 }
 
 static void
-set_painter (HTMLObject *o, HTMLPainter *painter)
+set_painter (HTMLObject *o,
+             HTMLPainter *painter)
 {
 	HTML_CLUEFLOW (o)->indent_width = -1;
 }
 
 static guint
 get_indent (HTMLClueFlow *flow,
-	    HTMLPainter *painter)
+            HTMLPainter *painter)
 {
 	if (flow->indent_width < 0 )
 		flow->indent_width = get_level_indent (flow, flow->levels->len -1, painter);
@@ -641,8 +678,8 @@ get_indent (HTMLClueFlow *flow,
 
 static void
 set_max_width (HTMLObject *o,
-	       HTMLPainter *painter,
-	       gint max_width)
+               HTMLPainter *painter,
+               gint max_width)
 {
 	HTMLObject *obj;
 	guint indent;
@@ -658,7 +695,7 @@ set_max_width (HTMLObject *o,
 
 static gint
 calc_min_width (HTMLObject *o,
-		HTMLPainter *painter)
+                HTMLPainter *painter)
 {
 	HTMLObject *cur;
 	gint min_width = 0;
@@ -688,7 +725,9 @@ calc_min_width (HTMLObject *o,
 }
 
 static gint
-pref_left_margin (HTMLPainter *p, HTMLObject *o, gint indent)
+pref_left_margin (HTMLPainter *p,
+                  HTMLObject *o,
+                  gint indent)
 {
 	gint margin = html_object_get_left_margin (o->parent, p, o->y, TRUE);
 
@@ -705,7 +744,9 @@ pref_left_margin (HTMLPainter *p, HTMLObject *o, gint indent)
 }
 
 static gint
-pref_right_margin (HTMLPainter *p, HTMLObject *o, gint indent)
+pref_right_margin (HTMLPainter *p,
+                   HTMLObject *o,
+                   gint indent)
 {
 	gint margin = html_object_get_right_margin (o->parent, p, o->y, TRUE);
 
@@ -722,7 +763,10 @@ pref_right_margin (HTMLPainter *p, HTMLObject *o, gint indent)
 }
 
 static void
-add_clear_area (GList **changed_objs, HTMLObject *o, gint x, gint w)
+add_clear_area (GList **changed_objs,
+                HTMLObject *o,
+                gint x,
+                gint w)
 {
 	HTMLObjectClearRectangle *cr;
 
@@ -740,20 +784,29 @@ add_clear_area (GList **changed_objs, HTMLObject *o, gint x, gint w)
 }
 
 static void
-calc_margins (HTMLObject *o, HTMLPainter *painter, gint indent, gint *lmargin, gint *rmargin)
+calc_margins (HTMLObject *o,
+              HTMLPainter *painter,
+              gint indent,
+              gint *lmargin,
+              gint *rmargin)
 {
 	*lmargin = pref_left_margin (painter, o, indent);
 	*rmargin = pref_right_margin (painter, o, indent);
 }
 
 static inline gint
-width_left (HTMLObject *o, gint x, gint rmargin, gboolean printing)
+width_left (HTMLObject *o,
+            gint x,
+            gint rmargin,
+            gboolean printing)
 {
 	return (!printing && HTML_CLUEFLOW (o)->style == HTML_CLUEFLOW_STYLE_PRE) ? G_MAXINT : rmargin - x;
 }
 
 static gint
-object_nb_width (HTMLObject *o, HTMLPainter *painter, gboolean lineBegin)
+object_nb_width (HTMLObject *o,
+                 HTMLPainter *painter,
+                 gboolean lineBegin)
 {
 	if (HTML_IS_TEXT_SLAVE (o))
 		return html_text_slave_get_nb_width (HTML_TEXT_SLAVE (o), painter, lineBegin);
@@ -768,7 +821,8 @@ is_top_aligned (HTMLVAlignType valign)
 }
 
 static inline void
-update_leafs_children_changed_size (HTMLObject *o, gboolean *leaf_children_changed_size)
+update_leafs_children_changed_size (HTMLObject *o,
+                                    gboolean *leaf_children_changed_size)
 {
 	if (o && o->change & HTML_CHANGE_SIZE
 	    && HTML_OBJECT_TYPE (o) != HTML_TYPE_TEXTSLAVE && !html_object_is_container (o))
@@ -776,7 +830,12 @@ update_leafs_children_changed_size (HTMLObject *o, gboolean *leaf_children_chang
 }
 
 static inline void
-update_height (HTMLObject *o, HTMLVAlignType valign, gint *a, gint *d, gint *height, gboolean *top)
+update_height (HTMLObject *o,
+               HTMLVAlignType valign,
+               gint *a,
+               gint *d,
+               gint *height,
+               gboolean *top)
 {
 	switch (valign) {
 	case HTML_VALIGN_TOP:
@@ -803,7 +862,11 @@ update_height (HTMLObject *o, HTMLVAlignType valign, gint *a, gint *d, gint *hei
 }
 
 static inline void
-update_top_height (HTMLObject *begin, HTMLObject *end, gint *a, gint *d, gint *height)
+update_top_height (HTMLObject *begin,
+                   HTMLObject *end,
+                   gint *a,
+                   gint *d,
+                   gint *height)
 {
 	while (begin && begin != end) {
 		if (html_object_get_valign (begin) == HTML_VALIGN_TOP) {
@@ -853,7 +916,13 @@ html_clueflow_get_halignment (HTMLClueFlow *flow)
 }
 
 static inline void
-update_line_positions (HTMLObject *clue, HTMLObject *begin, HTMLObject *end, gint left, gint a, gint d, gint height)
+update_line_positions (HTMLObject *clue,
+                       HTMLObject *begin,
+                       HTMLObject *end,
+                       gint left,
+                       gint a,
+                       gint d,
+                       gint height)
 {
 	gint xinc = 0;
 
@@ -890,9 +959,14 @@ update_line_positions (HTMLObject *clue, HTMLObject *begin, HTMLObject *end, gin
 }
 
 static HTMLObject *
-layout_line (HTMLObject *o, HTMLPainter *painter, HTMLObject *begin,
-	     GList **changed_objs, gboolean *leaf_children_changed_size,
-	     gint *lmargin, gint *rmargin, gint indent)
+layout_line (HTMLObject *o,
+             HTMLPainter *painter,
+             HTMLObject *begin,
+             GList **changed_objs,
+             gboolean *leaf_children_changed_size,
+             gint *lmargin,
+             gint *rmargin,
+             gint indent)
 {
 	HTMLObject *cur;
 	gboolean first = TRUE;
@@ -983,9 +1057,15 @@ layout_line (HTMLObject *o, HTMLPainter *painter, HTMLObject *begin,
 }
 
 static HTMLObject *
-layout_aligned (HTMLObject *o, HTMLPainter *painter, HTMLObject *cur,
-		GList **changed_objs, gboolean *leaf_children_changed_size,
-		gint *lmargin, gint *rmargin, gint indent, gboolean *changed)
+layout_aligned (HTMLObject *o,
+                HTMLPainter *painter,
+                HTMLObject *cur,
+                GList **changed_objs,
+                gboolean *leaf_children_changed_size,
+                gint *lmargin,
+                gint *rmargin,
+                gint indent,
+                gboolean *changed)
 {
 	if (!html_clue_appended (HTML_CLUE (o->parent), HTML_CLUE (cur))) {
 		html_object_calc_size (cur, painter, changed_objs);
@@ -1003,7 +1083,10 @@ layout_aligned (HTMLObject *o, HTMLPainter *painter, HTMLObject *cur,
 }
 
 static gboolean
-html_clue_flow_layout (HTMLObject *o, HTMLPainter *painter, GList **changed_objs, gboolean *leaf_children_changed_size)
+html_clue_flow_layout (HTMLObject *o,
+                       HTMLPainter *painter,
+                       GList **changed_objs,
+                       gboolean *leaf_children_changed_size)
 {
 	HTMLClueFlow *cf = HTML_CLUEFLOW (o);
 	HTMLObject *cur = HTML_CLUE (o)->head;
@@ -1027,7 +1110,9 @@ html_clue_flow_layout (HTMLObject *o, HTMLPainter *painter, GList **changed_objs
 }
 
 static gboolean
-html_clue_flow_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
+html_clue_flow_real_calc_size (HTMLObject *o,
+                               HTMLPainter *painter,
+                               GList **changed_objs)
 {
 	HTMLClueFlow *cf = HTML_CLUEFLOW (o);
 	gint oa, od, ow, padding;
@@ -1066,7 +1151,9 @@ html_clue_flow_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **chan
 }
 
 static void
-set_max_height (HTMLObject *o, HTMLPainter *painter, gint max_height)
+set_max_height (HTMLObject *o,
+                HTMLPainter *painter,
+                gint max_height)
 {
 }
 
@@ -1078,7 +1165,7 @@ get_clear (HTMLObject *self)
 
 static gint
 calc_preferred_width (HTMLObject *o,
-		      HTMLPainter *painter)
+                      HTMLPainter *painter)
 {
 	HTMLObject *obj, *next;
 	gint maxw = 0, w = 0;
@@ -1104,7 +1191,8 @@ calc_preferred_width (HTMLObject *o,
 }
 
 static gchar *
-get_alpha_value (gint value, gboolean lower)
+get_alpha_value (gint value,
+                 gboolean lower)
 {
 	GString *str;
 	gchar *rv;
@@ -1126,7 +1214,8 @@ get_alpha_value (gint value, gboolean lower)
 #define BASES 7
 
 static gchar *
-get_roman_value (gint value, gboolean lower)
+get_roman_value (gint value,
+                 gboolean lower)
 {
 	GString *str;
 	const gchar *base = "IVXLCDM";
@@ -1167,7 +1256,8 @@ get_roman_value (gint value, gboolean lower)
 }
 
 static gchar *
-get_item_marker_str (HTMLClueFlow *flow, gboolean ascii_only)
+get_item_marker_str (HTMLClueFlow *flow,
+                     gboolean ascii_only)
 {
 	HTMLListType type = flow->item_type;
 
@@ -1210,7 +1300,12 @@ get_item_marker_str (HTMLClueFlow *flow, gboolean ascii_only)
 }
 
 static void
-draw_cite_line (HTMLObject *cur, HTMLPainter *p, const gchar *cite_str, gint offset, gint x, gint y)
+draw_cite_line (HTMLObject *cur,
+                HTMLPainter *p,
+                const gchar *cite_str,
+                gint offset,
+                gint x,
+                gint y)
 {
 	gint cy, w, a, d;
 
@@ -1234,9 +1329,14 @@ draw_cite_line (HTMLObject *cur, HTMLPainter *p, const gchar *cite_str, gint off
 }
 
 static void
-draw_quotes (HTMLObject *self, HTMLPainter *painter,
-	     gint x, gint y, gint width, gint height,
-	     gint tx, gint ty)
+draw_quotes (HTMLObject *self,
+             HTMLPainter *painter,
+             gint x,
+             gint y,
+             gint width,
+             gint height,
+             gint tx,
+             gint ty)
 {
 	HTMLClueFlow *flow;
 	GdkRectangle paint, area, clip;
@@ -1311,7 +1411,14 @@ draw_quotes (HTMLObject *self, HTMLPainter *painter,
 }
 
 static void
-draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, gint height, gint tx, gint ty)
+draw_item (HTMLObject *self,
+           HTMLPainter *painter,
+           gint x,
+           gint y,
+           gint width,
+           gint height,
+           gint tx,
+           gint ty)
 {
 	HTMLClueFlow *flow;
 	HTMLObject *first;
@@ -1361,9 +1468,12 @@ draw_item (HTMLObject *self, HTMLPainter *painter, gint x, gint y, gint width, g
 static void
 draw (HTMLObject *self,
       HTMLPainter *painter,
-      gint x, gint y,
-      gint width, gint height,
-      gint tx, gint ty)
+      gint x,
+      gint y,
+      gint width,
+      gint height,
+      gint tx,
+      gint ty)
 {
 	if (y > self->y + self->descent || y + height < self->y - self->ascent)
 		return;
@@ -1377,12 +1487,13 @@ draw (HTMLObject *self,
 	(* HTML_OBJECT_CLASS (&html_clue_class)->draw) (self, painter, x, y, width, height, tx, ty);
 }
 
-static HTMLObject*
+static HTMLObject *
 check_point (HTMLObject *self,
-	     HTMLPainter *painter,
-	     gint x, gint y,
-	     guint *offset_return,
-	     gboolean for_cursor)
+             HTMLPainter *painter,
+             gint x,
+             gint y,
+             guint *offset_return,
+             gboolean for_cursor)
 {
 	HTMLObject *obj, *p, *pnext, *eol, *cur;
 	HTMLClue *clue;
@@ -1485,7 +1596,8 @@ check_point (HTMLObject *self,
 /* Saving support.  */
 
 static gboolean
-write_indent (HTMLEngineSaveState *state, gint level)
+write_indent (HTMLEngineSaveState *state,
+              gint level)
 {
 	while (level > 0) {
 		if (!html_engine_save_output_string (state, "    "))
@@ -1609,7 +1721,8 @@ get_end_indent_item (HTMLListType type)
 }
 
 static gint
-get_similar_depth (HTMLClueFlow *self, HTMLClueFlow *neighbor)
+get_similar_depth (HTMLClueFlow *self,
+                   HTMLClueFlow *neighbor)
 {
 	gint i;
 	gint max_depth;
@@ -1628,7 +1741,10 @@ get_similar_depth (HTMLClueFlow *self, HTMLClueFlow *neighbor)
 }
 
 static gboolean
-save_indent_string (HTMLClueFlow *self, HTMLEngineSaveState *state, const gchar *format, ...)
+save_indent_string (HTMLClueFlow *self,
+                    HTMLEngineSaveState *state,
+                    const gchar *format,
+                    ...)
 {
 	va_list args;
 	gboolean retval;
@@ -1645,7 +1761,8 @@ save_indent_string (HTMLClueFlow *self, HTMLEngineSaveState *state, const gchar 
 }
 
 static const gchar *
-get_p_str (HTMLClueFlow *self, HTMLEngineSaveState *state)
+get_p_str (HTMLClueFlow *self,
+           HTMLEngineSaveState *state)
 {
 	const gchar *p_str = NULL;
 
@@ -1667,7 +1784,8 @@ get_p_str (HTMLClueFlow *self, HTMLEngineSaveState *state)
 }
 
 static gboolean
-write_flow_tag (HTMLClueFlow *self, HTMLEngineSaveState *state)
+write_flow_tag (HTMLClueFlow *self,
+                HTMLEngineSaveState *state)
 {
 	HTMLClueFlow *next = NULL;
 	HTMLClueFlow *prev = NULL;
@@ -1849,7 +1967,8 @@ save (HTMLObject *s,
 }
 
 static void
-write_item_marker (GString *pad_string, HTMLClueFlow *flow)
+write_item_marker (GString *pad_string,
+                   HTMLClueFlow *flow)
 {
 	gchar *marker;
 
@@ -1876,7 +1995,9 @@ write_item_marker (GString *pad_string, HTMLClueFlow *flow)
 }
 
 static gint
-plain_padding (HTMLClueFlow *flow, GString *out, gboolean firstline)
+plain_padding (HTMLClueFlow *flow,
+               GString *out,
+               gboolean firstline)
 {
 	GString *pad_string = NULL;
 	gint pad_len = 0;
@@ -1919,7 +2040,7 @@ plain_padding (HTMLClueFlow *flow, GString *out, gboolean firstline)
 
 static void
 append_selection_string (HTMLObject *self,
-			 GString *buffer)
+                         GString *buffer)
 {
 	(*HTML_OBJECT_CLASS (parent_class)->append_selection_string) (self, buffer);
 
@@ -1935,7 +2056,8 @@ append_selection_string (HTMLObject *self,
  * zero-width or combined characters.)
  */
 static gint
-utf8_width (const gchar *str, gint len)
+utf8_width (const gchar *str,
+            gint len)
 {
 	gunichar c;
 	gint width = 0;
@@ -1953,7 +2075,9 @@ utf8_width (const gchar *str, gint len)
  * not exceeding the given width.
  */
 static gint
-utf8_length_in_width (const gchar *str, gint len, gint width)
+utf8_length_in_width (const gchar *str,
+                      gint len,
+                      gint width)
 {
 	gunichar c;
 	gint l = 0;
@@ -1972,8 +2096,8 @@ utf8_length_in_width (const gchar *str, gint len, gint width)
 
 static gboolean
 save_plain (HTMLObject *self,
-	    HTMLEngineSaveState *state,
-	    gint requested_width)
+            HTMLEngineSaveState *state,
+            gint requested_width)
 {
 	HTMLClueFlow *flow;
 	HTMLEngineSaveState *buffer_state;
@@ -2197,7 +2321,11 @@ get_default_font_style (const HTMLClueFlow *self)
 }
 
 static void
-search_set_info (HTMLObject *cur, HTMLSearch *info, guchar *text, guint index, guint bytes)
+search_set_info (HTMLObject *cur,
+                 HTMLSearch *info,
+                 guchar *text,
+                 guint index,
+                 guint bytes)
 {
 	guint text_bytes = 0;
 	guint cur_bytes;
@@ -2237,7 +2365,8 @@ search_set_info (HTMLObject *cur, HTMLSearch *info, guchar *text, guint index, g
 
 /* search text objects ([TextMaster, LinkTextMaster], TextSlave*) */
 static gboolean
-search_text (HTMLObject **beg, HTMLSearch *info)
+search_text (HTMLObject **beg,
+             HTMLSearch *info)
 {
 	HTMLObject *cur = *beg;
 	HTMLObject *end = cur;
@@ -2313,7 +2442,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 				/* guchar *p=par+pos; */
 
 				/* FIXME UTF8
-				   replace &nbsp;'s with spaces
+				 * replace &nbsp;'s with spaces
 				while (*p) {
 					if (*p == ENTITY_NBSP) {
 						*p = ' ';
@@ -2355,7 +2484,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 #endif
 			} else {
 				/* substring search - simple one - could be improved
-				   go thru par and look for info->text */
+				 * go thru par and look for info->text */
 				while ((info->forward && par[index])
 				       || (!info->forward && index >= 0)) {
 					gunichar unicode_info, unicode_par;
@@ -2374,7 +2503,7 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 							/* The above par + index is always at the beginning of the last character matched */
 							index = (guchar *) g_utf8_next_char ((gchar *) par + index) - par - eq_bytes;
 							search_set_info (head, info, par, index, info->text_bytes);
-							retval=TRUE;
+							retval = TRUE;
 							break;
 						}
 					} else {
@@ -2398,7 +2527,8 @@ search_text (HTMLObject **beg, HTMLSearch *info)
 }
 
 static gboolean
-search (HTMLObject *obj, HTMLSearch *info)
+search (HTMLObject *obj,
+        HTMLSearch *info)
 {
 	HTMLClue *clue = HTML_CLUE (obj);
 	HTMLObject *cur;
@@ -2456,15 +2586,16 @@ search (HTMLObject *obj, HTMLSearch *info)
 }
 
 static gboolean
-search_next (HTMLObject *obj, HTMLSearch *info)
+search_next (HTMLObject *obj,
+             HTMLSearch *info)
 {
 	return FALSE;
 }
 
 static gboolean
 relayout (HTMLObject *self,
-	  HTMLEngine *engine,
-	  HTMLObject *child)
+          HTMLEngine *engine,
+          HTMLObject *child)
 {
 	gint mw;
 
@@ -2512,8 +2643,8 @@ html_clueflow_real_get_direction (HTMLObject *o)
 
 void
 html_clueflow_class_init (HTMLClueFlowClass *klass,
-			  HTMLType type,
-			  guint size)
+                          HTMLType type,
+                          guint size)
 {
 	HTMLClueClass *clue_class;
 	HTMLObjectClass *object_class;
@@ -2553,9 +2684,13 @@ html_clueflow_class_init (HTMLClueFlowClass *klass,
 }
 
 void
-html_clueflow_init (HTMLClueFlow *clueflow, HTMLClueFlowClass *klass,
-		    HTMLClueFlowStyle style, GByteArray *levels, HTMLListType item_type, gint item_number,
-		    HTMLClearType clear)
+html_clueflow_init (HTMLClueFlow *clueflow,
+                    HTMLClueFlowClass *klass,
+                    HTMLClueFlowStyle style,
+                    GByteArray *levels,
+                    HTMLListType item_type,
+                    gint item_number,
+                    HTMLClearType clear)
 {
 	HTMLObject *object;
 	HTMLClue *clue;
@@ -2583,7 +2718,11 @@ html_clueflow_init (HTMLClueFlow *clueflow, HTMLClueFlowClass *klass,
 }
 
 HTMLObject *
-html_clueflow_new (HTMLClueFlowStyle style, GByteArray *levels, HTMLListType item_type, gint item_number, HTMLClearType clear)
+html_clueflow_new (HTMLClueFlowStyle style,
+                   GByteArray *levels,
+                   HTMLListType item_type,
+                   gint item_number,
+                   HTMLClearType clear)
 {
 	HTMLClueFlow *clueflow;
 
@@ -2631,7 +2770,7 @@ html_clueflow_get_default_font_style (const HTMLClueFlow *self)
  **/
 HTMLClueFlow *
 html_clueflow_split (HTMLClueFlow *clue,
-		     HTMLObject *child)
+                     HTMLObject *child)
 {
 	HTMLClueFlow *new;
 	HTMLObject *prev;
@@ -2669,7 +2808,7 @@ html_clueflow_split (HTMLClueFlow *clue,
 
 static void
 relayout_and_draw (HTMLObject *object,
-		   HTMLEngine *engine)
+                   HTMLEngine *engine)
 {
 	if (engine == NULL)
 		return;
@@ -2679,12 +2818,12 @@ relayout_and_draw (HTMLObject *object,
 }
 
 /* This performs a relayout of the object when the indentation level
-   has changed.  In this case, we need to relayout the previous
-   paragraph and the following one, because their padding might change
-   after the level change. */
+ * has changed.  In this case, we need to relayout the previous
+ * paragraph and the following one, because their padding might change
+ * after the level change. */
 static void
 relayout_with_siblings (HTMLClueFlow *flow,
-			HTMLEngine *engine)
+                        HTMLEngine *engine)
 {
 	if (engine == NULL)
 		return;
@@ -2703,8 +2842,8 @@ relayout_with_siblings (HTMLClueFlow *flow,
 
 void
 html_clueflow_set_style (HTMLClueFlow *flow,
-			 HTMLEngine *engine,
-			 HTMLClueFlowStyle style)
+                         HTMLEngine *engine,
+                         HTMLClueFlowStyle style)
 {
 	g_return_if_fail (flow != NULL);
 	g_return_if_fail (engine != NULL);
@@ -2732,8 +2871,8 @@ html_clueflow_dup_levels (HTMLClueFlow *flow)
 
 void
 html_clueflow_set_levels (HTMLClueFlow *flow,
-			  HTMLEngine *engine,
-			  GByteArray *levels)
+                          HTMLEngine *engine,
+                          GByteArray *levels)
 {
 	HTMLObject *next_relative;
 
@@ -2749,8 +2888,8 @@ html_clueflow_set_levels (HTMLClueFlow *flow,
 
 void
 html_clueflow_set_item_type (HTMLClueFlow *flow,
-			     HTMLEngine *engine,
-			     HTMLListType item_type)
+                             HTMLEngine *engine,
+                             HTMLListType item_type)
 {
 	g_return_if_fail (flow != NULL);
 	g_return_if_fail (engine != NULL);
@@ -2789,8 +2928,8 @@ html_clueflow_get_item_type (HTMLClueFlow *flow)
 
 void
 html_clueflow_set_halignment (HTMLClueFlow *flow,
-			      HTMLEngine *engine,
-			      HTMLHAlignType alignment)
+                              HTMLEngine *engine,
+                              HTMLHAlignType alignment)
 {
 	g_return_if_fail (flow != NULL);
 	g_return_if_fail (engine != NULL);
@@ -2803,9 +2942,9 @@ html_clueflow_set_halignment (HTMLClueFlow *flow,
 
 void
 html_clueflow_modify_indentation_by_delta (HTMLClueFlow *flow,
-					   HTMLEngine *engine,
-					   gint indentation_delta,
-					   guint8 *indentation_levels)
+                                           HTMLEngine *engine,
+                                           gint indentation_delta,
+                                           guint8 *indentation_levels)
 {
 	HTMLObject *next_relative;
 	gint indentation;
@@ -2837,9 +2976,9 @@ html_clueflow_modify_indentation_by_delta (HTMLClueFlow *flow,
 
 void
 html_clueflow_set_indentation (HTMLClueFlow *flow,
-			       HTMLEngine *engine,
-			       gint indentation,
-			       guint8 *indentation_levels)
+                               HTMLEngine *engine,
+                               gint indentation,
+                               guint8 *indentation_levels)
 {
 	HTMLObject *next_relative;
 	gint i;
@@ -2876,10 +3015,10 @@ html_clueflow_get_indentation (HTMLClueFlow *flow)
 #if 0
 void
 html_clueflow_set_properties (HTMLClueFlow *flow,
-			      HTMLEngine *engine,
-			      HTMLClueFlowStyle style,
-			      guint8 indentation,
-			      HTMLHAlignType alignment)
+                              HTMLEngine *engine,
+                              HTMLClueFlowStyle style,
+                              guint8 indentation,
+                              HTMLHAlignType alignment)
 {
 	g_return_if_fail (flow != NULL);
 	g_return_if_fail (engine != NULL);
@@ -2895,9 +3034,9 @@ html_clueflow_set_properties (HTMLClueFlow *flow,
 
 void
 html_clueflow_get_properties (HTMLClueFlow *flow,
-			      HTMLClueFlowStyle *style_return,
-			      guint8 *indentation_return,
-			      HTMLHAlignType *alignment_return)
+                              HTMLClueFlowStyle *style_return,
+                              guint8 *indentation_return,
+                              HTMLHAlignType *alignment_return)
 {
 	g_return_if_fail (flow != NULL);
 
@@ -2915,7 +3054,8 @@ html_clueflow_get_properties (HTMLClueFlow *flow,
 #include "htmlinterval.h"
 
 static guint
-get_text_bytes (HTMLClue *clue, HTMLInterval *i)
+get_text_bytes (HTMLClue *clue,
+                HTMLInterval *i)
 {
 	HTMLObject *obj;
 	guint bytes;
@@ -2937,7 +3077,8 @@ get_text_bytes (HTMLClue *clue, HTMLInterval *i)
 }
 
 static gchar *
-get_text (HTMLClue *clue, HTMLInterval *i)
+get_text (HTMLClue *clue,
+          HTMLInterval *i)
 {
 	HTMLObject *obj;
 	guint cb, bytes = 0;
@@ -2967,7 +3108,10 @@ get_text (HTMLClue *clue, HTMLInterval *i)
 }
 
 static HTMLObject *
-next_obj_and_clear (HTMLObject *obj, guint *off, gboolean *is_text, HTMLInterval *i)
+next_obj_and_clear (HTMLObject *obj,
+                    guint *off,
+                    gboolean *is_text,
+                    HTMLInterval *i)
 {
 	*off += html_object_get_length (obj) - html_interval_get_start (i, obj);
 	obj = obj->next;
@@ -2978,7 +3122,11 @@ next_obj_and_clear (HTMLObject *obj, guint *off, gboolean *is_text, HTMLInterval
 }
 
 static HTMLObject *
-spell_check_word_mark (HTMLObject *obj, const gchar *text, const gchar *word, guint *off, HTMLInterval *i)
+spell_check_word_mark (HTMLObject *obj,
+                       const gchar *text,
+                       const gchar *word,
+                       guint *off,
+                       HTMLInterval *i)
 {
 	guint w_off, ioff;
 	guint len = g_utf8_strlen (word, -1);
@@ -3005,7 +3153,7 @@ spell_check_word_mark (HTMLObject *obj, const gchar *text, const gchar *word, gu
 					    g_utf8_offset_to_pointer (t, toff + ioff + tlen)
 					    - g_utf8_offset_to_pointer (t, toff + ioff)));
 			/* printf ("add spell error - word: %s off: %d beg: %s len: %d\n",
-			   word, *off, HTML_TEXT (obj)->text + toff, tlen); */
+			 * word, *off, HTML_TEXT (obj)->text + toff, tlen); */
 			html_text_spell_errors_add (HTML_TEXT (obj),
 						    ioff + toff, tlen);
 			len     -= tlen;
@@ -3022,7 +3170,9 @@ spell_check_word_mark (HTMLObject *obj, const gchar *text, const gchar *word, gu
 }
 
 static gchar *
-begin_of_word (gchar *text, gchar *ct, gboolean *cited)
+begin_of_word (gchar *text,
+               gchar *ct,
+               gboolean *cited)
 {
 	gunichar uc;
 
@@ -3035,7 +3185,8 @@ begin_of_word (gchar *text, gchar *ct, gboolean *cited)
 }
 
 static gchar *
-end_of_word (gchar *ct, gboolean cited)
+end_of_word (gchar *ct,
+             gboolean cited)
 {
 	gunichar uc, ucn;
 	gchar *cn;
@@ -3056,14 +3207,18 @@ end_of_word (gchar *ct, gboolean cited)
 }
 
 static void
-queue_draw (HTMLObject *o, HTMLEngine *e, HTMLInterval *i)
+queue_draw (HTMLObject *o,
+            HTMLEngine *e,
+            HTMLInterval *i)
 {
 	if (html_object_is_text (o))
 		html_text_queue_draw (HTML_TEXT (o), e, html_interval_get_start (i, o), html_interval_get_length (i, o));
 }
 
 void
-html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *interval)
+html_clueflow_spell_check (HTMLClueFlow *flow,
+                           HTMLEngine *e,
+                           HTMLInterval *interval)
 {
 	HTMLObject *obj;
 	HTMLClue *clue;
@@ -3075,7 +3230,7 @@ html_clueflow_spell_check (HTMLClueFlow *flow, HTMLEngine *e, HTMLInterval *inte
 	g_return_if_fail (HTML_OBJECT_TYPE (flow) == HTML_TYPE_CLUEFLOW);
 
 	/* if (interval)
-	   printf ("html_clueflow_spell_check %p %p %d %d\n", i->from, i->to, i->from_offset, i->to_offset); */
+	 * printf ("html_clueflow_spell_check %p %p %d %d\n", i->from, i->to, i->from_offset, i->to_offset); */
 
 	clue = HTML_CLUE (flow);
 	if (!e->widget->editor_api || !gtk_html_get_inline_spelling (e->widget) || !clue || !clue->tail)
@@ -3166,7 +3321,9 @@ html_clueflow_contains_table (HTMLClueFlow *flow)
 }
 
 gint
-html_clueflow_get_line_offset (HTMLClueFlow *flow, HTMLPainter *painter, HTMLObject *child)
+html_clueflow_get_line_offset (HTMLClueFlow *flow,
+                               HTMLPainter *painter,
+                               HTMLObject *child)
 {
 	HTMLObject *o, *head;
 	gint line_offset;
@@ -3209,14 +3366,16 @@ html_clueflow_get_line_offset (HTMLClueFlow *flow, HTMLPainter *painter, HTMLObj
 }
 
 gboolean
-html_clueflow_tabs (HTMLClueFlow *flow, HTMLPainter *p)
+html_clueflow_tabs (HTMLClueFlow *flow,
+                    HTMLPainter *p)
 {
 	return (flow && HTML_IS_CLUEFLOW (flow) && flow->style == HTML_CLUEFLOW_STYLE_PRE) || HTML_IS_PLAIN_PAINTER (p)
 		? TRUE : FALSE;
 }
 
 void
-html_clueflow_set_item_color (HTMLClueFlow *flow, HTMLColor *color)
+html_clueflow_set_item_color (HTMLClueFlow *flow,
+                              HTMLColor *color)
 {
 	if (flow->item_color)
 		html_color_unref (flow->item_color);
@@ -3226,7 +3385,8 @@ html_clueflow_set_item_color (HTMLClueFlow *flow, HTMLColor *color)
 }
 
 gboolean
-html_clueflow_style_equals (HTMLClueFlow *cf1, HTMLClueFlow *cf2)
+html_clueflow_style_equals (HTMLClueFlow *cf1,
+                            HTMLClueFlow *cf2)
 {
 	if (!cf1 || !cf2
 	    || !HTML_IS_CLUEFLOW (cf1) || !HTML_IS_CLUEFLOW (cf2)

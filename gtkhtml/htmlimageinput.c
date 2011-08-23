@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
-
-    Copyright (C) 2000 Jonas Borgström <jonas_b@bitsmart.com>.
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
+ *
+ *  Copyright (C) 2000 Jonas Borgström <jonas_b@bitsmart.com>.
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -55,9 +55,12 @@ copy (HTMLObject *self,
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
-      gint x, gint y,
-      gint width, gint height,
-      gint tx, gint ty)
+      gint x,
+      gint y,
+      gint width,
+      gint height,
+      gint tx,
+      gint ty)
 {
 	HTML_OBJECT (HTML_IMAGEINPUT (o)->image)->x = o->x;
 	HTML_OBJECT (HTML_IMAGEINPUT (o)->image)->y = o->y;
@@ -71,12 +74,12 @@ draw (HTMLObject *o,
 
 
 /* Even if it's an HTMLEmbeddable, HTMLImageInput does not use a
-   widget, so we need to implement these methods ourselves instead of
-   using the HTMLEmbeddable default implementations.  */
+ * widget, so we need to implement these methods ourselves instead of
+ * using the HTMLEmbeddable default implementations.  */
 
 static gint
 calc_min_width (HTMLObject *self,
-		HTMLPainter *painter)
+                HTMLPainter *painter)
 {
 	HTMLImageInput *image_input;
 
@@ -87,7 +90,9 @@ calc_min_width (HTMLObject *self,
 }
 
 static gboolean
-html_image_input_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
+html_image_input_real_calc_size (HTMLObject *self,
+                                 HTMLPainter *painter,
+                                 GList **changed_objs)
 {
 	HTMLImageInput *image_input;
 	HTMLObject *image_object;
@@ -107,7 +112,8 @@ html_image_input_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList *
 
 
 static gchar *
-encode (HTMLEmbedded *e, const gchar *codepage)
+encode (HTMLEmbedded *e,
+        const gchar *codepage)
 {
 	GString *encoding = g_string_new ("");
 	gchar *ptr;
@@ -145,8 +151,8 @@ html_imageinput_type_init (void)
 
 void
 html_imageinput_class_init (HTMLImageInputClass *klass,
-			    HTMLType type,
-			    guint size)
+                            HTMLType type,
+                            guint size)
 {
 	HTMLEmbeddedClass *element_class;
 	HTMLObjectClass *object_class;
@@ -171,9 +177,10 @@ html_imageinput_class_init (HTMLImageInputClass *klass,
 
 void
 html_imageinput_init (HTMLImageInput *img,
-		      HTMLImageInputClass *klass,
-		      HTMLImageFactory *imf,
-		      gchar *name, gchar *url)
+                      HTMLImageInputClass *klass,
+                      HTMLImageFactory *imf,
+                      gchar *name,
+                      gchar *url)
 {
 	HTMLEmbedded *element;
 	HTMLObject *object;
@@ -198,8 +205,8 @@ html_imageinput_init (HTMLImageInput *img,
 
 HTMLObject *
 html_imageinput_new (HTMLImageFactory *imf,
-		     gchar *name,
-		     gchar *url)
+                     gchar *name,
+                     gchar *url)
 {
 	HTMLImageInput *img;
 

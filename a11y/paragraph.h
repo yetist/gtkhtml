@@ -51,6 +51,6 @@ struct _HTMLA11YParagraphClass {
 	HTMLA11YClass parent_class;
 };
 
-AtkObject* html_a11y_paragraph_new (HTMLObject *o);
+AtkObject * html_a11y_paragraph_new (HTMLObject *o);
 
 #endif

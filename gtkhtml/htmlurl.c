@@ -1,24 +1,24 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  htmlurl.c
-
-    Copyright (C) 1999 Helix Code, Inc.
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
-
-    Author: Ettore Perazzoli (ettore@helixcode.com)  */
+ *
+ *  Copyright (C) 1999 Helix Code, Inc.
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
+ *
+ *  Author: Ettore Perazzoli (ettore@helixcode.com)  */
 
 #include <config.h>
 #include <stdio.h>
@@ -38,7 +38,8 @@ strdup_nonempty_or_null (const gchar *s)
 }
 
 static gchar *
-strndup_nonempty_or_null (const gchar *s, guint n)
+strndup_nonempty_or_null (const gchar *s,
+                          guint n)
 {
 	if (n == 0)
 		return NULL;
@@ -50,7 +51,8 @@ strndup_nonempty_or_null (const gchar *s, guint n)
 }
 
 static const gchar *
-scan_host_info (HTMLURL *url, const gchar *s)
+scan_host_info (HTMLURL *url,
+                const gchar *s)
 {
 	const gchar *slash_ptr;
 	const gchar *at_ptr;
@@ -138,7 +140,7 @@ html_url_new (const gchar *s)
 
 	/* Scan for the protocol part.  */
 	/* FIXME I am assuming that the correct regexp for detecting it is
-	   `^[a-zA-Z0-9]:'.  */
+	 * `^[a-zA-Z0-9]:'.  */
 
 	p = s;
 	while ((*p >= 'a' && *p <= 'z')
@@ -222,7 +224,8 @@ html_url_destroy (HTMLURL *url)
 }
 
 HTMLURL *
-html_url_dup (const HTMLURL *url, HTMLURLDupFlags flags)
+html_url_dup (const HTMLURL *url,
+              HTMLURLDupFlags flags)
 {
 	HTMLURL *new;
 	gchar *ptr;
@@ -297,7 +300,8 @@ SET_STR_FUNC (path)
 SET_STR_FUNC (reference)
 
 void
-html_url_set_port (HTMLURL *url, gushort port)
+html_url_set_port (HTMLURL *url,
+                   gushort port)
 {
 	g_return_if_fail (url != NULL);
 
@@ -447,7 +451,7 @@ html_url_to_string (const HTMLURL *url)
 	}
 
 	/* Notice that the `path' part is always supposed to start with a
-	   slash, so we don't need to append the slash here.  */
+	 * slash, so we don't need to append the slash here.  */
 
 	if (path_length != 0)
 		APPEND_MEMBER (path);
@@ -469,7 +473,8 @@ html_url_to_string (const HTMLURL *url)
 #define PATH_SEP_STR "/"
 
 static gchar *
-concat_dir_and_file (const gchar *dir, const gchar *file)
+concat_dir_and_file (const gchar *dir,
+                     const gchar *file)
 {
         /* If the directory name doesn't have a / on the end, we need
 	   to add one so we get a proper path to the file */
@@ -481,7 +486,7 @@ concat_dir_and_file (const gchar *dir, const gchar *file)
 
 HTMLURL *
 html_url_append_path (const HTMLURL *url,
-		      const gchar *path)
+                      const gchar *path)
 {
 	HTMLURL *new;
 	gchar *new_path, *tmppath, *ptr;
@@ -504,7 +509,7 @@ html_url_append_path (const HTMLURL *url,
 	i = strlen (tmppath);
 
 	/* Remove first '/' from the right */
-	while (i && tmppath[i-1] != '/')
+	while (i && tmppath[i - 1] != '/')
 		i--;
 
 	if (i)

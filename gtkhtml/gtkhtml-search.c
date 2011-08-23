@@ -1,23 +1,23 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
-
-    Copyright 1999, 2000 Helix Code, Inc.
-    Authors:             Radek Doulik (rodo@helixcode.com)
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
+ *
+ *  Copyright 1999, 2000 Helix Code, Inc.
+ *  Authors:             Radek Doulik (rodo@helixcode.com)
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -40,7 +40,8 @@ struct _GtkHTMLISearch {
 typedef struct _GtkHTMLISearch GtkHTMLISearch;
 
 static void
-changed (GtkEntry *entry, GtkHTMLISearch *data)
+changed (GtkEntry *entry,
+         GtkHTMLISearch *data)
 {
 	/* printf ("isearch changed to '%s'\n", gtk_entry_get_text (entry)); */
 	if (*gtk_entry_get_text (GTK_ENTRY (data->html->priv->search_input_line))) {
@@ -53,7 +54,8 @@ changed (GtkEntry *entry, GtkHTMLISearch *data)
 }
 
 static void
-continue_search (GtkHTMLISearch *data, gboolean forward)
+continue_search (GtkHTMLISearch *data,
+                 gboolean forward)
 {
 	HTMLEngine *e = data->html->engine;
 
@@ -88,7 +90,9 @@ data_destroy (GtkHTMLISearch *data)
 }
 
 static gint
-key_press (GtkWidget *widget, GdkEventKey *event, GtkHTMLISearch *data)
+key_press (GtkWidget *widget,
+           GdkEventKey *event,
+           GtkHTMLISearch *data)
 {
 	gint rv = TRUE;
 
@@ -105,7 +109,9 @@ key_press (GtkWidget *widget, GdkEventKey *event, GtkHTMLISearch *data)
 }
 
 static gint
-focus_out_event (GtkWidget *widget, GdkEventFocus *event, GtkHTMLISearch *data)
+focus_out_event (GtkWidget *widget,
+                 GdkEventFocus *event,
+                 GtkHTMLISearch *data)
 {
 	hide (data);
 
@@ -113,13 +119,15 @@ focus_out_event (GtkWidget *widget, GdkEventFocus *event, GtkHTMLISearch *data)
 }
 
 static void
-destroy (GtkWidget *w, GtkHTMLISearch *data)
+destroy (GtkWidget *w,
+         GtkHTMLISearch *data)
 {
 	data_destroy (data);
 }
 
 void
-gtk_html_isearch (GtkHTML *html, gboolean forward)
+gtk_html_isearch (GtkHTML *html,
+                  gboolean forward)
 {
 	GtkHTMLISearch *data;
 
@@ -160,13 +168,18 @@ gtk_html_isearch (GtkHTML *html, gboolean forward)
 }
 
 gboolean
-gtk_html_engine_search (GtkHTML *html, const gchar *text, gboolean case_sensitive, gboolean forward, gboolean regular)
+gtk_html_engine_search (GtkHTML *html,
+                        const gchar *text,
+                        gboolean case_sensitive,
+                        gboolean forward,
+                        gboolean regular)
 {
 	return html_engine_search (html->engine, text, case_sensitive, forward, regular);
 }
 
 void
-gtk_html_engine_search_set_forward (GtkHTML *html, gboolean forward)
+gtk_html_engine_search_set_forward (GtkHTML *html,
+                                    gboolean forward)
 {
 	html_engine_search_set_forward (html->engine, forward);
 }
@@ -178,7 +191,9 @@ gtk_html_engine_search_next (GtkHTML *html)
 }
 
 gboolean
-gtk_html_engine_search_incremental (GtkHTML *html, const gchar *text, gboolean forward)
+gtk_html_engine_search_incremental (GtkHTML *html,
+                                    const gchar *text,
+                                    gboolean forward)
 {
 	return html_engine_search_incremental (html->engine, text, forward);
 }

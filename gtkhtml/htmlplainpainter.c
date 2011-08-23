@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-
-   Copyright (C) 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright (C) 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -35,21 +35,26 @@ static HTMLGdkPainterClass *parent_class = NULL;
 
 static void
 draw_border (HTMLPainter *painter,
-	     GdkColor *bg,
-	     gint x, gint y,
-	     gint width, gint height,
-	     HTMLBorderStyle style,
-	     gint bordersize)
+             GdkColor *bg,
+             gint x,
+             gint y,
+             gint width,
+             gint height,
+             HTMLBorderStyle style,
+             gint bordersize)
 {
 }
 
 static void
 draw_background (HTMLPainter *painter,
-		 GdkColor *color,
-		 GdkPixbuf *pixbuf,
-		 gint x, gint y,
-		 gint width, gint height,
-		 gint tile_x, gint tile_y)
+                 GdkColor *color,
+                 GdkPixbuf *pixbuf,
+                 gint x,
+                 gint y,
+                 gint width,
+                 gint height,
+                 gint tile_x,
+                 gint tile_y)
 {
 	HTMLGdkPainter *gdk_painter;
 	GdkRectangle expose, paint, clip;
@@ -83,17 +88,21 @@ draw_background (HTMLPainter *painter,
 
 static void
 draw_pixmap (HTMLPainter *painter,
-	     GdkPixbuf *pixbuf,
-	     gint x, gint y,
-	     gint scale_width, gint scale_height,
-	     const GdkColor *color)
+             GdkPixbuf *pixbuf,
+             gint x,
+             gint y,
+             gint scale_width,
+             gint scale_height,
+             const GdkColor *color)
 {
 }
 
 static void
 fill_rect (HTMLPainter *painter,
-	   gint x, gint y,
-	   gint width, gint height)
+           gint x,
+           gint y,
+           gint width,
+           gint height)
 {
 	HTMLGdkPainter *gdk_painter;
 
@@ -105,8 +114,9 @@ fill_rect (HTMLPainter *painter,
 
 static void
 draw_shade_line (HTMLPainter *painter,
-		 gint x, gint y,
-		 gint width)
+                 gint x,
+                 gint y,
+                 gint width)
 {
 }
 
@@ -117,13 +127,16 @@ html_plain_painter_init (GObject *object)
 
 static void
 draw_rect (HTMLPainter *painter,
-	   gint x, gint y,
-	   gint width, gint height)
+           gint x,
+           gint y,
+           gint width,
+           gint height)
 {
 }
 
 static guint
-get_page_width (HTMLPainter *painter, HTMLEngine *e)
+get_page_width (HTMLPainter *painter,
+                HTMLEngine *e)
 {
 	return MIN (72 * MAX (html_painter_get_space_width (painter, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED, NULL),
 			      html_painter_get_e_width (painter, GTK_HTML_FONT_STYLE_SIZE_3 | GTK_HTML_FONT_STYLE_FIXED, NULL)),
@@ -131,7 +144,8 @@ get_page_width (HTMLPainter *painter, HTMLEngine *e)
 }
 
 static guint
-get_page_height (HTMLPainter *painter, HTMLEngine *e)
+get_page_height (HTMLPainter *painter,
+                 HTMLEngine *e)
 {
 	return html_engine_get_view_height (e) + (html_engine_get_top_border (e) + html_engine_get_bottom_border (e));
 }
@@ -179,7 +193,8 @@ html_plain_painter_get_type (void)
 }
 
 HTMLPainter *
-html_plain_painter_new (GtkWidget *widget, gboolean double_buffer)
+html_plain_painter_new (GtkWidget *widget,
+                        gboolean double_buffer)
 {
 	HTMLPlainPainter *new;
 

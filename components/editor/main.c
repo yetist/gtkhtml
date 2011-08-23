@@ -361,7 +361,8 @@ static GtkActionEntry view_entries[] = {
 };
 
 gint
-main (gint argc, gchar **argv)
+main (gint argc,
+      gchar **argv)
 {
 	GtkActionGroup *action_group;
 	GtkUIManager *manager;

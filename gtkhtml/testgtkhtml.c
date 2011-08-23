@@ -1,19 +1,19 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
 */
 
 #include "config.h"
@@ -203,7 +203,8 @@ static const gchar *ui_info =
 
 /* find examples*/
 static void
-example_changed_cb (GtkComboBox *combo_box, gpointer data)
+example_changed_cb (GtkComboBox *combo_box,
+                    gpointer data)
 {
 	gint i = gtk_combo_box_get_active (combo_box);
 	Example *example = examples->pdata[i];
@@ -219,7 +220,7 @@ example_changed_cb (GtkComboBox *combo_box, gpointer data)
  */
 static gint
 compare_examples (gconstpointer a,
-		  gconstpointer b)
+                  gconstpointer b)
 {
 	const Example *example_a = *(const Example *const *) a;
 	const Example *example_b = *(const Example *const *) b;
@@ -476,8 +477,13 @@ static gint page_num, pages;
 static PangoLayout *layout;
 
 static void
-print_footer (GtkHTML *html, GtkPrintContext *context, gdouble x, gdouble y,
-              gdouble width, gdouble height, gpointer user_data)
+print_footer (GtkHTML *html,
+              GtkPrintContext *context,
+              gdouble x,
+              gdouble y,
+              gdouble width,
+              gdouble height,
+              gpointer user_data)
 {
 	gchar *text;
 	cairo_t *cr;
@@ -498,8 +504,10 @@ print_footer (GtkHTML *html, GtkPrintContext *context, gdouble x, gdouble y,
 }
 
 static void
-draw_page_cb (GtkPrintOperation *operation, GtkPrintContext *context,
-              gint page_nr, gpointer user_data)
+draw_page_cb (GtkPrintOperation *operation,
+              GtkPrintContext *context,
+              gint page_nr,
+              gpointer user_data)
 {
 	/* XXX GtkHTML's printing API doesn't really fit well with GtkPrint.
 	 *     Instead of calling a function for each page, GtkHTML prints
@@ -537,7 +545,7 @@ draw_page_cb (GtkPrintOperation *operation, GtkPrintContext *context,
 
 static void
 print_preview_cb (GtkWidget *widget,
-		  gpointer data)
+                  gpointer data)
 {
 	GtkPrintOperation *operation;
 
@@ -555,7 +563,8 @@ print_preview_cb (GtkWidget *widget,
 }
 
 static void
-dump_cb (GtkWidget *widget, gpointer data)
+dump_cb (GtkWidget *widget,
+         gpointer data)
 {
 	g_print ("Object Tree\n");
 	g_print ("-----------\n");
@@ -564,7 +573,8 @@ dump_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
-dump_simple_cb (GtkWidget *widget, gpointer data)
+dump_simple_cb (GtkWidget *widget,
+                gpointer data)
 {
 	g_print ("Simple Object Tree\n");
 	g_print ("-----------\n");
@@ -573,34 +583,40 @@ dump_simple_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
-resize_cb (GtkWidget *widget, gpointer data)
+resize_cb (GtkWidget *widget,
+           gpointer data)
 {
 	g_print ("forcing resize\n");
 	html_engine_calc_size (html->engine, NULL);
 }
 
 static void
-select_all_cb (GtkWidget *widget, gpointer data)
+select_all_cb (GtkWidget *widget,
+               gpointer data)
 {
 	g_print ("select all\n");
 	gtk_html_select_all (html);
 }
 
 static void
-redraw_cb (GtkWidget *widget, gpointer data)
+redraw_cb (GtkWidget *widget,
+           gpointer data)
 {
 	g_print ("forcing redraw\n");
 	gtk_widget_queue_draw (GTK_WIDGET (html));
 }
 
 static void
-animate_cb (GtkToggleButton *togglebutton, gpointer data)
+animate_cb (GtkToggleButton *togglebutton,
+            gpointer data)
 {
 	gtk_html_set_animate (html, !gtk_toggle_button_get_mode (togglebutton));
 }
 
 static void
-title_changed_cb (GtkHTML *html, const gchar *title, gpointer data)
+title_changed_cb (GtkHTML *html,
+                  const gchar *title,
+                  gpointer data)
 {
 	gchar *s;
 
@@ -610,7 +626,8 @@ title_changed_cb (GtkHTML *html, const gchar *title, gpointer data)
 }
 
 static void
-entry_goto_url (GtkWidget *widget, gpointer data)
+entry_goto_url (GtkWidget *widget,
+                gpointer data)
 {
 	gchar *tmpurl;
 
@@ -632,13 +649,15 @@ entry_goto_url (GtkWidget *widget, gpointer data)
 }
 
 static void
-home_cb (GtkWidget *widget, gpointer data)
+home_cb (GtkWidget *widget,
+         gpointer data)
 {
 	goto_url("http://www.gnome.org", 0);
 }
 
 static void
-back_cb (GtkWidget *widget, gpointer data)
+back_cb (GtkWidget *widget,
+         gpointer data)
 {
 	go_item *item;
 
@@ -661,7 +680,8 @@ back_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
-forward_cb (GtkWidget *widget, gpointer data)
+forward_cb (GtkWidget *widget,
+            gpointer data)
 {
 	go_item *item;
 
@@ -683,7 +703,8 @@ forward_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
-reload_cb (GtkWidget *widget, gpointer data)
+reload_cb (GtkWidget *widget,
+           gpointer data)
 {
 	go_item *item;
 
@@ -694,7 +715,8 @@ reload_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
-stop_cb (GtkWidget *widget, gpointer data)
+stop_cb (GtkWidget *widget,
+         gpointer data)
 {
 	/* Kill all requests */
 	soup_session_abort (session);
@@ -705,14 +727,15 @@ static void
 load_done (GtkHTML *html)
 {
 	/* TODO2 animator stop
-
+ *
 	if (exit_when_done)
 		gtk_main_quit ();
 	*/
 }
 
 static gint
-on_button_press_event (GtkWidget *widget, GdkEventButton *event)
+on_button_press_event (GtkWidget *widget,
+                       GdkEventButton *event)
 {
 	GtkMenu *menu;
 
@@ -734,7 +757,9 @@ on_button_press_event (GtkWidget *widget, GdkEventButton *event)
 }
 
 static void
-on_set_base (GtkHTML *html, const gchar *url, gpointer data)
+on_set_base (GtkHTML *html,
+             const gchar *url,
+             gpointer data)
 {
 	gtk_entry_set_text (GTK_ENTRY (entry), url);
 	if (baseURL)
@@ -750,47 +775,60 @@ on_set_base (GtkHTML *html, const gchar *url, gpointer data)
 static gboolean
 redirect_timer_event (gpointer data) {
 	g_print("Redirecting to '%s' NOW\n", redirect_url);
-	goto_url (redirect_url, 0);
+        goto_url (redirect_url,
+                      0);
 
 	/*	OBS: redirect_url is freed in goto_url */
 
-	return FALSE;
+        return FALSE;
 }
 
 static void
-on_redirect (GtkHTML *html, const gchar *url, gint delay, gpointer data) {
+on_redirect (GtkHTML *html,
+             const gchar *url,
+             gint delay,
+             gpointer data) {
 	g_print("Redirecting to '%s' in %d seconds\n", url, delay);
 
-	if (redirect_timerId == 0) {
+        if (redirect_timerId == 0) {
 
-		redirect_url = g_strdup (url);
+                redirect_url = g_strdup (url);
 
-		redirect_timerId = g_timeout_add (delay * 1000,(GSourceFunc) redirect_timer_event, NULL);
-	}
+                redirect_timerId = g_timeout_add (delay *1000,(GSourceFunc) redirect_timer_event,
+             NULL);
+        }
 }
 
 static void
-on_submit (GtkHTML *html, const gchar *method, const gchar *action, const gchar *encoding, gpointer data) {
-	GString *tmpstr = g_string_new (action);
+on_submit (GtkHTML *html,
+           const gchar *method,
+           const gchar *action,
+           const gchar *encoding,
+           gpointer data) {
+        GString *tmpstr = g_string_new (action);
 
 	g_print("submitting '%s' to '%s' using method '%s'\n", encoding, action, method);
 
 	if (g_ascii_strcasecmp(method, "GET") == 0) {
 
-		tmpstr = g_string_append_c (tmpstr, '?');
-		tmpstr = g_string_append (tmpstr, encoding);
+                tmpstr = g_string_append_c (tmpstr, '?');
+                tmpstr = g_string_append (tmpstr,
+           encoding);
 
-		goto_url (tmpstr->str, 0);
+                goto_url (tmpstr->str,
+           0);
 
-		g_string_free (tmpstr, TRUE);
-	} else {
+                g_string_free (tmpstr,
+           TRUE);
+        } else {
 		g_warning ("Unsupported submit method '%s'\n", method);
-	}
+        }
 
 }
 
 static void
-change_status_bar (GtkStatusbar * statusbar, const gchar * text)
+change_status_bar (GtkStatusbar *statusbar,
+                   const gchar *text)
 {
 	gchar *msg;
 
@@ -809,13 +847,17 @@ change_status_bar (GtkStatusbar * statusbar, const gchar * text)
 }
 
 static void
-on_url (GtkHTML *html, const gchar *url, gpointer data)
+on_url (GtkHTML *html,
+        const gchar *url,
+        gpointer data)
 {
 	change_status_bar (GTK_STATUSBAR (statusbar), url);
 }
 
 static void
-on_link_clicked (GtkHTML *html, const gchar *url, gpointer data)
+on_link_clicked (GtkHTML *html,
+                 const gchar *url,
+                 gpointer data)
 {
 	goto_url (url, 0);
 }
@@ -830,7 +872,7 @@ object_timeout (GtkHTMLEmbedded *eb)
 	gtk_widget_show (w);
 
 	printf("inserting custom widget after a delay ...\n");
-	gtk_html_embedded_set_descent (eb, rand ()%8);
+	gtk_html_embedded_set_descent (eb, rand () % 8);
 	gtk_container_add (GTK_CONTAINER (eb), w);
 	g_object_unref (eb);
 
@@ -838,7 +880,9 @@ object_timeout (GtkHTMLEmbedded *eb)
 }
 
 static gboolean
-object_requested_cmd (GtkHTML *html, GtkHTMLEmbedded *eb, gpointer data)
+object_requested_cmd (GtkHTML *html,
+                      GtkHTMLEmbedded *eb,
+                      gpointer data)
 {
 	/* printf("object requested, wiaint a bit before creating it ...\n"); */
 
@@ -853,7 +897,9 @@ object_requested_cmd (GtkHTML *html, GtkHTMLEmbedded *eb, gpointer data)
 }
 
 static void
-got_data (SoupSession *session, SoupMessage *msg, gpointer user_data)
+got_data (SoupSession *session,
+          SoupMessage *msg,
+          gpointer user_data)
 {
 	const gchar *ContentType;
 	GtkHTMLStream *handle = user_data;
@@ -877,7 +923,10 @@ got_data (SoupSession *session, SoupMessage *msg, gpointer user_data)
 }
 
 static void
-url_requested (GtkHTML *html, const gchar *url, GtkHTMLStream *handle, gpointer data)
+url_requested (GtkHTML *html,
+               const gchar *url,
+               GtkHTMLStream *handle,
+               gpointer data)
 {
 	gchar *full_url = NULL;
 
@@ -893,7 +942,7 @@ url_requested (GtkHTML *html, const gchar *url, GtkHTMLStream *handle, gpointer 
 		gchar *buf;
 		gint fd, nread, total;
 
-		fd = g_open (filename, O_RDONLY|O_BINARY, 0);
+		fd = g_open (filename, O_RDONLY | O_BINARY, 0);
 		g_free (filename);
 		if (fd != -1 && fstat (fd, &st) != -1) {
 			buf = g_malloc (st.st_size);
@@ -985,7 +1034,8 @@ parse_href (const gchar *s)
 }
 
 static void
-go_list_cb (GtkWidget *widget, gpointer data)
+go_list_cb (GtkWidget *widget,
+            gpointer data)
 {
 	go_item *item;
 	gint num;
@@ -1027,7 +1077,8 @@ static void remove_go_list (gpointer data, gpointer user_data) {
 }
 
 static void
-goto_url (const gchar *url, gint back_or_forward)
+goto_url (const gchar *url,
+          gint back_or_forward)
 {
 	gint tmp, i;
 	go_item *item;
@@ -1104,7 +1155,7 @@ goto_url (const gchar *url, gint back_or_forward)
 		tmp = g_list_length (go_list);
 		group = NULL;
 
-		for (i=0;i<tmp;i++) {
+		for (i = 0; i < tmp; i++) {
 
 			item = g_list_nth_data (go_list, i);
 			item->widget = gtk_radio_menu_item_new_with_label (group, item->url);
@@ -1141,7 +1192,8 @@ goto_url (const gchar *url, gint back_or_forward)
 }
 
 static void
-bug_cb (GtkWidget *widget, gpointer data)
+bug_cb (GtkWidget *widget,
+        gpointer data)
 {
 	gchar *cwd, *filename, *url;
 
@@ -1155,13 +1207,16 @@ bug_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
-exit_cb (GtkWidget *widget, gpointer data)
+exit_cb (GtkWidget *widget,
+         gpointer data)
 {
 	gtk_main_quit ();
 }
 
 static gboolean
-motion_notify_event (GtkHTML *html, GdkEventMotion *event, gpointer data)
+motion_notify_event (GtkHTML *html,
+                     GdkEventMotion *event,
+                     gpointer data)
 {
 	const gchar *id;
 
@@ -1173,7 +1228,8 @@ motion_notify_event (GtkHTML *html, GdkEventMotion *event, gpointer data)
 }
 
 gint
-main (gint argc, gchar *argv[])
+main (gint argc,
+      gchar *argv[])
 {
 	GtkWidget *app, *bar, *main_table;
 	GtkWidget *html_widget;

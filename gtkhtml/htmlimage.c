@@ -1,26 +1,26 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-
-   Copyright (C) 1997 Martin Jones (mjones@kde.org)
-   Copyright (C) 1997 Torben Weis (weis@kde.org)
-   Copyright (C) 1999 Red Hat Software
-   Copyright (C) 1999, 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
-
+ *
+ * Copyright (C) 1997 Martin Jones (mjones@kde.org)
+ * Copyright (C) 1997 Torben Weis (weis@kde.org)
+ * Copyright (C) 1999 Red Hat Software
+ * Copyright (C) 1999, 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
+ *
 */
 
 #include <config.h>
@@ -73,7 +73,8 @@ static void                html_image_pointer_start_animation   (HTMLImagePointe
 static GdkPixbuf *         html_image_factory_get_missing       (HTMLImageFactory *factory);
 
 guint
-html_image_get_actual_width (HTMLImage *image, HTMLPainter *painter)
+html_image_get_actual_width (HTMLImage *image,
+                             HTMLPainter *painter)
 {
 	GdkPixbufAnimation *anim = image->image_ptr->animation;
 	gint pixel_size = painter ? html_painter_get_pixel_size (painter) : 1;
@@ -81,7 +82,7 @@ html_image_get_actual_width (HTMLImage *image, HTMLPainter *painter)
 
 	if (image->percent_width) {
 		/* The cast to `gdouble' is to avoid overflow (eg. when
-		   printing).  */
+		 * printing).  */
 		width = ((gdouble) HTML_OBJECT (image)->max_width
 			 * image->specified_width) / 100;
 	} else if (image->specified_width > 0) {
@@ -106,7 +107,8 @@ html_image_get_actual_width (HTMLImage *image, HTMLPainter *painter)
 }
 
 guint
-html_image_get_actual_height (HTMLImage *image, HTMLPainter *painter)
+html_image_get_actual_height (HTMLImage *image,
+                              HTMLPainter *painter)
 {
 	GdkPixbufAnimation *anim = image->image_ptr->animation;
 	gint pixel_size = painter ? html_painter_get_pixel_size (painter) : 1;
@@ -114,7 +116,7 @@ html_image_get_actual_height (HTMLImage *image, HTMLPainter *painter)
 
 	if (image->percent_height) {
 		/* The cast to `gdouble' is to avoid overflow (eg. when
-		   printing).  */
+		 * printing).  */
 		height = ((gdouble) html_engine_get_view_height (image->image_ptr->factory->engine)
 			  * image->specified_height) / 100;
 	} else if (image->specified_height > 0) {
@@ -141,9 +143,9 @@ html_image_get_actual_height (HTMLImage *image, HTMLPainter *painter)
 /* HTMLObject methods.  */
 
 /* FIXME: We should close the stream here, too.  But in practice we cannot
-   because the stream pointer might be invalid at this point, and there is no
-   way to set it to NULL when the stream is closed.  This clearly sucks and
-   must be fixed.  */
+ * because the stream pointer might be invalid at this point, and there is no
+ * way to set it to NULL when the stream is closed.  This clearly sucks and
+ * must be fixed.  */
 static void
 destroy (HTMLObject *o)
 {
@@ -209,7 +211,9 @@ copy (HTMLObject *self,
 }
 
 static void
-image_update_url (HTMLImage *image, gint x, gint y)
+image_update_url (HTMLImage *image,
+                  gint x,
+                  gint y)
 {
 	HTMLMap *map;
 	HTMLObject *o = HTML_OBJECT (image);
@@ -243,10 +247,11 @@ image_update_url (HTMLImage *image, gint x, gint y)
 
 static HTMLObject *
 check_point (HTMLObject *self,
-	     HTMLPainter *painter,
-	     gint x, gint y,
-	     guint *offset_return,
-	     gboolean for_cursor)
+             HTMLPainter *painter,
+             gint x,
+             gint y,
+             guint *offset_return,
+             gboolean for_cursor)
 {
 	if ((x >= self->x)
 	    && (x < (self->x + self->width))
@@ -264,7 +269,7 @@ check_point (HTMLObject *self,
 
 static gint
 calc_min_width (HTMLObject *o,
-		HTMLPainter *painter)
+                HTMLPainter *painter)
 {
 	HTMLImage *image = HTML_IMAGE (o);
 	guint pixel_size;
@@ -284,7 +289,7 @@ calc_min_width (HTMLObject *o,
 
 static gint
 calc_preferred_width (HTMLObject *o,
-		      HTMLPainter *painter)
+                      HTMLPainter *painter)
 {
 	HTMLImage *image = HTML_IMAGE (o);
 	guint width;
@@ -296,7 +301,9 @@ calc_preferred_width (HTMLObject *o,
 }
 
 static gboolean
-html_image_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
+html_image_real_calc_size (HTMLObject *o,
+                           HTMLPainter *painter,
+                           GList **changed_objs)
 {
 	HTMLImage *image;
 	guint pixel_size;
@@ -339,7 +346,14 @@ html_image_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_
 }
 
 static void
-draw_plain (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint height, gint tx, gint ty)
+draw_plain (HTMLObject *o,
+            HTMLPainter *p,
+            gint x,
+            gint y,
+            gint width,
+            gint height,
+            gint tx,
+            gint ty)
 {
 	HTMLImage *img = HTML_IMAGE (o);
 	HTMLEngine *e;
@@ -375,7 +389,9 @@ draw_plain (HTMLObject *o, HTMLPainter *p, gint x, gint y, gint width, gint heig
 }
 
 static void
-draw_focus  (HTMLImage *image, HTMLPainter *painter, GdkRectangle *box)
+draw_focus (HTMLImage *image,
+             HTMLPainter *painter,
+             GdkRectangle *box)
 {
 	HTMLGdkPainter *p;
 	const double dashes[] = { 1, 1 };
@@ -407,9 +423,12 @@ draw_focus  (HTMLImage *image, HTMLPainter *painter, GdkRectangle *box)
 static void
 draw (HTMLObject *o,
       HTMLPainter *painter,
-      gint x, gint y,
-      gint width, gint height,
-      gint tx, gint ty)
+      gint x,
+      gint y,
+      gint width,
+      gint height,
+      gint tx,
+      gint ty)
 {
 	HTMLImage *image;
 	HTMLImagePointer *ip;
@@ -553,7 +572,8 @@ draw (HTMLObject *o,
 }
 
 gchar *
-html_image_resolve_image_url (GtkHTML *html, gchar *image_url)
+html_image_resolve_image_url (GtkHTML *html,
+                              gchar *image_url)
 {
 	gchar *url = NULL;
 
@@ -671,8 +691,8 @@ save (HTMLObject *self,
 
 static gboolean
 save_plain (HTMLObject *self,
-	    HTMLEngineSaveState *state,
-	    gint requested_width)
+            HTMLEngineSaveState *state,
+            gint requested_width)
 {
 	HTMLImage *image;
 	gboolean rv = TRUE;
@@ -686,7 +706,8 @@ save_plain (HTMLObject *self,
 }
 
 static const gchar *
-get_url (HTMLObject *o, gint offset)
+get_url (HTMLObject *o,
+         gint offset)
 {
 	HTMLImage *image;
 
@@ -695,7 +716,8 @@ get_url (HTMLObject *o, gint offset)
 }
 
 static const gchar *
-get_target (HTMLObject *o, gint offset)
+get_target (HTMLObject *o,
+            gint offset)
 {
 	HTMLImage *image;
 
@@ -713,7 +735,10 @@ get_src (HTMLObject *o)
 }
 
 static HTMLObject *
-set_link (HTMLObject *self, HTMLColor *color, const gchar *url, const gchar *target)
+set_link (HTMLObject *self,
+          HTMLColor *color,
+          const gchar *url,
+          const gchar *target)
 {
 	HTMLImage *image = HTML_IMAGE (self);
 
@@ -750,10 +775,10 @@ get_valign (HTMLObject *self)
 
 static gboolean
 select_range (HTMLObject *self,
-	      HTMLEngine *engine,
-	      guint offset,
-	      gint length,
-	      gboolean queue_draw)
+              HTMLEngine *engine,
+              guint offset,
+              gint length,
+              gboolean queue_draw)
 {
 	/* printf ("IMAGE: select range\n"); */
 	if ((*parent_class->select_range) (self, engine, offset, length, queue_draw)) {
@@ -775,8 +800,8 @@ html_image_type_init (void)
 
 void
 html_image_class_init (HTMLImageClass *image_class,
-		       HTMLType type,
-		       guint size)
+                       HTMLType type,
+                       guint size)
 {
 	HTMLObjectClass *object_class;
 
@@ -806,17 +831,19 @@ html_image_class_init (HTMLImageClass *image_class,
 
 void
 html_image_init (HTMLImage *image,
-		 HTMLImageClass *klass,
-		 HTMLImageFactory *imf,
-		 const gchar *filename,
-		 const gchar *url,
-		 const gchar *target,
-		 gint16 width, gint16 height,
-		 gboolean percent_width, gboolean percent_height,
-		 gint8 border,
-		 HTMLColor *color,
-		 HTMLVAlignType valign,
-		 gboolean reload)
+                 HTMLImageClass *klass,
+                 HTMLImageFactory *imf,
+                 const gchar *filename,
+                 const gchar *url,
+                 const gchar *target,
+                 gint16 width,
+                 gint16 height,
+                 gboolean percent_width,
+                 gboolean percent_height,
+                 gint8 border,
+                 HTMLColor *color,
+                 HTMLVAlignType valign,
+                 gboolean reload)
 {
 	HTMLObject *object;
 
@@ -862,15 +889,17 @@ html_image_init (HTMLImage *image,
 
 HTMLObject *
 html_image_new (HTMLImageFactory *imf,
-		const gchar *filename,
-		const gchar *url,
-		const gchar *target,
-		gint16 width, gint16 height,
-		gboolean percent_width, gboolean percent_height,
-		gint8 border,
-		HTMLColor *color,
-		HTMLVAlignType valign,
-		gboolean reload)
+                const gchar *filename,
+                const gchar *url,
+                const gchar *target,
+                gint16 width,
+                gint16 height,
+                gboolean percent_width,
+                gboolean percent_height,
+                gint8 border,
+                HTMLColor *color,
+                HTMLVAlignType valign,
+                gboolean reload)
 {
 	HTMLImage *image;
 
@@ -892,7 +921,9 @@ html_image_new (HTMLImageFactory *imf,
 }
 
 void
-html_image_set_spacing (HTMLImage *image, gint hspace, gint vspace)
+html_image_set_spacing (HTMLImage *image,
+                        gint hspace,
+                        gint vspace)
 {
 	gboolean changed = FALSE;
 
@@ -913,7 +944,8 @@ html_image_set_spacing (HTMLImage *image, gint hspace, gint vspace)
 }
 
 void
-html_image_edit_set_url (HTMLImage *image, const gchar *url)
+html_image_edit_set_url (HTMLImage *image,
+                         const gchar *url)
 {
 	if (url) {
 		HTMLImageFactory *imf = image->image_ptr->factory;
@@ -927,7 +959,8 @@ html_image_edit_set_url (HTMLImage *image, const gchar *url)
 }
 
 void
-html_image_set_url (HTMLImage *image, const gchar *url)
+html_image_set_url (HTMLImage *image,
+                    const gchar *url)
 {
 	if (url && strcmp (image->image_ptr->url, url)) {
 		HTMLImageFactory *imf = image->image_ptr->factory;
@@ -938,7 +971,8 @@ html_image_set_url (HTMLImage *image, const gchar *url)
 }
 
 void
-html_image_set_valign (HTMLImage *image, HTMLVAlignType valign)
+html_image_set_valign (HTMLImage *image,
+                       HTMLVAlignType valign)
 {
 	if (image->valign != valign) {
 		image->valign = valign;
@@ -947,7 +981,8 @@ html_image_set_valign (HTMLImage *image, HTMLVAlignType valign)
 }
 
 void
-html_image_set_border (HTMLImage *image, gint border)
+html_image_set_border (HTMLImage *image,
+                       gint border)
 {
 	if (image->border != border) {
 		image->border = border;
@@ -957,14 +992,17 @@ html_image_set_border (HTMLImage *image, gint border)
 }
 
 void
-html_image_set_alt (HTMLImage *image, const gchar *alt)
+html_image_set_alt (HTMLImage *image,
+                    const gchar *alt)
 {
 	g_free (image->alt);
 	image->alt = g_strdup (alt);
 }
 
 void
-html_image_set_map (HTMLImage *image, gchar *usemap, gboolean ismap)
+html_image_set_map (HTMLImage *image,
+                    gchar *usemap,
+                    gboolean ismap)
 {
 	gchar *url = NULL;
 
@@ -980,7 +1018,11 @@ html_image_set_map (HTMLImage *image, gchar *usemap, gboolean ismap)
 }
 
 void
-html_image_set_size (HTMLImage *image, gint w, gint h, gboolean pw, gboolean ph)
+html_image_set_size (HTMLImage *image,
+                     gint w,
+                     gint h,
+                     gboolean pw,
+                     gboolean ph)
 {
 	gboolean changed = FALSE;
 
@@ -1014,7 +1056,7 @@ static gchar *fallback_image_content_types[] = { (gchar *) "image/*", NULL};
 
 static gchar **
 html_image_factory_types (GtkHTMLStream *stream,
-			  gpointer user_data)
+                          gpointer user_data)
 {
 	static gchar **image_content_types = NULL;
 
@@ -1081,7 +1123,7 @@ update_or_redraw (HTMLImagePointer *ip)
 				+ (image->border * 2 + 2 * image->vspace) * pixel_size;
 
 			/* printf ("%dx%d  <-->  %dx%d\n", w, h, HTML_OBJECT (list->data)->width,
-			   HTML_OBJECT (list->data)->ascent + HTML_OBJECT (list->data)->descent); */
+			 * HTML_OBJECT (list->data)->ascent + HTML_OBJECT (list->data)->descent); */
 
 			if (w != HTML_OBJECT (list->data)->width
 			    || h != HTML_OBJECT (list->data)->ascent + HTML_OBJECT (list->data)->descent) {
@@ -1109,8 +1151,8 @@ update_or_redraw (HTMLImagePointer *ip)
 
 static void
 html_image_factory_end_pixbuf (GtkHTMLStream *stream,
-			       GtkHTMLStreamStatus status,
-			       gpointer user_data)
+                               GtkHTMLStreamStatus status,
+                               gpointer user_data)
 {
 	HTMLImagePointer *ip = user_data;
 
@@ -1142,9 +1184,9 @@ html_image_factory_end_pixbuf (GtkHTMLStream *stream,
 
 static void
 html_image_factory_write_pixbuf (GtkHTMLStream *stream,
-				 const gchar *buffer,
-				 gsize size,
-				 gpointer user_data)
+                                 const gchar *buffer,
+                                 gsize size,
+                                 gpointer user_data)
 {
 	HTMLImagePointer *p = user_data;
 
@@ -1216,7 +1258,12 @@ html_image_pointer_stop_animation (HTMLImagePointer *ip)
 }
 
 static void
-html_image_factory_area_updated (GdkPixbufLoader *loader, guint x, guint y, guint width, guint height, HTMLImagePointer *ip)
+html_image_factory_area_updated (GdkPixbufLoader *loader,
+                                 guint x,
+                                 guint y,
+                                 guint width,
+                                 guint height,
+                                 HTMLImagePointer *ip)
 {
 	html_image_pointer_stop_animation (ip);
 	/* update will requeue */
@@ -1224,7 +1271,8 @@ html_image_factory_area_updated (GdkPixbufLoader *loader, guint x, guint y, guin
 }
 
 static void
-html_image_factory_area_prepared (GdkPixbufLoader *loader, HTMLImagePointer *ip)
+html_image_factory_area_prepared (GdkPixbufLoader *loader,
+                                  HTMLImagePointer *ip)
 {
 	if (!ip->animation) {
 		ip->animation = gdk_pixbuf_loader_get_animation (loader);
@@ -1259,7 +1307,9 @@ html_image_factory_new (HTMLEngine *e)
 }
 
 static gboolean
-cleanup_images (gpointer key, gpointer value, gpointer free_everything)
+cleanup_images (gpointer key,
+                gpointer value,
+                gpointer free_everything)
 {
 	HTMLImagePointer *ip = value;
 
@@ -1305,7 +1355,8 @@ html_image_factory_free (HTMLImageFactory *factory)
 #define STALL_INTERVAL 1000
 
 static HTMLImagePointer *
-html_image_pointer_new (const gchar *filename, HTMLImageFactory *factory)
+html_image_pointer_new (const gchar *filename,
+                        HTMLImageFactory *factory)
 {
 	HTMLImagePointer *retval;
 
@@ -1424,7 +1475,10 @@ html_image_pointer_load (HTMLImagePointer *ip)
 }
 
 HTMLImagePointer *
-html_image_factory_register (HTMLImageFactory *factory, HTMLImage *i, const gchar *url, gboolean reload)
+html_image_factory_register (HTMLImageFactory *factory,
+                             HTMLImage *i,
+                             const gchar *url,
+                             gboolean reload)
 {
 	HTMLImagePointer *ip;
 	GtkHTMLStream *stream = NULL;
@@ -1479,7 +1533,9 @@ html_image_factory_get_engine (HTMLImageFactory *factory)
 #endif
 
 void
-html_image_factory_unregister (HTMLImageFactory *factory, HTMLImagePointer *pointer, HTMLImage *i)
+html_image_factory_unregister (HTMLImageFactory *factory,
+                               HTMLImagePointer *pointer,
+                               HTMLImage *i)
 {
 	pointer->interests = g_slist_remove (pointer->interests, i);
 
@@ -1503,7 +1559,9 @@ html_image_factory_unregister (HTMLImageFactory *factory, HTMLImagePointer *poin
 }
 
 static void
-stop_anim (gpointer key, gpointer value, gpointer user_data)
+stop_anim (gpointer key,
+           gpointer value,
+           gpointer user_data)
 {
 	HTMLImagePointer *ip = value;
 	html_image_pointer_remove_stall (ip);
@@ -1518,7 +1576,9 @@ html_image_factory_stop_animations (HTMLImageFactory *factory)
 }
 
 static void
-start_anim (gpointer key, gpointer value, gpointer user_data)
+start_anim (gpointer key,
+            gpointer value,
+            gpointer user_data)
 {
 	HTMLImagePointer *ip = value;
 	html_image_pointer_start_animation (ip);
@@ -1538,7 +1598,8 @@ html_image_factory_get_animate (HTMLImageFactory *factory)
 }
 
 void
-html_image_factory_set_animate (HTMLImageFactory *factory, gboolean animate)
+html_image_factory_set_animate (HTMLImageFactory *factory,
+                                gboolean animate)
 {
 	if (animate != factory->animate) {
 		factory->animate = animate;
@@ -1551,7 +1612,9 @@ html_image_factory_set_animate (HTMLImageFactory *factory, gboolean animate)
 }
 
 static gboolean
-move_image_pointers (gpointer key, gpointer value, gpointer data)
+move_image_pointers (gpointer key,
+                     gpointer value,
+                     gpointer data)
 {
 	HTMLImageFactory *dst = HTML_IMAGE_FACTORY (data);
 	HTMLImagePointer *ip  = HTML_IMAGE_POINTER (value);
@@ -1566,13 +1629,16 @@ move_image_pointers (gpointer key, gpointer value, gpointer data)
 }
 
 void
-html_image_factory_move_images (HTMLImageFactory *dst, HTMLImageFactory *src)
+html_image_factory_move_images (HTMLImageFactory *dst,
+                                HTMLImageFactory *src)
 {
 	g_hash_table_foreach_remove (src->loaded_images, move_image_pointers, dst);
 }
 
 static void
-deactivate_anim (gpointer key, gpointer value, gpointer user_data)
+deactivate_anim (gpointer key,
+                 gpointer value,
+                 gpointer user_data)
 {
 	HTMLImagePointer *ip = value;
 	GSList *cur = ip->interests;
@@ -1594,7 +1660,9 @@ html_image_factory_deactivate_animations (HTMLImageFactory *factory)
 }
 
 static void
-ref_image_ptr (gpointer key, gpointer val, gpointer data)
+ref_image_ptr (gpointer key,
+               gpointer val,
+               gpointer data)
 {
 	if (HTML_IMAGE_POINTER (val)->animation)
 		html_image_pointer_ref (HTML_IMAGE_POINTER (val));
@@ -1602,7 +1670,9 @@ ref_image_ptr (gpointer key, gpointer val, gpointer data)
 }
 
 static void
-unref_image_ptr (gpointer key, gpointer val, gpointer data)
+unref_image_ptr (gpointer key,
+                 gpointer val,
+                 gpointer data)
 {
 	if (HTML_IMAGE_POINTER (val)->animation)
 		html_image_pointer_unref (HTML_IMAGE_POINTER (val));
@@ -1627,7 +1697,8 @@ html_image_factory_unref_all_images (HTMLImageFactory *factory)
 }
 
 void
-html_image_factory_ref_image_ptr (HTMLImageFactory *factory, const gchar *url)
+html_image_factory_ref_image_ptr (HTMLImageFactory *factory,
+                                  const gchar *url)
 {
 	HTMLImagePointer *ptr;
 
@@ -1640,7 +1711,8 @@ html_image_factory_ref_image_ptr (HTMLImageFactory *factory, const gchar *url)
 }
 
 void
-html_image_factory_unref_image_ptr (HTMLImageFactory *factory, const gchar *url)
+html_image_factory_unref_image_ptr (HTMLImageFactory *factory,
+                                    const gchar *url)
 {
 	HTMLImagePointer *ptr;
 

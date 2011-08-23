@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library
-
-   Copyright (C) 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright (C) 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -50,7 +50,9 @@ find_first (HTMLEngine *e)
 }
 
 static void
-upper_lower (HTMLObject *obj, HTMLEngine *e, gpointer data)
+upper_lower (HTMLObject *obj,
+             HTMLEngine *e,
+             gpointer data)
 {
 	if (html_object_is_text (obj)) {
 		gboolean up = GPOINTER_TO_INT (data);
@@ -87,7 +89,8 @@ html_engine_capitalize_word (HTMLEngine *e)
 }
 
 void
-html_engine_upcase_downcase_word (HTMLEngine *e, gboolean up)
+html_engine_upcase_downcase_word (HTMLEngine *e,
+                                  gboolean up)
 {
 	if (find_first (e)) {
 		html_engine_set_mark (e);
@@ -101,7 +104,9 @@ html_engine_upcase_downcase_word (HTMLEngine *e, gboolean up)
 }
 
 static void
-set_link (HTMLObject *obj, HTMLEngine *e, gpointer data)
+set_link (HTMLObject *obj,
+          HTMLEngine *e,
+          gpointer data)
 {
 	const gchar *complete_url = data;
 
@@ -140,7 +145,8 @@ set_link (HTMLObject *obj, HTMLEngine *e, gpointer data)
 }
 
 void
-html_engine_set_link (HTMLEngine *e, const gchar *complete_url)
+html_engine_set_link (HTMLEngine *e,
+                      const gchar *complete_url)
 {
 	html_engine_cut_and_paste (e,
 				   complete_url ? "Set link" : "Remove link",

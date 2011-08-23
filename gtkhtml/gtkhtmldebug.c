@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library
-
-   Copyright (C) 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright (C) 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 /* Various debugging routines.  */
@@ -58,8 +58,8 @@
  **/
 void
 gtk_html_debug_log (GtkHTML *html,
-		    const gchar *format,
-		    ...)
+                    const gchar *format,
+                    ...)
 {
 	va_list ap;
 
@@ -118,7 +118,7 @@ direction_to_string (HTMLDirection dir)
 
 void
 gtk_html_debug_dump_table (HTMLObject *o,
-			   gint level)
+                           gint level)
 {
 	gint c, r;
 	HTMLTable *table = HTML_TABLE (o);
@@ -132,7 +132,8 @@ gtk_html_debug_dump_table (HTMLObject *o,
 }
 
 static void
-gtk_html_debug_dump_table_simple (HTMLObject *o, gint level)
+gtk_html_debug_dump_table_simple (HTMLObject *o,
+                                  gint level)
 {
 	gint c, r;
 	HTMLTable *table = HTML_TABLE (o);
@@ -147,7 +148,7 @@ gtk_html_debug_dump_table_simple (HTMLObject *o, gint level)
 
 void
 gtk_html_debug_dump_object (HTMLObject *obj,
-			    gint level)
+                            gint level)
 {
 	gint i;
 	for (i = 0; i < level; i++)
@@ -302,7 +303,7 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 
 void
 gtk_html_debug_dump_tree (HTMLObject *o,
-			  gint level)
+                          gint level)
 {
 	HTMLObject *obj;
 
@@ -314,7 +315,9 @@ gtk_html_debug_dump_tree (HTMLObject *o,
 }
 
 static void
-dump_data (GQuark key_id, gpointer data, gpointer user_data)
+dump_data (GQuark key_id,
+           gpointer data,
+           gpointer user_data)
 {
 	gint i, level = GPOINTER_TO_INT (user_data);
 
@@ -326,7 +329,7 @@ dump_data (GQuark key_id, gpointer data, gpointer user_data)
 
 static void
 dump_object_simple (HTMLObject *obj,
-		    gint level)
+                    gint level)
 {
 	gint i;
 
@@ -343,7 +346,7 @@ dump_object_simple (HTMLObject *obj,
 		HTMLTextSlave *slave = HTML_TEXT_SLAVE (obj);
 		gchar *text;
 
-		text = alloca (slave->posLen+1);
+		text = alloca (slave->posLen + 1);
 		text[slave->posLen] = 0;
 		strncpy (text, slave->owner->text + slave->posStart, slave->posLen);
 		g_print ("%s `%s'\n",
@@ -376,7 +379,7 @@ gtk_html_debug_dump_object_type (HTMLObject *o)
 
 void
 gtk_html_debug_dump_tree_simple (HTMLObject *o,
-				 gint level)
+                                 gint level)
 {
 	HTMLObject *obj;
 
@@ -405,7 +408,7 @@ gtk_html_debug_dump_tree_simple (HTMLObject *o,
 
 void
 gtk_html_debug_dump_list_simple (GList *list,
-				 gint level)
+                                 gint level)
 {
 	HTMLObject *obj;
 	GList *p;

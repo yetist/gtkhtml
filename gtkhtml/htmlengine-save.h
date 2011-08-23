@@ -1,24 +1,24 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
-
-    Copyright (C) 2000 Helix Code, Inc.
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
-
-    Author: Ettore Perazzoli <ettore@helixcode.com>
+ *
+ *  Copyright (C) 2000 Helix Code, Inc.
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
+ *
+ *  Author: Ettore Perazzoli <ettore@helixcode.com>
 */
 
 #ifndef _HTMLENGINE_SAVE_H
@@ -45,7 +45,7 @@ struct _HTMLEngineSaveState {
 
 
 /* Entity encoding.  This is used by the HTML objects to output stuff through
-   entity-based encoding.  */
+ * entity-based encoding.  */
 gboolean             html_engine_save_encode                    (HTMLEngineSaveState       *state,
 								 const gchar               *buffer,
 								 guint                      length);
@@ -53,7 +53,7 @@ gboolean             html_engine_save_encode_string             (HTMLEngineSaveS
 								 const gchar               *s);
 
 /* Output function (no encoding).  This is used for tags and other things that
-   must not be entity-encoded.  */
+ * must not be entity-encoded.  */
 gboolean             html_engine_save_output_stringv            (HTMLEngineSaveState       *state,
 								 const gchar               *format,
 								 va_list                    ap);
@@ -65,11 +65,11 @@ gboolean             html_engine_save_output_buffer             (HTMLEngineSaveS
 								 gint                        len);
 
 /* Takes a string sequence of the form (delim, (val, delim)*, NULL)
-   and outputs the delimiters verbatim and the values entity-encoded.
-   Useful for writing properly-encoded tags with attributes.
-
-   Example: html_engine_save_delims_and_vals (state, "<TAG ATTR1=\"", attr1, "\" ATTR2=\"", attr2, "\">", NULL);
-   */
+ * and outputs the delimiters verbatim and the values entity-encoded.
+ * Useful for writing properly-encoded tags with attributes.
+ *
+ * Example: html_engine_save_delims_and_vals (state, "<TAG ATTR1=\"", attr1, "\" ATTR2=\"", attr2, "\">", NULL);
+ * */
 gboolean             html_engine_save_delims_and_vals           (HTMLEngineSaveState *state,
 								 const gchar *first,
 								 ...);

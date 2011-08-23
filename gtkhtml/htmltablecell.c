@@ -1,24 +1,24 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*
-   Copyright (C) 1997 Martin Jones (mjones@kde.org)
-   Copyright (C) 1997 Torben Weis (weis@kde.org)
-   Copyright (C) 1999 Anders Carlsson (andersca@gnu.org)
-   Copyright (C) 1999, 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ * Copyright (C) 1997 Martin Jones (mjones@kde.org)
+ * Copyright (C) 1997 Torben Weis (weis@kde.org)
+ * Copyright (C) 1999 Anders Carlsson (andersca@gnu.org)
+ * Copyright (C) 1999, 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -34,7 +34,7 @@
 #include "htmltablecell.h"
 
 /* FIXME: This always behaves as a transparent object, even when it
-   actually is not.  */
+ * actually is not.  */
 
 
 HTMLTableCellClass html_table_cell_class;
@@ -43,9 +43,10 @@ static HTMLClueVClass *parent_class = NULL;
 
 static void
 draw_background_helper (HTMLTableCell *cell,
-			HTMLPainter *p,
-			GdkRectangle *paint,
-			gint tx, gint ty)
+                        HTMLPainter *p,
+                        GdkRectangle *paint,
+                        gint tx,
+                        gint ty)
 {
 	HTMLObject *o;
 	HTMLClueV *cluev;
@@ -73,12 +74,12 @@ draw_background_helper (HTMLTableCell *cell,
 		html_painter_draw_background (p,
 					      color,
 					      pixbuf,
-					      tx + paint->x + pixel_size*cluev->border_width,
-					      ty + paint->y + pixel_size*cluev->border_width,
-					      paint->width - 2*pixel_size*cluev->border_width,
-					      paint->height - 2*pixel_size*cluev->border_width,
-					      paint->x - o->x + pixel_size*cluev->border_width,
-					      paint->y - (o->y - o->ascent) + pixel_size*cluev->border_width);
+					      tx + paint->x + pixel_size * cluev->border_width,
+					      ty + paint->y + pixel_size * cluev->border_width,
+					      paint->width - 2 * pixel_size * cluev->border_width,
+					      paint->height - 2 * pixel_size * cluev->border_width,
+					      paint->x - o->x + pixel_size * cluev->border_width,
+					      paint->y - (o->y - o->ascent) + pixel_size * cluev->border_width);
 }
 
 
@@ -108,7 +109,8 @@ reset (HTMLObject *self)
 }
 
 static void
-copy (HTMLObject *self, HTMLObject *dest)
+copy (HTMLObject *self,
+      HTMLObject *dest)
 {
 	HTMLTableCell *d = HTML_TABLE_CELL (dest);
 	HTMLTableCell *s = HTML_TABLE_CELL (self);
@@ -121,7 +123,12 @@ copy (HTMLObject *self, HTMLObject *dest)
 }
 
 static gboolean
-merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **right, HTMLCursor *cursor)
+merge (HTMLObject *self,
+       HTMLObject *with,
+       HTMLEngine *e,
+       GList **left,
+       GList **right,
+       HTMLCursor *cursor)
 {
 	HTMLTableCell *c1 = HTML_TABLE_CELL (self);
 	HTMLTableCell *c2 = HTML_TABLE_CELL (with);
@@ -147,7 +154,7 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 
 static gint
 calc_min_width (HTMLObject *o,
-		HTMLPainter *painter)
+                HTMLPainter *painter)
 {
 	if (HTML_TABLE_CELL (o)->no_wrap)
 		return MAX ((* HTML_OBJECT_CLASS (parent_class)->calc_preferred_width) (o, painter),
@@ -160,7 +167,7 @@ calc_min_width (HTMLObject *o,
 
 static gint
 calc_preferred_width (HTMLObject *o,
-		      HTMLPainter *painter)
+                      HTMLPainter *painter)
 {
 	return o->flags & HTML_OBJECT_FLAG_FIXEDWIDTH
 		? MAX (html_object_calc_min_width (o, painter),
@@ -171,9 +178,12 @@ calc_preferred_width (HTMLObject *o,
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
-      gint x, gint y,
-      gint width, gint height,
-      gint tx, gint ty)
+      gint x,
+      gint y,
+      gint width,
+      gint height,
+      gint tx,
+      gint ty)
 {
 	HTMLTableCell *cell = HTML_TABLE_CELL (o);
 	GdkRectangle paint;
@@ -187,7 +197,9 @@ draw (HTMLObject *o,
 }
 
 static void
-clue_move_children (HTMLClue *clue, gint x_delta, gint y_delta)
+clue_move_children (HTMLClue *clue,
+                    gint x_delta,
+                    gint y_delta)
 {
 	HTMLObject *o;
 
@@ -198,7 +210,9 @@ clue_move_children (HTMLClue *clue, gint x_delta, gint y_delta)
 }
 
 static gboolean
-html_table_cell_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
+html_table_cell_real_calc_size (HTMLObject *o,
+                                HTMLPainter *painter,
+                                GList **changed_objs)
 {
 	HTMLTableCell *cell;
 	gboolean rv;
@@ -238,7 +252,8 @@ html_table_cell_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **cha
 }
 
 static void
-set_bg_color (HTMLObject *object, GdkColor *color)
+set_bg_color (HTMLObject *object,
+              GdkColor *color)
 {
 	HTMLTableCell *cell;
 
@@ -258,7 +273,7 @@ set_bg_color (HTMLObject *object, GdkColor *color)
 
 static GdkColor *
 get_bg_color (HTMLObject *o,
-	      HTMLPainter *p)
+              HTMLPainter *p)
 {
 
 	return HTML_TABLE_CELL (o)->have_bg
@@ -319,10 +334,10 @@ save (HTMLObject *self,
 	  save at least &nbsp; for emty cell
 	  it's not really clean behavior, but I think it's better than saving empty cells.
 	  let me know if you have better idea
-
+ *
 	if (HTML_CLUE (self)->head && HTML_CLUE (self)->head == HTML_CLUE (self)->tail
-	    && HTML_IS_CLUEFLOW (HTML_CLUE (self)->head) && html_clueflow_is_empty (HTML_CLUEFLOW (HTML_CLUE (self)->head)))
-	    SB "&nbsp;" SE; */
+	 *  && HTML_IS_CLUEFLOW (HTML_CLUE (self)->head) && html_clueflow_is_empty (HTML_CLUEFLOW (HTML_CLUE (self)->head)))
+	 *  SB "&nbsp;" SE; */
 
 	SB cell->heading ? "</TH>\n" : "</TD>\n" SE;
 
@@ -348,8 +363,8 @@ html_table_cell_type_init (void)
 
 void
 html_table_cell_class_init (HTMLTableCellClass *klass,
-			    HTMLType type,
-			    guint object_size)
+                            HTMLType type,
+                            guint object_size)
 {
 	HTMLObjectClass *object_class;
 	HTMLClueVClass *cluev_class;
@@ -377,9 +392,10 @@ html_table_cell_class_init (HTMLTableCellClass *klass,
 
 void
 html_table_cell_init (HTMLTableCell *cell,
-		      HTMLTableCellClass *klass,
-		      gint rs, gint cs,
-		      gint pad)
+                      HTMLTableCellClass *klass,
+                      gint rs,
+                      gint cs,
+                      gint pad)
 {
 	HTMLObject *object;
 	HTMLClueV *cluev;
@@ -418,7 +434,9 @@ html_table_cell_init (HTMLTableCell *cell,
 }
 
 HTMLObject *
-html_table_cell_new (gint rs, gint cs, gint pad)
+html_table_cell_new (gint rs,
+                     gint cs,
+                     gint pad)
 {
 	HTMLTableCell *cell;
 
@@ -429,7 +447,9 @@ html_table_cell_new (gint rs, gint cs, gint pad)
 }
 
 void
-html_table_cell_set_fixed_width (HTMLTableCell *cell, gint width, gboolean percented)
+html_table_cell_set_fixed_width (HTMLTableCell *cell,
+                                 gint width,
+                                 gboolean percented)
 {
 	if (percented)
 		HTML_OBJECT (cell)->flags &= ~HTML_OBJECT_FLAG_FIXEDWIDTH;
@@ -440,7 +460,9 @@ html_table_cell_set_fixed_width (HTMLTableCell *cell, gint width, gboolean perce
 }
 
 void
-html_table_cell_set_fixed_height (HTMLTableCell *cell, gint height, gboolean percented)
+html_table_cell_set_fixed_height (HTMLTableCell *cell,
+                                  gint height,
+                                  gboolean percented)
 {
 	cell->fixed_height = height;
 	cell->percent_height = percented;
@@ -448,7 +470,7 @@ html_table_cell_set_fixed_height (HTMLTableCell *cell, gint height, gboolean per
 
 void
 html_table_cell_set_bg_pixmap (HTMLTableCell *cell,
-				    HTMLImagePointer *imagePtr)
+                                    HTMLImagePointer *imagePtr)
 {
 	if (imagePtr) {
 		cell->have_bgPixmap = TRUE;
@@ -457,14 +479,17 @@ html_table_cell_set_bg_pixmap (HTMLTableCell *cell,
 }
 
 void
-html_table_cell_set_position (HTMLTableCell *cell, gint row, gint col)
+html_table_cell_set_position (HTMLTableCell *cell,
+                              gint row,
+                              gint col)
 {
 	cell->col = col;
 	cell->row = row;
 }
 
 gint
-html_table_cell_get_fixed_width (HTMLTableCell *cell, HTMLPainter *painter)
+html_table_cell_get_fixed_width (HTMLTableCell *cell,
+                                 HTMLPainter *painter)
 {
 	return html_painter_get_pixel_size (painter) * cell->fixed_width;
 }

@@ -1,24 +1,24 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-
-   Copyright (C) 1997 Martin Jones (mjones@kde.org)
-   Copyright (C) 1997 Torben Weis (weis@kde.org)
-   Copyright (C) 1999, 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright (C) 1997 Martin Jones (mjones@kde.org)
+ * Copyright (C) 1997 Torben Weis (weis@kde.org)
+ * Copyright (C) 1999, 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -72,12 +72,13 @@ static void         remove_text_slaves      (HTMLObject *self);
 /* void
 debug_spell_errors (GList *se)
 {
-	for (;se;se = se->next)
+	for (; se; se = se->next)
 		printf ("SE: %4d, %4d\n", ((SpellError *) se->data)->off, ((SpellError *) se->data)->len);
 } */
 
 static inline gboolean
-is_in_the_save_cluev (HTMLObject *text, HTMLObject *o)
+is_in_the_save_cluev (HTMLObject *text,
+                      HTMLObject *o)
 {
 	return html_object_nth_parent (o, 2) == html_object_nth_parent (text, 2);
 }
@@ -195,19 +196,23 @@ copy (HTMLObject *s,
 debug_word_width (HTMLText *t)
 {
 	guint i;
-
+ *
 	printf ("words: %d | ", t->words);
 	for (i = 0; i < t->words; i++)
 		printf ("%d ", t->word_width [i]);
 	printf ("\n");
 }
-
+ *
 static void
-word_get_position (HTMLText *text, guint off, guint *word_out, guint *left_out, guint *right_out)
+word_get_position (HTMLText *text,
+ *                 guint off,
+ *                 guint *word_out,
+ *                 guint *left_out,
+ *                 guint *right_out)
 {
 	const gchar *s, *ls;
 	guint coff, loff;
-
+ *
 	coff      = 0;
 	*word_out = 0;
 	s         = text->text;
@@ -220,15 +225,16 @@ word_get_position (HTMLText *text, guint off, guint *word_out, guint *left_out, 
 		if (s)
 			s++;
 	} while (s && coff < off);
-
+ *
 	*left_out  = off - loff;
 	*right_out = coff - off;
-
+ *
 	printf ("get position w: %d l: %d r: %d\n", *word_out, *left_out, *right_out);
 } */
 
 static gboolean
-cut_attr_list_filter (PangoAttribute *attr, gpointer data)
+cut_attr_list_filter (PangoAttribute *attr,
+                      gpointer data)
 {
 	PangoAttribute *range = (PangoAttribute *) data;
 	gint delta;
@@ -254,7 +260,9 @@ cut_attr_list_filter (PangoAttribute *attr, gpointer data)
 }
 
 static void
-cut_attr_list_list (PangoAttrList *attr_list, gint begin_index, gint end_index)
+cut_attr_list_list (PangoAttrList *attr_list,
+                    gint begin_index,
+                    gint end_index)
 {
 	PangoAttrList *removed;
 	PangoAttribute range;
@@ -268,7 +276,9 @@ cut_attr_list_list (PangoAttrList *attr_list, gint begin_index, gint end_index)
 }
 
 static void
-cut_attr_list (HTMLText *text, gint begin_index, gint end_index)
+cut_attr_list (HTMLText *text,
+               gint begin_index,
+               gint end_index)
 {
 	cut_attr_list_list (text->attr_list, begin_index, end_index);
 	if (text->extra_attr_list)
@@ -276,7 +286,13 @@ cut_attr_list (HTMLText *text, gint begin_index, gint end_index)
 }
 
 static void
-cut_links_full (HTMLText *text, gint start_offset, gint end_offset, gint start_index, gint end_index, gint shift_offset, gint shift_index)
+cut_links_full (HTMLText *text,
+                gint start_offset,
+                gint end_offset,
+                gint start_index,
+                gint end_index,
+                gint shift_offset,
+                gint shift_index)
 {
 	GSList *l, *next;
 	Link *link;
@@ -329,13 +345,20 @@ cut_links_full (HTMLText *text, gint start_offset, gint end_offset, gint start_i
 }
 
 static void
-cut_links (HTMLText *text, gint start_offset, gint end_offset, gint start_index, gint end_index)
+cut_links (HTMLText *text,
+           gint start_offset,
+           gint end_offset,
+           gint start_index,
+           gint end_index)
 {
 	cut_links_full (text, start_offset, end_offset, start_index, end_index, end_offset - start_offset, end_index - start_index);
 }
 
 HTMLObject *
-html_text_op_copy_helper (HTMLText *text, GList *from, GList *to, guint *len)
+html_text_op_copy_helper (HTMLText *text,
+                          GList *from,
+                          GList *to,
+                          guint *len)
 {
 	HTMLObject *rv;
 	HTMLText *rvt;
@@ -375,7 +398,13 @@ html_text_op_copy_helper (HTMLText *text, GList *from, GList *to, guint *len)
 }
 
 HTMLObject *
-html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
+html_text_op_cut_helper (HTMLText *text,
+                         HTMLEngine *e,
+                         GList *from,
+                         GList *to,
+                         GList *left,
+                         GList *right,
+                         guint *len)
 {
 	HTMLObject *rv;
 	HTMLText *rvt;
@@ -388,7 +417,7 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 	g_assert (end <= text->text_len);
 
 	/* printf ("before cut '%s'\n", text->text);
-	   debug_word_width (text); */
+	 * debug_word_width (text); */
 
 	remove_text_slaves (HTML_OBJECT (text));
 	if (!html_object_could_remove_whole (HTML_OBJECT (text), from, to, left, right) || begin || end < text->text_len) {
@@ -454,25 +483,37 @@ html_text_op_cut_helper (HTMLText *text, HTMLEngine *e, GList *from, GList *to, 
 	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL_CALC);
 
 	/* printf ("after cut '%s'\n", text->text);
-	   debug_word_width (text); */
+	 * debug_word_width (text); */
 
 	return rv;
 }
 
 static HTMLObject *
-op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList *to, guint *len)
+op_copy (HTMLObject *self,
+         HTMLObject *parent,
+         HTMLEngine *e,
+         GList *from,
+         GList *to,
+         guint *len)
 {
 	return html_text_op_copy_helper (HTML_TEXT (self), from, to, len);
 }
 
 static HTMLObject *
-op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
+op_cut (HTMLObject *self,
+        HTMLEngine *e,
+        GList *from,
+        GList *to,
+        GList *left,
+        GList *right,
+        guint *len)
 {
 	return html_text_op_cut_helper (HTML_TEXT (self), e, from, to, left, right, len);
 }
 
 static void
-merge_links (HTMLText *t1, HTMLText *t2)
+merge_links (HTMLText *t1,
+             HTMLText *t2)
 {
 	Link *tail, *head;
 	GSList *l;
@@ -505,7 +546,12 @@ merge_links (HTMLText *t1, HTMLText *t2)
 }
 
 static gboolean
-object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **right, HTMLCursor *cursor)
+object_merge (HTMLObject *self,
+              HTMLObject *with,
+              HTMLEngine *e,
+              GList **left,
+              GList **right,
+              HTMLCursor *cursor)
 {
 	HTMLText *t1, *t2;
 	gchar *to_free;
@@ -523,10 +569,10 @@ object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, G
 	}
 
 	/* printf ("--- before merge\n");
-	   debug_spell_errors (t1->spell_errors);
-	   printf ("---\n");
-	   debug_spell_errors (t2->spell_errors);
-	   printf ("---\n");
+	 * debug_spell_errors (t1->spell_errors);
+	 * printf ("---\n");
+	 * debug_spell_errors (t2->spell_errors);
+	 * printf ("---\n");
 	*/
 	move_spell_errors (t2->spell_errors, 0, t1->text_len);
 	t1->spell_errors = merge_spell_errors (t1->spell_errors, t2->spell_errors);
@@ -552,15 +598,16 @@ object_merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, G
 
 	/* html_text_request_word_width (t1, e->painter); */
 	/* printf ("merged '%s'\n", t1->text);
-	   printf ("--- after merge\n");
-	   debug_spell_errors (t1->spell_errors);
-	   printf ("---\n"); */
+	 * printf ("--- after merge\n");
+	 * debug_spell_errors (t1->spell_errors);
+	 * printf ("---\n"); */
 
 	return TRUE;
 }
 
 static gboolean
-split_attrs_filter_head (PangoAttribute *attr, gpointer data)
+split_attrs_filter_head (PangoAttribute *attr,
+                         gpointer data)
 {
 	gint index = GPOINTER_TO_INT (data);
 
@@ -573,7 +620,8 @@ split_attrs_filter_head (PangoAttribute *attr, gpointer data)
 }
 
 static gboolean
-split_attrs_filter_tail (PangoAttribute *attr, gpointer data)
+split_attrs_filter_tail (PangoAttribute *attr,
+                         gpointer data)
 {
 	gint index = GPOINTER_TO_INT (data);
 
@@ -590,7 +638,9 @@ split_attrs_filter_tail (PangoAttribute *attr, gpointer data)
 }
 
 static void
-split_attrs (HTMLText *t1, HTMLText *t2, gint index)
+split_attrs (HTMLText *t1,
+             HTMLText *t2,
+             gint index)
 {
 	PangoAttrList *delete;
 
@@ -613,7 +663,10 @@ split_attrs (HTMLText *t1, HTMLText *t2, gint index)
 }
 
 static void
-split_links (HTMLText *t1, HTMLText *t2, gint offset, gint index)
+split_links (HTMLText *t1,
+             HTMLText *t2,
+             gint offset,
+             gint index)
 {
 	GSList *l, *prev = NULL;
 
@@ -676,7 +729,13 @@ split_links (HTMLText *t1, HTMLText *t2, gint offset, gint index)
 }
 
 static void
-object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
+object_split (HTMLObject *self,
+              HTMLEngine *e,
+              HTMLObject *child,
+              gint offset,
+              gint level,
+              GList **left,
+              GList **right)
 {
 	HTMLObject *dup, *prev;
 	HTMLText *t1, *t2;
@@ -718,7 +777,7 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 		html_object_merge (dup, dup->next, e, NULL, NULL, NULL);
 
 	/* printf ("--- before split offset %d dup len %d\n", offset, HTML_TEXT (dup)->text_len);
-	   debug_spell_errors (HTML_TEXT (self)->spell_errors); */
+	 * debug_spell_errors (HTML_TEXT (self)->spell_errors); */
 
 	HTML_TEXT (self)->spell_errors = remove_spell_errors (HTML_TEXT (self)->spell_errors,
 							      offset, HTML_TEXT (dup)->text_len);
@@ -727,11 +786,11 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 	move_spell_errors   (HTML_TEXT (dup)->spell_errors, 0, - HTML_TEXT (self)->text_len);
 
 	/* printf ("--- after split\n");
-	   printf ("left\n");
-	   debug_spell_errors (HTML_TEXT (self)->spell_errors);
-	   printf ("right\n");
-	   debug_spell_errors (HTML_TEXT (dup)->spell_errors);
-	   printf ("---\n");
+	 * printf ("left\n");
+	 * debug_spell_errors (HTML_TEXT (self)->spell_errors);
+	 * printf ("right\n");
+	 * debug_spell_errors (HTML_TEXT (dup)->spell_errors);
+	 * printf ("---\n");
 	*/
 
 	*left  = g_list_prepend (*left, self);
@@ -748,7 +807,9 @@ object_split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, g
 }
 
 static gboolean
-html_text_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
+html_text_real_calc_size (HTMLObject *self,
+                          HTMLPainter *painter,
+                          GList **changed_objs)
 {
 	self->width = 0;
 	html_object_calc_preferred_width (self, painter);
@@ -757,7 +818,10 @@ html_text_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList **change
 }
 
 static const gchar *
-html_utf8_strnchr (const gchar *s, gchar c, gint len, gint *offset)
+html_utf8_strnchr (const gchar *s,
+                   gchar c,
+                   gint len,
+                   gint *offset)
 {
 	const gchar *res = NULL;
 
@@ -775,7 +839,10 @@ html_utf8_strnchr (const gchar *s, gchar c, gint len, gint *offset)
 }
 
 gint
-html_text_text_line_length (const gchar *text, gint *line_offset, guint len, gint *tabs)
+html_text_text_line_length (const gchar *text,
+                            gint *line_offset,
+                            guint len,
+                            gint *tabs)
 {
 	const gchar *tab, *found_tab;
 	gint cl, l, skip, sum_skip;
@@ -812,7 +879,9 @@ html_text_text_line_length (const gchar *text, gint *line_offset, guint len, gin
 }
 
 static guint
-get_line_length (HTMLObject *self, HTMLPainter *p, gint line_offset)
+get_line_length (HTMLObject *self,
+                 HTMLPainter *p,
+                 gint line_offset)
 {
 	return html_clueflow_tabs (HTML_CLUEFLOW (self->parent), p)
 		? html_text_text_line_length (HTML_TEXT (self)->text, &line_offset, HTML_TEXT (self)->text_len, NULL)
@@ -820,7 +889,9 @@ get_line_length (HTMLObject *self, HTMLPainter *p, gint line_offset)
 }
 
 gint
-html_text_get_line_offset (HTMLText *text, HTMLPainter *painter, gint offset)
+html_text_get_line_offset (HTMLText *text,
+                           HTMLPainter *painter,
+                           gint offset)
 {
 	gint line_offset = -1;
 
@@ -845,7 +916,10 @@ html_text_get_line_offset (HTMLText *text, HTMLPainter *painter, gint offset)
 }
 
 gint
-html_text_get_item_index (HTMLText *text, HTMLPainter *painter, gint offset, gint *item_offset)
+html_text_get_item_index (HTMLText *text,
+                          HTMLPainter *painter,
+                          gint offset,
+                          gint *item_offset)
 {
 	HTMLTextPangoInfo *pi = html_text_get_pango_info (text, painter);
 	gint idx = 0;
@@ -863,7 +937,10 @@ html_text_get_item_index (HTMLText *text, HTMLPainter *painter, gint offset, gin
 }
 
 static void
-update_asc_dsc (HTMLPainter *painter, PangoItem *item, gint *asc, gint *dsc)
+update_asc_dsc (HTMLPainter *painter,
+                PangoItem *item,
+                gint *asc,
+                gint *dsc)
 {
 	PangoFontMetrics *pfm;
 
@@ -876,7 +953,10 @@ update_asc_dsc (HTMLPainter *painter, PangoItem *item, gint *asc, gint *dsc)
 }
 
 static void
-html_text_get_attr_list_list (PangoAttrList *get_attrs, PangoAttrList *attr_list, gint start_index, gint end_index)
+html_text_get_attr_list_list (PangoAttrList *get_attrs,
+                              PangoAttrList *attr_list,
+                              gint start_index,
+                              gint end_index)
 {
 	PangoAttrIterator *iter = pango_attr_list_get_iterator (attr_list);
 
@@ -914,7 +994,9 @@ html_text_get_attr_list_list (PangoAttrList *get_attrs, PangoAttrList *attr_list
 }
 
 PangoAttrList *
-html_text_get_attr_list (HTMLText *text, gint start_index, gint end_index)
+html_text_get_attr_list (HTMLText *text,
+                         gint start_index,
+                         gint end_index)
 {
 	PangoAttrList *attrs = pango_attr_list_new ();
 
@@ -926,10 +1008,16 @@ html_text_get_attr_list (HTMLText *text, gint start_index, gint end_index)
 }
 
 void
-html_text_calc_text_size (HTMLText *t, HTMLPainter *painter,
-			  gint start_byte_offset,
-			  guint len, HTMLTextPangoInfo *pi, GList *glyphs, gint *line_offset,
-			  gint *width, gint *asc, gint *dsc)
+html_text_calc_text_size (HTMLText *t,
+                          HTMLPainter *painter,
+                          gint start_byte_offset,
+                          guint len,
+                          HTMLTextPangoInfo *pi,
+                          GList *glyphs,
+                          gint *line_offset,
+                          gint *width,
+                          gint *asc,
+                          gint *dsc)
 {
 		gchar *text = t->text + start_byte_offset;
 
@@ -938,7 +1026,13 @@ html_text_calc_text_size (HTMLText *t, HTMLPainter *painter,
 }
 
 gint
-html_text_calc_part_width (HTMLText *text, HTMLPainter *painter, gchar *start, gint offset, gint len, gint *asc, gint *dsc)
+html_text_calc_part_width (HTMLText *text,
+                           HTMLPainter *painter,
+                           gchar *start,
+                           gint offset,
+                           gint len,
+                           gint *asc,
+                           gint *dsc)
 {
 	gint idx, width = 0, line_offset;
 	gint ascent = 0, descent = 0; /* Quiet GCC */
@@ -984,7 +1078,7 @@ html_text_calc_part_width (HTMLText *text, HTMLPainter *painter, gchar *start, g
 
 		if (*s == '\t') {
 			gint skip = 8 - (line_offset % 8);
-			width += skip*pi->entries[idx].widths[offset];
+			width += skip * pi->entries[idx].widths[offset];
 			line_offset += skip;
 		} else {
 			width += pi->entries[idx].widths[offset];
@@ -1013,7 +1107,7 @@ out:
 
 static gint
 calc_preferred_width (HTMLObject *self,
-		      HTMLPainter *painter)
+                      HTMLPainter *painter)
 {
 	HTMLText *text;
 	gint width;
@@ -1052,11 +1146,11 @@ remove_text_slaves (HTMLObject *self)
 
 static HTMLFitType
 ht_fit_line (HTMLObject *o,
-	     HTMLPainter *painter,
-	     gboolean startOfLine,
-	     gboolean firstRun,
-	     gboolean next_to_floating,
-	     gint widthLeft)
+             HTMLPainter *painter,
+             gboolean startOfLine,
+             gboolean firstRun,
+             gboolean next_to_floating,
+             gint widthLeft)
 {
 	HTMLText *text;
 	HTMLObject *text_slave;
@@ -1074,7 +1168,10 @@ ht_fit_line (HTMLObject *o,
 
 #if 0  /* No longer used? */
 static gint
-min_word_width_calc_tabs (HTMLText *text, HTMLPainter *p, gint idx, gint *len)
+min_word_width_calc_tabs (HTMLText *text,
+                          HTMLPainter *p,
+                          gint idx,
+                          gint *len)
 {
 	gchar *str, *end;
 	gint rv = 0, line_offset, wt, wl, i;
@@ -1136,7 +1233,9 @@ min_word_width_calc_tabs (HTMLText *text, HTMLPainter *p, gint idx, gint *len)
 #endif
 
 gint
-html_text_pango_info_get_index (HTMLTextPangoInfo *pi, gint byte_offset, gint idx)
+html_text_pango_info_get_index (HTMLTextPangoInfo *pi,
+                                gint byte_offset,
+                                gint idx)
 {
 	while (idx < pi->n && pi->entries[idx].glyph_item.item->offset + pi->entries[idx].glyph_item.item->length <= byte_offset)
 		idx++;
@@ -1145,7 +1244,10 @@ html_text_pango_info_get_index (HTMLTextPangoInfo *pi, gint byte_offset, gint id
 }
 
 static void
-html_text_add_cite_color (PangoAttrList *attrs, HTMLText *text, HTMLClueFlow *flow, HTMLEngine *e)
+html_text_add_cite_color (PangoAttrList *attrs,
+                          HTMLText *text,
+                          HTMLClueFlow *flow,
+                          HTMLEngine *e)
 {
 	HTMLColor *cite_color = html_colorset_get_color (e->settings->color_set, HTMLCiteColor);
 
@@ -1160,7 +1262,9 @@ html_text_add_cite_color (PangoAttrList *attrs, HTMLText *text, HTMLClueFlow *fl
 }
 
 void
-html_text_remove_unwanted_line_breaks (gchar *s, gint len, PangoLogAttr *attrs)
+html_text_remove_unwanted_line_breaks (gchar *s,
+                                       gint len,
+                                       PangoLogAttr *attrs)
 {
 	gint i;
 	gunichar last_uc = 0;
@@ -1191,7 +1295,8 @@ html_text_remove_unwanted_line_breaks (gchar *s, gint len, PangoLogAttr *attrs)
 }
 
 PangoAttrList *
-html_text_prepare_attrs (HTMLText *text, HTMLPainter *painter)
+html_text_prepare_attrs (HTMLText *text,
+                         HTMLPainter *painter)
 {
 	PangoAttrList *attrs;
 	HTMLClueFlow *flow = NULL;
@@ -1216,14 +1321,14 @@ html_text_prepare_attrs (HTMLText *text, HTMLPainter *painter)
 		attr->end_index = text->text_bytes;
 		pango_attr_list_insert (attrs, attr);
 		if (painter->font_manager.fix_size != painter->font_manager.var_size || fabs (painter->font_manager.magnification - 1.0) > 0.001) {
-			attr = pango_attr_size_new (painter->font_manager.fix_size*painter->font_manager.magnification);
+			attr = pango_attr_size_new (painter->font_manager.fix_size * painter->font_manager.magnification);
 			attr->start_index = 0;
 			attr->end_index = text->text_bytes;
 			pango_attr_list_insert (attrs, attr);
 		}
 	} else {
 		if (fabs (painter->font_manager.magnification - 1.0) > 0.001) {
-			attr = pango_attr_size_new (painter->font_manager.var_size*painter->font_manager.magnification);
+			attr = pango_attr_size_new (painter->font_manager.var_size * painter->font_manager.magnification);
 			attr->start_index = 0;
 			attr->end_index = text->text_bytes;
 			pango_attr_list_insert (attrs, attr);
@@ -1309,10 +1414,10 @@ get_pango_base_direction (HTMLText *text)
 
 void
 html_tmp_fix_pango_glyph_string_get_logical_widths (PangoGlyphString *glyphs,
-						    const gchar       *text,
-						    gint               length,
-						    gint               embedding_level,
-						    gint              *logical_widths)
+                                                    const gchar *text,
+                                                    gint length,
+                                                    gint embedding_level,
+                                                    gint *logical_widths)
 {
   gint i, j;
   gint last_cluster = 0;
@@ -1322,7 +1427,7 @@ html_tmp_fix_pango_glyph_string_get_logical_widths (PangoGlyphString *glyphs,
 
   /* printf ("html_tmp_fix_pango_glyph_string_get_logical_widths"); */
 
-  for (i=0; i<=glyphs->num_glyphs; i++)
+  for (i = 0; i <= glyphs->num_glyphs; i++)
     {
       gint glyph_index = (embedding_level % 2 == 0) ? i : glyphs->num_glyphs - i - 1;
 
@@ -1368,7 +1473,8 @@ html_tmp_fix_pango_glyph_string_get_logical_widths (PangoGlyphString *glyphs,
 }
 
 static void
-html_text_shape_tab (HTMLText *text, PangoGlyphString *glyphs)
+html_text_shape_tab (HTMLText *text,
+                     PangoGlyphString *glyphs)
 {
 	/* copied from pango sources */
 	pango_glyph_string_set_size (glyphs, 1);
@@ -1384,7 +1490,8 @@ html_text_shape_tab (HTMLText *text, PangoGlyphString *glyphs)
 }
 
 HTMLTextPangoInfo *
-html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
+html_text_get_pango_info (HTMLText *text,
+                          HTMLPainter *painter)
 {
 	if (HTML_OBJECT (text)->change & HTML_CHANGE_RECALC_PI)	{
 		pango_info_destroy (text);
@@ -1462,7 +1569,9 @@ html_text_get_pango_info (HTMLText *text, HTMLPainter *painter)
 }
 
 gboolean
-html_text_pi_backward (HTMLTextPangoInfo *pi, gint *ii, gint *io)
+html_text_pi_backward (HTMLTextPangoInfo *pi,
+                       gint *ii,
+                       gint *io)
 {
 	if (*io <= 0) {
 		if (*ii <= 0)
@@ -1476,7 +1585,9 @@ html_text_pi_backward (HTMLTextPangoInfo *pi, gint *ii, gint *io)
 }
 
 gboolean
-html_text_pi_forward (HTMLTextPangoInfo *pi, gint *ii, gint *io)
+html_text_pi_forward (HTMLTextPangoInfo *pi,
+                      gint *ii,
+                      gint *io)
 {
 	if (*io >= pi->entries[*ii].glyph_item.item->num_chars - 1) {
 		if (*ii >= pi->n -1)
@@ -1505,7 +1616,14 @@ html_text_pi_forward (HTMLTextPangoInfo *pi, gint *ii, gint *io)
  * Return value: width of found trailing white space, in Pango units
  **/
 gint
-html_text_tail_white_space (HTMLText *text, HTMLPainter *painter, gint offset, gint ii, gint io, gint *white_len, gint line_offset, gchar *s)
+html_text_tail_white_space (HTMLText *text,
+                            HTMLPainter *painter,
+                            gint offset,
+                            gint ii,
+                            gint io,
+                            gint *white_len,
+                            gint line_offset,
+                            gchar *s)
 {
 	HTMLTextPangoInfo *pi = html_text_get_pango_info (text, painter);
 	gint wl = 0;
@@ -1525,7 +1643,7 @@ html_text_tail_white_space (HTMLText *text, HTMLPainter *painter, gint offset, g
 						skip--;
 				} while (s && co > 0 && *s != '\t');
 
-				ww += skip*pi->entries[ii].widths[io];
+				ww += skip * pi->entries[ii].widths[io];
 			} else {
 				ww += pi->entries[ii].widths[io];
 			}
@@ -1540,9 +1658,18 @@ html_text_tail_white_space (HTMLText *text, HTMLPainter *painter, gint offset, g
 }
 
 static void
-update_mw (HTMLText *text, HTMLPainter *painter, gint offset, gint *last_offset, gint *ww, gint *mw, gint ii, gint io, gchar *s, gint line_offset) {
+update_mw (HTMLText *text,
+           HTMLPainter *painter,
+           gint offset,
+           gint *last_offset,
+           gint *ww,
+           gint *mw,
+           gint ii,
+           gint io,
+           gchar *s,
+           gint line_offset) {
 	*ww -= html_text_tail_white_space (text, painter, offset, ii, io, NULL, line_offset, s);
-	if (*ww > *mw)
+        if (*ww > *mw)
 		*mw = *ww;
 	*ww = 0;
 
@@ -1556,7 +1683,8 @@ html_text_is_line_break (PangoLogAttr attr)
 }
 
 static gint
-calc_min_width (HTMLObject *self, HTMLPainter *painter)
+calc_min_width (HTMLObject *self,
+                HTMLPainter *painter)
 {
 	HTMLText *text = HTML_TEXT (self);
 	HTMLTextPangoInfo *pi = html_text_get_pango_info (text, painter);
@@ -1576,7 +1704,7 @@ calc_min_width (HTMLObject *self, HTMLPainter *painter)
 
 		if (*s == '\t') {
 			gint skip = 8 - (line_offset % 8);
-			ww += skip*pi->entries[ii].widths[io];
+			ww += skip * pi->entries[ii].widths[io];
 			line_offset += skip;
 		} else {
 			ww += pi->entries[ii].widths[io];
@@ -1598,9 +1726,12 @@ calc_min_width (HTMLObject *self, HTMLPainter *painter)
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
-      gint x, gint y,
-      gint width, gint height,
-      gint tx, gint ty)
+      gint x,
+      gint y,
+      gint width,
+      gint height,
+      gint tx,
+      gint ty)
 {
 }
 
@@ -1611,7 +1742,8 @@ accepts_cursor (HTMLObject *object)
 }
 
 static gboolean
-save_open_attrs (HTMLEngineSaveState *state, GSList *attrs)
+save_open_attrs (HTMLEngineSaveState *state,
+                 GSList *attrs)
 {
 	gboolean rv = TRUE;
 
@@ -1677,7 +1809,8 @@ save_open_attrs (HTMLEngineSaveState *state, GSList *attrs)
 }
 
 static gboolean
-save_close_attrs (HTMLEngineSaveState *state, GSList *attrs)
+save_close_attrs (HTMLEngineSaveState *state,
+                  GSList *attrs)
 {
 	for (; attrs; attrs = attrs->next) {
 		PangoAttribute *attr = (PangoAttribute *) attrs->data;
@@ -1729,7 +1862,10 @@ save_close_attrs (HTMLEngineSaveState *state, GSList *attrs)
 }
 
 static gboolean
-save_text_part (HTMLText *text, HTMLEngineSaveState *state, guint start_index, guint end_index)
+save_text_part (HTMLText *text,
+                HTMLEngineSaveState *state,
+                guint start_index,
+                guint end_index)
 {
 	gchar *str;
 	gint len;
@@ -1744,7 +1880,8 @@ save_text_part (HTMLText *text, HTMLEngineSaveState *state, guint start_index, g
 }
 
 static gboolean
-save_link_open (Link *link, HTMLEngineSaveState *state)
+save_link_open (Link *link,
+                HTMLEngineSaveState *state)
 {
 	return html_engine_save_delims_and_vals (state,
 			"<A HREF=\"", link->url,
@@ -1752,13 +1889,19 @@ save_link_open (Link *link, HTMLEngineSaveState *state)
 }
 
 static gboolean
-save_link_close (Link *link, HTMLEngineSaveState *state)
+save_link_close (Link *link,
+                 HTMLEngineSaveState *state)
 {
 	return html_engine_save_output_string (state, "%s", "</A>");
 }
 
 static gboolean
-save_text (HTMLText *text, HTMLEngineSaveState *state, guint start_index, guint end_index, GSList **l, gboolean *link_started)
+save_text (HTMLText *text,
+           HTMLEngineSaveState *state,
+           guint start_index,
+           guint end_index,
+           GSList **l,
+           gboolean *link_started)
 {
 	if (*l) {
 		Link *link;
@@ -1795,7 +1938,8 @@ save_text (HTMLText *text, HTMLEngineSaveState *state, guint start_index, guint 
 }
 
 static gboolean
-save (HTMLObject *self, HTMLEngineSaveState *state)
+save (HTMLObject *self,
+      HTMLEngineSaveState *state)
 {
 	HTMLText *text = HTML_TEXT (self);
 	PangoAttrIterator *iter = pango_attr_list_get_iterator (text->attr_list);
@@ -1836,8 +1980,8 @@ save (HTMLObject *self, HTMLEngineSaveState *state)
 
 static gboolean
 save_plain (HTMLObject *self,
-	    HTMLEngineSaveState *state,
-	    gint requested_width)
+            HTMLEngineSaveState *state,
+            gint requested_width)
 {
 	HTMLText *text;
 
@@ -1864,7 +2008,9 @@ struct TmpDeltaRecord
 
 /* Called when current character is not white space or at end of string */
 static gboolean
-check_last_white (gint white_space, gunichar last_white, gint *delta_out)
+check_last_white (gint white_space,
+                  gunichar last_white,
+                  gint *delta_out)
 {
 	if (white_space > 0 && last_white == ENTITY_NBSP) {
 		(*delta_out) --; /* &nbsp; => &sp; is one byte shorter in UTF-8 */
@@ -1876,7 +2022,9 @@ check_last_white (gint white_space, gunichar last_white, gint *delta_out)
 
 /* Called when current character is white space */
 static gboolean
-check_prev_white (gint white_space, gunichar last_white, gint *delta_out)
+check_prev_white (gint white_space,
+                  gunichar last_white,
+                  gint *delta_out)
 {
 	if (white_space > 0 && last_white == ' ') {
 		(*delta_out) ++; /* &sp; => &nbsp; is one byte longer in UTF-8 */
@@ -1887,7 +2035,9 @@ check_prev_white (gint white_space, gunichar last_white, gint *delta_out)
 }
 
 static GSList *
-add_change (GSList *list, gint index, gint delta)
+add_change (GSList *list,
+            gint index,
+            gint delta)
 {
 	struct TmpDeltaRecord *rec = g_new (struct TmpDeltaRecord, 1);
 
@@ -1907,7 +2057,9 @@ add_change (GSList *list, gint index, gint delta)
  * returns: %TRUE if any records were stored in changes_out
  */
 static gboolean
-is_convert_nbsp_needed (const gchar *s, gint *delta_out, GSList **changes_out)
+is_convert_nbsp_needed (const gchar *s,
+                        gint *delta_out,
+                        GSList **changes_out)
 {
 	gunichar uc, last_white = 0;
 	gboolean change;
@@ -1944,7 +2096,8 @@ is_convert_nbsp_needed (const gchar *s, gint *delta_out, GSList **changes_out)
 
 /* Called when current character is white space */
 static void
-write_prev_white_space (gint white_space, gchar **fill)
+write_prev_white_space (gint white_space,
+                        gchar **fill)
 {
 	if (white_space > 0) {
 #ifdef DEBUG_NBSP
@@ -1957,7 +2110,8 @@ write_prev_white_space (gint white_space, gchar **fill)
 
 /* Called when current character is not white space or at end of string */
 static void
-write_last_white_space (gint white_space, gchar **fill)
+write_last_white_space (gint white_space,
+                        gchar **fill)
 {
 	if (white_space > 0) {
 #ifdef DEBUG_NBSP
@@ -1971,7 +2125,8 @@ write_last_white_space (gint white_space, gchar **fill)
  * into N-1 &nbsp and 1 &sp;.
  */
 static void
-convert_nbsp (gchar *fill, const gchar *text)
+convert_nbsp (gchar *fill,
+              const gchar *text)
 {
 	gint white_space;
 	gunichar uc;
@@ -2013,8 +2168,8 @@ convert_nbsp (gchar *fill, const gchar *text)
 
 static void
 update_index_interval (guint *start_index,
-		       guint *end_index,
-		       GSList *changes)
+                       guint *end_index,
+                       GSList *changes)
 {
 	GSList *c;
 	gint index, delta;
@@ -2054,7 +2209,8 @@ update_index_interval (guint *start_index,
 }
 
 static gboolean
-update_attributes_filter (PangoAttribute *attr, gpointer data)
+update_attributes_filter (PangoAttribute *attr,
+                          gpointer data)
 {
 	update_index_interval (&attr->start_index, &attr->end_index, (GSList *) data);
 
@@ -2062,13 +2218,15 @@ update_attributes_filter (PangoAttribute *attr, gpointer data)
 }
 
 static void
-update_attributes (PangoAttrList *attrs, GSList *changes)
+update_attributes (PangoAttrList *attrs,
+                   GSList *changes)
 {
 	pango_attr_list_filter (attrs, update_attributes_filter, changes);
 }
 
 static void
-update_links (GSList *links, GSList *changes)
+update_links (GSList *links,
+              GSList *changes)
 {
 	GSList *cl;
 
@@ -2089,7 +2247,8 @@ free_changes (GSList *changes)
 }
 
 gboolean
-html_text_convert_nbsp (HTMLText *text, gboolean free_text)
+html_text_convert_nbsp (HTMLText *text,
+                        gboolean free_text)
 {
 	GSList *changes = NULL;
 	gint delta;
@@ -2119,7 +2278,9 @@ html_text_convert_nbsp (HTMLText *text, gboolean free_text)
 }
 
 static void
-move_spell_errors (GList *spell_errors, guint offset, gint delta)
+move_spell_errors (GList *spell_errors,
+                   guint offset,
+                   gint delta)
 {
 	SpellError *se;
 
@@ -2135,7 +2296,8 @@ move_spell_errors (GList *spell_errors, guint offset, gint delta)
 }
 
 static GList *
-remove_one (GList *list, GList *link)
+remove_one (GList *list,
+            GList *link)
 {
 	spell_error_destroy ((SpellError *) link->data);
 	list = g_list_remove_link (list, link);
@@ -2145,7 +2307,9 @@ remove_one (GList *list, GList *link)
 }
 
 static GList *
-remove_spell_errors (GList *spell_errors, guint offset, guint len)
+remove_spell_errors (GList *spell_errors,
+                     guint offset,
+                     guint len)
 {
 	SpellError *se;
 	GList *cur, *cnext;
@@ -2179,7 +2343,8 @@ remove_spell_errors (GList *spell_errors, guint offset, guint len)
 }
 
 static gint
-se_cmp (SpellError *a, SpellError *b)
+se_cmp (SpellError *a,
+        SpellError *b)
 {
 	guint o1 = a->off;
 	guint o2 = b->off;
@@ -2188,7 +2353,8 @@ se_cmp (SpellError *a, SpellError *b)
 }
 
 static GList *
-merge_spell_errors (GList *se1, GList *se2)
+merge_spell_errors (GList *se1,
+                    GList *se2)
 {
 	GList *merged = NULL;
 	GList *link;
@@ -2227,19 +2393,20 @@ merge_spell_errors (GList *se1, GList *se2)
 
 static HTMLObject *
 check_point (HTMLObject *self,
-	     HTMLPainter *painter,
-	     gint x, gint y,
-	     guint *offset_return,
-	     gboolean for_cursor)
+             HTMLPainter *painter,
+             gint x,
+             gint y,
+             guint *offset_return,
+             gboolean for_cursor)
 {
 	return NULL;
 }
 
 static void
 queue_draw (HTMLText *text,
-	    HTMLEngine *engine,
-	    guint offset,
-	    guint len)
+            HTMLEngine *engine,
+            guint offset,
+            guint len)
 {
 	HTMLObject *obj;
 
@@ -2261,7 +2428,7 @@ queue_draw (HTMLText *text,
 }
 
 /* This is necessary to merge the text-specified font style with that of the
-   HTMLClueFlow parent.  */
+ * HTMLClueFlow parent.  */
 static GtkHTMLFontStyle
 get_font_style (const HTMLText *text)
 {
@@ -2284,8 +2451,8 @@ get_font_style (const HTMLText *text)
 
 static void
 set_font_style (HTMLText *text,
-		HTMLEngine *engine,
-		GtkHTMLFontStyle style)
+                HTMLEngine *engine,
+                GtkHTMLFontStyle style)
 {
 	if (text->font_style == style)
 		return;
@@ -2323,10 +2490,10 @@ destroy (HTMLObject *obj)
 
 static gboolean
 select_range (HTMLObject *self,
-	      HTMLEngine *engine,
-	      guint offset,
-	      gint length,
-	      gboolean queue_draw)
+              HTMLEngine *engine,
+              guint offset,
+              gint length,
+              gboolean queue_draw)
 {
 	HTMLText *text;
 	HTMLObject *p;
@@ -2415,7 +2582,10 @@ select_range (HTMLObject *self,
 }
 
 static HTMLObject *
-set_link (HTMLObject *self, HTMLColor *color, const gchar *url, const gchar *target)
+set_link (HTMLObject *self,
+          HTMLColor *color,
+          const gchar *url,
+          const gchar *target)
 {
 	/* HTMLText *text = HTML_TEXT (self); */
 
@@ -2425,7 +2595,7 @@ set_link (HTMLObject *self, HTMLColor *color, const gchar *url, const gchar *tar
 
 static void
 append_selection_string (HTMLObject *self,
-			 GString *buffer)
+                         GString *buffer)
 {
 	HTMLText *text;
 	const gchar *p, *last;
@@ -2439,7 +2609,7 @@ append_selection_string (HTMLObject *self,
 
 	/* OPTIMIZED
 	last = html_text_get_text (text,
-				   text->select_start + text->select_length);
+				 * text->select_start + text->select_length);
 	*/
 	html_engine_save_string_append_nonbsp (buffer,
 					       (guchar *) p,
@@ -2449,10 +2619,12 @@ append_selection_string (HTMLObject *self,
 
 static void
 get_cursor (HTMLObject *self,
-	    HTMLPainter *painter,
-	    guint offset,
-	    gint *x1, gint *y1,
-	    gint *x2, gint *y2)
+            HTMLPainter *painter,
+            guint offset,
+            gint *x1,
+            gint *y1,
+            gint *x2,
+            gint *y2)
 {
 	HTMLObject *slave;
 	guint ascent, descent;
@@ -2475,9 +2647,10 @@ get_cursor (HTMLObject *self,
 
 static void
 html_text_get_cursor_base (HTMLObject *self,
-			   HTMLPainter *painter,
-			   guint offset,
-			   gint *x, gint *y)
+                           HTMLPainter *painter,
+                           guint offset,
+                           gint *x,
+                           gint *y)
 {
 	HTMLTextSlave *slave = html_text_get_slave_at_offset (HTML_TEXT (self), NULL, offset);
 
@@ -2492,7 +2665,8 @@ html_text_get_cursor_base (HTMLObject *self,
 }
 
 Link *
-html_text_get_link_at_offset (HTMLText *text, gint offset)
+html_text_get_link_at_offset (HTMLText *text,
+                              gint offset)
 {
 	GSList *l;
 
@@ -2507,7 +2681,8 @@ html_text_get_link_at_offset (HTMLText *text, gint offset)
 }
 
 static const gchar *
-get_url (HTMLObject *object, gint offset)
+get_url (HTMLObject *object,
+         gint offset)
 {
 	Link *link = html_text_get_link_at_offset (HTML_TEXT (object), offset);
 
@@ -2515,7 +2690,8 @@ get_url (HTMLObject *object, gint offset)
 }
 
 static const gchar *
-get_target (HTMLObject *object, gint offset)
+get_target (HTMLObject *object,
+            gint offset)
 {
 	Link *link = html_text_get_link_at_offset (HTML_TEXT (object), offset);
 
@@ -2523,7 +2699,9 @@ get_target (HTMLObject *object, gint offset)
 }
 
 HTMLTextSlave *
-html_text_get_slave_at_offset (HTMLText *text, HTMLTextSlave *start, gint offset)
+html_text_get_slave_at_offset (HTMLText *text,
+                               HTMLTextSlave *start,
+                               gint offset)
 {
 	HTMLObject *obj = start ? HTML_OBJECT (start) : HTML_OBJECT (text)->next;
 
@@ -2537,7 +2715,9 @@ html_text_get_slave_at_offset (HTMLText *text, HTMLTextSlave *start, gint offset
 }
 
 static gboolean
-html_text_cursor_prev_slave (HTMLObject *slave, HTMLPainter *painter, HTMLCursor *cursor)
+html_text_cursor_prev_slave (HTMLObject *slave,
+                             HTMLPainter *painter,
+                             HTMLCursor *cursor)
 {
 	gint offset = cursor->offset;
 
@@ -2556,7 +2736,9 @@ html_text_cursor_prev_slave (HTMLObject *slave, HTMLPainter *painter, HTMLCursor
 }
 
 static gboolean
-html_text_cursor_next_slave (HTMLObject *slave, HTMLPainter *painter, HTMLCursor *cursor)
+html_text_cursor_next_slave (HTMLObject *slave,
+                             HTMLPainter *painter,
+                             HTMLCursor *cursor)
 {
 	gint offset = cursor->offset;
 
@@ -2575,7 +2757,9 @@ html_text_cursor_next_slave (HTMLObject *slave, HTMLPainter *painter, HTMLCursor
 }
 
 static gboolean
-html_text_cursor_forward (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
+html_text_cursor_forward (HTMLObject *self,
+                          HTMLCursor *cursor,
+                          HTMLEngine *engine)
 {
 	HTMLText *text;
 	HTMLTextPangoInfo *pi = NULL;
@@ -2609,7 +2793,8 @@ html_text_cursor_forward (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engi
 }
 
 static gboolean
-html_cursor_allow_zero_offset (HTMLCursor *cursor, HTMLObject *o)
+html_cursor_allow_zero_offset (HTMLCursor *cursor,
+                               HTMLObject *o)
 {
 	if (cursor->offset == 1) {
 		HTMLObject *prev;
@@ -2630,7 +2815,9 @@ html_cursor_allow_zero_offset (HTMLCursor *cursor, HTMLObject *o)
 }
 
 static gboolean
-html_text_cursor_backward (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
+html_text_cursor_backward (HTMLObject *self,
+                           HTMLCursor *cursor,
+                           HTMLEngine *engine)
 {
 	HTMLText *text;
 	HTMLTextPangoInfo *pi = NULL;
@@ -2664,7 +2851,9 @@ html_text_cursor_backward (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *eng
 }
 
 static gboolean
-html_text_cursor_right (HTMLObject *self, HTMLPainter *painter, HTMLCursor *cursor)
+html_text_cursor_right (HTMLObject *self,
+                        HTMLPainter *painter,
+                        HTMLCursor *cursor)
 {
 	HTMLTextSlave *slave;
 
@@ -2690,7 +2879,9 @@ html_text_cursor_right (HTMLObject *self, HTMLPainter *painter, HTMLCursor *curs
 }
 
 static gboolean
-html_text_cursor_left (HTMLObject *self, HTMLPainter *painter, HTMLCursor *cursor)
+html_text_cursor_left (HTMLObject *self,
+                       HTMLPainter *painter,
+                       HTMLCursor *cursor)
 {
 	HTMLTextSlave *slave;
 
@@ -2716,7 +2907,9 @@ html_text_cursor_left (HTMLObject *self, HTMLPainter *painter, HTMLCursor *curso
 }
 
 static gboolean
-html_text_backspace (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
+html_text_backspace (HTMLObject *self,
+                     HTMLCursor *cursor,
+                     HTMLEngine *engine)
 {
 	HTMLText *text;
 	HTMLTextPangoInfo *pi = NULL;
@@ -2789,7 +2982,9 @@ html_text_backspace (HTMLObject *self, HTMLCursor *cursor, HTMLEngine *engine)
 }
 
 static gint
-html_text_get_right_edge_offset (HTMLObject *o, HTMLPainter *painter, gint offset)
+html_text_get_right_edge_offset (HTMLObject *o,
+                                 HTMLPainter *painter,
+                                 gint offset)
 {
 	HTMLTextSlave *slave = html_text_get_slave_at_offset (HTML_TEXT (o), NULL, offset);
 
@@ -2803,7 +2998,9 @@ html_text_get_right_edge_offset (HTMLObject *o, HTMLPainter *painter, gint offse
 }
 
 static gint
-html_text_get_left_edge_offset (HTMLObject *o, HTMLPainter *painter, gint offset)
+html_text_get_left_edge_offset (HTMLObject *o,
+                                HTMLPainter *painter,
+                                gint offset)
 {
 	HTMLTextSlave *slave = html_text_get_slave_at_offset (HTML_TEXT (o), NULL, offset);
 
@@ -2824,8 +3021,8 @@ html_text_type_init (void)
 
 void
 html_text_class_init (HTMLTextClass *klass,
-		      HTMLType type,
-		      guint object_size)
+                      HTMLType type,
+                      guint object_size)
 {
 	HTMLObjectClass *object_class;
 
@@ -2876,7 +3073,8 @@ html_text_class_init (HTMLTextClass *klass,
 
 /* almost identical copy of glib's _g_utf8_make_valid() */
 static gchar *
-_html_text_utf8_make_valid (const gchar *name, gint len)
+_html_text_utf8_make_valid (const gchar *name,
+                            gint len)
 {
 	GString *string;
 	const gchar *remainder, *invalid;
@@ -2948,7 +3146,9 @@ _html_text_utf8_make_valid (const gchar *name, gint len)
  * Return value: number of bytes in the output value of @str
  **/
 gsize
-html_text_sanitize (const gchar *str_in, gchar **str_out, gint *len)
+html_text_sanitize (const gchar *str_in,
+                    gchar **str_out,
+                    gint *len)
 {
 	g_return_val_if_fail (str_in != NULL, 0);
 	g_return_val_if_fail (str_out != NULL, 0);
@@ -2963,11 +3163,11 @@ html_text_sanitize (const gchar *str_in, gchar **str_out, gint *len)
 
 void
 html_text_init (HTMLText *text,
-		HTMLTextClass *klass,
-		const gchar *str,
-		gint len,
-		GtkHTMLFontStyle font_style,
-		HTMLColor *color)
+                HTMLTextClass *klass,
+                const gchar *str,
+                gint len,
+                GtkHTMLFontStyle font_style,
+                HTMLColor *color)
 {
 	g_assert (color);
 
@@ -2991,7 +3191,10 @@ html_text_init (HTMLText *text,
 }
 
 HTMLObject *
-html_text_new_with_len (const gchar *str, gint len, GtkHTMLFontStyle font, HTMLColor *color)
+html_text_new_with_len (const gchar *str,
+                        gint len,
+                        GtkHTMLFontStyle font,
+                        HTMLColor *color)
 {
 	HTMLText *text;
 
@@ -3004,17 +3207,17 @@ html_text_new_with_len (const gchar *str, gint len, GtkHTMLFontStyle font, HTMLC
 
 HTMLObject *
 html_text_new (const gchar *text,
-	       GtkHTMLFontStyle font,
-	       HTMLColor *color)
+               GtkHTMLFontStyle font,
+               HTMLColor *color)
 {
 	return html_text_new_with_len (text, -1, font, color);
 }
 
 void
 html_text_queue_draw (HTMLText *text,
-		      HTMLEngine *engine,
-		      guint offset,
-		      guint len)
+                      HTMLEngine *engine,
+                      guint offset,
+                      guint len)
 {
 	g_return_if_fail (text != NULL);
 	g_return_if_fail (engine != NULL);
@@ -3033,8 +3236,8 @@ html_text_get_font_style (const HTMLText *text)
 
 void
 html_text_set_font_style (HTMLText *text,
-			  HTMLEngine *engine,
-			  GtkHTMLFontStyle style)
+                          HTMLEngine *engine,
+                          GtkHTMLFontStyle style)
 {
 	g_return_if_fail (text != NULL);
 
@@ -3042,7 +3245,8 @@ html_text_set_font_style (HTMLText *text,
 }
 
 void
-html_text_set_font_face (HTMLText *text, HTMLFontFace *face)
+html_text_set_font_face (HTMLText *text,
+                         HTMLFontFace *face)
 {
 	if (text->face)
 		g_free (text->face);
@@ -3050,13 +3254,14 @@ html_text_set_font_face (HTMLText *text, HTMLFontFace *face)
 }
 
 void
-html_text_set_text (HTMLText *text, const gchar *new_text)
+html_text_set_text (HTMLText *text,
+                    const gchar *new_text)
 {
 	g_free (text->text);
 	text->text = NULL;
 	text->text_len = -1;
 	text->text_bytes = html_text_sanitize (new_text, &text->text,
-					       (gint *)&text->text_len);
+					       (gint *) &text->text_len);
 	html_object_change_set (HTML_OBJECT (text), HTML_CHANGE_ALL);
 }
 
@@ -3065,7 +3270,8 @@ html_text_set_text (HTMLText *text, const gchar *new_text)
 #include "htmlinterval.h"
 
 static SpellError *
-spell_error_new (guint off, guint len)
+spell_error_new (guint off,
+                 guint len)
 {
 	SpellError *se = g_new (SpellError, 1);
 
@@ -3090,7 +3296,8 @@ html_text_spell_errors_clear (HTMLText *text)
 }
 
 void
-html_text_spell_errors_clear_interval (HTMLText *text, HTMLInterval *i)
+html_text_spell_errors_clear_interval (HTMLText *text,
+                                       HTMLInterval *i)
 {
 	GList *cur, *cnext;
 	SpellError *se;
@@ -3116,7 +3323,9 @@ html_text_spell_errors_clear_interval (HTMLText *text, HTMLInterval *i)
 }
 
 void
-html_text_spell_errors_add (HTMLText *text, guint off, guint len)
+html_text_spell_errors_add (HTMLText *text,
+                            guint off,
+                            guint len)
 {
 	text->spell_errors = merge_spell_errors (
 		text->spell_errors, g_list_prepend (
@@ -3130,7 +3339,8 @@ html_text_get_bytes (HTMLText *text)
 }
 
 gchar *
-html_text_get_text (HTMLText *text, guint offset)
+html_text_get_text (HTMLText *text,
+                    guint offset)
 {
 	gchar *s = text->text;
 
@@ -3141,13 +3351,15 @@ html_text_get_text (HTMLText *text, guint offset)
 }
 
 guint
-html_text_get_index (HTMLText *text, guint offset)
+html_text_get_index (HTMLText *text,
+                     guint offset)
 {
 	return html_text_get_text (text, offset) - text->text;
 }
 
 gunichar
-html_text_get_char (HTMLText *text, guint offset)
+html_text_get_char (HTMLText *text,
+                    guint offset)
 {
 	gunichar uc;
 
@@ -3193,7 +3405,11 @@ html_engine_init_magic_links (void)
 }
 
 static void
-paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, const gchar *prefix)
+paste_link (HTMLEngine *engine,
+            HTMLText *text,
+            gint so,
+            gint eo,
+            const gchar *prefix)
 {
 	gchar *href;
 	gchar *base;
@@ -3207,7 +3423,9 @@ paste_link (HTMLEngine *engine, HTMLText *text, gint so, gint eo, const gchar *p
 }
 
 gboolean
-html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
+html_text_magic_link (HTMLText *text,
+                      HTMLEngine *engine,
+                      guint offset)
 {
 	regmatch_t pmatch[2];
 	gint i;
@@ -3286,14 +3504,17 @@ html_text_magic_link (HTMLText *text, HTMLEngine *engine, guint offset)
  */
 
 gint
-html_text_trail_space_width (HTMLText *text, HTMLPainter *painter)
+html_text_trail_space_width (HTMLText *text,
+                             HTMLPainter *painter)
 {
 	return text->text_len > 0 && html_text_get_char (text, text->text_len - 1) == ' '
 		? html_painter_get_space_width (painter, html_text_get_font_style (text), text->face) : 0;
 }
 
 void
-html_text_append (HTMLText *text, const gchar *pstr, gint len)
+html_text_append (HTMLText *text,
+                  const gchar *pstr,
+                  gint len)
 {
 	gchar *to_delete, *str = NULL;
 	guint bytes;
@@ -3315,20 +3536,34 @@ html_text_append (HTMLText *text, const gchar *pstr, gint len)
 }
 
 void
-html_text_append_link_full (HTMLText *text, gchar *url, gchar *target, gint start_index, gint end_index, gint start_offset, gint end_offset)
+html_text_append_link_full (HTMLText *text,
+                            gchar *url,
+                            gchar *target,
+                            gint start_index,
+                            gint end_index,
+                            gint start_offset,
+                            gint end_offset)
 {
 	text->links = g_slist_prepend (text->links, html_link_new (url, target, start_index, end_index, start_offset, end_offset, FALSE));
 }
 
 static void
-html_text_offsets_to_indexes (HTMLText *text, gint so, gint eo, gint *si, gint *ei)
+html_text_offsets_to_indexes (HTMLText *text,
+                              gint so,
+                              gint eo,
+                              gint *si,
+                              gint *ei)
 {
 	*si = html_text_get_index (text, so);
 	*ei = g_utf8_offset_to_pointer (text->text + *si, eo - so) - text->text;
 }
 
 void
-html_text_append_link (HTMLText *text, gchar *url, gchar *target, gint start_offset, gint end_offset)
+html_text_append_link (HTMLText *text,
+                       gchar *url,
+                       gchar *target,
+                       gint start_offset,
+                       gint end_offset)
 {
 	gint start_index, end_index;
 
@@ -3337,7 +3572,14 @@ html_text_append_link (HTMLText *text, gchar *url, gchar *target, gint start_off
 }
 
 void
-html_text_add_link_full (HTMLText *text, HTMLEngine *e, gchar *url, gchar *target, gint start_index, gint end_index, gint start_offset, gint end_offset)
+html_text_add_link_full (HTMLText *text,
+                         HTMLEngine *e,
+                         gchar *url,
+                         gchar *target,
+                         gint start_index,
+                         gint end_index,
+                         gint start_offset,
+                         gint end_offset)
 {
 	GSList *l, *prev = NULL;
 	Link *link;
@@ -3386,7 +3628,12 @@ html_text_add_link_full (HTMLText *text, HTMLEngine *e, gchar *url, gchar *targe
 }
 
 void
-html_text_add_link (HTMLText *text, HTMLEngine *e, gchar *url, gchar *target, gint start_offset, gint end_offset)
+html_text_add_link (HTMLText *text,
+                    HTMLEngine *e,
+                    gchar *url,
+                    gchar *target,
+                    gint start_offset,
+                    gint end_offset)
 {
 	gint start_index, end_index;
 
@@ -3425,7 +3672,10 @@ html_text_remove_links (HTMLText *text)
 /* } */
 
 Link *
-html_text_get_link_slaves_at_offset (HTMLText *text, gint offset, HTMLTextSlave **start, HTMLTextSlave **end)
+html_text_get_link_slaves_at_offset (HTMLText *text,
+                                     gint offset,
+                                     HTMLTextSlave **start,
+                                     HTMLTextSlave **end)
 {
 	Link *link = html_text_get_link_at_offset (text, offset);
 
@@ -3441,7 +3691,13 @@ html_text_get_link_slaves_at_offset (HTMLText *text, gint offset, HTMLTextSlave 
 }
 
 gboolean
-html_text_get_link_rectangle (HTMLText *text, HTMLPainter *painter, gint offset, gint *x1, gint *y1, gint *x2, gint *y2)
+html_text_get_link_rectangle (HTMLText *text,
+                              HTMLPainter *painter,
+                              gint offset,
+                              gint *x1,
+                              gint *y1,
+                              gint *x2,
+                              gint *y2)
 {
 	HTMLTextSlave *start;
 	HTMLTextSlave *end;
@@ -3472,7 +3728,8 @@ html_text_get_link_rectangle (HTMLText *text, HTMLPainter *painter, gint offset,
 }
 
 gboolean
-html_text_prev_link_offset (HTMLText *text, gint *offset)
+html_text_prev_link_offset (HTMLText *text,
+                            gint *offset)
 {
 	GSList *l;
 
@@ -3492,7 +3749,8 @@ html_text_prev_link_offset (HTMLText *text, gint *offset)
 }
 
 gboolean
-html_text_next_link_offset (HTMLText *text, gint *offset)
+html_text_next_link_offset (HTMLText *text,
+                            gint *offset)
 {
 	GSList *l, *prev = NULL;
 
@@ -3513,7 +3771,8 @@ html_text_next_link_offset (HTMLText *text, gint *offset)
 }
 
 gboolean
-html_text_first_link_offset (HTMLText *text, gint *offset)
+html_text_first_link_offset (HTMLText *text,
+                             gint *offset)
 {
 	if (text->links)
 		*offset = ((Link *) g_slist_last (text->links)->data)->start_offset + 1;
@@ -3522,7 +3781,8 @@ html_text_first_link_offset (HTMLText *text, gint *offset)
 }
 
 gboolean
-html_text_last_link_offset (HTMLText *text, gint *offset)
+html_text_last_link_offset (HTMLText *text,
+                            gint *offset)
 {
 	if (text->links)
 		*offset = ((Link *) text->links->data)->end_offset - 1;
@@ -3531,7 +3791,8 @@ html_text_last_link_offset (HTMLText *text, gint *offset)
 }
 
 gchar *
-html_text_get_link_text (HTMLText *text, gint offset)
+html_text_get_link_text (HTMLText *text,
+                         gint offset)
 {
 	Link *link = html_text_get_link_at_offset (text, offset);
 	gchar *start;
@@ -3542,7 +3803,9 @@ html_text_get_link_text (HTMLText *text, gint offset)
 }
 
 void
-html_link_set_url_and_target (Link *link, gchar *url, gchar *target)
+html_link_set_url_and_target (Link *link,
+                              gchar *url,
+                              gchar *target)
 {
 	if (!link)
 		return;
@@ -3581,14 +3844,21 @@ html_link_free (Link *link)
 }
 
 gboolean
-html_link_equal (Link *l1, Link *l2)
+html_link_equal (Link *l1,
+                 Link *l2)
 {
 	return l1->url && l2->url && !g_ascii_strcasecmp (l1->url, l2->url)
 		&& (l1->target == l2->target || (l1->target && l2->target && !g_ascii_strcasecmp (l1->target, l2->target)));
 }
 
 Link *
-html_link_new (gchar *url, gchar *target, guint start_index, guint end_index, gint start_offset, gint end_offset, gboolean is_visited)
+html_link_new (gchar *url,
+               gchar *target,
+               guint start_index,
+               guint end_index,
+               gint start_offset,
+               gint end_offset,
+               gboolean is_visited)
 {
 	Link *link = g_new0 (Link, 1);
 
@@ -3623,7 +3893,8 @@ html_pango_attr_font_size_destroy (PangoAttribute *attr)
 }
 
 static gboolean
-html_pango_attr_font_size_equal (const PangoAttribute *attr1, const PangoAttribute *attr2)
+html_pango_attr_font_size_equal (const PangoAttribute *attr1,
+                                 const PangoAttribute *attr2)
 {
 	const HTMLPangoAttrFontSize *font_size_attr1 = (const HTMLPangoAttrFontSize *) attr1;
 	const HTMLPangoAttrFontSize *font_size_attr2 = (const HTMLPangoAttrFontSize *) attr2;
@@ -3632,7 +3903,8 @@ html_pango_attr_font_size_equal (const PangoAttribute *attr1, const PangoAttribu
 }
 
 void
-html_pango_attr_font_size_calc (HTMLPangoAttrFontSize *attr, HTMLEngine *e)
+html_pango_attr_font_size_calc (HTMLPangoAttrFontSize *attr,
+                                HTMLEngine *e)
 {
 	gint size, base_size, real_size;
 
@@ -3641,7 +3913,7 @@ html_pango_attr_font_size_calc (HTMLPangoAttrFontSize *attr, HTMLEngine *e)
 		size = (attr->style & GTK_HTML_FONT_STYLE_SIZE_MASK) - GTK_HTML_FONT_STYLE_SIZE_3;
 	else
 		size = 0;
-	real_size = e->painter->font_manager.magnification * ((gdouble) base_size + (size > 0 ? (1 << size) : size) * base_size/8.0);
+	real_size = e->painter->font_manager.magnification * ((gdouble) base_size + (size > 0 ? (1 << size) : size) * base_size / 8.0);
 
 	attr->attr_int.value = real_size;
 }
@@ -3664,7 +3936,8 @@ html_pango_attr_font_size_new (GtkHTMLFontStyle style)
 }
 
 static gboolean
-calc_font_size_filter (PangoAttribute *attr, gpointer data)
+calc_font_size_filter (PangoAttribute *attr,
+                       gpointer data)
 {
 	HTMLEngine *e = HTML_ENGINE (data);
 
@@ -3672,7 +3945,7 @@ calc_font_size_filter (PangoAttribute *attr, gpointer data)
 		html_pango_attr_font_size_calc ((HTMLPangoAttrFontSize *) attr, e);
 	else if (attr->klass->type == PANGO_ATTR_FAMILY) {
 		/* FIXME: this is not very nice. we set it here as it's only used when fonts changed.
-		   once family in style is used again, that code must be updated */
+		 * once family in style is used again, that code must be updated */
 		PangoAttrString *sa = (PangoAttrString *) attr;
 		g_free (sa->value);
 		sa->value = g_strdup (e->painter->font_manager.fixed.face);
@@ -3682,7 +3955,8 @@ calc_font_size_filter (PangoAttribute *attr, gpointer data)
 }
 
 void
-html_text_calc_font_size (HTMLText *text, HTMLEngine *e)
+html_text_calc_font_size (HTMLText *text,
+                          HTMLEngine *e)
 {
 	pango_attr_list_filter (text->attr_list, calc_font_size_filter, e);
 }
@@ -3727,7 +4001,8 @@ style_from_attrs (PangoAttrIterator *iter)
 }
 
 GtkHTMLFontStyle
-html_text_get_fontstyle_at_index (HTMLText *text, gint index)
+html_text_get_fontstyle_at_index (HTMLText *text,
+                                  gint index)
 {
 	GtkHTMLFontStyle style = GTK_HTML_FONT_STYLE_DEFAULT;
 	PangoAttrIterator *iter = pango_attr_list_get_iterator (text->attr_list);
@@ -3750,7 +4025,10 @@ html_text_get_fontstyle_at_index (HTMLText *text, gint index)
 }
 
 GtkHTMLFontStyle
-html_text_get_style_conflicts (HTMLText *text, GtkHTMLFontStyle style, gint start_index, gint end_index)
+html_text_get_style_conflicts (HTMLText *text,
+                               GtkHTMLFontStyle style,
+                               gint start_index,
+                               gint end_index)
 {
 	GtkHTMLFontStyle conflicts = GTK_HTML_FONT_STYLE_DEFAULT;
 	PangoAttrIterator *iter = pango_attr_list_get_iterator (text->attr_list);
@@ -3773,7 +4051,12 @@ html_text_get_style_conflicts (HTMLText *text, GtkHTMLFontStyle style, gint star
 }
 
 void
-html_text_change_attrs (PangoAttrList *attr_list, GtkHTMLFontStyle style, HTMLEngine *e, gint start_index, gint end_index, gboolean avoid_default_size)
+html_text_change_attrs (PangoAttrList *attr_list,
+                        GtkHTMLFontStyle style,
+                        HTMLEngine *e,
+                        gint start_index,
+                        gint end_index,
+                        gboolean avoid_default_size)
 {
 	PangoAttribute *attr;
 
@@ -3827,19 +4110,26 @@ html_text_change_attrs (PangoAttrList *attr_list, GtkHTMLFontStyle style, HTMLEn
 }
 
 void
-html_text_set_style_in_range (HTMLText *text, GtkHTMLFontStyle style, HTMLEngine *e, gint start_index, gint end_index)
+html_text_set_style_in_range (HTMLText *text,
+                              GtkHTMLFontStyle style,
+                              HTMLEngine *e,
+                              gint start_index,
+                              gint end_index)
 {
 	html_text_change_attrs (text->attr_list, style, e, start_index, end_index, TRUE);
 }
 
 void
-html_text_set_style (HTMLText *text, GtkHTMLFontStyle style, HTMLEngine *e)
+html_text_set_style (HTMLText *text,
+                     GtkHTMLFontStyle style,
+                     HTMLEngine *e)
 {
 	html_text_set_style_in_range (text, style, e, 0, text->text_bytes);
 }
 
 static gboolean
-unset_style_filter (PangoAttribute *attr, gpointer data)
+unset_style_filter (PangoAttribute *attr,
+                    gpointer data)
 {
 	GtkHTMLFontStyle style = GPOINTER_TO_INT (data);
 
@@ -3876,7 +4166,8 @@ unset_style_filter (PangoAttribute *attr, gpointer data)
 }
 
 void
-html_text_unset_style (HTMLText *text, GtkHTMLFontStyle style)
+html_text_unset_style (HTMLText *text,
+                       GtkHTMLFontStyle style)
 {
 	pango_attr_list_filter (text->attr_list, unset_style_filter, GINT_TO_POINTER (style));
 }
@@ -3908,7 +4199,10 @@ color_from_attrs (PangoAttrIterator *iter)
 }
 
 static HTMLColor *
-html_text_get_first_color_in_range (HTMLText *text, HTMLEngine *e, gint start_index, gint end_index)
+html_text_get_first_color_in_range (HTMLText *text,
+                                    HTMLEngine *e,
+                                    gint start_index,
+                                    gint end_index)
 {
 	HTMLColor *color = NULL;
 	PangoAttrIterator *iter = pango_attr_list_get_iterator (text->attr_list);
@@ -3936,19 +4230,26 @@ html_text_get_first_color_in_range (HTMLText *text, HTMLEngine *e, gint start_in
 }
 
 HTMLColor *
-html_text_get_color_at_index (HTMLText *text, HTMLEngine *e, gint index)
+html_text_get_color_at_index (HTMLText *text,
+                              HTMLEngine *e,
+                              gint index)
 {
 	return html_text_get_first_color_in_range (text, e, index, index);
 }
 
 HTMLColor *
-html_text_get_color (HTMLText *text, HTMLEngine *e, gint start_index)
+html_text_get_color (HTMLText *text,
+                     HTMLEngine *e,
+                     gint start_index)
 {
 	return html_text_get_first_color_in_range (text, e, start_index, text->text_bytes);
 }
 
 void
-html_text_set_color_in_range (HTMLText *text, HTMLColor *color, gint start_index, gint end_index)
+html_text_set_color_in_range (HTMLText *text,
+                              HTMLColor *color,
+                              gint start_index,
+                              gint end_index)
 {
 	PangoAttribute *attr = pango_attr_foreground_new (color->color.red, color->color.green, color->color.blue);
 
@@ -3958,7 +4259,8 @@ html_text_set_color_in_range (HTMLText *text, HTMLColor *color, gint start_index
 }
 
 void
-html_text_set_color (HTMLText *text, HTMLColor *color)
+html_text_set_color (HTMLText *text,
+                     HTMLColor *color)
 {
 	html_text_set_color_in_range (text, color, 0, text->text_bytes);
 }
@@ -3977,7 +4279,8 @@ html_text_direction_pango_to_html (PangoDirection pdir)
 }
 
 void
-html_text_change_set (HTMLText *text, HTMLChangeFlags flags)
+html_text_change_set (HTMLText *text,
+                      HTMLChangeFlags flags)
 {
 	HTMLObject *slave = HTML_OBJECT (text)->next;
 
@@ -3988,9 +4291,12 @@ html_text_change_set (HTMLText *text, HTMLChangeFlags flags)
 }
 
 void
-html_text_set_link_visited (HTMLText *text, gint offset, HTMLEngine *engine, gboolean is_visited)
+html_text_set_link_visited (HTMLText *text,
+                            gint offset,
+                            HTMLEngine *engine,
+                            gboolean is_visited)
 {
-	HTMLEngine *object_engine=html_object_engine (HTML_OBJECT (text),engine);
+	HTMLEngine *object_engine = html_object_engine (HTML_OBJECT (text),engine);
 	Link *link = html_text_get_link_at_offset (text,offset);
 
 	if (link) {

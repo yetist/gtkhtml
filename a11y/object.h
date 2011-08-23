@@ -52,6 +52,6 @@ struct _GtkHTMLA11YClass
   GtkAccessibleClass parent_class;
 };
 
-AtkObject* gtk_html_a11y_new (GtkWidget *widget);
+AtkObject * gtk_html_a11y_new (GtkWidget *widget);
 
 #endif

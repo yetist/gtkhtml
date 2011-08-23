@@ -1,24 +1,24 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
 /* htmltype.h
-
-   Copyright (C) 1999, 2000 Helix Code, Inc.
-
-   The Gnome Library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
-
-   The Gnome Library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public
-   License along with the Gnome Library; see the file COPYING.LIB.  If not,
-   write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
-
-   Author: Ettore Perazzoli <ettore@comm2000.it>
+ *
+ * Copyright (C) 1999, 2000 Helix Code, Inc.
+ *
+ * The Gnome Library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public License as
+ * published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ *
+ * The Gnome Library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with the Gnome Library; see the file COPYING.LIB.  If not,
+ * write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
+ *
+ * Author: Ettore Perazzoli <ettore@comm2000.it>
 */
 
 #include <config.h>
@@ -65,7 +65,7 @@ build_type_names_table (void)
 
 	type_names = g_hash_table_new (g_str_hash, g_str_equal);
 
-	for (t = HTML_TYPE_NONE + 1; t<HTML_NUM_TYPES; t++)
+	for (t = HTML_TYPE_NONE + 1; t < HTML_NUM_TYPES; t++)
 		g_hash_table_insert (type_names, (gpointer) html_type_name (t), GINT_TO_POINTER (t));
 }
 

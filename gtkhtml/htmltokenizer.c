@@ -1,25 +1,25 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*
-    Copyright (C) 1997 Martin Jones (mjones@kde.org)
-              (C) 1997 Torben Weis (weis@kde.org)
-	      (C) 1999 Anders Carlsson (andersca@gnu.org)
-	      (C) 2000 Helix Code, Inc., Radek Doulik (rodo@helixcode.com)
-	      (C) 2001 Ximian, Inc.
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
+ *  Copyright (C) 1997 Martin Jones (mjones@kde.org)
+ *            (C) 1997 Torben Weis (weis@kde.org)
+ *            (C) 1999 Anders Carlsson (andersca@gnu.org)
+ *            (C) 2000 Helix Code, Inc., Radek Doulik (rodo@helixcode.com)
+ *            (C) 2001 Ximian, Inc.
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
 */
 
 /* The HTML Tokenizer */
@@ -354,7 +354,9 @@ html_token_buffer_destroy (HTMLTokenBuffer *tb)
 }
 
 static gboolean
-html_token_buffer_append_token (HTMLTokenBuffer * buf, const gchar *token, gint len)
+html_token_buffer_append_token (HTMLTokenBuffer *buf,
+                                const gchar *token,
+                                gint len)
 {
 
 	/* check if we have enough free space */
@@ -423,15 +425,15 @@ html_tokenizer_real_peek_token (HTMLTokenizer *t)
 gboolean
 is_valid_g_iconv (const GIConv iconv_cd)
 {
-	return iconv_cd != NULL && iconv_cd != (GIConv)-1;
+	return iconv_cd != NULL && iconv_cd != (GIConv) - 1;
 }
 
 /*Convert only chars when code >127*/
 gboolean
-is_need_convert (const gchar * token)
+is_need_convert (const gchar *token)
 {
-	gint i=strlen (token);
-	for (;i>=0;i--)
+	gint i = strlen (token);
+	for (; i >= 0; i--)
 		if (token[i]&128)
 			return TRUE;
 	return FALSE;
@@ -475,10 +477,10 @@ html_tokenizer_convert_entity (gchar *token)
 					if (*read_pos == '#') {
 						/* &#1234567 */
 						if (isdigit (*(read_pos + 1))) {
-							value=strtoull (read_pos + 1, NULL, 10);
+							value = strtoull (read_pos + 1, NULL, 10);
 						/* &#xdd; */
 						} else if (*(read_pos + 1) == 'x') {
-							value=strtoull (read_pos + 2, NULL, 16);
+							value = strtoull (read_pos + 2, NULL, 16);
 						}
 					} else {
 						value = html_entity_parse (read_pos, strlen (read_pos));
@@ -521,14 +523,14 @@ convert_text_encoding (const GIConv iconv_cd,
 	if (is_valid_g_iconv (iconv_cd) && is_need_convert (token)) {
 		currlength = strlen (token);
 		current = token;
-		newlength = currlength*7+1;
+		newlength = currlength * 7 + 1;
 		oldlength = newlength;
 		newbuffer = g_new (gchar, newlength);
 		returnbuffer = newbuffer;
 
 		while (currlength > 0) {
 			/*function not change current, but g_iconv use not const source*/
-			g_iconv (iconv_cd, (gchar **)&current, &currlength, &newbuffer, &newlength);
+			g_iconv (iconv_cd, (gchar **) &current, &currlength, &newbuffer, &newlength);
 			if (currlength > 0) {
 				g_warning ("IconvError=%s", current);
 				*newbuffer = INVALID_ENTITY_CHARACTER_MARKER;
@@ -547,7 +549,7 @@ convert_text_encoding (const GIConv iconv_cd,
 
 static gchar *
 html_tokenizer_converted_token (HTMLTokenizer *t,
-                                const gchar * token)
+                                const gchar *token)
 {
 	if (token != NULL) {
 		struct _HTMLTokenizerPrivate *p = t->priv;
@@ -676,7 +678,7 @@ is_text (const gchar *content_type)
 }
 
 static const gchar *
-get_encoding_from_content_type (const gchar * content_type)
+get_encoding_from_content_type (const gchar *content_type)
 {
 	gchar * charset;
 	if (content_type)
@@ -693,7 +695,7 @@ get_encoding_from_content_type (const gchar * content_type)
 }
 
 GIConv
-generate_iconv_from (const gchar * content_type)
+generate_iconv_from (const gchar *content_type)
 {
 	if (content_type)
 		if (!charset_is_utf8 (content_type))
@@ -706,7 +708,7 @@ generate_iconv_from (const gchar * content_type)
 }
 
 GIConv
-generate_iconv_to (const gchar * content_type)
+generate_iconv_to (const gchar *content_type)
 {
 	if (content_type)
 		if (!charset_is_utf8 (content_type))
@@ -719,7 +721,8 @@ generate_iconv_to (const gchar * content_type)
 }
 
 static void
-html_tokenizer_real_engine_type (HTMLTokenizer *t, gboolean engine_type)
+html_tokenizer_real_engine_type (HTMLTokenizer *t,
+                                 gboolean engine_type)
 {
 	struct _HTMLTokenizerPrivate *p;
 	p = t->priv;
@@ -728,7 +731,8 @@ html_tokenizer_real_engine_type (HTMLTokenizer *t, gboolean engine_type)
 }
 
 static void
-html_tokenizer_real_change (HTMLTokenizer *t, const gchar *content_type)
+html_tokenizer_real_change (HTMLTokenizer *t,
+                            const gchar *content_type)
 {
 	struct _HTMLTokenizerPrivate *p;
 	if (!is_text (content_type))
@@ -758,7 +762,8 @@ html_tokenizer_real_change (HTMLTokenizer *t, const gchar *content_type)
 }
 
 static void
-html_tokenizer_real_begin (HTMLTokenizer *t, const gchar *content_type)
+html_tokenizer_real_begin (HTMLTokenizer *t,
+                           const gchar *content_type)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
 
@@ -786,7 +791,8 @@ html_tokenizer_real_begin (HTMLTokenizer *t, const gchar *content_type)
 }
 
 static void
-destroy_blocking (gpointer data, gpointer user_data)
+destroy_blocking (gpointer data,
+                  gpointer user_data)
 {
 	g_free (data);
 }
@@ -818,7 +824,9 @@ html_tokenizer_real_end (HTMLTokenizer *t)
 }
 
 static void
-html_tokenizer_append_token (HTMLTokenizer *t, const gchar *string, gint len)
+html_tokenizer_append_token (HTMLTokenizer *t,
+                             const gchar *string,
+                             gint len)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
 
@@ -831,7 +839,7 @@ html_tokenizer_append_token (HTMLTokenizer *t, const gchar *string, gint len)
 
 	/* try append token to current buffer, if not successful, create append new token buffer */
 	if (!html_token_buffer_append_token (p->write_buf, string, len)) {
-		html_tokenizer_append_token_buffer (t, len+1);
+		html_tokenizer_append_token_buffer (t, len + 1);
 		/* now it must pass as we have enough space */
 		g_assert (html_token_buffer_append_token (p->write_buf, string, len));
 	}
@@ -844,17 +852,19 @@ html_tokenizer_append_token (HTMLTokenizer *t, const gchar *string, gint len)
 }
 
 static void
-add_byte (HTMLTokenizer *t, const gchar **c)
+add_byte (HTMLTokenizer *t,
+          const gchar **c)
 {
 	add_char (t,**c);
 	(*c) ++;
 }
 
 static void
-add_char (HTMLTokenizer *t, gchar c)
+add_char (HTMLTokenizer *t,
+          gchar c)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
-	if (c!='\0')
+	if (c != '\0')
 	{
 		*(p->dest) = c;
 		p->dest++;
@@ -863,7 +873,8 @@ add_char (HTMLTokenizer *t, gchar c)
 }
 
 static void
-html_tokenizer_append_token_buffer (HTMLTokenizer *t, gint min_size)
+html_tokenizer_append_token_buffer (HTMLTokenizer *t,
+                                    gint min_size)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
 	HTMLTokenBuffer *nb;
@@ -946,7 +957,8 @@ prepare_enough_space (HTMLTokenizer *t)
 }
 
 static void
-in_comment (HTMLTokenizer *t, const gchar **src)
+in_comment (HTMLTokenizer *t,
+            const gchar **src)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
 
@@ -974,7 +986,8 @@ in_comment (HTMLTokenizer *t, const gchar **src)
 }
 
 static inline void
-extension_one_char (HTMLTokenizer *t, const gchar **src)
+extension_one_char (HTMLTokenizer *t,
+                    const gchar **src)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
 
@@ -984,7 +997,8 @@ extension_one_char (HTMLTokenizer *t, const gchar **src)
 }
 
 static void
-in_extension (HTMLTokenizer *t, const gchar **src)
+in_extension (HTMLTokenizer *t,
+              const gchar **src)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
 
@@ -1012,7 +1026,8 @@ in_extension (HTMLTokenizer *t, const gchar **src)
 }
 
 static void
-in_script_or_style (HTMLTokenizer *t, const gchar **src)
+in_script_or_style (HTMLTokenizer *t,
+                    const gchar **src)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
 
@@ -1043,7 +1058,7 @@ in_script_or_style (HTMLTokenizer *t, const gchar **src)
 		}
 		else if (p->searchFor[p->searchCount] == '>') {
 			/* There can be any number of white-space characters between
-			   tag name and closing '>' so try to move through them, if possible */
+			 * tag name and closing '>' so try to move through them, if possible */
 
 			const gchar **p = src;
 			while (isspace (**p))
@@ -1080,7 +1095,8 @@ in_script_or_style (HTMLTokenizer *t, const gchar **src)
 }
 
 static void
-in_tag (HTMLTokenizer *t, const gchar **src)
+in_tag (HTMLTokenizer *t,
+        const gchar **src)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
 
@@ -1123,7 +1139,8 @@ in_tag (HTMLTokenizer *t, const gchar **src)
 }
 
 static void
-start_tag (HTMLTokenizer *t, const gchar **src)
+start_tag (HTMLTokenizer *t,
+           const gchar **src)
 {
 	(*src)++;
 	t->priv->startTag = TRUE;
@@ -1131,7 +1148,8 @@ start_tag (HTMLTokenizer *t, const gchar **src)
 }
 
 static void
-end_tag (HTMLTokenizer *t, const gchar **src)
+end_tag (HTMLTokenizer *t,
+         const gchar **src)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
 	gchar *ptr;
@@ -1218,7 +1236,8 @@ end_tag (HTMLTokenizer *t, const gchar **src)
 }
 
 static void
-in_crlf (HTMLTokenizer *t, const gchar **src)
+in_crlf (HTMLTokenizer *t,
+         const gchar **src)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
 
@@ -1260,7 +1279,8 @@ in_crlf (HTMLTokenizer *t, const gchar **src)
 }
 
 static void
-in_space_or_tab (HTMLTokenizer *t, const gchar **src)
+in_space_or_tab (HTMLTokenizer *t,
+                 const gchar **src)
 {
 	if (t->priv->tquote) {
 		if (t->priv->discard == NoneDiscard)
@@ -1286,7 +1306,8 @@ in_space_or_tab (HTMLTokenizer *t, const gchar **src)
 }
 
 static void
-in_quoted (HTMLTokenizer *t, const gchar **src)
+in_quoted (HTMLTokenizer *t,
+           const gchar **src)
 {
 	/* We treat ' and " the same in tags " */
 	t->priv->discard = NoneDiscard;
@@ -1296,7 +1317,7 @@ in_quoted (HTMLTokenizer *t, const gchar **src)
 		    || (t->priv->tquote == DOUBLE_QUOTE && **src == '\'')) {
 			add_char (t, **src);
 			(*src)++;
-		} else if (*(t->priv->dest-1) == '=' && !t->priv->tquote) {
+		} else if (*(t->priv->dest - 1) == '=' && !t->priv->tquote) {
 			t->priv->discard = SpaceDiscard;
 			t->priv->pending = NonePending;
 
@@ -1326,7 +1347,8 @@ in_quoted (HTMLTokenizer *t, const gchar **src)
 }
 
 static void
-in_assignment (HTMLTokenizer *t, const gchar **src)
+in_assignment (HTMLTokenizer *t,
+               const gchar **src)
 {
 	t->priv->discard = NoneDiscard;
 	if (t->priv->tag) {
@@ -1347,7 +1369,8 @@ in_assignment (HTMLTokenizer *t, const gchar **src)
 }
 
 inline static void
-in_plain (HTMLTokenizer *t, const gchar **src)
+in_plain (HTMLTokenizer *t,
+          const gchar **src)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
 
@@ -1378,7 +1401,8 @@ in_plain (HTMLTokenizer *t, const gchar **src)
 }
 
 static void
-html_tokenizer_tokenize_one_char (HTMLTokenizer *t, const gchar **src)
+html_tokenizer_tokenize_one_char (HTMLTokenizer *t,
+                                  const gchar **src)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
 
@@ -1414,7 +1438,9 @@ html_tokenizer_tokenize_one_char (HTMLTokenizer *t, const gchar **src)
 }
 
 static void
-html_tokenizer_real_write (HTMLTokenizer *t, const gchar *string, gsize size)
+html_tokenizer_real_write (HTMLTokenizer *t,
+                           const gchar *string,
+                           gsize size)
 {
 	const gchar *src = string;
 
@@ -1434,7 +1460,8 @@ html_tokenizer_blocking_get_name (HTMLTokenizer *t)
 }
 
 static void
-html_tokenizer_blocking_push (HTMLTokenizer *t, HTMLTokenType tt)
+html_tokenizer_blocking_push (HTMLTokenizer *t,
+                              HTMLTokenType tt)
 {
 	struct _HTMLTokenizerPrivate *p = t->priv;
 
@@ -1463,7 +1490,8 @@ html_tokenizer_blocking_pop (HTMLTokenizer *t)
 /** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** ** **/
 
 void
-html_tokenizer_begin (HTMLTokenizer *t, const gchar *content_type)
+html_tokenizer_begin (HTMLTokenizer *t,
+                      const gchar *content_type)
 {
 
 	g_return_if_fail (t && HTML_IS_TOKENIZER (t));
@@ -1472,7 +1500,8 @@ html_tokenizer_begin (HTMLTokenizer *t, const gchar *content_type)
 }
 
 void
-html_tokenizer_set_engine_type (HTMLTokenizer *t, gboolean engine_type)
+html_tokenizer_set_engine_type (HTMLTokenizer *t,
+                                gboolean engine_type)
 {
 	g_return_if_fail (t && HTML_IS_TOKENIZER (t));
 
@@ -1496,7 +1525,9 @@ html_tokenizer_end (HTMLTokenizer *t)
 }
 
 void
-html_tokenizer_write (HTMLTokenizer *t, const gchar *str, gsize size)
+html_tokenizer_write (HTMLTokenizer *t,
+                      const gchar *str,
+                      gsize size)
 {
 	HTMLTokenizerClass *klass;
 

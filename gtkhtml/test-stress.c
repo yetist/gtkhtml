@@ -37,7 +37,8 @@ static HTMLGdkPainter *gdk_painter = NULL;
 static HTMLGdkPainter *plain_painter = NULL;
 
 static void
-set_format (GtkHTML *html, gboolean format_html)
+set_format (GtkHTML *html,
+            gboolean format_html)
 {
 	HTMLGdkPainter *p, *old_p;
 
@@ -86,11 +87,11 @@ static gint test_level_1 (GtkHTML *html)
 	srand (2);
 
 	for (i = 0; i < 200; i++) {
-		gint j, len = 1 + (gint) (10.0*rand ()/(RAND_MAX+1.0));
+		gint j, len = 1 + (gint) (10.0 * rand () / (RAND_MAX + 1.0));
 		gchar word[12];
 
 		for (j = 0; j < len; j++)
-			word[j] = 'a' + (gint) (26.0*rand ()/(RAND_MAX+1.0));
+			word[j] = 'a' + (gint) (26.0 * rand () / (RAND_MAX + 1.0));
 		word[len] = ' ';
 		word[len + 1] = 0;
 		total_len += len + 1;
@@ -107,12 +108,12 @@ static gint test_level_1 (GtkHTML *html)
 	for (i = 0; i < 1000; i++) {
 		gint j, new_pos, pos, len;
 
-		len = 1 + (gint) (120.0*rand ()/(RAND_MAX+1.0));
-		pos = MAX (0, (gint) (((double) (total_len - len))*rand ()/(RAND_MAX+1.0)));
+		len = 1 + (gint) (120.0 * rand () / (RAND_MAX + 1.0));
+		pos = MAX (0, (gint) (((double) (total_len - len)) * rand () / (RAND_MAX + 1.0)));
 
 		printf ("step: %d pos: %d len: %d\n", i, pos, len);
 
-		switch ((gint) (10.0*rand ()/(RAND_MAX+1.0))) {
+		switch ((gint) (10.0 * rand () / (RAND_MAX + 1.0))) {
 		case 0:
 			/* cut'n'paste */
 			printf ("cut'n'paste\n");
@@ -121,7 +122,7 @@ static gint test_level_1 (GtkHTML *html)
 			html_cursor_jump_to_position (html->engine->cursor, html->engine, pos + len);
 			html_engine_cut (html->engine);
 
-			new_pos = (gint) (((double) (total_len - len))*rand ()/(RAND_MAX+1.0));
+			new_pos = (gint) (((double) (total_len - len)) * rand () / (RAND_MAX + 1.0));
 
 			html_cursor_jump_to_position (html->engine->cursor, html->engine, new_pos);
 			html_engine_paste (html->engine);
@@ -131,7 +132,7 @@ static gint test_level_1 (GtkHTML *html)
 			printf ("insert text\n");
 			html_cursor_jump_to_position (html->engine->cursor, html->engine, pos);
 			for (j = 0; j < len; j++) {
-				gint et = (gint) (10.0*rand ()/(RAND_MAX+1.0));
+				gint et = (gint) (10.0 * rand () / (RAND_MAX + 1.0));
 				if (et == 0)
 					gtk_html_command (html, "insert-tab");
 				else {
@@ -140,7 +141,7 @@ static gint test_level_1 (GtkHTML *html)
 					if (et == 1)
 						ch[0] = ' ';
 					else
-						ch[0] = 'a' + (gint) (26.0*rand ()/(RAND_MAX+1.0));
+						ch[0] = 'a' + (gint) (26.0 * rand () / (RAND_MAX + 1.0));
 					ch[1] = 0;
 					html_engine_insert_text (html->engine, ch, 1);
 				}
@@ -178,7 +179,7 @@ static gint test_level_1 (GtkHTML *html)
 			html_cursor_jump_to_position (html->engine->cursor, html->engine, pos + len);
 			gtk_html_cut (html);
 
-			new_pos = (gint) (((double) (total_len - len))*rand ()/(RAND_MAX+1.0));
+			new_pos = (gint) (((double) (total_len - len)) * rand () / (RAND_MAX + 1.0));
 
 			html_cursor_jump_to_position (html->engine->cursor, html->engine, new_pos);
 			gtk_html_paste (html, TRUE);
@@ -186,14 +187,14 @@ static gint test_level_1 (GtkHTML *html)
 		case 6:
 			/* left */
 			printf ("left\n");
-			for (j = 0; j < 5*len; j++) {
+			for (j = 0; j < 5 * len; j++) {
 				html_cursor_left (html->engine->cursor, html->engine);
 			}
 			break;
 		case 7:
 			/* right */
 			printf ("right\n");
-			for (j = 0; j < 5*len; j++) {
+			for (j = 0; j < 5 * len; j++) {
 				html_cursor_right (html->engine->cursor, html->engine);
 			}
 			break;

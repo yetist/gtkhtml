@@ -51,6 +51,6 @@ struct _HTMLA11YCellClass {
 	HTMLA11YClass parent_class;
 };
 
-AtkObject* html_a11y_cell_new (HTMLObject *o);
+AtkObject * html_a11y_cell_new (HTMLObject *o);
 
 #endif

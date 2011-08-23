@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*
-    Copyright (C) 1997 Martin Jones (mjones@kde.org)
-              (C) 1997 Torben Weis (weis@kde.org)
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
+ *  Copyright (C) 1997 Martin Jones (mjones@kde.org)
+ *            (C) 1997 Torben Weis (weis@kde.org)
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -37,10 +37,10 @@ static HTMLClueClass *parent_class = NULL;
 
 
 /* FIXME this must be rewritten as the multiple type casts make my head spin.
-   The types in `HTMLClueAligned' are chosen wrong.  */
+ * The types in `HTMLClueAligned' are chosen wrong.  */
 static void
-remove_aligned_by_parent ( HTMLClueV *cluev,
-			   HTMLObject *p )
+remove_aligned_by_parent (HTMLClueV *cluev,
+                           HTMLObject *p)
 {
     HTMLClueAligned *tmp;
 	HTMLObject *obj;
@@ -93,14 +93,20 @@ cluev_next_aligned (HTMLObject *aclue)
 }
 
 static gint
-get_lmargin (HTMLObject *o, HTMLPainter *painter)
+get_lmargin (HTMLObject *o,
+             HTMLPainter *painter)
 {
 	return (HTML_CLUEV (o)->padding + HTML_CLUEV (o)->border_width) * html_painter_get_pixel_size (painter)
 		+ (o->parent ?  html_object_get_left_margin (o->parent, painter, o->y, TRUE) : 0);
 }
 
 static void
-add_clear_area_behind (GList **changed_objs, HTMLObject *o, gint x, gint y, gint w, gint h)
+add_clear_area_behind (GList **changed_objs,
+                       HTMLObject *o,
+                       gint x,
+                       gint y,
+                       gint w,
+                       gint h)
 {
 	HTMLObjectClearRectangle *cr;
 
@@ -118,7 +124,10 @@ add_clear_area_behind (GList **changed_objs, HTMLObject *o, gint x, gint y, gint
 }
 
 static gboolean
-html_cluev_do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, GList **changed_objs)
+html_cluev_do_layout (HTMLObject *o,
+                      HTMLPainter *painter,
+                      gboolean calc_size,
+                      GList **changed_objs)
 {
 	HTMLClueV *cluev;
 	HTMLClue *clue;
@@ -155,7 +164,7 @@ html_cluev_do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, G
 	lmargin = get_lmargin (o, painter);
 
 	/* If we have already called calc_size for the children, then just
-	   continue from the last object done in previous call. */
+	 * continue from the last object done in previous call. */
 
 	if (clue->curr != NULL) {
 		if (clue->curr->prev)
@@ -173,7 +182,7 @@ html_cluev_do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, G
 	while (clue->curr != NULL) {
 		gint old_y, old_y_off, new_y_off;
 		/* Set an initial ypos so that the alignment stuff knows where
-		   the top of this object is */
+		 * the top of this object is */
 		old_y = clue->curr->y;
 		old_y_off = clue->curr->y - clue->curr->ascent;
 		clue->curr->y = o->ascent;
@@ -219,7 +228,7 @@ html_cluev_do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, G
 				if (first_change) {
 					first_change = FALSE;
 					/* if it's new one (y == 0) clear from new y_off, else from old one or new one,
-					   which one is higher */
+					 * which one is higher */
 					first_y_off = old_y && old_y_off < new_y_off ? old_y_off : new_y_off;
 					/* printf ("\nfirst_y_off: %d x %d --> %d\n", old_y_off, new_y_off, first_y_off); */
 				}
@@ -235,7 +244,7 @@ html_cluev_do_layout (HTMLObject *o, HTMLPainter *painter, gboolean calc_size, G
 	o->ascent += padding;
 
 	/* Remember the last object so that we can start from here next time
-	   we are called. */
+	 * we are called. */
 	clue->curr = clue->tail;
 
 	if (o->max_width != 0 && o->width < o->max_width)
@@ -311,14 +320,16 @@ copy (HTMLObject *self,
 }
 
 static gboolean
-html_cluev_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
+html_cluev_real_calc_size (HTMLObject *o,
+                           HTMLPainter *painter,
+                           GList **changed_objs)
 {
 	return html_cluev_do_layout (o, painter, TRUE, changed_objs);
 }
 
 static gint
 calc_min_width (HTMLObject *o,
-		HTMLPainter *painter)
+                HTMLPainter *painter)
 {
 	return (* HTML_OBJECT_CLASS (parent_class)->calc_min_width) (o, painter)
 		+ 2 * html_painter_get_pixel_size (painter) * (HTML_CLUEV (o)->padding + HTML_CLUEV (o)->border_width);
@@ -326,14 +337,16 @@ calc_min_width (HTMLObject *o,
 
 static gint
 calc_preferred_width (HTMLObject *o,
-		      HTMLPainter *painter)
+                      HTMLPainter *painter)
 {
 	return (* HTML_OBJECT_CLASS (parent_class)->calc_preferred_width) (o, painter)
 		+ 2 * html_painter_get_pixel_size (painter) * (HTML_CLUEV (o)->padding + HTML_CLUEV (o)->border_width);
 }
 
 static void
-set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
+set_max_width (HTMLObject *o,
+               HTMLPainter *painter,
+               gint max_width)
 {
 	HTMLObject *obj;
 
@@ -344,7 +357,9 @@ set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 }
 
 static void
-set_max_height (HTMLObject *o, HTMLPainter *painter, gint height)
+set_max_height (HTMLObject *o,
+                HTMLPainter *painter,
+                gint height)
 {
 	HTMLClue *clue = HTML_CLUE (o);
 
@@ -372,9 +387,12 @@ reset (HTMLObject *clue)
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
-      gint x, gint y,
-      gint width, gint height,
-      gint tx, gint ty)
+      gint x,
+      gint y,
+      gint width,
+      gint height,
+      gint tx,
+      gint ty)
 {
 	HTMLObject *aclue;
 	HTMLClueV *cluev;
@@ -448,10 +466,11 @@ draw (HTMLObject *o,
 
 static HTMLObject *
 check_point (HTMLObject *self,
-	     HTMLPainter *painter,
-	     gint x, gint y,
-	     guint *offset_return,
-	     gboolean for_cursor)
+             HTMLPainter *painter,
+             gint x,
+             gint y,
+             guint *offset_return,
+             gboolean for_cursor)
 {
 	HTMLObject *p;
 	HTMLObject *obj;
@@ -545,7 +564,7 @@ check_point (HTMLObject *self,
 	if (!for_cursor) {
 		if (x >= 0 && y >= 0 && x < self->width && y < self->ascent + self->descent) {
 			if (offset_return) {
-				if (x < self->width/2)
+				if (x < self->width / 2)
 					*offset_return = 0;
 				else
 					*offset_return = 1;
@@ -559,8 +578,8 @@ check_point (HTMLObject *self,
 
 static gboolean
 relayout (HTMLObject *self,
-	  HTMLEngine *engine,
-	  HTMLObject *child)
+          HTMLEngine *engine,
+          HTMLObject *child)
 {
 	gint prev_width, prev_ascent, prev_descent;
 	gboolean changed;
@@ -601,9 +620,9 @@ relayout (HTMLObject *self,
 	}
 
 	/* If the object has shrunk, we have to clean the areas around
-	   it so that we don't leave garbage on the screen.  FIXME:
-	   this wastes some time if there is an object on the right of
-	   or under this one.  */
+	 * it so that we don't leave garbage on the screen.  FIXME:
+	 * this wastes some time if there is an object on the right of
+	 * or under this one.  */
 
 	if (prev_ascent + prev_descent > self->ascent + self->descent)
 		html_engine_queue_clear (engine,
@@ -624,7 +643,10 @@ relayout (HTMLObject *self,
 }
 
 static gint
-get_left_margin (HTMLObject *self, HTMLPainter *painter, gint y, gboolean with_aligned)
+get_left_margin (HTMLObject *self,
+                 HTMLPainter *painter,
+                 gint y,
+                 gboolean with_aligned)
 {
 	HTMLObject *aclue;
 	HTMLClueV *cluev;
@@ -648,7 +670,10 @@ get_left_margin (HTMLObject *self, HTMLPainter *painter, gint y, gboolean with_a
 }
 
 static gint
-get_right_margin (HTMLObject *self, HTMLPainter *painter, gint y, gboolean with_aligned)
+get_right_margin (HTMLObject *self,
+                  HTMLPainter *painter,
+                  gint y,
+                  gboolean with_aligned)
 {
 	HTMLClueV *cluev;
 	/* FIXME: Should be HTMLAligned */
@@ -674,8 +699,15 @@ get_right_margin (HTMLObject *self, HTMLPainter *painter, gint y, gboolean with_
 /* HTMLClue methods.  */
 
 static void
-find_free_area (HTMLClue *clue, HTMLPainter *painter, gint y, gint width, gint height,
-		gint indent, gint *y_pos, gint *_lmargin, gint *_rmargin)
+find_free_area (HTMLClue *clue,
+                HTMLPainter *painter,
+                gint y,
+                gint width,
+                gint height,
+                gint indent,
+                gint *y_pos,
+                gint *_lmargin,
+                gint *_rmargin)
 {
 	HTMLClueV *cluev = HTML_CLUEV (clue);
 	gint try_y = y;
@@ -683,7 +715,7 @@ find_free_area (HTMLClue *clue, HTMLPainter *painter, gint y, gint width, gint h
 	gint rmargin;
 	gint lm, rm;
 	HTMLObject *aclue;
-	gint next_y, top_y, base_y=0;
+	gint next_y, top_y, base_y = 0;
 
 	next_y = 0;
 	while (1) {
@@ -743,7 +775,8 @@ find_free_area (HTMLClue *clue, HTMLPainter *painter, gint y, gint width, gint h
 }
 
 static gboolean
-appended (HTMLClue *clue, HTMLClue *aclue)
+appended (HTMLClue *clue,
+          HTMLClue *aclue)
 {
 	/* Returns whether aclue is already in the alignList */
 	HTMLClueAligned *aligned;
@@ -764,7 +797,12 @@ appended (HTMLClue *clue, HTMLClue *aclue)
 }
 
 static void
-append_left_aligned (HTMLClue *clue, HTMLPainter *painter, HTMLClue *aclue, gint *lmargin, gint *rmargin, gint indent)
+append_left_aligned (HTMLClue *clue,
+                     HTMLPainter *painter,
+                     HTMLClue *aclue,
+                     gint *lmargin,
+                     gint *rmargin,
+                     gint indent)
 {
 	gint y_pos, y_inc;
 
@@ -802,7 +840,12 @@ append_left_aligned (HTMLClue *clue, HTMLPainter *painter, HTMLClue *aclue, gint
 }
 
 static void
-append_right_aligned (HTMLClue *clue, HTMLPainter *painter, HTMLClue *aclue, gint *lmargin, gint *rmargin, gint indent)
+append_right_aligned (HTMLClue *clue,
+                      HTMLPainter *painter,
+                      HTMLClue *aclue,
+                      gint *lmargin,
+                      gint *rmargin,
+                      gint indent)
 {
 	gint y_pos, y_inc;
 
@@ -840,7 +883,7 @@ append_right_aligned (HTMLClue *clue, HTMLPainter *painter, HTMLClue *aclue, gin
 
 static gint
 get_left_clear (HTMLClue *self,
-		gint y)
+                gint y)
 {
 	HTMLObject *p;
 	gint top_y, base_y;
@@ -862,7 +905,7 @@ get_left_clear (HTMLClue *self,
 
 static gint
 get_right_clear (HTMLClue *self,
-		 gint y)
+                 gint y)
 {
 	HTMLObject *p;
 	gint top_y, base_y;
@@ -917,8 +960,8 @@ html_cluev_type_init (void)
 
 void
 html_cluev_class_init (HTMLClueVClass *klass,
-		       HTMLType type,
-		       guint size)
+                       HTMLType type,
+                       guint size)
 {
 	HTMLObjectClass *object_class;
 	HTMLClueClass *clue_class;
@@ -955,9 +998,10 @@ html_cluev_class_init (HTMLClueVClass *klass,
 
 void
 html_cluev_init (HTMLClueV *cluev,
-		 HTMLClueVClass *klass,
-		 gint x, gint y,
-		 gint percent)
+                 HTMLClueVClass *klass,
+                 gint x,
+                 gint y,
+                 gint percent)
 {
 	HTMLObject *object;
 	HTMLClue *clue;
@@ -986,7 +1030,9 @@ html_cluev_init (HTMLClueV *cluev,
 }
 
 HTMLObject *
-html_cluev_new (gint x, gint y, gint percent)
+html_cluev_new (gint x,
+                gint y,
+                gint percent)
 {
 	HTMLClueV *cluev;
 
@@ -997,7 +1043,8 @@ html_cluev_new (gint x, gint y, gint percent)
 }
 
 void
-html_cluev_set_style (HTMLClueV *cluev, HTMLStyle *style)
+html_cluev_set_style (HTMLClueV *cluev,
+                      HTMLStyle *style)
 {
 	if (style != NULL) {
 		if (cluev->border_color)

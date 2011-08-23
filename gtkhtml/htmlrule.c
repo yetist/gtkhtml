@@ -1,24 +1,24 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-
-   Copyright (C) 1997 Martin Jones (mjones@kde.org)
-   Copyright (C) 1997 Torben Weis (weis@kde.org)
-   Copyright (C) 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright (C) 1997 Martin Jones (mjones@kde.org)
+ * Copyright (C) 1997 Torben Weis (weis@kde.org)
+ * Copyright (C) 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -54,14 +54,16 @@ copy (HTMLObject *self,
 }
 
 static void
-set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
+set_max_width (HTMLObject *o,
+               HTMLPainter *painter,
+               gint max_width)
 {
 	o->max_width = max_width;
 }
 
 static gint
 calc_min_width (HTMLObject *o,
-		HTMLPainter *painter)
+                HTMLPainter *painter)
 {
 	gint pixel_size;
 
@@ -75,11 +77,11 @@ calc_min_width (HTMLObject *o,
 
 static HTMLFitType
 fit_line (HTMLObject *o,
-	  HTMLPainter *painter,
-	  gboolean start_of_line,
-	  gboolean first_run,
-	  gboolean next_to_floating,
-	  gint width_left)
+          HTMLPainter *painter,
+          gboolean start_of_line,
+          gboolean first_run,
+          gboolean next_to_floating,
+          gint width_left)
 {
 	if (!start_of_line)
 		return HTML_FIT_NONE;
@@ -97,7 +99,9 @@ fit_line (HTMLObject *o,
 }
 
 static gboolean
-html_rule_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
+html_rule_real_calc_size (HTMLObject *self,
+                          HTMLPainter *painter,
+                          GList **changed_objs)
 {
 	HTMLRule *rule;
 	gint ascent, descent;
@@ -140,9 +144,12 @@ html_rule_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList **change
 static void
 html_rule_draw (HTMLObject *o,
       HTMLPainter *p,
-      gint x, gint y,
-      gint width, gint height,
-      gint tx, gint ty)
+      gint x,
+                gint y,
+      gint width,
+                gint height,
+      gint tx,
+                gint ty)
 {
 	HTMLRule *rule;
 	guint w, h;
@@ -168,7 +175,7 @@ html_rule_draw (HTMLObject *o,
 		w = o->width;
 	else
 		/* The cast to `gdouble' is to avoid overflow (eg. when
-		   printing).  */
+		 * printing).  */
 		w = ((gdouble) o->width * o->percent) / 100;
 
 	switch (rule->halign) {
@@ -231,8 +238,8 @@ save (HTMLObject *self,
 
 static gboolean
 save_plain (HTMLObject *self,
-	    HTMLEngineSaveState *state,
-	    gint requested_width)
+            HTMLEngineSaveState *state,
+            gint requested_width)
 {
 	gint i;
 
@@ -258,8 +265,8 @@ html_rule_type_init (void)
 
 void
 html_rule_class_init (HTMLRuleClass *klass,
-		      HTMLType type,
-		      guint object_size)
+                      HTMLType type,
+                      guint object_size)
 {
 	HTMLObjectClass *object_class;
 
@@ -282,12 +289,12 @@ html_rule_class_init (HTMLRuleClass *klass,
 
 void
 html_rule_init (HTMLRule *rule,
-		HTMLRuleClass *klass,
-		gint length,
-		gint percent,
-		gint size,
-		gboolean shade,
-		HTMLHAlignType halign)
+                HTMLRuleClass *klass,
+                gint length,
+                gint percent,
+                gint size,
+                gboolean shade,
+                HTMLHAlignType halign)
 {
 	HTMLObject *object;
 
@@ -317,10 +324,10 @@ html_rule_init (HTMLRule *rule,
 
 HTMLObject *
 html_rule_new (gint length,
-	       gint percent,
-	       gint size,
-	       gboolean shade,
-	       HTMLHAlignType halign)
+               gint percent,
+               gint size,
+               gboolean shade,
+               HTMLHAlignType halign)
 {
 	HTMLRule *rule;
 

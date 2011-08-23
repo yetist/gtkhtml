@@ -45,7 +45,8 @@ get_n_actions (AtkAction *action)
 }
 
 static const gchar *
-get_description (AtkAction *action, gint i)
+get_description (AtkAction *action,
+                 gint i)
 {
 	if (i == 0)
 		return _("grab focus");
@@ -54,7 +55,8 @@ get_description (AtkAction *action, gint i)
 }
 
 static const gchar *
-action_get_name (AtkAction *action, gint i)
+action_get_name (AtkAction *action,
+                 gint i)
 {
 	if (i == 0)
 		return _("grab focus");
@@ -63,7 +65,8 @@ action_get_name (AtkAction *action, gint i)
 }
 
 static gboolean
-do_action (AtkAction * action, gint i)
+do_action (AtkAction *action,
+           gint i)
 {
 	GtkWidget *widget;
 	gboolean return_value = TRUE;
@@ -155,7 +158,8 @@ gtk_html_a11y_finalize (GObject *obj)
 }
 
 static void
-gtk_html_a11y_initialize (AtkObject *obj, gpointer data)
+gtk_html_a11y_initialize (AtkObject *obj,
+                          gpointer data)
 {
 	/* printf ("gtk_html_a11y_initialize\n"); */
 
@@ -203,7 +207,8 @@ gtk_html_a11y_get_n_children (AtkObject *accessible)
 }
 
 static AtkObject *
-gtk_html_a11y_ref_child (AtkObject *accessible, gint index)
+gtk_html_a11y_ref_child (AtkObject *accessible,
+                         gint index)
 {
 	HTMLObject *child;
 	AtkObject *accessible_child = NULL;
@@ -275,7 +280,7 @@ gtk_html_a11y_init (GtkHTMLA11Y *a11y)
 }
 
 static AtkObject *
-gtk_html_a11y_get_focus_object (GtkWidget * widget)
+gtk_html_a11y_get_focus_object (GtkWidget *widget)
 {
 	GtkHTML * html;
 	HTMLObject * htmlobj = NULL;
@@ -300,7 +305,7 @@ gtk_html_a11y_get_focus_object (GtkWidget * widget)
 static AtkObject * gtk_html_a11y_focus_object = NULL;
 
 static void
-gtk_html_a11y_grab_focus_cb (GtkWidget * widget)
+gtk_html_a11y_grab_focus_cb (GtkWidget *widget)
 {
 	AtkObject *focus_object, *obj, *clue;
 
@@ -339,7 +344,9 @@ gtk_html_a11y_cursor_changed_cb (GtkWidget *widget)
 }
 
 static void
-gtk_html_a11y_insert_object_cb (GtkWidget * widget, gint pos, gint len)
+gtk_html_a11y_insert_object_cb (GtkWidget *widget,
+                                gint pos,
+                                gint len)
 {
 	AtkObject * a11y;
 
@@ -360,7 +367,9 @@ gtk_html_a11y_insert_object_cb (GtkWidget * widget, gint pos, gint len)
 }
 
 static void
-gtk_html_a11y_delete_object_cb (GtkWidget * widget, gint pos, gint len)
+gtk_html_a11y_delete_object_cb (GtkWidget *widget,
+                                gint pos,
+                                gint len)
 {
 	AtkObject * a11y;
 
@@ -377,7 +386,7 @@ gtk_html_a11y_delete_object_cb (GtkWidget * widget, gint pos, gint len)
 	}
 }
 
-AtkObject*
+AtkObject *
 gtk_html_a11y_new (GtkWidget *widget)
 {
 	GtkHTML *html;

@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
-
-    Copyright (C) 2000 Helix Code, Inc.
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
+ *
+ *  Copyright (C) 2000 Helix Code, Inc.
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -41,7 +41,7 @@ struct _ClueFlowStyleOperation {
 	HTMLUndoData data;
 
 	/* Whether we should go backward or forward when re-setting
-           the style.  */
+	 * the style.  */
 	gboolean forward;
 
 	/* List of properties for the paragraphs (ClueFlowProps).  */
@@ -78,7 +78,8 @@ style_operation_destroy (HTMLUndoData *data)
 }
 
 static ClueFlowStyleOperation *
-style_operation_new (GList *prop_list, gboolean forward)
+style_operation_new (GList *prop_list,
+                     gboolean forward)
 {
 	ClueFlowStyleOperation *op;
 
@@ -110,13 +111,13 @@ get_props (HTMLClueFlow *clueflow)
 
 static void
 set_props (HTMLEngine *engine,
-	   HTMLClueFlow *clueflow,
-	   HTMLClueFlowStyle style,
-	   HTMLListType item_type,
-	   HTMLHAlignType alignment,
-	   gint indentation_delta,
-	   guint8 *indentation_levels,
-	   HTMLEngineSetClueFlowStyleMask mask)
+           HTMLClueFlow *clueflow,
+           HTMLClueFlowStyle style,
+           HTMLListType item_type,
+           HTMLHAlignType alignment,
+           gint indentation_delta,
+           guint8 *indentation_levels,
+           HTMLEngineSetClueFlowStyleMask mask)
 {
 	if (mask & HTML_ENGINE_SET_CLUEFLOW_INDENTATION)
 		html_clueflow_set_indentation (clueflow, engine, indentation_delta, indentation_levels);
@@ -151,7 +152,10 @@ set_props (HTMLEngine *engine,
 static void add_undo (HTMLEngine *engine, ClueFlowStyleOperation *op, HTMLUndoDirection dir);
 
 static void
-undo_or_redo (HTMLEngine *engine, HTMLUndoData *data, HTMLUndoDirection dir, guint position_after)
+undo_or_redo (HTMLEngine *engine,
+              HTMLUndoData *data,
+              HTMLUndoDirection dir,
+              guint position_after)
 {
 	ClueFlowStyleOperation *op, *new_op;
 	ClueFlowProps *props, *orig_props;
@@ -197,7 +201,7 @@ undo_or_redo (HTMLEngine *engine, HTMLUndoData *data, HTMLUndoDirection dir, gui
 			break;
 
 		/* Go forward object by object, until we find one
-		   whose parent (i.e. paragraph) is different.  */
+		 * whose parent (i.e. paragraph) is different.  */
 		do {
 			if (op->forward)
 				obj = html_object_next_leaf (obj);
@@ -229,7 +233,7 @@ undo_or_redo (HTMLEngine *engine, HTMLUndoData *data, HTMLUndoDirection dir, gui
 
 static HTMLUndoAction *
 undo_action_from_op (HTMLEngine *engine,
-		     ClueFlowStyleOperation *op)
+                     ClueFlowStyleOperation *op)
 {
 	return html_undo_action_new ("Paragraph style change",
 				     undo_or_redo, HTML_UNDO_DATA (op),
@@ -239,7 +243,8 @@ undo_action_from_op (HTMLEngine *engine,
 
 static void
 add_undo (HTMLEngine *engine,
-	  ClueFlowStyleOperation *op, HTMLUndoDirection dir)
+          ClueFlowStyleOperation *op,
+          HTMLUndoDirection dir)
 {
 	html_undo_add_action (engine->undo, engine, undo_action_from_op (engine, op), dir);
 }
@@ -249,14 +254,14 @@ add_undo (HTMLEngine *engine,
 
 static void
 set_clueflow_style_in_region (HTMLEngine *engine,
-			      HTMLClueFlowStyle style,
-			      HTMLListType item_type,
-			      HTMLHAlignType alignment,
-			      gint indentation_delta,
-			      guint8 *indentation_levels,
-			      HTMLEngineSetClueFlowStyleMask mask,
-			      HTMLUndoDirection dir,
-			      gboolean do_undo)
+                              HTMLClueFlowStyle style,
+                              HTMLListType item_type,
+                              HTMLHAlignType alignment,
+                              gint indentation_delta,
+                              guint8 *indentation_levels,
+                              HTMLEngineSetClueFlowStyleMask mask,
+                              HTMLUndoDirection dir,
+                              gboolean do_undo)
 {
 	HTMLClueFlow *clueflow;
 	HTMLObject *start, *end, *p;
@@ -312,13 +317,14 @@ set_clueflow_style_in_region (HTMLEngine *engine,
 
 static void
 set_clueflow_style_at_cursor (HTMLEngine *engine,
-			      HTMLClueFlowStyle style,
-			      HTMLListType item_type,
-			      HTMLHAlignType alignment,
-			      gint indentation_delta,
-			      guint8 *indentation_levels,
-			      HTMLEngineSetClueFlowStyleMask mask,
-			      HTMLUndoDirection dir, gboolean do_undo)
+                              HTMLClueFlowStyle style,
+                              HTMLListType item_type,
+                              HTMLHAlignType alignment,
+                              gint indentation_delta,
+                              guint8 *indentation_levels,
+                              HTMLEngineSetClueFlowStyleMask mask,
+                              HTMLUndoDirection dir,
+                              gboolean do_undo)
 {
 	HTMLClueFlow *clueflow;
 	HTMLObject *curr;
@@ -345,13 +351,14 @@ set_clueflow_style_at_cursor (HTMLEngine *engine,
 
 gboolean
 html_engine_set_clueflow_style (HTMLEngine *engine,
-				HTMLClueFlowStyle style,
-				HTMLListType item_type,
-				HTMLHAlignType alignment,
-				gint indentation_delta,
-				guint8 *indentation_levels,
-				HTMLEngineSetClueFlowStyleMask mask,
-				HTMLUndoDirection dir, gboolean do_undo)
+                                HTMLClueFlowStyle style,
+                                HTMLListType item_type,
+                                HTMLHAlignType alignment,
+                                gint indentation_delta,
+                                guint8 *indentation_levels,
+                                HTMLEngineSetClueFlowStyleMask mask,
+                                HTMLUndoDirection dir,
+                                gboolean do_undo)
 {
 	g_return_val_if_fail (engine != NULL, FALSE);
 	g_return_val_if_fail (HTML_IS_ENGINE (engine), FALSE);
@@ -377,7 +384,7 @@ html_engine_set_clueflow_style (HTMLEngine *engine,
 
 
 /* The following functions are used to report the current indentation
-   as it should be shown e.g in a toolbar.  */
+ * as it should be shown e.g in a toolbar.  */
 
 static HTMLClueFlow *
 get_current_para (HTMLEngine *engine)
@@ -400,7 +407,9 @@ get_current_para (HTMLEngine *engine)
 }
 
 void
-html_engine_get_current_clueflow_style (HTMLEngine *engine, HTMLClueFlowStyle *style, HTMLListType *item_type)
+html_engine_get_current_clueflow_style (HTMLEngine *engine,
+                                        HTMLClueFlowStyle *style,
+                                        HTMLListType *item_type)
 {
 	HTMLClueFlow *para;
 

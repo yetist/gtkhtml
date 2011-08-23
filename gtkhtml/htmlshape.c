@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-
-   Copyright (C) 2001, Ximian, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright (C) 2001, Ximian, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 #include <glib.h>
@@ -36,49 +36,51 @@ struct _HTMLShape {
 
 static HTMLLength *
 parse_length (const gchar **str) {
-	const gchar *cur = *str;
-	HTMLLength *len = g_new0 (HTMLLength, 1);
+        const gchar *cur = *str;
+        HTMLLength *len = g_new0 (HTMLLength,
+              1);
 
 	/* g_warning ("begin \"%s\"", *str); */
 
-	while (isspace (*cur)) cur++;
+        while (isspace (*cur)) cur++;
 
-	len->val = atoi (cur);
-	len->type = HTML_LENGTH_TYPE_PIXELS;
+        len->val = atoi (cur);
+        len->type = HTML_LENGTH_TYPE_PIXELS;
 
-	while (isdigit (*cur) || *cur == '-') cur++;
+        while (isdigit (*cur) || *cur == '-') cur++;
 
-	switch (*cur) {
-	case '*':
-		if (len->val == 0)
-			len->val = 1;
-		len->type = HTML_LENGTH_TYPE_FRACTION;
-		cur++;
-		break;
-	case '%':
-		len->type = HTML_LENGTH_TYPE_PERCENT;
+        switch (*cur) {
+        case '*':
+                if (len->val == 0)
+                        len->val = 1;
+                len->type = HTML_LENGTH_TYPE_FRACTION;
                 cur++;
-		break;
-	}
+                break;
+        case '%':
+                len->type = HTML_LENGTH_TYPE_PERCENT;
+                cur++;
+                break;
+        }
 
-	if (cur <= *str) {
-		g_free (len);
-		return NULL;
-	}
+        if (cur <= *str) {
+                g_free (len);
+                return NULL;
+        }
 
 	/* g_warning ("length len->val=%d, len->type=%d", len->val, len->type); */
 	*str = cur;
 	cur = strstr (cur, ",");
-	if (cur) {
-		cur++;
+        if (cur) {
+                cur++;
 		*str = cur;
-	}
+        }
 
-	return len;
+        return len;
 }
 
 void
-html_length_array_parse (GPtrArray *array, const gchar *str)
+html_length_array_parse (GPtrArray *array,
+                         const gchar *str)
 {
 	HTMLLength *length;
 
@@ -102,7 +104,9 @@ html_length_array_destroy (GPtrArray *array)
 #define HTML_DIST(x,y) (gint)sqrt((x)*(x) + (y)*(y))
 
 gboolean
-html_shape_point (HTMLShape *shape, gint x, gint y)
+html_shape_point (HTMLShape *shape,
+                  gint x,
+                  gint y)
 {
 	gint i;
 	gint j = 0;
@@ -130,16 +134,16 @@ html_shape_point (HTMLShape *shape, gint x, gint y)
 
 		break;
 	case HTML_SHAPE_POLY:
-		for (i=0; i < shape->coords->len; i+=2) {
+		for (i = 0; i < shape->coords->len; i+=2) {
 			j+=2;
 			if (j == shape->coords->len)
-				j=0;
+				j = 0;
 
-			if ((poly[i+1]->val < y && poly[j+1]->val >= y)
-			    || (poly[j+1]->val < y && poly[i+1]->val >= y)) {
+			if ((poly[i + 1]->val < y && poly[j + 1]->val >= y)
+			    || (poly[j + 1]->val < y && poly[i + 1]->val >= y)) {
 
-				if (poly[i]->val + (y - poly[i+1]->val)
-				    / (poly[j+1]->val - poly[i+1]->val)
+				if (poly[i]->val + (y - poly[i + 1]->val)
+				    / (poly[j + 1]->val - poly[i + 1]->val)
 				    * (poly[j]->val - poly[i]->val) < x) {
 					odd = !odd;
 				}
@@ -156,18 +160,18 @@ html_shape_point (HTMLShape *shape, gint x, gint y)
 
 static HTMLShapeType
 parse_shape_type (gchar *token) {
-	HTMLShapeType type = HTML_SHAPE_RECT;
+        HTMLShapeType type = HTML_SHAPE_RECT;
 
 	if (!token || g_ascii_strncasecmp (token, "rect", 4) == 0)
-		type = HTML_SHAPE_RECT;
+                type = HTML_SHAPE_RECT;
 	else if (g_ascii_strncasecmp (token, "poly", 4) == 0)
-		type = HTML_SHAPE_POLY;
+                type = HTML_SHAPE_POLY;
 	else if (g_ascii_strncasecmp (token, "circle", 6) == 0)
-		type = HTML_SHAPE_CIRCLE;
+                type = HTML_SHAPE_CIRCLE;
 	else if (g_ascii_strncasecmp (token, "default", 7) == 0)
-		type = HTML_SHAPE_DEFAULT;
+                type = HTML_SHAPE_DEFAULT;
 
-	return type;
+        return type;
 }
 
 gchar *
@@ -177,7 +181,10 @@ html_shape_get_url (HTMLShape *shape)
 }
 
 HTMLShape *
-html_shape_new (gchar *type_str, gchar *coords, gchar *url, gchar *target)
+html_shape_new (gchar *type_str,
+                gchar *coords,
+                gchar *url,
+                gchar *target)
 {
 	HTMLShape *shape;
 	HTMLShapeType type = parse_shape_type (type_str);

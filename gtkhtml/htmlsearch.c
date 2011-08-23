@@ -38,14 +38,19 @@
 #include "htmlengine.h"
 
 static void
-set_text (HTMLSearch *s, const gchar *text)
+set_text (HTMLSearch *s,
+          const gchar *text)
 {
 	s->text = g_strdup (text);
 	s->text_bytes = strlen (text);
 }
 
 HTMLSearch *
-html_search_new (HTMLEngine *e, const gchar *text, gboolean case_sensitive, gboolean forward, gboolean regular)
+html_search_new (HTMLEngine *e,
+                 const gchar *text,
+                 gboolean case_sensitive,
+                 gboolean forward,
+                 gboolean regular)
 {
 	HTMLSearch *ns = g_new0 (HTMLSearch, 1);
 
@@ -125,7 +130,8 @@ html_search_destroy (HTMLSearch *search)
 }
 
 void
-html_search_push (HTMLSearch *search, HTMLObject *obj)
+html_search_push (HTMLSearch *search,
+                  HTMLObject *obj)
 {
 	search->stack = g_slist_prepend (search->stack, obj);
 }
@@ -142,7 +148,8 @@ html_search_pop (HTMLSearch *search)
 }
 
 gboolean
-html_search_child_on_stack (HTMLSearch *search, HTMLObject *obj)
+html_search_child_on_stack (HTMLSearch *search,
+                            HTMLObject *obj)
 {
 	return search->stack && HTML_OBJECT (search->stack->data)->parent == obj;
 }
@@ -156,14 +163,16 @@ html_search_next_parent (HTMLSearch *search)
 }
 
 void
-html_search_set_text (HTMLSearch *search, const gchar *text)
+html_search_set_text (HTMLSearch *search,
+                      const gchar *text)
 {
 	g_free (search->text);
 	set_text (search, text);
 }
 
 void
-html_search_set_forward (HTMLSearch *search, gboolean forward)
+html_search_set_forward (HTMLSearch *search,
+                         gboolean forward)
 {
 	if (search)
 		search->forward = forward;

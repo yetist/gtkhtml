@@ -1,22 +1,22 @@
 /* "a -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
-
-    Copyright (C) 2002, Ximian Inc.
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
+ *
+ *  Copyright (C) 2002, Ximian Inc.
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
 */
 
 #include <string.h>
@@ -27,7 +27,7 @@
 /* Color handling.  */
 gboolean
 html_parse_color (const gchar *text,
-		  GdkColor *color)
+                  GdkColor *color)
 {
 	gchar c[8];
 	gint  len = strlen (text);
@@ -74,51 +74,52 @@ html_parse_color (const gchar *text,
 	}
 
 	if (len < 7)
-		memset (c + len, '\0', 7-len);
+		memset (c + len, '\0', 7 - len);
 
 	return gdk_color_parse (c, color);
 }
 
 static HTMLLength *
 parse_length (gchar *str) {
-	gchar *cur = str;
-	HTMLLength *len;
+        gchar *cur = str;
+        HTMLLength *len;
 
-	len = g_new0 (HTMLLength, 1);
+        len = g_new0 (HTMLLength,
+              1);
 
-	if (!str)
-		return len;
+        if (!str)
+                return len;
 
 	/* g_warning ("begin \"%s\"", *str); */
 
-	while (isspace (*cur)) cur++;
+        while (isspace (*cur)) cur++;
 
-	len->val = atoi (cur);
-	len->type = HTML_LENGTH_TYPE_PIXELS;
+        len->val = atoi (cur);
+        len->type = HTML_LENGTH_TYPE_PIXELS;
 
-	while (isdigit (*cur) || *cur == '-') cur++;
+        while (isdigit (*cur) || *cur == '-') cur++;
 
-	switch (*cur) {
-	case '*':
-		if (len->val == 0)
-			len->val = 1;
-		len->type = HTML_LENGTH_TYPE_FRACTION;
-		cur++;
-		break;
-	case '%':
-		len->type = HTML_LENGTH_TYPE_PERCENT;
+        switch (*cur) {
+        case '*':
+                if (len->val == 0)
+                        len->val = 1;
+                len->type = HTML_LENGTH_TYPE_FRACTION;
                 cur++;
-		break;
-	}
+                break;
+        case '%':
+                len->type = HTML_LENGTH_TYPE_PERCENT;
+                cur++;
+                break;
+        }
 
-	if (cur <= str) {
-		g_free (len);
-		return NULL;
-	}
+        if (cur <= str) {
+                g_free (len);
+                return NULL;
+        }
 
 	/* g_warning ("length len->val=%d, len->type=%d", len->val, len->type); */
 
-	return len;
+        return len;
 }
 
 HTMLStyle *
@@ -165,7 +166,8 @@ html_style_free (HTMLStyle *style)
 }
 
 HTMLStyle *
-html_style_add_color (HTMLStyle *style, HTMLColor *color)
+html_style_add_color (HTMLStyle *style,
+                      HTMLColor *color)
 {
 	HTMLColor *old;
 
@@ -186,7 +188,8 @@ html_style_add_color (HTMLStyle *style, HTMLColor *color)
 }
 
 HTMLStyle *
-html_style_unset_decoration (HTMLStyle *style, GtkHTMLFontStyle font_style)
+html_style_unset_decoration (HTMLStyle *style,
+                             GtkHTMLFontStyle font_style)
 {
 	if (!style)
 		style = html_style_new ();
@@ -199,7 +202,8 @@ html_style_unset_decoration (HTMLStyle *style, GtkHTMLFontStyle font_style)
 }
 
 HTMLStyle *
-html_style_set_decoration (HTMLStyle *style, GtkHTMLFontStyle font_style)
+html_style_set_decoration (HTMLStyle *style,
+                           GtkHTMLFontStyle font_style)
 {
 	if (!style)
 		style = html_style_new ();
@@ -212,7 +216,8 @@ html_style_set_decoration (HTMLStyle *style, GtkHTMLFontStyle font_style)
 }
 
 HTMLStyle *
-html_style_set_font_size (HTMLStyle *style, GtkHTMLFontStyle font_style)
+html_style_set_font_size (HTMLStyle *style,
+                          GtkHTMLFontStyle font_style)
 {
 	if (!style)
 		style = html_style_new ();
@@ -225,7 +230,8 @@ html_style_set_font_size (HTMLStyle *style, GtkHTMLFontStyle font_style)
 }
 
 HTMLStyle *
-html_style_add_font_face (HTMLStyle *style, const HTMLFontFace *face)
+html_style_add_font_face (HTMLStyle *style,
+                          const HTMLFontFace *face)
 {
 	if (!style)
 		style = html_style_new ();
@@ -237,7 +243,8 @@ html_style_add_font_face (HTMLStyle *style, const HTMLFontFace *face)
 }
 
 HTMLStyle *
-html_style_add_text_align (HTMLStyle *style, HTMLHAlignType type)
+html_style_add_text_align (HTMLStyle *style,
+                           HTMLHAlignType type)
 {
 	if (!style)
 		style = html_style_new ();
@@ -248,7 +255,8 @@ html_style_add_text_align (HTMLStyle *style, HTMLHAlignType type)
 }
 
 HTMLStyle *
-html_style_add_text_valign (HTMLStyle *style, HTMLVAlignType type)
+html_style_add_text_valign (HTMLStyle *style,
+                            HTMLVAlignType type)
 {
 	if (!style)
 		style = html_style_new ();
@@ -259,7 +267,8 @@ html_style_add_text_valign (HTMLStyle *style, HTMLVAlignType type)
 }
 
 HTMLStyle *
-html_style_add_background_color (HTMLStyle *style, HTMLColor *color)
+html_style_add_background_color (HTMLStyle *style,
+                                 HTMLColor *color)
 {
 	HTMLColor *old;
 
@@ -280,7 +289,8 @@ html_style_add_background_color (HTMLStyle *style, HTMLColor *color)
 }
 
 HTMLStyle *
-html_style_set_display (HTMLStyle *style, HTMLDisplayType display)
+html_style_set_display (HTMLStyle *style,
+                        HTMLDisplayType display)
 {
 	if (!style)
 		style = html_style_new ();
@@ -291,7 +301,8 @@ html_style_set_display (HTMLStyle *style, HTMLDisplayType display)
 }
 
 HTMLStyle *
-html_style_set_clear (HTMLStyle *style, HTMLClearType clear)
+html_style_set_clear (HTMLStyle *style,
+                      HTMLClearType clear)
 {
 	if (!style)
 		style = html_style_new ();
@@ -302,7 +313,8 @@ html_style_set_clear (HTMLStyle *style, HTMLClearType clear)
 }
 
 HTMLStyle *
-html_style_add_width (HTMLStyle *style, gchar *len)
+html_style_add_width (HTMLStyle *style,
+                      gchar *len)
 {
 	if (!style)
 		style = html_style_new ();
@@ -315,7 +327,8 @@ html_style_add_width (HTMLStyle *style, gchar *len)
 }
 
 HTMLStyle *
-html_style_add_height (HTMLStyle *style, gchar *len)
+html_style_add_height (HTMLStyle *style,
+                       gchar *len)
 {
 	if (!style)
 		style = html_style_new ();
@@ -328,7 +341,8 @@ html_style_add_height (HTMLStyle *style, gchar *len)
 }
 
 HTMLStyle *
-html_style_add_background_image (HTMLStyle *style, const gchar *url)
+html_style_add_background_image (HTMLStyle *style,
+                                 const gchar *url)
 {
 	if (!style)
 		style = html_style_new ();
@@ -340,7 +354,8 @@ html_style_add_background_image (HTMLStyle *style, const gchar *url)
 }
 
 HTMLStyle *
-html_style_set_border_style (HTMLStyle *style, HTMLBorderStyle bstyle)
+html_style_set_border_style (HTMLStyle *style,
+                             HTMLBorderStyle bstyle)
 {
 	if (!style)
 		style = html_style_new ();
@@ -351,7 +366,8 @@ html_style_set_border_style (HTMLStyle *style, HTMLBorderStyle bstyle)
 }
 
 HTMLStyle *
-html_style_set_border_width (HTMLStyle *style, gint width)
+html_style_set_border_width (HTMLStyle *style,
+                             gint width)
 {
 	if (!style)
 		style = html_style_new ();
@@ -362,7 +378,8 @@ html_style_set_border_width (HTMLStyle *style, gint width)
 }
 
 HTMLStyle *
-html_style_set_padding (HTMLStyle *style, gint padding)
+html_style_set_padding (HTMLStyle *style,
+                        gint padding)
 {
 	if (!style)
 		style = html_style_new ();
@@ -373,7 +390,8 @@ html_style_set_padding (HTMLStyle *style, gint padding)
 }
 
 HTMLStyle *
-html_style_set_border_color (HTMLStyle *style, HTMLColor *color)
+html_style_set_border_color (HTMLStyle *style,
+                             HTMLColor *color)
 {
 	HTMLColor *old;
 
@@ -394,7 +412,8 @@ html_style_set_border_color (HTMLStyle *style, HTMLColor *color)
 }
 
 static HTMLStyle *
-parse_border_style (HTMLStyle *style, gchar *value)
+parse_border_style (HTMLStyle *style,
+                    gchar *value)
 {
 	while (isspace (*value))
 		value++;
@@ -408,7 +427,8 @@ parse_border_style (HTMLStyle *style, gchar *value)
 }
 
 static HTMLStyle *
-parse_border_color (HTMLStyle *style, gchar *value)
+parse_border_color (HTMLStyle *style,
+                    gchar *value)
 {
 	GdkColor color;
 
@@ -422,7 +442,8 @@ parse_border_color (HTMLStyle *style, gchar *value)
 }
 
 static HTMLStyle *
-parse_border_width (HTMLStyle *style, gchar *value)
+parse_border_width (HTMLStyle *style,
+                    gchar *value)
 {
 	while (isspace (*value))
 		value++;
@@ -440,7 +461,8 @@ parse_border_width (HTMLStyle *style, gchar *value)
 }
 
 static HTMLStyle *
-parse_border (HTMLStyle *style, gchar *value)
+parse_border (HTMLStyle *style,
+              gchar *value)
 {
 	while (value && *value) {
 		gchar *next;
@@ -476,7 +498,8 @@ parse_border (HTMLStyle *style, gchar *value)
 }
 
 HTMLStyle *
-html_style_add_attribute (HTMLStyle *style, const gchar *attr)
+html_style_add_attribute (HTMLStyle *style,
+                          const gchar *attr)
 {
 	gchar **prop;
 

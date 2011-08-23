@@ -1,23 +1,23 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
-
-    Copyright (C) 2000 Jonas Borgström <jonas_b@bitsmart.com>.
-    Copyright (C) 2000, 2001, 2002 Ximian, Inc.
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
+ *
+ *  Copyright (C) 2000 Jonas Borgström <jonas_b@bitsmart.com>.
+ *  Copyright (C) 2000, 2001, 2002 Ximian, Inc.
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -102,7 +102,7 @@ add_selected (GtkTreeModel *model,
               GtkTreePath *path,
               GtkTreeIter *iter,
               struct EmbeddedSelectionInfo *info,
-              const gchar * codepage)
+              const gchar *codepage)
 {
 	gchar *value, *encoded;
 
@@ -125,7 +125,8 @@ add_selected (GtkTreeModel *model,
 }
 
 static gchar *
-encode (HTMLEmbedded *e, const gchar *codepage)
+encode (HTMLEmbedded *e,
+        const gchar *codepage)
 {
 	struct EmbeddedSelectionInfo info;
 	HTMLSelect *s = HTML_SELECT (e);
@@ -270,7 +271,9 @@ html_select_new (GtkWidget *parent,
 }
 
 void
-html_select_add_option (HTMLSelect *select, const gchar *value, gboolean selected)
+html_select_add_option (HTMLSelect *select,
+                        const gchar *value,
+                        gboolean selected)
 {
 	GtkListStore *store;
 	GtkTreeIter iter;
@@ -314,7 +317,8 @@ html_select_add_option (HTMLSelect *select, const gchar *value, gboolean selecte
 }
 
 void
-html_select_set_text (HTMLSelect *select, const gchar *text)
+html_select_set_text (HTMLSelect *select,
+                      const gchar *text)
 {
 	GtkWidget *w = GTK_WIDGET (HTML_EMBEDDED (select)->widget);
 	GtkListStore *store;

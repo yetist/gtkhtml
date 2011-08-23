@@ -61,7 +61,7 @@ static void
 editor_show_popup_menu (GtkhtmlEditor *editor,
                         GdkEventButton *event,
                         HTMLObject *object,
-			guint offset)
+                        guint offset)
 {
 	GtkHTML *html;
 	GtkWidget *menu;
@@ -218,7 +218,8 @@ editor_url_requested_cb (GtkhtmlEditor *editor,
 }
 
 static void
-engine_undo_changed_cb (GtkhtmlEditor *editor, HTMLEngine *engine)
+engine_undo_changed_cb (GtkhtmlEditor *editor,
+                        HTMLEngine *engine)
 {
 	g_object_notify (G_OBJECT (editor), "changed");
 }
@@ -421,7 +422,7 @@ editor_method_set_language (GtkHTML *html,
 	g_free (action_name);
 
 	/* silently ignore when such language doesn't exist, it might mean that
-	   user doesn't have installed language for locale the editor is run in
+	 * user doesn't have installed language for locale the editor is run in
 	*/
 	if (action != NULL)
 		gtk_action_activate (action);

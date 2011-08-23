@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML widget.
-
-    Copyright (C) 2000 Jonas Borgström <jonas_b@bitsmart.com>
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,    Boston, MA 02110-1301, USA.
-
+ *
+ *  Copyright (C) 2000 Jonas Borgström <jonas_b@bitsmart.com>
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,    Boston, MA 02110-1301, USA.
+ *
 */
 
 #include <config.h>
@@ -26,7 +26,9 @@
 
 
 HTMLForm *
-html_form_new (HTMLEngine *engine, const gchar *_action, const gchar *_method)
+html_form_new (HTMLEngine *engine,
+               const gchar *_action,
+               const gchar *_method)
 {
 	HTMLForm *new;
 
@@ -44,7 +46,8 @@ html_form_new (HTMLEngine *engine, const gchar *_action, const gchar *_method)
 }
 
 void
-html_form_add_element (HTMLForm *form, HTMLEmbedded *element)
+html_form_add_element (HTMLForm *form,
+                       HTMLEmbedded *element)
 {
 	form->elements = g_list_append (form->elements, element);
 
@@ -52,7 +55,8 @@ html_form_add_element (HTMLForm *form, HTMLEmbedded *element)
 }
 
 void
-html_form_add_hidden (HTMLForm *form, HTMLHidden *hidden)
+html_form_add_hidden (HTMLForm *form,
+                      HTMLHidden *hidden)
 {
 	html_form_add_element (form, HTML_EMBEDDED (hidden));
 
@@ -60,7 +64,9 @@ html_form_add_hidden (HTMLForm *form, HTMLHidden *hidden)
 }
 
 void
-html_form_add_radio (HTMLForm *form, const gchar *name, GtkRadioButton *button)
+html_form_add_radio (HTMLForm *form,
+                     const gchar *name,
+                     GtkRadioButton *button)
 {
 	GtkWidget *master;
 	GSList *group;
@@ -85,20 +91,23 @@ html_form_add_radio (HTMLForm *form, const gchar *name, GtkRadioButton *button)
 }
 
 static void
-destroy_hidden (gpointer o, gpointer data)
+destroy_hidden (gpointer o,
+                gpointer data)
 {
 	html_object_destroy (HTML_OBJECT (o));
 }
 
 static void
-destroy_radio (gchar *key, gpointer *master)
+destroy_radio (gchar *key,
+               gpointer *master)
 {
 	g_free (key);
 	g_object_unref (master);
 }
 
 static void
-reset_element (gpointer o, gpointer data)
+reset_element (gpointer o,
+               gpointer data)
 {
 	html_embedded_reset (HTML_EMBEDDED (o));
 }
@@ -148,7 +157,8 @@ html_form_submit (HTMLForm *form)
 }
 
 void
-html_form_set_engine (HTMLForm *form, HTMLEngine *engine)
+html_form_set_engine (HTMLForm *form,
+                      HTMLEngine *engine)
 {
 	g_return_if_fail (HTML_IS_ENGINE (engine));
 	form->engine = engine;

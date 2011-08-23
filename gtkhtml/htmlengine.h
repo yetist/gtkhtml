@@ -1,24 +1,24 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library
-
-   Copyright (C) 1997 Martin Jones (mjones@kde.org)
-   Copyright (C) 1997 Torben Weis (weis@kde.org)
-   Copyright (C) 1999, 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright (C) 1997 Martin Jones (mjones@kde.org)
+ * Copyright (C) 1997 Torben Weis (weis@kde.org)
+ * Copyright (C) 1999, 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 #ifndef _HTMLENGINE_H_
@@ -72,8 +72,8 @@ struct _HTMLEngine {
 	guint       primary_len;
 
 	/* Freeze counter.  When greater than zero, we never trigger relayouts
-           nor repaints.  When going from nonzero to zero, we relayout and
-           repaint everything.  */
+	 * nor repaints.  When going from nonzero to zero, we relayout and
+	 * repaint everything.  */
 	guint freeze_count;
 	guint thaw_idle_id;
 	gint block_redraw;
@@ -167,10 +167,10 @@ struct _HTMLEngine {
 	GString *formText;
 
 	/* This is TRUE if we cannot insert a paragraph break (which is just an
-           extra empty line).  It's set to FALSE as soon as some element is
-           added to a flow.  The purpose is to avoid having paragraph breaks to
-           be inserted in sequence, or after elements that have some vspace of
-           their own.  */
+	 * extra empty line).  It's set to FALSE as soon as some element is
+	 * added to a flow.  The purpose is to avoid having paragraph breaks to
+	 * be inserted in sequence, or after elements that have some vspace of
+	 * their own.  */
 	gboolean avoid_para;
 
 	/* Whether we have the keyboard focus.  */
@@ -187,12 +187,12 @@ struct _HTMLEngine {
 	HTMLCursor *cursor;
 
 	/* If no region is active, this is NULL.  Otherwise, this is
-           one extreme of the selected region.  The other extreme is
-           always the cursor.  */
+	 * one extreme of the selected region.  The other extreme is
+	 * always the cursor.  */
 	HTMLCursor *mark;
 
 	/* Hide counter for the cursor.  When greater than zero, it
-           means the cursor is invisible.  */
+	 * means the cursor is invisible.  */
 	gint cursor_hide_count;
 
 	/* Timer ID for cursor blink.  */
@@ -202,7 +202,7 @@ struct _HTMLEngine {
 	gboolean blinking_status;
 
 	/* Font style for insertion.  If HTML_FONT_STYLE_DEFAULT, use that of
-           the text we are in.  */
+	 * the text we are in.  */
 	GtkHTMLFontStyle  insertion_font_style;
 	HTMLColor        *insertion_color;
 	gchar            *insertion_url;
@@ -212,11 +212,11 @@ struct _HTMLEngine {
 	gboolean shift_selection;
 
 	/* This object is used to update the keyboard selection in the
-           idle loop.  */
+	 * idle loop.  */
 	HTMLEngineEditSelectionUpdater *selection_updater;
 
 	/* keeps selection between operation, which are changing selection
-	   and need restore it after done */
+	 * and need restore it after done */
 	GList *selection_stack;
 
 	/* search & replace */

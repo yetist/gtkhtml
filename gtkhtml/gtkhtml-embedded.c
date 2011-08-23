@@ -74,7 +74,9 @@ gtk_html_embedded_get_type (void)
 }
 
 static void
-free_param (gpointer key, gpointer value, gpointer data)
+free_param (gpointer key,
+            gpointer value,
+            gpointer data)
 {
 	g_free (key);
 	g_free (value);
@@ -124,15 +126,15 @@ typedef void (*draw_print_signal)(GObject *, gpointer, gpointer);
 typedef void (*draw_gdk_signal)(GObject *, gpointer, gint, gint, gpointer);
 
 static void
-draw_gdk_signal_marshaller (GClosure     *closure,
-			    GValue       *return_value,
-			    guint         n_param_values,
-			    const GValue *param_values,
-			    gpointer      invocation_hint,
-			    gpointer      marshal_data)
+draw_gdk_signal_marshaller (GClosure *closure,
+                            GValue *return_value,
+                            guint n_param_values,
+                            const GValue *param_values,
+                            gpointer invocation_hint,
+                            gpointer marshal_data)
 {
 	register draw_gdk_signal ff;
-	register GCClosure *cc = (GCClosure*) closure;
+	register GCClosure *cc = (GCClosure *) closure;
 	register gpointer data1, data2;
 
 	g_return_if_fail (n_param_values == 5);
@@ -210,7 +212,9 @@ gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *class)
 }
 
 static void
-gtk_html_embedded_get_preferred_height (GtkWidget *widget, gint *minimum_height, gint *natural_height)
+gtk_html_embedded_get_preferred_height (GtkWidget *widget,
+                                        gint *minimum_height,
+                                        gint *natural_height)
 {
 	GtkWidget *child;
 
@@ -225,7 +229,9 @@ gtk_html_embedded_get_preferred_height (GtkWidget *widget, gint *minimum_height,
 }
 
 static void
-gtk_html_embedded_get_preferred_width (GtkWidget *widget, gint *minimum_width, gint *natural_width)
+gtk_html_embedded_get_preferred_width (GtkWidget *widget,
+                                       gint *minimum_width,
+                                       gint *natural_width)
 {
 	GtkWidget *child;
 
@@ -240,7 +246,8 @@ gtk_html_embedded_get_preferred_width (GtkWidget *widget, gint *minimum_width, g
 }
 
 static void
-gtk_html_embedded_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
+gtk_html_embedded_size_allocate (GtkWidget *widget,
+                                 GtkAllocation *allocation)
 {
 	GtkWidget *child;
 
@@ -271,7 +278,12 @@ gtk_html_embedded_init (GtkHTMLEmbedded *ge)
  * Return value: A new GtkHTMLEmbedded widget.
  **/
 GtkWidget *
-gtk_html_embedded_new (gchar *classid, gchar *name, gchar *type, gchar *data, gint width, gint height)
+gtk_html_embedded_new (gchar *classid,
+                       gchar *name,
+                       gchar *type,
+                       gchar *data,
+                       gint width,
+                       gint height)
 {
 	GtkHTMLEmbedded *em;
 
@@ -298,7 +310,8 @@ gtk_html_embedded_new (gchar *classid, gchar *name, gchar *type, gchar *data, gi
  * Returns: the value of the parameter.
  */
 gchar *
-gtk_html_embedded_get_parameter (GtkHTMLEmbedded *ge, gchar *param)
+gtk_html_embedded_get_parameter (GtkHTMLEmbedded *ge,
+                                 gchar *param)
 {
 	return g_hash_table_lookup (ge->params, param);
 }
@@ -312,7 +325,9 @@ gtk_html_embedded_get_parameter (GtkHTMLEmbedded *ge, gchar *param)
  * The parameter named @name to the @value.
  */
 void
-gtk_html_embedded_set_parameter (GtkHTMLEmbedded *ge, gchar *param, gchar *value)
+gtk_html_embedded_set_parameter (GtkHTMLEmbedded *ge,
+                                 gchar *param,
+                                 gchar *value)
 {
 	gchar *lookup;
 
@@ -334,7 +349,8 @@ gtk_html_embedded_set_parameter (GtkHTMLEmbedded *ge, gchar *param, gchar *value
  * Set the descent of the widget beneath the baseline.
  */
 void
-gtk_html_embedded_set_descent (GtkHTMLEmbedded *ge, gint descent)
+gtk_html_embedded_set_descent (GtkHTMLEmbedded *ge,
+                               gint descent)
 {
 	if (ge->descent == descent)
 		return;

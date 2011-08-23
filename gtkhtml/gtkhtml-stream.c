@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
-
-    Copyright 1999, 2000 Helix Code, Inc.
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
+ *
+ *  Copyright 1999, 2000 Helix Code, Inc.
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -32,10 +32,10 @@
 
 GtkHTMLStream *
 gtk_html_stream_new (GtkHTML *html,
-		     GtkHTMLStreamTypesFunc types_func,
-		     GtkHTMLStreamWriteFunc write_func,
-		     GtkHTMLStreamCloseFunc close_func,
-		     gpointer user_data)
+                     GtkHTMLStreamTypesFunc types_func,
+                     GtkHTMLStreamWriteFunc write_func,
+                     GtkHTMLStreamCloseFunc close_func,
+                     gpointer user_data)
 {
 	GtkHTMLStream *new_stream;
 
@@ -68,8 +68,8 @@ gtk_html_stream_destroy (GtkHTMLStream *stream)
  */
 void
 gtk_html_stream_write (GtkHTMLStream *stream,
-		       const gchar *buffer,
-		       gsize size)
+                       const gchar *buffer,
+                       gsize size)
 {
 	g_return_if_fail (stream != NULL);
 	g_return_if_fail (buffer != NULL);
@@ -81,8 +81,8 @@ gtk_html_stream_write (GtkHTMLStream *stream,
 
 gint
 gtk_html_stream_vprintf (GtkHTMLStream *stream,
-			 const gchar *format,
-			 va_list ap)
+                         const gchar *format,
+                         va_list ap)
 {
 	gsize len;
 	gchar *buf = NULL;
@@ -114,8 +114,8 @@ gtk_html_stream_vprintf (GtkHTMLStream *stream,
 
 gint
 gtk_html_stream_printf (GtkHTMLStream *stream,
-			const gchar *format,
-			...)
+                        const gchar *format,
+                        ...)
 {
 	va_list ap;
 	gint rv;
@@ -129,7 +129,7 @@ gtk_html_stream_printf (GtkHTMLStream *stream,
 
 void
 gtk_html_stream_close (GtkHTMLStream *stream,
-		       GtkHTMLStreamStatus status)
+                       GtkHTMLStreamStatus status)
 {
 	g_return_if_fail (stream != NULL);
 
@@ -156,7 +156,7 @@ struct _GtkHTMLLog {
 
 static gchar **
 stream_log_types (GtkHTMLStream *stream,
-		  gpointer user_data)
+                  gpointer user_data)
 {
 	GtkHTMLLog *log = user_data;
 
@@ -165,14 +165,14 @@ stream_log_types (GtkHTMLStream *stream,
 
 static void
 stream_log_write (GtkHTMLStream *stream,
-	       const gchar *buffer,
-	       gsize size,
-	       gpointer user_data)
+               const gchar *buffer,
+               gsize size,
+               gpointer user_data)
 {
 	GtkHTMLLog *log = user_data;
 	gint i;
 
-	for (i=0; i<size; i++)
+	for (i = 0; i < size; i++)
 		fprintf (log->file, "%c", buffer [i]);
 
 	gtk_html_stream_write (log->stream, buffer, size);
@@ -181,8 +181,8 @@ stream_log_write (GtkHTMLStream *stream,
 
 static void
 stream_log_close (GtkHTMLStream *stream,
-	       GtkHTMLStreamStatus status,
-	       gpointer user_data)
+               GtkHTMLStreamStatus status,
+               gpointer user_data)
 {
 	GtkHTMLLog *log = user_data;
 
@@ -193,7 +193,8 @@ stream_log_close (GtkHTMLStream *stream,
 }
 
 GtkHTMLStream *
-gtk_html_stream_log_new (GtkHTML *html, GtkHTMLStream *stream)
+gtk_html_stream_log_new (GtkHTML *html,
+                         GtkHTMLStream *stream)
 {
 	GtkHTMLLog *log;
 	GtkHTMLStream *new_stream;

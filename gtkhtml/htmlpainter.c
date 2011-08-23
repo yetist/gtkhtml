@@ -1,25 +1,25 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-
-   Copyright (C) 1997 Martin Jones (mjones@kde.org)
-   Copyright (C) 1997 Torben Weis (weis@kde.org)
-   Copyright (C) 1999, 2000 Helix Code, Inc.
-   Copyright (C) 2000, 2001, 2002, 2003 Ximian, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright (C) 1997 Martin Jones (mjones@kde.org)
+ * Copyright (C) 1997 Torben Weis (weis@kde.org)
+ * Copyright (C) 1999, 2000 Helix Code, Inc.
+ * Copyright (C) 2000, 2001, 2002, 2003 Ximian, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -107,7 +107,8 @@ DEFINE_UNIMPLEMENTED (get_page_width)
 DEFINE_UNIMPLEMENTED (get_page_height)
 
 static void
-html_painter_init (GObject *object, HTMLPainterClass *real_klass)
+html_painter_init (GObject *object,
+                   HTMLPainterClass *real_klass)
 {
 	HTMLPainter *painter;
 
@@ -120,7 +121,8 @@ html_painter_init (GObject *object, HTMLPainterClass *real_klass)
 }
 
 static void
-html_painter_real_set_widget (HTMLPainter *painter, GtkWidget *widget)
+html_painter_real_set_widget (HTMLPainter *painter,
+                              GtkWidget *widget)
 {
 	if (painter->widget)
 		g_object_unref (painter->widget);
@@ -129,7 +131,10 @@ html_painter_real_set_widget (HTMLPainter *painter, GtkWidget *widget)
 }
 
 static gint
-text_width (HTMLPainter *painter, PangoFontDescription *desc, const gchar *text, gint bytes)
+text_width (HTMLPainter *painter,
+            PangoFontDescription *desc,
+            const gchar *text,
+            gint bytes)
 {
 	HTMLTextPangoInfo *pi;
 	GList *glyphs;
@@ -142,7 +147,7 @@ text_width (HTMLPainter *painter, PangoFontDescription *desc, const gchar *text,
 		gint i;
 		for (list = glyphs; list; list = list->next->next) {
 			PangoGlyphString *str = (PangoGlyphString *) list->data;
-			for (i=0; i < str->num_glyphs; i++)
+			for (i = 0; i < str->num_glyphs; i++)
 				width += str->glyphs[i].geometry.width;
 		}
 	}
@@ -155,9 +160,15 @@ text_width (HTMLPainter *painter, PangoFontDescription *desc, const gchar *text,
 }
 
 static void
-text_size (HTMLPainter *painter, PangoFontDescription *desc, const gchar *text, gint bytes,
-	   HTMLTextPangoInfo *pi, GList *glyphs,
-	   gint *width_out, gint *ascent_out, gint *descent_out)
+text_size (HTMLPainter *painter,
+           PangoFontDescription *desc,
+           const gchar *text,
+           gint bytes,
+           HTMLTextPangoInfo *pi,
+           GList *glyphs,
+           gint *width_out,
+           gint *ascent_out,
+           gint *descent_out)
 {
 	gboolean temp_pi = FALSE;
 	gint ascent = 0;
@@ -285,7 +296,10 @@ html_painter_get_type (void)
 
 void
 html_painter_begin (HTMLPainter *painter,
-		    gint x1, gint y1, gint x2, gint y2)
+                    gint x1,
+                    gint y1,
+                    gint x2,
+                    gint y2)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
@@ -308,7 +322,7 @@ html_painter_end (HTMLPainter *painter)
 /* Color control.  */
 void
 html_painter_alloc_color (HTMLPainter *painter,
-			  GdkColor *color)
+                          GdkColor *color)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
@@ -319,7 +333,7 @@ html_painter_alloc_color (HTMLPainter *painter,
 
 void
 html_painter_free_color (HTMLPainter *painter,
-			 GdkColor *color)
+                         GdkColor *color)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
@@ -333,7 +347,7 @@ html_painter_free_color (HTMLPainter *painter,
 
 void
 html_painter_set_font_style (HTMLPainter *painter,
-			     GtkHTMLFontStyle font_style)
+                             GtkHTMLFontStyle font_style)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
@@ -353,7 +367,7 @@ html_painter_get_font_style (HTMLPainter *painter)
 
 void
 html_painter_set_font_face (HTMLPainter *painter,
-			    HTMLFontFace *face)
+                            HTMLFontFace *face)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
@@ -365,7 +379,9 @@ html_painter_set_font_face (HTMLPainter *painter,
 }
 
 gpointer
-html_painter_get_font (HTMLPainter *painter, HTMLFontFace *face, GtkHTMLFontStyle style)
+html_painter_get_font (HTMLPainter *painter,
+                       HTMLFontFace *face,
+                       GtkHTMLFontStyle style)
 {
 	HTMLFont *font;
 
@@ -374,10 +390,10 @@ html_painter_get_font (HTMLPainter *painter, HTMLFontFace *face, GtkHTMLFontStyl
 }
 
 static void
-get_font_info (HTMLPainter       *painter,
-	       HTMLTextPangoInfo *pi,
-	       HTMLFontFace     **font_face,
-	       GtkHTMLFontStyle  *font_style)
+get_font_info (HTMLPainter *painter,
+               HTMLTextPangoInfo *pi,
+               HTMLFontFace **font_face,
+               GtkHTMLFontStyle *font_style)
 {
 	if (pi && pi->have_font) {
 		*font_face = pi->face;
@@ -389,8 +405,8 @@ get_font_info (HTMLPainter       *painter,
 }
 
 static gint
-get_space_width (HTMLPainter       *painter,
-		 HTMLTextPangoInfo *pi)
+get_space_width (HTMLPainter *painter,
+                 HTMLTextPangoInfo *pi)
 {
 	HTMLFontFace    *font_face;
 	GtkHTMLFontStyle font_style;
@@ -427,9 +443,14 @@ get_space_width (HTMLPainter       *painter,
  **/
 void
 html_painter_calc_entries_size (HTMLPainter *painter,
-				const gchar *text, guint len,
-				HTMLTextPangoInfo *pi, GList *glyphs, gint *line_offset,
-				gint *width, gint *asc, gint *dsc)
+                                const gchar *text,
+                                guint len,
+                                HTMLTextPangoInfo *pi,
+                                GList *glyphs,
+                                gint *line_offset,
+                                gint *width,
+                                gint *asc,
+                                gint *dsc)
 {
 	HTMLFontFace *font_face = NULL;
 	GtkHTMLFontStyle font_style = GTK_HTML_FONT_STYLE_DEFAULT;
@@ -470,8 +491,11 @@ html_painter_calc_entries_size (HTMLPainter *painter,
  **/
 void
 html_painter_calc_text_size (HTMLPainter *painter,
-			     const gchar *text, guint len,
-			     gint *width, gint *asc, gint *dsc)
+                             const gchar *text,
+                             guint len,
+                             gint *width,
+                             gint *asc,
+                             gint *dsc)
 {
 	gint line_offset = 0;
 
@@ -487,7 +511,7 @@ html_painter_calc_text_size (HTMLPainter *painter,
 
 void
 html_painter_set_pen (HTMLPainter *painter,
-		      const GdkColor *color)
+                      const GdkColor *color)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
@@ -498,8 +522,10 @@ html_painter_set_pen (HTMLPainter *painter,
 
 void
 html_painter_draw_line (HTMLPainter *painter,
-			gint x1, gint y1,
-			gint x2, gint y2)
+                        gint x1,
+                        gint y1,
+                        gint x2,
+                        gint y2)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
@@ -509,8 +535,10 @@ html_painter_draw_line (HTMLPainter *painter,
 
 void
 html_painter_draw_rect (HTMLPainter *painter,
-			gint x, gint y,
-			gint width, gint height)
+                        gint x,
+                        gint y,
+                        gint width,
+                        gint height)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
@@ -519,7 +547,9 @@ html_painter_draw_rect (HTMLPainter *painter,
 }
 
 void
-html_replace_tabs (const gchar *text, gchar *translated, guint bytes)
+html_replace_tabs (const gchar *text,
+                   gchar *translated,
+                   guint bytes)
 {
 	const gchar *t, *tab;
 	gchar *tt;
@@ -562,10 +592,14 @@ html_replace_tabs (const gchar *text, gchar *translated, guint bytes)
  * Draws a piece of text, using provided Pango layout information.
  **/
 void
-html_painter_draw_entries (HTMLPainter *painter, gint x, gint y,
-			   const gchar *text, gint len,
-			   HTMLTextPangoInfo *pi, GList *glyphs,
-			   gint line_offset)
+html_painter_draw_entries (HTMLPainter *painter,
+                           gint x,
+                           gint y,
+                           const gchar *text,
+                           gint len,
+                           HTMLTextPangoInfo *pi,
+                           GList *glyphs,
+                           gint line_offset)
 {
 	const gchar *tab, *c_text;
 	gint bytes;
@@ -631,7 +665,13 @@ html_painter_draw_entries (HTMLPainter *painter, gint x, gint y,
 }
 
 gint
-html_painter_draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphString *glyphs, GdkColor *fg, GdkColor *bg)
+html_painter_draw_glyphs (HTMLPainter *painter,
+                          gint x,
+                          gint y,
+                          PangoItem *item,
+                          PangoGlyphString *glyphs,
+                          GdkColor *fg,
+                          GdkColor *bg)
 {
 	return (* HP_CLASS (painter)->draw_glyphs) (painter, x, y, item, glyphs, fg, bg);
 }
@@ -647,8 +687,11 @@ html_painter_draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item,
  * Draws a piece of text.
  **/
 void
-html_painter_draw_text (HTMLPainter *painter, gint x, gint y,
-			const gchar *text, gint len)
+html_painter_draw_text (HTMLPainter *painter,
+                        gint x,
+                        gint y,
+                        const gchar *text,
+                        gint len)
 {
 	HTMLTextPangoInfo *pi;
 	GList *glyphs;
@@ -675,8 +718,10 @@ html_painter_draw_text (HTMLPainter *painter, gint x, gint y,
 
 void
 html_painter_fill_rect (HTMLPainter *painter,
-			gint x, gint y,
-			gint width, gint height)
+                        gint x,
+                        gint y,
+                        gint width,
+                        gint height)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
@@ -685,11 +730,13 @@ html_painter_fill_rect (HTMLPainter *painter,
 }
 
 void
-html_painter_draw_pixmap (HTMLPainter    *painter,
-			  GdkPixbuf *pixbuf,
-			  gint x, gint y,
-			  gint scale_width, gint scale_height,
-			  const GdkColor *color)
+html_painter_draw_pixmap (HTMLPainter *painter,
+                          GdkPixbuf *pixbuf,
+                          gint x,
+                          gint y,
+                          gint scale_width,
+                          gint scale_height,
+                          const GdkColor *color)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
@@ -700,8 +747,10 @@ html_painter_draw_pixmap (HTMLPainter    *painter,
 
 void
 html_painter_draw_ellipse (HTMLPainter *painter,
-			   gint x, gint y,
-			   gint width, gint height)
+                           gint x,
+                           gint y,
+                           gint width,
+                           gint height)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
@@ -720,7 +769,7 @@ html_painter_clear (HTMLPainter *painter)
 
 void
 html_painter_set_background_color (HTMLPainter *painter,
-				   const GdkColor *color)
+                                   const GdkColor *color)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
@@ -731,8 +780,9 @@ html_painter_set_background_color (HTMLPainter *painter,
 
 void
 html_painter_draw_shade_line (HTMLPainter *painter,
-			      gint x, gint y,
-			      gint width)
+                              gint x,
+                              gint y,
+                              gint width)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
@@ -742,11 +792,13 @@ html_painter_draw_shade_line (HTMLPainter *painter,
 
 void
 html_painter_draw_border (HTMLPainter *painter,
-			  GdkColor *bg,
-			  gint x, gint y,
-			  gint width, gint height,
-			  HTMLBorderStyle style,
-			  gint bordersize)
+                          GdkColor *bg,
+                          gint x,
+                          gint y,
+                          gint width,
+                          gint height,
+                          HTMLBorderStyle style,
+                          gint bordersize)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
@@ -755,7 +807,10 @@ html_painter_draw_border (HTMLPainter *painter,
 }
 
 void
-html_painter_draw_embedded (HTMLPainter *painter, HTMLEmbedded *element, gint x, gint y)
+html_painter_draw_embedded (HTMLPainter *painter,
+                            HTMLEmbedded *element,
+                            gint x,
+                            gint y)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
@@ -767,8 +822,10 @@ html_painter_draw_embedded (HTMLPainter *painter, HTMLEmbedded *element, gint x,
 /* Passing 0 for width/height means remove clip rectangle */
 void
 html_painter_set_clip_rectangle (HTMLPainter *painter,
-				 gint x, gint y,
-				 gint width, gint height)
+                                 gint x,
+                                 gint y,
+                                 gint width,
+                                 gint height)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
@@ -785,8 +842,10 @@ html_painter_set_clip_rectangle (HTMLPainter *painter,
 
 void
 html_painter_get_clip_rectangle (HTMLPainter *painter,
-				 gint *x, gint *y,
-				 gint *width, gint *height)
+                                 gint *x,
+                                 gint *y,
+                                 gint *width,
+                                 gint *height)
 {
 	*x = painter->clip_x;
 	*y = painter->clip_y;
@@ -797,11 +856,14 @@ html_painter_get_clip_rectangle (HTMLPainter *painter,
 /* Passing 0 for pix_width / pix_height makes it use the image width */
 void
 html_painter_draw_background (HTMLPainter *painter,
-			      GdkColor *color,
-			      GdkPixbuf *pixbuf,
-			      gint x, gint y,
-			      gint width, gint height,
-			      gint tile_x, gint tile_y)
+                              GdkColor *color,
+                              GdkPixbuf *pixbuf,
+                              gint x,
+                              gint y,
+                              gint width,
+                              gint height,
+                              gint tile_x,
+                              gint tile_y)
 {
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
@@ -819,13 +881,20 @@ html_painter_get_pixel_size (HTMLPainter *painter)
 }
 
 gint
-html_painter_draw_spell_error (HTMLPainter *painter, gint x, gint y, gint width)
+html_painter_draw_spell_error (HTMLPainter *painter,
+                               gint x,
+                               gint y,
+                               gint width)
 {
 	return (* HP_CLASS (painter)->draw_spell_error) (painter, x, y, width);
 }
 
 HTMLFont *
-html_painter_alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboolean points, GtkHTMLFontStyle style)
+html_painter_alloc_font (HTMLPainter *painter,
+                         gchar *face,
+                         gdouble size,
+                         gboolean points,
+                         GtkHTMLFontStyle style)
 {
 	PangoFontDescription *desc = NULL;
 	gint space_width, space_asc, space_dsc;
@@ -867,12 +936,14 @@ html_painter_alloc_font (HTMLPainter *painter, gchar *face, gdouble size, gboole
 }
 
 void
-html_painter_ref_font (HTMLPainter *painter, HTMLFont *font)
+html_painter_ref_font (HTMLPainter *painter,
+                       HTMLFont *font)
 {
 }
 
 void
-html_painter_unref_font (HTMLPainter *painter, HTMLFont *font)
+html_painter_unref_font (HTMLPainter *painter,
+                         HTMLFont *font)
 {
 	if (font->ref_count < 1) {
 		pango_font_description_free (font->data);
@@ -881,50 +952,65 @@ html_painter_unref_font (HTMLPainter *painter, HTMLFont *font)
 }
 
 guint
-html_painter_get_space_width (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face)
+html_painter_get_space_width (HTMLPainter *painter,
+                              GtkHTMLFontStyle style,
+                              HTMLFontFace *face)
 {
 	return html_font_manager_get_font (&painter->font_manager, face, style)->space_width;
 }
 
 guint
-html_painter_get_space_asc (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face)
+html_painter_get_space_asc (HTMLPainter *painter,
+                            GtkHTMLFontStyle style,
+                            HTMLFontFace *face)
 {
 	return html_font_manager_get_font (&painter->font_manager, face, style)->space_asc;
 }
 
 guint
-html_painter_get_space_dsc (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face)
+html_painter_get_space_dsc (HTMLPainter *painter,
+                            GtkHTMLFontStyle style,
+                            HTMLFontFace *face)
 {
 	return html_font_manager_get_font (&painter->font_manager, face, style)->space_dsc;
 }
 
 guint
-html_painter_get_e_width (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face)
+html_painter_get_e_width (HTMLPainter *painter,
+                          GtkHTMLFontStyle style,
+                          HTMLFontFace *face)
 {
 	return html_font_manager_get_font (&painter->font_manager, face, style)->e_width;
 }
 
 guint
-html_painter_get_block_indent_width (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face)
+html_painter_get_block_indent_width (HTMLPainter *painter,
+                                     GtkHTMLFontStyle style,
+                                     HTMLFontFace *face)
 {
 	return html_font_manager_get_font (&painter->font_manager, face, style)->indent_width;
 }
 
 guint
-html_painter_get_block_cite_width (HTMLPainter *painter, GtkHTMLFontStyle style, HTMLFontFace *face, HTMLDirection dir)
+html_painter_get_block_cite_width (HTMLPainter *painter,
+                                   GtkHTMLFontStyle style,
+                                   HTMLFontFace *face,
+                                   HTMLDirection dir)
 {
 	HTMLFont *font = html_font_manager_get_font (&painter->font_manager, face, style);
 	return dir == HTML_DIRECTION_RTL ? font->cite_width_rtl : font->cite_width_ltr;
 }
 
 guint
-html_painter_get_page_width (HTMLPainter *painter, HTMLEngine *e)
+html_painter_get_page_width (HTMLPainter *painter,
+                             HTMLEngine *e)
 {
 	return	(* HP_CLASS (painter)->get_page_width) (painter, e);
 }
 
 guint
-html_painter_get_page_height (HTMLPainter *painter, HTMLEngine *e)
+html_painter_get_page_height (HTMLPainter *painter,
+                              HTMLEngine *e)
 {
 	return	(* HP_CLASS (painter)->get_page_height) (painter, e);
 }
@@ -941,8 +1027,8 @@ html_painter_get_page_height (HTMLPainter *painter, HTMLEngine *e)
  * Return value: distance converted to engine coordinates.
  **/
 gint
-html_painter_pango_to_engine (HTMLPainter       *painter,
-			      gint               pango_units)
+html_painter_pango_to_engine (HTMLPainter *painter,
+                              gint pango_units)
 {
 	gdouble tmp = 0.5 + pango_units / painter->engine_to_pango;
 	return (gint) CLAMP (tmp, G_MININT, G_MAXINT);
@@ -960,27 +1046,34 @@ html_painter_pango_to_engine (HTMLPainter       *painter,
  * Return value: distance converted to Pango units
  **/
 gint
-html_painter_engine_to_pango (HTMLPainter       *painter,
-			      gint               engine_units)
+html_painter_engine_to_pango (HTMLPainter *painter,
+                              gint engine_units)
 {
 	gdouble tmp = 0.5 + engine_units * painter->engine_to_pango;
 	return (gint) CLAMP (tmp, G_MININT, G_MAXINT);
 }
 
 void
-html_painter_set_focus (HTMLPainter *p, gboolean focus)
+html_painter_set_focus (HTMLPainter *p,
+                        gboolean focus)
 {
 	p->focus = focus;
 }
 
 void
-html_painter_set_widget (HTMLPainter *painter, GtkWidget *widget)
+html_painter_set_widget (HTMLPainter *painter,
+                         GtkWidget *widget)
 {
 	(* HP_CLASS (painter)->set_widget) (painter, widget);
 }
 
 HTMLTextPangoInfo *
-html_painter_text_itemize_and_prepare_glyphs (HTMLPainter *painter, PangoFontDescription *desc, const gchar *text, gint bytes, GList **glyphs, PangoAttrList *attrs)
+html_painter_text_itemize_and_prepare_glyphs (HTMLPainter *painter,
+                                              PangoFontDescription *desc,
+                                              const gchar *text,
+                                              gint bytes,
+                                              GList **glyphs,
+                                              PangoAttrList *attrs)
 {
 	PangoAttribute *attr;
 	GList *items = NULL;
@@ -1046,7 +1139,8 @@ html_painter_glyphs_destroy (GList *glyphs)
  * structure form.
  **/
 void
-html_pango_get_item_properties (PangoItem *item, HTMLPangoProperties *properties)
+html_pango_get_item_properties (PangoItem *item,
+                                HTMLPangoProperties *properties)
 {
 	GSList *tmp_list = item->analysis.extra_attrs;
 

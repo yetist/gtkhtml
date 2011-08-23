@@ -84,7 +84,8 @@ inline
 #endif
 #endif
 static guint
-hash (register const gchar *str, register guint len)
+hash (register const gchar *str,
+      register guint len)
 {
   static gushort asso_values[] =
     {
@@ -143,7 +144,8 @@ __attribute__ ((__gnu_inline__))
 #endif
 #endif
 static struct _EntityEntry *
-html_entity_hash (register const gchar *str, register guint len)
+html_entity_hash (register const gchar *str,
+                  register guint len)
 {
   static guchar lengthtable[] =
     {
@@ -866,7 +868,8 @@ html_entity_hash (register const gchar *str, register guint len)
 #line 293 "htmlentity.gperf"
 
 gulong
-html_entity_parse (const gchar *s, guint len)
+html_entity_parse (const gchar *s,
+                   guint len)
 {
 	struct _EntityEntry * result = html_entity_hash ( s, len);
 	if (result == NULL )

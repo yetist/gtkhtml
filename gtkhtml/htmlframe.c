@@ -1,23 +1,23 @@
 
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-
-   Copyright (C) 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright (C) 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -40,7 +40,10 @@ HTMLFrameClass html_frame_class;
 static HTMLEmbeddedClass *parent_class = NULL;
 
 static void
-frame_url_requested (GtkHTML *html, const gchar *url, GtkHTMLStream *handle, gpointer data)
+frame_url_requested (GtkHTML *html,
+                     const gchar *url,
+                     GtkHTMLStream *handle,
+                     gpointer data)
 {
 	HTMLFrame *frame = HTML_FRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED (frame)->parent);
@@ -50,7 +53,9 @@ frame_url_requested (GtkHTML *html, const gchar *url, GtkHTMLStream *handle, gpo
 }
 
 static void
-frame_set_base (GtkHTML *html, const gchar *url, gpointer data)
+frame_set_base (GtkHTML *html,
+                const gchar *url,
+                gpointer data)
 {
 	gchar *new_url = NULL;
 
@@ -61,10 +66,10 @@ frame_set_base (GtkHTML *html, const gchar *url, gpointer data)
 
 static void
 frame_submit (GtkHTML *html,
-	      const gchar *method,
-	      const gchar *action,
-	      const gchar *encoding,
-	      gpointer data)
+              const gchar *method,
+              const gchar *action,
+              const gchar *encoding,
+              gpointer data)
 {
 	HTMLFrame *frame = HTML_FRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED (frame)->parent);
@@ -73,7 +78,8 @@ frame_submit (GtkHTML *html,
 }
 
 static void
-frame_size_changed (GtkHTML *html, gpointer data)
+frame_size_changed (GtkHTML *html,
+                    gpointer data)
 {
 	HTMLFrame *frame = HTML_FRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED (frame)->parent);
@@ -82,7 +88,9 @@ frame_size_changed (GtkHTML *html, gpointer data)
 }
 
 static gboolean
-frame_object_requested (GtkHTML *html, GtkHTMLEmbedded *eb, gpointer data)
+frame_object_requested (GtkHTML *html,
+                        GtkHTMLEmbedded *eb,
+                        gpointer data)
 {
 	HTMLFrame *frame = HTML_FRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED (frame)->parent);
@@ -94,7 +102,8 @@ frame_object_requested (GtkHTML *html, GtkHTMLEmbedded *eb, gpointer data)
 }
 
 static void
-frame_set_gdk_painter (HTMLFrame *frame, HTMLPainter *painter)
+frame_set_gdk_painter (HTMLFrame *frame,
+                       HTMLPainter *painter)
 {
 	if (painter)
 		g_object_ref (G_OBJECT (painter));
@@ -107,10 +116,10 @@ frame_set_gdk_painter (HTMLFrame *frame, HTMLPainter *painter)
 
 HTMLObject *
 html_frame_new (GtkWidget *parent,
-		 gchar *src,
-		 gint width,
-		 gint height,
-		 gboolean border)
+                 gchar *src,
+                 gint width,
+                 gint height,
+                 gboolean border)
 {
 	HTMLFrame *frame;
 
@@ -128,7 +137,8 @@ html_frame_new (GtkWidget *parent,
 }
 
 static gboolean
-html_frame_grab_cursor (GtkWidget *frame, GdkEvent *event)
+html_frame_grab_cursor (GtkWidget *frame,
+                        GdkEvent *event)
 {
 	/* Keep the focus! Fight the power */
 	return TRUE;
@@ -136,7 +146,7 @@ html_frame_grab_cursor (GtkWidget *frame, GdkEvent *event)
 
 static gint
 calc_min_width (HTMLObject *o,
-		HTMLPainter *painter)
+                HTMLPainter *painter)
 {
   gint min_width;
 
@@ -149,7 +159,9 @@ calc_min_width (HTMLObject *o,
 }
 
 static void
-set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
+set_max_width (HTMLObject *o,
+               HTMLPainter *painter,
+               gint max_width)
 {
 	HTMLEngine *e = GTK_HTML (HTML_FRAME (o)->html)->engine;
 
@@ -160,9 +172,12 @@ set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
-      gint x, gint y,
-      gint width, gint height,
-      gint tx, gint ty)
+      gint x,
+      gint y,
+      gint width,
+      gint height,
+      gint tx,
+      gint ty)
 {
 	HTMLFrame   *frame  = HTML_FRAME (o);
 	HTMLEngine   *e       = GTK_HTML (frame->html)->engine;
@@ -184,7 +199,8 @@ draw (HTMLObject *o,
 }
 
 static void
-set_painter (HTMLObject *o, HTMLPainter *painter)
+set_painter (HTMLObject *o,
+             HTMLPainter *painter)
 {
 	HTMLFrame *frame;
 
@@ -199,9 +215,9 @@ set_painter (HTMLObject *o, HTMLPainter *painter)
 
 static void
 forall (HTMLObject *self,
-	HTMLEngine *e,
-	HTMLObjectForallFunc func,
-	gpointer data)
+        HTMLEngine *e,
+        HTMLObjectForallFunc func,
+        gpointer data)
 {
 	HTMLFrame *frame;
 
@@ -211,13 +227,17 @@ forall (HTMLObject *self,
 }
 
 static gint
-check_page_split (HTMLObject *self, HTMLPainter *p, gint y)
+check_page_split (HTMLObject *self,
+                  HTMLPainter *p,
+                  gint y)
 {
 	return html_object_check_page_split (GTK_HTML (HTML_FRAME (self)->html)->engine->clue, p, y);
 }
 
 static gboolean
-html_frame_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
+html_frame_real_calc_size (HTMLObject *o,
+                           HTMLPainter *painter,
+                           GList **changed_objs)
 {
 	HTMLFrame *frame;
 	HTMLEngine *e;
@@ -253,7 +273,8 @@ html_frame_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_
 }
 
 static gboolean
-search (HTMLObject *self, HTMLSearch *info)
+search (HTMLObject *self,
+        HTMLSearch *info)
 {
 	HTMLEngine *e = GTK_HTML (HTML_FRAME (self)->html)->engine;
 
@@ -293,17 +314,19 @@ tail (HTMLObject *self)
 }
 
 static HTMLEngine *
-get_engine (HTMLObject *self, HTMLEngine *e)
+get_engine (HTMLObject *self,
+            HTMLEngine *e)
 {
 	return GTK_HTML (HTML_FRAME (self)->html)->engine;
 }
 
-static HTMLObject*
+static HTMLObject *
 check_point (HTMLObject *self,
-	     HTMLPainter *painter,
-	     gint x, gint y,
-	     guint *offset_return,
-	     gboolean for_cursor)
+             HTMLPainter *painter,
+             gint x,
+             gint y,
+             guint *offset_return,
+             gboolean for_cursor)
 {
 	HTMLEngine *e = GTK_HTML (HTML_FRAME (self)->html)->engine;
 
@@ -333,13 +356,14 @@ is_container (HTMLObject *self)
 
 static void
 append_selection_string (HTMLObject *self,
-			 GString *buffer)
+                         GString *buffer)
 {
 	html_object_append_selection_string (GTK_HTML (HTML_FRAME (self)->html)->engine->clue, buffer);
 }
 
 static void
-reparent (HTMLEmbedded *emb, GtkWidget *html)
+reparent (HTMLEmbedded *emb,
+          GtkWidget *html)
 {
 	HTMLFrame *frame = HTML_FRAME (emb);
 
@@ -351,10 +375,10 @@ reparent (HTMLEmbedded *emb, GtkWidget *html)
 
 static gboolean
 select_range (HTMLObject *self,
-	      HTMLEngine *engine,
-	      guint start,
-	      gint length,
-	      gboolean queue_draw)
+              HTMLEngine *engine,
+              guint start,
+              gint length,
+              gboolean queue_draw)
 {
 	return html_object_select_range (GTK_HTML (HTML_FRAME (self)->html)->engine->clue,
 					 GTK_HTML (HTML_FRAME (self)->html)->engine,
@@ -378,7 +402,10 @@ destroy (HTMLObject *o)
 }
 
 static HTMLAnchor *
-find_anchor (HTMLObject *self, const gchar *name, gint *x, gint *y)
+find_anchor (HTMLObject *self,
+             const gchar *name,
+             gint *x,
+             gint *y)
 {
 	HTMLFrame *frame;
 	HTMLAnchor *anchor;
@@ -401,7 +428,8 @@ find_anchor (HTMLObject *self, const gchar *name, gint *x, gint *y)
 }
 
 void
-html_frame_set_margin_width (HTMLFrame *frame, gint margin_width)
+html_frame_set_margin_width (HTMLFrame *frame,
+                             gint margin_width)
 {
 	HTMLEngine *e;
 
@@ -412,7 +440,8 @@ html_frame_set_margin_width (HTMLFrame *frame, gint margin_width)
 }
 
 void
-html_frame_set_margin_height (HTMLFrame *frame, gint margin_height)
+html_frame_set_margin_height (HTMLFrame *frame,
+                              gint margin_height)
 {
 	HTMLEngine *e;
 
@@ -423,7 +452,8 @@ html_frame_set_margin_height (HTMLFrame *frame, gint margin_height)
 }
 
 void
-html_frame_set_scrolling (HTMLFrame *frame, GtkPolicyType scroll)
+html_frame_set_scrolling (HTMLFrame *frame,
+                          GtkPolicyType scroll)
 {
 
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (frame->scroll),
@@ -431,7 +461,9 @@ html_frame_set_scrolling (HTMLFrame *frame, GtkPolicyType scroll)
 }
 
 void
-html_frame_set_size (HTMLFrame *frame, gint width, gint height)
+html_frame_set_size (HTMLFrame *frame,
+                     gint width,
+                     gint height)
 {
 	g_return_if_fail (frame != NULL);
 
@@ -446,12 +478,12 @@ html_frame_set_size (HTMLFrame *frame, gint width, gint height)
 
 void
 html_frame_init (HTMLFrame *frame,
-		  HTMLFrameClass *klass,
-		  GtkWidget *parent,
-		  gchar *src,
-		  gint width,
-		  gint height,
-		  gboolean border)
+                  HTMLFrameClass *klass,
+                  GtkWidget *parent,
+                  gchar *src,
+                  gint width,
+                  gint height,
+                  gboolean border)
 {
 	HTMLEmbedded *em = HTML_EMBEDDED (frame);
 	HTMLTokenizer *new_tokenizer;
@@ -561,8 +593,8 @@ html_frame_type_init (void)
 
 void
 html_frame_class_init (HTMLFrameClass *klass,
-			HTMLType type,
-			guint size)
+                        HTMLType type,
+                        guint size)
 {
 	HTMLEmbeddedClass *embedded_class;
 	HTMLObjectClass  *object_class;

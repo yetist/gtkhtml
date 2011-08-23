@@ -1,24 +1,24 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
-
-    Copyright (C) 2000 Helix Code, Inc.
-    Authors:           Radek Doulik (rodo@helixcode.com)
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
-
+ *
+ *  Copyright (C) 2000 Helix Code, Inc.
+ *  Authors:           Radek Doulik (rodo@helixcode.com)
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
+ *
 */
 
 #include <config.h>
@@ -47,7 +47,9 @@ html_color_new_from_gdk_color (const GdkColor *color)
 }
 
 HTMLColor *
-html_color_new_from_rgb (gushort red, gushort green, gushort blue)
+html_color_new_from_rgb (gushort red,
+                         gushort green,
+                         gushort blue)
 {
 	HTMLColor *nc = html_color_new ();
 
@@ -76,14 +78,15 @@ html_color_unref (HTMLColor *color)
 
 	if (!color->refcount) {
 		/* if (color->allocated)
-		   g_warning ("FIXME, color free\n"); */
+		 * g_warning ("FIXME, color free\n"); */
 		/* FIXME commented out to catch g_asserts on refcount so we could hunt "too much unrefs" bugs */
 		g_free (color);
 	}
 }
 
 void
-html_color_alloc (HTMLColor *color, HTMLPainter *painter)
+html_color_alloc (HTMLColor *color,
+                  HTMLPainter *painter)
 {
 	g_assert (color);
 
@@ -94,7 +97,8 @@ html_color_alloc (HTMLColor *color, HTMLPainter *painter)
 }
 
 gboolean
-html_color_equal (HTMLColor *color1, HTMLColor *color2)
+html_color_equal (HTMLColor *color1,
+                  HTMLColor *color2)
 {
 	if (color1 == color2)
 		return TRUE;
@@ -105,10 +109,11 @@ html_color_equal (HTMLColor *color1, HTMLColor *color2)
 }
 
 void
-html_color_set (HTMLColor *color, GdkColor *c)
+html_color_set (HTMLColor *color,
+                GdkColor *c)
 {
 	/* if (color->allocated)
-	   g_warning ("FIXME, color free\n"); */
+	 * g_warning ("FIXME, color free\n"); */
 	color->allocated = FALSE;
 	color->color = *c;
 }

@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
-
-    Copyright (C) 2000 Helix Code, Inc.
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
+ *
+ *  Copyright (C) 2000 Helix Code, Inc.
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -73,13 +73,16 @@ html_colorset_destroy (HTMLColorSet *set)
 }
 
 void
-html_colorset_add_slave (HTMLColorSet *set, HTMLColorSet *slave)
+html_colorset_add_slave (HTMLColorSet *set,
+                         HTMLColorSet *slave)
 {
 	set->slaves = g_slist_prepend (set->slaves, slave);
 }
 
 void
-html_colorset_set_color (HTMLColorSet *s, GdkColor *color, HTMLColorId idx)
+html_colorset_set_color (HTMLColorSet *s,
+                         GdkColor *color,
+                         HTMLColorId idx)
 {
 	GSList *cur;
 	HTMLColorSet *cs;
@@ -97,24 +100,28 @@ html_colorset_set_color (HTMLColorSet *s, GdkColor *color, HTMLColorId idx)
 }
 
 HTMLColor *
-html_colorset_get_color (HTMLColorSet *s, HTMLColorId idx)
+html_colorset_get_color (HTMLColorSet *s,
+                         HTMLColorId idx)
 {
 	return s->color[idx];
 }
 
 HTMLColor *
-html_colorset_get_color_allocated (HTMLColorSet *s, HTMLPainter *painter, HTMLColorId idx)
+html_colorset_get_color_allocated (HTMLColorSet *s,
+                                   HTMLPainter *painter,
+                                   HTMLColorId idx)
 {
 	html_color_alloc (s->color[idx], painter);
 	return s->color[idx];
 }
 
 void
-html_colorset_set_by (HTMLColorSet *s, HTMLColorSet *o)
+html_colorset_set_by (HTMLColorSet *s,
+                      HTMLColorSet *o)
 {
 	HTMLColorId i;
 
-	for (i=0; i < HTMLColors; i++) {
+	for (i = 0; i < HTMLColors; i++) {
 		html_colorset_set_color (s, &o->color[i]->color, i);
 		/* unset the changed flag */
 		s->changed[i] = FALSE;
@@ -122,11 +129,12 @@ html_colorset_set_by (HTMLColorSet *s, HTMLColorSet *o)
 }
 
 void
-html_colorset_set_unchanged (HTMLColorSet *s, HTMLColorSet *o)
+html_colorset_set_unchanged (HTMLColorSet *s,
+                             HTMLColorSet *o)
 {
 	HTMLColorId i;
 
-	for (i=0; i < HTMLColors; i++) {
+	for (i = 0; i < HTMLColors; i++) {
 		if (!s->changed[i]) {
 			html_colorset_set_color (s, &o->color[i]->color, i);
 			s->changed[i] = FALSE;
@@ -167,7 +175,8 @@ get_prop_color (GtkWidget *w,
         }
 
 void
-html_colorset_set_style (HTMLColorSet *s, GtkWidget *w)
+html_colorset_set_style (HTMLColorSet *s,
+                         GtkWidget *w)
 {
 	GdkColor *color = NULL;
 	GtkStyle *style = gtk_widget_get_style (w);

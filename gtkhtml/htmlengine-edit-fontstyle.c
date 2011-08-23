@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library
-
-   Copyright (C) 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright (C) 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -276,7 +276,9 @@ struct tmp_font {
 };
 
 static void
-object_set_font_style (HTMLObject *o, HTMLEngine *e, gpointer data)
+object_set_font_style (HTMLObject *o,
+                       HTMLEngine *e,
+                       gpointer data)
 {
 	if (html_object_is_text (o)) {
 		struct tmp_font *tf = (struct tmp_font *) data;
@@ -297,7 +299,10 @@ typedef struct _HTMLEmptyParaSetStyle HTMLEmptyParaSetStyle;
 static void set_empty_flow_style (HTMLEngine *e, GtkHTMLFontStyle and_mask, GtkHTMLFontStyle or_mask, HTMLUndoDirection dir);
 
 static void
-set_empty_flow_style_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUndoDirection dir, guint position_after)
+set_empty_flow_style_undo_action (HTMLEngine *e,
+                                  HTMLUndoData *undo_data,
+                                  HTMLUndoDirection dir,
+                                  guint position_after)
 {
 	HTMLEmptyParaSetStyle *undo = (HTMLEmptyParaSetStyle *) undo_data;
 
@@ -305,7 +310,10 @@ set_empty_flow_style_undo_action (HTMLEngine *e, HTMLUndoData *undo_data, HTMLUn
 }
 
 static void
-set_empty_flow_style (HTMLEngine *e, GtkHTMLFontStyle and_mask, GtkHTMLFontStyle or_mask, HTMLUndoDirection dir)
+set_empty_flow_style (HTMLEngine *e,
+                      GtkHTMLFontStyle and_mask,
+                      GtkHTMLFontStyle or_mask,
+                      HTMLUndoDirection dir)
 {
 	HTMLEmptyParaSetStyle *undo;
 	GtkHTMLFontStyle old_or_mask;
@@ -329,8 +337,8 @@ set_empty_flow_style (HTMLEngine *e, GtkHTMLFontStyle and_mask, GtkHTMLFontStyle
 
 gboolean
 html_engine_set_font_style (HTMLEngine *e,
-			    GtkHTMLFontStyle and_mask,
-			    GtkHTMLFontStyle or_mask)
+                            GtkHTMLFontStyle and_mask,
+                            GtkHTMLFontStyle or_mask)
 {
 	gboolean rv;
 	GtkHTMLFontStyle old = e->insertion_font_style;
@@ -365,7 +373,8 @@ html_engine_set_font_style (HTMLEngine *e,
 }
 
 gboolean
-html_engine_toggle_font_style (HTMLEngine *engine, GtkHTMLFontStyle style)
+html_engine_toggle_font_style (HTMLEngine *engine,
+                               GtkHTMLFontStyle style)
 {
 	GtkHTMLFontStyle cur_style;
 
@@ -378,7 +387,8 @@ html_engine_toggle_font_style (HTMLEngine *engine, GtkHTMLFontStyle style)
 }
 
 static GtkHTMLFontStyle
-inc_dec_size (GtkHTMLFontStyle style, gboolean inc)
+inc_dec_size (GtkHTMLFontStyle style,
+              gboolean inc)
 {
 	GtkHTMLFontStyle size;
 
@@ -398,7 +408,9 @@ inc_dec_size (GtkHTMLFontStyle style, gboolean inc)
 }
 
 static void
-inc_dec_size_cb (HTMLObject *o, HTMLEngine *e, gpointer data)
+inc_dec_size_cb (HTMLObject *o,
+                 HTMLEngine *e,
+                 gpointer data)
 {
 	if (html_object_is_text (o)) {
 		html_text_set_font_style (HTML_TEXT (o), e, inc_dec_size (HTML_TEXT (o)->font_style, GPOINTER_TO_INT (data)));
@@ -408,7 +420,8 @@ inc_dec_size_cb (HTMLObject *o, HTMLEngine *e, gpointer data)
 }
 
 void
-html_engine_font_size_inc_dec (HTMLEngine *e, gboolean inc)
+html_engine_font_size_inc_dec (HTMLEngine *e,
+                               gboolean inc)
 {
 	if (html_engine_is_selection_active (e))
 		html_engine_cut_and_paste (e,
@@ -420,7 +433,9 @@ html_engine_font_size_inc_dec (HTMLEngine *e, gboolean inc)
 }
 
 static void
-set_color (HTMLObject *o, HTMLEngine *e, gpointer data)
+set_color (HTMLObject *o,
+           HTMLEngine *e,
+           gpointer data)
 {
 	if (html_object_is_text (o)) {
 		HTMLObject *prev;
@@ -437,7 +452,8 @@ set_color (HTMLObject *o, HTMLEngine *e, gpointer data)
 }
 
 gboolean
-html_engine_set_color (HTMLEngine *e, HTMLColor *color)
+html_engine_set_color (HTMLEngine *e,
+                       HTMLColor *color)
 {
 	gboolean rv = TRUE;
 
@@ -459,8 +475,8 @@ html_engine_set_color (HTMLEngine *e, HTMLColor *color)
 }
 
 /* URL/Target
-
-   get actual url/target
+ *
+ * get actual url/target
 */
 
 const gchar *
@@ -476,7 +492,8 @@ html_engine_get_target (HTMLEngine *e)
 }
 
 void
-html_engine_set_url (HTMLEngine *e, const gchar *url)
+html_engine_set_url (HTMLEngine *e,
+                     const gchar *url)
 {
 	if (e->insertion_url)
 		g_free (e->insertion_url);
@@ -484,7 +501,8 @@ html_engine_set_url (HTMLEngine *e, const gchar *url)
 }
 
 void
-html_engine_set_target (HTMLEngine *e, const gchar *target)
+html_engine_set_target (HTMLEngine *e,
+                        const gchar *target)
 {
 	if (e->insertion_target)
 		g_free (e->insertion_target);
@@ -494,7 +512,8 @@ html_engine_set_target (HTMLEngine *e, const gchar *target)
 /* get url/target from document */
 
 static const gchar *
-get_url_or_target_from_selection (HTMLEngine *e, gboolean get_url)
+get_url_or_target_from_selection (HTMLEngine *e,
+                                  gboolean get_url)
 {
 	const gchar *str = NULL;
 	HTMLPoint p;
@@ -519,7 +538,8 @@ get_url_or_target_from_selection (HTMLEngine *e, gboolean get_url)
 }
 
 static HTMLObject *
-html_engine_text_style_object (HTMLEngine *e, gint *offset)
+html_engine_text_style_object (HTMLEngine *e,
+                               gint *offset)
 {
 	if (HTML_IS_TEXT (e->cursor->object)
 	    || (e->cursor->offset && e->cursor->offset != html_object_get_length (e->cursor->object))) {

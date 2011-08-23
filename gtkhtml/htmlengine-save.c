@@ -1,27 +1,27 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
-
-    Copyright (C) 1998 World Wide Web Consortium
-    Copyright (C) 2000 Helix Code, Inc.
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
-
-    Author: Ettore Perazzoli <ettore@helixcode.com>
-    `encode_entities ()' adapted from gnome-xml by Daniel Veillard
-    <Daniel.Veillard@w3.org>.
+ *
+ *  Copyright (C) 1998 World Wide Web Consortium
+ *  Copyright (C) 2000 Helix Code, Inc.
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
+ *
+ *  Author: Ettore Perazzoli <ettore@helixcode.com>
+ *  `encode_entities ()' adapted from gnome-xml by Daniel Veillard
+ *  <Daniel.Veillard@w3.org>.
 */
 
 #include <string.h>
@@ -39,9 +39,11 @@
 
 
 /* This routine was originally written by Daniel Velliard, (C) 1998 World Wide
-   Web Consortium.  */
+ * Web Consortium.  */
 gchar *
-html_encode_entities (const gchar *input, guint len, guint *encoded_len_return)
+html_encode_entities (const gchar *input,
+                      guint len,
+                      guint *encoded_len_return)
 {
 	gunichar uc;
 	const gchar *p;
@@ -127,8 +129,8 @@ html_encode_entities (const gchar *input, guint len, guint *encoded_len_return)
 
 gboolean
 html_engine_save_encode (HTMLEngineSaveState *state,
-			 const gchar *buffer,
-			 guint length)
+                         const gchar *buffer,
+                         guint length)
 {
 	gchar *encoded_buffer;
 	guint encoded_length;
@@ -149,7 +151,7 @@ html_engine_save_encode (HTMLEngineSaveState *state,
 
 gboolean
 html_engine_save_encode_string (HTMLEngineSaveState *state,
-				const gchar *s)
+                                const gchar *s)
 {
 	guint len;
 
@@ -163,8 +165,8 @@ html_engine_save_encode_string (HTMLEngineSaveState *state,
 
 gboolean
 html_engine_save_output_stringv (HTMLEngineSaveState *state,
-				 const gchar *format,
-				 va_list ap)
+                                 const gchar *format,
+                                 va_list ap)
 {
 	gchar *string;
 	gboolean retval;
@@ -178,8 +180,8 @@ html_engine_save_output_stringv (HTMLEngineSaveState *state,
 
 gboolean
 html_engine_save_output_string (HTMLEngineSaveState *state,
-				const gchar *format,
-				...)
+                                const gchar *format,
+                                ...)
 {
   va_list args;
   gboolean retval;
@@ -195,7 +197,9 @@ html_engine_save_output_string (HTMLEngineSaveState *state,
 }
 
 gboolean
-html_engine_save_output_buffer (HTMLEngineSaveState *state, const gchar *buffer, gint bytes)
+html_engine_save_output_buffer (HTMLEngineSaveState *state,
+                                const gchar *buffer,
+                                gint bytes)
 {
 	if (bytes == -1)
 		bytes = strlen (buffer);
@@ -204,8 +208,8 @@ html_engine_save_output_buffer (HTMLEngineSaveState *state, const gchar *buffer,
 
 gboolean
 html_engine_save_delims_and_vals (HTMLEngineSaveState *state,
-				  const gchar *first,
-				  ...)
+                                  const gchar *first,
+                                  ...)
 {
   va_list args;
   gboolean retval;
@@ -227,7 +231,8 @@ html_engine_save_delims_and_vals (HTMLEngineSaveState *state,
 
 
 static gchar *
-color_to_string (const gchar *s, HTMLColor *c)
+color_to_string (const gchar *s,
+                 HTMLColor *c)
 {
 	gchar color[20];
 
@@ -334,8 +339,8 @@ write_end (HTMLEngineSaveState *state)
 
 gboolean
 html_engine_save (HTMLEngine *engine,
-		  HTMLEngineSaveReceiverFn receiver,
-		  gpointer user_data)
+                  HTMLEngineSaveReceiverFn receiver,
+                  gpointer user_data)
 {
 	HTMLEngineSaveState state;
 
@@ -369,8 +374,8 @@ html_engine_save (HTMLEngine *engine,
 
 gboolean
 html_engine_save_plain (HTMLEngine *engine,
-			HTMLEngineSaveReceiverFn receiver,
-			gpointer user_data)
+                        HTMLEngineSaveReceiverFn receiver,
+                        gpointer user_data)
 {
 	HTMLEngineSaveState state;
 
@@ -399,9 +404,9 @@ html_engine_save_plain (HTMLEngine *engine,
 
 static gboolean
 html_engine_save_buffer_receiver (const HTMLEngine *engine,
-				  const gchar      *data,
-				  guint             len,
-				  gpointer          user_data)
+                                  const gchar *data,
+                                  guint len,
+                                  gpointer user_data)
 {
 	g_string_append ((GString *) user_data, (gchar *) data);
 
@@ -409,7 +414,8 @@ html_engine_save_buffer_receiver (const HTMLEngine *engine,
 }
 
 gchar *
-html_engine_save_buffer_free (HTMLEngineSaveState *state, gboolean free_string)
+html_engine_save_buffer_free (HTMLEngineSaveState *state,
+                              gboolean free_string)
 {
 	GString *string;
 	gchar *rv = NULL;
@@ -449,7 +455,8 @@ html_engine_save_buffer_peek_text_bytes (HTMLEngineSaveState *state)
 }
 
 HTMLEngineSaveState *
-html_engine_save_buffer_new (HTMLEngine *engine, gboolean inline_frames)
+html_engine_save_buffer_new (HTMLEngine *engine,
+                             gboolean inline_frames)
 {
 	HTMLEngineSaveState *state = g_new0 (HTMLEngineSaveState, 1);
 
@@ -468,7 +475,7 @@ html_engine_save_buffer_new (HTMLEngine *engine, gboolean inline_frames)
 
 gchar *
 html_engine_save_get_sample_body (HTMLEngine *e,
-				  HTMLObject *o)
+                                  HTMLObject *o)
 {
 	return get_body (e);
 }
@@ -525,7 +532,9 @@ html_engine_save_get_paragraph_align (GtkHTMLParagraphAlignment align)
 }
 
 gint
-html_engine_save_string_append_nonbsp (GString *out, const guchar *s, guint length)
+html_engine_save_string_append_nonbsp (GString *out,
+                                       const guchar *s,
+                                       guint length)
 {
 	guint len = length;
 

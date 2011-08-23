@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-
-   Copyright (C) 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright (C) 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -59,7 +59,8 @@ printer_get_page_width (HTMLPrinter *printer)
 }
 
 gdouble
-html_printer_scale_to_gnome_print (HTMLPrinter *printer, gint x)
+html_printer_scale_to_gnome_print (HTMLPrinter *printer,
+                                   gint x)
 {
 	return SCALE_ENGINE_TO_GNOME_PRINT (x);
 }
@@ -85,8 +86,10 @@ finalize (GObject *object)
 
 static void
 begin (HTMLPainter *painter,
-       gint x1, gint y1,
-       gint x2, gint y2)
+       gint x1,
+       gint y1,
+       gint x2,
+       gint y2)
 {
 	HTMLPrinter *printer;
 	GtkPrintContext *pc;
@@ -137,19 +140,21 @@ clear (HTMLPainter *painter)
 
 
 static void
-alloc_color (HTMLPainter *painter, GdkColor *color)
+alloc_color (HTMLPainter *painter,
+             GdkColor *color)
 {
 }
 
 static void
-free_color (HTMLPainter *painter, GdkColor *color)
+free_color (HTMLPainter *painter,
+            GdkColor *color)
 {
 }
 
 
 static void
 set_pen (HTMLPainter *painter,
-	 const GdkColor *color)
+         const GdkColor *color)
 {
 	HTMLPrinter *printer;
 	cairo_t *cr;
@@ -170,7 +175,11 @@ get_black (const HTMLPainter *painter)
 }
 
 static void
-prepare_rectangle (HTMLPainter *painter, gint _x, gint _y, gint w, gint h)
+prepare_rectangle (HTMLPainter *painter,
+                   gint _x,
+                   gint _y,
+                   gint w,
+                   gint h)
 {
 	HTMLPrinter *printer = HTML_PRINTER (painter);
 	GtkPrintContext *context = printer->context;
@@ -191,7 +200,12 @@ prepare_rectangle (HTMLPainter *painter, gint _x, gint _y, gint w, gint h)
 }
 
 static void
-do_rectangle (HTMLPainter *painter, gint x, gint y, gint w, gint h, gint lw)
+do_rectangle (HTMLPainter *painter,
+              gint x,
+              gint y,
+              gint w,
+              gint h,
+              gint lw)
 {
 	HTMLPrinter *printer = HTML_PRINTER (painter);
 	GtkPrintContext *context = printer->context;
@@ -205,8 +219,10 @@ do_rectangle (HTMLPainter *painter, gint x, gint y, gint w, gint h, gint lw)
 
 static void
 set_clip_rectangle (HTMLPainter *painter,
-		    gint x, gint y,
-		    gint width, gint height)
+                    gint x,
+                    gint y,
+                    gint width,
+                    gint height)
 {
 	cairo_t *cr;
 	prepare_rectangle (painter, x, y, width, height);
@@ -218,8 +234,10 @@ set_clip_rectangle (HTMLPainter *painter,
 
 static void
 draw_line (HTMLPainter *painter,
-	   gint x1, gint y1,
-	   gint x2, gint y2)
+           gint x1,
+           gint y1,
+           gint x2,
+           gint y2)
 {
 	HTMLPrinter *printer;
 	gdouble printer_x1, printer_y1;
@@ -245,19 +263,23 @@ draw_line (HTMLPainter *painter,
 
 static void
 draw_rect (HTMLPainter *painter,
-	   gint x, gint y,
-	   gint width, gint height)
+           gint x,
+           gint y,
+           gint width,
+           gint height)
 {
 	do_rectangle (painter, x, y, width, height, 1);
 }
 
 static void
 draw_border (HTMLPainter *painter,
-	     GdkColor *bg,
-	     gint _x, gint _y,
-	     gint w, gint h,
-	     HTMLBorderStyle style,
-	     gint bordersize)
+             GdkColor *bg,
+             gint _x,
+             gint _y,
+             gint w,
+             gint h,
+             HTMLBorderStyle style,
+             gint bordersize)
 {
 	HTMLPrinter *printer = HTML_PRINTER (painter);
 	GtkPrintContext *pc = printer->context;
@@ -334,11 +356,14 @@ draw_border (HTMLPainter *painter,
 
 static void
 draw_background (HTMLPainter *painter,
-		 GdkColor *color,
-		 GdkPixbuf *pixbuf,
-		 gint ix, gint iy,
-		 gint pix_width, gint pix_height,
-		 gint tile_x, gint tile_y)
+                 GdkColor *color,
+                 GdkPixbuf *pixbuf,
+                 gint ix,
+                 gint iy,
+                 gint pix_width,
+                 gint pix_height,
+                 gint tile_x,
+                 gint tile_y)
 {
 	GtkPrintContext *pc;
 	HTMLPrinter *printer;
@@ -368,7 +393,8 @@ draw_background (HTMLPainter *painter,
 }
 
 static void
-print_pixbuf (GtkPrintContext *pc, GdkPixbuf *pixbuf)
+print_pixbuf (GtkPrintContext *pc,
+              GdkPixbuf *pixbuf)
 {
 	cairo_t *cr;
 	if (!pixbuf || (gdk_pixbuf_get_colorspace (pixbuf) != GDK_COLORSPACE_RGB))
@@ -389,7 +415,13 @@ print_pixbuf (GtkPrintContext *pc, GdkPixbuf *pixbuf)
 }
 
 static void
-draw_pixmap (HTMLPainter *painter, GdkPixbuf *pixbuf, gint x, gint y, gint scale_width, gint scale_height, const GdkColor *color)
+draw_pixmap (HTMLPainter *painter,
+             GdkPixbuf *pixbuf,
+             gint x,
+             gint y,
+             gint scale_width,
+             gint scale_height,
+             const GdkColor *color)
 {
 	HTMLPrinter *printer;
 	gdouble print_x, print_y;
@@ -411,7 +443,11 @@ draw_pixmap (HTMLPainter *painter, GdkPixbuf *pixbuf, gint x, gint y, gint scale
 }
 
 static void
-fill_rect (HTMLPainter *painter, gint x, gint y, gint width, gint height)
+fill_rect (HTMLPainter *painter,
+           gint x,
+           gint y,
+           gint width,
+           gint height)
 {
 	HTMLPrinter *printer;
 	gdouble printer_x, printer_y;
@@ -435,7 +471,12 @@ fill_rect (HTMLPainter *painter, gint x, gint y, gint width, gint height)
 }
 
 static void
-draw_lines (HTMLPrinter *printer, double x, double y, double width, PangoAnalysis *analysis, HTMLPangoProperties *properties)
+draw_lines (HTMLPrinter *printer,
+            double x,
+            double y,
+            double width,
+            PangoAnalysis *analysis,
+            HTMLPangoProperties *properties)
 {
 	PangoFontMetrics *metrics;
 	cairo_t *cr;
@@ -473,7 +514,13 @@ draw_lines (HTMLPrinter *printer, double x, double y, double width, PangoAnalysi
 }
 
 static gint
-draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphString *glyphs, GdkColor *fg, GdkColor *bg)
+draw_glyphs (HTMLPainter *painter,
+             gint x,
+             gint y,
+             PangoItem *item,
+             PangoGlyphString *glyphs,
+             GdkColor *fg,
+             GdkColor *bg)
 {
 	HTMLPrinter *printer;
 	gdouble print_x, print_y;
@@ -527,7 +574,10 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 }
 
 static void
-draw_embedded (HTMLPainter *p, HTMLEmbedded *o, gint x, gint y)
+draw_embedded (HTMLPainter *p,
+               HTMLEmbedded *o,
+               gint x,
+               gint y)
 {
 	gdouble print_x, print_y;
 	HTMLPrinter *printer = HTML_PRINTER (p);
@@ -552,8 +602,9 @@ draw_embedded (HTMLPainter *p, HTMLEmbedded *o, gint x, gint y)
 
 static void
 draw_shade_line (HTMLPainter *painter,
-		 gint x, gint y,
-		 gint width)
+                 gint x,
+                 gint y,
+                 gint width)
 {
 	HTMLPrinter *printer;
 
@@ -572,13 +623,15 @@ get_pixel_size (HTMLPainter *painter)
 }
 
 static guint
-get_page_width (HTMLPainter *painter, HTMLEngine *e)
+get_page_width (HTMLPainter *painter,
+                HTMLEngine *e)
 {
 	return html_printer_get_page_width (HTML_PRINTER (painter));
 }
 
 static guint
-get_page_height (HTMLPainter *painter, HTMLEngine *e)
+get_page_height (HTMLPainter *painter,
+                 HTMLEngine *e)
 {
 	return html_printer_get_page_height (HTML_PRINTER (painter));
 }
@@ -650,7 +703,8 @@ html_printer_get_type (void)
 }
 
 HTMLPainter *
-html_printer_new (GtkWidget *widget, GtkPrintContext *context)
+html_printer_new (GtkWidget *widget,
+                  GtkPrintContext *context)
 {
 	GtkStyle *style;
 	HTMLPrinter *printer;
@@ -711,7 +765,8 @@ html_printer_get_page_height (HTMLPrinter *printer)
  * will be multiplied by @scale.
  **/
 void
-html_printer_set_scale (HTMLPrinter *printer, gdouble scale)
+html_printer_set_scale (HTMLPrinter *printer,
+                        gdouble scale)
 {
 	HTMLPainter *painter;
 

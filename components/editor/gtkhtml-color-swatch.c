@@ -36,7 +36,8 @@ struct _GtkhtmlColorSwatchPrivate {
 static gpointer parent_class;
 
 static gboolean
-color_swatch_draw_cb (GtkWidget *drawing_area, cairo_t *cr)
+color_swatch_draw_cb (GtkWidget *drawing_area,
+                      cairo_t *cr)
 {
 	GtkStyle *style;
 	GdkColor *color;

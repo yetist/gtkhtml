@@ -2070,7 +2070,7 @@ editor_actions_setup_spell_check_menu (GtkhtmlEditor *editor)
 
 		action_name = g_strdup_printf ("context-spell-add-%s", code);
 		/* Translators: %s will be replaced with the actual dictionary name,
-		   where a user can add a word to. This is part of an "Add Word To" submenu. */
+		 * where a user can add a word to. This is part of an "Add Word To" submenu. */
 		action_label = g_strdup_printf (_("%s Dictionary"), name);
 
 		action = gtk_action_new (

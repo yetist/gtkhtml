@@ -1,24 +1,24 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
-
-    Copyright (C) 1997 Martin Jones (mjones@kde.org)
-    Copyright (C) 1997 Torben Weis (weis@kde.org)
-    Copyright (C) 1999 Helix Code, Inc.
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
+ *
+ *  Copyright (C) 1997 Martin Jones (mjones@kde.org)
+ *  Copyright (C) 1997 Torben Weis (weis@kde.org)
+ *  Copyright (C) 1999 Helix Code, Inc.
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -63,9 +63,12 @@ copy (HTMLObject *self,
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
-      gint x, gint y,
-      gint width, gint height,
-      gint tx, gint ty)
+      gint x,
+      gint y,
+      gint width,
+      gint height,
+      gint tx,
+      gint ty)
 {
 	HTMLEmbedded *element = HTML_EMBEDDED (o);
 	gint new_x, new_y;
@@ -141,7 +144,7 @@ reset (HTMLEmbedded *e)
 
 static gint
 calc_min_width (HTMLObject *self,
-		HTMLPainter *painter)
+                HTMLPainter *painter)
 {
 	GtkRequisition requisition;
 	GtkWidget *widget;
@@ -163,7 +166,9 @@ calc_min_width (HTMLObject *self,
 }
 
 static gboolean
-html_embedded_real_calc_size (HTMLObject *self, HTMLPainter *painter, GList **changed_objs)
+html_embedded_real_calc_size (HTMLObject *self,
+                              HTMLPainter *painter,
+                              GList **changed_objs)
 {
 	GtkWidget *widget;
 	HTMLEmbedded *emb = HTML_EMBEDDED (self);
@@ -204,7 +209,8 @@ accepts_cursor (HTMLObject *o)
 }
 
 static gchar *
-encode (HTMLEmbedded *e, const gchar * codepage)
+encode (HTMLEmbedded *e,
+        const gchar *codepage)
 {
 	return g_strdup ("");
 }
@@ -216,25 +222,29 @@ html_embedded_reset (HTMLEmbedded *e)
 }
 
 gchar *
-html_embedded_encode (HTMLEmbedded *e, const gchar * codepage)
+html_embedded_encode (HTMLEmbedded *e,
+                      const gchar *codepage)
 {
 	return HTML_EMBEDDED_CLASS (HTML_OBJECT (e)->klass)->encode (e, codepage);
 }
 
 void
-html_embedded_reparent (HTMLEmbedded *e, GtkWidget *new_parent)
+html_embedded_reparent (HTMLEmbedded *e,
+                        GtkWidget *new_parent)
 {
 	HTML_EMBEDDED_CLASS (HTML_OBJECT (e)->klass)->reparent (e, new_parent);
 }
 
 void
-html_embedded_set_form (HTMLEmbedded *e, HTMLForm *form)
+html_embedded_set_form (HTMLEmbedded *e,
+                        HTMLForm *form)
 {
 	e->form = form;
 }
 
 gchar *
-html_embedded_encode_string (const gchar *before, const gchar *codepage)
+html_embedded_encode_string (const gchar *before,
+                             const gchar *codepage)
 {
 	    const gchar * str = before;
 	    static const gchar *safe = "$-._!*(),"; /* RFC 1738 */
@@ -293,8 +303,8 @@ html_embedded_type_init (void)
 
 void
 html_embedded_class_init (HTMLEmbeddedClass *klass,
-			  HTMLType type,
-			  guint size)
+                          HTMLType type,
+                          guint size)
 {
 	HTMLObjectClass *object_class;
 
@@ -320,10 +330,10 @@ html_embedded_class_init (HTMLEmbeddedClass *klass,
 
 void
 html_embedded_init (HTMLEmbedded *element,
-		   HTMLEmbeddedClass *klass,
-		   GtkWidget *parent,
-		   const gchar *name,
-		   const gchar *value)
+                   HTMLEmbeddedClass *klass,
+                   GtkWidget *parent,
+                   const gchar *name,
+                   const gchar *value)
 {
 	HTMLObject *object;
 
@@ -350,7 +360,8 @@ html_embedded_init (HTMLEmbedded *element,
 }
 
 static gboolean
-html_embedded_grab_cursor (GtkWidget *eb, GdkEvent *event)
+html_embedded_grab_cursor (GtkWidget *eb,
+                           GdkEvent *event)
 {
 	/* Keep the focus! Fight the power */
 	return TRUE;
@@ -358,7 +369,8 @@ html_embedded_grab_cursor (GtkWidget *eb, GdkEvent *event)
 
 /* called when some state in an embedded html object has changed ... do a redraw */
 static void
-html_embedded_object_changed (GtkHTMLEmbedded *eb, HTMLEngine *e)
+html_embedded_object_changed (GtkHTMLEmbedded *eb,
+                              HTMLEngine *e)
 {
 	HTMLObject *object;
 
@@ -370,7 +382,9 @@ html_embedded_object_changed (GtkHTMLEmbedded *eb, HTMLEngine *e)
 }
 
 HTMLEmbedded *
-html_embedded_new_widget (GtkWidget *parent, GtkHTMLEmbedded *eb, HTMLEngine *engine)
+html_embedded_new_widget (GtkWidget *parent,
+                          GtkHTMLEmbedded *eb,
+                          HTMLEngine *engine)
 {
 	HTMLEmbedded *em;
 
@@ -391,7 +405,9 @@ html_embedded_new_widget (GtkWidget *parent, GtkHTMLEmbedded *eb, HTMLEngine *en
 }
 
 static void
-html_embedded_allocate (GtkWidget *w, GtkAllocation  *allocation, HTMLEmbedded *e)
+html_embedded_allocate (GtkWidget *w,
+                        GtkAllocation *allocation,
+                        HTMLEmbedded *e)
 {
 	GtkWidget *parent;
 
@@ -410,7 +426,8 @@ html_embedded_allocate (GtkWidget *w, GtkAllocation  *allocation, HTMLEmbedded *
 }
 
 void
-html_embedded_set_widget (HTMLEmbedded *emb, GtkWidget *w)
+html_embedded_set_widget (HTMLEmbedded *emb,
+                          GtkWidget *w)
 {
 	emb->widget = w;
 

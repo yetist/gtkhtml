@@ -37,7 +37,7 @@ static void html_a11y_class_init (HTMLA11YClass *klass);
 static void html_a11y_init       (HTMLA11Y *a11y_paragraph);
 
 static void atk_component_interface_init (AtkComponentIface *iface);
-static AtkObject*  html_a11y_get_parent (AtkObject *accessible);
+static AtkObject *  html_a11y_get_parent (AtkObject *accessible);
 static gint html_a11y_get_index_in_parent (AtkObject *accessible);
 static AtkStateSet * html_a11y_ref_state_set (AtkObject *accessible);
 static gint html_a11y_get_n_children (AtkObject *accessible);
@@ -86,14 +86,14 @@ atk_component_interface_init (AtkComponentIface *iface)
 	iface->get_size = html_a11y_get_size;
 
 	/* FIX2
-	   iface->add_focus_handler = gail_widget_add_focus_handler;
-	   iface->get_extents = gail_widget_get_extents;
-	   iface->get_layer = gail_widget_get_layer;
-	   iface->grab_focus = gail_widget_grab_focus;
-	   iface->remove_focus_handler = gail_widget_remove_focus_handler;
-	   iface->set_extents = gail_widget_set_extents;
-	   iface->set_position = gail_widget_set_position;
-	   iface->set_size = gail_widget_set_size;
+	 * iface->add_focus_handler = gail_widget_add_focus_handler;
+	 * iface->get_extents = gail_widget_get_extents;
+	 * iface->get_layer = gail_widget_get_layer;
+	 * iface->grab_focus = gail_widget_grab_focus;
+	 * iface->remove_focus_handler = gail_widget_remove_focus_handler;
+	 * iface->set_extents = gail_widget_set_extents;
+	 * iface->set_position = gail_widget_set_position;
+	 * iface->set_size = gail_widget_set_size;
 	*/
 }
 
@@ -104,7 +104,8 @@ html_a11y_finalize (GObject *obj)
 }
 
 static void
-html_a11y_initialize (AtkObject *obj, gpointer data)
+html_a11y_initialize (AtkObject *obj,
+                      gpointer data)
 {
 	/* printf ("html_a11y_initialize\n"); */
 
@@ -147,7 +148,7 @@ get_parent_html (AtkObject *accessible)
 	return obj ? obj->parent : NULL;
 }
 
-static AtkObject*
+static AtkObject *
 html_a11y_get_parent (AtkObject *accessible)
 {
 	AtkObject *parent, *p;
@@ -232,7 +233,8 @@ html_a11y_get_n_children (AtkObject *accessible)
 }
 
 static AtkObject *
-html_a11y_ref_child (AtkObject *accessible, gint index)
+html_a11y_ref_child (AtkObject *accessible,
+                     gint index)
 {
 	HTMLObject *parent, *child;
 	AtkObject *accessible_child = NULL;
@@ -296,7 +298,12 @@ html_a11y_get_top_gtkhtml_parent (HTMLA11Y *a11y)
 }
 
 void
-html_a11y_get_extents (AtkComponent *component, gint *x, gint *y, gint *width, gint *height, AtkCoordType coord_type)
+html_a11y_get_extents (AtkComponent *component,
+                       gint *x,
+                       gint *y,
+                       gint *width,
+                       gint *height,
+                       AtkCoordType coord_type)
 {
 	HTMLObject *obj = HTML_A11Y_HTML (component);
 	GtkHTMLA11Y *top_html_a11y;
@@ -323,7 +330,9 @@ html_a11y_get_extents (AtkComponent *component, gint *x, gint *y, gint *width, g
 }
 
 void
-html_a11y_get_size (AtkComponent *component, gint *width, gint *height)
+html_a11y_get_size (AtkComponent *component,
+                    gint *width,
+                    gint *height)
 {
 	HTMLObject *obj = HTML_A11Y_HTML (component);
 
@@ -334,7 +343,8 @@ html_a11y_get_size (AtkComponent *component, gint *width, gint *height)
 }
 
 AtkObject *
-html_a11y_new (HTMLObject *html_obj, AtkRole role)
+html_a11y_new (HTMLObject *html_obj,
+               AtkRole role)
 {
 	GObject *object;
 	AtkObject *accessible;

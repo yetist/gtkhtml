@@ -1,26 +1,26 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
-
-    Copyright (C) 1999, 2000 Helix Code, Inc.
-    Copyright (C) 2001 Ximian, Inc.
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
-
-    Authors: Ettore Perazzoli <ettore@helixcode.com>
-             Radek Doulik     <rodo@ximian.com>
+ *
+ *  Copyright (C) 1999, 2000 Helix Code, Inc.
+ *  Copyright (C) 2001 Ximian, Inc.
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
+ *
+ *  Authors: Ettore Perazzoli <ettore@helixcode.com>
+ *           Radek Doulik     <rodo@ximian.com>
 */
 
 
@@ -172,7 +172,9 @@ html_engine_selection_pop (HTMLEngine *e)
 }
 
 gboolean
-html_engine_selection_stack_top (HTMLEngine *e, gint *cpos, gint *mpos)
+html_engine_selection_stack_top (HTMLEngine *e,
+                                 gint *cpos,
+                                 gint *mpos)
 {
 	Selection *selection = e->selection_stack ? e->selection_stack->data : NULL;
 
@@ -189,7 +191,8 @@ html_engine_selection_stack_top (HTMLEngine *e, gint *cpos, gint *mpos)
 }
 
 gboolean
-html_engine_selection_stack_top_modify (HTMLEngine *e, gint delta)
+html_engine_selection_stack_top_modify (HTMLEngine *e,
+                                        gint delta)
 {
 	Selection *selection = e->selection_stack ? e->selection_stack->data : NULL;
 
@@ -204,14 +207,18 @@ html_engine_selection_stack_top_modify (HTMLEngine *e, gint delta)
 }
 
 static void
-spell_check_object (HTMLObject *o, HTMLEngine *e, gpointer data)
+spell_check_object (HTMLObject *o,
+                    HTMLEngine *e,
+                    gpointer data)
 {
 	if (HTML_OBJECT_TYPE (o) == HTML_TYPE_CLUEFLOW)
 		html_clueflow_spell_check (HTML_CLUEFLOW (o), e, (HTMLInterval *) data);
 }
 
 void
-html_engine_spell_check_range (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end)
+html_engine_spell_check_range (HTMLEngine *e,
+                               HTMLCursor *begin,
+                               HTMLCursor *end)
 {
 	HTMLInterval *i;
 	gboolean cited;
@@ -336,7 +343,9 @@ struct SetData {
 };
 
 static void
-set_data (HTMLObject *o, HTMLEngine *e, gpointer p)
+set_data (HTMLObject *o,
+          HTMLEngine *e,
+          gpointer p)
 {
 	struct SetData *data = (struct SetData *) p;
 
@@ -347,7 +356,10 @@ set_data (HTMLObject *o, HTMLEngine *e, gpointer p)
 }
 
 void
-html_engine_set_data_by_type (HTMLEngine *e, HTMLType object_type, const gchar *key, const gchar * value)
+html_engine_set_data_by_type (HTMLEngine *e,
+                              HTMLType object_type,
+                              const gchar *key,
+                              const gchar *value)
 {
 	struct SetData *data = g_new (struct SetData, 1);
 
@@ -372,7 +384,9 @@ html_engine_clipboard_clear (HTMLEngine *e)
 }
 
 HTMLObject *
-html_engine_new_text (HTMLEngine *e, const gchar *text, gint len)
+html_engine_new_text (HTMLEngine *e,
+                      const gchar *text,
+                      gint len)
 {
 	HTMLObject *to;
 
@@ -389,7 +403,10 @@ html_engine_new_text (HTMLEngine *e, const gchar *text, gint len)
 }
 
 HTMLObject *
-html_engine_new_link (HTMLEngine *e, const gchar *text, gint len, gchar *url)
+html_engine_new_link (HTMLEngine *e,
+                      const gchar *text,
+                      gint len,
+                      gchar *url)
 {
 	HTMLObject *link;
 	gchar *real_url, *real_target;
@@ -442,7 +459,8 @@ html_engine_get_indent (HTMLEngine *e)
 #define LINE_LEN 71
 
 static inline guint
-inc_line_offset (guint line_offset, gunichar uc)
+inc_line_offset (guint line_offset,
+                 gunichar uc)
 {
 	return uc == '\t'
 		? line_offset + 8 - (line_offset % 8)
@@ -450,7 +468,9 @@ inc_line_offset (guint line_offset, gunichar uc)
 }
 
 static guint
-try_break_this_line (HTMLEngine *e, guint line_offset, guint last_space)
+try_break_this_line (HTMLEngine *e,
+                     guint line_offset,
+                     guint last_space)
 {
 	HTMLObject *flow;
 	gunichar uc;
@@ -730,7 +750,8 @@ html_engine_break_and_fill_line (HTMLEngine *e)
 }
 
 gboolean
-html_engine_next_cell (HTMLEngine *e, gboolean create)
+html_engine_next_cell (HTMLEngine *e,
+                       gboolean create)
 {
 	HTMLTableCell *cell, *current_cell;
 
@@ -779,7 +800,8 @@ html_engine_prev_cell (HTMLEngine *e)
 }
 
 void
-html_engine_set_title (HTMLEngine *e, const gchar *title)
+html_engine_set_title (HTMLEngine *e,
+                       const gchar *title)
 {
 	if (e->title)
 		g_string_free (e->title, TRUE);
@@ -800,7 +822,8 @@ void html_engine_edit_set_direction (HTMLEngine *e,
 }
 
 gint
-html_engine_get_insert_level_for_object (HTMLEngine *e, HTMLObject *o)
+html_engine_get_insert_level_for_object (HTMLEngine *e,
+                                         HTMLObject *o)
 {
 	gint cursor_level = 3, level = html_object_get_insert_level (o);
 

@@ -1,25 +1,25 @@
 /* -*- mode: c; c-basic-offset: 8 -*- */
 
 /*
-    This file is part of the GuileRepl library
-
-    Copyright 2001 Ariel Rios <ariel@linuxppc.org>
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
-
+ *  This file is part of the GuileRepl library
+ *
+ *  Copyright 2001 Ariel Rios <ariel@linuxppc.org>
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
+ *
 */
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -59,7 +59,10 @@ static const gchar *welcome =
 "Japanese <span lang=\"ja\">元気	開発<BR></FONT>";
 
 static void
-url_requested (GtkHTML *unused, const gchar *url, GtkHTMLStream *stream, gpointer data)
+url_requested (GtkHTML *unused,
+               const gchar *url,
+               GtkHTMLStream *stream,
+               gpointer data)
 {
 	gint fd;
 	gchar *filename;
@@ -110,7 +113,8 @@ encode_html (const gchar *txt)
 }
 
 static void
-example_changed_cb (GtkComboBox *combo_box, gpointer data)
+example_changed_cb (GtkComboBox *combo_box,
+                    gpointer data)
 {
 	gint i = gtk_combo_box_get_active (combo_box);
 	Example *example = examples->pdata[i];
@@ -132,7 +136,8 @@ quit_cb (GtkWidget *button)
 }
 
 static void
-dump_cb (GtkWidget *widget, gpointer data)
+dump_cb (GtkWidget *widget,
+         gpointer data)
 {
 	g_print ("Object Tree\n");
 	g_print ("-----------\n");
@@ -141,7 +146,8 @@ dump_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
-dump_simple_cb (GtkWidget *widget, gpointer data)
+dump_simple_cb (GtkWidget *widget,
+                gpointer data)
 {
 	g_print ("Simple Object Tree\n");
 	g_print ("-----------\n");
@@ -150,14 +156,17 @@ dump_simple_cb (GtkWidget *widget, gpointer data)
 }
 
 static void
-draw_page_cb (GtkPrintOperation *operation, GtkPrintContext *context,
-              gint page_nr, gpointer user_data)
+draw_page_cb (GtkPrintOperation *operation,
+              GtkPrintContext *context,
+              gint page_nr,
+              gpointer user_data)
 {
 	gtk_html_print_page (GTK_HTML (html), context);
 }
 
 static void
-print_cb (GtkWidget *widget, gpointer data)
+print_cb (GtkWidget *widget,
+          gpointer data)
 {
 	GtkPrintOperation *operation;
 
@@ -180,7 +189,7 @@ print_cb (GtkWidget *widget, gpointer data)
  */
 static gint
 compare_examples (gconstpointer a,
-		  gconstpointer b)
+                  gconstpointer b)
 {
 	const Example *example_a = *(const Example *const *) a;
 	const Example *example_b = *(const Example *const *) b;
@@ -311,7 +320,8 @@ find_examples (void)
 }
 
 gint
-main (gint argc, gchar **argv)
+main (gint argc,
+      gchar **argv)
 {
 	GtkWidget *window;
 	GtkWidget *vbox;

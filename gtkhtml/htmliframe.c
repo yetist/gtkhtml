@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-
-   Copyright (C) 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright (C) 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -42,7 +42,9 @@ HTMLIFrameClass html_iframe_class;
 static HTMLEmbeddedClass *parent_class = NULL;
 
 static void
-iframe_set_base (GtkHTML *html, const gchar *url, gpointer data)
+iframe_set_base (GtkHTML *html,
+                 const gchar *url,
+                 gpointer data)
 {
 	gchar *new_url = gtk_html_get_url_base_relative (html, url);
 
@@ -51,7 +53,10 @@ iframe_set_base (GtkHTML *html, const gchar *url, gpointer data)
 }
 
 static void
-iframe_url_requested (GtkHTML *html, const gchar *url, GtkHTMLStream *handle, gpointer data)
+iframe_url_requested (GtkHTML *html,
+                      const gchar *url,
+                      GtkHTMLStream *handle,
+                      gpointer data)
 {
 	HTMLIFrame *iframe = HTML_IFRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED (iframe)->parent);
@@ -61,7 +66,8 @@ iframe_url_requested (GtkHTML *html, const gchar *url, GtkHTMLStream *handle, gp
 }
 
 static void
-iframe_size_changed (GtkHTML *html, gpointer data)
+iframe_size_changed (GtkHTML *html,
+                     gpointer data)
 {
 	HTMLIFrame *iframe = HTML_IFRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED (iframe)->parent);
@@ -70,7 +76,9 @@ iframe_size_changed (GtkHTML *html, gpointer data)
 }
 
 static gboolean
-iframe_object_requested (GtkHTML *html, GtkHTMLEmbedded *eb, gpointer data)
+iframe_object_requested (GtkHTML *html,
+                         GtkHTMLEmbedded *eb,
+                         gpointer data)
 {
 	HTMLIFrame *iframe = HTML_IFRAME (data);
 	GtkHTML *parent = GTK_HTML (HTML_EMBEDDED (iframe)->parent);
@@ -82,7 +90,8 @@ iframe_object_requested (GtkHTML *html, GtkHTMLEmbedded *eb, gpointer data)
 }
 
 static void
-iframe_set_gdk_painter (HTMLIFrame *iframe, HTMLPainter *painter)
+iframe_set_gdk_painter (HTMLIFrame *iframe,
+                        HTMLPainter *painter)
 {
 	if (painter)
 		g_object_ref (G_OBJECT (painter));
@@ -95,10 +104,10 @@ iframe_set_gdk_painter (HTMLIFrame *iframe, HTMLPainter *painter)
 
 HTMLObject *
 html_iframe_new (GtkWidget *parent,
-		 gchar *src,
-		 gint width,
-		 gint height,
-		 gboolean border)
+                 gchar *src,
+                 gint width,
+                 gint height,
+                 gboolean border)
 {
 	HTMLIFrame *iframe;
 
@@ -116,7 +125,8 @@ html_iframe_new (GtkWidget *parent,
 }
 
 static gboolean
-html_iframe_grab_cursor (GtkWidget *iframe, GdkEvent *event)
+html_iframe_grab_cursor (GtkWidget *iframe,
+                         GdkEvent *event)
 {
 	/* Keep the focus! Fight the power */
 	return TRUE;
@@ -124,7 +134,7 @@ html_iframe_grab_cursor (GtkWidget *iframe, GdkEvent *event)
 
 static gint
 calc_min_width (HTMLObject *o,
-		HTMLPainter *painter)
+                HTMLPainter *painter)
 {
 	HTMLIFrame *iframe;
 
@@ -136,7 +146,9 @@ calc_min_width (HTMLObject *o,
 }
 
 static void
-set_max_width (HTMLObject *o, HTMLPainter *painter, gint max_width)
+set_max_width (HTMLObject *o,
+               HTMLPainter *painter,
+               gint max_width)
 {
 	HTMLEngine *e = GTK_HTML (HTML_IFRAME (o)->html)->engine;
 
@@ -161,9 +173,12 @@ reset (HTMLObject *o)
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
-      gint x, gint y,
-      gint width, gint height,
-      gint tx, gint ty)
+      gint x,
+      gint y,
+      gint width,
+      gint height,
+      gint tx,
+      gint ty)
 {
 	HTMLIFrame   *iframe  = HTML_IFRAME (o);
 	HTMLEngine   *e       = GTK_HTML (iframe->html)->engine;
@@ -185,7 +200,8 @@ draw (HTMLObject *o,
 }
 
 static void
-set_painter (HTMLObject *o, HTMLPainter *painter)
+set_painter (HTMLObject *o,
+             HTMLPainter *painter)
 {
 	HTMLIFrame *iframe;
 
@@ -200,9 +216,9 @@ set_painter (HTMLObject *o, HTMLPainter *painter)
 
 static void
 forall (HTMLObject *self,
-	HTMLEngine *e,
-	HTMLObjectForallFunc func,
-	gpointer data)
+        HTMLEngine *e,
+        HTMLObjectForallFunc func,
+        gpointer data)
 {
 	HTMLIFrame *iframe;
 
@@ -212,13 +228,15 @@ forall (HTMLObject *self,
 }
 
 static gint
-check_page_split (HTMLObject *self, HTMLPainter *p, gint y)
+check_page_split (HTMLObject *self,
+                  HTMLPainter *p,
+                  gint y)
 {
 	HTMLEngine *e = GTK_HTML (HTML_IFRAME (self)->html)->engine;
 	gint y1, y2, pixel_size = html_painter_get_pixel_size (p);
 
-	y1 = self->y - self->ascent + pixel_size*html_engine_get_top_border (e);
-	y2 = self->y + self->descent + pixel_size*html_engine_get_bottom_border (e);
+	y1 = self->y - self->ascent + pixel_size * html_engine_get_top_border (e);
+	y2 = self->y + self->descent + pixel_size * html_engine_get_bottom_border (e);
 
 	if (y1 > y)
 		return 0;
@@ -257,7 +275,12 @@ copy (HTMLObject *self,
 }
 
 static HTMLObject *
-op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList *to, guint *len)
+op_copy (HTMLObject *self,
+         HTMLObject *parent,
+         HTMLEngine *e,
+         GList *from,
+         GList *to,
+         guint *len)
 {
 	HTMLObject *dup, *clue;
 
@@ -273,7 +296,10 @@ op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList
 }
 
 static HTMLAnchor *
-find_anchor (HTMLObject *self, const gchar *name, gint *x, gint *y)
+find_anchor (HTMLObject *self,
+             const gchar *name,
+             gint *x,
+             gint *y)
 {
 	HTMLIFrame *iframe;
 	HTMLAnchor *anchor;
@@ -296,7 +322,8 @@ find_anchor (HTMLObject *self, const gchar *name, gint *x, gint *y)
 }
 
 void
-html_iframe_set_margin_width (HTMLIFrame *iframe, gint margin_width)
+html_iframe_set_margin_width (HTMLIFrame *iframe,
+                              gint margin_width)
 {
 	HTMLEngine *e;
 
@@ -307,7 +334,8 @@ html_iframe_set_margin_width (HTMLIFrame *iframe, gint margin_width)
 }
 
 void
-html_iframe_set_margin_height (HTMLIFrame *iframe, gint margin_height)
+html_iframe_set_margin_height (HTMLIFrame *iframe,
+                               gint margin_height)
 {
 	HTMLEngine *e;
 
@@ -318,14 +346,17 @@ html_iframe_set_margin_height (HTMLIFrame *iframe, gint margin_height)
 }
 
 void
-html_iframe_set_scrolling (HTMLIFrame *iframe, GtkPolicyType scroll)
+html_iframe_set_scrolling (HTMLIFrame *iframe,
+                           GtkPolicyType scroll)
 {
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (iframe->scroll),
 					scroll, scroll);
 }
 
 static gboolean
-html_iframe_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
+html_iframe_real_calc_size (HTMLObject *o,
+                            HTMLPainter *painter,
+                            GList **changed_objs)
 {
 	HTMLIFrame *iframe;
 	HTMLEngine *e;
@@ -364,7 +395,8 @@ html_iframe_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed
 }
 
 static gboolean
-search (HTMLObject *self, HTMLSearch *info)
+search (HTMLObject *self,
+        HTMLSearch *info)
 {
 	HTMLEngine *e = GTK_HTML (HTML_IFRAME (self)->html)->engine;
 
@@ -404,17 +436,19 @@ tail (HTMLObject *self)
 }
 
 static HTMLEngine *
-get_engine (HTMLObject *self, HTMLEngine *e)
+get_engine (HTMLObject *self,
+            HTMLEngine *e)
 {
 	return GTK_HTML (HTML_IFRAME (self)->html)->engine;
 }
 
-static HTMLObject*
+static HTMLObject *
 check_point (HTMLObject *self,
-	     HTMLPainter *painter,
-	     gint x, gint y,
-	     guint *offset_return,
-	     gboolean for_cursor)
+             HTMLPainter *painter,
+             gint x,
+             gint y,
+             guint *offset_return,
+             gboolean for_cursor)
 {
 	HTMLEngine *e = GTK_HTML (HTML_IFRAME (self)->html)->engine;
 
@@ -436,13 +470,14 @@ is_container (HTMLObject *self)
 
 static void
 append_selection_string (HTMLObject *self,
-			 GString *buffer)
+                         GString *buffer)
 {
 	html_object_append_selection_string (GTK_HTML (HTML_IFRAME (self)->html)->engine->clue, buffer);
 }
 
 static void
-reparent (HTMLEmbedded *emb, GtkWidget *html)
+reparent (HTMLEmbedded *emb,
+          GtkWidget *html)
 {
 	HTMLIFrame *iframe = HTML_IFRAME (emb);
 
@@ -454,10 +489,10 @@ reparent (HTMLEmbedded *emb, GtkWidget *html)
 
 /* static gboolean
 select_range (HTMLObject *self,
-	      HTMLEngine *engine,
-	      guint start,
-	      gint length,
-	      gboolean queue_draw)
+	 *    HTMLEngine *engine,
+	 *    guint start,
+	 *    gint length,
+	 *    gboolean queue_draw)
 {
 	return html_object_select_range (GTK_HTML (HTML_IFRAME (self)->html)->engine->clue,
 					 GTK_HTML (HTML_IFRAME (self)->html)->engine,
@@ -522,8 +557,8 @@ save (HTMLObject *s,
 
 static gboolean
 save_plain (HTMLObject *s,
-	    HTMLEngineSaveState *state,
-	    gint requested_width)
+            HTMLEngineSaveState *state,
+            gint requested_width)
 {
 	HTMLIFrame *iframe = HTML_IFRAME (s);
 	HTMLEngineSaveState *buffer;
@@ -566,12 +601,12 @@ destroy (HTMLObject *o)
 
 void
 html_iframe_init (HTMLIFrame *iframe,
-		  HTMLIFrameClass *klass,
-		  GtkWidget *parent,
-		  gchar *src,
-		  gint width,
-		  gint height,
-		  gboolean border)
+                  HTMLIFrameClass *klass,
+                  GtkWidget *parent,
+                  gchar *src,
+                  gint width,
+                  gint height,
+                  gboolean border)
 {
 	HTMLEmbedded *em = HTML_EMBEDDED (iframe);
 	HTMLTokenizer *new_tokenizer;
@@ -689,8 +724,8 @@ html_iframe_type_init (void)
 
 void
 html_iframe_class_init (HTMLIFrameClass *klass,
-			HTMLType type,
-			guint size)
+                        HTMLType type,
+                        guint size)
 {
 	HTMLEmbeddedClass *embedded_class;
 	HTMLObjectClass  *object_class;

@@ -135,7 +135,8 @@ html_a11y_hyper_link_init (HTMLA11YHyperLink *a11y_hyper_link)
 }
 
 AtkHyperlink *
-html_a11y_hyper_link_new (HTMLA11Y *a11y, gint link_index)
+html_a11y_hyper_link_new (HTMLA11Y *a11y,
+                          gint link_index)
 {
 	HTMLA11YHyperLink *hl;
 
@@ -156,7 +157,8 @@ html_a11y_hyper_link_new (HTMLA11Y *a11y, gint link_index)
  */
 
 static gboolean
-html_a11y_hyper_link_do_action (AtkAction *action, gint i)
+html_a11y_hyper_link_do_action (AtkAction *action,
+                                gint i)
 {
 	HTMLA11YHyperLink *hl;
 	gboolean result = FALSE;
@@ -188,7 +190,8 @@ html_a11y_hyper_link_get_n_actions (AtkAction *action)
 }
 
 static const gchar *
-html_a11y_hyper_link_get_description (AtkAction *action, gint i)
+html_a11y_hyper_link_get_description (AtkAction *action,
+                                      gint i)
 {
 	if (i == 0) {
 		HTMLA11YHyperLink *hl;
@@ -202,13 +205,16 @@ html_a11y_hyper_link_get_description (AtkAction *action, gint i)
 }
 
 static const gchar *
-html_a11y_hyper_link_get_name (AtkAction *action, gint i)
+html_a11y_hyper_link_get_name (AtkAction *action,
+                               gint i)
 {
 	return i == 0 ? "link click" : NULL;
 }
 
 static gboolean
-html_a11y_hyper_link_set_description (AtkAction *action, gint i, const gchar *description)
+html_a11y_hyper_link_set_description (AtkAction *action,
+                                      gint i,
+                                      const gchar *description)
 {
 	if (i == 0) {
 		HTMLA11YHyperLink *hl;

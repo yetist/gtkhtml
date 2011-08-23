@@ -1,24 +1,24 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library
-
-   Copyright (C) 1997 Martin Jones (mjones@kde.org)
-   Copyright (C) 1997 Torben Weis (weis@kde.org)
-   Copyright (C) 1999, 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHcANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright (C) 1997 Martin Jones (mjones@kde.org)
+ * Copyright (C) 1997 Torben Weis (weis@kde.org)
+ * Copyright (C) 1999, 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHcANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 #ifndef _HTMLOBJECT_H_
@@ -61,8 +61,8 @@ struct _HTMLObject {
 	guint selected : 1;
 
 	/* If an object has a redraw pending and is being destroyed, this flag
-           is set to TRUE instead of g_free () ing the object.  When the draw
-           queue is flushed, the g_free () is performed.  */
+	 * is set to TRUE instead of g_free () ing the object.  When the draw
+	 * queue is flushed, the g_free () is performed.  */
 	guint free_pending : 1;
 
 	/* FIXME add the other dynamic pusedo-classes... */
@@ -91,7 +91,7 @@ struct _HTMLObjectClass {
 	void (* destroy) (HTMLObject *o);
 
 	/* Copy an object into another one.  @dest can just point to a
-           memory area of the proper size.  */
+	 * memory area of the proper size.  */
 	void (* copy) (HTMLObject *self, HTMLObject *dest);
 
 	/* copy/cut/paste operations */
@@ -136,15 +136,15 @@ struct _HTMLObjectClass {
 	void (* set_max_height) (HTMLObject *o, HTMLPainter *painter, gint max_height);
 
 	/* Relayout object `o' starting from child `child'.  This
-           method can be called by the child when it changes any of
-           its layout properties.  */
+	 * method can be called by the child when it changes any of
+	 * its layout properties.  */
 
 	gboolean (* layout) (HTMLObject *o, HTMLObject *child);
 
-        /* This method is used to draw the object.  @x & @y are in
-	   object coordinates (e.g. the same coordinate system as o->x
-	   and o->y). @tx & @ty are used to translate the object
-	   coordinates into painter coordinates.  */
+	/* This method is used to draw the object.  @x & @y are in
+	 * object coordinates (e.g. the same coordinate system as o->x
+	 * and o->y). @tx & @ty are used to translate the object
+	 * coordinates into painter coordinates.  */
 
 	void (* draw) (HTMLObject *o,
 		       HTMLPainter *painter,
@@ -153,7 +153,7 @@ struct _HTMLObjectClass {
 		       gint tx, gint ty);
 
 	/* "Transparent" objects (i.e. objects that don't draw all the
-           area they occupy, such as text) should return `TRUE' here.  */
+ *         area they occupy, such as text) should return `TRUE' here.  */
 
 	gboolean (* is_transparent) (HTMLObject *self);
 
@@ -169,9 +169,9 @@ struct _HTMLObjectClass {
 	GdkColor * (* get_bg_color) (HTMLObject *o, HTMLPainter *p);
 
 	/* Margins.  This should actually be used only by objects that
-           contain other objects, so it should be in HTMLClue.  But
-           HTMLTable does not derive from HTMLClue and we don't want
-           to spend time reorganizing the hierarchy now.  */
+	 * contain other objects, so it should be in HTMLClue.  But
+	 * HTMLTable does not derive from HTMLClue and we don't want
+	 * to spend time reorganizing the hierarchy now.  */
 
 	gint (* get_left_margin) (HTMLObject *self, HTMLPainter *painter, gint y, gboolean with_aligned);
 	gint (* get_right_margin) (HTMLObject *self, HTMLPainter *painter, gint y, gboolean with_aligned);
@@ -179,7 +179,7 @@ struct _HTMLObjectClass {
 	void (* set_painter) (HTMLObject *o, HTMLPainter *painter);
 
 	/* Resetting the object.  Do this before using a different
-           HTMLPainter.  */
+	 * HTMLPainter.  */
 
 	void (* reset) (HTMLObject *o);
 
@@ -194,17 +194,17 @@ struct _HTMLObjectClass {
 				      gboolean for_cursor);
 
 	/* Relayout this object.  The object will relayout all the children
-           starting from `child'.  Children before `child' are not affected.
-           The return value is FALSE if nothing has changed during relayout,
-           TRUE otherwise.  */
+	 * starting from `child'.  Children before `child' are not affected.
+	 * The return value is FALSE if nothing has changed during relayout,
+	 * TRUE otherwise.  */
 	gboolean (* relayout) (HTMLObject *self, HTMLEngine *engine, HTMLObject *child);
 
 	/* Return the vertical alignment for the object in an HTMLClueFlow.  If
-           the returned value is `HTML_VALIGN_BOTTOM', the bottom of the object
-           is aligned to the base line; if the value is `HTML_VALIGN_TOP', the
-           top of the object is aligned to the top of the line; if the value is
-           `HTML_VALIGN_MIDDLE', the center of the object is aligned to the
-           baseline.  */
+	 * the returned value is `HTML_VALIGN_BOTTOM', the bottom of the object
+	 * is aligned to the base line; if the value is `HTML_VALIGN_TOP', the
+	 * top of the object is aligned to the top of the line; if the value is
+	 * `HTML_VALIGN_MIDDLE', the center of the object is aligned to the
+	 * baseline.  */
 	HTMLVAlignType (* get_valign) (HTMLObject *self);
 
 	/* Cursor handling.  */

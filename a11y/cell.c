@@ -65,7 +65,8 @@ html_a11y_cell_finalize (GObject *obj)
 }
 
 static void
-html_a11y_cell_initialize (AtkObject *obj, gpointer data)
+html_a11y_cell_initialize (AtkObject *obj,
+                           gpointer data)
 {
 	/* printf ("html_a11y_cell_initialize\n"); */
 
@@ -90,7 +91,7 @@ html_a11y_cell_init (HTMLA11YCell *a11y_cell)
 {
 }
 
-AtkObject*
+AtkObject *
 html_a11y_cell_new (HTMLObject *html_obj)
 {
 	GObject *object;

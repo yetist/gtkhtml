@@ -1,24 +1,24 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
-
-    Copyright (C) 1997 Martin Jones (mjones@kde.org)
-    Copyright (C) 1997 Torben Weis (weis@kde.org)
-    Copyright (C) 1999, 2000 Helix Code, Inc.
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
+ *
+ *  Copyright (C) 1997 Martin Jones (mjones@kde.org)
+ *  Copyright (C) 1997 Torben Weis (weis@kde.org)
+ *  Copyright (C) 1999, 2000 Helix Code, Inc.
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -70,7 +70,8 @@ get_n_children (HTMLObject *o)
 }
 
 static HTMLObject *
-get_child (HTMLObject *o, gint index)
+get_child (HTMLObject *o,
+           gint index)
 {
 	HTMLObject *cur = HTML_CLUE (o)->head;
 
@@ -87,7 +88,8 @@ get_child (HTMLObject *o, gint index)
 }
 
 static gint
-get_child_index (HTMLObject *self, HTMLObject *child)
+get_child_index (HTMLObject *self,
+                 HTMLObject *child)
 {
 	HTMLObject *cur = HTML_CLUE (self)->head;
 	gint index = 0;
@@ -131,7 +133,14 @@ copy (HTMLObject *self,
 }
 
 static HTMLObject *
-op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len, gboolean cut)
+op_helper (HTMLObject *self,
+           HTMLEngine *e,
+           GList *from,
+           GList *to,
+           GList *left,
+           GList *right,
+           guint *len,
+           gboolean cut)
 {
 	HTMLClue *clue = HTML_CLUE (self);
 	HTMLObject *cc;
@@ -171,13 +180,24 @@ op_helper (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left,
 }
 
 static HTMLObject *
-op_copy (HTMLObject *self, HTMLObject *parent, HTMLEngine *e, GList *from, GList *to, guint *len)
+op_copy (HTMLObject *self,
+         HTMLObject *parent,
+         HTMLEngine *e,
+         GList *from,
+         GList *to,
+         guint *len)
 {
 	return op_helper (self, e, from, to, NULL, NULL, len, FALSE);
 }
 
 static HTMLObject *
-op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GList *right, guint *len)
+op_cut (HTMLObject *self,
+        HTMLEngine *e,
+        GList *from,
+        GList *to,
+        GList *left,
+        GList *right,
+        guint *len)
 {
 	HTMLObject *rv;
 	HTMLClue *clue;
@@ -195,7 +215,12 @@ op_cut (HTMLObject *self, HTMLEngine *e, GList *from, GList *to, GList *left, GL
 }
 
 static gboolean
-merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **right, HTMLCursor *cursor)
+merge (HTMLObject *self,
+       HTMLObject *with,
+       HTMLEngine *e,
+       GList **left,
+       GList **right,
+       HTMLCursor *cursor)
 {
 	HTMLClue   *clue1, *clue2;
 
@@ -211,13 +236,20 @@ merge (HTMLObject *self, HTMLObject *with, HTMLEngine *e, GList **left, GList **
 }
 
 static void
-remove_child (HTMLObject *self, HTMLObject *child)
+remove_child (HTMLObject *self,
+              HTMLObject *child)
 {
 	html_clue_remove (HTML_CLUE (self), child);
 }
 
 static void
-split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint level, GList **left, GList **right)
+split (HTMLObject *self,
+       HTMLEngine *e,
+       HTMLObject *child,
+       gint offset,
+       gint level,
+       GList **left,
+       GList **right)
 {
 	HTMLObject *dup;
 
@@ -250,9 +282,12 @@ split (HTMLObject *self, HTMLEngine *e, HTMLObject *child, gint offset, gint lev
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
-      gint x, gint y,
-      gint width, gint height,
-      gint tx, gint ty)
+      gint x,
+      gint y,
+      gint width,
+      gint height,
+      gint tx,
+      gint ty)
 {
 	HTMLObject *obj;
 
@@ -274,7 +309,9 @@ draw (HTMLObject *o,
 }
 
 static void
-set_max_height (HTMLObject *o, HTMLPainter *painter, gint height)
+set_max_height (HTMLObject *o,
+                HTMLPainter *painter,
+                gint height)
 {
 	HTMLClue *clue = HTML_CLUE (o);
 	HTMLObject *obj;
@@ -283,7 +320,7 @@ set_max_height (HTMLObject *o, HTMLPainter *painter, gint height)
 		for (obj = HTML_CLUE (o)->head; obj != 0; obj = obj->next) {
 			html_object_set_max_height (obj, painter, height);
 			if (clue->valign == HTML_VALIGN_MIDDLE)
-				obj->y += (height - o->ascent)/2;
+				obj->y += (height - o->ascent) / 2;
 			else if (clue->valign == HTML_VALIGN_BOTTOM)
 				obj->y += height - o->ascent;
 		}
@@ -306,12 +343,14 @@ reset (HTMLObject *clue)
 }
 
 static gboolean
-html_clue_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
+html_clue_real_calc_size (HTMLObject *o,
+                          HTMLPainter *painter,
+                          GList **changed_objs)
 {
 	gboolean changed;
 
 	/* If we have already called calc_size for the children, then just
-	   continue from the last object done in previous call. */
+	 * continue from the last object done in previous call. */
 	if (HTML_CLUE (o)->curr == NULL) {
 		o->ascent = 0;
 		HTML_CLUE (o)->curr = HTML_CLUE (o)->head;
@@ -325,7 +364,7 @@ html_clue_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_o
 	}
 
 	/* Remember the last object so that we can start from here next time
-	   we are called */
+	 * we are called */
 	HTML_CLUE (o)->curr = HTML_CLUE (o)->tail;
 
 	return changed;
@@ -333,7 +372,7 @@ html_clue_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_o
 
 static gint
 calc_preferred_width (HTMLObject *o,
-		      HTMLPainter *painter)
+                      HTMLPainter *painter)
 {
 	gint prefWidth = 0;
 	HTMLObject *obj;
@@ -352,7 +391,7 @@ calc_preferred_width (HTMLObject *o,
 /* FIXME: This should be in HTMLClueV.  */
 static gint
 calc_min_width (HTMLObject *o,
-		HTMLPainter *painter)
+                HTMLPainter *painter)
 {
 	HTMLObject *obj;
 	gint minWidth = 0;
@@ -369,7 +408,10 @@ calc_min_width (HTMLObject *o,
 }
 
 static HTMLAnchor *
-find_anchor (HTMLObject *self, const gchar *name, gint *x, gint *y)
+find_anchor (HTMLObject *self,
+             const gchar *name,
+             gint *x,
+             gint *y)
 {
 	HTMLClue *clue;
 	HTMLObject *obj;
@@ -391,12 +433,13 @@ find_anchor (HTMLObject *self, const gchar *name, gint *x, gint *y)
 	return 0;
 }
 
-static HTMLObject*
+static HTMLObject *
 check_point (HTMLObject *o,
-	     HTMLPainter *painter,
-	     gint x, gint y,
-	     guint *offset_return,
-	     gboolean for_cursor)
+             HTMLPainter *painter,
+             gint x,
+             gint y,
+             guint *offset_return,
+             gboolean for_cursor)
 {
 	HTMLObject *obj;
 	HTMLObject *obj2;
@@ -420,7 +463,9 @@ check_point (HTMLObject *o,
 }
 
 static gint
-check_page_split (HTMLObject *self, HTMLPainter *painter, gint y)
+check_page_split (HTMLObject *self,
+                  HTMLPainter *painter,
+                  gint y)
 {
 	HTMLClue *clue;
 	HTMLObject *p;
@@ -446,9 +491,9 @@ check_page_split (HTMLObject *self, HTMLPainter *painter, gint y)
 
 static void
 forall (HTMLObject *self,
-	HTMLEngine *e,
-	HTMLObjectForallFunc func,
-	gpointer data)
+        HTMLEngine *e,
+        HTMLObjectForallFunc func,
+        gpointer data)
 {
 	HTMLObject *p, *pnext;
 
@@ -485,8 +530,8 @@ save (HTMLObject *self,
 
 static gboolean
 save_plain (HTMLObject *self,
-	    HTMLEngineSaveState *state,
-	    gint requested_width)
+            HTMLEngineSaveState *state,
+            gint requested_width)
 {
 	HTMLObject *p;
 	HTMLClue *clue;
@@ -504,24 +549,29 @@ save_plain (HTMLObject *self,
 /* HTMLClue methods.  */
 
 static gint
-get_left_clear (HTMLClue *o, gint y)
+get_left_clear (HTMLClue *o,
+                gint y)
 {
 	return y;
 }
 
 static gint
-get_right_clear (HTMLClue *o, gint y)
+get_right_clear (HTMLClue *o,
+                 gint y)
 {
 	return y;
 }
 
 static void
 find_free_area (HTMLClue *clue,
-		HTMLPainter *painter,
-		gint y,
-		gint width, gint height,
-		gint indent, gint *y_pos,
-		gint *lmargin, gint *rmargin)
+                HTMLPainter *painter,
+                gint y,
+                gint width,
+                gint height,
+                gint indent,
+                gint *y_pos,
+                gint *lmargin,
+                gint *rmargin)
 {
 	*y_pos = y;
 	*lmargin = 0;
@@ -529,7 +579,12 @@ find_free_area (HTMLClue *clue,
 }
 
 static void
-append_right_aligned (HTMLClue *clue, HTMLPainter *painter, HTMLClue *aclue, gint *lmargin, gint *rmargin, gint indent)
+append_right_aligned (HTMLClue *clue,
+                      HTMLPainter *painter,
+                      HTMLClue *aclue,
+                      gint *lmargin,
+                      gint *rmargin,
+                      gint indent)
 {
 	/* This needs to be implemented in the subclasses.  */
 	g_warning ("`%s' does not implement `append_right_aligned()'.",
@@ -537,13 +592,15 @@ append_right_aligned (HTMLClue *clue, HTMLPainter *painter, HTMLClue *aclue, gin
 }
 
 static gboolean
-appended (HTMLClue *clue, HTMLClue *aclue)
+appended (HTMLClue *clue,
+          HTMLClue *aclue)
 {
 	return FALSE;
 }
 
 static gboolean
-search (HTMLObject *obj, HTMLSearch *info)
+search (HTMLObject *obj,
+        HTMLSearch *info)
 {
 	HTMLObject *cur;
 	HTMLClue *clue = HTML_CLUE (obj);
@@ -574,7 +631,7 @@ search (HTMLObject *obj, HTMLSearch *info)
 
 static void
 append_selection_string (HTMLObject *self,
-			 GString *buffer)
+                         GString *buffer)
 {
 	HTMLObject *o = HTML_CLUE (self)->head;
 
@@ -608,8 +665,8 @@ html_clue_type_init (void)
 
 void
 html_clue_class_init (HTMLClueClass *klass,
-		      HTMLType type,
-		      guint size)
+                      HTMLType type,
+                      guint size)
 {
 	HTMLObjectClass *object_class;
 
@@ -660,7 +717,7 @@ html_clue_class_init (HTMLClueClass *klass,
 
 void
 html_clue_init (HTMLClue *clue,
-		HTMLClueClass *klass)
+                HTMLClueClass *klass)
 {
 	HTMLObject *object;
 
@@ -677,30 +734,40 @@ html_clue_init (HTMLClue *clue,
 
 
 gint
-html_clue_get_left_clear (HTMLClue *clue, gint y)
+html_clue_get_left_clear (HTMLClue *clue,
+                          gint y)
 {
 	return (* HC_CLASS (clue)->get_left_clear) (clue, y);
 }
 
 gint
-html_clue_get_right_clear (HTMLClue *clue, gint y)
+html_clue_get_right_clear (HTMLClue *clue,
+                           gint y)
 {
 	return (* HC_CLASS (clue)->get_right_clear) (clue, y);
 }
 
 void
 html_clue_find_free_area (HTMLClue *clue,
-			  HTMLPainter *painter,
-			  gint y,
-			  gint width, gint height, gint indent, gint *y_pos,
-			  gint *lmargin, gint *rmargin)
+                          HTMLPainter *painter,
+                          gint y,
+                          gint width,
+                          gint height,
+                          gint indent,
+                          gint *y_pos,
+                          gint *lmargin,
+                          gint *rmargin)
 {
 	(* HC_CLASS (clue)->find_free_area) (clue, painter, y, width, height, indent, y_pos, lmargin, rmargin);
 }
 
 void
-html_clue_append_right_aligned (HTMLClue *clue, HTMLPainter *painter,
-				HTMLClue *aclue, gint *lmargin, gint *rmargin, gint indent)
+html_clue_append_right_aligned (HTMLClue *clue,
+                                HTMLPainter *painter,
+                                HTMLClue *aclue,
+                                gint *lmargin,
+                                gint *rmargin,
+                                gint indent)
 {
 	g_assert (clue != NULL);
 	g_assert (aclue != NULL);
@@ -711,8 +778,12 @@ html_clue_append_right_aligned (HTMLClue *clue, HTMLPainter *painter,
 }
 
 void
-html_clue_append_left_aligned (HTMLClue *clue, HTMLPainter *painter,
-			       HTMLClue *aclue, gint *lmargin, gint *rmargin, gint indent)
+html_clue_append_left_aligned (HTMLClue *clue,
+                               HTMLPainter *painter,
+                               HTMLClue *aclue,
+                               gint *lmargin,
+                               gint *rmargin,
+                               gint indent)
 {
 	g_assert (clue != NULL);
 	g_assert (aclue != NULL);
@@ -723,7 +794,8 @@ html_clue_append_left_aligned (HTMLClue *clue, HTMLPainter *painter,
 }
 
 gboolean
-html_clue_appended (HTMLClue *clue, HTMLClue *aclue)
+html_clue_appended (HTMLClue *clue,
+                    HTMLClue *aclue)
 {
 	return (* HC_CLASS (clue)->appended) (clue, aclue);
 }
@@ -745,8 +817,8 @@ get_tail (HTMLObject *p)
 
 static void
 set_parent (HTMLObject *o,
-	    HTMLObject *tail,
-	    HTMLObject *parent)
+            HTMLObject *tail,
+            HTMLObject *parent)
 {
 	while (o) {
 		html_object_set_parent (o, parent);
@@ -766,8 +838,8 @@ set_parent (HTMLObject *o,
  **/
 void
 html_clue_append_after (HTMLClue *clue,
-			HTMLObject *o,
-			HTMLObject *where)
+                        HTMLObject *o,
+                        HTMLObject *where)
 {
 	HTMLObject *tail;
 
@@ -806,7 +878,7 @@ html_clue_append_after (HTMLClue *clue,
  **/
 void
 html_clue_append (HTMLClue *clue,
-		  HTMLObject *o)
+                  HTMLObject *o)
 {
 	HTMLObject *tail;
 
@@ -843,7 +915,7 @@ html_clue_append (HTMLClue *clue,
  **/
 void
 html_clue_prepend (HTMLClue *clue,
-		   HTMLObject *o)
+                   HTMLObject *o)
 {
 	HTMLObject *tail;
 
@@ -878,7 +950,7 @@ html_clue_prepend (HTMLClue *clue,
  **/
 void
 html_clue_remove (HTMLClue *clue,
-		  HTMLObject *o)
+                  HTMLObject *o)
 {
 	g_return_if_fail (clue != NULL);
 	g_return_if_fail (o != NULL);

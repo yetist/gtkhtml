@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library
-
-   Copyright (C) 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHcANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright (C) 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHcANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -36,7 +36,7 @@ struct _HTMLUndo {
 	HTMLUndoStack undo_used;
 
 	/* these lists are stacks containing other
-	   levels undo/redo after calling html_undo_level_start */
+	 * levels undo/redo after calling html_undo_level_start */
 	GSList   *undo_levels;
 	GSList   *redo_levels;
 	guint     level;
@@ -57,14 +57,16 @@ static void add_used_and_redo_to_undo (HTMLUndo *undo, HTMLEngine *engine);
 static void level_destroy (HTMLUndoData *data);
 
 inline static void
-stack_copy (HTMLUndoStack *src, HTMLUndoStack *dst)
+stack_copy (HTMLUndoStack *src,
+            HTMLUndoStack *dst)
 {
 	dst->stack = src->stack;
 	dst->size  = src->size;
 }
 
 inline static void
-stack_dup (HTMLUndoStack *src, HTMLUndoStack *dst)
+stack_dup (HTMLUndoStack *src,
+           HTMLUndoStack *dst)
 {
 	dst->stack = g_list_copy (src->stack);
 	dst->size  = src->size;
@@ -100,7 +102,7 @@ html_undo_new (void)
 }
 
 void
-html_undo_destroy  (HTMLUndo *undo)
+html_undo_destroy (HTMLUndo *undo)
 {
 	g_return_if_fail (undo != NULL);
 
@@ -123,7 +125,10 @@ html_undo_destroy  (HTMLUndo *undo)
 
 
 static void
-action_do_and_destroy_redo (HTMLEngine *engine, HTMLUndo *undo, GList **stack, HTMLUndoDirection dir)
+action_do_and_destroy_redo (HTMLEngine *engine,
+                            HTMLUndo *undo,
+                            GList **stack,
+                            HTMLUndoDirection dir)
 {
 	HTMLUndoAction *action;
 	GList *first;
@@ -148,7 +153,9 @@ action_do_and_destroy_redo (HTMLEngine *engine, HTMLUndo *undo, GList **stack, H
 }
 
 static void
-action_do_and_destroy_undo (HTMLEngine *engine, HTMLUndo *undo, HTMLUndoDirection dir)
+action_do_and_destroy_undo (HTMLEngine *engine,
+                            HTMLUndo *undo,
+                            HTMLUndoDirection dir)
 {
 	HTMLUndoAction *action;
 	GList *first;
@@ -171,7 +178,7 @@ action_do_and_destroy_undo (HTMLEngine *engine, HTMLUndo *undo, HTMLUndoDirectio
 
 void
 html_undo_do_undo (HTMLUndo *undo,
-		   HTMLEngine *engine)
+                   HTMLEngine *engine)
 {
 	g_return_if_fail (undo != NULL);
 	g_return_if_fail (engine != NULL);
@@ -201,7 +208,7 @@ html_undo_do_undo (HTMLUndo *undo,
 
 void
 html_undo_do_redo (HTMLUndo *undo,
-		   HTMLEngine *engine)
+                   HTMLEngine *engine)
 {
 	g_return_if_fail (undo != NULL);
 	g_return_if_fail (engine != NULL);
@@ -251,7 +258,9 @@ html_undo_discard_redo (HTMLUndo *undo)
 }
 
 void
-html_undo_add_undo_action  (HTMLUndo *undo, HTMLEngine *engine, HTMLUndoAction *action)
+html_undo_add_undo_action (HTMLUndo *undo,
+                            HTMLEngine *engine,
+                            HTMLUndoAction *action)
 {
 	g_return_if_fail (undo != NULL);
 	g_return_if_fail (action != NULL);
@@ -295,8 +304,8 @@ html_undo_add_undo_action  (HTMLUndo *undo, HTMLEngine *engine, HTMLUndoAction *
 }
 
 void
-html_undo_add_redo_action  (HTMLUndo *undo,
-			    HTMLUndoAction *action)
+html_undo_add_redo_action (HTMLUndo *undo,
+                            HTMLUndoAction *action)
 {
 	g_return_if_fail (undo != NULL);
 	g_return_if_fail (action != NULL);
@@ -309,7 +318,10 @@ html_undo_add_redo_action  (HTMLUndo *undo,
 }
 
 void
-html_undo_add_action  (HTMLUndo *undo, HTMLEngine *engine, HTMLUndoAction *action, HTMLUndoDirection dir)
+html_undo_add_action (HTMLUndo *undo,
+                       HTMLEngine *engine,
+                       HTMLUndoAction *action,
+                       HTMLUndoDirection dir)
 {
 	if (undo->freeze_count > 0)
 		return;
@@ -321,33 +333,33 @@ html_undo_add_action  (HTMLUndo *undo, HTMLEngine *engine, HTMLUndoAction *actio
 }
 
 void
-html_undo_freeze  (HTMLUndo *undo)
+html_undo_freeze (HTMLUndo *undo)
 {
 	undo->freeze_count++;
 }
 
 void
-html_undo_thaw  (HTMLUndo *undo)
+html_undo_thaw (HTMLUndo *undo)
 {
 	undo->freeze_count--;
 }
 
 /*
-  undo levels
-
-  * IDEA: it closes number of undo steps into one
-  * examples: paste
-               - it first cuts active selection and then inserts objects
-                 from cut_buffer on actual cursor position
-               - if you don't use udo levels, it will generate two undo steps/actions
-              replace
-               - replace uses paste operation, so when it replaces N occurences,
-                 it generates 2*N steps (without using undo levels in paste and replace)
-
-  * usage is simple - just call html_undo_level_begin before using functions with undo
-    and html_undo_level_end after them
-
-*/
+ * undo levels
+ *
+ * IDEA: it closes number of undo steps into one
+ * examples: paste
+ *             - it first cuts active selection and then inserts objects
+ *               from cut_buffer on actual cursor position
+ *             - if you don't use udo levels, it will generate two undo
+ *               steps/actions replace
+ *             - replace uses paste operation, so when it replaces N occurences,
+ *               it generates 2*N steps (without using undo levels in paste and
+ *               replace)
+ *
+ * usage is simple - just call html_undo_level_begin before using functions
+ * with undo and html_undo_level_end after them
+ */
 
 #define HTML_UNDO_LEVEL(x) ((HTMLUndoLevel *) x)
 struct _HTMLUndoLevel {
@@ -381,7 +393,10 @@ level_destroy (HTMLUndoData *data)
 }
 
 static HTMLUndoLevel *
-level_new (HTMLUndo *undo, HTMLUndoStack *stack, const gchar *undo_description, const gchar *redo_description)
+level_new (HTMLUndo *undo,
+           HTMLUndoStack *stack,
+           const gchar *undo_description,
+           const gchar *redo_description)
 {
 	HTMLUndoLevel *nl = g_new (HTMLUndoLevel, 1);
 
@@ -398,7 +413,9 @@ level_new (HTMLUndo *undo, HTMLUndoStack *stack, const gchar *undo_description, 
 }
 
 void
-html_undo_level_begin (HTMLUndo *undo, const gchar *undo_desription, const gchar *redo_desription)
+html_undo_level_begin (HTMLUndo *undo,
+                       const gchar *undo_desription,
+                       const gchar *redo_desription)
 {
 	undo->undo_levels = g_slist_prepend (undo->undo_levels, level_new (undo, &undo->undo,
 									   undo_desription, redo_desription));
@@ -409,7 +426,9 @@ html_undo_level_begin (HTMLUndo *undo, const gchar *undo_desription, const gchar
 }
 
 static void
-redo_level_begin (HTMLUndo *undo, const gchar *redo_desription, const gchar *undo_desription)
+redo_level_begin (HTMLUndo *undo,
+                  const gchar *redo_desription,
+                  const gchar *undo_desription)
 {
 	undo->redo_levels = g_slist_prepend (undo->redo_levels, level_new (undo, &undo->redo,
 									   undo_desription, redo_desription));
@@ -465,7 +484,8 @@ redo_level_end (HTMLUndo *undo)
 }
 
 void
-html_undo_level_end (HTMLUndo *undo, HTMLEngine *engine)
+html_undo_level_end (HTMLUndo *undo,
+                     HTMLEngine *engine)
 {
 	HTMLUndoLevel *level;
 	HTMLUndoStack  save_undo;
@@ -509,7 +529,10 @@ html_undo_level_end (HTMLUndo *undo, HTMLEngine *engine)
 }
 
 static void
-undo_step_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, guint position_after)
+undo_step_action (HTMLEngine *e,
+                  HTMLUndoData *data,
+                  HTMLUndoDirection dir,
+                  guint position_after)
 {
 	HTMLUndo      *undo;
 	HTMLUndoLevel *level;
@@ -552,7 +575,7 @@ undo_step_action (HTMLEngine *e, HTMLUndoData *data, HTMLUndoDirection dir, guin
 }
 
 void
-html_undo_data_init (HTMLUndoData   *data)
+html_undo_data_init (HTMLUndoData *data)
 {
 	data->ref_count = 1;
 	data->destroy   = NULL;
@@ -588,7 +611,8 @@ html_undo_direction_reverse (HTMLUndoDirection dir)
 }
 
 static void
-add_used_and_redo_to_undo (HTMLUndo *undo, HTMLEngine *engine)
+add_used_and_redo_to_undo (HTMLUndo *undo,
+                           HTMLEngine *engine)
 {
 	GList *stack;
 	GList *cur;
@@ -616,7 +640,9 @@ add_used_and_redo_to_undo (HTMLUndo *undo, HTMLEngine *engine)
 #ifdef UNDO_DEBUG
 
 static void
-print_stack (GList *stack, guint size, gint l)
+print_stack (GList *stack,
+             guint size,
+             gint l)
 {
 	gint i;
 

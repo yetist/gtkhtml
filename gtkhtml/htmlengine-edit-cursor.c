@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
-
-    Copyright (C) 2000 Helix Code, Inc.
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
+ *
+ *  Copyright (C) 2000 Helix Code, Inc.
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -55,7 +55,7 @@ html_engine_set_cursor_blink_timeout (gint timeout)
 }
 
 void
-html_engine_hide_cursor  (HTMLEngine *engine)
+html_engine_hide_cursor (HTMLEngine *engine)
 {
 	HTMLEngine *e = engine;
 
@@ -77,7 +77,7 @@ html_engine_hide_cursor  (HTMLEngine *engine)
 }
 
 void
-html_engine_show_cursor  (HTMLEngine *engine)
+html_engine_show_cursor (HTMLEngine *engine)
 {
 	HTMLEngine * e = engine;
 
@@ -101,7 +101,15 @@ html_engine_show_cursor  (HTMLEngine *engine)
 }
 
 static gboolean
-clip_cursor (HTMLEngine *engine, gint x, gint y, gint width, gint height, gint *x1, gint *y1, gint *x2, gint *y2)
+clip_cursor (HTMLEngine *engine,
+             gint x,
+             gint y,
+             gint width,
+             gint height,
+             gint *x1,
+             gint *y1,
+             gint *x2,
+             gint *y2)
 {
 	if (*x1 > x + width || *y1 > y + height || *x2 < x || *y2 < y)
 		return FALSE;
@@ -115,9 +123,14 @@ clip_cursor (HTMLEngine *engine, gint x, gint y, gint width, gint height, gint *
 }
 
 static void
-draw_cursor_rectangle (HTMLEngine *e, gint x1, gint y1, gint x2, gint y2,
-		       GdkColor *on_color, GdkColor *off_color,
-		       gint offset)
+draw_cursor_rectangle (HTMLEngine *e,
+                       gint x1,
+                       gint y1,
+                       gint x2,
+                       gint y2,
+                       GdkColor *on_color,
+                       GdkColor *off_color,
+                       gint offset)
 {
 	cairo_t *cr;
 	const double dashes[2] = { 1, 3 };
@@ -140,7 +153,9 @@ draw_cursor_rectangle (HTMLEngine *e, gint x1, gint y1, gint x2, gint y2,
 static gint cursor_enabled = TRUE;
 
 static inline void
-refresh_under_cursor (HTMLEngine *e, HTMLCursorRectangle *cr, gboolean *enabled)
+refresh_under_cursor (HTMLEngine *e,
+                      HTMLCursorRectangle *cr,
+                      gboolean *enabled)
 {
 	if (cr->x1 > cr->x2 || cr->y1 > cr->y2)
 		return;
@@ -282,8 +297,10 @@ html_engine_draw_table_cursor (HTMLEngine *e)
 
 void
 html_engine_draw_cursor_in_area (HTMLEngine *engine,
-				 gint x, gint y,
-				 gint width, gint height)
+                                 gint x,
+                                 gint y,
+                                 gint width,
+                                 gint height)
 {
 	HTMLObject *obj;
 	guint offset;

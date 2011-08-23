@@ -107,7 +107,8 @@ html_a11y_table_finalize (GObject *obj)
 }
 
 static void
-html_a11y_table_initialize (AtkObject *obj, gpointer data)
+html_a11y_table_initialize (AtkObject *obj,
+                            gpointer data)
 {
 	/* printf ("html_a11y_table_initialize\n"); */
 
@@ -132,7 +133,7 @@ html_a11y_table_init (HTMLA11YTable *a11y_table)
 {
 }
 
-AtkObject*
+AtkObject *
 html_a11y_table_new (HTMLObject *html_obj)
 {
 	GObject *object;
@@ -184,7 +185,9 @@ is_valid (AtkObject *table)
  */
 
 static AtkObject *
-html_a11y_table_ref_at (AtkTable *table, gint row, gint column)
+html_a11y_table_ref_at (AtkTable *table,
+                        gint row,
+                        gint column)
 {
 	AtkObject *accessible = NULL;
 	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
@@ -208,7 +211,9 @@ html_a11y_table_ref_at (AtkTable *table, gint row, gint column)
 }
 
 static gint
-html_a11y_table_get_index_at (AtkTable *table, gint row, gint column)
+html_a11y_table_get_index_at (AtkTable *table,
+                              gint row,
+                              gint column)
 {
 	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
 
@@ -223,7 +228,8 @@ html_a11y_table_get_index_at (AtkTable *table, gint row, gint column)
 }
 
 static gint
-html_a11y_table_get_column_at_index (AtkTable *table, gint index)
+html_a11y_table_get_column_at_index (AtkTable *table,
+                                     gint index)
 {
 	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
 	HTMLTableCell *cell;
@@ -237,7 +243,8 @@ html_a11y_table_get_column_at_index (AtkTable *table, gint index)
 }
 
 static gint
-html_a11y_table_get_row_at_index (AtkTable *table, gint index)
+html_a11y_table_get_row_at_index (AtkTable *table,
+                                  gint index)
 {
 	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
 	HTMLTableCell *cell;
@@ -273,7 +280,9 @@ html_a11y_table_get_n_rows (AtkTable *table)
 }
 
 static gint
-html_a11y_table_get_column_extent_at (AtkTable *table, gint row, gint column)
+html_a11y_table_get_column_extent_at (AtkTable *table,
+                                      gint row,
+                                      gint column)
 {
 	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
 
@@ -288,7 +297,9 @@ html_a11y_table_get_column_extent_at (AtkTable *table, gint row, gint column)
 }
 
 static gint
-html_a11y_table_get_row_extent_at (AtkTable *table, gint row, gint column)
+html_a11y_table_get_row_extent_at (AtkTable *table,
+                                   gint row,
+                                   gint column)
 {
 	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
 
@@ -303,7 +314,8 @@ html_a11y_table_get_row_extent_at (AtkTable *table, gint row, gint column)
 }
 
 static AtkObject *
-html_a11y_table_get_column_header (AtkTable *table, gint column)
+html_a11y_table_get_column_header (AtkTable *table,
+                                   gint column)
 {
 	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
 
@@ -318,7 +330,8 @@ html_a11y_table_get_column_header (AtkTable *table, gint column)
 }
 
 static AtkObject *
-html_a11y_table_get_row_header (AtkTable *table, gint row)
+html_a11y_table_get_row_header (AtkTable *table,
+                                gint row)
 {
 	HTMLTable *to = HTML_TABLE (HTML_A11Y_HTML (table));
 
@@ -333,47 +346,47 @@ html_a11y_table_get_row_header (AtkTable *table, gint row)
 }
 
 /* unsupported calls
-
-  AtkObject*
-                    (* get_caption)              (AtkTable      *table);
-  const gchar *     (* get_column_description)   (AtkTable      *table,
-                                                  gint          column);
-  const gchar *     (* get_row_description)      (AtkTable      *table,
-                                                  gint          row);
-  AtkObject*        (* get_summary)              (AtkTable      *table);
-  void              (* set_caption)              (AtkTable      *table,
-                                                  AtkObject     *caption);
-  void              (* set_column_description)   (AtkTable      *table,
-                                                  gint          column,
-                                                  const gchar   *description);
-  void              (* set_column_header)        (AtkTable      *table,
-                                                  gint          column,
-                                                  AtkObject     *header);
-  void              (* set_row_description)      (AtkTable      *table,
-                                                  gint          row,
-                                                  const gchar   *description);
-  void              (* set_row_header)           (AtkTable      *table,
-                                                  gint          row,
-                                                  AtkObject     *header);
-  void              (* set_summary)              (AtkTable      *table,
-                                                  AtkObject     *accessible);
-  gint              (* get_selected_columns)     (AtkTable      *table,
-                                                  gint          **selected);
-  gint              (* get_selected_rows)        (AtkTable      *table,
-                                                  gint          **selected);
-  gboolean          (* is_column_selected)       (AtkTable      *table,
-                                                  gint          column);
-  gboolean          (* is_row_selected)          (AtkTable      *table,
-                                                  gint          row);
-  gboolean          (* is_selected)              (AtkTable      *table,
-                                                  gint          row,
-                                                  gint          column);
-  gboolean          (* add_row_selection)        (AtkTable      *table,
-                                                  gint          row);
-  gboolean          (* remove_row_selection)     (AtkTable      *table,
-                                                  gint          row);
-  gboolean          (* add_column_selection)     (AtkTable      *table,
-                                                  gint          column);
-  gboolean          (* remove_column_selection)  (AtkTable      *table,
-                                                  gint          column);
-*/
+ * 
+ *   AtkObject*
+ *                     (* get_caption)              (AtkTable      *table);
+ *   const gchar *     (* get_column_description)   (AtkTable      *table,
+ *                                                   gint          column);
+ *   const gchar *     (* get_row_description)      (AtkTable      *table,
+ *                                                   gint          row);
+ *   AtkObject*        (* get_summary)              (AtkTable      *table);
+ *   void              (* set_caption)              (AtkTable      *table,
+ *                                                   AtkObject     *caption);
+ *   void              (* set_column_description)   (AtkTable      *table,
+ *                                                   gint          column,
+ *                                                   const gchar   *description);
+ *   void              (* set_column_header)        (AtkTable      *table,
+ *                                                   gint          column,
+ *                                                   AtkObject     *header);
+ *   void              (* set_row_description)      (AtkTable      *table,
+ *                                                   gint          row,
+ *                                                   const gchar   *description);
+ *   void              (* set_row_header)           (AtkTable      *table,
+ *                                                   gint          row,
+ *                                                   AtkObject     *header);
+ *   void              (* set_summary)              (AtkTable      *table,
+ *                                                   AtkObject     *accessible);
+ *   gint              (* get_selected_columns)     (AtkTable      *table,
+ *                                                   gint          **selected);
+ *   gint              (* get_selected_rows)        (AtkTable      *table,
+ *                                                   gint          **selected);
+ *   gboolean          (* is_column_selected)       (AtkTable      *table,
+ *                                                   gint          column);
+ *   gboolean          (* is_row_selected)          (AtkTable      *table,
+ *                                                   gint          row);
+ *   gboolean          (* is_selected)              (AtkTable      *table,
+ *                                                   gint          row,
+ *                                                   gint          column);
+ *   gboolean          (* add_row_selection)        (AtkTable      *table,
+ *                                                   gint          row);
+ *   gboolean          (* remove_row_selection)     (AtkTable      *table,
+ *                                                   gint          row);
+ *   gboolean          (* add_column_selection)     (AtkTable      *table,
+ *                                                   gint          column);
+ *   gboolean          (* remove_column_selection)  (AtkTable      *table,
+ *                                                   gint          column);
+ */

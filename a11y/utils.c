@@ -32,7 +32,8 @@
 #include "utils.h"
 
 static AtkObject *
-create_accessible (HTMLObject *o, AtkObject *parent)
+create_accessible (HTMLObject *o,
+                   AtkObject *parent)
 {
 	AtkObject *accessible = NULL;
 
@@ -102,7 +103,8 @@ acc_unref (gpointer data)
 }
 
 AtkObject *
-html_utils_get_accessible (HTMLObject *o, AtkObject *parent)
+html_utils_get_accessible (HTMLObject *o,
+                           AtkObject *parent)
 {
 	AtkObject *accessible;
 

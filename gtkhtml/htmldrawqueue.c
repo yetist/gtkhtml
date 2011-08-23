@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-
-   Copyright (C) 1999, 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright (C) 1999, 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -35,11 +35,11 @@
 /* HTMLDrawQueueClearElement handling.  */
 
 static HTMLDrawQueueClearElement *
-clear_element_new (gint            x,
-		   gint            y,
-		   guint           width,
-		   guint           height,
-		   const GdkColor *background_color)
+clear_element_new (gint x,
+                   gint y,
+                   guint width,
+                   guint height,
+                   const GdkColor *background_color)
 {
 	HTMLDrawQueueClearElement *new;
 
@@ -115,7 +115,8 @@ html_draw_queue_destroy (HTMLDrawQueue *queue)
 }
 
 void
-html_draw_queue_add (HTMLDrawQueue *queue, HTMLObject *object)
+html_draw_queue_add (HTMLDrawQueue *queue,
+                     HTMLObject *object)
 {
 	g_return_if_fail (queue != NULL);
 	g_return_if_fail (object != NULL);
@@ -139,7 +140,7 @@ html_draw_queue_add (HTMLDrawQueue *queue, HTMLObject *object)
 
 static void
 add_clear (HTMLDrawQueue *queue,
-	   HTMLDrawQueueClearElement *elem)
+           HTMLDrawQueueClearElement *elem)
 {
 	queue->clear_last = g_list_append (queue->clear_last, elem);
 	if (queue->elems == NULL && queue->clear_elems == NULL)
@@ -153,11 +154,11 @@ add_clear (HTMLDrawQueue *queue,
 
 void
 html_draw_queue_add_clear (HTMLDrawQueue *queue,
-			   gint x,
-			   gint y,
-			   guint width,
-			   guint height,
-			   const GdkColor *background_color)
+                           gint x,
+                           gint y,
+                           guint width,
+                           guint height,
+                           const GdkColor *background_color)
 {
 	HTMLDrawQueueClearElement *new;
 
@@ -170,7 +171,7 @@ html_draw_queue_add_clear (HTMLDrawQueue *queue,
 
 static void
 draw_obj (HTMLDrawQueue *queue,
-	  HTMLObject *obj)
+          HTMLObject *obj)
 {
 	HTMLEngine *e;
 	gint x1, y1, x2, y2;

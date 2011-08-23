@@ -92,7 +92,8 @@ html_a11y_image_finalize (GObject *obj)
 }
 
 static void
-html_a11y_image_initialize (AtkObject *obj, gpointer data)
+html_a11y_image_initialize (AtkObject *obj,
+                            gpointer data)
 {
 	/* printf ("html_a11y_image_initialize\n"); */
 
@@ -118,7 +119,7 @@ html_a11y_image_init (HTMLA11YImage *a11y_image)
 {
 }
 
-AtkObject*
+AtkObject *
 html_a11y_image_new (HTMLObject *html_obj)
 {
 	GObject *object;
@@ -163,7 +164,10 @@ html_a11y_image_get_name (AtkObject *accessible)
  */
 
 static void
-html_a11y_image_get_image_position (AtkImage *image, gint *x, gint *y, AtkCoordType coord_type)
+html_a11y_image_get_image_position (AtkImage *image,
+                                    gint *x,
+                                    gint *y,
+                                    AtkCoordType coord_type)
 {
 	HTMLImage *img = HTML_IMAGE (HTML_A11Y_HTML (image));
 
@@ -174,7 +178,9 @@ html_a11y_image_get_image_position (AtkImage *image, gint *x, gint *y, AtkCoordT
 }
 
 static void
-html_a11y_image_get_image_size (AtkImage *image, gint *width, gint *height)
+html_a11y_image_get_image_size (AtkImage *image,
+                                gint *width,
+                                gint *height)
 {
 	HTMLImage *img = HTML_IMAGE (HTML_A11Y_HTML (image));
 

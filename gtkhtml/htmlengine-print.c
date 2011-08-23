@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-
-   Copyright (C) 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright (C) 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -36,12 +36,12 @@
 
 static void
 print_header_footer (HTMLPainter *painter,
-		     HTMLEngine *engine,
-		     gint width,
-		     gint y,
-		     gdouble height,
-		     GtkHTMLPrintCallback callback,
-		     gpointer user_data)
+                     HTMLEngine *engine,
+                     gint width,
+                     gint y,
+                     gdouble height,
+                     GtkHTMLPrintCallback callback,
+                     gpointer user_data)
 {
 	HTMLPrinter *printer = HTML_PRINTER (painter);
 	GtkPrintContext *context = printer->context;
@@ -67,16 +67,16 @@ print_header_footer (HTMLPainter *painter,
 
 static void
 print_page (HTMLPainter *painter,
-	    HTMLEngine *engine,
-	    gint start_y,
-	    gint page_width,
-	    gint page_height,
-	    gint body_height,
-	    gdouble header_height,
-	    gdouble footer_height,
-	    GtkHTMLPrintCallback header_print,
-	    GtkHTMLPrintCallback footer_print,
-	    gpointer user_data)
+            HTMLEngine *engine,
+            gint start_y,
+            gint page_width,
+            gint page_height,
+            gint body_height,
+            gdouble header_height,
+            gdouble footer_height,
+            GtkHTMLPrintCallback header_print,
+            GtkHTMLPrintCallback footer_print,
+            gpointer user_data)
 {
 	HTMLPrinter *printer = HTML_PRINTER (painter);
 	GtkPrintContext *context = printer->context;
@@ -119,13 +119,13 @@ print_page (HTMLPainter *painter,
 
 static gint
 print_all_pages (HTMLPainter *painter,
-		 HTMLEngine *engine,
-		 gdouble header_height,
-		 gdouble footer_height,
-		 GtkHTMLPrintCallback header_print,
-		 GtkHTMLPrintCallback footer_print,
-		 gpointer user_data,
-		 gboolean do_print)
+                 HTMLEngine *engine,
+                 gdouble header_height,
+                 gdouble footer_height,
+                 GtkHTMLPrintCallback header_print,
+                 GtkHTMLPrintCallback footer_print,
+                 gpointer user_data,
+                 gboolean do_print)
 {
 	HTMLPrinter *printer = HTML_PRINTER (painter);
 	gint new_split_offset, split_offset;
@@ -176,13 +176,13 @@ print_all_pages (HTMLPainter *painter,
 
 static gint
 print_with_header_footer (HTMLEngine *engine,
-			  GtkPrintContext *context,
-			  gdouble header_height,
-			  gdouble footer_height,
-			  GtkHTMLPrintCallback header_print,
-			  GtkHTMLPrintCallback footer_print,
-			  gpointer user_data,
-			  gboolean do_print)
+                          GtkPrintContext *context,
+                          gdouble header_height,
+                          gdouble footer_height,
+                          GtkHTMLPrintCallback header_print,
+                          GtkHTMLPrintCallback footer_print,
+                          gpointer user_data,
+                          gboolean do_print)
 {
 	HTMLPainter *printer;
 	HTMLFont *default_font;
@@ -238,12 +238,12 @@ print_with_header_footer (HTMLEngine *engine,
 
 void
 html_engine_print (HTMLEngine *engine,
-		   GtkPrintContext *context,
-		   gdouble header_height,
-		   gdouble footer_height,
-		   GtkHTMLPrintCallback header_print,
-		   GtkHTMLPrintCallback footer_print,
-		   gpointer user_data)
+                   GtkPrintContext *context,
+                   gdouble header_height,
+                   gdouble footer_height,
+                   GtkHTMLPrintCallback header_print,
+                   GtkHTMLPrintCallback footer_print,
+                   gpointer user_data)
 {
 	print_with_header_footer (
 		engine, context, header_height, footer_height,
@@ -252,9 +252,9 @@ html_engine_print (HTMLEngine *engine,
 
 gint
 html_engine_print_get_pages_num (HTMLEngine *engine,
-				 GtkPrintContext *context,
-				 gdouble header_height,
-				 gdouble footer_height)
+                                 GtkPrintContext *context,
+                                 gdouble header_height,
+                                 gdouble footer_height)
 {
 	return print_with_header_footer (
 		engine, context, header_height, footer_height,
@@ -262,7 +262,8 @@ html_engine_print_get_pages_num (HTMLEngine *engine,
 }
 
 void
-html_engine_print_set_min_split_index (HTMLEngine *engine, gdouble index)
+html_engine_print_set_min_split_index (HTMLEngine *engine,
+                                       gdouble index)
 {
 	engine->min_split_index = index;
 }
@@ -476,14 +477,14 @@ engine_print_end_print (GtkPrintOperation *operation,
 GtkPrintOperationResult
 html_engine_print_operation_run (HTMLEngine *engine,
                                  GtkPrintOperation *operation,
-				 GtkPrintOperationAction action,
-				 GtkWindow *parent,
-				 GtkHTMLPrintCalcHeight calc_header_height,
-				 GtkHTMLPrintCalcHeight calc_footer_height,
+                                 GtkPrintOperationAction action,
+                                 GtkWindow *parent,
+                                 GtkHTMLPrintCalcHeight calc_header_height,
+                                 GtkHTMLPrintCalcHeight calc_footer_height,
                                  GtkHTMLPrintDrawFunc draw_header,
                                  GtkHTMLPrintDrawFunc draw_footer,
                                  gpointer user_data,
-				 GError **error)
+                                 GError **error)
 {
 	EnginePrintData data;
 

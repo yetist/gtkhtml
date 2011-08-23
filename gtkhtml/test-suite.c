@@ -75,7 +75,10 @@ static void load_editable (GtkHTML *html, const gchar *s)
 }
 
 static gboolean
-plain_save_receiver (gpointer engine, const gchar *data, gsize len, gpointer user_data)
+plain_save_receiver (gpointer engine,
+                     const gchar *data,
+                     gsize len,
+                     gpointer user_data)
 {
 	GString *str = (GString *) user_data;
 

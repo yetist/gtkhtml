@@ -49,13 +49,13 @@ static HMODULE hmodule;
 
 BOOL WINAPI
 DllMain (HINSTANCE hinstDLL,
-         DWORD     fdwReason,
-         LPVOID    lpvReserved);
+         DWORD fdwReason,
+         LPVOID lpvReserved);
 
 BOOL WINAPI
 DllMain (HINSTANCE hinstDLL,
-         DWORD     fdwReason,
-         LPVOID    lpvReserved)
+         DWORD fdwReason,
+         LPVOID lpvReserved)
 {
 	switch (fdwReason)
     {
@@ -188,7 +188,7 @@ static GMarkupParser iso_3166_parser = {
 static void
 iso_codes_parse (const GMarkupParser *parser,
                  const gchar *basename,
-		 GHashTable *hash_table)
+                 GHashTable *hash_table)
 {
 	GMappedFile *mapped_file;
 	gchar *filename;

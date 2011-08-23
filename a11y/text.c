@@ -103,9 +103,9 @@ static void	html_a11y_text_delete_text	(AtkEditableText      *text,
 static void	html_a11y_text_paste_text	(AtkEditableText      *text,
 						 gint                 position);
 
-static AtkStateSet* html_a11y_text_ref_state_set	(AtkObject	*accessible);
+static AtkStateSet * html_a11y_text_ref_state_set	(AtkObject	*accessible);
 
-static AtkAttributeSet* html_a11y_text_get_run_attributes	(AtkText *text,
+static AtkAttributeSet * html_a11y_text_get_run_attributes	(AtkText *text,
 								 gint offset,
 								 gint *start_offset,
 								 gint *end_offset);
@@ -119,7 +119,8 @@ get_n_actions (AtkAction *action)
 }
 
 static const gchar *
-action_get_name (AtkAction *action, gint      i)
+action_get_name (AtkAction *action,
+                 gint i)
 {
 	if (i == 0)
                 return _("grab focus");
@@ -128,7 +129,8 @@ action_get_name (AtkAction *action, gint      i)
 }
 
 static gboolean
-do_action (AtkAction * action, gint i)
+do_action (AtkAction *action,
+           gint i)
 {
 	switch (i) {
 	case 0:
@@ -256,7 +258,8 @@ html_a11y_text_finalize (GObject *obj)
 }
 
 static void
-html_a11y_text_initialize (AtkObject *obj, gpointer data)
+html_a11y_text_initialize (AtkObject *obj,
+                           gpointer data)
 {
 	GtkTextBuffer *buffer;
 	HTMLText *to;
@@ -295,7 +298,7 @@ html_a11y_text_init (HTMLA11YText *a11y_text)
 {
 }
 
-AtkObject*
+AtkObject *
 html_a11y_text_new (HTMLObject *html_obj)
 {
 	GObject *object;
@@ -317,7 +320,7 @@ html_a11y_text_new (HTMLObject *html_obj)
 
 /* atkobject.h */
 
-static AtkStateSet*
+static AtkStateSet *
 html_a11y_text_ref_state_set (AtkObject *accessible)
 {
 	AtkStateSet *state_set;
@@ -348,7 +351,12 @@ html_a11y_text_ref_state_set (AtkObject *accessible)
  */
 
 static void
-html_a11y_text_get_extents (AtkComponent *component, gint *x, gint *y, gint *width, gint *height, AtkCoordType coord_type)
+html_a11y_text_get_extents (AtkComponent *component,
+                            gint *x,
+                            gint *y,
+                            gint *width,
+                            gint *height,
+                            AtkCoordType coord_type)
 {
 	HTMLObject *obj = HTML_A11Y_HTML (component);
 	GtkHTMLA11Y *top_html_a11y;
@@ -395,7 +403,9 @@ html_a11y_text_get_extents (AtkComponent *component, gint *x, gint *y, gint *wid
 }
 
 static void
-html_a11y_text_get_size (AtkComponent *component, gint *width, gint *height)
+html_a11y_text_get_size (AtkComponent *component,
+                         gint *width,
+                         gint *height)
 {
 	gint x, y;
 
@@ -421,7 +431,9 @@ html_a11y_text_grab_focus (AtkComponent *comp)
  */
 
 static gchar *
-html_a11y_text_get_text (AtkText *text, gint start_offset, gint end_offset)
+html_a11y_text_get_text (AtkText *text,
+                         gint start_offset,
+                         gint end_offset)
 {
 	HTMLText *to = HTML_TEXT (HTML_A11Y_HTML (text));
 	gchar *str;
@@ -447,7 +459,7 @@ html_a11y_text_get_text (AtkText *text, gint start_offset, gint end_offset)
 }
 
 static gint
-html_a11y_text_get_caret_offset (AtkText * text)
+html_a11y_text_get_caret_offset (AtkText *text)
 {
 	HTMLObject * p;
 	HTMLEngine * e;
@@ -470,7 +482,8 @@ html_a11y_text_get_caret_offset (AtkText * text)
 }
 
 static gboolean
-html_a11y_text_set_caret_offset (AtkText * text, gint offset)
+html_a11y_text_set_caret_offset (AtkText *text,
+                                 gint offset)
 {
 	GtkHTML * html;
 	HTMLEngine * e;
@@ -487,8 +500,11 @@ html_a11y_text_set_caret_offset (AtkText * text, gint offset)
 }
 
 static gchar *
-html_a11y_text_get_text_after_offset (AtkText *text, gint offset, AtkTextBoundary boundary_type,
-				      gint *start_offset, gint *end_offset)
+html_a11y_text_get_text_after_offset (AtkText *text,
+                                      gint offset,
+                                      AtkTextBoundary boundary_type,
+                                      gint *start_offset,
+                                      gint *end_offset)
 {
 	HTMLText *to = HTML_TEXT (HTML_A11Y_HTML (text));
 	HTMLTextSlave *start_slave, *end_slave;
@@ -537,8 +553,11 @@ html_a11y_text_get_text_after_offset (AtkText *text, gint offset, AtkTextBoundar
 }
 
 static gchar *
-html_a11y_text_get_text_at_offset (AtkText *text, gint offset, AtkTextBoundary boundary_type,
-				   gint *start_offset, gint *end_offset)
+html_a11y_text_get_text_at_offset (AtkText *text,
+                                   gint offset,
+                                   AtkTextBoundary boundary_type,
+                                   gint *start_offset,
+                                   gint *end_offset)
 {
 	HTMLText *to = HTML_TEXT (HTML_A11Y_HTML (text));
 	HTMLTextSlave *start_slave, *end_slave;
@@ -594,7 +613,8 @@ html_a11y_text_get_text_at_offset (AtkText *text, gint offset, AtkTextBoundary b
 }
 
 static gunichar
-html_a11y_text_get_character_at_offset (AtkText *text, gint offset)
+html_a11y_text_get_character_at_offset (AtkText *text,
+                                        gint offset)
 {
 	HTMLText *to = HTML_TEXT (HTML_A11Y_HTML (text));
 
@@ -604,8 +624,11 @@ html_a11y_text_get_character_at_offset (AtkText *text, gint offset)
 }
 
 static gchar *
-html_a11y_text_get_text_before_offset (AtkText *text, gint offset, AtkTextBoundary boundary_type,
-				       gint *start_offset, gint *end_offset)
+html_a11y_text_get_text_before_offset (AtkText *text,
+                                       gint offset,
+                                       AtkTextBoundary boundary_type,
+                                       gint *start_offset,
+                                       gint *end_offset)
 {
 	HTMLText *to = HTML_TEXT (HTML_A11Y_HTML (text));
 	HTMLTextSlave *start_slave, *end_slave;
@@ -672,7 +695,10 @@ html_a11y_text_get_n_selections (AtkText *text)
 }
 
 static gchar *
-html_a11y_text_get_selection (AtkText *text, gint selection_num, gint *start_offset, gint *end_offset)
+html_a11y_text_get_selection (AtkText *text,
+                              gint selection_num,
+                              gint *start_offset,
+                              gint *end_offset)
 {
 	HTMLText *to = HTML_TEXT (HTML_A11Y_HTML (text));
 
@@ -686,7 +712,9 @@ html_a11y_text_get_selection (AtkText *text, gint selection_num, gint *start_off
 }
 
 static gboolean
-html_a11y_text_add_selection (AtkText *text, gint start_offset, gint end_offset)
+html_a11y_text_add_selection (AtkText *text,
+                              gint start_offset,
+                              gint end_offset)
 {
 	GtkHTML *html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
 	HTMLObject *obj = HTML_A11Y_HTML (text);
@@ -704,7 +732,8 @@ html_a11y_text_add_selection (AtkText *text, gint start_offset, gint end_offset)
 }
 
 static gboolean
-html_a11y_text_remove_selection (AtkText *text, gint selection_num)
+html_a11y_text_remove_selection (AtkText *text,
+                                 gint selection_num)
 {
 	GtkHTML *html = GTK_HTML_A11Y_GTKHTML (html_a11y_get_gtkhtml_parent (HTML_A11Y (text)));
 	HTMLObject *obj = HTML_A11Y_HTML (text);
@@ -718,7 +747,10 @@ html_a11y_text_remove_selection (AtkText *text, gint selection_num)
 }
 
 static gboolean
-html_a11y_text_set_selection (AtkText *text, gint selection_num, gint start_offset, gint end_offset)
+html_a11y_text_set_selection (AtkText *text,
+                              gint selection_num,
+                              gint start_offset,
+                              gint end_offset)
 {
 	if (selection_num)
 		return FALSE;
@@ -731,9 +763,9 @@ html_a11y_text_set_selection (AtkText *text, gint selection_num, gint start_offs
 
 static AtkAttributeSet *
 html_a11y_text_get_run_attributes (AtkText *text,
-				   gint offset,
-				   gint *start_offset,
-				   gint *end_offset)
+                                   gint offset,
+                                   gint *start_offset,
+                                   gint *end_offset)
 {
 	PangoAttrIterator *iter;
 	PangoAttrList *attr;
@@ -795,14 +827,14 @@ html_a11y_text_get_run_attributes (AtkText *text,
 	}
 
 	/* Get attributes */
-	if ((pango_string = (PangoAttrString*) pango_attr_iterator_get (iter,
+	if ((pango_string = (PangoAttrString *) pango_attr_iterator_get (iter,
 						PANGO_ATTR_FAMILY)) != NULL) {
 		value = g_strdup_printf("%s", pango_string->value);
 		attrib_set = gail_misc_add_attribute (attrib_set,
 				ATK_TEXT_ATTR_FAMILY_NAME,
 				value);
 	}
-	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter,
+	if ((pango_int = (PangoAttrInt *) pango_attr_iterator_get (iter,
 						PANGO_ATTR_STYLE)) != NULL) {
 		attrib_set = gail_misc_add_attribute (attrib_set,
 				ATK_TEXT_ATTR_STYLE,
@@ -810,70 +842,70 @@ html_a11y_text_get_run_attributes (AtkText *text,
 									pango_int->value)));
 	}
 
-	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter,
+	if ((pango_int = (PangoAttrInt *) pango_attr_iterator_get (iter,
 						PANGO_ATTR_WEIGHT)) != NULL) {
 		value = g_strdup_printf("%i", pango_int->value);
 		attrib_set = gail_misc_add_attribute (attrib_set,
 				ATK_TEXT_ATTR_WEIGHT,
 				value);
 	}
-	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter,
+	if ((pango_int = (PangoAttrInt *) pango_attr_iterator_get (iter,
 						PANGO_ATTR_VARIANT)) != NULL) {
 		attrib_set = gail_misc_add_attribute (attrib_set,
 				ATK_TEXT_ATTR_VARIANT,
 				g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_VARIANT,
 									pango_int->value)));
 	}
-	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter,
+	if ((pango_int = (PangoAttrInt *) pango_attr_iterator_get (iter,
 						PANGO_ATTR_STRETCH)) != NULL) {
 		attrib_set = gail_misc_add_attribute (attrib_set,
 				ATK_TEXT_ATTR_STRETCH,
 				g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_STRETCH,
 									pango_int->value)));
 	}
-	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter,
+	if ((pango_int = (PangoAttrInt *) pango_attr_iterator_get (iter,
 						PANGO_ATTR_SIZE)) != NULL) {
 		value = g_strdup_printf("%i", pango_int->value / PANGO_SCALE);
 		attrib_set = gail_misc_add_attribute (attrib_set,
 				ATK_TEXT_ATTR_SIZE,
 				value);
 	}
-	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter,
+	if ((pango_int = (PangoAttrInt *) pango_attr_iterator_get (iter,
 						PANGO_ATTR_UNDERLINE)) != NULL) {
 		attrib_set = gail_misc_add_attribute (attrib_set,
 				ATK_TEXT_ATTR_UNDERLINE,
 				g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_UNDERLINE,
 									pango_int->value)));
 	}
-	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter,
+	if ((pango_int = (PangoAttrInt *) pango_attr_iterator_get (iter,
 						PANGO_ATTR_STRIKETHROUGH)) != NULL) {
 		attrib_set = gail_misc_add_attribute (attrib_set,
 				ATK_TEXT_ATTR_STRIKETHROUGH,
 				g_strdup (atk_text_attribute_get_value (ATK_TEXT_ATTR_STRIKETHROUGH,
 									pango_int->value)));
 	}
-	if ((pango_int = (PangoAttrInt*) pango_attr_iterator_get (iter,
+	if ((pango_int = (PangoAttrInt *) pango_attr_iterator_get (iter,
 						PANGO_ATTR_RISE)) != NULL) {
 		value = g_strdup_printf("%i", pango_int->value);
 		attrib_set = gail_misc_add_attribute (attrib_set,
 				ATK_TEXT_ATTR_RISE,
 				value);
 	}
-	if ((pango_lang = (PangoAttrLanguage*) pango_attr_iterator_get (iter,
+	if ((pango_lang = (PangoAttrLanguage *) pango_attr_iterator_get (iter,
 						PANGO_ATTR_LANGUAGE)) != NULL) {
 		value = g_strdup ( pango_language_to_string ( pango_lang->value));
 		attrib_set = gail_misc_add_attribute (attrib_set,
 				ATK_TEXT_ATTR_LANGUAGE,
 				value);
 	}
-	if ((pango_float = (PangoAttrFloat*) pango_attr_iterator_get (iter,
+	if ((pango_float = (PangoAttrFloat *) pango_attr_iterator_get (iter,
 						PANGO_ATTR_SCALE)) != NULL) {
 		value = g_strdup_printf("%g", pango_float->value);
 		attrib_set = gail_misc_add_attribute (attrib_set,
 				ATK_TEXT_ATTR_SCALE,
 				value);
 	}
-	if ((pango_color = (PangoAttrColor*) pango_attr_iterator_get (iter,
+	if ((pango_color = (PangoAttrColor *) pango_attr_iterator_get (iter,
 						PANGO_ATTR_FOREGROUND)) != NULL) {
 		value = g_strdup_printf ("%u,%u,%u",
 				pango_color->color.red,
@@ -883,7 +915,7 @@ html_a11y_text_get_run_attributes (AtkText *text,
 				ATK_TEXT_ATTR_FG_COLOR,
 				value);
 	}
-	if ((pango_color = (PangoAttrColor*) pango_attr_iterator_get (iter,
+	if ((pango_color = (PangoAttrColor *) pango_attr_iterator_get (iter,
 						PANGO_ATTR_BACKGROUND)) != NULL) {
 		value = g_strdup_printf ("%u,%u,%u",
 				pango_color->color.red,
@@ -901,12 +933,14 @@ html_a11y_text_get_run_attributes (AtkText *text,
 }
 
 /*
-  AtkAttributeSet* (* get_default_attributes)     (AtkText	    *text);
+  AtkAttributeSet * (* get_default_attributes)     (AtkText	    *text);
 */
 
 static gint
-html_a11y_text_get_offset_at_point (AtkText *text, gint x, gint y,
-					AtkCoordType coords)
+html_a11y_text_get_offset_at_point (AtkText *text,
+                                    gint x,
+                                    gint y,
+                                    AtkCoordType coords)
 {
 	GtkHTML *top_html;
 	GtkHTMLA11Y *top_a11y;
@@ -948,9 +982,13 @@ html_a11y_text_get_offset_at_point (AtkText *text, gint x, gint y,
 }
 
 static void
-html_a11y_text_get_character_extents (AtkText *text, gint offset,
-				gint *x, gint *y, gint *width, gint *height,
-				AtkCoordType coords)
+html_a11y_text_get_character_extents (AtkText *text,
+                                      gint offset,
+                                      gint *x,
+                                      gint *y,
+                                      gint *width,
+                                      gint *height,
+                                      AtkCoordType coords)
 {
 	HTMLObject *obj;
 	GtkHTML *html;
@@ -998,7 +1036,7 @@ atk_editable_text_interface_init (AtkEditableTextIface *iface)
 
 static void
 html_a11y_text_set_text_contents (AtkEditableText *text,
-				  const gchar     *string)
+                                  const gchar *string)
 {
 	GtkHTML * html;
 	HTMLText *t;
@@ -1024,9 +1062,9 @@ html_a11y_text_set_text_contents (AtkEditableText *text,
 
 static void
 html_a11y_text_insert_text (AtkEditableText *text,
-			    const gchar     *string,
-			    gint            length,
-			    gint            *position)
+                            const gchar *string,
+                            gint length,
+                            gint *position)
 {
 	GtkHTML * html;
 	HTMLText *t;
@@ -1044,9 +1082,9 @@ html_a11y_text_insert_text (AtkEditableText *text,
 }
 
 static void
-html_a11y_text_copy_text	(AtkEditableText *text,
-				 gint            start_pos,
-				 gint            end_pos)
+html_a11y_text_copy_text (AtkEditableText *text,
+                          gint start_pos,
+                          gint end_pos)
 {
 	GtkHTML * html;
 	HTMLText *t;
@@ -1069,8 +1107,8 @@ html_a11y_text_copy_text	(AtkEditableText *text,
 
 static void
 html_a11y_text_cut_text (AtkEditableText *text,
-			 gint            start_pos,
-			 gint            end_pos)
+                         gint start_pos,
+                         gint end_pos)
 {
 	GtkHTML * html;
 	HTMLText *t;
@@ -1093,9 +1131,9 @@ html_a11y_text_cut_text (AtkEditableText *text,
 }
 
 static void
-html_a11y_text_delete_text	(AtkEditableText *text,
-			 gint            start_pos,
-			 gint            end_pos)
+html_a11y_text_delete_text (AtkEditableText *text,
+                            gint start_pos,
+                            gint end_pos)
 {
 	GtkHTML * html;
 	HTMLText *t;
@@ -1107,13 +1145,13 @@ html_a11y_text_delete_text	(AtkEditableText *text,
 	g_return_if_fail (t);
 
 	html_cursor_jump_to (html->engine->cursor, html->engine, HTML_OBJECT (t), start_pos);
-	html_engine_delete_n (html->engine, end_pos-start_pos, TRUE);
+	html_engine_delete_n (html->engine, end_pos - start_pos, TRUE);
         g_signal_emit_by_name(html, "grab_focus");
 }
 
 static void
-html_a11y_text_paste_text	(AtkEditableText *text,
-				 gint            position)
+html_a11y_text_paste_text (AtkEditableText *text,
+                           gint position)
 {
 	GtkHTML * html;
 	HTMLText *t;
@@ -1148,7 +1186,8 @@ atk_hyper_text_interface_init (AtkHypertextIface *iface)
  */
 
 static AtkHyperlink *
-html_a11y_text_get_link (AtkHypertext *hypertext, gint link_index)
+html_a11y_text_get_link (AtkHypertext *hypertext,
+                         gint link_index)
 {
 	return html_a11y_hyper_link_new (HTML_A11Y (hypertext), link_index);
 }
@@ -1163,7 +1202,8 @@ html_a11y_text_get_n_links (AtkHypertext *hypertext)
 }
 
 static gint
-html_a11y_text_get_link_index (AtkHypertext *hypertext, gint char_index)
+html_a11y_text_get_link_index (AtkHypertext *hypertext,
+                               gint char_index)
 {
 	HTMLObject *obj = HTML_A11Y_HTML (hypertext);
 	Link *link = html_text_get_link_at_offset (HTML_TEXT (obj), char_index);

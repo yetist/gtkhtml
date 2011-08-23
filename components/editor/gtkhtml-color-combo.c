@@ -597,8 +597,8 @@ color_combo_dispose (GObject *object)
 
 static void
 color_combo_get_preferred_width (GtkWidget *widget,
-				gint *minimum_width,
-				gint *natural_width)
+                                 gint *minimum_width,
+                                 gint *natural_width)
 {
 	GtkhtmlColorComboPrivate *priv;
 
@@ -609,8 +609,8 @@ color_combo_get_preferred_width (GtkWidget *widget,
 
 static void
 color_combo_get_preferred_height (GtkWidget *widget,
-				gint *minimum_height,
-				gint *natural_height)
+                                  gint *minimum_height,
+                                  gint *natural_height)
 {
 	GtkhtmlColorComboPrivate *priv;
 

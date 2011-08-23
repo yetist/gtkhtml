@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
-
-    Copyright 1999, 2000 Helix Code, Inc.
-
-    This library is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Library General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This library is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Library General Public License for more details.
-
-    You should have received a copy of the GNU Library General Public License
-    along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA 02110-1301, USA.
+ *
+ *  Copyright 1999, 2000 Helix Code, Inc.
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -175,24 +175,38 @@ static guint signals[LAST_SIGNAL] = { 0 };
 
 static void
 gtk_html_update_scrollbars_on_resize (GtkHTML *html,
-				      gdouble old_doc_width, gdouble old_doc_height,
-				      gdouble old_width, gdouble old_height,
-				      gboolean *changed_x, gboolean *changed_y);
+                                      gdouble old_doc_width,
+                                      gdouble old_doc_height,
+                                      gdouble old_width,
+                                      gdouble old_height,
+                                      gboolean *changed_x,
+                                      gboolean *changed_y);
 
-static void update_primary_selection    (GtkHTML *html);
-static void clipboard_paste_received_cb (GtkClipboard     *clipboard,
-					 GtkSelectionData *selection_data,
-					 gpointer          user_data);
-static gboolean motion_notify_event (GtkWidget *widget, GdkEventMotion *event);
+static void update_primary_selection (GtkHTML *html);
+static void clipboard_paste_received_cb (GtkClipboard *clipboard,
+                                         GtkSelectionData *selection_data,
+                                         gpointer user_data);
+static gboolean motion_notify_event (GtkWidget *widget,
+                                      GdkEventMotion *event);
 
 /* keybindings signal hadlers */
-static void     scroll                 (GtkHTML *html, GtkOrientation orientation, GtkScrollType scroll_type, gfloat position);
-static void     cursor_move            (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip);
-static gboolean command                (GtkHTML *html, GtkHTMLCommandType com_type);
-static gint     mouse_change_pos       (GtkWidget *widget, GdkWindow *window, gint x, gint y, gint state);
-static void     add_bindings           (GtkHTMLClass *klass);
-static const gchar * get_value_nick    (GtkHTMLCommandType com_type);
-static void	gtk_html_adjust_cursor_position (GtkHTML *html);
+static void scroll (GtkHTML *html,
+                                      GtkOrientation orientation,
+                                      GtkScrollType scroll_type,
+                                      gfloat position);
+static void cursor_move (GtkHTML *html,
+                                      GtkDirectionType dir_type,
+                                      GtkHTMLCursorSkipType skip);
+static gboolean command (GtkHTML *html,
+                                      GtkHTMLCommandType com_type);
+static gint mouse_change_pos (GtkWidget *widget,
+                                      GdkWindow *window,
+                                      gint x,
+                                      gint y,
+                                      gint state);
+static void add_bindings (GtkHTMLClass *klass);
+static const gchar *get_value_nick (GtkHTMLCommandType com_type);
+static void gtk_html_adjust_cursor_position (GtkHTML *html);
 static gboolean any_has_cursor_moved (GtkHTML *html);
 static gboolean any_has_skip_update_cursor (GtkHTML *html);
 
@@ -201,7 +215,8 @@ static gboolean any_has_skip_update_cursor (GtkHTML *html);
 
 
 GtkHTMLParagraphStyle
-clueflow_style_to_paragraph_style (HTMLClueFlowStyle style, HTMLListType item_type)
+clueflow_style_to_paragraph_style (HTMLClueFlowStyle style,
+                                   HTMLListType item_type)
 {
 	switch (style) {
 	case HTML_CLUEFLOW_STYLE_NORMAL:
@@ -243,7 +258,9 @@ clueflow_style_to_paragraph_style (HTMLClueFlowStyle style, HTMLListType item_ty
 }
 
 void
-paragraph_style_to_clueflow_style (GtkHTMLParagraphStyle style, HTMLClueFlowStyle *flow_style, HTMLListType *item_type)
+paragraph_style_to_clueflow_style (GtkHTMLParagraphStyle style,
+                                   HTMLClueFlowStyle *flow_style,
+                                   HTMLListType *item_type)
 {
 	*item_type = HTML_LIST_TYPE_BLOCKQUOTE;
 	*flow_style = HTML_CLUEFLOW_STYLE_LIST_ITEM;
@@ -441,7 +458,8 @@ queue_draw (GtkHTML *html)
 /* HTMLEngine callbacks.  */
 
 static void
-html_engine_title_changed_cb (HTMLEngine *engine, gpointer data)
+html_engine_title_changed_cb (HTMLEngine *engine,
+                              gpointer data)
 {
 	GtkHTML *gtk_html;
 
@@ -450,7 +468,9 @@ html_engine_title_changed_cb (HTMLEngine *engine, gpointer data)
 }
 
 static void
-html_engine_set_base_cb (HTMLEngine *engine, const gchar *base, gpointer data)
+html_engine_set_base_cb (HTMLEngine *engine,
+                         const gchar *base,
+                         gpointer data)
 {
 	GtkHTML *gtk_html;
 
@@ -460,7 +480,9 @@ html_engine_set_base_cb (HTMLEngine *engine, const gchar *base, gpointer data)
 }
 
 static void
-html_engine_set_base_target_cb (HTMLEngine *engine, const gchar *base_target, gpointer data)
+html_engine_set_base_target_cb (HTMLEngine *engine,
+                                const gchar *base_target,
+                                gpointer data)
 {
 	GtkHTML *gtk_html;
 
@@ -469,7 +491,8 @@ html_engine_set_base_target_cb (HTMLEngine *engine, const gchar *base_target, gp
 }
 
 static void
-html_engine_load_done_cb (HTMLEngine *engine, gpointer data)
+html_engine_load_done_cb (HTMLEngine *engine,
+                          gpointer data)
 {
 	GtkHTML *gtk_html;
 
@@ -479,9 +502,9 @@ html_engine_load_done_cb (HTMLEngine *engine, gpointer data)
 
 static void
 html_engine_url_requested_cb (HTMLEngine *engine,
-			      const gchar *url,
-			      GtkHTMLStream *handle,
-			      gpointer data)
+                              const gchar *url,
+                              GtkHTMLStream *handle,
+                              gpointer data)
 {
 	GtkHTML *gtk_html;
 	gchar *expanded = NULL;
@@ -497,7 +520,7 @@ html_engine_url_requested_cb (HTMLEngine *engine,
 
 static void
 html_engine_draw_pending_cb (HTMLEngine *engine,
-			     gpointer data)
+                             gpointer data)
 {
 	GtkHTML *html;
 
@@ -508,9 +531,9 @@ html_engine_draw_pending_cb (HTMLEngine *engine,
 
 static void
 html_engine_redirect_cb (HTMLEngine *engine,
-			 const gchar *url,
-			 gint delay,
-			 gpointer data)
+                         const gchar *url,
+                         gint delay,
+                         gpointer data)
 {
 	GtkHTML *gtk_html;
 
@@ -521,10 +544,10 @@ html_engine_redirect_cb (HTMLEngine *engine,
 
 static void
 html_engine_submit_cb (HTMLEngine *engine,
-		       const gchar *method,
-		       const gchar *url,
-		       const gchar *encoding,
-		       gpointer data)
+                       const gchar *method,
+                       const gchar *url,
+                       const gchar *encoding,
+                       gpointer data)
 {
 	GtkHTML *gtk_html;
 
@@ -535,8 +558,8 @@ html_engine_submit_cb (HTMLEngine *engine,
 
 static gboolean
 html_engine_object_requested_cb (HTMLEngine *engine,
-		       GtkHTMLEmbedded *eb,
-		       gpointer data)
+                       GtkHTMLEmbedded *eb,
+                       gpointer data)
 {
 	GtkHTML *gtk_html;
 	gboolean object_found = FALSE;
@@ -569,7 +592,8 @@ scroll_update_mouse (GtkWidget *widget)
 }
 
 static void
-vertical_scroll_cb (GtkAdjustment *adjustment, gpointer data)
+vertical_scroll_cb (GtkAdjustment *adjustment,
+                    gpointer data)
 {
 	GtkHTML *html = GTK_HTML (data);
 
@@ -581,7 +605,8 @@ vertical_scroll_cb (GtkAdjustment *adjustment, gpointer data)
 }
 
 static void
-horizontal_scroll_cb (GtkAdjustment *adjustment, gpointer data)
+horizontal_scroll_cb (GtkAdjustment *adjustment,
+                      gpointer data)
 {
 	GtkHTML *html = GTK_HTML (data);
 
@@ -654,7 +679,10 @@ vadjustment_notify_cb (GtkHTML *html)
 /* Scroll timeout handling.  */
 
 static void
-inc_adjustment (GtkAdjustment *adj, gint doc_width, gint alloc_width, gint inc)
+inc_adjustment (GtkAdjustment *adj,
+                gint doc_width,
+                gint alloc_width,
+                gint inc)
 {
 	gfloat value;
 	gint max;
@@ -848,7 +876,8 @@ gtk_html_get_top_html (GtkHTML *html)
 }
 
 void
-gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
+gtk_html_set_fonts (GtkHTML *html,
+                    HTMLPainter *painter)
 {
 	GtkWidget *top_level;
 	GtkStyle *style;
@@ -924,7 +953,8 @@ gtk_html_set_fonts (GtkHTML *html, HTMLPainter *painter)
 }
 
 static void
-set_caret_mode (HTMLEngine *engine, gboolean caret_mode)
+set_caret_mode (HTMLEngine *engine,
+                gboolean caret_mode)
 {
 	if (engine->editable)
 		return;
@@ -951,12 +981,13 @@ set_caret_mode (HTMLEngine *engine, gboolean caret_mode)
 /* GtkWidget methods.  */
 
 static void
-style_set (GtkWidget *widget, GtkStyle  *previous_style)
+style_set (GtkWidget *widget,
+           GtkStyle *previous_style)
 {
 	HTMLEngine *engine = GTK_HTML (widget)->engine;
 
 	/* we don't need to set font's in idle time so call idle callback directly to avoid
-	   recalculating whole document
+	 * recalculating whole document
 	*/
 	if (engine) {
 		gtk_html_set_fonts (GTK_HTML (widget), engine->painter);
@@ -974,7 +1005,8 @@ style_set (GtkWidget *widget, GtkStyle  *previous_style)
 }
 
 static void
-update_mouse_cursor (GtkWidget *widget, guint state)
+update_mouse_cursor (GtkWidget *widget,
+                     guint state)
 {
 	GdkEventMotion event;
 
@@ -989,7 +1021,8 @@ update_mouse_cursor (GtkWidget *widget, guint state)
 }
 
 static gboolean
-key_press_event (GtkWidget *widget, GdkEventKey *event)
+key_press_event (GtkWidget *widget,
+                 GdkEventKey *event)
 {
 	GtkHTML *html = GTK_HTML (widget);
 	GtkHTMLClass *html_class = GTK_HTML_CLASS (GTK_WIDGET_GET_CLASS (html));
@@ -1073,7 +1106,8 @@ key_press_event (GtkWidget *widget, GdkEventKey *event)
 }
 
 static gboolean
-key_release_event (GtkWidget *widget, GdkEventKey *event)
+key_release_event (GtkWidget *widget,
+                   GdkEventKey *event)
 {
 	GtkHTML *html = GTK_HTML (widget);
 
@@ -1146,7 +1180,7 @@ realize (GtkWidget *widget)
 	gdk_window_set_cursor (window, NULL);
 
 	/* This sets the backing pixmap to None, so that scrolling does not
-	   erase the newly exposed area, thus making the thing smoother.  */
+	 * erase the newly exposed area, thus making the thing smoother.  */
 	gdk_window_set_background_pattern (bin_window, NULL);
 
 	/* If someone was silly enough to stick us in something that doesn't
@@ -1186,7 +1220,8 @@ unrealize (GtkWidget *widget)
 }
 
 static gboolean
-draw (GtkWidget *widget, cairo_t *cr)
+draw (GtkWidget *widget,
+      cairo_t *cr)
 {
 	html_engine_draw_cb (GTK_HTML (widget)->engine, cr);
 
@@ -1197,7 +1232,9 @@ draw (GtkWidget *widget, cairo_t *cr)
 }
 
 static void
-gtk_html_get_preferred_height (GtkWidget *widget, gint *minimum_height, gint *natural_height)
+gtk_html_get_preferred_height (GtkWidget *widget,
+                               gint *minimum_height,
+                               gint *natural_height)
 {
 	HTMLEngine *e = GTK_HTML (widget)->engine;
 	if (!e->writing) {
@@ -1215,7 +1252,9 @@ gtk_html_get_preferred_height (GtkWidget *widget, gint *minimum_height, gint *na
 }
 
 static void
-gtk_html_get_preferred_width (GtkWidget *widget, gint *minimum_width, gint *natural_width)
+gtk_html_get_preferred_width (GtkWidget *widget,
+                              gint *minimum_width,
+                              gint *natural_width)
 {
 	HTMLEngine *e = GTK_HTML (widget)->engine;
 	if (!e->writing) {
@@ -1233,7 +1272,9 @@ gtk_html_get_preferred_width (GtkWidget *widget, gint *minimum_width, gint *natu
 }
 
 static void
-child_size_allocate (HTMLObject *o, HTMLEngine *e, gpointer data)
+child_size_allocate (HTMLObject *o,
+                     HTMLEngine *e,
+                     gpointer data)
 {
 	if (html_object_is_embedded (o)) {
 		HTMLEmbedded *eo = HTML_EMBEDDED (o);
@@ -1319,7 +1360,8 @@ gtk_layout_faux_size_allocate (GtkWidget *widget,
 }
 
 static void
-size_allocate (GtkWidget *widget, GtkAllocation *allocation)
+size_allocate (GtkWidget *widget,
+               GtkAllocation *allocation)
 {
 	GtkHTML *html;
 	gboolean changed_x = FALSE, changed_y = FALSE;
@@ -1331,7 +1373,7 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 	html = GTK_HTML (widget);
 
 	/* isolate children from layout - we want to set them after calc size is performed
-	   and we know the position of the children */
+	 * and we know the position of the children */
 
 	gtk_layout_faux_size_allocate (widget, allocation);
 
@@ -1361,7 +1403,8 @@ size_allocate (GtkWidget *widget, GtkAllocation *allocation)
 }
 
 static void
-set_pointer_url (GtkHTML *html, const gchar *url)
+set_pointer_url (GtkHTML *html,
+                 const gchar *url)
 {
 	if (url == html->pointer_url)
 		return;
@@ -1375,7 +1418,9 @@ set_pointer_url (GtkHTML *html, const gchar *url)
 }
 
 static void
-dnd_link_set (GtkWidget *widget, HTMLObject *o, gint offset)
+dnd_link_set (GtkWidget *widget,
+              HTMLObject *o,
+              gint offset)
 {
 	if (!html_engine_get_editable (GTK_HTML (widget)->engine)) {
 		/* printf ("dnd_link_set %p\n", o); */
@@ -1401,7 +1446,12 @@ dnd_link_unset (GtkWidget *widget)
 }
 
 static void
-on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj, gint offset, gint x, gint y)
+on_object (GtkWidget *widget,
+           GdkWindow *window,
+           HTMLObject *obj,
+           gint offset,
+           gint x,
+           gint y)
 {
 	GtkHTML *html = GTK_HTML (widget);
 
@@ -1454,7 +1504,11 @@ on_object (GtkWidget *widget, GdkWindow *window, HTMLObject *obj, gint offset, g
 #define HTML_DIST(x,y) sqrt(x*x + y*y)
 
 static gint
-mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y, gint state)
+mouse_change_pos (GtkWidget *widget,
+                  GdkWindow *window,
+                  gint x,
+                  gint y,
+                  gint state)
 {
 	GtkHTML *html;
 	HTMLEngine *engine;
@@ -1519,7 +1573,7 @@ mouse_change_pos (GtkWidget *widget, GdkWindow *window, gint x, gint y, gint sta
 			remove_scroll_timeout (html);
 
 		/* This will put the mark at the position of the
-		   previous click.  */
+		 * previous click.  */
 		if (engine->mark == NULL && engine->editable)
 			html_engine_set_mark (engine);
 
@@ -1581,7 +1635,8 @@ skip_host (const gchar *url)
 }
 
 static gsize
-path_len (const gchar *base, gboolean absolute)
+path_len (const gchar *base,
+          gboolean absolute)
 {
 	const gchar *last;
 	const gchar *cur;
@@ -1636,15 +1691,15 @@ static gboolean
 url_is_absolute (const gchar *url)
 {
 	/*
-	  URI Syntactic Components
-
-	  The URI syntax is dependent upon the scheme.  In general, absolute
-	  URI are written as follows:
-
-	  <scheme>:<scheme-specific-part>
-
-	  scheme        = alpha *( alpha | digit | "+" | "-" | "." )
-	*/
+	 * URI Syntactic Components
+	 *
+	 * The URI syntax is dependent upon the scheme.  In general, absolute
+	 * URI are written as follows:
+	 *
+	 * <scheme>:<scheme-specific-part>
+	 *
+	 * scheme        = alpha *( alpha | digit | "+" | "-" | "." )
+	 */
 
 	if (!url)
 		return FALSE;
@@ -1660,7 +1715,8 @@ url_is_absolute (const gchar *url)
 }
 
 static gchar *
-expand_relative (const gchar *base, const gchar *url)
+expand_relative (const gchar *base,
+                 const gchar *url)
 {
 	gchar *new_url = NULL;
 	gsize base_len, url_len;
@@ -1696,20 +1752,22 @@ expand_relative (const gchar *base, const gchar *url)
 	new_url[base_len + url_len] = '\0';
 
 	/*
-	   g_warning ("base = %s url = %s new_url = %s",
-	   base, url, new_url);
+	 * g_warning ("base = %s url = %s new_url = %s",
+	 * base, url, new_url);
 	*/
 	return new_url;
 }
 
 gchar *
-gtk_html_get_url_base_relative (GtkHTML *html, const gchar *url)
+gtk_html_get_url_base_relative (GtkHTML *html,
+                                const gchar *url)
 {
 	return expand_relative (gtk_html_get_base (html), url);
 }
 
 static gchar *
-expand_frame_url (GtkHTML *html, const gchar *url)
+expand_frame_url (GtkHTML *html,
+                  const gchar *url)
 {
 	gchar *new_url;
 
@@ -1728,7 +1786,9 @@ expand_frame_url (GtkHTML *html, const gchar *url)
 }
 
 gchar *
-gtk_html_get_url_object_relative (GtkHTML *html, HTMLObject *o, const gchar *url)
+gtk_html_get_url_object_relative (GtkHTML *html,
+                                  HTMLObject *o,
+                                  const gchar *url)
 {
 	HTMLEngine *e;
 	HTMLObject *parent;
@@ -1762,7 +1822,9 @@ gtk_html_get_url_object_relative (GtkHTML *html, HTMLObject *o, const gchar *url
 }
 
 static GtkWidget *
-shift_to_iframe_parent (GtkWidget *widget, gint *x, gint *y)
+shift_to_iframe_parent (GtkWidget *widget,
+                        gint *x,
+                        gint *y)
 {
 	while (GTK_HTML (widget)->iframe_parent) {
 		GtkAllocation allocation;
@@ -1816,7 +1878,9 @@ motion_notify_event (GtkWidget *widget,
 }
 
 static gboolean
-toplevel_unmap (GtkWidget *widget, GdkEvent *event, GtkHTML *html)
+toplevel_unmap (GtkWidget *widget,
+                GdkEvent *event,
+                GtkHTML *html)
 {
 	html_image_factory_stop_animations (html->engine->image_factory);
 
@@ -1825,7 +1889,7 @@ toplevel_unmap (GtkWidget *widget, GdkEvent *event, GtkHTML *html)
 
 static void
 hierarchy_changed (GtkWidget *widget,
-		   GtkWidget *old_toplevel)
+                   GtkWidget *old_toplevel)
 {
 	GtkWidget *toplevel;
 	GtkHTMLPrivate   *priv = GTK_HTML (widget)->priv;
@@ -1846,7 +1910,7 @@ hierarchy_changed (GtkWidget *widget,
 
 static gint
 visibility_notify_event (GtkWidget *widget,
-			 GdkEventVisibility *event)
+                         GdkEventVisibility *event)
 {
 	if (event->state == GDK_VISIBILITY_FULLY_OBSCURED)
 		html_image_factory_stop_animations (GTK_HTML (widget)->engine->image_factory);
@@ -1858,7 +1922,7 @@ visibility_notify_event (GtkWidget *widget,
 
 static gint
 button_press_event (GtkWidget *widget,
-		    GdkEventButton *event)
+                    GdkEventButton *event)
 {
 	GtkHTML *html;
 	GtkWidget *orig_widget = widget;
@@ -2050,7 +2114,7 @@ any_has_skip_update_cursor (GtkHTML *html)
 
 static gint
 button_release_event (GtkWidget *initial_widget,
-		      GdkEventButton *event)
+                      GdkEventButton *event)
 {
 	GtkWidget *widget;
 	GtkHTML *html;
@@ -2126,7 +2190,8 @@ button_release_event (GtkWidget *initial_widget,
 }
 
 static void
-gtk_html_keymap_direction_changed (GdkKeymap *keymap, GtkHTML *html)
+gtk_html_keymap_direction_changed (GdkKeymap *keymap,
+                                   GtkHTML *html)
 {
 	if (html_engine_get_editable (html->engine)) {
 		html_engine_edit_set_direction (html->engine, html_text_direction_pango_to_html (gdk_keymap_get_direction (keymap)));
@@ -2171,7 +2236,7 @@ goto_caret_anchor (GtkHTML *html)
 
 static gint
 focus_in_event (GtkWidget *widget,
-		GdkEventFocus *event)
+                GdkEventFocus *event)
 {
 	GtkHTML *html = GTK_HTML (widget);
 
@@ -2199,7 +2264,7 @@ focus_in_event (GtkWidget *widget,
 
 static gint
 focus_out_event (GtkWidget *widget,
-		 GdkEventFocus *event)
+                 GdkEventFocus *event)
 {
 	GtkHTML *html = GTK_HTML (widget);
 
@@ -2220,7 +2285,8 @@ focus_out_event (GtkWidget *widget,
 }
 
 static gint
-enter_notify_event (GtkWidget *widget, GdkEventCrossing *event)
+enter_notify_event (GtkWidget *widget,
+                    GdkEventCrossing *event)
 {
 	GdkWindow *window;
 	gint x, y;
@@ -2260,7 +2326,11 @@ utf16_order (gboolean swap)
 }
 
 static gchar *
-get_selection_string (GtkHTML *html, gint *len, gboolean selection, gboolean primary, gboolean html_format)
+get_selection_string (GtkHTML *html,
+                      gint *len,
+                      gboolean selection,
+                      gboolean primary,
+                      gboolean html_format)
 {
 	HTMLObject *selection_object = NULL;
 	gchar *selection_string = NULL;
@@ -2312,25 +2382,29 @@ get_selection_string (GtkHTML *html, gint *len, gboolean selection, gboolean pri
 
 /* returned pointer should be freed with g_free */
 gchar *
-gtk_html_get_selection_html (GtkHTML *html, gint *len)
+gtk_html_get_selection_html (GtkHTML *html,
+                             gint *len)
 {
 	return get_selection_string (html, len, TRUE, FALSE, TRUE);
 }
 
 /* returned pointer should be freed with g_free */
 gchar *
-gtk_html_get_selection_plain_text (GtkHTML *html, gint *len)
+gtk_html_get_selection_plain_text (GtkHTML *html,
+                                   gint *len)
 {
 	return get_selection_string (html, len, TRUE, FALSE, FALSE);
 }
 
 static gchar *
-utf16_to_utf8_with_bom_check (guchar  *data, guint len) {
-	const gchar *fromcode = NULL;
-	GError  *error = NULL;
-	guint16 c;
-	gsize read_len, written_len;
-	gchar *utf8_ret;
+utf16_to_utf8_with_bom_check (guchar *data,
+                              guint len) {
+        const gchar *fromcode = NULL;
+        GError *error = NULL;
+        guint16 c;
+        gsize read_len,
+                              written_len;
+        gchar *utf8_ret;
 
 	/*
 	 * Unicode Techinical Report 20
@@ -2340,48 +2414,51 @@ utf16_to_utf8_with_bom_check (guchar  *data, guint len) {
 	 * order
 	 */
 
-	memcpy (&c, data, 2);
-	switch (c) {
-	case 0xfeff:
-	case 0xfffe:
-		fromcode = utf16_order (c == 0xfeff);
-		data += 2;
-		len  -= 2;
-		break;
-	default:
+        memcpy (&c,
+                              data,
+                              2);
+        switch (c) {
+        case 0xfeff:
+        case 0xfffe:
+                fromcode = utf16_order (c == 0xfeff);
+                data += 2;
+                len  -= 2;
+                break;
+        default:
 		fromcode = "UTF-16";
-		break;
-	}
+                break;
+        }
 
 	utf8_ret = g_convert ((gchar *) data, len, "UTF-8", fromcode, &read_len, &written_len, &error);
 
-	if (error) {
+        if (error) {
 		g_warning ("g_convert error: %s\n", error->message);
-		g_error_free (error);
-	}
-	return (utf8_ret);
+                g_error_free (error);
+        }
+        return (utf8_ret);
 }
 
 /* removes useless leading BOM from UTF-8 string if present */
 static gchar *
 utf8_filter_out_bom (gchar *str) {
-	if (!str)
-		return NULL;
+        if (!str)
+                return NULL;
 
 	/* input is always valid, NUL-terminated UTF-8 sequence, we don't need
 	 * to validated it again */
-	if (g_utf8_get_char (str) == 0xfeff) {
-		gchar *out = g_strdup (g_utf8_next_char (str));
-		g_free (str);
-		return out;
-	}
+        if (g_utf8_get_char (str) == 0xfeff) {
+                gchar *out = g_strdup (g_utf8_next_char (str));
+                g_free (str);
+                return out;
+        }
 
-	return str;
+        return str;
 }
 
 /* Initialization.  */
 static void
-set_focus_child (GtkContainer *containter, GtkWidget *w)
+set_focus_child (GtkContainer *containter,
+                 GtkWidget *w)
 {
 	HTMLObject *o = NULL;
 
@@ -2395,7 +2472,8 @@ set_focus_child (GtkContainer *containter, GtkWidget *w)
 }
 
 static gboolean
-focus (GtkWidget *w, GtkDirectionType direction)
+focus (GtkWidget *w,
+       GtkDirectionType direction)
 {
 	HTMLEngine *e = GTK_HTML (w)->engine;
 
@@ -2449,20 +2527,20 @@ focus (GtkWidget *w, GtkDirectionType direction)
 			e->x_offset = x2 - e->width;
 		if (x1 < e->x_offset)
 			e->x_offset = x1;
-		if (e->width > 2*RIGHT_BORDER && e->x_offset == x2 - e->width)
+		if (e->width > 2 * RIGHT_BORDER && e->x_offset == x2 - e->width)
 			e->x_offset = MIN (x2 - e->width + RIGHT_BORDER + 1,
 					   html_engine_get_doc_width (e) - e->width);
-		if (e->width > 2*LEFT_BORDER && e->x_offset >= x1)
+		if (e->width > 2 * LEFT_BORDER && e->x_offset >= x1)
 			e->x_offset = MAX (x1 - LEFT_BORDER, 0);
 
 		if (y2 >= e->y_offset + e->height)
 			e->y_offset = y2 - e->height + 1;
 		if (y1 < e->y_offset)
 			e->y_offset = y1;
-		if (e->height > 2*BOTTOM_BORDER && e->y_offset == y2 - e->height + 1)
+		if (e->height > 2 * BOTTOM_BORDER && e->y_offset == y2 - e->height + 1)
 			e->y_offset = MIN (y2 - e->height + BOTTOM_BORDER + 1,
 					   html_engine_get_doc_height (e) - e->height);
-		if (e->height > 2*TOP_BORDER && e->y_offset >= y1)
+		if (e->height > 2 * TOP_BORDER && e->y_offset >= y1)
 			e->y_offset = MAX (y1 - TOP_BORDER, 0);
 
 		if (e->x_offset != xo) {
@@ -2478,7 +2556,7 @@ focus (GtkWidget *w, GtkDirectionType direction)
 			gtk_adjustment_set_value (adjustment, (gfloat) e->y_offset);
 		}
 		/* printf ("engine pos: %d,%d x %d,%d\n",
-		   e->x_offset, e->y_offset, e->x_offset + e->width, e->y_offset + e->height); */
+		 * e->x_offset, e->y_offset, e->x_offset + e->width, e->y_offset + e->height); */
 
 		if (!gtk_widget_has_focus (w) && !html_object_is_embedded (obj))
 			gtk_widget_grab_focus (w);
@@ -2498,7 +2576,8 @@ focus (GtkWidget *w, GtkDirectionType direction)
 /* dnd begin */
 
 static void
-drag_begin (GtkWidget *widget, GdkDragContext *context)
+drag_begin (GtkWidget *widget,
+            GdkDragContext *context)
 {
 	HTMLInterval *i;
 	HTMLObject *o;
@@ -2513,7 +2592,8 @@ drag_begin (GtkWidget *widget, GdkDragContext *context)
 }
 
 static void
-drag_end (GtkWidget *widget, GdkDragContext *context)
+drag_end (GtkWidget *widget,
+          GdkDragContext *context)
 {
 	GtkHTML *html;
 
@@ -2526,7 +2606,11 @@ drag_end (GtkWidget *widget, GdkDragContext *context)
 }
 
 static void
-drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *selection_data, guint info, guint time)
+drag_data_get (GtkWidget *widget,
+               GdkDragContext *context,
+               GtkSelectionData *selection_data,
+               guint info,
+               guint time)
 {
 	/* printf ("drag_data_get\n"); */
 	switch (info) {
@@ -2596,14 +2680,17 @@ drag_data_get (GtkWidget *widget, GdkDragContext *context, GtkSelectionData *sel
 }
 
 static void
-drag_data_delete (GtkWidget *widget, GdkDragContext *context)
+drag_data_delete (GtkWidget *widget,
+                  GdkDragContext *context)
 {
 	g_free (GTK_HTML (widget)->priv->dnd_url);
 	GTK_HTML (widget)->priv->dnd_url = NULL;
 }
 
 static gchar *
-next_uri (guchar **uri_list, gint *len, gint *list_len)
+next_uri (guchar **uri_list,
+          gint *len,
+          gint *list_len)
 {
 	guchar *uri, *begin;
 
@@ -2626,7 +2713,10 @@ next_uri (guchar **uri_list, gint *len, gint *list_len)
 }
 
 static HTMLObject *
-new_img_obj_from_uri (HTMLEngine *e, gchar *uri, gchar *title, gint len)
+new_img_obj_from_uri (HTMLEngine *e,
+                      gchar *uri,
+                      gchar *title,
+                      gint len)
 {
 	if (!strncmp (uri, "file:", 5)) {
 		if (!HTML_IS_PLAIN_PAINTER (e->painter)) {
@@ -2649,7 +2739,9 @@ new_img_obj_from_uri (HTMLEngine *e, gchar *uri, gchar *title, gint len)
 }
 
 static void
-move_before_paste (GtkWidget *widget, gint x, gint y)
+move_before_paste (GtkWidget *widget,
+                   gint x,
+                   gint y)
 {
 	HTMLEngine *engine = GTK_HTML (widget)->engine;
 
@@ -2671,8 +2763,13 @@ move_before_paste (GtkWidget *widget, gint x, gint y)
 }
 
 static void
-drag_data_received (GtkWidget *widget, GdkDragContext *context,
-		    gint x, gint y, GtkSelectionData *selection_data, guint info, guint time)
+drag_data_received (GtkWidget *widget,
+                    GdkDragContext *context,
+                    gint x,
+                    gint y,
+                    GtkSelectionData *selection_data,
+                    guint info,
+                    guint time)
 {
 	HTMLEngine *engine = GTK_HTML (widget)->engine;
 	GdkWindow *bin_window;
@@ -2727,7 +2824,11 @@ drag_data_received (GtkWidget *widget, GdkDragContext *context,
 }
 
 static gboolean
-drag_motion (GtkWidget *widget, GdkDragContext *context, gint x, gint y, guint time)
+drag_motion (GtkWidget *widget,
+             GdkDragContext *context,
+             gint x,
+             gint y,
+             guint time)
 {
 	GdkWindow *window;
 	GdkWindow *bin_window;
@@ -2787,7 +2888,8 @@ settings_cursor_blink_changed (GSettings *settings,
 }
 
 static void
-gtk_html_direction_changed (GtkWidget *widget, GtkTextDirection previous_dir)
+gtk_html_direction_changed (GtkWidget *widget,
+                            GtkTextDirection previous_dir)
 {
 	GtkHTML *html = GTK_HTML (widget);
 
@@ -3207,7 +3309,9 @@ gtk_html_im_reset (GtkHTML *html)
 }
 
 static void
-gtk_html_im_commit_cb (GtkIMContext *context, const gchar *str, GtkHTML *html)
+gtk_html_im_commit_cb (GtkIMContext *context,
+                       const gchar *str,
+                       GtkHTML *html)
 {
 	gboolean state = html->priv->im_block_reset;
 	gint pos;
@@ -3240,13 +3344,15 @@ gtk_html_im_commit_cb (GtkIMContext *context, const gchar *str, GtkHTML *html)
 }
 
 static void
-gtk_html_im_preedit_start_cb (GtkIMContext *context, GtkHTML *html)
+gtk_html_im_preedit_start_cb (GtkIMContext *context,
+                              GtkHTML *html)
 {
 	html->priv->im_pre_len = 0;
 }
 
 static void
-gtk_html_im_preedit_changed_cb (GtkIMContext *context, GtkHTML *html)
+gtk_html_im_preedit_changed_cb (GtkIMContext *context,
+                                GtkHTML *html)
 {
 	PangoAttrList *attrs;
 	gchar *preedit_string;
@@ -3312,7 +3418,7 @@ gtk_html_im_preedit_changed_cb (GtkIMContext *context, GtkHTML *html)
 		html_engine_selection_pop (html->engine);
 	}
 	/* that works for now, but idealy we should be able to have cursor positioned outside selection, so that preedit
-	   cursor is in the right place */
+	 * cursor is in the right place */
 	if (html->priv->im_pre_len == 0)
 		html_cursor_jump_to_position_no_spell (html->engine->cursor, html->engine,
 						       initial_position >= html->priv->im_pre_pos + deleted ? initial_position - deleted : initial_position);
@@ -3331,7 +3437,8 @@ gtk_html_im_preedit_changed_cb (GtkIMContext *context, GtkHTML *html)
 }
 
 static gchar *
-get_surrounding_text (HTMLEngine *e, gint *offset)
+get_surrounding_text (HTMLEngine *e,
+                      gint *offset)
 {
 	HTMLObject *o = e->cursor->object;
 	HTMLObject *prev;
@@ -3379,7 +3486,8 @@ get_surrounding_text (HTMLEngine *e, gint *offset)
 }
 
 static gboolean
-gtk_html_im_retrieve_surrounding_cb (GtkIMContext *context, GtkHTML *html)
+gtk_html_im_retrieve_surrounding_cb (GtkIMContext *context,
+                                     GtkHTML *html)
 {
 	gint offset = 0;
 	gchar *text;
@@ -3399,7 +3507,10 @@ gtk_html_im_retrieve_surrounding_cb (GtkIMContext *context, GtkHTML *html)
 }
 
 static gboolean
-gtk_html_im_delete_surrounding_cb (GtkIMContext *slave, gint offset, gint n_chars, GtkHTML *html)
+gtk_html_im_delete_surrounding_cb (GtkIMContext *slave,
+                                   gint offset,
+                                   gint n_chars,
+                                   GtkHTML *html)
 {
 	D_IM (printf ("IM gtk_html_im_delete_surrounding_cb\n");)
 	if (html_engine_get_editable (html->engine) && !html_engine_is_selection_active (html->engine)) {
@@ -3417,7 +3528,7 @@ gtk_html_im_delete_surrounding_cb (GtkIMContext *slave, gint offset, gint n_char
 }
 
 static void
-gtk_html_init (GtkHTML* html)
+gtk_html_init (GtkHTML *html)
 {
 	GSettings *settings;
 
@@ -3569,7 +3680,8 @@ gtk_html_new (void)
  **/
 
 GtkWidget *
-gtk_html_new_from_string (const gchar *str, gint len)
+gtk_html_new_from_string (const gchar *str,
+                          gint len)
 {
 	GtkWidget *html;
 
@@ -3611,7 +3723,7 @@ gtk_html_construct (GtkHTML *html)
 
 void
 gtk_html_enable_debug (GtkHTML *html,
-		       gboolean debug)
+                       gboolean debug)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
@@ -3622,7 +3734,7 @@ gtk_html_enable_debug (GtkHTML *html,
 
 void
 gtk_html_allow_selection (GtkHTML *html,
-			  gboolean allow)
+                          gboolean allow)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
@@ -3643,10 +3755,10 @@ gtk_html_allow_selection (GtkHTML *html,
  * Returns: a new GtkHTMLStream to specified frame
  */
 GtkHTMLStream *
-gtk_html_begin_full (GtkHTML           *html,
-		     gchar              *target_frame,
-		     const gchar        *content_type,
-		     GtkHTMLBeginFlags flags)
+gtk_html_begin_full (GtkHTML *html,
+                     gchar *target_frame,
+                     const gchar *content_type,
+                     GtkHTMLBeginFlags flags)
 {
 	GtkHTMLStream *handle;
 
@@ -3718,7 +3830,8 @@ gtk_html_begin (GtkHTML *html)
  * Returns: a new GtkHTMLStream to store new content.
  **/
 GtkHTMLStream *
-gtk_html_begin_content (GtkHTML *html, const gchar *content_type)
+gtk_html_begin_content (GtkHTML *html,
+                        const gchar *content_type)
 {
 	g_return_val_if_fail (!gtk_html_get_editable (html), NULL);
 
@@ -3736,9 +3849,9 @@ gtk_html_begin_content (GtkHTML *html, const gchar *content_type)
  **/
 void
 gtk_html_write (GtkHTML *html,
-		GtkHTMLStream *handle,
-		const gchar *buffer,
-		gsize size)
+                GtkHTMLStream *handle,
+                const gchar *buffer,
+                gsize size)
 {
 	gtk_html_stream_write (handle, buffer, size);
 }
@@ -3754,8 +3867,8 @@ gtk_html_write (GtkHTML *html,
  **/
 void
 gtk_html_end (GtkHTML *html,
-	      GtkHTMLStream *handle,
-	      GtkHTMLStreamStatus status)
+              GtkHTMLStream *handle,
+              GtkHTMLStreamStatus status)
 {
 	gtk_html_stream_close (handle, status);
 }
@@ -3803,7 +3916,8 @@ gtk_html_get_title (GtkHTML *html)
  *
  **/
 void
-gtk_html_set_title (GtkHTML *html, const gchar *title)
+gtk_html_set_title (GtkHTML *html,
+                    const gchar *title)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
@@ -3823,7 +3937,7 @@ gtk_html_set_title (GtkHTML *html, const gchar *title)
  **/
 gboolean
 gtk_html_jump_to_anchor (GtkHTML *html,
-			 const gchar *anchor)
+                         const gchar *anchor)
 {
 	g_return_val_if_fail (html != NULL, FALSE);
 	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
@@ -3834,8 +3948,8 @@ gtk_html_jump_to_anchor (GtkHTML *html,
 
 gboolean
 gtk_html_save (GtkHTML *html,
-	       GtkHTMLSaveReceiverFn receiver,
-	       gpointer data)
+               GtkHTMLSaveReceiverFn receiver,
+               gpointer data)
 {
 	g_return_val_if_fail (html != NULL, FALSE);
 	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
@@ -3859,9 +3973,9 @@ gtk_html_save (GtkHTML *html,
  **/
 gboolean
 gtk_html_export (GtkHTML *html,
-		 const gchar *content_type,
-		 GtkHTMLSaveReceiverFn receiver,
-		 gpointer user_data)
+                 const gchar *content_type,
+                 GtkHTMLSaveReceiverFn receiver,
+                 gpointer user_data)
 {
 	g_return_val_if_fail (html != NULL, FALSE);
 	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
@@ -3881,9 +3995,12 @@ gtk_html_export (GtkHTML *html,
 
 static void
 gtk_html_update_scrollbars_on_resize (GtkHTML *html,
-				      gdouble old_doc_width, gdouble old_doc_height,
-				      gdouble old_width, gdouble old_height,
-				      gboolean *changed_x, gboolean *changed_y)
+                                      gdouble old_doc_width,
+                                      gdouble old_doc_height,
+                                      gdouble old_width,
+                                      gdouble old_height,
+                                      gboolean *changed_x,
+                                      gboolean *changed_y)
 {
 	GtkAdjustment *vadj, *hadj;
 	gdouble doc_width, doc_height;
@@ -3919,7 +4036,9 @@ gtk_html_update_scrollbars_on_resize (GtkHTML *html,
 }
 
 void
-gtk_html_private_calc_scrollbars (GtkHTML *html, gboolean *changed_x, gboolean *changed_y)
+gtk_html_private_calc_scrollbars (GtkHTML *html,
+                                  gboolean *changed_x,
+                                  gboolean *changed_y)
 {
 	GtkLayout *layout;
 	GtkAdjustment *vadj, *hadj;
@@ -3973,10 +4092,10 @@ gtk_html_private_calc_scrollbars (GtkHTML *html, gboolean *changed_x, gboolean *
 
 #ifdef USE_PROPS
 static void
-gtk_html_set_property (GObject        *object,
-		       guint           prop_id,
-		       const GValue   *value,
-		       GParamSpec     *pspec)
+gtk_html_set_property (GObject *object,
+                       guint prop_id,
+                       const GValue *value,
+                       GParamSpec *pspec)
 {
 	GtkHTML *html = GTK_HTML (object);
 
@@ -4000,10 +4119,10 @@ gtk_html_set_property (GObject        *object,
 }
 
 static void
-gtk_html_get_property (GObject    *object,
-		       guint       prop_id,
-		       GValue     *value,
-		       GParamSpec *pspec)
+gtk_html_get_property (GObject *object,
+                       guint prop_id,
+                       GValue *value,
+                       GParamSpec *pspec)
 {
 	GtkHTML *html = GTK_HTML (object);
 
@@ -4029,7 +4148,7 @@ gtk_html_get_property (GObject    *object,
 
 void
 gtk_html_set_editable (GtkHTML *html,
-		       gboolean editable)
+                       gboolean editable)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
@@ -4041,7 +4160,7 @@ gtk_html_set_editable (GtkHTML *html,
 }
 
 gboolean
-gtk_html_get_editable  (const GtkHTML *html)
+gtk_html_get_editable (const GtkHTML *html)
 {
 	g_return_val_if_fail (html != NULL, FALSE);
 	g_return_val_if_fail (GTK_IS_HTML (html), FALSE);
@@ -4051,7 +4170,7 @@ gtk_html_get_editable  (const GtkHTML *html)
 
 void
 gtk_html_set_inline_spelling (GtkHTML *html,
-			      gboolean inline_spell)
+                              gboolean inline_spell)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
@@ -4079,7 +4198,7 @@ gtk_html_get_inline_spelling (const GtkHTML *html)
 
 void
 gtk_html_set_magic_links (GtkHTML *html,
-			  gboolean links)
+                          gboolean links)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
@@ -4098,7 +4217,7 @@ gtk_html_get_magic_links (const GtkHTML *html)
 
 void
 gtk_html_set_magic_smileys (GtkHTML *html,
-			    gboolean smile)
+                            gboolean smile)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
@@ -4116,7 +4235,9 @@ gtk_html_get_magic_smileys (const GtkHTML *html)
 }
 
 static void
-frame_set_animate (HTMLObject *o, HTMLEngine *e, gpointer data)
+frame_set_animate (HTMLObject *o,
+                   HTMLEngine *e,
+                   gpointer data)
 {
 	if (HTML_IS_FRAME (o)) {
 		html_image_factory_set_animate (GTK_HTML (HTML_FRAME (o)->html)->engine->image_factory,
@@ -4128,7 +4249,8 @@ frame_set_animate (HTMLObject *o, HTMLEngine *e, gpointer data)
 }
 
 void
-gtk_html_set_caret_mode (GtkHTML * html, gboolean caret_mode)
+gtk_html_set_caret_mode (GtkHTML *html,
+                         gboolean caret_mode)
 {
 	g_return_if_fail (GTK_IS_HTML (html));
 	g_return_if_fail (HTML_IS_ENGINE (html->engine));
@@ -4156,7 +4278,8 @@ gtk_html_get_caret_mode (const GtkHTML *html)
  *             or NULL to not look for the anchor.
  **/
 void
-gtk_html_set_caret_first_focus_anchor (GtkHTML *html, const gchar *name)
+gtk_html_set_caret_first_focus_anchor (GtkHTML *html,
+                                       const gchar *name)
 {
 	g_return_if_fail (GTK_IS_HTML (html));
 	g_return_if_fail (html->priv != NULL);
@@ -4166,7 +4289,8 @@ gtk_html_set_caret_first_focus_anchor (GtkHTML *html, const gchar *name)
 }
 
 void
-gtk_html_set_animate (GtkHTML *html, gboolean animate)
+gtk_html_set_animate (GtkHTML *html,
+                      gboolean animate)
 {
 	g_return_if_fail (GTK_IS_HTML (html));
 	g_return_if_fail (HTML_IS_ENGINE (html->engine));
@@ -4195,7 +4319,9 @@ gtk_html_load_empty (GtkHTML *html)
 }
 
 void
-gtk_html_load_from_string  (GtkHTML *html, const gchar *str, gint len)
+gtk_html_load_from_string (GtkHTML *html,
+                            const gchar *str,
+                            gint len)
 {
 	GtkHTMLStream *stream;
 
@@ -4205,7 +4331,8 @@ gtk_html_load_from_string  (GtkHTML *html, const gchar *str, gint len)
 }
 
 void
-gtk_html_set_base (GtkHTML *html, const gchar *url)
+gtk_html_set_base (GtkHTML *html,
+                   const gchar *url)
 {
 	g_return_if_fail (GTK_IS_HTML (html));
 
@@ -4224,7 +4351,8 @@ gtk_html_get_base (GtkHTML *html)
 
 /* Printing.  */
 void
-gtk_html_print_page (GtkHTML *html, GtkPrintContext *context)
+gtk_html_print_page (GtkHTML *html,
+                     GtkPrintContext *context)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
@@ -4234,12 +4362,12 @@ gtk_html_print_page (GtkHTML *html, GtkPrintContext *context)
 
 void
 gtk_html_print_page_with_header_footer (GtkHTML *html,
-					GtkPrintContext *context,
-					gdouble header_height,
-					gdouble footer_height,
-					GtkHTMLPrintCallback header_print,
-					GtkHTMLPrintCallback footer_print,
-					gpointer user_data)
+                                        GtkPrintContext *context,
+                                        gdouble header_height,
+                                        gdouble footer_height,
+                                        GtkHTMLPrintCallback header_print,
+                                        GtkHTMLPrintCallback footer_print,
+                                        gpointer user_data)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
@@ -4254,7 +4382,7 @@ gtk_html_print_page_with_header_footer (GtkHTML *html,
 
 void
 gtk_html_set_paragraph_style (GtkHTML *html,
-			      GtkHTMLParagraphStyle style)
+                              GtkHTMLParagraphStyle style)
 {
 	HTMLClueFlowStyle current_style;
 	HTMLClueFlowStyle clueflow_style;
@@ -4302,7 +4430,7 @@ gtk_html_get_paragraph_indentation (GtkHTML *html)
 
 void
 gtk_html_set_indent (GtkHTML *html,
-		     GByteArray *levels)
+                     GByteArray *levels)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
@@ -4317,7 +4445,8 @@ gtk_html_set_indent (GtkHTML *html,
 
 static void
 gtk_html_modify_indent_by_delta (GtkHTML *html,
-				 gint delta, guint8 *levels)
+                                 gint delta,
+                                 guint8 *levels)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
@@ -4329,7 +4458,8 @@ gtk_html_modify_indent_by_delta (GtkHTML *html,
 }
 
 void
-gtk_html_indent_push_level (GtkHTML *html, HTMLListType level_type)
+gtk_html_indent_push_level (GtkHTML *html,
+                            HTMLListType level_type)
 {
 	guint8 type = (guint8) level_type;
 	gtk_html_modify_indent_by_delta (html, +1, &type);
@@ -4343,8 +4473,8 @@ gtk_html_indent_pop_level (GtkHTML *html)
 
 void
 gtk_html_set_font_style (GtkHTML *html,
-			 GtkHTMLFontStyle and_mask,
-			 GtkHTMLFontStyle or_mask)
+                         GtkHTMLFontStyle and_mask,
+                         GtkHTMLFontStyle or_mask)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
@@ -4354,7 +4484,8 @@ gtk_html_set_font_style (GtkHTML *html,
 }
 
 void
-gtk_html_set_color (GtkHTML *html, HTMLColor *color)
+gtk_html_set_color (GtkHTML *html,
+                    HTMLColor *color)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
@@ -4365,7 +4496,7 @@ gtk_html_set_color (GtkHTML *html, HTMLColor *color)
 
 void
 gtk_html_toggle_font_style (GtkHTML *html,
-			    GtkHTMLFontStyle style)
+                            GtkHTMLFontStyle style)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
@@ -4380,16 +4511,15 @@ gtk_html_toggle_font_style (GtkHTML *html,
 GtkHTMLParagraphAlignment
 gtk_html_get_paragraph_alignment (GtkHTML *html)
 {
-	/* This makes the function return a HTMLHalignType. Should the blow call really be
-         * html_alignment_to_paragraph()?
-         */
+	/* This makes the function return a HTMLHalignType. Should the below
+	 * call really be html_alignment_to_paragraph()? */
 
 	return paragraph_alignment_to_html (html_engine_get_current_clueflow_alignment (html->engine));
 }
 
 void
 gtk_html_set_paragraph_alignment (GtkHTML *html,
-				  GtkHTMLParagraphAlignment alignment)
+                                  GtkHTMLParagraphAlignment alignment)
 {
 	HTMLHAlignType align;
 
@@ -4423,10 +4553,10 @@ free_contents (ClipboardContents *contents)
 }
 
 static void
-clipboard_get_contents_cb (GtkClipboard     *clipboard,
+clipboard_get_contents_cb (GtkClipboard *clipboard,
                            GtkSelectionData *selection_data,
-                           guint             info,
-                           gpointer          data)
+                           guint info,
+                           gpointer data)
 {
 	ClipboardContents *contents = (ClipboardContents *) data;
 
@@ -4444,7 +4574,7 @@ clipboard_get_contents_cb (GtkClipboard     *clipboard,
 
 static void
 clipboard_clear_contents_cb (GtkClipboard *clipboard,
-                             gpointer      data)
+                             gpointer data)
 {
 	ClipboardContents *contents = (ClipboardContents *) data;
 
@@ -4452,9 +4582,9 @@ clipboard_clear_contents_cb (GtkClipboard *clipboard,
 }
 
 static void
-clipboard_paste_received_cb (GtkClipboard     *clipboard,
-			     GtkSelectionData *selection_data,
-			     gpointer          user_data)
+clipboard_paste_received_cb (GtkClipboard *clipboard,
+                             GtkSelectionData *selection_data,
+                             gpointer user_data)
 {
 	gint i = 0;
 	GtkWidget *widget = GTK_WIDGET (user_data);
@@ -4608,7 +4738,8 @@ gtk_html_copy (GtkHTML *html)
 }
 
 void
-gtk_html_paste (GtkHTML *html, gboolean as_cite)
+gtk_html_paste (GtkHTML *html,
+                gboolean as_cite)
 {
 	g_return_if_fail (html != NULL);
 	g_return_if_fail (GTK_IS_HTML (html));
@@ -4672,7 +4803,8 @@ gtk_html_redo (GtkHTML *html)
 /* misc utils */
 /* if engine_type == false - default behaviour*/
 void
-gtk_html_set_default_engine (GtkHTML *html, gboolean engine_type)
+gtk_html_set_default_engine (GtkHTML *html,
+                             gboolean engine_type)
 {
 	html_engine_set_engine_type ( html->engine, engine_type);
 }
@@ -4684,7 +4816,8 @@ gtk_html_get_default_engine (GtkHTML *html)
 }
 
 void
-gtk_html_set_default_content_type (GtkHTML *html, const gchar *content_type)
+gtk_html_set_default_content_type (GtkHTML *html,
+                                   const gchar *content_type)
 {
     html_engine_set_content_type ( html->engine, content_type);
 }
@@ -4696,7 +4829,8 @@ gtk_html_get_default_content_type (GtkHTML *html)
 }
 
 gpointer
-gtk_html_get_object_by_id (GtkHTML *html, const gchar *id)
+gtk_html_get_object_by_id (GtkHTML *html,
+                           const gchar *id)
 {
 	g_return_val_if_fail (html, NULL);
 	g_return_val_if_fail (id, NULL);
@@ -4707,9 +4841,9 @@ gtk_html_get_object_by_id (GtkHTML *html, const gchar *id)
 }
 
 /*******************************************
-
-   keybindings
-
+ *
+ * keybindings
+ *
 */
 
 static gint
@@ -4729,9 +4863,9 @@ get_line_height (GtkHTML *html)
 
 static void
 scroll (GtkHTML *html,
-	GtkOrientation orientation,
-	GtkScrollType  scroll_type,
-	gfloat         position)
+        GtkOrientation orientation,
+        GtkScrollType scroll_type,
+        gfloat position)
 {
 	GtkAdjustment *adjustment;
 	gint line_height;
@@ -4802,7 +4936,7 @@ scroll (GtkHTML *html,
 
 static gboolean
 scroll_command (GtkHTML *html,
-	GtkScrollType  scroll_type)
+        GtkScrollType scroll_type)
 {
 	GtkAdjustment *adjustment;
 	gint line_height;
@@ -4858,7 +4992,8 @@ scroll_command (GtkHTML *html,
 }
 
 static void
-scroll_by_amount (GtkHTML *html, gint amount)
+scroll_by_amount (GtkHTML *html,
+                  gint amount)
 {
 	GtkAdjustment *adjustment;
 	gdouble value;
@@ -4878,7 +5013,9 @@ scroll_by_amount (GtkHTML *html, gint amount)
 }
 
 static void
-cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType skip)
+cursor_move (GtkHTML *html,
+             GtkDirectionType dir_type,
+             GtkHTMLCursorSkipType skip)
 {
 	gint amount;
 
@@ -4991,7 +5128,8 @@ cursor_move (GtkHTML *html, GtkDirectionType dir_type, GtkHTMLCursorSkipType ski
 }
 
 static gboolean
-move_selection (GtkHTML *html, GtkHTMLCommandType com_type)
+move_selection (GtkHTML *html,
+                GtkHTMLCommandType com_type)
 {
 	GtkAllocation allocation;
 	gboolean rv;
@@ -5069,7 +5207,8 @@ move_selection (GtkHTML *html, GtkHTMLCommandType com_type)
 }
 
 inline static void
-delete_one (HTMLEngine *e, gboolean forward)
+delete_one (HTMLEngine *e,
+            gboolean forward)
 {
 	if (e->cursor->object && html_object_is_container (e->cursor->object)
 	    && ((forward && !e->cursor->offset) || (!forward && e->cursor->offset)))
@@ -5101,7 +5240,8 @@ indent_more_or_next_cell (GtkHTML *html)
 }
 
 static gboolean
-command (GtkHTML *html, GtkHTMLCommandType com_type)
+command (GtkHTML *html,
+         GtkHTMLCommandType com_type)
 {
 	HTMLEngine *e = html->engine;
 	gboolean rv = TRUE;
@@ -5848,7 +5988,9 @@ add_bindings (GtkHTMLClass *klass)
 }
 
 gint
-gtk_html_set_iframe_parent (GtkHTML *html, GtkWidget *parent, HTMLObject *frame)
+gtk_html_set_iframe_parent (GtkHTML *html,
+                            GtkWidget *parent,
+                            HTMLObject *frame)
 {
 	GtkWidget *top_level;
 	gint depth = 0;
@@ -5922,8 +6064,8 @@ gtk_html_select_paragraph (GtkHTML *html)
 	if (html_engine_get_editable (e))
 		html_engine_select_paragraph_editable (e);
 	/* FIXME: does anybody need this? if so bother me. rodo
-	   else
-	   html_engine_select_paragraph (e); */
+	 * else
+	 * html_engine_select_paragraph (e); */
 
 	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 	update_primary_selection (html);
@@ -5941,8 +6083,8 @@ gtk_html_select_paragraph_extended (GtkHTML *html)
 	if (html_engine_get_editable (e))
 		html_engine_select_paragraph_extended (e);
 	/* FIXME: does anybody need this? if so bother me. rodo
-	   else
-	   html_engine_select_paragraph (e); */
+	 * else
+	 * html_engine_select_paragraph (e); */
 
 	html_engine_update_selection_active_state (html->engine, html->priv->event_time);
 	update_primary_selection (html);
@@ -5993,7 +6135,9 @@ gtk_html_api_set_language (GtkHTML *html)
 }
 
 void
-gtk_html_set_editor_api (GtkHTML *html, GtkHTMLEditorAPI *api, gpointer data)
+gtk_html_set_editor_api (GtkHTML *html,
+                         GtkHTMLEditorAPI *api,
+                         gpointer data)
 {
 	html->editor_api  = api;
 	html->editor_data = data;
@@ -6019,7 +6163,9 @@ get_value_nick (GtkHTMLCommandType com_type)
 }
 
 void
-gtk_html_editor_event_command (GtkHTML *html, GtkHTMLCommandType com_type, gboolean before)
+gtk_html_editor_event_command (GtkHTML *html,
+                               GtkHTMLCommandType com_type,
+                               gboolean before)
 {
 	GValue arg;
 
@@ -6034,7 +6180,9 @@ gtk_html_editor_event_command (GtkHTML *html, GtkHTMLCommandType com_type, gbool
 }
 
 void
-gtk_html_editor_event (GtkHTML *html, GtkHTMLEditorEventType event, GValue *args)
+gtk_html_editor_event (GtkHTML *html,
+                       GtkHTMLEditorEventType event,
+                       GValue *args)
 {
 	GValue *retval = NULL;
 
@@ -6048,7 +6196,8 @@ gtk_html_editor_event (GtkHTML *html, GtkHTMLEditorEventType event, GValue *args
 }
 
 gboolean
-gtk_html_command (GtkHTML *html, const gchar *command_name)
+gtk_html_command (GtkHTML *html,
+                  const gchar *command_name)
 {
 	GEnumClass *class;
 	GEnumValue *val;
@@ -6100,7 +6249,9 @@ gtk_html_build_with_gconf (void)
 }
 
 static void
-reparent_embedded (HTMLObject *o, HTMLEngine *e, gpointer data)
+reparent_embedded (HTMLObject *o,
+                   HTMLEngine *e,
+                   gpointer data)
 {
 	if (html_object_is_embedded (o)) {
 		HTMLEmbedded *eo = HTML_EMBEDDED (o);
@@ -6133,7 +6284,10 @@ reparent_embedded (HTMLObject *o, HTMLEngine *e, gpointer data)
 }
 
 static void
-gtk_html_insert_html_generic (GtkHTML *html, GtkHTML *tmp, const gchar *html_src, gboolean obj_only)
+gtk_html_insert_html_generic (GtkHTML *html,
+                              GtkHTML *tmp,
+                              const gchar *html_src,
+                              gboolean obj_only)
 {
 	GtkWidget *window, *sw;
 	HTMLObject *o;
@@ -6193,7 +6347,8 @@ gtk_html_insert_html_generic (GtkHTML *html, GtkHTML *tmp, const gchar *html_src
 }
 
 void
-gtk_html_insert_html (GtkHTML *html, const gchar *html_src)
+gtk_html_insert_html (GtkHTML *html,
+                      const gchar *html_src)
 {
 	g_return_if_fail (GTK_IS_HTML (html));
 
@@ -6201,7 +6356,8 @@ gtk_html_insert_html (GtkHTML *html, const gchar *html_src)
 }
 
 void
-gtk_html_insert_gtk_html (GtkHTML *html, GtkHTML *to_be_destroyed)
+gtk_html_insert_gtk_html (GtkHTML *html,
+                          GtkHTML *to_be_destroyed)
 {
 	g_return_if_fail (GTK_IS_HTML (html));
 
@@ -6209,7 +6365,8 @@ gtk_html_insert_gtk_html (GtkHTML *html, GtkHTML *to_be_destroyed)
 }
 
 void
-gtk_html_append_html (GtkHTML *html, const gchar *html_src)
+gtk_html_append_html (GtkHTML *html,
+                      const gchar *html_src)
 {
 	g_return_if_fail (GTK_IS_HTML (html));
 
@@ -6217,7 +6374,9 @@ gtk_html_append_html (GtkHTML *html, const gchar *html_src)
 }
 
 static void
-set_magnification (HTMLObject *o, HTMLEngine *e, gpointer data)
+set_magnification (HTMLObject *o,
+                   HTMLEngine *e,
+                   gpointer data)
 {
 	if (HTML_IS_FRAME (o)) {
 		html_font_manager_set_magnification (&GTK_HTML (HTML_FRAME (o)->html)->engine->painter->font_manager,
@@ -6230,13 +6389,14 @@ set_magnification (HTMLObject *o, HTMLEngine *e, gpointer data)
 }
 
 void
-gtk_html_set_magnification (GtkHTML *html, gdouble magnification)
+gtk_html_set_magnification (GtkHTML *html,
+                            gdouble magnification)
 {
 	g_return_if_fail (GTK_IS_HTML (html));
 
 	if (magnification > 0.05 && magnification < 20.0
-	    && magnification * html->engine->painter->font_manager.var_size >= 4*PANGO_SCALE
-	    && magnification * html->engine->painter->font_manager.fix_size >= 4*PANGO_SCALE) {
+	    && magnification * html->engine->painter->font_manager.var_size >= 4 * PANGO_SCALE
+	    && magnification * html->engine->painter->font_manager.fix_size >= 4 * PANGO_SCALE) {
 		html_font_manager_set_magnification (&html->engine->painter->font_manager, magnification);
 		if (html->engine->clue) {
 			html_object_forall (html->engine->clue, html->engine,
@@ -6264,7 +6424,7 @@ gtk_html_zoom_out (GtkHTML *html)
 	g_return_if_fail (GTK_IS_HTML (html));
 	g_return_if_fail (HTML_IS_ENGINE (html->engine));
 
-	gtk_html_set_magnification (html, html->engine->painter->font_manager.magnification * (1.0/MAG_STEP));
+	gtk_html_set_magnification (html, html->engine->painter->font_manager.magnification * (1.0 / MAG_STEP));
 }
 
 void
@@ -6276,7 +6436,8 @@ gtk_html_zoom_reset (GtkHTML *html)
 }
 
 void
-gtk_html_set_allow_frameset (GtkHTML *html, gboolean allow)
+gtk_html_set_allow_frameset (GtkHTML *html,
+                             gboolean allow)
 {
 	g_return_if_fail (GTK_IS_HTML (html));
 	g_return_if_fail (HTML_IS_ENGINE (html->engine));
@@ -6306,40 +6467,45 @@ gtk_html_images_unref (GtkHTML *html)
 }
 
 void
-gtk_html_image_ref (GtkHTML *html, const gchar *url)
+gtk_html_image_ref (GtkHTML *html,
+                    const gchar *url)
 {
 	html_image_factory_ref_image_ptr (HTML_IMAGE_FACTORY (html->engine->image_factory), url);
 }
 
 void
-gtk_html_image_unref (GtkHTML *html, const gchar *url)
+gtk_html_image_unref (GtkHTML *html,
+                      const gchar *url)
 {
 	html_image_factory_unref_image_ptr (HTML_IMAGE_FACTORY (html->engine->image_factory), url);
 }
 
 void
-gtk_html_image_preload (GtkHTML *html, const gchar *url)
+gtk_html_image_preload (GtkHTML *html,
+                        const gchar *url)
 {
 	html_image_factory_register (HTML_IMAGE_FACTORY (html->engine->image_factory), NULL, url, FALSE);
 }
 
 void
-gtk_html_set_blocking (GtkHTML *html, gboolean block)
+gtk_html_set_blocking (GtkHTML *html,
+                       gboolean block)
 {
 	html->engine->block = block;
 }
 
 void
-gtk_html_set_images_blocking (GtkHTML *html, gboolean block)
+gtk_html_set_images_blocking (GtkHTML *html,
+                              gboolean block)
 {
 	html->engine->block_images = block;
 }
 
 gint
 gtk_html_print_page_get_pages_num (GtkHTML *html,
-				   GtkPrintContext *context,
-				   gdouble header_height,
-				   gdouble footer_height)
+                                   GtkPrintContext *context,
+                                   gdouble header_height,
+                                   gdouble footer_height)
 {
 	return html_engine_print_get_pages_num (
 		html->engine, context, header_height, footer_height);
@@ -6350,8 +6516,8 @@ gtk_html_print_operation_run (GtkHTML *html,
                               GtkPrintOperation *operation,
                               GtkPrintOperationAction action,
                               GtkWindow *parent,
-			      GtkHTMLPrintCalcHeight calc_header_height,
-			      GtkHTMLPrintCalcHeight calc_footer_height,
+                              GtkHTMLPrintCalcHeight calc_header_height,
+                              GtkHTMLPrintCalcHeight calc_footer_height,
                               GtkHTMLPrintDrawFunc draw_header,
                               GtkHTMLPrintDrawFunc draw_footer,
                               gpointer user_data,
@@ -6382,7 +6548,9 @@ gtk_html_flush (GtkHTML *html)
 }
 
 const gchar *
-gtk_html_get_object_id_at (GtkHTML *html, gint x, gint y)
+gtk_html_get_object_id_at (GtkHTML *html,
+                           gint x,
+                           gint y)
 {
 	HTMLObject *o = html_engine_get_object_at (html->engine, x, y, NULL, FALSE);
 	const gchar *id = NULL;
@@ -6398,7 +6566,9 @@ gtk_html_get_object_id_at (GtkHTML *html, gint x, gint y)
 }
 
 gchar *
-gtk_html_get_url_at (GtkHTML *html, gint x, gint y)
+gtk_html_get_url_at (GtkHTML *html,
+                     gint x,
+                     gint y)
 {
 	HTMLObject *obj;
 	gint offset;
@@ -6434,7 +6604,9 @@ gtk_html_get_cursor_url (GtkHTML *html)
 }
 
 gchar *
-gtk_html_get_image_src_at (GtkHTML *html, gint x, gint y)
+gtk_html_get_image_src_at (GtkHTML *html,
+                           gint x,
+                           gint y)
 {
 	HTMLObject *obj;
 	gint offset;
@@ -6444,7 +6616,7 @@ gtk_html_get_image_src_at (GtkHTML *html, gint x, gint y)
 	obj = html_engine_get_object_at (html->engine, x, y, (guint *) &offset, FALSE);
 
 	if (obj && HTML_IS_IMAGE (obj)) {
-		HTMLImage *image = (HTMLImage*) obj;
+		HTMLImage *image = (HTMLImage *) obj;
 
 		if (!image->image_ptr)
 			return NULL;
@@ -6457,7 +6629,9 @@ gtk_html_get_image_src_at (GtkHTML *html, gint x, gint y)
 
 /* Unref when done with it */
 GdkPixbufAnimation *
-gtk_html_get_image_at (GtkHTML *html, gint x, gint y)
+gtk_html_get_image_at (GtkHTML *html,
+                       gint x,
+                       gint y)
 {
 	HTMLObject *obj;
 	gint offset;
@@ -6467,7 +6641,7 @@ gtk_html_get_image_at (GtkHTML *html, gint x, gint y)
 	obj = html_engine_get_object_at (html->engine, x, y, (guint *) &offset, FALSE);
 
 	if (obj && HTML_IS_IMAGE (obj)) {
-		HTMLImage *image = (HTMLImage*) obj;
+		HTMLImage *image = (HTMLImage *) obj;
 
 		if (!image->image_ptr || !image->image_ptr->animation)
 			return NULL;
@@ -6493,7 +6667,7 @@ gtk_html_get_cursor_image_src (GtkHTML *html)
 		obj = html_engine_get_focus_object (html->engine, &offset);
 
 	if (obj && HTML_IS_IMAGE (obj)) {
-		HTMLImage *image = (HTMLImage*) obj;
+		HTMLImage *image = (HTMLImage *) obj;
 
 		if (!image->image_ptr)
 			return NULL;
@@ -6505,7 +6679,8 @@ gtk_html_get_cursor_image_src (GtkHTML *html)
 }
 
 void
-gtk_html_set_tokenizer (GtkHTML *html, HTMLTokenizer *tokenizer)
+gtk_html_set_tokenizer (GtkHTML *html,
+                        HTMLTokenizer *tokenizer)
 {
 	g_return_if_fail (GTK_IS_HTML (html));
 
@@ -6513,7 +6688,9 @@ gtk_html_set_tokenizer (GtkHTML *html, HTMLTokenizer *tokenizer)
 }
 
 gboolean
-gtk_html_get_cursor_pos (GtkHTML *html, gint *position, gint *offset)
+gtk_html_get_cursor_pos (GtkHTML *html,
+                         gint *position,
+                         gint *offset)
 {
 	gboolean read = FALSE;
 
@@ -6755,7 +6932,8 @@ static const gchar *const tests[][3] = {
 };
 
 gint
-main (gint argc, gchar **argv)
+main (gint argc,
+      gchar **argv)
 {
 	gint failures = 0;
 	gint i;

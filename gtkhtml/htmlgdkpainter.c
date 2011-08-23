@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-
-   Copyright (C) 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright (C) 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -68,22 +68,22 @@ finalize (GObject *object)
 
 static void
 alloc_color (HTMLPainter *painter,
-	     GdkColor *color)
+             GdkColor *color)
 {
 }
 
 static void
 free_color (HTMLPainter *painter,
-	    GdkColor *color)
+            GdkColor *color)
 {
 }
 
 static void
-_cairo_draw_line (cairo_t  *cr,
-                  gint      x1,
-                  gint      y1,
-                  gint      x2,
-                  gint      y2)
+_cairo_draw_line (cairo_t *cr,
+                  gint x1,
+                  gint y1,
+                  gint x2,
+                  gint y2)
 {
 	cairo_save (cr);
 
@@ -119,11 +119,11 @@ _cairo_draw_rectangle (cairo_t *cr,
 
 static void
 _cairo_draw_ellipse (cairo_t *cr,
-		     gboolean filled,
-		     gint x,
-		     gint y,
-		     gint width,
-		     gint height)
+                     gboolean filled,
+                     gint x,
+                     gint y,
+                     gint width,
+                     gint height)
 {
 	cairo_save (cr);
 
@@ -141,11 +141,11 @@ _cairo_draw_ellipse (cairo_t *cr,
 }
 
 static void
-_cairo_draw_glyphs (cairo_t          *cr,
-		    PangoFont        *font,
-		    gint              x,
-		    gint              y,
-		    PangoGlyphString *glyphs)
+_cairo_draw_glyphs (cairo_t *cr,
+                    PangoFont *font,
+                    gint x,
+                    gint y,
+                    PangoGlyphString *glyphs)
 {
 	cairo_save (cr);
 	cairo_move_to (cr, x, y);
@@ -155,7 +155,11 @@ _cairo_draw_glyphs (cairo_t          *cr,
 
 
 static void
-begin (HTMLPainter *painter, gint x1, gint y1, gint x2, gint y2)
+begin (HTMLPainter *painter,
+       gint x1,
+       gint y1,
+       gint x2,
+       gint y2)
 {
 	HTMLGdkPainter *gdk_painter;
 
@@ -256,8 +260,10 @@ clear (HTMLPainter *painter)
 
 static void
 set_clip_rectangle (HTMLPainter *painter,
-		    gint x, gint y,
-		    gint width, gint height)
+                    gint x,
+                    gint y,
+                    gint width,
+                    gint height)
 {
 	HTMLGdkPainter *gdk_painter;
 	GdkRectangle rect;
@@ -280,14 +286,14 @@ set_clip_rectangle (HTMLPainter *painter,
 
 static void
 set_background_color (HTMLPainter *painter,
-		      const GdkColor *color)
+                      const GdkColor *color)
 {
 	g_warning ("HTMLGdkPainter::set_background_color() needs to be implemented.");
 }
 
 static void
 set_pen (HTMLPainter *painter,
-	 const GdkColor *color)
+         const GdkColor *color)
 {
 	HTMLGdkPainter *gdk_painter;
 
@@ -311,25 +317,33 @@ get_black (const HTMLPainter *painter)
 
 static void
 draw_line (HTMLPainter *painter,
-	   gint x1, gint y1,
-	   gint x2, gint y2)
+           gint x1,
+           gint y1,
+           gint x2,
+           gint y2)
  {
-	HTMLGdkPainter *gdk_painter;
+        HTMLGdkPainter *gdk_painter;
 
-	gdk_painter = HTML_GDK_PAINTER (painter);
+        gdk_painter = HTML_GDK_PAINTER (painter);
 
-	x1 -= gdk_painter->x1;
-	y1 -= gdk_painter->y1;
-	x2 -= gdk_painter->x1;
-	y2 -= gdk_painter->y1;
+        x1 -= gdk_painter->x1;
+        y1 -= gdk_painter->y1;
+        x2 -= gdk_painter->x1;
+        y2 -= gdk_painter->y1;
 
-	_cairo_draw_line (gdk_painter->cr, x1, y1, x2, y2);
+        _cairo_draw_line (gdk_painter->cr,
+           x1,
+           y1,
+           x2,
+           y2);
 }
 
 static void
 draw_ellipse (HTMLPainter *painter,
-	      gint x, gint y,
-	      gint width, gint height)
+              gint x,
+              gint y,
+              gint width,
+              gint height)
 {
 	HTMLGdkPainter *gdk_painter;
 
@@ -341,8 +355,10 @@ draw_ellipse (HTMLPainter *painter,
 
 static void
 draw_rect (HTMLPainter *painter,
-	   gint x, gint y,
-	   gint width, gint height)
+           gint x,
+           gint y,
+           gint width,
+           gint height)
 {
 	HTMLGdkPainter *gdk_painter;
 
@@ -355,11 +371,13 @@ draw_rect (HTMLPainter *painter,
 
 static void
 draw_border (HTMLPainter *painter,
-	     GdkColor *bg,
-	     gint x, gint y,
-	     gint width, gint height,
-	     HTMLBorderStyle style,
-	     gint bordersize)
+             GdkColor *bg,
+             gint x,
+             gint y,
+             gint width,
+             gint height,
+             HTMLBorderStyle style,
+             gint bordersize)
 {
 	HTMLGdkPainter *gdk_painter;
 	GdkColor *col1 = NULL, *col2 = NULL;
@@ -431,11 +449,14 @@ draw_border (HTMLPainter *painter,
 
 static void
 draw_background (HTMLPainter *painter,
-		 GdkColor *color,
-		 GdkPixbuf *pixbuf,
-		 gint x, gint y,
-		 gint width, gint height,
-		 gint tile_x, gint tile_y)
+                 GdkColor *color,
+                 GdkPixbuf *pixbuf,
+                 gint x,
+                 gint y,
+                 gint width,
+                 gint height,
+                 gint tile_x,
+                 gint tile_y)
 {
 	HTMLGdkPainter *gdk_painter;
 	gint pw;
@@ -549,10 +570,12 @@ draw_background (HTMLPainter *painter,
 
 static void
 draw_pixmap (HTMLPainter *painter,
-	     GdkPixbuf *pixbuf,
-	     gint x, gint y,
-	     gint scale_width, gint scale_height,
-	     const GdkColor *color)
+             GdkPixbuf *pixbuf,
+             gint x,
+             gint y,
+             gint scale_width,
+             gint scale_height,
+             const GdkColor *color)
 {
 	GdkRectangle clip, image, paint;
 	HTMLGdkPainter *gdk_painter;
@@ -672,8 +695,10 @@ draw_pixmap (HTMLPainter *painter,
 
 static void
 fill_rect (HTMLPainter *painter,
-	   gint x, gint y,
-	   gint width, gint height)
+           gint x,
+           gint y,
+           gint width,
+           gint height)
 {
 	HTMLGdkPainter *gdk_painter;
 
@@ -685,7 +710,10 @@ fill_rect (HTMLPainter *painter,
 }
 
 static gint
-draw_spell_error (HTMLPainter *painter, gint x, gint y, gint width)
+draw_spell_error (HTMLPainter *painter,
+                  gint x,
+                  gint y,
+                  gint width)
 {
 	HTMLGdkPainter *gdk_painter;
 	const double dashes[] = { 2, 2 };
@@ -709,7 +737,10 @@ draw_spell_error (HTMLPainter *painter, gint x, gint y, gint width)
 }
 
 static void
-draw_embedded (HTMLPainter * p, HTMLEmbedded *o, gint x, gint y)
+draw_embedded (HTMLPainter *p,
+               HTMLEmbedded *o,
+               gint x,
+               gint y)
 {
 	HTMLGdkPainter *gdk_painter = HTML_GDK_PAINTER (p);
 	GtkWidget *embedded_widget;
@@ -724,8 +755,8 @@ draw_embedded (HTMLPainter * p, HTMLEmbedded *o, gint x, gint y)
 }
 
 static void
-set_gdk_color_from_pango_color (GdkColor   *gdkc,
-				PangoColor *pc)
+set_gdk_color_from_pango_color (GdkColor *gdkc,
+                                PangoColor *pc)
 {
 	gdkc->red = pc->red;
 	gdkc->green = pc->green;
@@ -733,7 +764,10 @@ set_gdk_color_from_pango_color (GdkColor   *gdkc,
 }
 
 static void
-set_item_gc (HTMLPainter *p, HTMLPangoProperties *properties, GdkColor **fg_color, GdkColor **bg_color)
+set_item_gc (HTMLPainter *p,
+             HTMLPangoProperties *properties,
+             GdkColor **fg_color,
+             GdkColor **bg_color)
 {
 	if (properties->fg_color) {
 		*fg_color = g_new0 (GdkColor, 1);
@@ -750,7 +784,12 @@ set_item_gc (HTMLPainter *p, HTMLPangoProperties *properties, GdkColor **fg_colo
 }
 
 static gint
-draw_lines (PangoGlyphString *str, gint x, gint y, cairo_t *cr, PangoItem *item, HTMLPangoProperties *properties)
+draw_lines (PangoGlyphString *str,
+            gint x,
+            gint y,
+            cairo_t *cr,
+            PangoItem *item,
+            HTMLPangoProperties *properties)
 {
 	PangoRectangle log_rect;
 	gint width, dsc, asc;
@@ -765,13 +804,19 @@ draw_lines (PangoGlyphString *str, gint x, gint y, cairo_t *cr, PangoItem *item,
 		_cairo_draw_line (cr, x, y + dsc - 2, x + PANGO_PIXELS (width), y + dsc - 2);
 
 	if (properties->strikethrough)
-		_cairo_draw_line (cr, x, y - asc + (asc + dsc)/2, x + PANGO_PIXELS (width), y - asc + (asc + dsc)/2);
+		_cairo_draw_line (cr, x, y - asc + (asc + dsc) / 2, x + PANGO_PIXELS (width), y - asc + (asc + dsc) / 2);
 
 	return width;
 }
 
 static gint
-draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphString *glyphs, GdkColor *fg, GdkColor *bg)
+draw_glyphs (HTMLPainter *painter,
+             gint x,
+             gint y,
+             PangoItem *item,
+             PangoGlyphString *glyphs,
+             GdkColor *fg,
+             GdkColor *bg)
 {
 	HTMLGdkPainter *gdk_painter;
 	guint i;
@@ -819,7 +864,7 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 	if (properties.strikethrough || properties.underline)
 		cw = draw_lines (glyphs, x, y, gdk_painter->cr, item, &properties);
 	else
-		for (i=0; i < glyphs->num_glyphs; i++)
+		for (i = 0; i < glyphs->num_glyphs; i++)
 			cw += glyphs->glyphs[i].geometry.width;
 
 	if (fg_text_color || fg)
@@ -836,8 +881,9 @@ draw_glyphs (HTMLPainter *painter, gint x, gint y, PangoItem *item, PangoGlyphSt
 
 static void
 draw_shade_line (HTMLPainter *painter,
-		 gint x, gint y,
-		 gint width)
+                 gint x,
+                 gint y,
+                 gint width)
 {
 	HTMLGdkPainter *gdk_painter;
 
@@ -849,7 +895,7 @@ draw_shade_line (HTMLPainter *painter,
 	cairo_save (gdk_painter->cr);
 
 	gdk_cairo_set_source_color (gdk_painter->cr, &gdk_painter->dark);
-	_cairo_draw_line (gdk_painter->cr, x, y, x+width, y);
+	_cairo_draw_line (gdk_painter->cr, x, y, x + width, y);
 	gdk_cairo_set_source_color (gdk_painter->cr, &gdk_painter->light);
 	_cairo_draw_line (gdk_painter->cr, x, y + 1, x + width, y + 1);
 
@@ -863,19 +909,24 @@ get_pixel_size (HTMLPainter *painter)
 }
 
 static guint
-get_page_width (HTMLPainter *painter, HTMLEngine *e)
+get_page_width (HTMLPainter *painter,
+                HTMLEngine *e)
 {
 	return html_engine_get_view_width (e) + html_engine_get_left_border (e) + html_engine_get_right_border (e);
 }
 
 static guint
-get_page_height (HTMLPainter *painter, HTMLEngine *e)
+get_page_height (HTMLPainter *painter,
+                 HTMLEngine *e)
 {
 	return html_engine_get_view_height (e) + html_engine_get_top_border (e) + html_engine_get_bottom_border (e);
 }
 
 static void
-init_color (GdkColor *color, gushort red, gushort green, gushort blue)
+init_color (GdkColor *color,
+            gushort red,
+            gushort green,
+            gushort blue)
 {
 	color->pixel = 0;
 	color->red = red;
@@ -911,7 +962,8 @@ html_gdk_painter_init (GObject *object)
 }
 
 static void
-html_gdk_painter_real_set_widget (HTMLPainter *painter, GtkWidget *widget)
+html_gdk_painter_real_set_widget (HTMLPainter *painter,
+                                  GtkWidget *widget)
 {
 	parent_class->set_widget (painter, widget);
 
@@ -982,7 +1034,8 @@ html_gdk_painter_get_type (void)
 }
 
 HTMLPainter *
-html_gdk_painter_new (GtkWidget *widget, gboolean double_buffer)
+html_gdk_painter_new (GtkWidget *widget,
+                      gboolean double_buffer)
 {
 	HTMLGdkPainter *new;
 
@@ -996,7 +1049,7 @@ html_gdk_painter_new (GtkWidget *widget, gboolean double_buffer)
 
 void
 html_gdk_painter_realize (HTMLGdkPainter *gdk_painter,
-			  GdkWindow *window)
+                          GdkWindow *window)
 {
 	g_return_if_fail (gdk_painter != NULL);
 	g_return_if_fail (window != NULL);

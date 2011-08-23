@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library
-
-   Copyright (C) 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHcANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright (C) 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHcANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 #include <gtk/gtk.h>
@@ -31,7 +31,8 @@
 #include "htmlengine-edit-selection-updater.h"
 
 static gboolean
-optimize_selection (HTMLEngine *e, HTMLInterval *i)
+optimize_selection (HTMLEngine *e,
+                    HTMLInterval *i)
 {
 	HTMLInterval *s = e->selection;
 	gboolean optimized = FALSE;
@@ -39,8 +40,8 @@ optimize_selection (HTMLEngine *e, HTMLInterval *i)
 	g_return_val_if_fail (s, FALSE);
 
 	/* printf ("change selection (%3d,%3d) --> (%3d,%3d)\n",
-	   s->from.offset, s->to.offset,
-	   i->from.offset, i->to.offset); */
+	 * s->from.offset, s->to.offset,
+	 * i->from.offset, i->to.offset); */
 	if (html_point_eq (&i->from, &s->from)) {
 		HTMLPoint *max;
 
@@ -121,22 +122,23 @@ optimize_selection (HTMLEngine *e, HTMLInterval *i)
 	}
 
 	/* if (optimized)
-	   printf ("Optimized\n"); */
+	 * printf ("Optimized\n"); */
 
 	return optimized;
 }
 
 static void
 clear_primary (HTMLEngine *e) {
-	if (e->primary)
-		html_object_destroy (e->primary);
+        if (e->primary)
+                html_object_destroy (e->primary);
 
-	e->primary = NULL;
-	e->primary_len = 0;
+        e->primary = NULL;
+        e->primary_len = 0;
 }
 
 void
-html_engine_select_interval (HTMLEngine *e, HTMLInterval *i)
+html_engine_select_interval (HTMLEngine *e,
+                             HTMLInterval *i)
 {
 	e = html_engine_get_top_html_engine (e);
 	html_engine_hide_cursor (e);
@@ -159,8 +161,10 @@ html_engine_select_interval (HTMLEngine *e, HTMLInterval *i)
 
 void
 html_engine_select_region (HTMLEngine *e,
-			   gint x1, gint y1,
-			   gint x2, gint y2)
+                           gint x1,
+                           gint y1,
+                           gint x2,
+                           gint y2)
 {
 	HTMLPoint *a, *b;
 
@@ -281,7 +285,9 @@ html_engine_disable_selection (HTMLEngine *e)
 }
 
 static gboolean
-line_interval (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end)
+line_interval (HTMLEngine *e,
+               HTMLCursor *begin,
+               HTMLCursor *end)
 {
 	return html_cursor_beginning_of_line (begin, e) && html_cursor_end_of_line (end, e);
 }
@@ -294,7 +300,8 @@ html_selection_word (gunichar uc)
 }
 
 gboolean
-html_selection_spell_word (gunichar uc, gboolean *cited)
+html_selection_spell_word (gunichar uc,
+                           gboolean *cited)
 {
 	if (uc == '\'' || uc == '`') {
 		*cited = TRUE;
@@ -305,7 +312,9 @@ html_selection_spell_word (gunichar uc, gboolean *cited)
 }
 
 static gboolean
-word_interval (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end)
+word_interval (HTMLEngine *e,
+               HTMLCursor *begin,
+               HTMLCursor *end)
 {
 	/* move to the begin of word */
 	while (html_selection_word (html_cursor_get_prev_char (begin)))
@@ -318,7 +327,10 @@ word_interval (HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end)
 }
 
 static void
-selection_helper (HTMLEngine *e, gboolean (*get_interval)(HTMLEngine *e, HTMLCursor *begin, HTMLCursor *end))
+selection_helper (HTMLEngine *e,
+                  gboolean (*get_interval)(HTMLEngine *e,
+                  HTMLCursor *begin,
+                  HTMLCursor *end))
 {
 	HTMLCursor *cursor, *begin, *end;
 	HTMLInterval *i;
@@ -365,7 +377,9 @@ html_engine_is_selection_active (HTMLEngine *e)
 }
 
 static void
-test_point (HTMLObject *o, HTMLEngine *e, gpointer data)
+test_point (HTMLObject *o,
+            HTMLEngine *e,
+            gpointer data)
 {
 	HTMLPoint *point = (HTMLPoint *) data;
 
@@ -381,7 +395,9 @@ test_point (HTMLObject *o, HTMLEngine *e, gpointer data)
 }
 
 gboolean
-html_engine_point_in_selection (HTMLEngine *e, HTMLObject *obj, guint offset)
+html_engine_point_in_selection (HTMLEngine *e,
+                                HTMLObject *obj,
+                                guint offset)
 {
 	HTMLPoint *point;
 	gboolean rv;
@@ -399,7 +415,8 @@ html_engine_point_in_selection (HTMLEngine *e, HTMLObject *obj, guint offset)
 }
 
 void
-html_engine_activate_selection (HTMLEngine *e, guint32 time)
+html_engine_activate_selection (HTMLEngine *e,
+                                guint32 time)
 {
 	/* printf ("activate selection\n"); */
 
@@ -424,7 +441,8 @@ html_engine_unblock_selection (HTMLEngine *e)
 }
 
 void
-html_engine_update_selection_active_state (HTMLEngine *e, guint32 time)
+html_engine_update_selection_active_state (HTMLEngine *e,
+                                           guint32 time)
 {
 	if (html_engine_is_selection_active (e))
 		html_engine_activate_selection (e, time ? time : gtk_get_current_event_time ());

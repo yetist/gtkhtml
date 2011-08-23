@@ -109,7 +109,7 @@ editor_recheck_cb (GtkhtmlEditor *editor,
 static void
 editor_replace_cb (GtkhtmlEditor *editor,
                    const gchar *correction,
-		   GtkhtmlSpellDialog *dialog)
+                   GtkhtmlSpellDialog *dialog)
 {
 	GtkHTML *html;
 

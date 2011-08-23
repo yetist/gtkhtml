@@ -1,22 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* This file is part of the GtkHTML library.
-
-   Copyright (C) 2000 Helix Code, Inc.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+ *
+ * Copyright (C) 2000 Helix Code, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; see the file COPYING.LIB.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
 */
 
 #include <config.h>
@@ -72,7 +72,8 @@ html_frameset_get_view_width (HTMLFrameset *set)
 }
 
 gboolean
-html_frameset_append (HTMLFrameset *set, HTMLObject *frame)
+html_frameset_append (HTMLFrameset *set,
+                      HTMLObject *frame)
 {
 	g_return_val_if_fail (frame != NULL, FALSE);
 	g_return_val_if_fail (set != NULL, FALSE);
@@ -86,7 +87,9 @@ html_frameset_append (HTMLFrameset *set, HTMLObject *frame)
 }
 
 static void
-calc_dimension (GPtrArray *dim, gint *span, gint total)
+calc_dimension (GPtrArray *dim,
+                gint *span,
+                gint total)
 {
 	HTMLLength *len;
 	gint i;
@@ -147,7 +150,9 @@ calc_dimension (GPtrArray *dim, gint *span, gint total)
 }
 
 static gboolean
-html_frameset_real_calc_size (HTMLObject *o, HTMLPainter *painter, GList **changed_objs)
+html_frameset_real_calc_size (HTMLObject *o,
+                              HTMLPainter *painter,
+                              GList **changed_objs)
 {
 	HTMLFrameset *set = HTML_FRAMESET (o);
 	HTMLObject *frame = NULL;
@@ -241,9 +246,12 @@ html_frameset_init (HTMLFrameset *set,
 static void
 draw (HTMLObject *o,
       HTMLPainter *p,
-      gint x, gint y,
-      gint width, gint height,
-      gint tx, gint ty)
+      gint x,
+      gint y,
+      gint width,
+      gint height,
+      gint tx,
+      gint ty)
 {
 	HTMLFrameset *set;
 	gint i;
@@ -278,7 +286,9 @@ destroy (HTMLObject *self)
 }
 
 static void
-set_max_width (HTMLObject *o, HTMLPainter *painter, gint w)
+set_max_width (HTMLObject *o,
+               HTMLPainter *painter,
+               gint w)
 {
 	HTMLFrameset *set = HTML_FRAMESET (o);
 	gint remain_x;
@@ -300,12 +310,13 @@ set_max_width (HTMLObject *o, HTMLPainter *painter, gint w)
 	g_free (widths);
 }
 
-static HTMLObject*
+static HTMLObject *
 check_point (HTMLObject *self,
-	     HTMLPainter *painter,
-	     gint x, gint y,
-	     guint *offset_return,
-	     gboolean for_cursor)
+             HTMLPainter *painter,
+             gint x,
+             gint y,
+             guint *offset_return,
+             gboolean for_cursor)
 {
 	HTMLFrameset *set = HTML_FRAMESET (self);
 	HTMLObject   *obj;
@@ -337,19 +348,19 @@ reset (HTMLObject *self)
 {
 	HTMLFrameset *set;
 	gint i;
-
+ *
 	(* HTML_OBJECT_CLASS (parent_class)->reset) (self);
 	set = HTML_FRAMESET (self);
 	for (i = 0; i < set->frames->len; i++)
 		html_object_reset (g_ptr_array_index (set->frames, i));
-
+ *
 } */
 
 static void
 forall (HTMLObject *self,
-	HTMLEngine *e,
-	HTMLObjectForallFunc func,
-	gpointer data)
+        HTMLEngine *e,
+        HTMLObjectForallFunc func,
+        gpointer data)
 {
 	HTMLFrameset *set;
 	gint i;
@@ -361,7 +372,9 @@ forall (HTMLObject *self,
 }
 
 HTMLObject *
-html_frameset_new (GtkHTML *parent, gchar *rows, gchar *cols)
+html_frameset_new (GtkHTML *parent,
+                   gchar *rows,
+                   gchar *cols)
 {
 	HTMLFrameset *set;
 
@@ -373,7 +386,8 @@ html_frameset_new (GtkHTML *parent, gchar *rows, gchar *cols)
 }
 
 static gint
-calc_min_width (HTMLObject *o, HTMLPainter *p)
+calc_min_width (HTMLObject *o,
+                HTMLPainter *p)
 {
 	return -1;
 }
@@ -386,8 +400,8 @@ html_frameset_type_init (void)
 
 void
 html_frameset_class_init (HTMLFramesetClass *klass,
-			  HTMLType type,
-			  guint object_size)
+                          HTMLType type,
+                          guint object_size)
 {
 	HTMLObjectClass *object_class = HTML_OBJECT_CLASS (klass);
 

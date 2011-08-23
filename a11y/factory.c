@@ -10,7 +10,7 @@ gtk_html_a11y_factory_get_accessible_type (void)
 	return G_TYPE_GTK_HTML_A11Y;
 }
 
-static AtkObject*
+static AtkObject *
 gtk_html_a11y_factory_create_accessible (GObject *obj)
 {
 	GtkWidget *widget;
