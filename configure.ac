@@ -141,6 +141,9 @@ AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
 
+AC_CHECK_LIBM
+AC_SUBST(LIBM)
+
 dnl **********************************
 dnl GAIL modules
 dnl **********************************
