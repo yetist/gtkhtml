@@ -209,7 +209,8 @@ libgtkhtml_4_0_la_LIBADD =			\
 	$(GTKHTML_LIBS)				\
 	../a11y/libgtkhtml-a11y.la		\
 	$(GAIL_LIBS)				\
-	$(REGEX_LIBS)
+	$(REGEX_LIBS)				\
+	$(LIBM)
 
 dist-hook:
 	mkdir $(distdir)/tests
