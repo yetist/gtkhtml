@@ -1,3 +1,17 @@
+GtkHTML-4.1.91 2011-09-05
+-------------------------
+
+Bug Fixes:
+	Bug 657764 - Explicitly link gtkhtml against libm (Frederic Peters)
+
+Other Changes:
+	* Create tar.xz files for 'make dist' only (Milan Crha)
+
+Translations:
+	Alexandre Franke (fr)
+	Aurimas Černius (lt)
+
+
 GtkHTML-4.1.90 2011-08-29
 -------------------------
 
