@@ -172,7 +172,6 @@ struct _GtkhtmlEditorPrivate {
 	 * a file. */
 
 	gchar *filename;
-	gchar *current_folder;
 	GtkhtmlColorPalette *palette;
 	GtkhtmlColorState *text_color;
 	guint ignore_style_change;

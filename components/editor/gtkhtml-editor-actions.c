@@ -627,12 +627,6 @@ action_insert_image_cb (GtkAction *action,
 	dialog = gtkhtml_image_chooser_dialog_new (
 		_("Insert Image"), GTK_WINDOW (editor));
 
-	g_object_bind_property (
-		editor, "current-folder",
-		dialog, "current-folder",
-		G_BINDING_BIDIRECTIONAL |
-		G_BINDING_SYNC_CREATE);
-
 	file = gtkhtml_image_chooser_dialog_run (
 		GTKHTML_IMAGE_CHOOSER_DIALOG (dialog));
 

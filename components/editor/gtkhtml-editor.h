@@ -103,11 +103,6 @@ GtkWidget *	gtkhtml_editor_get_managed_widget
 gboolean	gtkhtml_editor_get_changed	(GtkhtmlEditor *editor);
 void		gtkhtml_editor_set_changed	(GtkhtmlEditor *editor,
 						 gboolean changed);
-const gchar *	gtkhtml_editor_get_current_folder
-						(GtkhtmlEditor *editor);
-void		gtkhtml_editor_set_current_folder
-						(GtkhtmlEditor *editor,
-						 const gchar *current_folder);
 const gchar *	gtkhtml_editor_get_filename	(GtkhtmlEditor *editor);
 void		gtkhtml_editor_set_filename	(GtkhtmlEditor *editor,
 						 const gchar *filename);
@@ -132,9 +127,6 @@ GList *		gtkhtml_editor_get_spell_languages
 void		gtkhtml_editor_set_spell_languages
 						(GtkhtmlEditor *editor,
 						 GList *spell_languages);
-gint		gtkhtml_editor_file_chooser_dialog_run
-						(GtkhtmlEditor *editor,
-						 GtkWidget *dialog);
 
 /*****************************************************************************
  * High-Level Editing Interface

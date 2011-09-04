@@ -433,7 +433,6 @@ gtkhtml_editor_private_finalize (GtkhtmlEditor *editor)
 	g_hash_table_destroy (priv->spell_suggestion_menus);
 
 	g_free (priv->filename);
-	g_free (priv->current_folder);
 }
 
 gchar *
@@ -495,7 +494,6 @@ gtkhtml_editor_run_open_dialog (GtkhtmlEditor *editor,
 	GtkFileChooser *file_chooser;
 	GFile *chosen_file = NULL;
 	GtkWidget *dialog;
-	gchar *uri;
 
 	g_return_val_if_fail (GTKHTML_IS_EDITOR (editor), NULL);
 
@@ -512,26 +510,13 @@ gtkhtml_editor_run_open_dialog (GtkhtmlEditor *editor,
 
 	gtk_file_chooser_set_local_only (file_chooser, FALSE);
 
-	/* Restore the current folder from the previous file chooser. */
-	uri = (gchar *) gtkhtml_editor_get_current_folder (editor);
-	if (uri != NULL)
-		gtk_file_chooser_set_current_folder_uri (file_chooser, uri);
-
 	/* Allow further customizations before running the dialog. */
 	if (customize_func != NULL)
 		customize_func (dialog, customize_data);
 
-	if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_ACCEPT)
-		goto exit;
+	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT)
+		chosen_file = gtk_file_chooser_get_file (file_chooser);
 
-	chosen_file = gtk_file_chooser_get_file (file_chooser);
-
-	/* Save the current folder for subsequent file choosers. */
-	uri = gtk_file_chooser_get_current_folder_uri (file_chooser);
-	gtkhtml_editor_set_current_folder (editor, uri);
-	g_free (uri);
-
-exit:
 	gtk_widget_destroy (dialog);
 
 	return chosen_file;

@@ -26,7 +26,6 @@
 
 enum {
 	PROP_0,
-	PROP_CURRENT_FOLDER,
 	PROP_FILENAME,
 	PROP_HTML,
 	PROP_HTML_MODE,
@@ -616,12 +615,6 @@ editor_set_property (GObject *object,
                      GParamSpec *pspec)
 {
 	switch (property_id) {
-		case PROP_CURRENT_FOLDER:
-			gtkhtml_editor_set_current_folder (
-				GTKHTML_EDITOR (object),
-				g_value_get_string (value));
-			return;
-
 		case PROP_FILENAME:
 			gtkhtml_editor_set_filename (
 				GTKHTML_EDITOR (object),
@@ -674,12 +667,6 @@ editor_get_property (GObject *object,
                      GParamSpec *pspec)
 {
 	switch (property_id) {
-		case PROP_CURRENT_FOLDER:
-			g_value_set_string (
-				value, gtkhtml_editor_get_current_folder (
-				GTKHTML_EDITOR (object)));
-			return;
-
 		case PROP_FILENAME:
 			g_value_set_string (
 				value, gtkhtml_editor_get_filename (
@@ -813,17 +800,6 @@ editor_class_init (GtkhtmlEditorClass *class)
 	class->copy_clipboard = editor_copy_clipboard;
 	class->paste_clipboard = editor_paste_clipboard;
 	class->select_all = editor_select_all;
-
-	g_object_class_install_property (
-		object_class,
-		PROP_CURRENT_FOLDER,
-		g_param_spec_string (
-			"current-folder",
-			"Current Folder",
-			"The initial folder for file chooser dialogs",
-			g_get_home_dir (),
-			G_PARAM_READWRITE |
-			G_PARAM_CONSTRUCT));
 
 	g_object_class_install_property (
 		object_class,
@@ -1168,29 +1144,6 @@ gtkhtml_editor_set_changed (GtkhtmlEditor *editor,
 }
 
 const gchar *
-gtkhtml_editor_get_current_folder (GtkhtmlEditor *editor)
-{
-	g_return_val_if_fail (GTKHTML_IS_EDITOR (editor), NULL);
-
-	return editor->priv->current_folder;
-}
-
-void
-gtkhtml_editor_set_current_folder (GtkhtmlEditor *editor,
-                                   const gchar *current_folder)
-{
-	g_return_if_fail (GTKHTML_IS_EDITOR (editor));
-
-	if (current_folder == NULL)
-		current_folder = g_get_home_dir ();
-
-	g_free (editor->priv->current_folder);
-	editor->priv->current_folder = g_strdup (current_folder);
-
-	g_object_notify (G_OBJECT (editor), "current-folder");
-}
-
-const gchar *
 gtkhtml_editor_get_filename (GtkhtmlEditor *editor)
 {
 	g_return_val_if_fail (GTKHTML_IS_EDITOR (editor), NULL);
@@ -1376,40 +1329,6 @@ gtkhtml_editor_set_spell_languages (GtkhtmlEditor *editor,
 
 		gtk_toggle_action_set_active (action, active);
 	}
-}
-
-gint
-gtkhtml_editor_file_chooser_dialog_run (GtkhtmlEditor *editor,
-                                        GtkWidget *dialog)
-{
-	gint response = GTK_RESPONSE_NONE;
-	gboolean save_folder;
-
-	g_return_val_if_fail (GTKHTML_IS_EDITOR (editor), response);
-	g_return_val_if_fail (GTK_IS_FILE_CHOOSER_DIALOG (dialog), response);
-
-	gtk_file_chooser_set_current_folder_uri (
-		GTK_FILE_CHOOSER (dialog),
-		gtkhtml_editor_get_current_folder (editor));
-
-	response = gtk_dialog_run (GTK_DIALOG (dialog));
-
-	save_folder =
-		(response == GTK_RESPONSE_ACCEPT) ||
-		(response == GTK_RESPONSE_OK) ||
-		(response == GTK_RESPONSE_YES) ||
-		(response == GTK_RESPONSE_APPLY);
-
-	if (save_folder) {
-		gchar *folder;
-
-		folder = gtk_file_chooser_get_current_folder_uri (
-			GTK_FILE_CHOOSER (dialog));
-		gtkhtml_editor_set_current_folder (editor, folder);
-		g_free (folder);
-	}
-
-	return response;
 }
 
 /* Helper for gtkhtml_editor_get_text_[html/plain]() */

@@ -25,17 +25,11 @@ typedef struct _Context Context;
 
 struct _GtkhtmlImageChooserDialogPrivate {
 	GCancellable *cancellable;
-	gchar *current_folder;
 };
 
 struct _Context {
 	GtkFileChooser *file_chooser;
 	GCancellable *cancellable;
-};
-
-enum {
-	PROP_0,
-	PROP_CURRENT_FOLDER
 };
 
 G_DEFINE_TYPE (
@@ -132,41 +126,6 @@ image_chooser_dialog_update_preview (GtkFileChooser *file_chooser)
 }
 
 static void
-image_chooser_dialog_set_property (GObject *object,
-                                   guint property_id,
-                                   const GValue *value,
-                                   GParamSpec *pspec)
-{
-	switch (property_id) {
-		case PROP_CURRENT_FOLDER:
-			gtkhtml_image_chooser_dialog_set_current_folder (
-				GTKHTML_IMAGE_CHOOSER_DIALOG (object),
-				g_value_get_string (value));
-			return;
-	}
-
-	G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-}
-
-static void
-image_chooser_dialog_get_property (GObject *object,
-                                   guint property_id,
-                                   GValue *value,
-                                   GParamSpec *pspec)
-{
-	switch (property_id) {
-		case PROP_CURRENT_FOLDER:
-			g_value_set_string (
-				value,
-				gtkhtml_image_chooser_dialog_get_current_folder (
-				GTKHTML_IMAGE_CHOOSER_DIALOG (object)));
-			return;
-	}
-
-	G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
-}
-
-static void
 image_chooser_dialog_dispose (GObject *object)
 {
 	GtkhtmlImageChooserDialogPrivate *priv;
@@ -182,20 +141,6 @@ image_chooser_dialog_dispose (GObject *object)
 	/* Chain up to parent's dispose() method. */
 	G_OBJECT_CLASS (gtkhtml_image_chooser_dialog_parent_class)->
 		dispose (object);
-}
-
-static void
-image_chooser_dialog_finalize (GObject *object)
-{
-	GtkhtmlImageChooserDialogPrivate *priv;
-
-	priv = GTKHTML_IMAGE_CHOOSER_DIALOG (object)->priv;
-
-	g_free (priv->current_folder);
-
-	/* Chain up to parent's finalize() method. */
-	G_OBJECT_CLASS (gtkhtml_image_chooser_dialog_parent_class)->
-		finalize (object);
 }
 
 static void
@@ -232,22 +177,8 @@ gtkhtml_image_chooser_dialog_class_init (GtkhtmlImageChooserDialogClass *class)
 		class, sizeof (GtkhtmlImageChooserDialogPrivate));
 
 	object_class = G_OBJECT_CLASS (class);
-	object_class->set_property = image_chooser_dialog_set_property;
-	object_class->get_property = image_chooser_dialog_get_property;
 	object_class->dispose = image_chooser_dialog_dispose;
-	object_class->finalize = image_chooser_dialog_finalize;
 	object_class->constructed = image_chooser_dialog_constructed;
-
-	g_object_class_install_property (
-		object_class,
-		PROP_CURRENT_FOLDER,
-		g_param_spec_string (
-			"current-folder",
-			"Current Folder",
-			"The initial folder for file chooser dialogs",
-			g_get_home_dir (),
-			G_PARAM_READWRITE |
-			G_PARAM_CONSTRUCT));
 }
 
 static void
@@ -277,46 +208,14 @@ GFile *
 gtkhtml_image_chooser_dialog_run (GtkhtmlImageChooserDialog *dialog)
 {
 	GtkFileChooser *file_chooser;
-	gchar *uri;
 
 	g_return_val_if_fail (GTKHTML_IS_IMAGE_CHOOSER_DIALOG (dialog), NULL);
 
 	file_chooser = GTK_FILE_CHOOSER (dialog);
 
-	uri = (gchar *)
-		gtkhtml_image_chooser_dialog_get_current_folder (dialog);
-	if (uri != NULL)
-		gtk_file_chooser_set_current_folder_uri (file_chooser, uri);
-
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) != GTK_RESPONSE_ACCEPT)
 		return NULL;
-
-	uri = gtk_file_chooser_get_current_folder_uri (file_chooser);
-	gtkhtml_image_chooser_dialog_set_current_folder (dialog, uri);
-	g_free (uri);
 
 	return gtk_file_chooser_get_file (file_chooser);
 }
 
-const gchar *
-gtkhtml_image_chooser_dialog_get_current_folder (GtkhtmlImageChooserDialog *dialog)
-{
-	g_return_val_if_fail (GTKHTML_IS_IMAGE_CHOOSER_DIALOG (dialog), NULL);
-
-	return dialog->priv->current_folder;
-}
-
-void
-gtkhtml_image_chooser_dialog_set_current_folder (GtkhtmlImageChooserDialog *dialog,
-                                                 const gchar *current_folder)
-{
-	g_return_if_fail (GTKHTML_IS_IMAGE_CHOOSER_DIALOG (dialog));
-
-	if (current_folder == NULL)
-		current_folder = g_get_home_dir ();
-
-	g_free (dialog->priv->current_folder);
-	dialog->priv->current_folder = g_strdup (current_folder);
-
-	g_object_notify (G_OBJECT (dialog), "current-folder");
-}

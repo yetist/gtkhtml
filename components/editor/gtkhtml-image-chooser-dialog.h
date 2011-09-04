@@ -62,11 +62,6 @@ GtkWidget *	gtkhtml_image_chooser_dialog_new
 					 GtkWindow *parent);
 GFile *		gtkhtml_image_chooser_dialog_run
 					(GtkhtmlImageChooserDialog *dialog);
-const gchar *	gtkhtml_image_chooser_dialog_get_current_folder
-					(GtkhtmlImageChooserDialog *dialog);
-void		gtkhtml_image_chooser_dialog_set_current_folder
-					(GtkhtmlImageChooserDialog *dialog,
-					 const gchar *current_folder);
 
 G_END_DECLS
 

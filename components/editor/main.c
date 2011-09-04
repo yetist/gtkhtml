@@ -104,12 +104,9 @@ save_dialog (GtkhtmlEditor *editor)
 	if (filename != NULL)
 		gtk_file_chooser_set_filename (
 			GTK_FILE_CHOOSER (dialog), filename);
-	else {
-		gtk_file_chooser_set_current_folder (
-			GTK_FILE_CHOOSER (dialog), g_get_home_dir ());
+	else
 		gtk_file_chooser_set_current_name (
 			GTK_FILE_CHOOSER (dialog), _("Untitled document"));
-	}
 
 	response = gtk_dialog_run (GTK_DIALOG (dialog));
 
