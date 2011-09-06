@@ -8,252 +8,252 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gtkhtml 3.91.6\n"
+"Project-Id-Version: gtkhtml 4.1.92\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-25 19:16+0800\n"
-"PO-Revision-Date: 2011-01-25 19:16+0800\n"
-"Last-Translator: Wei-Lun Chao <chaoweilun@gmail.com>\n"
+"POT-Creation-Date: 2011-09-06 19:39+0800\n"
+"PO-Revision-Date: 2011-09-06 19:40+0800\n"
+"Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (Hong Kong) <community@linuxhall.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../a11y/image.c:151
+#: ../a11y/image.c:152
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
 msgstr "URL 是 %s，替代文字是 %s"
 
-#: ../a11y/image.c:153
+#: ../a11y/image.c:154
 #, c-format
 msgid "URL is %s"
 msgstr "URL 是 %s"
 
-#: ../a11y/object.c:51 ../a11y/object.c:60 ../a11y/text.c:125
+#: ../a11y/object.c:52 ../a11y/object.c:62 ../a11y/text.c:126
 msgid "grab focus"
 msgstr "抓取焦點"
 
-#: ../a11y/object.c:253
+#: ../a11y/object.c:258
 msgid "Panel containing HTML"
 msgstr "面板包含 HTML"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:82
+#: ../components/editor/gtkhtml-color-combo.c:75
 msgid "black"
 msgstr "黑色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:83
+#: ../components/editor/gtkhtml-color-combo.c:76
 msgid "light brown"
 msgstr "淺褐色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:84
+#: ../components/editor/gtkhtml-color-combo.c:77
 msgid "brown gold"
 msgstr "褐金色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:85
+#: ../components/editor/gtkhtml-color-combo.c:78
 msgid "dark green #2"
 msgstr "深綠色 #2"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:86
+#: ../components/editor/gtkhtml-color-combo.c:79
 msgid "navy"
 msgstr "海軍藍"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:87
+#: ../components/editor/gtkhtml-color-combo.c:80
 msgid "dark blue"
 msgstr "深藍色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:88
+#: ../components/editor/gtkhtml-color-combo.c:81
 msgid "purple #2"
 msgstr "紫色 #2"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:89
+#: ../components/editor/gtkhtml-color-combo.c:82
 msgid "very dark gray"
 msgstr "暗灰色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:91
+#: ../components/editor/gtkhtml-color-combo.c:84
 msgid "dark red"
 msgstr "深紅色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:92
+#: ../components/editor/gtkhtml-color-combo.c:85
 msgid "red-orange"
 msgstr "橘紅色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:93
+#: ../components/editor/gtkhtml-color-combo.c:86
 msgid "gold"
 msgstr "金色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:94
+#: ../components/editor/gtkhtml-color-combo.c:87
 msgid "dark green"
 msgstr "深綠色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:95
+#: ../components/editor/gtkhtml-color-combo.c:88
 msgid "dull blue"
 msgstr "暗藍色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:96
+#: ../components/editor/gtkhtml-color-combo.c:89
 msgid "blue"
 msgstr "藍色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:97
+#: ../components/editor/gtkhtml-color-combo.c:90
 msgid "dull purple"
 msgstr "暗紫色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:98
+#: ../components/editor/gtkhtml-color-combo.c:91
 msgid "dark grey"
 msgstr "深灰色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:100
+#: ../components/editor/gtkhtml-color-combo.c:93
 msgid "red"
 msgstr "紅色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:101
+#: ../components/editor/gtkhtml-color-combo.c:94
 msgid "orange"
 msgstr "橘色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:102
+#: ../components/editor/gtkhtml-color-combo.c:95
 msgid "lime"
 msgstr "黃綠色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:103
+#: ../components/editor/gtkhtml-color-combo.c:96
 msgid "dull green"
 msgstr "暗綠色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:104
+#: ../components/editor/gtkhtml-color-combo.c:97
 msgid "dull blue #2"
 msgstr "暗藍色 #2"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:105
+#: ../components/editor/gtkhtml-color-combo.c:98
 msgid "sky blue #2"
 msgstr "天空藍 #2"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:106
+#: ../components/editor/gtkhtml-color-combo.c:99
 msgid "purple"
 msgstr "紫色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:107
+#: ../components/editor/gtkhtml-color-combo.c:100
 msgid "gray"
 msgstr "灰色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:109
+#: ../components/editor/gtkhtml-color-combo.c:102
 msgid "magenta"
 msgstr "洋紅色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:110
+#: ../components/editor/gtkhtml-color-combo.c:103
 msgid "bright orange"
 msgstr "亮橘色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:111
+#: ../components/editor/gtkhtml-color-combo.c:104
 msgid "yellow"
 msgstr "黃色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:112
+#: ../components/editor/gtkhtml-color-combo.c:105
 msgid "green"
 msgstr "綠色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:113
+#: ../components/editor/gtkhtml-color-combo.c:106
 msgid "cyan"
 msgstr "青色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:114
+#: ../components/editor/gtkhtml-color-combo.c:107
 msgid "bright blue"
 msgstr "亮藍色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:115
+#: ../components/editor/gtkhtml-color-combo.c:108
 msgid "red purple"
 msgstr "紅紫色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:116
+#: ../components/editor/gtkhtml-color-combo.c:109
 msgid "light grey"
 msgstr "淡灰色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:118
+#: ../components/editor/gtkhtml-color-combo.c:111
 msgid "pink"
 msgstr "粉紅色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:119
+#: ../components/editor/gtkhtml-color-combo.c:112
 msgid "light orange"
 msgstr "淡橘色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:120
+#: ../components/editor/gtkhtml-color-combo.c:113
 msgid "light yellow"
 msgstr "淡黃色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:121
+#: ../components/editor/gtkhtml-color-combo.c:114
 msgid "light green"
 msgstr "淡綠色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:122
+#: ../components/editor/gtkhtml-color-combo.c:115
 msgid "light cyan"
 msgstr "淡青色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:123
+#: ../components/editor/gtkhtml-color-combo.c:116
 msgid "light blue"
 msgstr "淡藍色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:124
+#: ../components/editor/gtkhtml-color-combo.c:117
 msgid "light purple"
 msgstr "淡紫色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:125
+#: ../components/editor/gtkhtml-color-combo.c:118
 msgid "white"
 msgstr "白色"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:280
+#: ../components/editor/gtkhtml-color-combo.c:273
 msgid "Choose Custom Color"
 msgstr "選擇自選色彩"
 
-#: ../components/editor/gtkhtml-color-combo.c:748
-#: ../components/editor/gtkhtml-color-state.c:228
+#: ../components/editor/gtkhtml-color-combo.c:755
+#: ../components/editor/gtkhtml-color-state.c:224
 msgid "Default"
 msgstr "預設值"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:971
+#: ../components/editor/gtkhtml-color-combo.c:979
 msgid "custom"
 msgstr "自選"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-color-combo.c:979
+#: ../components/editor/gtkhtml-color-combo.c:987
 msgid "Custom Color..."
 msgstr "自選顏色…"
 
@@ -365,569 +365,573 @@ msgstr "惡魔般的(_V)"
 msgid "_Monkey"
 msgstr "猴子(_M)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:190
+#: ../components/editor/gtkhtml-editor-actions.c:175
 msgid "Failed to insert HTML file."
 msgstr "插入 HTML 檔案失敗。"
 
-#: ../components/editor/gtkhtml-editor-actions.c:227
+#: ../components/editor/gtkhtml-editor-actions.c:212
 msgid "Failed to insert text file."
 msgstr "插入文字檔案失敗。"
 
-#: ../components/editor/gtkhtml-editor-actions.c:615
+#: ../components/editor/gtkhtml-editor-actions.c:512
+msgid "No match found"
+msgstr "找不到符合項"
+
+#: ../components/editor/gtkhtml-editor-actions.c:605
 msgid "Insert HTML File"
 msgstr "插入 HTML 檔案"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-editor-actions.c:635
-#: ../components/editor/gtkhtml-editor-actions.c:1549
+#: ../components/editor/gtkhtml-editor-actions.c:628
+#: ../components/editor/gtkhtml-editor-actions.c:1562
 msgid "Insert Image"
 msgstr "插入圖片"
 
-#: ../components/editor/gtkhtml-editor-actions.c:684
+#: ../components/editor/gtkhtml-editor-actions.c:697
 msgid "Insert Text File"
 msgstr "插入 Text 檔案"
 
 # Novell Translation
 #. Replace Button
-#: ../components/editor/gtkhtml-editor-actions.c:1184
-#: ../components/editor/gtkhtml-spell-dialog.c:522
+#: ../components/editor/gtkhtml-editor-actions.c:1197
+#: ../components/editor/gtkhtml-spell-dialog.c:516
 msgid "_Replace"
 msgstr "取代(_R)"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-editor-actions.c:1191
+#: ../components/editor/gtkhtml-editor-actions.c:1204
 msgid "Replace _All"
 msgstr "全部取代(_A)"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-editor-actions.c:1205
+#: ../components/editor/gtkhtml-editor-actions.c:1218
 msgid "_Next"
 msgstr "下一步(_N)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1212
+#: ../components/editor/gtkhtml-editor-actions.c:1225
 msgid "_Copy"
 msgstr "複製(_C)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1219
+#: ../components/editor/gtkhtml-editor-actions.c:1232
 msgid "Cu_t"
 msgstr "剪下(_T)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1233
+#: ../components/editor/gtkhtml-editor-actions.c:1246
 msgid "Find A_gain"
 msgstr "找下一個(_G)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1247
+#: ../components/editor/gtkhtml-editor-actions.c:1260
 msgid "_Increase Indent"
 msgstr "增加縮排(_I)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1249
+#: ../components/editor/gtkhtml-editor-actions.c:1262
 msgid "Increase Indent"
 msgstr "增加縮排"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1254
+#: ../components/editor/gtkhtml-editor-actions.c:1267
 msgid "_HTML File..."
 msgstr "_HTML 檔案…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1261
+#: ../components/editor/gtkhtml-editor-actions.c:1274
 msgid "Te_xt File..."
 msgstr "文字檔(_X)…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1268
+#: ../components/editor/gtkhtml-editor-actions.c:1281
 msgid "_Paste"
 msgstr "貼上(_P)"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-editor-actions.c:1275
+#: ../components/editor/gtkhtml-editor-actions.c:1288
 msgid "Paste _Quotation"
 msgstr "貼上引文(_Q)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1282
+#: ../components/editor/gtkhtml-editor-actions.c:1295
 msgid "_Redo"
 msgstr "取消復原(_R)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1289
+#: ../components/editor/gtkhtml-editor-actions.c:1302
 msgid "Select _All"
 msgstr "全部選取(_A)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1296
+#: ../components/editor/gtkhtml-editor-actions.c:1309
 msgid "_Find..."
 msgstr "尋找(_F)…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1303
+#: ../components/editor/gtkhtml-editor-actions.c:1316
 msgid "Re_place..."
 msgstr "取代(_P)…"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-editor-actions.c:1310
+#: ../components/editor/gtkhtml-editor-actions.c:1323
 msgid "Check _Spelling..."
 msgstr "拼字檢查(_S)…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1317
+#: ../components/editor/gtkhtml-editor-actions.c:1330
 #: ../components/editor/gtkhtml-editor-builder.ui.h:80
 msgid "_Test URL..."
 msgstr "測試 _URL…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1324
+#: ../components/editor/gtkhtml-editor-actions.c:1337
 msgid "_Undo"
 msgstr "復原(_U)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1331
+#: ../components/editor/gtkhtml-editor-actions.c:1344
 msgid "_Decrease Indent"
 msgstr "減少縮排(_D)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1333
+#: ../components/editor/gtkhtml-editor-actions.c:1346
 msgid "Decrease Indent"
 msgstr "減少縮排"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-editor-actions.c:1338
+#: ../components/editor/gtkhtml-editor-actions.c:1351
 msgid "_Wrap Lines"
 msgstr "換列(_W)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1347
+#: ../components/editor/gtkhtml-editor-actions.c:1360
 msgid "_Edit"
 msgstr "編輯(_E)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1354
-#: ../components/editor/main.c:330
+#: ../components/editor/gtkhtml-editor-actions.c:1367
+#: ../components/editor/main.c:326
 msgid "_File"
 msgstr "檔案(_F)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1361
+#: ../components/editor/gtkhtml-editor-actions.c:1374
 msgid "For_mat"
 msgstr "格式(_M)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1368
+#: ../components/editor/gtkhtml-editor-actions.c:1381
 msgid "_Paragraph Style"
 msgstr "段落樣式(_P)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1375
+#: ../components/editor/gtkhtml-editor-actions.c:1388
 msgid "_Insert"
 msgstr "插入(_I)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1382
+#: ../components/editor/gtkhtml-editor-actions.c:1395
 msgid "_Alignment"
 msgstr "對齊方式(_A)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1389
+#: ../components/editor/gtkhtml-editor-actions.c:1402
 msgid "Current _Languages"
 msgstr "目前的語言(_L)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1396
-#: ../components/editor/main.c:361
+#: ../components/editor/gtkhtml-editor-actions.c:1409
+#: ../components/editor/main.c:357
 msgid "_View"
 msgstr "檢視(_V)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1406
+#: ../components/editor/gtkhtml-editor-actions.c:1419
 msgid "_Center"
 msgstr "中(_C)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1408
+#: ../components/editor/gtkhtml-editor-actions.c:1421
 msgid "Center Alignment"
 msgstr "置中對齊"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1413
+#: ../components/editor/gtkhtml-editor-actions.c:1426
 msgid "_Left"
 msgstr "左(_L)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1415
+#: ../components/editor/gtkhtml-editor-actions.c:1428
 msgid "Left Alignment"
 msgstr "靠左對齊"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1420
+#: ../components/editor/gtkhtml-editor-actions.c:1433
 msgid "_Right"
 msgstr "右(_R)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1422
+#: ../components/editor/gtkhtml-editor-actions.c:1435
 msgid "Right Alignment"
 msgstr "靠右對齊"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1430
+#: ../components/editor/gtkhtml-editor-actions.c:1443
 msgid "_HTML"
 msgstr "_HTML"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1432
+#: ../components/editor/gtkhtml-editor-actions.c:1445
 msgid "HTML editing mode"
 msgstr "HTML 編輯模式"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1437
+#: ../components/editor/gtkhtml-editor-actions.c:1450
 msgid "Plain _Text"
 msgstr "純文字(_T)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1439
+#: ../components/editor/gtkhtml-editor-actions.c:1452
 msgid "Plain text editing mode"
 msgstr "純文字編輯模式"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1447
+#: ../components/editor/gtkhtml-editor-actions.c:1460
 msgid "_Normal"
 msgstr "一般(_N)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1454
+#: ../components/editor/gtkhtml-editor-actions.c:1467
 msgid "Header _1"
 msgstr "標題 _1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1461
+#: ../components/editor/gtkhtml-editor-actions.c:1474
 msgid "Header _2"
 msgstr "標題 _2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1468
+#: ../components/editor/gtkhtml-editor-actions.c:1481
 msgid "Header _3"
 msgstr "標題 _3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1475
+#: ../components/editor/gtkhtml-editor-actions.c:1488
 msgid "Header _4"
 msgstr "標題 _4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1482
+#: ../components/editor/gtkhtml-editor-actions.c:1495
 msgid "Header _5"
 msgstr "標題 _5"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1489
+#: ../components/editor/gtkhtml-editor-actions.c:1502
 msgid "Header _6"
 msgstr "標題 _6"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1496
+#: ../components/editor/gtkhtml-editor-actions.c:1509
 msgid "A_ddress"
 msgstr "地址(_D)"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-editor-actions.c:1503
+#: ../components/editor/gtkhtml-editor-actions.c:1516
 msgid "_Preformatted"
 msgstr "已預設格式(_P)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1510
+#: ../components/editor/gtkhtml-editor-actions.c:1523
 msgid "_Bulleted List"
 msgstr "無序號清單(_B)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1517
+#: ../components/editor/gtkhtml-editor-actions.c:1530
 msgid "_Roman Numeral List"
 msgstr "羅馬數字清單(_R)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1524
+#: ../components/editor/gtkhtml-editor-actions.c:1537
 msgid "Numbered _List"
 msgstr "阿拉伯數字清單(_L)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1531
+#: ../components/editor/gtkhtml-editor-actions.c:1544
 msgid "_Alphabetical List"
 msgstr "英文字母清單(_A)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1547
-#: ../components/editor/gtkhtml-editor-actions.c:1584
+#: ../components/editor/gtkhtml-editor-actions.c:1560
+#: ../components/editor/gtkhtml-editor-actions.c:1597
 msgid "_Image..."
 msgstr "圖像(_I)…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1554
-#: ../components/editor/gtkhtml-editor-actions.c:1591
+#: ../components/editor/gtkhtml-editor-actions.c:1567
+#: ../components/editor/gtkhtml-editor-actions.c:1604
 msgid "_Link..."
 msgstr "連結(_L)…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1556
+#: ../components/editor/gtkhtml-editor-actions.c:1569
 msgid "Insert Link"
 msgstr "插入連結"
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
-#: ../components/editor/gtkhtml-editor-actions.c:1562
-#: ../components/editor/gtkhtml-editor-actions.c:1606
+#: ../components/editor/gtkhtml-editor-actions.c:1575
+#: ../components/editor/gtkhtml-editor-actions.c:1619
 msgid "_Rule..."
 msgstr "水平線(_R)…"
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
-#: ../components/editor/gtkhtml-editor-actions.c:1565
+#: ../components/editor/gtkhtml-editor-actions.c:1578
 msgid "Insert Rule"
 msgstr "插入水平線"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1570
-#: ../components/editor/gtkhtml-editor-actions.c:1613
+#: ../components/editor/gtkhtml-editor-actions.c:1583
+#: ../components/editor/gtkhtml-editor-actions.c:1626
 msgid "_Table..."
 msgstr "表格(_T)…"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-editor-actions.c:1572
+#: ../components/editor/gtkhtml-editor-actions.c:1585
 msgid "Insert Table"
 msgstr "插入表格"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1577
+#: ../components/editor/gtkhtml-editor-actions.c:1590
 msgid "_Cell..."
 msgstr "儲存格(_C)…"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-editor-actions.c:1598
+#: ../components/editor/gtkhtml-editor-actions.c:1611
 msgid "Pa_ge..."
 msgstr "頁面(_G)…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1622
+#: ../components/editor/gtkhtml-editor-actions.c:1635
 msgid "Font _Size"
 msgstr "字型大小(_S)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1629
+#: ../components/editor/gtkhtml-editor-actions.c:1642
 msgid "_Font Style"
 msgstr "字型樣式(_F)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1639
+#: ../components/editor/gtkhtml-editor-actions.c:1652
 #: ../components/editor/gtkhtml-editor-builder.ui.h:61
 msgid "_Bold"
 msgstr "粗體(_B)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1641
+#: ../components/editor/gtkhtml-editor-actions.c:1654
 msgid "Bold"
 msgstr "粗體"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1647
+#: ../components/editor/gtkhtml-editor-actions.c:1660
 #: ../components/editor/gtkhtml-editor-builder.ui.h:68
 msgid "_Italic"
 msgstr "斜體(_I)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1649
+#: ../components/editor/gtkhtml-editor-actions.c:1662
 msgid "Italic"
 msgstr "斜體"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1655
+#: ../components/editor/gtkhtml-editor-actions.c:1668
 msgid "_Plain Text"
 msgstr "純文字(_P)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1657
+#: ../components/editor/gtkhtml-editor-actions.c:1670
 msgid "Plain Text"
 msgstr "純文字"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1663
+#: ../components/editor/gtkhtml-editor-actions.c:1676
 #: ../components/editor/gtkhtml-editor-builder.ui.h:77
 msgid "_Strikethrough"
 msgstr "刪除線(_S)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1665
+#: ../components/editor/gtkhtml-editor-actions.c:1678
 msgid "Strikethrough"
 msgstr "刪除線"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1671
+#: ../components/editor/gtkhtml-editor-actions.c:1684
 #: ../components/editor/gtkhtml-editor-builder.ui.h:83
 msgid "_Underline"
 msgstr "底線(_U)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1673
+#: ../components/editor/gtkhtml-editor-actions.c:1686
 msgid "Underline"
 msgstr "底線"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1683
+#: ../components/editor/gtkhtml-editor-actions.c:1696
 msgid "-2"
 msgstr "-2"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1691
+#: ../components/editor/gtkhtml-editor-actions.c:1704
 msgid "-1"
 msgstr "-1"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1699
+#: ../components/editor/gtkhtml-editor-actions.c:1712
 msgid "+0"
 msgstr "+0"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1707
+#: ../components/editor/gtkhtml-editor-actions.c:1720
 msgid "+1"
 msgstr "+1"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1715
+#: ../components/editor/gtkhtml-editor-actions.c:1728
 msgid "+2"
 msgstr "+2"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1723
+#: ../components/editor/gtkhtml-editor-actions.c:1736
 msgid "+3"
 msgstr "+3"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1731
+#: ../components/editor/gtkhtml-editor-actions.c:1744
 msgid "+4"
 msgstr "+4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1750
+#: ../components/editor/gtkhtml-editor-actions.c:1763
 msgid "Cell Contents"
 msgstr "儲存格內容"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1757
+#: ../components/editor/gtkhtml-editor-actions.c:1770
 msgid "Column"
 msgstr "列"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1764
+#: ../components/editor/gtkhtml-editor-actions.c:1777
 msgid "Row"
 msgstr "行"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1771
-#: ../components/editor/gtkhtml-editor-actions.c:1856
+#: ../components/editor/gtkhtml-editor-actions.c:1784
+#: ../components/editor/gtkhtml-editor-actions.c:1869
 msgid "Table"
 msgstr "表格"
 
 #. Translators: Popup menu item caption, containing all the Delete options for a table
-#: ../components/editor/gtkhtml-editor-actions.c:1781
+#: ../components/editor/gtkhtml-editor-actions.c:1794
 msgid "Table Delete"
 msgstr "表格刪除"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-editor-actions.c:1788
+#: ../components/editor/gtkhtml-editor-actions.c:1801
 msgid "Input Methods"
 msgstr "輸入法"
 
 #. Translators: Popup menu item caption, containing all the Insert options for a table
-#: ../components/editor/gtkhtml-editor-actions.c:1796
+#: ../components/editor/gtkhtml-editor-actions.c:1809
 msgid "Table Insert"
 msgstr "表格插入"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1803
+#: ../components/editor/gtkhtml-editor-actions.c:1816
 msgid "Properties"
 msgstr "屬性"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1821
+#: ../components/editor/gtkhtml-editor-actions.c:1834
 msgid "Column After"
 msgstr "該欄之後"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1828
+#: ../components/editor/gtkhtml-editor-actions.c:1841
 msgid "Column Before"
 msgstr "該欄之前"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1835
+#: ../components/editor/gtkhtml-editor-actions.c:1848
 msgid "Insert _Link"
 msgstr "插入連結(_L)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1842
+#: ../components/editor/gtkhtml-editor-actions.c:1855
 msgid "Row Above"
 msgstr "向上移動"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1849
+#: ../components/editor/gtkhtml-editor-actions.c:1862
 msgid "Row Below"
 msgstr "該行之下"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1863
+#: ../components/editor/gtkhtml-editor-actions.c:1876
 msgid "Cell..."
 msgstr "儲存格…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1870
+#: ../components/editor/gtkhtml-editor-actions.c:1883
 msgid "Image..."
 msgstr "圖片…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1877
+#: ../components/editor/gtkhtml-editor-actions.c:1890
 msgid "Link..."
 msgstr "連結…"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-editor-actions.c:1884
+#: ../components/editor/gtkhtml-editor-actions.c:1897
 msgid "Page..."
 msgstr "頁…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1891
+#: ../components/editor/gtkhtml-editor-actions.c:1904
 msgid "Paragraph..."
 msgstr "段落…"
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
-#: ../components/editor/gtkhtml-editor-actions.c:1899
+#: ../components/editor/gtkhtml-editor-actions.c:1912
 msgid "Rule..."
 msgstr "水平線…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1906
+#: ../components/editor/gtkhtml-editor-actions.c:1919
 msgid "Table..."
 msgstr "表格…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1913
+#: ../components/editor/gtkhtml-editor-actions.c:1926
 msgid "Text..."
 msgstr "文字…"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-editor-actions.c:1920
+#: ../components/editor/gtkhtml-editor-actions.c:1933
 msgid "Remove Link"
 msgstr "移除連結"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-editor-actions.c:1937
+#: ../components/editor/gtkhtml-editor-actions.c:1950
 msgid "Add Word to Dictionary"
 msgstr "新增文字至字典"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-editor-actions.c:1944
+#: ../components/editor/gtkhtml-editor-actions.c:1957
 msgid "Ignore Misspelled Word"
 msgstr "忽略拼錯的字"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-editor-actions.c:1951
+#: ../components/editor/gtkhtml-editor-actions.c:1964
 msgid "Add Word To"
 msgstr "加入文字到"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1960
+#: ../components/editor/gtkhtml-editor-actions.c:1973
 msgid "More Suggestions"
 msgstr "更多建議"
 
 #. Translators: %s will be replaced with the actual dictionary name,
-#. where a user can add a word to. This is part of an "Add Word To" submenu.
-#: ../components/editor/gtkhtml-editor-actions.c:2061
+#. * where a user can add a word to. This is part of an "Add Word To" submenu.
+#: ../components/editor/gtkhtml-editor-actions.c:2074
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s 字典"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2129
+#: ../components/editor/gtkhtml-editor-actions.c:2142
 msgid "_Emoticon"
 msgstr "表情符號(_E)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2130
+#: ../components/editor/gtkhtml-editor-actions.c:2143
 msgid "Insert Emoticon"
 msgstr "插入表情符號"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2191
+#: ../components/editor/gtkhtml-editor-actions.c:2204
 msgid "_Find"
 msgstr "尋找(_F)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2194
+#: ../components/editor/gtkhtml-editor-actions.c:2207
 msgid "Re_place"
 msgstr "取代(_P)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2197
+#: ../components/editor/gtkhtml-editor-actions.c:2210
 msgid "_Image"
 msgstr "圖片(_I)"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-editor-actions.c:2200
+#: ../components/editor/gtkhtml-editor-actions.c:2213
 msgid "_Link"
 msgstr "連結(_L)"
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
-#: ../components/editor/gtkhtml-editor-actions.c:2204
+#: ../components/editor/gtkhtml-editor-actions.c:2217
 msgid "_Rule"
 msgstr "水平線(_R)"
 
 # Novell Translation
-#: ../components/editor/gtkhtml-editor-actions.c:2207
+#: ../components/editor/gtkhtml-editor-actions.c:2220
 #: ../components/editor/gtkhtml-editor-builder.ui.h:79
 msgid "_Table"
 msgstr "表格(_T)"
 
-#: ../components/editor/gtkhtml-editor-private.c:273
+#: ../components/editor/gtkhtml-editor-private.c:277
 msgid "Paragraph Style"
 msgstr "段落樣式"
 
-#: ../components/editor/gtkhtml-editor-private.c:287
+#: ../components/editor/gtkhtml-editor-private.c:291
 msgid "Editing Mode"
 msgstr "編輯模式"
 
-#: ../components/editor/gtkhtml-editor-private.c:299
+#: ../components/editor/gtkhtml-editor-private.c:303
 msgid "Font Color"
 msgstr "字型顏色"
 
-#: ../components/editor/gtkhtml-editor-private.c:309
+#: ../components/editor/gtkhtml-editor-private.c:313
 msgid "Font Size"
 msgstr "字型大小"
 
-#: ../components/editor/gtkhtml-editor-private.c:336
+#: ../components/editor/gtkhtml-editor-private.c:340
 msgid "Automatic"
 msgstr "自動"
 
-#: ../components/editor/gtkhtml-editor-private.c:589
+#: ../components/editor/gtkhtml-editor-private.c:563
 msgid "Could not open the link."
 msgstr "無法開啟連結。"
 
-#: ../components/editor/gtkhtml-editor.c:897
+#: ../components/editor/gtkhtml-editor.c:899
 msgid "Changed property"
 msgstr "更改的屬性"
 
-#: ../components/editor/gtkhtml-editor.c:898
+#: ../components/editor/gtkhtml-editor.c:900
 msgid "Whether editor changed"
 msgstr "編輯器是否更改"
 
@@ -1310,44 +1314,44 @@ msgstr "跟隨"
 msgid "px"
 msgstr "像素"
 
-#: ../components/editor/gtkhtml-spell-dialog.c:117
+#: ../components/editor/gtkhtml-spell-dialog.c:113
 #, c-format
 msgid "Suggestions for \"%s\""
 msgstr "對「%s」的建議"
 
-#: ../components/editor/gtkhtml-spell-dialog.c:449
+#: ../components/editor/gtkhtml-spell-dialog.c:443
 msgid "Spell Checker"
 msgstr "拼字檢查程式"
 
 # Novell Translation
 #. Replace All Button
-#: ../components/editor/gtkhtml-spell-dialog.c:536
+#: ../components/editor/gtkhtml-spell-dialog.c:530
 msgid "R_eplace All"
 msgstr "取代全部(_E)"
 
 #. Ignore Button
-#: ../components/editor/gtkhtml-spell-dialog.c:550
+#: ../components/editor/gtkhtml-spell-dialog.c:544
 msgid "_Ignore"
 msgstr "忽略(_I)"
 
 #. Skip Button
-#: ../components/editor/gtkhtml-spell-dialog.c:564
+#: ../components/editor/gtkhtml-spell-dialog.c:558
 msgid "_Skip"
 msgstr "略過(_S)"
 
 #. Back Button
-#: ../components/editor/gtkhtml-spell-dialog.c:577
+#: ../components/editor/gtkhtml-spell-dialog.c:571
 msgid "_Back"
 msgstr "上一頁(_B)"
 
 #. Dictionary Label
-#: ../components/editor/gtkhtml-spell-dialog.c:590
+#: ../components/editor/gtkhtml-spell-dialog.c:584
 msgid "Dictionary"
 msgstr "字典"
 
 # Novell Translation
 #. Add Word Button
-#: ../components/editor/gtkhtml-spell-dialog.c:619
+#: ../components/editor/gtkhtml-spell-dialog.c:613
 msgid "_Add Word"
 msgstr "加入字(_A)"
 
@@ -1382,68 +1386,68 @@ msgstr "另存新檔"
 msgid "Untitled document"
 msgstr "未命名的文件"
 
-#: ../components/editor/main.c:274
+#: ../components/editor/main.c:270
 msgid "HTML Output"
 msgstr "HTML 輸出"
 
 # Novell Translation
-#: ../components/editor/main.c:281
+#: ../components/editor/main.c:277
 msgid "HTML Source"
 msgstr "HTML 來源"
 
-#: ../components/editor/main.c:288
+#: ../components/editor/main.c:284
 msgid "Plain Source"
 msgstr "純文字來源"
 
-#: ../components/editor/main.c:295
+#: ../components/editor/main.c:291
 msgid "_Print..."
 msgstr "打印(_P)…"
 
-#: ../components/editor/main.c:302
+#: ../components/editor/main.c:298
 msgid "Print Pre_view"
 msgstr "預覽打印(_V)"
 
-#: ../components/editor/main.c:309
+#: ../components/editor/main.c:305
 msgid "_Quit"
 msgstr "結束(_Q)"
 
-#: ../components/editor/main.c:316
+#: ../components/editor/main.c:312
 msgid "_Save"
 msgstr "儲存(_S)"
 
-#: ../components/editor/main.c:323
+#: ../components/editor/main.c:319
 msgid "Save _As..."
 msgstr "另存新檔(_A)…"
 
-#: ../components/editor/main.c:340
+#: ../components/editor/main.c:336
 msgid "HTML _Output"
 msgstr "HTM_L 輸出"
 
 # Novell Translation
-#: ../components/editor/main.c:347
+#: ../components/editor/main.c:343
 msgid "_HTML Source"
 msgstr "_HTML 來源"
 
-#: ../components/editor/main.c:354
+#: ../components/editor/main.c:350
 msgid "_Plain Source"
 msgstr "純文字來源"
 
 # Novell Translation
-#: ../gtkhtml/htmlbutton.c:138
+#: ../gtkhtml/htmlbutton.c:140
 msgid "Submit Query"
 msgstr "提出查詢"
 
 # Novell Translation
-#: ../gtkhtml/htmlbutton.c:141
+#: ../gtkhtml/htmlbutton.c:143
 msgid "Reset"
 msgstr "重設"
 
 #. TODO2 dialog instead of warning
-#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:309
+#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:310
 msgid "Cannot allocate default font for printing"
 msgstr "無法配置打印用的預設字型"
 
-#: ../gtkhtml/test.c:367
+#: ../gtkhtml/test.c:374
 msgid "GtkHTML Test"
 msgstr "GtkHTML 測試"
 
