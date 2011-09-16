@@ -4890,7 +4890,7 @@ html_engine_begin (HTMLEngine *e,
 					  html_engine_stream_types,
 					  html_engine_stream_write,
 					  html_engine_stream_end,
-					  e);
+					  g_object_ref (e));
 #ifdef LOG_INPUT
 	if (getenv("GTK_HTML_LOG_INPUT_STREAM") != NULL)
 		new_stream = gtk_html_stream_log_new (GTK_HTML (e->widget), new_stream);
@@ -5247,6 +5247,8 @@ html_engine_stream_end (GtkHTMLStream *stream,
 	gtk_widget_queue_resize (GTK_WIDGET (e->widget));
 
 	g_signal_emit (e, signals[LOAD_DONE], 0);
+
+	g_object_unref (e);
 }
 
 static void
