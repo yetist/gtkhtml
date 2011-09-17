@@ -6,37 +6,37 @@
 # Takeshi Aihana <takeshi.aihana@gmail.com>, 2000-2009.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2009-2010.
 # Hideki Yamane (Debian-JP) <henrich@debian.or.jp>, 2009.
-# Jiro MATSUZAWA <matsuzawa.jr@gmail.com>, 2011.
+# Jiro MATSUZAWA <jmatsuzawa@src.gnome.org>, 2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gtkhtml&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-04-04 01:41+0000\n"
-"PO-Revision-Date: 2011-04-04 13:16+0900\n"
-"Last-Translator: Jiro Matsuzawa <matsuzawa.jr@gmail.com>\n"
+"POT-Creation-Date: 2011-09-10 18:27+0000\n"
+"PO-Revision-Date: 2011-09-11 07:40+0900\n"
+"Last-Translator: Jiro Matsuzawa <jmatsuzawa@src.gnome.org>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
-"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
 
-#: ../a11y/image.c:151
+#: ../a11y/image.c:152
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
 msgstr "URL は %s で代替文字は %s です"
 
-#: ../a11y/image.c:153
+#: ../a11y/image.c:154
 #, c-format
 msgid "URL is %s"
 msgstr "URL は %s"
 
-#: ../a11y/object.c:51 ../a11y/object.c:60 ../a11y/text.c:125
+#: ../a11y/object.c:52 ../a11y/object.c:62 ../a11y/text.c:126
 msgid "grab focus"
 msgstr "フォーカスの取得"
 
-#: ../a11y/object.c:253
+#: ../a11y/object.c:258
 msgid "Panel containing HTML"
 msgstr "HTML を含むパネル"
 
@@ -330,511 +330,515 @@ msgstr "HTML ファイルの挿入に失敗しました。"
 msgid "Failed to insert text file."
 msgstr "テキストファイルの挿入に失敗しました。"
 
-#: ../components/editor/gtkhtml-editor-actions.c:600
+#: ../components/editor/gtkhtml-editor-actions.c:512
+msgid "No match found"
+msgstr ""
+
+#: ../components/editor/gtkhtml-editor-actions.c:605
 msgid "Insert HTML File"
 msgstr "HTML ファイルの挿入"
 
-#: ../components/editor/gtkhtml-editor-actions.c:623
-#: ../components/editor/gtkhtml-editor-actions.c:1557
+#: ../components/editor/gtkhtml-editor-actions.c:628
+#: ../components/editor/gtkhtml-editor-actions.c:1562
 msgid "Insert Image"
 msgstr "画像を挿入します"
 
-#: ../components/editor/gtkhtml-editor-actions.c:692
+#: ../components/editor/gtkhtml-editor-actions.c:697
 msgid "Insert Text File"
 msgstr "テキストファイルを挿入します"
 
 #. Replace Button
-#: ../components/editor/gtkhtml-editor-actions.c:1192
+#: ../components/editor/gtkhtml-editor-actions.c:1197
 #: ../components/editor/gtkhtml-spell-dialog.c:516
 msgid "_Replace"
 msgstr "置換(_R)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1199
+#: ../components/editor/gtkhtml-editor-actions.c:1204
 msgid "Replace _All"
 msgstr "すべて置換(_A)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1213
+#: ../components/editor/gtkhtml-editor-actions.c:1218
 msgid "_Next"
 msgstr "次へ(_N)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1220
+#: ../components/editor/gtkhtml-editor-actions.c:1225
 msgid "_Copy"
 msgstr "複写(_C)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1227
+#: ../components/editor/gtkhtml-editor-actions.c:1232
 msgid "Cu_t"
 msgstr "切り取り(_T)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1241
+#: ../components/editor/gtkhtml-editor-actions.c:1246
 msgid "Find A_gain"
 msgstr "再検索(_G)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1255
+#: ../components/editor/gtkhtml-editor-actions.c:1260
 msgid "_Increase Indent"
 msgstr "インデントを増やす(_I)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1257
+#: ../components/editor/gtkhtml-editor-actions.c:1262
 msgid "Increase Indent"
 msgstr "インデントを増やします"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1262
+#: ../components/editor/gtkhtml-editor-actions.c:1267
 msgid "_HTML File..."
 msgstr "HTML ファイル(_H)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1269
+#: ../components/editor/gtkhtml-editor-actions.c:1274
 msgid "Te_xt File..."
 msgstr "通常のファイル(_X)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1276
+#: ../components/editor/gtkhtml-editor-actions.c:1281
 msgid "_Paste"
 msgstr "貼り付け(_P)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1283
+#: ../components/editor/gtkhtml-editor-actions.c:1288
 msgid "Paste _Quotation"
 msgstr "引用して貼り付け(_Q)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1290
+#: ../components/editor/gtkhtml-editor-actions.c:1295
 msgid "_Redo"
 msgstr "やり直す(_R)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1297
+#: ../components/editor/gtkhtml-editor-actions.c:1302
 msgid "Select _All"
 msgstr "すべて選択(_A)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1304
+#: ../components/editor/gtkhtml-editor-actions.c:1309
 msgid "_Find..."
 msgstr "検索(_F)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1311
+#: ../components/editor/gtkhtml-editor-actions.c:1316
 msgid "Re_place..."
 msgstr "置換(_P)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1318
+#: ../components/editor/gtkhtml-editor-actions.c:1323
 msgid "Check _Spelling..."
 msgstr "スペルチェック(_S)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1325
+#: ../components/editor/gtkhtml-editor-actions.c:1330
 #: ../components/editor/gtkhtml-editor-builder.ui.h:80
 msgid "_Test URL..."
 msgstr "URL の確認(_T)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1332
+#: ../components/editor/gtkhtml-editor-actions.c:1337
 msgid "_Undo"
 msgstr "元に戻す(_U)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1339
+#: ../components/editor/gtkhtml-editor-actions.c:1344
 msgid "_Decrease Indent"
 msgstr "インデントを減らす(_D)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1341
+#: ../components/editor/gtkhtml-editor-actions.c:1346
 msgid "Decrease Indent"
 msgstr "インデントを減らします"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1346
+#: ../components/editor/gtkhtml-editor-actions.c:1351
 msgid "_Wrap Lines"
 msgstr "行ラップ(_W)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1355
+#: ../components/editor/gtkhtml-editor-actions.c:1360
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1362
+#: ../components/editor/gtkhtml-editor-actions.c:1367
 #: ../components/editor/main.c:326
 msgid "_File"
 msgstr "ファイル(_F)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1369
+#: ../components/editor/gtkhtml-editor-actions.c:1374
 msgid "For_mat"
 msgstr "書式(_M)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1376
+#: ../components/editor/gtkhtml-editor-actions.c:1381
 msgid "_Paragraph Style"
 msgstr "段落のスタイル(_P)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1383
+#: ../components/editor/gtkhtml-editor-actions.c:1388
 msgid "_Insert"
 msgstr "挿入(_I)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1390
+#: ../components/editor/gtkhtml-editor-actions.c:1395
 msgid "_Alignment"
 msgstr "位置(_A)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1397
+#: ../components/editor/gtkhtml-editor-actions.c:1402
 msgid "Current _Languages"
 msgstr "現在の辞書(_L)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1404
+#: ../components/editor/gtkhtml-editor-actions.c:1409
 #: ../components/editor/main.c:357
 msgid "_View"
 msgstr "表示(_V)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1414
+#: ../components/editor/gtkhtml-editor-actions.c:1419
 msgid "_Center"
 msgstr "中央寄せ(_C)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1416
+#: ../components/editor/gtkhtml-editor-actions.c:1421
 msgid "Center Alignment"
 msgstr "中央に寄せます"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1421
+#: ../components/editor/gtkhtml-editor-actions.c:1426
 msgid "_Left"
 msgstr "左寄せ(_L)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1423
+#: ../components/editor/gtkhtml-editor-actions.c:1428
 msgid "Left Alignment"
 msgstr "左に寄せます"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1428
+#: ../components/editor/gtkhtml-editor-actions.c:1433
 msgid "_Right"
 msgstr "右寄せ(_R)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1430
+#: ../components/editor/gtkhtml-editor-actions.c:1435
 msgid "Right Alignment"
 msgstr "右に寄せます"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1438
+#: ../components/editor/gtkhtml-editor-actions.c:1443
 msgid "_HTML"
 msgstr "HTML(_H)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1440
+#: ../components/editor/gtkhtml-editor-actions.c:1445
 msgid "HTML editing mode"
 msgstr "HTML の編集モードです"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1445
+#: ../components/editor/gtkhtml-editor-actions.c:1450
 msgid "Plain _Text"
 msgstr "通常のテキスト(_T)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1447
+#: ../components/editor/gtkhtml-editor-actions.c:1452
 msgid "Plain text editing mode"
 msgstr "通常のテキスト編集モードです"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1455
+#: ../components/editor/gtkhtml-editor-actions.c:1460
 msgid "_Normal"
 msgstr "標準(_N)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1462
+#: ../components/editor/gtkhtml-editor-actions.c:1467
 msgid "Header _1"
-msgstr "ヘッダ1(_1)"
+msgstr "ヘッダー1(_1)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1469
+#: ../components/editor/gtkhtml-editor-actions.c:1474
 msgid "Header _2"
-msgstr "ヘッダ2(_2)"
+msgstr "ヘッダー2(_2)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1476
+#: ../components/editor/gtkhtml-editor-actions.c:1481
 msgid "Header _3"
-msgstr "ヘッダ3(_3)"
+msgstr "ヘッダー3(_3)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1483
+#: ../components/editor/gtkhtml-editor-actions.c:1488
 msgid "Header _4"
-msgstr "ヘッダ4(_4)"
+msgstr "ヘッダー4(_4)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1490
+#: ../components/editor/gtkhtml-editor-actions.c:1495
 msgid "Header _5"
-msgstr "ヘッダ5(_5)"
+msgstr "ヘッダー5(_5)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1497
+#: ../components/editor/gtkhtml-editor-actions.c:1502
 msgid "Header _6"
-msgstr "ヘッダ5(_6)"
+msgstr "ヘッダー5(_6)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1504
+#: ../components/editor/gtkhtml-editor-actions.c:1509
 msgid "A_ddress"
 msgstr "アドレス(_D)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1511
+#: ../components/editor/gtkhtml-editor-actions.c:1516
 msgid "_Preformatted"
 msgstr "整形済(_P)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1518
+#: ../components/editor/gtkhtml-editor-actions.c:1523
 msgid "_Bulleted List"
 msgstr "マーク付きリスト(_B)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1525
+#: ../components/editor/gtkhtml-editor-actions.c:1530
 msgid "_Roman Numeral List"
 msgstr "ローマ数字付きリスト(_R)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1532
+#: ../components/editor/gtkhtml-editor-actions.c:1537
 msgid "Numbered _List"
 msgstr "番号付きリスト(_L)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1539
+#: ../components/editor/gtkhtml-editor-actions.c:1544
 msgid "_Alphabetical List"
 msgstr "英文字リスト(_A)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1555
-#: ../components/editor/gtkhtml-editor-actions.c:1592
+#: ../components/editor/gtkhtml-editor-actions.c:1560
+#: ../components/editor/gtkhtml-editor-actions.c:1597
 msgid "_Image..."
 msgstr "画像(_I)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1562
-#: ../components/editor/gtkhtml-editor-actions.c:1599
+#: ../components/editor/gtkhtml-editor-actions.c:1567
+#: ../components/editor/gtkhtml-editor-actions.c:1604
 msgid "_Link..."
 msgstr "リンク(_L)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1564
+#: ../components/editor/gtkhtml-editor-actions.c:1569
 msgid "Insert Link"
 msgstr "リンクを挿入します"
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
-#: ../components/editor/gtkhtml-editor-actions.c:1570
-#: ../components/editor/gtkhtml-editor-actions.c:1614
+#: ../components/editor/gtkhtml-editor-actions.c:1575
+#: ../components/editor/gtkhtml-editor-actions.c:1619
 msgid "_Rule..."
 msgstr "罫線(_R)..."
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
-#: ../components/editor/gtkhtml-editor-actions.c:1573
+#: ../components/editor/gtkhtml-editor-actions.c:1578
 msgid "Insert Rule"
 msgstr "罫線を挿入します"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1578
-#: ../components/editor/gtkhtml-editor-actions.c:1621
+#: ../components/editor/gtkhtml-editor-actions.c:1583
+#: ../components/editor/gtkhtml-editor-actions.c:1626
 msgid "_Table..."
 msgstr "表(_T)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1580
+#: ../components/editor/gtkhtml-editor-actions.c:1585
 msgid "Insert Table"
 msgstr "表を挿入します"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1585
+#: ../components/editor/gtkhtml-editor-actions.c:1590
 msgid "_Cell..."
 msgstr "セル(_C)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1606
+#: ../components/editor/gtkhtml-editor-actions.c:1611
 msgid "Pa_ge..."
 msgstr "ページ(_G)..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1630
+#: ../components/editor/gtkhtml-editor-actions.c:1635
 msgid "Font _Size"
 msgstr "フォントのサイズ(_S)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1637
+#: ../components/editor/gtkhtml-editor-actions.c:1642
 msgid "_Font Style"
 msgstr "フォントのサイズ(_F)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1647
+#: ../components/editor/gtkhtml-editor-actions.c:1652
 #: ../components/editor/gtkhtml-editor-builder.ui.h:61
 msgid "_Bold"
 msgstr "太字(_B)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1649
+#: ../components/editor/gtkhtml-editor-actions.c:1654
 msgid "Bold"
 msgstr "太字にします"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1655
+#: ../components/editor/gtkhtml-editor-actions.c:1660
 #: ../components/editor/gtkhtml-editor-builder.ui.h:68
 msgid "_Italic"
 msgstr "斜体(_I)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1657
+#: ../components/editor/gtkhtml-editor-actions.c:1662
 msgid "Italic"
 msgstr "斜体にします"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1663
+#: ../components/editor/gtkhtml-editor-actions.c:1668
 msgid "_Plain Text"
 msgstr "通常のテキスト(_P)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1665
+#: ../components/editor/gtkhtml-editor-actions.c:1670
 msgid "Plain Text"
 msgstr "通常のテキスト編集モードにします"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1671
+#: ../components/editor/gtkhtml-editor-actions.c:1676
 #: ../components/editor/gtkhtml-editor-builder.ui.h:77
 msgid "_Strikethrough"
 msgstr "取り消し線(_S)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1673
+#: ../components/editor/gtkhtml-editor-actions.c:1678
 msgid "Strikethrough"
 msgstr "取り消し線を付与します"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1679
+#: ../components/editor/gtkhtml-editor-actions.c:1684
 #: ../components/editor/gtkhtml-editor-builder.ui.h:83
 msgid "_Underline"
 msgstr "下線(_U)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1681
+#: ../components/editor/gtkhtml-editor-actions.c:1686
 msgid "Underline"
 msgstr "下線を付与します"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1691
+#: ../components/editor/gtkhtml-editor-actions.c:1696
 msgid "-2"
 msgstr "-2"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1699
+#: ../components/editor/gtkhtml-editor-actions.c:1704
 msgid "-1"
 msgstr "-1"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1707
+#: ../components/editor/gtkhtml-editor-actions.c:1712
 msgid "+0"
 msgstr "+0"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1715
+#: ../components/editor/gtkhtml-editor-actions.c:1720
 msgid "+1"
 msgstr "+1"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1723
+#: ../components/editor/gtkhtml-editor-actions.c:1728
 msgid "+2"
 msgstr "+2"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1731
+#: ../components/editor/gtkhtml-editor-actions.c:1736
 msgid "+3"
 msgstr "+3"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1739
+#: ../components/editor/gtkhtml-editor-actions.c:1744
 msgid "+4"
 msgstr "+4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1758
+#: ../components/editor/gtkhtml-editor-actions.c:1763
 msgid "Cell Contents"
 msgstr "セルの内容"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1765
+#: ../components/editor/gtkhtml-editor-actions.c:1770
 msgid "Column"
 msgstr "列"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1772
+#: ../components/editor/gtkhtml-editor-actions.c:1777
 msgid "Row"
 msgstr "行"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1779
-#: ../components/editor/gtkhtml-editor-actions.c:1864
+#: ../components/editor/gtkhtml-editor-actions.c:1784
+#: ../components/editor/gtkhtml-editor-actions.c:1869
 msgid "Table"
 msgstr "表"
 
 #. Translators: Popup menu item caption, containing all the Delete options for a table
-#: ../components/editor/gtkhtml-editor-actions.c:1789
+#: ../components/editor/gtkhtml-editor-actions.c:1794
 msgid "Table Delete"
 msgstr "表の削除"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1796
+#: ../components/editor/gtkhtml-editor-actions.c:1801
 msgid "Input Methods"
 msgstr "入力メソッド"
 
 #. Translators: Popup menu item caption, containing all the Insert options for a table
-#: ../components/editor/gtkhtml-editor-actions.c:1804
+#: ../components/editor/gtkhtml-editor-actions.c:1809
 msgid "Table Insert"
 msgstr "表の挿入"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1811
+#: ../components/editor/gtkhtml-editor-actions.c:1816
 msgid "Properties"
 msgstr "プロパティ"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1829
+#: ../components/editor/gtkhtml-editor-actions.c:1834
 msgid "Column After"
 msgstr "後ろに列"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1836
+#: ../components/editor/gtkhtml-editor-actions.c:1841
 msgid "Column Before"
 msgstr "前に列"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1843
+#: ../components/editor/gtkhtml-editor-actions.c:1848
 msgid "Insert _Link"
 msgstr "リンクの挿入(_L)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1850
+#: ../components/editor/gtkhtml-editor-actions.c:1855
 msgid "Row Above"
 msgstr "上に行"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1857
+#: ../components/editor/gtkhtml-editor-actions.c:1862
 msgid "Row Below"
 msgstr "下に行"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1871
+#: ../components/editor/gtkhtml-editor-actions.c:1876
 msgid "Cell..."
 msgstr "セル..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1878
+#: ../components/editor/gtkhtml-editor-actions.c:1883
 msgid "Image..."
 msgstr "画像..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1885
+#: ../components/editor/gtkhtml-editor-actions.c:1890
 msgid "Link..."
 msgstr "リンク..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1892
+#: ../components/editor/gtkhtml-editor-actions.c:1897
 msgid "Page..."
 msgstr "ページ..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1899
+#: ../components/editor/gtkhtml-editor-actions.c:1904
 msgid "Paragraph..."
 msgstr "段落..."
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
-#: ../components/editor/gtkhtml-editor-actions.c:1907
+#: ../components/editor/gtkhtml-editor-actions.c:1912
 msgid "Rule..."
 msgstr "罫線..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1914
+#: ../components/editor/gtkhtml-editor-actions.c:1919
 msgid "Table..."
 msgstr "表..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1921
+#: ../components/editor/gtkhtml-editor-actions.c:1926
 msgid "Text..."
 msgstr "文字..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1928
+#: ../components/editor/gtkhtml-editor-actions.c:1933
 msgid "Remove Link"
 msgstr "リンクの削除"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1945
+#: ../components/editor/gtkhtml-editor-actions.c:1950
 msgid "Add Word to Dictionary"
 msgstr "単語を辞書に追加する"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1952
+#: ../components/editor/gtkhtml-editor-actions.c:1957
 msgid "Ignore Misspelled Word"
 msgstr "スペル間違いの単語を無視する"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1959
+#: ../components/editor/gtkhtml-editor-actions.c:1964
 msgid "Add Word To"
 msgstr "単語の追加先"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1968
+#: ../components/editor/gtkhtml-editor-actions.c:1973
 msgid "More Suggestions"
 msgstr "他の候補"
 
 #. Translators: %s will be replaced with the actual dictionary name,
-#. where a user can add a word to. This is part of an "Add Word To" submenu.
-#: ../components/editor/gtkhtml-editor-actions.c:2069
+#. * where a user can add a word to. This is part of an "Add Word To" submenu.
+#: ../components/editor/gtkhtml-editor-actions.c:2074
 #, c-format
 msgid "%s Dictionary"
 msgstr "%s 辞書"
 
 # 日本の顔文字とは異なるのでスマイリー
-#: ../components/editor/gtkhtml-editor-actions.c:2137
+#: ../components/editor/gtkhtml-editor-actions.c:2142
 msgid "_Emoticon"
 msgstr "スマイリー(_E)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2138
+#: ../components/editor/gtkhtml-editor-actions.c:2143
 msgid "Insert Emoticon"
 msgstr "スマイリーを挿入します"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2199
+#: ../components/editor/gtkhtml-editor-actions.c:2204
 msgid "_Find"
 msgstr "検索(_F)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2202
+#: ../components/editor/gtkhtml-editor-actions.c:2207
 msgid "Re_place"
 msgstr "置換(_P)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2205
+#: ../components/editor/gtkhtml-editor-actions.c:2210
 msgid "_Image"
 msgstr "画像(_I)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2208
+#: ../components/editor/gtkhtml-editor-actions.c:2213
 msgid "_Link"
 msgstr "リンク(_L)"
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
-#: ../components/editor/gtkhtml-editor-actions.c:2212
+#: ../components/editor/gtkhtml-editor-actions.c:2217
 msgid "_Rule"
 msgstr "罫線(_R)"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2215
+#: ../components/editor/gtkhtml-editor-actions.c:2220
 #: ../components/editor/gtkhtml-editor-builder.ui.h:79
 msgid "_Table"
 msgstr "表(_T)"
@@ -863,13 +867,13 @@ msgstr "自動"
 msgid "Could not open the link."
 msgstr "リンクを開けませんでした"
 
-#: ../components/editor/gtkhtml-editor.c:897
+#: ../components/editor/gtkhtml-editor.c:899
 msgid "Changed property"
 msgstr "変化したかどうかのプロパティ"
 
-#: ../components/editor/gtkhtml-editor.c:898
+#: ../components/editor/gtkhtml-editor.c:900
 msgid "Whether editor changed"
-msgstr "エディタが変化したかどうか"
+msgstr "エディターが変化したかどうか"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:2
 #, no-c-format
@@ -966,7 +970,7 @@ msgstr "グラフ用紙"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:25
 msgid "Hea_der Style"
-msgstr "ヘッダのスタイル(_D)"
+msgstr "ヘッダーのスタイル(_D)"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:26
 msgid "I_mage:"
@@ -1319,20 +1323,20 @@ msgstr "HTML のソース(_H)"
 msgid "_Plain Source"
 msgstr "通常のソース(_P)"
 
-#: ../gtkhtml/htmlbutton.c:138
+#: ../gtkhtml/htmlbutton.c:140
 msgid "Submit Query"
 msgstr "問い合わせ"
 
-#: ../gtkhtml/htmlbutton.c:141
+#: ../gtkhtml/htmlbutton.c:143
 msgid "Reset"
 msgstr "リセット"
 
 #. TODO2 dialog instead of warning
-#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:309
+#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:310
 msgid "Cannot allocate default font for printing"
 msgstr "印刷用のデフォルトのフォントをロードできません"
 
-#: ../gtkhtml/test.c:364
+#: ../gtkhtml/test.c:374
 msgid "GtkHTML Test"
 msgstr "GtkHTML のテスト"
 
@@ -1403,10 +1407,10 @@ msgstr "GtkHTML のテスト"
 #~ msgstr "GtkRadioAction 型のインスタンスです"
 
 #~ msgid "Current Folder"
-#~ msgstr "現在のフォルダ"
+#~ msgstr "現在のフォルダー"
 
 #~ msgid "The initial folder for file chooser dialogs"
-#~ msgstr "ファイル選択ダイアログで表示する初期フォルダです"
+#~ msgstr "ファイル選択ダイアログで表示する初期フォルダーです"
 
 #~ msgid "Filename"
 #~ msgstr "ファイル名"
@@ -1475,7 +1479,7 @@ msgstr "GtkHTML のテスト"
 #~ msgstr "等幅フォント"
 
 #~ msgid "The Monospace font to use for typewriter text"
-#~ msgstr "タイプライタの文字列に使用する等幅フォントです"
+#~ msgstr "タイプライターの文字列に使用する等幅フォントです"
 
 #~ msgid "New Link Color"
 #~ msgstr "新しいリンクの色"
