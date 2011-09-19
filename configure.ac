@@ -1,6 +1,6 @@
 dnl Initialization
 AC_PREREQ(2.58)
-AC_INIT([gtkhtml], [4.1.92], [http://bugzilla.gnome.org/enter_bug.cgi?product=GtkHtml])
+AC_INIT([gtkhtml], [4.2.0], [http://bugzilla.gnome.org/enter_bug.cgi?product=GtkHtml])
 AM_INIT_AUTOMAKE([gnu 1.9 dist-xz no-dist-gzip])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS(config.h)
