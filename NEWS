@@ -1,3 +1,25 @@
+GtkHTML-4.1.92 2011-09-19
+-------------------------
+
+Bug Fixes:
+	Bug #659217 - Crash when disposing GtkHTML when it's still filled (Milan Crha)
+
+Miscellaneous Fixes:
+	configure.ac: enable maintainer mode by default (Javier Jardón)
+
+Translations:
+	Dr.T.Vasudevan (ta)
+	Antonio Fernandes C. Neto (pt)
+	Yinghua Wang (zh_CN)
+	Chao-Hsiung Liao (zh_HK)
+	Yuri Myasoedov (ru)
+	Rajesh Ranjan (hi)
+	Duarte Loreto (pt)
+	Mario Blättermann (de)
+	Bruce Cowan (en_GB)
+	Sweta Kothari (gu)
+	Jiro Matsuzawa (ja)
+
 GtkHTML-4.1.91 2011-09-05
 -------------------------
 
