@@ -109,7 +109,8 @@ EXTRA_DIST = \
 	$(pkgconfig_DATA)			\
 	$(ui_DATA)				\
 	gtkhtml-editor-marshal.list		\
-	gtkhtml-spell-marshal.list
+	gtkhtml-spell-marshal.list		\
+	gtkhtml-editor.xml
 
 CLEANFILES = $(BUILT_SOURCES)
 DISTCLEANFILES = $(pkgconfig_DATA)
