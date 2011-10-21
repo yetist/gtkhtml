@@ -981,8 +981,7 @@ set_caret_mode (HTMLEngine *engine,
 /* GtkWidget methods.  */
 
 static void
-style_set (GtkWidget *widget,
-           GtkStyle *previous_style)
+style_updated (GtkWidget *widget)
 {
 	HTMLEngine *engine = GTK_HTML (widget)->engine;
 
@@ -3234,7 +3233,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 
 	widget_class->realize = realize;
 	widget_class->unrealize = unrealize;
-	widget_class->style_set = style_set;
+	widget_class->style_updated = style_updated;
 	widget_class->key_press_event = key_press_event;
 	widget_class->key_release_event = key_release_event;
 	widget_class->draw = draw;
