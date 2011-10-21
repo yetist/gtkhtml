@@ -1316,7 +1316,7 @@ html_text_prepare_attrs (HTMLText *text,
 	}
 
 	if (HTML_IS_PLAIN_PAINTER (painter)) {
-		attr = pango_attr_family_new (painter->font_manager.fixed.face);
+		attr = pango_attr_family_new (painter->font_manager.fixed.face ? painter->font_manager.fixed.face : "Monospace");
 		attr->start_index = 0;
 		attr->end_index = text->text_bytes;
 		pango_attr_list_insert (attrs, attr);
@@ -3948,7 +3948,7 @@ calc_font_size_filter (PangoAttribute *attr,
 		 * once family in style is used again, that code must be updated */
 		PangoAttrString *sa = (PangoAttrString *) attr;
 		g_free (sa->value);
-		sa->value = g_strdup (e->painter->font_manager.fixed.face);
+		sa->value = g_strdup (e->painter->font_manager.fixed.face ? e->painter->font_manager.fixed.face : "Monospace");
 	}
 
 	return FALSE;
