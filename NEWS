@@ -1,3 +1,22 @@
+GtkHTML-4.3.1 2011-10-24
+------------------------
+
+Bug Fixes:
+	Bug 626922 - Crash in html_text_prepare_attrs at htmltext.c
+	             (Milan Crha)
+	Bug 660983 - Distribute gtkhtml-editor.xml in tarballs (Matthew Barnes)
+
+Other Changes:
+	Let GtkFileChooser track its own last-used-folder. (Matthew Barnes)
+	Use GtkWidget::style_updated signal (Milan Crha)
+
+Translations:
+	Carles Ferrando (ca@valencia)
+	Inaki Larranaga Murgoitio (eu)
+	Мирослав Николић (sr)
+	krishnababu k (te)
+
+
 GtkHTML-4.2.0 2011-09-26
 ------------------------
 
