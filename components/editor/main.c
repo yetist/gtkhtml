@@ -370,8 +370,6 @@ main (gint argc,
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 
-	g_thread_init (NULL);
-
 	gtk_init (&argc, &argv);
 
 	editor = gtkhtml_editor_new ();
