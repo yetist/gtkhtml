@@ -48,19 +48,6 @@ AM_GLIB_GNU_GETTEXT
 dnl **********************************
 dnl Compiler Warning Flags
 dnl **********************************
-AC_ARG_ENABLE([deprecated_warning_flags],
-	AS_HELP_STRING([--enable-deprecated-warning-flags],
-	[Enable warning flags for deprecated apis]),
-	[enable_deprecated_flags=$enableval],[enable_deprecated_flags=yes])
-
-if test "x${enable_deprecated_flags}" = "xyes"; then
-	AS_COMPILER_FLAGS(DEPRECATED_WARNING_FLAGS,
-		"-DPANGO_DISABLE_DEPRECATED
-		-DGDK_PIXBUF_DISABLE_DEPRECATED
-		-DGNOME_DISABLE_DEPRECATED")
-	AC_SUBST(WARNING_FLAGS)
-fi
-
 AS_COMPILER_FLAGS(WARNING_FLAGS,
 	"-DG_DISABLE_SINGLE_INCLUDES
 	-DGTK_DISABLE_SINGLE_INCLUDES
@@ -85,7 +72,7 @@ dnl	-Wshadow
 dnl	-Wstrict-aliasing=2
 
 dnl XXX This really belongs in AM_CPPFLAGS.
-CFLAGS="$CFLAGS $DEPRECATED_WARNING_FLAGS  $WARNING_FLAGS"
+CFLAGS="$CFLAGS $WARNING_FLAGS"
 
 dnl *********************
 dnl Necessary programs
