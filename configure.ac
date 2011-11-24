@@ -62,9 +62,7 @@ if test "x${enable_deprecated_flags}" = "xyes"; then
 fi
 
 AS_COMPILER_FLAGS(WARNING_FLAGS,
-	"-DG_DISABLE_SINGLE_INCLUDES
-	-DGTK_DISABLE_SINGLE_INCLUDES
-	-Wall -Wextra
+	"-Wall -Wextra
 	-Wno-missing-field-initializers
 	-Wno-sign-compare
 	-Wno-unused-parameter
