@@ -1,3 +1,11 @@
+GtkHTML-4.3.3 2011-12-19
+------------------------
+
+Miscellaneous Changes:
+	* Remove *_DISABLE_SINGLE_INCLUDES macros. (Matthew Barnes)
+	* Remove all *_DISABLE_DEPRECATED_FLAGS. (Matthew Barnes)
+
+
 GtkHTML-4.3.2 2011-11-21
 ------------------------
 
