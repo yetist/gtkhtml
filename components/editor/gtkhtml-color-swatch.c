@@ -39,18 +39,18 @@ static gboolean
 color_swatch_draw_cb (GtkWidget *drawing_area,
                       cairo_t *cr)
 {
-	GtkStyle *style;
-	GdkColor *color;
+	GtkStyleContext *style_context;
+	GdkRGBA rgba;
 	GdkRectangle rect;
 
-	style = gtk_widget_get_style (drawing_area);
-	if (!style)
+	style_context = gtk_widget_get_style_context (drawing_area);
+	if (!style_context)
 		return FALSE;
 
-	color = &style->bg[GTK_STATE_NORMAL];
+	gtk_style_context_get_background_color (style_context, GTK_STATE_FLAG_NORMAL, &rgba);
 
 	gdk_cairo_get_clip_rectangle (cr, &rect);
-	gdk_cairo_set_source_color (cr, color);
+	gdk_cairo_set_source_rgba (cr, &rgba);
 	gdk_cairo_rectangle (cr, &rect);
 	cairo_fill (cr);
 
@@ -266,17 +266,20 @@ void
 gtkhtml_color_swatch_get_color (GtkhtmlColorSwatch *swatch,
                                 GdkColor *color)
 {
-	GtkStyle *style;
+	GtkStyleContext *style_context;
 	GtkWidget *drawing_area;
+	GdkRGBA rgba;
 
 	g_return_if_fail (GTKHTML_IS_COLOR_SWATCH (swatch));
 	g_return_if_fail (color != NULL);
 
 	drawing_area = swatch->priv->drawing_area;
-	style = gtk_widget_get_style (drawing_area);
-	color->red   = style->bg[GTK_STATE_NORMAL].red;
-	color->green = style->bg[GTK_STATE_NORMAL].green;
-	color->blue  = style->bg[GTK_STATE_NORMAL].blue;
+	style_context = gtk_widget_get_style_context (drawing_area);
+	gtk_style_context_get_background_color (style_context, GTK_STATE_FLAG_NORMAL, &rgba);
+
+	color->red   = rgba.red * 65535;
+	color->green = rgba.green * 65535;
+	color->blue  = rgba.blue * 65535;
 }
 
 void

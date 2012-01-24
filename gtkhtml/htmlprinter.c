@@ -706,7 +706,8 @@ HTMLPainter *
 html_printer_new (GtkWidget *widget,
                   GtkPrintContext *context)
 {
-	GtkStyle *style;
+	GtkStyleContext *style_context;
+	const PangoFontDescription *font_desc;
 	HTMLPrinter *printer;
 	HTMLPainter *painter;
 
@@ -715,11 +716,14 @@ html_printer_new (GtkWidget *widget,
 
 	painter = HTML_PAINTER (printer);
 	html_painter_set_widget (painter, widget);
-	style = gtk_widget_get_style (widget);
+
+	style_context = gtk_widget_get_style_context (widget);
+	font_desc = gtk_style_context_get_font (style_context, GTK_STATE_FLAG_NORMAL);
+
 	painter->pango_context =
 		gtk_print_context_create_pango_context (context);
 	pango_context_set_font_description (
-		painter->pango_context, style->font_desc);
+		painter->pango_context, font_desc);
 
 	return painter;
 

@@ -908,10 +908,15 @@ html_painter_alloc_font (HTMLPainter *painter,
 	}
 
 	if (!desc || !pango_font_description_get_family (desc)) {
+		GtkStyleContext *style_context;
+		const PangoFontDescription *font_desc;
+
 		if (desc)
 			pango_font_description_free (desc);
 
-		desc = pango_font_description_copy (gtk_widget_get_style (painter->widget)->font_desc);
+		style_context = gtk_widget_get_style_context (painter->widget);
+		font_desc = gtk_style_context_get_font (style_context, GTK_STATE_FLAG_NORMAL);
+		desc = pango_font_description_copy (font_desc);
 	}
 
 	if (points)

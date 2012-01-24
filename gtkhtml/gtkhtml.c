@@ -880,9 +880,10 @@ gtk_html_set_fonts (GtkHTML *html,
                     HTMLPainter *painter)
 {
 	GtkWidget *top_level;
-	GtkStyle *style;
+	GtkStyleContext *style_context;
 	GdkScreen *screen;
 	PangoFontDescription *fixed_desc = NULL;
+	const PangoFontDescription *font_desc;
 	gchar *fixed_name = NULL;
 	const gchar *fixed_family = NULL;
 	gint  fixed_size = 0;
@@ -892,11 +893,12 @@ gtk_html_set_fonts (GtkHTML *html,
 	gboolean  font_var_points = FALSE;
 
 	top_level = GTK_WIDGET (gtk_html_get_top_html (html));
-	style = gtk_widget_get_style (top_level);
+	style_context = gtk_widget_get_style_context (top_level);
+	font_desc = gtk_style_context_get_font (style_context, GTK_STATE_FLAG_NORMAL);
 
-	font_var = pango_font_description_get_family (style->font_desc);
-	font_var_size = pango_font_description_get_size (style->font_desc);
-	font_var_points = !pango_font_description_get_size_is_absolute (style->font_desc);
+	font_var = pango_font_description_get_family (font_desc);
+	font_var_size = pango_font_description_get_size (font_desc);
+	font_var_points = !pango_font_description_get_size_is_absolute (font_desc);
 
 	gtk_widget_style_get (GTK_WIDGET (top_level), "fixed_font_name", &fixed_name, NULL);
 	if (fixed_name) {
@@ -1142,7 +1144,6 @@ static void
 realize (GtkWidget *widget)
 {
 	GtkHTML *html;
-	GtkStyle *style;
 	GdkWindow *window;
 	GdkWindow *bin_window;
 	GtkAdjustment *hadjustment;
@@ -1160,10 +1161,6 @@ realize (GtkWidget *widget)
 
 	window = gtk_widget_get_window (widget);
 	bin_window = gtk_layout_get_bin_window (&html->layout);
-
-	style = gtk_widget_get_style (widget);
-	style = gtk_style_attach (style, window);
-	gtk_widget_set_style (widget, style);
 
 	gdk_window_set_events (bin_window,
 			       (gdk_window_get_events (bin_window)

@@ -35,7 +35,7 @@ html_colorset_new (GtkWidget *w)
 
 	/* these are default color settings */
 
-	if (w && gtk_widget_get_style (w)) {
+	if (w && gtk_widget_get_style_context (w)) {
 		html_colorset_set_style (s, w);
 	} else {
 		s->color[HTMLLinkColor]            = html_color_new_from_rgb (0, 0, 0xffff);
@@ -142,64 +142,101 @@ html_colorset_set_unchanged (HTMLColorSet *s,
 	}
 }
 
-static GdkColor *
+static void
+copy_to_rgba (GdkColor *in_color,
+	      GdkRGBA *out_rgba)
+{
+	g_return_if_fail (in_color != NULL);
+	g_return_if_fail (out_rgba != NULL);
+
+	out_rgba->alpha = 1.0;
+	out_rgba->red = in_color->red / 65535.0;
+	out_rgba->green = in_color->green / 65535.0;
+	out_rgba->blue = in_color->blue / 65535.0;
+}
+
+static void
 get_prop_color (GtkWidget *w,
                 const gchar *name,
                 const gchar *dv,
-                GdkColor *gdk_color)
+                gboolean silent_fallback,
+		GdkRGBA *out_color)
 {
-	GdkColor c;
 	GdkColor *color = NULL;
-	GtkStyle *style;
+	GtkStyleContext *style_context = gtk_widget_get_style_context (w);
 
-	style = gtk_widget_get_style (w);
 	gtk_widget_style_get (w, name, &color, NULL);
 
-	if (color)
-		return color;
+	if (color) {
+		copy_to_rgba (color, out_color);
+		gdk_color_free (color);
+		return;
+	}
 
-	if (dv && gdk_color_parse (dv, &c))
-		return gdk_color_copy (&c);
+	if (dv && gdk_rgba_parse (out_color, dv))
+		return;
 
-	if (gdk_color)
-		return gdk_color_copy (gdk_color);
+	if (!silent_fallback)
+		g_warning ("falling back to text color");
 
-	g_warning ("falling back to text color");
-	return (gdk_color_copy (&style->text[GTK_STATE_NORMAL]));
+	gtk_style_context_get_color (style_context, GTK_STATE_FLAG_NORMAL, out_color);
 }
-
-#define SET_GCOLOR(t,c) \
-        if (!s->changed[HTML ## t ## Color]) { \
-                if (s->color[HTML ## t ## Color]) html_color_unref (s->color[HTML ## t ## Color]); \
-                s->color[HTML ## t ## Color] = html_color_new_from_gdk_color (&c); \
-        }
 
 void
 html_colorset_set_style (HTMLColorSet *s,
                          GtkWidget *w)
 {
-	GdkColor *color = NULL;
-	GtkStyle *style = gtk_widget_get_style (w);
+#define SET_GCOLOR(t,rgba)										\
+        if (!s->changed[HTML ## t ## Color]) { 								\
+		GdkColor gc;										\
+													\
+		gc.pixel = -1;										\
+		gc.red = rgba.red * 65535.0;								\
+		gc.green = rgba.green * 65535.0;							\
+		gc.blue = rgba.blue * 65535.0;								\
+													\
+                if (s->color[HTML ## t ## Color]) html_color_unref (s->color[HTML ## t ## Color]);	\
+                s->color[HTML ## t ## Color] = html_color_new_from_gdk_color (&gc);			\
+        }
+#define SET_COLOR_FUNC(t,st,func)									\
+        if (!s->changed[HTML ## t ## Color]) { 								\
+		GdkRGBA color_rgba;									\
+													\
+		func (style_context, st, &color_rgba);							\
+													\
+                SET_GCOLOR (t, color_rgba);								\
+        }
 
-	SET_GCOLOR (Bg,              style->base[GTK_STATE_NORMAL]);
-	SET_GCOLOR (Text,            style->text[GTK_STATE_NORMAL]);
-	SET_GCOLOR (Highlight,       style->base[GTK_STATE_SELECTED]);
-	SET_GCOLOR (HighlightText,   style->text[GTK_STATE_SELECTED]);
-	SET_GCOLOR (HighlightNF,     style->base[GTK_STATE_ACTIVE]);
-	SET_GCOLOR (HighlightTextNF, style->text[GTK_STATE_ACTIVE]);
-	color = get_prop_color (w, "link_color", "#0000ff", NULL);
-	SET_GCOLOR (Link, *color);
-	gdk_color_free (color);
-	color = get_prop_color (w, "alink_color", "#0000ff", NULL);
-	SET_GCOLOR (ALink, *color);
-	gdk_color_free (color);
-	color = get_prop_color (w, "vlink_color", "#ff0000", NULL);
-	SET_GCOLOR (VLink, *color);
-	gdk_color_free (color);
-	color = get_prop_color (w, "spell_error_color", "#ff0000", NULL);
-	SET_GCOLOR (SpellError, *color);
-	gdk_color_free (color);
-	color = get_prop_color (w, "cite_color", NULL, &style->text [GTK_STATE_NORMAL]);
-	SET_GCOLOR (Cite, *color);
-	gdk_color_free (color);
+#define SET_COLOR_BG(t,st) SET_COLOR_FUNC (t, st, gtk_style_context_get_background_color)
+#define SET_COLOR_FG(t,st) SET_COLOR_FUNC (t, st, gtk_style_context_get_color)
+
+	GdkRGBA color;
+	GtkStyleContext *style_context = gtk_widget_get_style_context (w);
+
+	/* have text background and foreground colors same as GtkEntry */
+	gtk_style_context_save (style_context);
+	gtk_style_context_add_class (style_context, GTK_STYLE_CLASS_ENTRY);
+	SET_COLOR_BG (Bg,              GTK_STATE_FLAG_NORMAL);
+	SET_COLOR_FG (Text,            GTK_STATE_FLAG_NORMAL);
+	gtk_style_context_restore (style_context);
+
+	SET_COLOR_BG (Highlight,       GTK_STATE_FLAG_SELECTED);
+	SET_COLOR_FG (HighlightText,   GTK_STATE_FLAG_SELECTED);
+	SET_COLOR_BG (HighlightNF,     GTK_STATE_FLAG_ACTIVE);
+	SET_COLOR_FG (HighlightTextNF, GTK_STATE_FLAG_ACTIVE);
+	get_prop_color (w, "link_color", "#0000ff", FALSE, &color);
+	SET_GCOLOR (Link, color);
+	get_prop_color (w, "alink_color", "#0000ff", FALSE, &color);
+	SET_GCOLOR (ALink, color);
+	get_prop_color (w, "vlink_color", "#ff0000", FALSE, &color);
+	SET_GCOLOR (VLink, color);
+	get_prop_color (w, "spell_error_color", "#ff0000", FALSE, &color);
+	SET_GCOLOR (SpellError, color);
+	get_prop_color (w, "cite_color", NULL, TRUE, &color);
+	SET_GCOLOR (Cite, color);
+
+#undef SET_COLOR_FG
+#undef SET_COLOR_BG
+#undef SET_COLOR_FUNC
+#undef SET_GCOLOR
 }

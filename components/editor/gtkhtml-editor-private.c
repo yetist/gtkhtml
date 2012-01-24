@@ -220,6 +220,7 @@ gtkhtml_editor_private_constructed (GtkhtmlEditor *editor)
 
 	GtkHTML *html;
 	GtkWidget *widget;
+	GtkStyleContext *style_context;
 	GtkToolbar *toolbar;
 	GtkToolItem *tool_item;
 
@@ -235,9 +236,10 @@ gtkhtml_editor_private_constructed (GtkhtmlEditor *editor)
 	priv->main_toolbar = g_object_ref (widget);
 	gtk_widget_show (widget);
 
-	gtk_style_context_add_class (
-		gtk_widget_get_style_context (widget),
-		GTK_STYLE_CLASS_PRIMARY_TOOLBAR);
+	style_context = gtk_widget_get_style_context (widget);
+	gtk_style_context_save (style_context);
+
+	gtk_style_context_add_class (style_context, GTK_STYLE_CLASS_PRIMARY_TOOLBAR);
 
 	widget = gtkhtml_editor_get_managed_widget (editor, "/edit-toolbar");
 	gtk_toolbar_set_style (GTK_TOOLBAR (widget), GTK_TOOLBAR_BOTH_HORIZ);
@@ -368,6 +370,8 @@ gtkhtml_editor_private_constructed (GtkhtmlEditor *editor)
 	widget = WIDGET (TABLE_PROPERTIES_COLOR_COMBO);
 	gtkhtml_color_combo_set_palette (
 		GTKHTML_COLOR_COMBO (widget), priv->palette);
+
+	gtk_style_context_restore (style_context);
 }
 
 void
