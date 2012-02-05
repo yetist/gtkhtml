@@ -1,3 +1,14 @@
+GtkHTML-4.3.4 2012-02-06
+------------------------
+
+Bug Fixes:
+	Bug 668215 - Selection not highlighted with recent gtk+ (Milan Crha)
+
+Translations:
+	Jovan Naumovski (mk)
+	Kjartan Maraas (nb)
+
+
 GtkHTML-4.3.3 2011-12-19
 ------------------------
 
