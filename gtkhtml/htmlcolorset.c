@@ -144,7 +144,7 @@ html_colorset_set_unchanged (HTMLColorSet *s,
 
 static void
 copy_to_rgba (GdkColor *in_color,
-	      GdkRGBA *out_rgba)
+              GdkRGBA *out_rgba)
 {
 	g_return_if_fail (in_color != NULL);
 	g_return_if_fail (out_rgba != NULL);
@@ -160,7 +160,7 @@ get_prop_color (GtkWidget *w,
                 const gchar *name,
                 const gchar *dv,
                 gboolean silent_fallback,
-		GdkRGBA *out_color)
+                GdkRGBA *out_color)
 {
 	GdkColor *color = NULL;
 	GtkStyleContext *style_context = gtk_widget_get_style_context (w);
@@ -187,7 +187,7 @@ html_colorset_set_style (HTMLColorSet *s,
                          GtkWidget *w)
 {
 #define SET_GCOLOR(t,rgba)										\
-        if (!s->changed[HTML ## t ## Color]) { 								\
+	if (!s->changed[HTML ## t ## Color]) {								\
 		GdkColor gc;										\
 													\
 		gc.pixel = -1;										\
@@ -195,17 +195,17 @@ html_colorset_set_style (HTMLColorSet *s,
 		gc.green = rgba.green * 65535.0;							\
 		gc.blue = rgba.blue * 65535.0;								\
 													\
-                if (s->color[HTML ## t ## Color]) html_color_unref (s->color[HTML ## t ## Color]);	\
-                s->color[HTML ## t ## Color] = html_color_new_from_gdk_color (&gc);			\
-        }
+		if (s->color[HTML ## t ## Color]) html_color_unref (s->color[HTML ## t ## Color]);	\
+		s->color[HTML ## t ## Color] = html_color_new_from_gdk_color (&gc);			\
+	}
 #define SET_COLOR_FUNC(t,st,func)									\
-        if (!s->changed[HTML ## t ## Color]) { 								\
+	if (!s->changed[HTML ## t ## Color]) {								\
 		GdkRGBA color_rgba;									\
 													\
 		func (style_context, st, &color_rgba);							\
 													\
-                SET_GCOLOR (t, color_rgba);								\
-        }
+		SET_GCOLOR (t, color_rgba);								\
+	}
 
 #define SET_COLOR_BG(t,st) SET_COLOR_FUNC (t, st, gtk_style_context_get_background_color)
 #define SET_COLOR_FG(t,st) SET_COLOR_FUNC (t, st, gtk_style_context_get_color)
