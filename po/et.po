@@ -8,22 +8,22 @@
 # Tõivo Leedjärv <leedjarv interest ee>, 2002.
 # Priit Laes <amd store20 com>, 2004-2006.
 # Ivar Smolin <okul linux ee>, 2005-2010.
-# Mattias Põldaru <mahfiaz gmail com>, 2009.
+# Mattias Põldaru <mahfiaz@gmail.com>, 2009, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml MASTER\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gtkhtml&component=general\n"
-"POT-Creation-Date: 2010-12-01 15:01+0000\n"
-"PO-Revision-Date: 2010-05-27 08:22+0300\n"
-"Last-Translator: Ivar Smolin <okul@linux.ee>\n"
-"Language-Team: Estonian <gnome-et@linux.ee>\n"
+"product=gtkhtml&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2012-02-20 15:04+0000\n"
+"PO-Revision-Date: 2012-02-22 12:41+0200\n"
+"Last-Translator: Mattias Põldaru <mahfiaz@gmail.com>\n"
+"Language-Team: Estonian <>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Content-Transfer-Encoding: 8bits\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
@@ -260,6 +260,9 @@ msgstr "Tõrge HTML-faili lisamisel."
 
 msgid "Failed to insert text file."
 msgstr "Tõrge tekstifaili lisamisel."
+
+msgid "No match found"
+msgstr "Ühtegi vastet ei leitud"
 
 msgid "Insert HTML File"
 msgstr "HTML-faili lisamine"
@@ -605,7 +608,7 @@ msgid "More Suggestions"
 msgstr "Täiendavad soovitused"
 
 #. Translators: %s will be replaced with the actual dictionary name,
-#. where a user can add a word to. This is part of an "Add Word To" submenu.
+#. * where a user can add a word to. This is part of an "Add Word To" submenu.
 #, c-format
 msgid "%s Dictionary"
 msgstr "sõnastikku %s"
@@ -659,60 +662,51 @@ msgstr "Muudetud omadus"
 msgid "Whether editor changed"
 msgstr "Kas redaktoris on muudatusi või mitte"
 
+msgid "px"
+msgstr "px"
+
 #, no-c-format
 msgid "%"
 msgstr "%"
 
-msgid "Alignment"
-msgstr "Joondus"
+msgid "follow"
+msgstr "tuletatud"
 
-msgid "Alignment & Behavior"
-msgstr "Joondus ja käitumine"
+msgid "Top"
+msgstr "Üleval"
 
-msgid "Background"
-msgstr "Taust"
-
-msgid "Background Image"
-msgstr "Taustapilt"
-
-msgid "Blue Ink"
-msgstr "Sinise tindiga"
+msgid "Middle"
+msgstr "Keskel"
 
 msgid "Bottom"
 msgstr "All"
 
-msgid "C_ell"
-msgstr "_Lahter"
-
-msgid "C_olor:"
-msgstr "_Värvus:"
-
-msgid "C_olumns:"
-msgstr "_Veerud:"
-
-msgid "C_ustom:"
-msgstr "K_ohandatud:"
-
-msgid "Case _sensitive"
-msgstr "_Tõstutundlik"
-
-msgid "Cell Properties"
-msgstr "Lahtri omadused"
+msgid "Left"
+msgstr "Vasakul"
 
 msgid "Center"
 msgstr "Keskel"
 
-msgid "Co_lor:"
-msgstr "_Värvus:"
+msgid "Right"
+msgstr "Paremal"
 
-msgid "Col_umn"
-msgstr "_Veerg"
+msgid "None"
+msgstr "Puudub"
 
-msgid "Colors"
-msgstr "Värvused"
+msgid "Perforated Paper"
+msgstr "Perforeeritud paber"
 
-msgid "Column Span:"
-msgstr "Veeru ulatus:"
+msgid "Blue Ink"
+msgstr "Sinise tindiga"
+
+msgid "Paper"
+msgstr "Paber"
+
+msgid "Ribbon"
+msgstr "Kummiriba"
+
+msgid "Midnight"
+msgstr "Kesköö"
 
 msgid "Confidential"
 msgstr "Salajane"
@@ -720,183 +714,195 @@ msgstr "Salajane"
 msgid "Draft"
 msgstr "Mustand"
 
-msgid "Find"
-msgstr "Otsimine"
-
-msgid "General"
-msgstr "Üldine"
-
 msgid "Graph Paper"
 msgstr "Ruuduline paber"
 
-msgid "Hea_der Style"
-msgstr "_Päise laad"
+msgid "Text Properties"
+msgstr "Teksti omadused"
 
-msgid "I_mage:"
-msgstr "_Pilt:"
+msgid "Si_ze:"
+msgstr "_Suurus:"
 
-msgid "Image Properties"
-msgstr "Pildi omadused"
-
-msgid "Layout"
-msgstr "Paigutus"
-
-msgid "Left"
-msgstr "Vasakul"
-
-msgid "Link"
-msgstr "Viit"
-
-msgid "Link Properties"
-msgstr "Viida omadused"
-
-msgid "Middle"
-msgstr "Keskel"
-
-msgid "Midnight"
-msgstr "Kesköö"
-
-msgid "None"
-msgstr "Puudub"
-
-msgid "Page Properties"
-msgstr "Lehekülje omadused"
-
-msgid "Paper"
-msgstr "Paber"
+msgid "_Color:"
+msgstr "_Värvus:"
 
 msgid "Paragraph Properties"
 msgstr "Lõigu omadused"
 
-msgid "Perforated Paper"
-msgstr "Perforeeritud paber"
+msgid "General"
+msgstr "Üldine"
 
-msgid "R_eplace:"
-msgstr "_Asenda:"
+msgid "_Style:"
+msgstr "_Laad:"
+
+msgid "Alignment"
+msgstr "Joondus"
+
+msgid "Find"
+msgstr "Otsimine"
+
+msgid "Search _backwards"
+msgstr "Otsi _tahapoole"
+
+msgid "Case _sensitive"
+msgstr "_Tõstutundlik"
+
+msgid "_Regular expression"
+msgstr "_Regulaaravaldis"
 
 msgid "Replace"
 msgstr "Asendamine"
 
+msgid "_With:"
+msgstr "_Järgnevaga:"
+
+msgid "R_eplace:"
+msgstr "_Asenda:"
+
 msgid "Replace Confirmation"
 msgstr "Asendamise kinnitus"
 
-msgid "Ribbon"
-msgstr "Kummiriba"
+msgid "Link Properties"
+msgstr "Viida omadused"
 
-msgid "Right"
-msgstr "Paremal"
+msgid "_URL:"
+msgstr "_URL:"
 
-msgid "Row Span:"
-msgstr "Rea ulatus:"
+msgid "_Description:"
+msgstr "_Kirjeldus:"
 
 #. Translators: Caption of a window. 'Rule' here means a horizontal line in an HTML text.
 msgid "Rule Properties"
 msgstr "Vahejoone omadused"
 
-msgid "S_haded"
-msgstr "_Varjutatud"
-
-msgid "Scope"
-msgstr "Skoop"
-
-msgid "Search _backwards"
-msgstr "Otsi _tahapoole"
-
-msgid "Select An Image"
-msgstr "Vali pilt"
-
-msgid "Si_ze:"
-msgstr "_Suurus:"
-
 msgid "Size"
 msgstr "Suurus"
-
-msgid "Style"
-msgstr "Laad"
-
-msgid "T_emplate:"
-msgstr "_Mall:"
-
-msgid "Table Properties"
-msgstr "Tabeli omadused"
-
-msgid "Text Properties"
-msgstr "Teksti omadused"
-
-msgid "Top"
-msgstr "Üleval"
-
-msgid "Width:"
-msgstr "Laius:"
-
-msgid "_Alignment:"
-msgstr "_Joondus:"
-
-msgid "_Background:"
-msgstr "_Taust:"
-
-msgid "_Border:"
-msgstr "Ää_ris:"
-
-msgid "_Color:"
-msgstr "_Värvus:"
-
-msgid "_Description:"
-msgstr "_Kirjeldus:"
-
-msgid "_Height:"
-msgstr "_Kõrgus:"
-
-msgid "_Horizontal:"
-msgstr "Rõ_htne:"
-
-msgid "_Image:"
-msgstr "_Pilt:"
-
-msgid "_Link:"
-msgstr "_Viit:"
-
-msgid "_Padding:"
-msgstr "Pols_terdus:"
-
-msgid "_Regular expression"
-msgstr "_Regulaaravaldis"
-
-msgid "_Row"
-msgstr "_Rida"
-
-msgid "_Rows:"
-msgstr "_Ridu:"
-
-msgid "_Size:"
-msgstr "_Suurus:"
-
-msgid "_Source:"
-msgstr "_Allikas:"
-
-msgid "_Spacing:"
-msgstr "_Jaotus:"
-
-msgid "_Style:"
-msgstr "_Laad:"
-
-msgid "_Text:"
-msgstr "_Tekst:"
-
-msgid "_URL:"
-msgstr "_URL:"
-
-msgid "_Vertical:"
-msgstr "_Püstine:"
 
 msgid "_Width:"
 msgstr "_Laius:"
 
-msgid "_With:"
-msgstr "_Järgnevaga:"
+msgid "_Size:"
+msgstr "_Suurus:"
+
+msgid "Style"
+msgstr "Laad"
+
+msgid "_Alignment:"
+msgstr "_Joondus:"
+
+msgid "S_haded"
+msgstr "_Varjutatud"
+
+msgid "Table Properties"
+msgstr "Tabeli omadused"
+
+msgid "_Rows:"
+msgstr "_Ridu:"
+
+msgid "C_olumns:"
+msgstr "_Veerud:"
+
+msgid "Layout"
+msgstr "Paigutus"
+
+msgid "_Spacing:"
+msgstr "_Jaotus:"
+
+msgid "_Padding:"
+msgstr "Pols_terdus:"
+
+msgid "_Border:"
+msgstr "Ää_ris:"
+
+msgid "Background"
+msgstr "Taust"
+
+msgid "Co_lor:"
+msgstr "_Värvus:"
+
+msgid "_Image:"
+msgstr "_Pilt:"
+
+msgid "Page Properties"
+msgstr "Lehekülje omadused"
+
+msgid "Colors"
+msgstr "Värvused"
+
+msgid "_Text:"
+msgstr "_Tekst:"
+
+msgid "_Link:"
+msgstr "_Viit:"
+
+msgid "_Background:"
+msgstr "_Taust:"
+
+msgid "Background Image"
+msgstr "Taustapilt"
+
+msgid "T_emplate:"
+msgstr "_Mall:"
+
+msgid "C_ustom:"
+msgstr "K_ohandatud:"
+
+msgid "Cell Properties"
+msgstr "Lahtri omadused"
+
+msgid "Scope"
+msgstr "Skoop"
+
+msgid "Col_umn"
+msgstr "_Veerg"
+
+msgid "_Row"
+msgstr "_Rida"
+
+msgid "C_ell"
+msgstr "_Lahter"
+
+msgid "Alignment & Behavior"
+msgstr "Joondus ja käitumine"
 
 msgid "_Wrap Text"
 msgstr "Ridade _murdmine"
+
+msgid "Hea_der Style"
+msgstr "_Päise laad"
+
+msgid "_Vertical:"
+msgstr "_Püstine:"
+
+msgid "_Horizontal:"
+msgstr "Rõ_htne:"
+
+msgid "Column Span:"
+msgstr "Veeru ulatus:"
+
+msgid "Row Span:"
+msgstr "Rea ulatus:"
+
+msgid "Width:"
+msgstr "Laius:"
+
+msgid "Select An Image"
+msgstr "Vali pilt"
+
+msgid "I_mage:"
+msgstr "_Pilt:"
+
+msgid "C_olor:"
+msgstr "_Värvus:"
+
+msgid "Image Properties"
+msgstr "Pildi omadused"
+
+msgid "_Source:"
+msgstr "_Allikas:"
+
+msgid "_Height:"
+msgstr "_Kõrgus:"
 
 msgid "_X-Padding:"
 msgstr "_X-polsterdus:"
@@ -904,11 +910,8 @@ msgstr "_X-polsterdus:"
 msgid "_Y-Padding:"
 msgstr "_Y-polsterdus:"
 
-msgid "follow"
-msgstr "tuletatud"
-
-msgid "px"
-msgstr "px"
+msgid "Link"
+msgstr "Viit"
 
 #, c-format
 msgid "Suggestions for \"%s\""
