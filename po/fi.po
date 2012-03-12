@@ -7,322 +7,218 @@
 # Ilkka Tuohela <hile@iki.fi>, 2002-2008.
 # Tommi Vainikainen <thv@iki.fi>, 2009-2010.
 #
+# Gnome 2012-03 Finnish translation sprint participants:
+# Niklas Laxström
 msgid ""
 msgstr ""
+""
 "Project-Id-Version: gtkhtml\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-25 17:39+0200\n"
-"PO-Revision-Date: 2010-03-25 17:39+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gtkhtml&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-04-07 22:09+0000\n"
+"PO-Revision-Date: 2012-03-12 09:05:05+0000\n"
 "Last-Translator: Tommi Vainikainen <thv@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-POT-Import-Date: 2012-02-19 15:25:15+0000\n"
+"X-Generator: MediaWiki 1.20alpha (r113129); Translate 2012-03-02\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../a11y/image.c:151
+#: ../a11y/image.c:152
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
 msgstr "URL on %s, vaihtoehtoinen teksti on %s"
 
-#: ../a11y/image.c:153
+#: ../a11y/image.c:154
 #, c-format
 msgid "URL is %s"
 msgstr "URL on %s"
 
-#: ../a11y/object.c:51 ../a11y/object.c:60 ../a11y/text.c:125
+#: ../a11y/object.c:52 ../a11y/object.c:62 ../a11y/text.c:126
 msgid "grab focus"
 msgstr "kaappaa kohdistus"
 
-#: ../a11y/object.c:253
+#: ../a11y/object.c:258
 msgid "Panel containing HTML"
 msgstr "HTML:ää sisältävä paneeli"
 
-#: ../components/editor/gtkhtml-color-combo.c:79
+#: ../components/editor/gtkhtml-color-combo.c:75
 msgid "black"
 msgstr "musta"
 
-#: ../components/editor/gtkhtml-color-combo.c:80
+#: ../components/editor/gtkhtml-color-combo.c:76
 msgid "light brown"
 msgstr "vaaleanruskea"
 
-#: ../components/editor/gtkhtml-color-combo.c:81
+#: ../components/editor/gtkhtml-color-combo.c:77
 msgid "brown gold"
 msgstr "kullanruskea"
 
-#: ../components/editor/gtkhtml-color-combo.c:82
+#: ../components/editor/gtkhtml-color-combo.c:78
 msgid "dark green #2"
 msgstr "tummanvihreä 2."
 
-#: ../components/editor/gtkhtml-color-combo.c:83
+#: ../components/editor/gtkhtml-color-combo.c:79
 msgid "navy"
 msgstr "laivastonsininen"
 
-#: ../components/editor/gtkhtml-color-combo.c:84
+#: ../components/editor/gtkhtml-color-combo.c:80
 msgid "dark blue"
 msgstr "tummansininen"
 
-#: ../components/editor/gtkhtml-color-combo.c:85
+#: ../components/editor/gtkhtml-color-combo.c:81
 msgid "purple #2"
 msgstr "purppura 2."
 
-#: ../components/editor/gtkhtml-color-combo.c:86
+#: ../components/editor/gtkhtml-color-combo.c:82
 msgid "very dark gray"
 msgstr "hyvin tumma harmaa"
 
-#: ../components/editor/gtkhtml-color-combo.c:88
+#: ../components/editor/gtkhtml-color-combo.c:84
 msgid "dark red"
 msgstr "tummanpunainen"
 
-#: ../components/editor/gtkhtml-color-combo.c:89
+#: ../components/editor/gtkhtml-color-combo.c:85
 msgid "red-orange"
 msgstr "punaoranssi"
 
-#: ../components/editor/gtkhtml-color-combo.c:90
+#: ../components/editor/gtkhtml-color-combo.c:86
 msgid "gold"
 msgstr "kulta"
 
-#: ../components/editor/gtkhtml-color-combo.c:91
+#: ../components/editor/gtkhtml-color-combo.c:87
 msgid "dark green"
 msgstr "tummanvihreä"
 
-#: ../components/editor/gtkhtml-color-combo.c:92
+#: ../components/editor/gtkhtml-color-combo.c:88
 msgid "dull blue"
 msgstr "himmeä sininen"
 
-#: ../components/editor/gtkhtml-color-combo.c:93
+#: ../components/editor/gtkhtml-color-combo.c:89
 msgid "blue"
 msgstr "sininen"
 
-#: ../components/editor/gtkhtml-color-combo.c:94
+#: ../components/editor/gtkhtml-color-combo.c:90
 msgid "dull purple"
 msgstr "himmeä purppura"
 
-#: ../components/editor/gtkhtml-color-combo.c:95
+#: ../components/editor/gtkhtml-color-combo.c:91
 msgid "dark grey"
 msgstr "tummanharmaa"
 
-#: ../components/editor/gtkhtml-color-combo.c:97
+#: ../components/editor/gtkhtml-color-combo.c:93
 msgid "red"
 msgstr "punainen"
 
-#: ../components/editor/gtkhtml-color-combo.c:98
+#: ../components/editor/gtkhtml-color-combo.c:94
 msgid "orange"
 msgstr "oranssi"
 
-#: ../components/editor/gtkhtml-color-combo.c:99
+#: ../components/editor/gtkhtml-color-combo.c:95
 msgid "lime"
 msgstr "limetti"
 
-#: ../components/editor/gtkhtml-color-combo.c:100
+#: ../components/editor/gtkhtml-color-combo.c:96
 msgid "dull green"
 msgstr "himmeä vihreä"
 
-#: ../components/editor/gtkhtml-color-combo.c:101
+#: ../components/editor/gtkhtml-color-combo.c:97
 msgid "dull blue #2"
 msgstr "himmeä sininen 2."
 
-#: ../components/editor/gtkhtml-color-combo.c:102
+#: ../components/editor/gtkhtml-color-combo.c:98
 msgid "sky blue #2"
 msgstr "taivaansininen 2."
 
-#: ../components/editor/gtkhtml-color-combo.c:103
+#: ../components/editor/gtkhtml-color-combo.c:99
 msgid "purple"
 msgstr "purppura"
 
-#: ../components/editor/gtkhtml-color-combo.c:104
+#: ../components/editor/gtkhtml-color-combo.c:100
 msgid "gray"
 msgstr "harmaa"
 
-#: ../components/editor/gtkhtml-color-combo.c:106
+#: ../components/editor/gtkhtml-color-combo.c:102
 msgid "magenta"
 msgstr "violetti"
 
-#: ../components/editor/gtkhtml-color-combo.c:107
+#: ../components/editor/gtkhtml-color-combo.c:103
 msgid "bright orange"
 msgstr "kirkas oranssi"
 
-#: ../components/editor/gtkhtml-color-combo.c:108
+#: ../components/editor/gtkhtml-color-combo.c:104
 msgid "yellow"
 msgstr "keltainen"
 
-#: ../components/editor/gtkhtml-color-combo.c:109
+#: ../components/editor/gtkhtml-color-combo.c:105
 msgid "green"
 msgstr "vihreä"
 
-#: ../components/editor/gtkhtml-color-combo.c:110
+#: ../components/editor/gtkhtml-color-combo.c:106
 msgid "cyan"
 msgstr "syaani"
 
-#: ../components/editor/gtkhtml-color-combo.c:111
+#: ../components/editor/gtkhtml-color-combo.c:107
 msgid "bright blue"
 msgstr "kirkkaansininen"
 
-#: ../components/editor/gtkhtml-color-combo.c:112
+#: ../components/editor/gtkhtml-color-combo.c:108
 msgid "red purple"
 msgstr "punavioletti"
 
-#: ../components/editor/gtkhtml-color-combo.c:113
+#: ../components/editor/gtkhtml-color-combo.c:109
 msgid "light grey"
 msgstr "vaaleanharmaa"
 
-#: ../components/editor/gtkhtml-color-combo.c:115
+#: ../components/editor/gtkhtml-color-combo.c:111
 msgid "pink"
 msgstr "vaaleanpunainen"
 
-#: ../components/editor/gtkhtml-color-combo.c:116
+#: ../components/editor/gtkhtml-color-combo.c:112
 msgid "light orange"
 msgstr "vaalea oranssi"
 
-#: ../components/editor/gtkhtml-color-combo.c:117
+#: ../components/editor/gtkhtml-color-combo.c:113
 msgid "light yellow"
 msgstr "vaalea keltainen"
 
-#: ../components/editor/gtkhtml-color-combo.c:118
+#: ../components/editor/gtkhtml-color-combo.c:114
 msgid "light green"
 msgstr "vaaleanvihreä"
 
-#: ../components/editor/gtkhtml-color-combo.c:119
+#: ../components/editor/gtkhtml-color-combo.c:115
 msgid "light cyan"
 msgstr "vaalea syaani"
 
-#: ../components/editor/gtkhtml-color-combo.c:120
+#: ../components/editor/gtkhtml-color-combo.c:116
 msgid "light blue"
 msgstr "vaaleansininen"
 
-#: ../components/editor/gtkhtml-color-combo.c:121
+#: ../components/editor/gtkhtml-color-combo.c:117
 msgid "light purple"
 msgstr "vaalea purppura"
 
-#: ../components/editor/gtkhtml-color-combo.c:122
+#: ../components/editor/gtkhtml-color-combo.c:118
 msgid "white"
 msgstr "valkoinen"
 
-#: ../components/editor/gtkhtml-color-combo.c:274
+#: ../components/editor/gtkhtml-color-combo.c:273
 msgid "Choose Custom Color"
 msgstr "Valitse muu väri"
 
-#: ../components/editor/gtkhtml-color-combo.c:727
-#: ../components/editor/gtkhtml-color-state.c:205
-msgid "Current color"
-msgstr "Tämänhetkinen väri"
-
-#: ../components/editor/gtkhtml-color-combo.c:728
-msgid "The currently selected color"
-msgstr "Tällä hetkellä valittu väri"
-
-#: ../components/editor/gtkhtml-color-combo.c:737
-#: ../components/editor/gtkhtml-color-state.c:215
-msgid "Default color"
-msgstr "Oletusväri"
-
-#: ../components/editor/gtkhtml-color-combo.c:738
-msgid "The color associated with the default button"
-msgstr "Oletuspainikkeeseen liittyvä väri"
-
-#: ../components/editor/gtkhtml-color-combo.c:748
-#: ../components/editor/gtkhtml-color-state.c:226
-msgid "Default label"
-msgstr "Oletusnimiö"
-
-#: ../components/editor/gtkhtml-color-combo.c:749
-msgid "The label for the default button"
-msgstr "Oletuspainikkeen nimiö"
-
-#: ../components/editor/gtkhtml-color-combo.c:750
-#: ../components/editor/gtkhtml-color-state.c:228
+#: ../components/editor/gtkhtml-color-combo.c:755
+#: ../components/editor/gtkhtml-color-state.c:224
 msgid "Default"
 msgstr "Oletus"
 
-#: ../components/editor/gtkhtml-color-combo.c:759
-#: ../components/editor/gtkhtml-color-state.c:237
-msgid "Default is transparent"
-msgstr "Oletus on läpinäkyvä"
-
-#: ../components/editor/gtkhtml-color-combo.c:760
-#: ../components/editor/gtkhtml-color-state.c:238
-msgid "Whether the default color is transparent"
-msgstr "Onko oletusväri läpinäkyvä"
-
-#: ../components/editor/gtkhtml-color-combo.c:770
-#: ../components/editor/gtkhtml-color-state.c:248
-msgid "Color palette"
-msgstr "väripaletti"
-
-#: ../components/editor/gtkhtml-color-combo.c:771
-#: ../components/editor/gtkhtml-color-state.c:249
-msgid "Custom color palette"
-msgstr "Oma väripaletti"
-
-#. Translators: This is the nickname for a
-#. * GtkhtmlColorCombo property named "popup-shown",
-#. * based on a similar property in GtkComboBox.
-#: ../components/editor/gtkhtml-color-combo.c:783
-msgid "Popup shown"
-msgstr "Ponnahdusikkuna näytetään"
-
-#. Translators: This is the blurb for a
-#. * GtkhtmlColorCombo property named "popup-shown",
-#. * based on a similar property in GtkComboBox.
-#: ../components/editor/gtkhtml-color-combo.c:787
-msgid "Whether the combo's dropdown is shown"
-msgstr "Näytetäänkö yhdistelmävalitsimen pudotusvalikko"
-
-#. Translators: This is the nickname for a
-#. GtkHtmlColorCombo property named "state". It holds all
-#. the internal values for a GtkHtml color combination box.
-#.
-#: ../components/editor/gtkhtml-color-combo.c:800
-msgid "Color state"
-msgstr "Värin tila"
-
-#. Translators: This is the blurb for a
-#. GtkHtmlColorCombo property named "state". It holds all
-#. the internal values for a GtkHtml color combination box.
-#.
-#: ../components/editor/gtkhtml-color-combo.c:805
-msgid "The state of a color combo box"
-msgstr "Väriyhdistelmävalinnan tila"
-
-#: ../components/editor/gtkhtml-color-combo.c:987
+#: ../components/editor/gtkhtml-color-combo.c:979
 msgid "custom"
 msgstr "muu"
 
-#: ../components/editor/gtkhtml-color-combo.c:995
+#: ../components/editor/gtkhtml-color-combo.c:987
 msgid "Custom Color..."
 msgstr "Oma väri…"
-
-#: ../components/editor/gtkhtml-color-state.c:206
-#: ../components/editor/gtkhtml-color-swatch.c:183
-msgid "The current color"
-msgstr "Tämänhetkinen väri"
-
-#: ../components/editor/gtkhtml-color-state.c:216
-msgid "The default color"
-msgstr "Oletusväri"
-
-#: ../components/editor/gtkhtml-color-state.c:227
-msgid "Description of the default color"
-msgstr "Oletusvärin kuvaus"
-
-#: ../components/editor/gtkhtml-color-swatch.c:182
-msgid "Color"
-msgstr "Väri"
-
-#: ../components/editor/gtkhtml-color-swatch.c:192
-msgid "Frame Shadow"
-msgstr "Raamin varjo"
-
-#: ../components/editor/gtkhtml-color-swatch.c:193
-msgid "Appearance of the frame border"
-msgstr "Raamin reunuksen ulkoasu"
-
-#: ../components/editor/gtkhtml-combo-box.c:323
-msgid "Action"
-msgstr "Toiminto"
-
-#: ../components/editor/gtkhtml-combo-box.c:324
-msgid "A GtkRadioAction"
-msgstr "GtkRadioAction-toiminto"
 
 #. Translators: :-)
 #: ../components/editor/gtkhtml-face-chooser.c:34
@@ -429,972 +325,933 @@ msgstr "_Saatanallinen"
 msgid "_Monkey"
 msgstr "_Apina"
 
-#: ../components/editor/gtkhtml-editor-actions.c:190
+#: ../components/editor/gtkhtml-editor-actions.c:175
 msgid "Failed to insert HTML file."
 msgstr "HTML-tiedoston lisääminen epäonnistui."
 
-#: ../components/editor/gtkhtml-editor-actions.c:227
+#: ../components/editor/gtkhtml-editor-actions.c:212
 msgid "Failed to insert text file."
 msgstr "Tekstitiedoston lisääminen epäonnistui."
 
-#: ../components/editor/gtkhtml-editor-actions.c:615
+#: ../components/editor/gtkhtml-editor-actions.c:512
+msgid "No match found"
+msgstr "Ei osumia"
+
+#: ../components/editor/gtkhtml-editor-actions.c:605
 msgid "Insert HTML File"
 msgstr "Lisää HTML-tiedosto"
 
-#: ../components/editor/gtkhtml-editor-actions.c:631
-#: ../components/editor/gtkhtml-editor-actions.c:1541
+#: ../components/editor/gtkhtml-editor-actions.c:628
+#: ../components/editor/gtkhtml-editor-actions.c:1556
 msgid "Insert Image"
 msgstr "Lisää kuva"
 
-#: ../components/editor/gtkhtml-editor-actions.c:680
+#: ../components/editor/gtkhtml-editor-actions.c:691
 msgid "Insert Text File"
 msgstr "Lisää tekstitiedosto"
 
 #. Replace Button
-#: ../components/editor/gtkhtml-editor-actions.c:1176
-#: ../components/editor/gtkhtml-spell-dialog.c:520
+#: ../components/editor/gtkhtml-editor-actions.c:1191
+#: ../components/editor/gtkhtml-spell-dialog.c:516
 msgid "_Replace"
 msgstr "_Korvaa"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1183
+#: ../components/editor/gtkhtml-editor-actions.c:1198
 msgid "Replace _All"
 msgstr "Korvaa k_aikki"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1197
+#: ../components/editor/gtkhtml-editor-actions.c:1212
 msgid "_Next"
 msgstr "_Seuraava"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1204
+#: ../components/editor/gtkhtml-editor-actions.c:1219
 msgid "_Copy"
 msgstr "_Kopioi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1211
+#: ../components/editor/gtkhtml-editor-actions.c:1226
 msgid "Cu_t"
 msgstr "_Leikkaa"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1225
+#: ../components/editor/gtkhtml-editor-actions.c:1240
 msgid "Find A_gain"
 msgstr "Etsi uu_delleen"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1239
+#: ../components/editor/gtkhtml-editor-actions.c:1254
 msgid "_Increase Indent"
 msgstr "Sisennä _enemmän"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1241
+#: ../components/editor/gtkhtml-editor-actions.c:1256
 msgid "Increase Indent"
 msgstr "Sisennä _enemmän"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1246
+#: ../components/editor/gtkhtml-editor-actions.c:1261
 msgid "_HTML File..."
 msgstr "_HTML-tiedosto…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1253
+#: ../components/editor/gtkhtml-editor-actions.c:1268
 msgid "Te_xt File..."
 msgstr "_Tekstitiedosto…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1260
+#: ../components/editor/gtkhtml-editor-actions.c:1275
 msgid "_Paste"
 msgstr "L_iitä"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1267
+#: ../components/editor/gtkhtml-editor-actions.c:1282
 msgid "Paste _Quotation"
 msgstr "Liitä lai_naus"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1274
+#: ../components/editor/gtkhtml-editor-actions.c:1289
 msgid "_Redo"
 msgstr "_Tee uudelleen"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1281
+#: ../components/editor/gtkhtml-editor-actions.c:1296
 msgid "Select _All"
 msgstr "_Valitse kaikki"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1288
+#: ../components/editor/gtkhtml-editor-actions.c:1303
 msgid "_Find..."
 msgstr "_Etsi…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1295
+#: ../components/editor/gtkhtml-editor-actions.c:1310
 msgid "Re_place..."
 msgstr "Ko_rvaa…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1302
+#: ../components/editor/gtkhtml-editor-actions.c:1317
 msgid "Check _Spelling..."
 msgstr "Tarkasta _oikeinkirjoitus…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1309
-#: ../components/editor/gtkhtml-editor-builder.ui.h:79
+#: ../components/editor/gtkhtml-editor-actions.c:1324
+#: ../components/editor/gtkhtml-editor-builder.ui.h:91
 msgid "_Test URL..."
 msgstr "_Testaa URLia…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1316
+#: ../components/editor/gtkhtml-editor-actions.c:1331
 msgid "_Undo"
 msgstr "K_umoa"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1323
+#: ../components/editor/gtkhtml-editor-actions.c:1338
 msgid "_Decrease Indent"
 msgstr "Sisennä _vähemmän"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1325
+#: ../components/editor/gtkhtml-editor-actions.c:1340
 msgid "Decrease Indent"
 msgstr "Sisennä _vähemmän"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1330
+#: ../components/editor/gtkhtml-editor-actions.c:1345
 msgid "_Wrap Lines"
 msgstr "_Rivitä"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1339
+#: ../components/editor/gtkhtml-editor-actions.c:1354
 msgid "_Edit"
 msgstr "_Muokkaa"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1346
-#: ../components/editor/main.c:327
+#: ../components/editor/gtkhtml-editor-actions.c:1361
+#: ../components/editor/main.c:323
 msgid "_File"
 msgstr "_Tiedosto"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1353
+#: ../components/editor/gtkhtml-editor-actions.c:1368
 msgid "For_mat"
 msgstr "M_uotoilu"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1360
+#: ../components/editor/gtkhtml-editor-actions.c:1375
 msgid "_Paragraph Style"
 msgstr "_Kappaleen tyyli"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1367
+#: ../components/editor/gtkhtml-editor-actions.c:1382
 msgid "_Insert"
 msgstr "_Lisää"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1374
+#: ../components/editor/gtkhtml-editor-actions.c:1389
 msgid "_Alignment"
 msgstr "Ta_saus"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1381
+#: ../components/editor/gtkhtml-editor-actions.c:1396
 msgid "Current _Languages"
 msgstr "Nykyiset _kielet"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1388
-#: ../components/editor/main.c:358
+#: ../components/editor/gtkhtml-editor-actions.c:1403
+#: ../components/editor/main.c:354
 msgid "_View"
 msgstr "_Näytä"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1398
+#: ../components/editor/gtkhtml-editor-actions.c:1413
 msgid "_Center"
 msgstr "_Keskitä"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1400
+#: ../components/editor/gtkhtml-editor-actions.c:1415
 msgid "Center Alignment"
 msgstr "Keskitetty tasaus"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1405
+#: ../components/editor/gtkhtml-editor-actions.c:1420
 msgid "_Left"
 msgstr "_Vasen"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1407
+#: ../components/editor/gtkhtml-editor-actions.c:1422
 msgid "Left Alignment"
 msgstr "Tasaus vasemmalle"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1412
+#: ../components/editor/gtkhtml-editor-actions.c:1427
 msgid "_Right"
 msgstr "_Oikea"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1414
+#: ../components/editor/gtkhtml-editor-actions.c:1429
 msgid "Right Alignment"
 msgstr "Tasaus oikealle"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1422
+#: ../components/editor/gtkhtml-editor-actions.c:1437
 msgid "_HTML"
 msgstr "_HTML"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1424
+#: ../components/editor/gtkhtml-editor-actions.c:1439
 msgid "HTML editing mode"
 msgstr "HTML-muokkaustila"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1429
+#: ../components/editor/gtkhtml-editor-actions.c:1444
 msgid "Plain _Text"
 msgstr "_Tavallinen teksti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1431
+#: ../components/editor/gtkhtml-editor-actions.c:1446
 msgid "Plain text editing mode"
 msgstr "Tavallisen tekstin muokkaustila"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1439
+#: ../components/editor/gtkhtml-editor-actions.c:1454
 msgid "_Normal"
 msgstr "_Tavallinen"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1446
+#: ../components/editor/gtkhtml-editor-actions.c:1461
 msgid "Header _1"
 msgstr "Otsikko _1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1453
+#: ../components/editor/gtkhtml-editor-actions.c:1468
 msgid "Header _2"
 msgstr "Otsikko _2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1460
+#: ../components/editor/gtkhtml-editor-actions.c:1475
 msgid "Header _3"
 msgstr "Otsikko _3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1467
+#: ../components/editor/gtkhtml-editor-actions.c:1482
 msgid "Header _4"
 msgstr "Otsikko _4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1474
+#: ../components/editor/gtkhtml-editor-actions.c:1489
 msgid "Header _5"
 msgstr "Otsikko _5"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1481
+#: ../components/editor/gtkhtml-editor-actions.c:1496
 msgid "Header _6"
 msgstr "Otsikko _6"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1488
+#: ../components/editor/gtkhtml-editor-actions.c:1503
 msgid "A_ddress"
 msgstr "_Osoite"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1495
+#: ../components/editor/gtkhtml-editor-actions.c:1510
 msgid "_Preformatted"
 msgstr "_Esimuotoiltu"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1502
+#: ../components/editor/gtkhtml-editor-actions.c:1517
 msgid "_Bulleted List"
 msgstr "_Merkkiluettelo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1509
+#: ../components/editor/gtkhtml-editor-actions.c:1524
 msgid "_Roman Numeral List"
 msgstr "Luettelo _roomalaisin numeroin"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1516
+#: ../components/editor/gtkhtml-editor-actions.c:1531
 msgid "Numbered _List"
 msgstr "_Numeroluettelo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1523
+#: ../components/editor/gtkhtml-editor-actions.c:1538
 msgid "_Alphabetical List"
 msgstr "_Aakkosellinen luettelo"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1539
-#: ../components/editor/gtkhtml-editor-actions.c:1574
+#: ../components/editor/gtkhtml-editor-actions.c:1554
+#: ../components/editor/gtkhtml-editor-actions.c:1591
 msgid "_Image..."
 msgstr "_Kuva…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1546
-#: ../components/editor/gtkhtml-editor-actions.c:1581
+#: ../components/editor/gtkhtml-editor-actions.c:1561
+#: ../components/editor/gtkhtml-editor-actions.c:1598
 msgid "_Link..."
 msgstr "_Linkki…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1548
+#: ../components/editor/gtkhtml-editor-actions.c:1563
 msgid "Insert Link"
 msgstr "Lisää _linkki"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1553
-#: ../components/editor/gtkhtml-editor-actions.c:1595
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1569
+#: ../components/editor/gtkhtml-editor-actions.c:1613
 msgid "_Rule..."
 msgstr "_Viiva…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1555
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1572
 msgid "Insert Rule"
 msgstr "Lisää viiva"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1560
-#: ../components/editor/gtkhtml-editor-actions.c:1602
+#: ../components/editor/gtkhtml-editor-actions.c:1577
+#: ../components/editor/gtkhtml-editor-actions.c:1620
 msgid "_Table..."
 msgstr "_Taulukko…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1562
+#: ../components/editor/gtkhtml-editor-actions.c:1579
 msgid "Insert Table"
 msgstr "Lisää taulukko"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1567
+#: ../components/editor/gtkhtml-editor-actions.c:1584
 msgid "_Cell..."
 msgstr "_Solu…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1588
+#: ../components/editor/gtkhtml-editor-actions.c:1605
 msgid "Pa_ge..."
 msgstr "_Sivu…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1611
+#: ../components/editor/gtkhtml-editor-actions.c:1629
 msgid "Font _Size"
 msgstr "_Kirjasinkoko"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1618
+#: ../components/editor/gtkhtml-editor-actions.c:1636
 msgid "_Font Style"
 msgstr "_Kirjasintyyli"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1628
-#: ../components/editor/gtkhtml-editor-builder.ui.h:60
+#: ../components/editor/gtkhtml-editor-actions.c:1646
+#: ../components/editor/gtkhtml-editor-builder.ui.h:24
 msgid "_Bold"
 msgstr "_Lihavoitu"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1630
+#: ../components/editor/gtkhtml-editor-actions.c:1648
 msgid "Bold"
 msgstr "Lihavoi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1636
-#: ../components/editor/gtkhtml-editor-builder.ui.h:67
+#: ../components/editor/gtkhtml-editor-actions.c:1654
+#: ../components/editor/gtkhtml-editor-builder.ui.h:23
 msgid "_Italic"
 msgstr "_Kursiivi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1638
+#: ../components/editor/gtkhtml-editor-actions.c:1656
 msgid "Italic"
 msgstr "Kursivoi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1644
+#: ../components/editor/gtkhtml-editor-actions.c:1662
 msgid "_Plain Text"
 msgstr "_Tavallinen teksti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1646
+#: ../components/editor/gtkhtml-editor-actions.c:1664
 msgid "Plain Text"
 msgstr "Tavallinen teksti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1652
-#: ../components/editor/gtkhtml-editor-builder.ui.h:76
+#: ../components/editor/gtkhtml-editor-actions.c:1670
+#: ../components/editor/gtkhtml-editor-builder.ui.h:21
 msgid "_Strikethrough"
 msgstr "_Yliviivaus"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1654
+#: ../components/editor/gtkhtml-editor-actions.c:1672
 msgid "Strikethrough"
 msgstr "Yliviivaus"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1660
-#: ../components/editor/gtkhtml-editor-builder.ui.h:82
+#: ../components/editor/gtkhtml-editor-actions.c:1678
+#: ../components/editor/gtkhtml-editor-builder.ui.h:22
 msgid "_Underline"
 msgstr "_Alleviivaus"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1662
+#: ../components/editor/gtkhtml-editor-actions.c:1680
 msgid "Underline"
 msgstr "Alleviivaa"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1671
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1690
 msgid "-2"
 msgstr "-2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1678
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1698
 msgid "-1"
 msgstr "-1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1685
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1706
 msgid "+0"
 msgstr "+0"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1692
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1714
 msgid "+1"
 msgstr "+1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1699
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1722
 msgid "+2"
 msgstr "+2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1706
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1730
 msgid "+3"
 msgstr "+3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1713
+#. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
+#: ../components/editor/gtkhtml-editor-actions.c:1738
 msgid "+4"
 msgstr "+4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1732
+#: ../components/editor/gtkhtml-editor-actions.c:1757
 msgid "Cell Contents"
 msgstr "Solun sisältö"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1739
+#: ../components/editor/gtkhtml-editor-actions.c:1764
 msgid "Column"
 msgstr "Sarake"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1746
+#: ../components/editor/gtkhtml-editor-actions.c:1771
 msgid "Row"
 msgstr "Rivi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1753
-#: ../components/editor/gtkhtml-editor-actions.c:1836
+#: ../components/editor/gtkhtml-editor-actions.c:1778
+#: ../components/editor/gtkhtml-editor-actions.c:1863
 msgid "Table"
 msgstr "Taulukko"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1762
+#. Translators: Popup menu item caption, containing all the Delete options for a table
+#: ../components/editor/gtkhtml-editor-actions.c:1788
 msgid "Table Delete"
 msgstr "Poista taulukko"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1769
+#: ../components/editor/gtkhtml-editor-actions.c:1795
 msgid "Input Methods"
 msgstr "Syöttötavat"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1776
+#. Translators: Popup menu item caption, containing all the Insert options for a table
+#: ../components/editor/gtkhtml-editor-actions.c:1803
 msgid "Table Insert"
 msgstr "Lisää taulukkoon"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1783
+#: ../components/editor/gtkhtml-editor-actions.c:1810
 msgid "Properties"
 msgstr "Ominaisuudet"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1801
+#: ../components/editor/gtkhtml-editor-actions.c:1828
 msgid "Column After"
 msgstr "Sarake seuraavaksi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1808
+#: ../components/editor/gtkhtml-editor-actions.c:1835
 msgid "Column Before"
 msgstr "Sarake ennen"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1815
+#: ../components/editor/gtkhtml-editor-actions.c:1842
 msgid "Insert _Link"
 msgstr "Lisää _linkki"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1822
+#: ../components/editor/gtkhtml-editor-actions.c:1849
 msgid "Row Above"
 msgstr "Rivi ylle"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1829
+#: ../components/editor/gtkhtml-editor-actions.c:1856
 msgid "Row Below"
 msgstr "Rivi alle"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1843
+#: ../components/editor/gtkhtml-editor-actions.c:1870
 msgid "Cell..."
 msgstr "Solu…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1850
+#: ../components/editor/gtkhtml-editor-actions.c:1877
 msgid "Image..."
 msgstr "Kuva…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1857
+#: ../components/editor/gtkhtml-editor-actions.c:1884
 msgid "Link..."
 msgstr "Linkki…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1864
+#: ../components/editor/gtkhtml-editor-actions.c:1891
 msgid "Page..."
 msgstr "Sivu…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1871
+#: ../components/editor/gtkhtml-editor-actions.c:1898
 msgid "Paragraph..."
 msgstr "Kappale…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1878
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:1906
 msgid "Rule..."
 msgstr "Viiva…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1885
+#: ../components/editor/gtkhtml-editor-actions.c:1913
 msgid "Table..."
 msgstr "Taulukko…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1892
+#: ../components/editor/gtkhtml-editor-actions.c:1920
 msgid "Text..."
 msgstr "Teksti…"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1899
+#: ../components/editor/gtkhtml-editor-actions.c:1927
 msgid "Remove Link"
 msgstr "Poista linkki"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1916
+#: ../components/editor/gtkhtml-editor-actions.c:1944
 msgid "Add Word to Dictionary"
 msgstr "Lisää sana sanastoon"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1923
+#: ../components/editor/gtkhtml-editor-actions.c:1951
 msgid "Ignore Misspelled Word"
 msgstr "Sivuuta väärin kirjoitetut sanat"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1930
+#: ../components/editor/gtkhtml-editor-actions.c:1958
 msgid "Add Word To"
 msgstr "Lisää sana"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1939
+#: ../components/editor/gtkhtml-editor-actions.c:1967
 msgid "More Suggestions"
 msgstr "Lisää ehdotuksia"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2106
+#. Translators: %s will be replaced with the actual dictionary name,
+#. * where a user can add a word to. This is part of an "Add Word To" submenu.
+#: ../components/editor/gtkhtml-editor-actions.c:2068
+#, c-format
+msgid "%s Dictionary"
+msgstr "Sanastoon %s"
+
+#: ../components/editor/gtkhtml-editor-actions.c:2136
 msgid "_Emoticon"
 msgstr "Hy_miö"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2107
+#: ../components/editor/gtkhtml-editor-actions.c:2137
 msgid "Insert Emoticon"
 msgstr "Lisää _hymiö"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2168
+#: ../components/editor/gtkhtml-editor-actions.c:2198
 msgid "_Find"
 msgstr "_Etsi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2171
+#: ../components/editor/gtkhtml-editor-actions.c:2201
 msgid "Re_place"
 msgstr "Ko_rvaa"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2174
+#: ../components/editor/gtkhtml-editor-actions.c:2204
 msgid "_Image"
 msgstr "_Kuva"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2177
+#: ../components/editor/gtkhtml-editor-actions.c:2207
 msgid "_Link"
 msgstr "_Linkki"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2180
+#. Translators: 'Rule' here means a horizontal line in an HTML text
+#: ../components/editor/gtkhtml-editor-actions.c:2211
 msgid "_Rule"
 msgstr "_Viiva"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2183
-#: ../components/editor/gtkhtml-editor-builder.ui.h:78
+#: ../components/editor/gtkhtml-editor-actions.c:2214
+#: ../components/editor/gtkhtml-editor-builder.ui.h:72
 msgid "_Table"
 msgstr "_Taulukko"
 
-#: ../components/editor/gtkhtml-editor-private.c:271
+#: ../components/editor/gtkhtml-editor-private.c:279
 msgid "Paragraph Style"
 msgstr "Kappaleen tyyli"
 
-#: ../components/editor/gtkhtml-editor-private.c:285
+#: ../components/editor/gtkhtml-editor-private.c:293
 msgid "Editing Mode"
 msgstr "Muokkaustila"
 
-#: ../components/editor/gtkhtml-editor-private.c:297
+#: ../components/editor/gtkhtml-editor-private.c:305
 msgid "Font Color"
 msgstr "Kirjasimen väri"
 
-#: ../components/editor/gtkhtml-editor-private.c:307
+#: ../components/editor/gtkhtml-editor-private.c:315
 msgid "Font Size"
 msgstr "Kirjasinkoko"
 
-#: ../components/editor/gtkhtml-editor-private.c:334
+#: ../components/editor/gtkhtml-editor-private.c:342
 msgid "Automatic"
 msgstr "Automaattinen"
 
-#: ../components/editor/gtkhtml-editor-private.c:587
+#: ../components/editor/gtkhtml-editor-private.c:552
 msgid "Could not open the link."
 msgstr "Linkkiä ei voitu ladata."
 
-#: ../components/editor/gtkhtml-editor.c:778
-msgid "Current Folder"
-msgstr "Nykyinen kansio"
+#: ../components/editor/gtkhtml-editor.c:875
+msgid "Changed property"
+msgstr "Muuttunut-ominaisuus"
 
-#: ../components/editor/gtkhtml-editor.c:779
-msgid "The initial folder for file chooser dialogs"
-msgstr "Tiedostovalitsimen oletuskansio"
+#: ../components/editor/gtkhtml-editor.c:876
+msgid "Whether editor changed"
+msgstr "Onko muokkaimen sisältö muuttunut"
 
-#: ../components/editor/gtkhtml-editor.c:789
-msgid "Filename"
-msgstr "Tiedostonimi"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:1
+msgid "px"
+msgstr "px"
 
-#: ../components/editor/gtkhtml-editor.c:790
-msgid "The filename to use when saving"
-msgstr "Tallennettaessa käytettävä tiedostonimi"
-
-#: ../components/editor/gtkhtml-editor.c:800
-msgid "HTML Editing Widget"
-msgstr "HTML-muokkauselementti"
-
-#: ../components/editor/gtkhtml-editor.c:801
-msgid "The main HTML editing widget"
-msgstr "Pää-HTML-muokkauselementti"
-
-#: ../components/editor/gtkhtml-editor.c:811
-msgid "HTML Mode"
-msgstr "HTML-tila"
-
-#: ../components/editor/gtkhtml-editor.c:812
-msgid "Edit HTML or plain text"
-msgstr "Muokkaa HTML-muodossa tai raakatekstinä"
-
-#: ../components/editor/gtkhtml-editor.c:822
-msgid "Inline Spelling"
-msgstr "Sisäkkäinen oikoluku"
-
-#: ../components/editor/gtkhtml-editor.c:823
-msgid "Check your spelling as you type"
-msgstr "Oikolue kirjoitettaessa"
-
-#: ../components/editor/gtkhtml-editor.c:833
-msgid "Magic Links"
-msgstr "Maagiset linkit"
-
-#: ../components/editor/gtkhtml-editor.c:834
-msgid "Make URIs clickable as you type"
-msgstr "Tee URL:eista napsautettavia kirjoitettaessa"
-
-#: ../components/editor/gtkhtml-editor.c:844
-msgid "Magic Smileys"
-msgstr "Maagiset hymiö"
-
-#: ../components/editor/gtkhtml-editor.c:845
-msgid "Convert emoticons to images as you type"
-msgstr "Muunna hymiöt kuviksi kirjoitettaessa"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:2
+#: ../components/editor/gtkhtml-editor-builder.ui.h:3
 #, no-c-format
 msgid "%"
 msgstr "%"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:3
-msgid "Alignment"
-msgstr "Tasaus"
-
 #: ../components/editor/gtkhtml-editor-builder.ui.h:4
-msgid "Alignment & Behavior"
-msgstr "Tasaus & toiminta"
+msgid "follow"
+msgstr "seuraa"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:5
-msgid "Background"
-msgstr "Tausta"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:6
-msgid "Background Image"
-msgstr "Taustakuva"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:7
-msgid "Blue Ink"
-msgstr "Sininen muste"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:8
-msgid "Bottom"
-msgstr "Ala"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:9
-msgid "C_ell"
-msgstr "_Solu"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:10
-msgid "C_olor:"
-msgstr "_Väri:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:11
-msgid "C_olumns:"
-msgstr "_Sarakkeet:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:12
-msgid "C_ustom:"
-msgstr "_Muokattu:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:13
-msgid "Case _sensitive"
-msgstr "S_ama kirjainkoko"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:14
-msgid "Cell Properties"
-msgstr "Solun ominaisuudet"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:15
-msgid "Center"
-msgstr "Keski"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:16
-msgid "Co_lor:"
-msgstr "_Väri:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:17
-msgid "Col_umn"
-msgstr "Sa_rake"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:18
-msgid "Colors"
-msgstr "Värit"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:19
-msgid "Column Span:"
-msgstr "Sarakkeen alue:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:20
-msgid "Confidential"
-msgstr "Luottamuksellinen"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:21
-msgid "Draft"
-msgstr "Luonnos"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:22
-msgid "Find"
-msgstr "Etsi"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:23
-msgid "General"
-msgstr "Yleinen"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:24
-msgid "Graph Paper"
-msgstr "Graafipaperi"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:25
-msgid "Hea_der Style"
-msgstr "Otsakkeen t_yyli"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:26
-msgid "I_mage:"
-msgstr "K_uva:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:27
-msgid "Image Properties"
-msgstr "Kuvan ominaisuudet"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:28
-msgid "Layout"
-msgstr "Asettelu"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:29
-msgid "Left"
-msgstr "Vasen"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:30
-msgid "Link"
-msgstr "Linkki"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:31
-msgid "Link Properties"
-msgstr "Linkin ominaisuudet"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:32
-msgid "Middle"
-msgstr "Keski"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:33
-msgid "Midnight"
-msgstr "Keskiyö"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:34
-msgid "None"
-msgstr "Ei mikään"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:35
-msgid "Page Properties"
-msgstr "Sivun ominaisuudet"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:36
-msgid "Paper"
-msgstr "Paperi"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:37
-msgid "Paragraph Properties"
-msgstr "Kappaleen ominaisuudet"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:38
-msgid "Perforated Paper"
-msgstr "Rei'itetty paperi"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:39
-msgid "R_eplace:"
-msgstr "_Korvaa:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:40
-msgid "Replace"
-msgstr "Korvaa"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:41
-msgid "Replace Confirmation"
-msgstr "Korvauksen vahvistus"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:42
-msgid "Ribbon"
-msgstr "Nauha"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:43
-msgid "Right"
-msgstr "Oikea"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:44
-msgid "Row Span:"
-msgstr "Rivin alue:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:45
-msgid "Rule Properties"
-msgstr "Viivan ominaisuudet"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:46
-msgid "S_haded"
-msgstr "_Varjostettu"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:47
-msgid "Scope"
-msgstr "Laajuus"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:48
-msgid "Search _backwards"
-msgstr "Etsi _edellinen"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:49
-msgid "Select An Image"
-msgstr "Valitse kuva"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:50
-msgid "Si_ze:"
-msgstr "K_oko:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:51
-msgid "Size"
-msgstr "Koko"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:52
-msgid "Style"
-msgstr "Tyyli"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:53
-msgid "T_emplate:"
-msgstr "_Malli:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:54
-msgid "Table Properties"
-msgstr "Taulukon ominaisuudet"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:55
-msgid "Text Properties"
-msgstr "Tekstin ominaisuudet"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:56
 msgid "Top"
 msgstr "Ylä"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:57
-msgid "Width:"
-msgstr "Leveys:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:6
+msgid "Middle"
+msgstr "Keski"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:58
-msgid "_Alignment:"
-msgstr "_Tasaus:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:7
+msgid "Bottom"
+msgstr "Ala"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:59
-msgid "_Background:"
-msgstr "_Tausta:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:8
+msgid "Left"
+msgstr "Vasen"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:61
-msgid "_Border:"
-msgstr "Reu_nus:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:9
+msgid "Center"
+msgstr "Keski"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:62
+#: ../components/editor/gtkhtml-editor-builder.ui.h:10
+msgid "Right"
+msgstr "Oikea"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:11
+msgid "None"
+msgstr "Ei mikään"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:12
+msgid "Perforated Paper"
+msgstr "Rei'itetty paperi"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:13
+msgid "Blue Ink"
+msgstr "Sininen muste"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:14
+msgid "Paper"
+msgstr "Paperi"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:15
+msgid "Ribbon"
+msgstr "Nauha"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:16
+msgid "Midnight"
+msgstr "Keskiyö"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:17
+msgid "Confidential"
+msgstr "Luottamuksellinen"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:18
+msgid "Draft"
+msgstr "Luonnos"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:19
+msgid "Graph Paper"
+msgstr "Graafipaperi"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:20
+msgid "Text Properties"
+msgstr "Tekstin ominaisuudet"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:25
+msgid "Si_ze:"
+msgstr "K_oko:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:26
 msgid "_Color:"
 msgstr "_Väri:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:63
+#: ../components/editor/gtkhtml-editor-builder.ui.h:27
+msgid "Paragraph Properties"
+msgstr "Kappaleen ominaisuudet"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:28
+msgid "General"
+msgstr "Yleinen"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:29
+msgid "_Style:"
+msgstr "_Tyyli:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:30
+msgid "Alignment"
+msgstr "Tasaus"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:31
+msgid "Find"
+msgstr "Etsi"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:32
+msgid "Search _backwards"
+msgstr "Etsi _edellinen"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:33
+msgid "Case _sensitive"
+msgstr "S_ama kirjainkoko"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:34
+msgid "_Regular expression"
+msgstr "Säännöllinen _lauseke"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:35
+msgid "Replace"
+msgstr "Korvaa"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:36
+msgid "_With:"
+msgstr "Ko_rvaava:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:37
+msgid "R_eplace:"
+msgstr "_Korvaa:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:38
+msgid "Replace Confirmation"
+msgstr "Korvauksen vahvistus"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:39
+msgid "Link Properties"
+msgstr "Linkin ominaisuudet"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:40
+msgid "_URL:"
+msgstr "_URL:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:41
 msgid "_Description:"
 msgstr "_Kuvaus:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:64
-msgid "_Height:"
-msgstr "K_orkeus:"
+#. Translators: Caption of a window. 'Rule' here means a horizontal line in an HTML text.
+#: ../components/editor/gtkhtml-editor-builder.ui.h:43
+msgid "Rule Properties"
+msgstr "Viivan ominaisuudet"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:65
-msgid "_Horizontal:"
-msgstr "_Vaakasuuntainen:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:44
+msgid "Size"
+msgstr "Koko"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:66
-msgid "_Image:"
-msgstr "_Kuva:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:45
+msgid "_Width:"
+msgstr "_Leveys:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:68
-msgid "_Link:"
-msgstr "_Linkki:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:46
+msgid "_Size:"
+msgstr "_Koko:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:69
+#: ../components/editor/gtkhtml-editor-builder.ui.h:47
+msgid "Style"
+msgstr "Tyyli"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:48
+msgid "_Alignment:"
+msgstr "_Tasaus:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:49
+msgid "S_haded"
+msgstr "_Varjostettu"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:50
+msgid "Table Properties"
+msgstr "Taulukon ominaisuudet"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:51
+msgid "_Rows:"
+msgstr "_Rivejä:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:52
+msgid "C_olumns:"
+msgstr "_Sarakkeet:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:53
+msgid "Layout"
+msgstr "Asettelu"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:54
+msgid "_Spacing:"
+msgstr "_Välit:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:55
 msgid "_Padding:"
 msgstr "_Täyttö:"
 
+#: ../components/editor/gtkhtml-editor-builder.ui.h:56
+msgid "_Border:"
+msgstr "Reu_nus:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:57
+msgid "Background"
+msgstr "Tausta"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:58
+msgid "Co_lor:"
+msgstr "_Väri:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:59
+msgid "_Image:"
+msgstr "_Kuva:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:60
+msgid "Page Properties"
+msgstr "Sivun ominaisuudet"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:61
+msgid "Colors"
+msgstr "Värit"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:62
+msgid "_Text:"
+msgstr "_Teksti:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:63
+msgid "_Link:"
+msgstr "_Linkki:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:64
+msgid "_Background:"
+msgstr "_Tausta:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:65
+msgid "Background Image"
+msgstr "Taustakuva"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:66
+msgid "T_emplate:"
+msgstr "_Malli:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:67
+msgid "C_ustom:"
+msgstr "_Muokattu:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:68
+msgid "Cell Properties"
+msgstr "Solun ominaisuudet"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:69
+msgid "Scope"
+msgstr "Laajuus"
+
 #: ../components/editor/gtkhtml-editor-builder.ui.h:70
-msgid "_Regular expression"
-msgstr "Säännöllinen _lauseke"
+msgid "Col_umn"
+msgstr "Sa_rake"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:71
 msgid "_Row"
 msgstr "_Rivi"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:72
-msgid "_Rows:"
-msgstr "_Rivejä:"
-
 #: ../components/editor/gtkhtml-editor-builder.ui.h:73
-msgid "_Size:"
-msgstr "_Koko:"
+msgid "C_ell"
+msgstr "_Solu"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:74
-msgid "_Source:"
-msgstr "_Lähde:"
+msgid "Alignment & Behavior"
+msgstr "Tasaus & toiminta"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:75
-msgid "_Spacing:"
-msgstr "_Välit:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:77
-msgid "_Style:"
-msgstr "_Tyyli:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:80
-msgid "_Text:"
-msgstr "_Teksti:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:81
-msgid "_URL:"
-msgstr "_URL:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:83
-msgid "_Vertical:"
-msgstr "_Pysty:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:84
-msgid "_Width:"
-msgstr "_Leveys:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:85
-msgid "_With:"
-msgstr "Ko_rvaava:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:86
 msgid "_Wrap Text"
 msgstr "_Rivitä teksti"
 
+#: ../components/editor/gtkhtml-editor-builder.ui.h:76
+msgid "Hea_der Style"
+msgstr "Otsakkeen t_yyli"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:77
+msgid "_Vertical:"
+msgstr "_Pysty:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:78
+msgid "_Horizontal:"
+msgstr "_Vaakasuuntainen:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:79
+msgid "Column Span:"
+msgstr "Sarakkeen alue:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:80
+msgid "Row Span:"
+msgstr "Rivin alue:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:81
+msgid "Width:"
+msgstr "Leveys:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:82
+msgid "Select An Image"
+msgstr "Valitse kuva"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:83
+msgid "I_mage:"
+msgstr "K_uva:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:84
+msgid "C_olor:"
+msgstr "_Väri:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:85
+msgid "Image Properties"
+msgstr "Kuvan ominaisuudet"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:86
+msgid "_Source:"
+msgstr "_Lähde:"
+
 #: ../components/editor/gtkhtml-editor-builder.ui.h:87
+msgid "_Height:"
+msgstr "K_orkeus:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:88
 msgid "_X-Padding:"
 msgstr "_Vaakatäyttö:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:88
+#: ../components/editor/gtkhtml-editor-builder.ui.h:89
 msgid "_Y-Padding:"
 msgstr "_Pystytäyttö:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:89
-msgid "follow"
-msgstr "seuraa"
-
 #: ../components/editor/gtkhtml-editor-builder.ui.h:90
-msgid "px"
-msgstr "px"
+msgid "Link"
+msgstr "Linkki"
 
-#: ../components/editor/gtkhtml-spell-checker.c:200
-msgid "Language"
-msgstr "Kieli"
-
-#: ../components/editor/gtkhtml-spell-checker.c:201
-msgid "The language used by the spell checker"
-msgstr "Oikoluvussa käytetty kieli"
-
-#: ../components/editor/gtkhtml-spell-dialog.c:117
+#: ../components/editor/gtkhtml-spell-dialog.c:113
 #, c-format
 msgid "Suggestions for \"%s\""
 msgstr "Ehdotukset sanalle ”%s”"
 
-#: ../components/editor/gtkhtml-spell-dialog.c:358
-msgid "Misspelled Word"
-msgstr "Väärin kirjoitettu sana"
-
-#: ../components/editor/gtkhtml-spell-dialog.c:359
-msgid "The current misspelled word"
-msgstr "Tämänhetkinen väärin kirjoitettu sana"
-
-#: ../components/editor/gtkhtml-spell-dialog.c:447
+#: ../components/editor/gtkhtml-spell-dialog.c:443
 msgid "Spell Checker"
 msgstr "Oikoluku"
 
 #. Replace All Button
-#: ../components/editor/gtkhtml-spell-dialog.c:534
+#: ../components/editor/gtkhtml-spell-dialog.c:530
 msgid "R_eplace All"
 msgstr "Korvaa k_aikki"
 
 #. Ignore Button
-#: ../components/editor/gtkhtml-spell-dialog.c:548
+#: ../components/editor/gtkhtml-spell-dialog.c:544
 msgid "_Ignore"
 msgstr "Älä _huomioi"
 
 #. Skip Button
-#: ../components/editor/gtkhtml-spell-dialog.c:562
+#: ../components/editor/gtkhtml-spell-dialog.c:558
 msgid "_Skip"
 msgstr "_Ohita"
 
 #. Back Button
-#: ../components/editor/gtkhtml-spell-dialog.c:575
+#: ../components/editor/gtkhtml-spell-dialog.c:571
 msgid "_Back"
 msgstr "_Edellinen"
 
 #. Dictionary Label
-#: ../components/editor/gtkhtml-spell-dialog.c:588
+#: ../components/editor/gtkhtml-spell-dialog.c:584
 msgid "Dictionary"
 msgstr "Sanasto"
 
 #. Add Word Button
-#: ../components/editor/gtkhtml-spell-dialog.c:617
+#: ../components/editor/gtkhtml-spell-dialog.c:613
 msgid "_Add Word"
 msgstr "_Lisää sana"
 
 #. Translators: %s is the language ISO code.
-#: ../components/editor/gtkhtml-spell-language.c:184
+#: ../components/editor/gtkhtml-spell-language.c:255
 #, c-format
 msgctxt "language"
 msgid "Unknown (%s)"
@@ -1402,8 +1259,8 @@ msgstr "Tuntematon (%s)"
 
 #. Translators: The first %s is the language name, and the
 #. * second is the country name. Example: "French (France)"
-#: ../components/editor/gtkhtml-spell-language.c:199
-#: ../components/editor/gtkhtml-spell-language.c:204
+#: ../components/editor/gtkhtml-spell-language.c:270
+#: ../components/editor/gtkhtml-spell-language.c:275
 #, c-format
 msgctxt "language"
 msgid "%s (%s)"
@@ -1411,7 +1268,7 @@ msgstr "%s (%s)"
 
 #. Translators: This refers to the default language used
 #. * by the spell checker.
-#: ../components/editor/gtkhtml-spell-language.c:389
+#: ../components/editor/gtkhtml-spell-language.c:460
 msgctxt "language"
 msgid "Default"
 msgstr "Oletus"
@@ -1420,935 +1277,68 @@ msgstr "Oletus"
 msgid "Save As"
 msgstr "Tallenna nimellä"
 
-#: ../components/editor/main.c:111
+#: ../components/editor/main.c:109
 msgid "Untitled document"
 msgstr "Nimeämätön asiakirja"
 
-#: ../components/editor/main.c:271
+#: ../components/editor/main.c:267
 msgid "HTML Output"
 msgstr "HTML-tulostiedosto"
 
-#: ../components/editor/main.c:278
+#: ../components/editor/main.c:274
 msgid "HTML Source"
 msgstr "HTML-lähde"
 
-#: ../components/editor/main.c:285
+#: ../components/editor/main.c:281
 msgid "Plain Source"
 msgstr "Tekstilähde"
 
-#: ../components/editor/main.c:292
+#: ../components/editor/main.c:288
 msgid "_Print..."
 msgstr "_Tulosta…"
 
-#: ../components/editor/main.c:299
+#: ../components/editor/main.c:295
 msgid "Print Pre_view"
 msgstr "Tulostuksen _esikatselu"
 
-#: ../components/editor/main.c:306
+#: ../components/editor/main.c:302
 msgid "_Quit"
 msgstr "_Lopeta"
 
-#: ../components/editor/main.c:313
+#: ../components/editor/main.c:309
 msgid "_Save"
 msgstr "_Tallenna"
 
-#: ../components/editor/main.c:320
+#: ../components/editor/main.c:316
 msgid "Save _As..."
 msgstr "Tallenna _nimellä…"
 
-#: ../components/editor/main.c:337
+#: ../components/editor/main.c:333
 msgid "HTML _Output"
 msgstr "HTML-tul_ostiedosto"
 
-#: ../components/editor/main.c:344
+#: ../components/editor/main.c:340
 msgid "_HTML Source"
 msgstr "_HTML-lähde"
 
-#: ../components/editor/main.c:351
+#: ../components/editor/main.c:347
 msgid "_Plain Source"
 msgstr "_Tekstilähde"
 
-#: ../gtkhtml/gtkhtml.c:3068
-msgid "Editable"
-msgstr "Muokattava"
-
-#: ../gtkhtml/gtkhtml.c:3069
-msgid "Whether the html can be edited"
-msgstr "Voiko HTML-tiedostoa muokata"
-
-#: ../gtkhtml/gtkhtml.c:3075
-msgid "Document Title"
-msgstr "Asiakirjan otsikko"
-
-#: ../gtkhtml/gtkhtml.c:3076
-msgid "The title of the current document"
-msgstr "Nykyisen asiakirjan otsikko"
-
-#: ../gtkhtml/gtkhtml.c:3082
-msgid "Document Base"
-msgstr "Asiakirjan kanta"
-
-#: ../gtkhtml/gtkhtml.c:3083
-msgid "The base URL for relative references"
-msgstr "Suhteellisten viittausten kanta-URL"
-
-#: ../gtkhtml/gtkhtml.c:3089
-msgid "Target Base"
-msgstr "Kohteen kanta"
-
-#: ../gtkhtml/gtkhtml.c:3090
-msgid "The base URL of the target frame"
-msgstr "Kohdekehyksen kanta-URL"
-
-#: ../gtkhtml/gtkhtml.c:3098
-msgid "Fixed Width Font"
-msgstr "Tasavälinen kirjasin"
-
-#: ../gtkhtml/gtkhtml.c:3099
-msgid "The Monospace font to use for typewriter text"
-msgstr "Kirjoituskonetekstissä käytettävä tasavälinen kirjasin"
-
-#: ../gtkhtml/gtkhtml.c:3105
-msgid "New Link Color"
-msgstr "Uuden linkin väri"
-
-#: ../gtkhtml/gtkhtml.c:3106
-msgid "The color of new link elements"
-msgstr "Uusien linkkielementtien väri"
-
-#: ../gtkhtml/gtkhtml.c:3111
-msgid "Visited Link Color"
-msgstr "Käydyn linkin väri"
-
-#: ../gtkhtml/gtkhtml.c:3112
-msgid "The color of visited link elements"
-msgstr "Käytyjen linkkielementtien väri"
-
-#: ../gtkhtml/gtkhtml.c:3117
-msgid "Active Link Color"
-msgstr "Aktiivisen linkkielementin väri"
-
-#: ../gtkhtml/gtkhtml.c:3118
-msgid "The color of active link elements"
-msgstr "Aktiivisten linkkielementtien väri"
-
-#: ../gtkhtml/gtkhtml.c:3123
-msgid "Spelling Error Color"
-msgstr "Kirjoitusvirheen väri"
-
-#: ../gtkhtml/gtkhtml.c:3124
-msgid "The color of the spelling error markers"
-msgstr "Kirjoitusvirheilmaisimen väri"
-
-#: ../gtkhtml/gtkhtml.c:3129
-msgid "Cite Quotation Color"
-msgstr "Lainauksen väri"
-
-#: ../gtkhtml/gtkhtml.c:3130
-msgid "The color of the cited text"
-msgstr "Lainatun tekstin väri"
-
-#: ../gtkhtml/htmlbutton.c:138
+#: ../gtkhtml/htmlbutton.c:140
 msgid "Submit Query"
 msgstr "Lähetä kysely"
 
-#: ../gtkhtml/htmlbutton.c:141
+#: ../gtkhtml/htmlbutton.c:143
 msgid "Reset"
 msgstr "Alusta"
 
 #. TODO2 dialog instead of warning
-#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:309
+#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:310
 msgid "Cannot allocate default font for printing"
 msgstr "Oletuskirjasinta ei voitu varata tulostusta varten"
 
-#: ../gtkhtml/test.c:364
+#: ../gtkhtml/test.c:374
 msgid "GtkHTML Test"
 msgstr "GtkHTML-testi"
 
-#~ msgid "<b>Alignment</b>"
-#~ msgstr "<b>Tasaus</b>"
-
-#~ msgid "<b>Background Image</b>"
-#~ msgstr "<b>Taustakuva</b>"
-
-#~ msgid "<b>Background</b>"
-#~ msgstr "<b>Tausta</b>"
-
-#~ msgid "<b>Colors</b>"
-#~ msgstr "<b>Värit</b>"
-
-#~ msgid "<b>General</b>"
-#~ msgstr "<b>Yleinen</b>"
-
-#~ msgid "<b>Link</b>"
-#~ msgstr "<b>Linkki</b>"
-
-#~ msgid "<b>Scope</b>"
-#~ msgstr "<b>Näkyvyys</b>"
-
-#~ msgid "<b>Size</b>"
-#~ msgstr "<b>Koko</b>"
-
-#~ msgid "<b>Style</b>"
-#~ msgstr "<b>Tyyli</b>"
-
-#~ msgid ""
-#~ "Left\n"
-#~ "Center\n"
-#~ "Right"
-#~ msgstr ""
-#~ "Vasen\n"
-#~ "Keskitetty\n"
-#~ "Oikea"
-
-#~ msgid ""
-#~ "None\n"
-#~ "Perforated Paper\n"
-#~ "Blue Ink\n"
-#~ "Paper\n"
-#~ "Ribbon\n"
-#~ "Midnight\n"
-#~ "Confidential\n"
-#~ "Draft\n"
-#~ "Graph Paper"
-#~ msgstr ""
-#~ "Ei mitään\n"
-#~ "Valmisteltu paperi\n"
-#~ "Sininen muste\n"
-#~ "Paperi\n"
-#~ "Lehtiö\n"
-#~ "Keskiyö\n"
-#~ "Luottamuksellinen\n"
-#~ "Luonnos\n"
-#~ "Piirrospaperi"
-
-#~ msgid ""
-#~ "Top\n"
-#~ "Middle\n"
-#~ "Bottom"
-#~ msgstr ""
-#~ "Ylä\n"
-#~ "Keski\n"
-#~ "Ala"
-
-#~ msgid ""
-#~ "px\n"
-#~ "%"
-#~ msgstr ""
-#~ "px\n"
-#~ "%"
-
-#~ msgid "Alphabetical List"
-#~ msgstr "Aakkosellinen luettelo"
-
-#~ msgid "Bulleted List"
-#~ msgstr "Merkkiluettelo"
-
-#~ msgid "Center justifies the paragraphs"
-#~ msgstr "Tasaa kappaleet keskelle"
-
-#~ msgid "Check spelling of the document"
-#~ msgstr "Oikolue asiakirja"
-
-#~ msgid "Copy"
-#~ msgstr "Kopioi"
-
-#~ msgid "Copy selection to clipboard"
-#~ msgstr "Kopioi valinta leikepöydälle"
-
-#~ msgid "Copy the selection"
-#~ msgstr "Kopioi valinta"
-
-#~ msgid "Cut"
-#~ msgstr "Leikkaa"
-
-#~ msgid "Cut selection to clipboard"
-#~ msgstr "Leikkaa valinta leikepöydälle"
-
-#~ msgid "Cut the selection"
-#~ msgstr "Leikkaa valinta"
-
-#~ msgid "Emoti_con"
-#~ msgstr "Hy_miö"
-
-#~ msgid "Find _Again"
-#~ msgstr "Etsi uu_delleen"
-
-#~ msgid "Find again"
-#~ msgstr "Etsi uudelleen"
-
-#~ msgid "Find and Replace"
-#~ msgstr "Etsi ja korvaa"
-
-#~ msgid "Find and replace"
-#~ msgstr "Etsi ja korvaa"
-
-#~ msgid "I_nsert"
-#~ msgstr "_Lisää"
-
-#~ msgid "Image"
-#~ msgstr "Kuva"
-
-#~ msgid "Insert image"
-#~ msgstr "Lisää kuva"
-
-#~ msgid "Insert link"
-#~ msgstr "Lisää linkki"
-
-#~ msgid "Insert rule"
-#~ msgstr "Lisää viiva"
-
-#~ msgid "Insert table"
-#~ msgstr "Lisää taulukko"
-
-#~ msgid "Left justifies the paragraphs"
-#~ msgstr "Tasaa kappaleet vasemmalle"
-
-#~ msgid "Make the current Paragraph style Normal"
-#~ msgstr "Vaihda nykyisen kappaleen tyyli tavalliseksi"
-
-#~ msgid "Make the current Paragraph style Preformat"
-#~ msgstr "Vaihda nykyisen kappaleen tyyli esimuotoilluksi"
-
-#~ msgid "Make the current paragraph a bulleted list"
-#~ msgstr "Tee nykyisestä kappaleesta merkkiluettelo"
-
-#~ msgid "Make the current paragraph a list with roman numerals"
-#~ msgstr "Tee nykyisestä kappaleesta luettelo, jossa on roomalaiset numerot"
-
-#~ msgid "Make the current paragraph a numbered list"
-#~ msgstr "Tee nykyisestä kappaleesta numeroluettelo"
-
-#~ msgid "Make the current paragraph an H1 header"
-#~ msgstr "Tee nykyisestä kappaleesta tason 1 otsikko"
-
-#~ msgid "Make the current paragraph an H2 header"
-#~ msgstr "Tee nykyisestä kappaleesta tason 2 otsikko"
-
-#~ msgid "Make the current paragraph an H3 header"
-#~ msgstr "Tee nykyisestä kappaleesta tason 3 otsikko"
-
-#~ msgid "Make the current paragraph an H4 header"
-#~ msgstr "Tee nykyisestä kappaleesta tason 4 otsikko"
-
-#~ msgid "Make the current paragraph an H5 header"
-#~ msgstr "Tee nykyisestä kappaleesta tason 5 otsikko"
-
-#~ msgid "Make the current paragraph an H6 header"
-#~ msgstr "Tee nykyisestä kappaleesta tason 6 otsikko"
-
-#~ msgid "Make the current paragraph an address"
-#~ msgstr "Tee nykyisestä kappaleesta osoite"
-
-#~ msgid "Make the current paragraph an alphabetical list"
-#~ msgstr "Tee nykyisestä kappaleesta aakkosellinen luettelo"
-
-#~ msgid "Normal"
-#~ msgstr "Tavallinen"
-
-#~ msgid "Numbered List"
-#~ msgstr "Numeroluettelo"
-
-#~ msgid "Oh _No!"
-#~ msgstr "Voi _ei!"
-
-#~ msgid "Paste"
-#~ msgstr "Liitä"
-
-#~ msgid "Paste from clipboard"
-#~ msgstr "Liitä leikepöydältä"
-
-#~ msgid "Paste the clipboard"
-#~ msgstr "Liitä leikepöydän sisältö"
-
-#~ msgid "Paste the clipboard as a quotation"
-#~ msgstr "Liitä leikepöydän sisältö lainauksena"
-
-#~ msgid "Preformat"
-#~ msgstr "Esimuotoiltu"
-
-#~ msgid "Redo"
-#~ msgstr "Tee uudelleen"
-
-#~ msgid "Redo previously undone change"
-#~ msgstr "Tee kumotut muutokset uudelleen"
-
-#~ msgid "Redo the undone action"
-#~ msgstr "Tekee kumotun toiminnon uudelleen"
-
-#~ msgid "Right justifies the paragraphs"
-#~ msgstr "Tasaa kappaleet oikealle"
-
-#~ msgid "Roman Numeral List"
-#~ msgstr "Luettelo roomalaisin numeroin"
-
-#~ msgid "Rule"
-#~ msgstr "Viiva"
-
-#~ msgid "Select the entire contents of the document"
-#~ msgstr "Valitse asiakirjan koko sisältö"
-
-#~ msgid "Strikeout"
-#~ msgstr "Yliviivaa"
-
-#~ msgid "Su_rprised"
-#~ msgstr "_Yllättynyt"
-
-#~ msgid "Subscript"
-#~ msgstr "Alaindeksi"
-
-#~ msgid "Superscript"
-#~ msgstr "Yläindeksi"
-
-#~ msgid "Typewriter"
-#~ msgstr "Kirjoituskone"
-
-#~ msgid "Undo"
-#~ msgstr "Kumoa"
-
-#~ msgid "Undo previous changes"
-#~ msgstr "Kumoa edelliset muutokset"
-
-#~ msgid "Undo the last action"
-#~ msgstr "Kumoa viimeisin toiminto"
-
-#~ msgid "_Font Size"
-#~ msgstr "_Kirjasinkoko"
-
-#~ msgid "_Frown"
-#~ msgstr "_Paheksuva"
-
-#~ msgid "_Heading"
-#~ msgstr "_Otsikko"
-
-#~ msgid "_Indifferent"
-#~ msgstr "_Välinpitämätön"
-
-#~ msgid "_Laughing"
-#~ msgstr "_Naurava"
-
-#~ msgid "_Style"
-#~ msgstr "_Tyyli"
-
-#~ msgid "_Undecided"
-#~ msgstr "_Päättämätön"
-
-#~ msgid "GNOME HTML Editor"
-#~ msgstr "GNOME HTML-muokkain"
-
-#~ msgid "GNOME HTML Editor Control"
-#~ msgstr "GNOME HTML-muokkainsäädin"
-
-#~ msgid "GNOME HTML Editor Factory"
-#~ msgstr "GNOME HTML-muokkaintehdas"
-
-#~ msgid "Background Image File Path"
-#~ msgstr "Taustakuvan tiedoston polku"
-
-#~ msgid "Template"
-#~ msgstr "Malli"
-
-#~ msgid "Could not load glade file."
-#~ msgstr "Glade-tiedostoa ei voitu ladata."
-
-#~ msgid "Transparent"
-#~ msgstr "Läpinäkyvä"
-
-#~ msgid "Text"
-#~ msgstr "Teksti"
-
-#~ msgid "Paragraph"
-#~ msgstr "Kappale"
-
-#~ msgid "Page"
-#~ msgstr "Sivu"
-
-#~ msgid "color preview"
-#~ msgstr "värin esikatselu"
-
-#~ msgid "Custom Color:"
-#~ msgstr "Muu väri:"
-
-#~ msgid "purplish blue"
-#~ msgstr "purppuransininen"
-
-#~ msgid "dark purple"
-#~ msgstr "tumma purppura"
-
-#~ msgid "sky blue"
-#~ msgstr "taivaansininen"
-
-#~ msgid "Popup"
-#~ msgstr "Ponnahdusikkuna"
-
-#~ msgid "GtkHTML Editor Control"
-#~ msgstr "GtkHTML-muokkainsäädin"
-
-#~ msgid "    "
-#~ msgstr "    "
-
-#~ msgid "*"
-#~ msgstr "*"
-
-#~ msgid ""
-#~ "-2\n"
-#~ "-1\n"
-#~ "Standard\n"
-#~ "+1\n"
-#~ "+2\n"
-#~ "+3\n"
-#~ "+4"
-#~ msgstr ""
-#~ "-2\n"
-#~ "-1\n"
-#~ "Oletus\n"
-#~ "+1\n"
-#~ "+2\n"
-#~ "+3\n"
-#~ "+4"
-
-#~ msgid "<b>Alignment &amp; Behaviour</b>"
-#~ msgstr "<b>Tasaus ja toiminta</b>"
-
-#~ msgid "Alignment:"
-#~ msgstr "Tasaus:"
-
-#~ msgid "Cell"
-#~ msgstr "Solu"
-
-#~ msgid "Colu_mns:"
-#~ msgstr "_Sarakkeet:"
-
-#~ msgid "Column span:"
-#~ msgstr "Sarakkeiden väli:"
-
-#~ msgid "Enable"
-#~ msgstr "Käytä"
-
-#~ msgid "Hea_der style"
-#~ msgstr "Otsakkeen t_yyli"
-
-#~ msgid "Horizontal alignment:"
-#~ msgstr "Vaakatasaus:"
-
-#~ msgid "Horizontal:"
-#~ msgstr "Vaaka:"
-
-#~ msgid ""
-#~ "Left\n"
-#~ "Center\n"
-#~ "Right\n"
-#~ "None"
-#~ msgstr ""
-#~ "Vasen\n"
-#~ "Keskitetty\n"
-#~ "Oikea\n"
-#~ "Ei mitään"
-
-#~ msgid "Link properties"
-#~ msgstr "Linkin ominaisuudet"
-
-#~ msgid "Row span:"
-#~ msgstr "Rivien väli:"
-
-#~ msgid "Shade"
-#~ msgstr "Varjostus"
-
-#~ msgid "Vertical:"
-#~ msgstr "Pystysuuntainen:"
-
-#~ msgid "xxxxxxxxxxxxxx"
-#~ msgstr "xxxxxxxxxxxxxx"
-
-#~ msgid "URL:"
-#~ msgstr "URL:"
-
-#~ msgid "Description:"
-#~ msgstr "Kuvaus:"
-
-#~ msgid "Insert"
-#~ msgstr "Lisää"
-
-#~ msgid "Format"
-#~ msgstr "Muotoilu"
-
-#~ msgid "Roman List"
-#~ msgstr "Room. luettelo"
-
-#~ msgid "Header 1"
-#~ msgstr "Otsikko 1"
-
-#~ msgid "Header 2"
-#~ msgstr "Otsikko 2"
-
-#~ msgid "Header 3"
-#~ msgstr "Otsikko 3"
-
-#~ msgid "Header 4"
-#~ msgstr "Otsikko 4"
-
-#~ msgid "Header 5"
-#~ msgstr "Otsikko 5"
-
-#~ msgid "Header 6"
-#~ msgstr "Otsikko 6"
-
-#~ msgid "Address"
-#~ msgstr "Osoite"
-
-#~ msgid "Table insert"
-#~ msgstr "Lisää taulukko"
-
-#~ msgid "Row above"
-#~ msgstr "Rivi yllä"
-
-#~ msgid "Row below"
-#~ msgstr "Rivi alla"
-
-#~ msgid "Column before"
-#~ msgstr "Edeltävä sarake"
-
-#~ msgid "Column after"
-#~ msgstr "Seuraava sarake"
-
-#~ msgid "Table delete"
-#~ msgstr "Poista taulukko"
-
-#~ msgid "Cell contents"
-#~ msgstr "Solun sisältö"
-
-#~ msgid "Add Word to"
-#~ msgstr "Lisää sana"
-
-#~ msgid "%s Dictionary"
-#~ msgstr "Sanastoon %s"
-
-#~ msgid "Replace confirmation"
-#~ msgstr "Vahvista korvaus"
-
-#~ msgid "Search _backward"
-#~ msgstr "Etsi _edellinen"
-
-#~ msgid "_Backward"
-#~ msgstr "_Edellinen"
-
-#~ msgid "_Regular Expression"
-#~ msgstr "Säännöllinen _lauseke"
-
-#~ msgid "Input the words you want to search here"
-#~ msgstr "Kirjoita etsittävät sanat tähän"
-
-#~ msgid ""
-#~ "Unable to add word to dictionary,\n"
-#~ "language settings are broken.\n"
-#~ msgstr ""
-#~ "Sanan lisääminen sanakirjaan epäonnistui,\n"
-#~ "kieliasetukset ovat virheelliset.\n"
-
-#~ msgid "No misspelled word found"
-#~ msgstr "Väärin kirjoitettuja sanoja ei löytynyt"
-
-#~ msgid "Spell checker"
-#~ msgstr "Oikoluku"
-
-#~ msgid "Note"
-#~ msgstr "Muistiinpano"
-
-#~ msgid "Place your text here"
-#~ msgstr "Kirjoita tekstisi tähän"
-
-#~ msgid "Image frame"
-#~ msgstr "Kuvan kehys"
-
-#~ msgid "Template Labels"
-#~ msgstr "Mallien nimiöt"
-
-#~ msgid "GtkHTML Editor Test Container"
-#~ msgstr "GtkHTML-muokkainsäätimen testisäilö"
-
-#~ msgid "Left align"
-#~ msgstr "Tasaa vasemmalle"
-
-#~ msgid "Right align"
-#~ msgstr "Tasaa oikealle"
-
-#~ msgid "Toggle typewriter font style"
-#~ msgstr "Käytä kirjoituskonekirjasinta"
-
-#~ msgid "Makes the text bold"
-#~ msgstr "Lihavoi teksti"
-
-#~ msgid "Makes the text italic"
-#~ msgstr "Kursivoi valinta"
-
-#~ msgid "Underlines the text"
-#~ msgstr "Alleviivaa teksti"
-
-#~ msgid "Strikes out the text"
-#~ msgstr "Yliviivaa teksti"
-
-#~ msgid "Unindent"
-#~ msgstr "Poista sisennys"
-
-#~ msgid "Indents the paragraphs less"
-#~ msgstr "Sisennä kappaleita vähemmän"
-
-#~ msgid "Indent"
-#~ msgstr "Sisennä"
-
-#~ msgid "Indents the paragraphs more"
-#~ msgstr "Sisennä kappaleita enemmän"
-
-#~ msgid "Text Color"
-#~ msgstr "Tekstin väri"
-
-#~ msgid "Sample"
-#~ msgstr "Esimerkki"
-
-#~ msgid ""
-#~ "The edited object was removed from the document.\n"
-#~ "Cannot apply your changes."
-#~ msgstr ""
-#~ "Muokattu kohde on poistettu asiakirjasta.\n"
-#~ "Muutoksia ei voida ottaa käyttöön."
-
-#~ msgid "Print pre_view"
-#~ msgstr "_Esikatselu"
-
-#~ msgid "Print preview"
-#~ msgstr "Esikatselu"
-
-#~ msgid "GtkHTML Test Application"
-#~ msgstr "GtkHTML-testisovellus"
-
-#~ msgid "_Tongue"
-#~ msgstr "_Kieli"
-
-#~ msgid "language|Default"
-#~ msgstr "Oletus"
-
-#~ msgid "Make the current Paragraph style Preformatted"
-#~ msgstr "Vaihda nykyisen kappaleen tyyli esimuotoilluksi"
-
-#~ msgid "Preformatted"
-#~ msgstr "Esimuotoiltu"
-
-#~ msgid "Cannot allocate default font for printing\n"
-#~ msgstr "Ei voinut varata oletuskirjasinta tulostamista varten\n"
-
-#~ msgid "Modify the file's properties"
-#~ msgstr "Muokkaa tiedoston ominaisuuksia"
-
-#~ msgid "Regular expression search"
-#~ msgstr "Haku säännöllisellä lausekkeella"
-
-#~ msgid "Replace a string"
-#~ msgstr "Korvaa merkkijono"
-
-#~ msgid "Search again for the same string"
-#~ msgstr "Etsi uudestaan samaa merkkijonoa"
-
-#~ msgid "Search for a string"
-#~ msgstr "Etsi merkkijonoa"
-
-#~ msgid "_Paste Quotation"
-#~ msgstr "_Liitä lainaus"
-
-#~ msgid "Paste Quotation"
-#~ msgstr "Liitä lainaus"
-
-#~ msgid "Percent"
-#~ msgstr "Prosenttia"
-
-#~ msgid "Pixels"
-#~ msgstr "Pikseliä"
-
-#~ msgid "Standard"
-#~ msgstr "Tavallinen"
-
-#~ msgid "Dot item"
-#~ msgstr "Pistekohta"
-
-#~ msgid "Number item"
-#~ msgstr "Numerokohta"
-
-#~ msgid "Roman item"
-#~ msgstr "Room. kohta"
-
-#~ msgid "Alphabeta item"
-#~ msgstr "Aakkoskohta"
-
-#~ msgid "Li_ck"
-#~ msgstr "_Nuolaiseva"
-
-#~ msgid "Find And Replace"
-#~ msgstr "Etsi ja korvaa"
-
-#~ msgid "_Preformat"
-#~ msgstr "_Esimuotoiltu"
-
-#~ msgid "_Strikeout"
-#~ msgstr "_Yliviivaus"
-
-#~ msgid "Background Color"
-#~ msgstr "Taustaväri"
-
-#~ msgid "Blue"
-#~ msgstr "Sininen"
-
-#~ msgid "Green"
-#~ msgstr "Vihreä"
-
-#~ msgid "Orange"
-#~ msgstr "Oranssi"
-
-#~ msgid "Purple"
-#~ msgstr "Purppura"
-
-#~ msgid "Red"
-#~ msgstr "Punainen"
-
-#~ msgid "Su_perscript"
-#~ msgstr "Yläi_ndeksi"
-
-#~ msgid "Subs_cript"
-#~ msgstr "Ala_indeksi"
-
-#~ msgid "Yellow"
-#~ msgstr "Keltainen"
-
-#~ msgid "Length:"
-#~ msgstr "Pituus:"
-
-#~ msgid "Thickness:"
-#~ msgstr "Paksuus:"
-
-#~ msgid ""
-#~ "Mozilla url dropped on Composer had wrong format (%d) or length (%d)\n"
-#~ msgstr ""
-#~ "Mozillasta editoriin pudotettu URL oli väärän muotoinen (%d) tai pituinen "
-#~ "(%d)\n"
-
-#~ msgid "Html"
-#~ msgstr "Html"
-
-#~ msgid "Html test"
-#~ msgstr "Html-testi"
-
-#~ msgid "Test1"
-#~ msgstr "Testi1"
-
-#~ msgid "Test2"
-#~ msgstr "Testi2"
-
-#~ msgid "Test3"
-#~ msgstr "Testi3"
-
-#~ msgid "Test4"
-#~ msgstr "Testi4"
-
-#~ msgid "Test5"
-#~ msgstr "Testi5"
-
-#~ msgid "Test6"
-#~ msgstr "Testi6"
-
-#~ msgid "Test7"
-#~ msgstr "Testi7"
-
-#~ msgid "_Refresh"
-#~ msgstr "_Päivitä"
-
-#~ msgid "Reload the page"
-#~ msgstr "Lataa sivu uudelleen"
-
-#~ msgid "Could not initialize Bonobo!"
-#~ msgstr "Ei voinut käynnistää Bonoboa!"
-
-#~ msgid "<None>"
-#~ msgstr "<Ei mikään>"
-
-#~ msgid "\n"
-#~ msgstr "\n"
-
-#~ msgid "*********************"
-#~ msgstr "*********************"
-
-#~ msgid "Add Keyboard Shortcuts"
-#~ msgstr "Lisää pikanäppäimiä"
-
-#~ msgid "Automatically detect links"
-#~ msgstr "Havaitse linkit automaattisesti"
-
-#~ msgid "Behavior"
-#~ msgstr "Toiminta"
-
-#~ msgid "Composer Properties"
-#~ msgstr "Editorin ominaisuudet"
-
-#~ msgid "Composer Properties planned"
-#~ msgstr "Suunnitellut editorin ominaisuudet"
-
-#~ msgid "Configure spell checking"
-#~ msgstr "Oikoluvun asetukset"
-
-#~ msgid "Fixed width"
-#~ msgstr "Tasavälinen"
-
-#~ msgid "Fonts"
-#~ msgstr "Kirjasimet"
-
-#~ msgid "For printing"
-#~ msgstr "Tulostusta varten"
-
-#~ msgid "Grab keys"
-#~ msgstr "Kaappaa näppäin"
-
-#~ msgid "Information"
-#~ msgstr "Tietoja"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Pikanäppäimet"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Sekalaista"
-
-#~ msgid "New shortcut:"
-#~ msgstr "Uusi pikanäppäin:"
-
-#~ msgid "On screen"
-#~ msgstr "Näytöllä"
-
-#~ msgid "Select HTML fixed width font"
-#~ msgstr "Valitse tasavälinen kirjasin HTML:lle"
-
-#~ msgid "Select HTML fixed width font for printing"
-#~ msgstr "Valitse tasavälinen kirjasin HTML:n tulostusta varten"
-
-#~ msgid "Select HTML variable width font"
-#~ msgstr "Valitse epätasavälinen kirjasin HTML:lle"
-
-#~ msgid "Select HTML variable width font for printing"
-#~ msgstr "Valitse epätasavälinen kirjasin HTML:n tulostusta varten"
-
-#~ msgid "Shortcuts _type:"
-#~ msgstr "Pikanäppäin_tyyppi:"
-
-#~ msgid "Show animated images"
-#~ msgstr "Näytä animoidut kuvat"
-
-#~ msgid "Variable width"
-#~ msgstr "Epätasavälinen"
-
-#~ msgid "_Add"
-#~ msgstr "_Lisää"
-
-#~ msgid "_Delete"
-#~ msgstr "_Poista"
-
-#~ msgid ""
-#~ "Cannot execute GNOME Spell control applet\n"
-#~ "Try to install GNOME Spell if you don't have it installed."
-#~ msgstr ""
-#~ "Ei voi käynnistää GNOME-oikoluvun hallintasovelmaa.\n"
-#~ "Yritä GNOME-oikoluvun asentamista, jos sitä ei ole vielä tehty."
