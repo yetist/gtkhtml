@@ -69,6 +69,8 @@ editor_show_popup_menu (GtkhtmlEditor *editor,
 	html = gtkhtml_editor_get_html (editor);
 	menu = gtkhtml_editor_get_managed_widget (editor, "/context-menu");
 
+	gtk_widget_grab_focus (GTK_WIDGET (html));
+
 	/* Did we right-click in a selection? */
 	in_selection =
 		html_engine_is_selection_active (html->engine) &&
