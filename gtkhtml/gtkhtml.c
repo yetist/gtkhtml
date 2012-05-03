@@ -1823,9 +1823,14 @@ shift_to_iframe_parent (GtkWidget *widget,
                         gint *y)
 {
 	while (GTK_HTML (widget)->iframe_parent) {
+		GtkWidget *scrolled_window;
 		GtkAllocation allocation;
 
-		gtk_widget_get_allocation (widget, &allocation);
+		scrolled_window = gtk_widget_get_parent (widget);
+
+		g_return_val_if_fail (GTK_IS_SCROLLED_WINDOW (scrolled_window), widget);
+
+		gtk_widget_get_allocation (scrolled_window, &allocation);
 
 		if (x)
 			*x += allocation.x - GTK_HTML (widget)->engine->x_offset;
