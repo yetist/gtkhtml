@@ -210,6 +210,8 @@ void		gtkhtml_editor_spell_check	(GtkhtmlEditor *editor,
 gboolean	gtkhtml_editor_next_spell_error	(GtkhtmlEditor *editor);
 gboolean	gtkhtml_editor_prev_spell_error	(GtkhtmlEditor *editor);
 void		gtkhtml_editor_update_context	(GtkhtmlEditor *editor);
+void		gtkthtml_editor_emit_spell_languages_changed
+						(GtkhtmlEditor *editor);
 
 G_END_DECLS
 

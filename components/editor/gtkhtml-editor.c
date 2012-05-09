@@ -42,6 +42,7 @@ enum {
 	LINK_CLICKED,
 	OBJECT_DELETED,
 	URI_REQUESTED,
+	SPELL_LANGUAGES_CHANGED,
 	LAST_SIGNAL
 };
 
@@ -938,6 +939,16 @@ editor_class_init (GtkhtmlEditorClass *class)
 		G_TYPE_NONE, 2,
 		G_TYPE_STRING,
 		G_TYPE_POINTER);
+
+	signals[SPELL_LANGUAGES_CHANGED] = g_signal_new (
+		"spell-languages-changed",
+		G_OBJECT_CLASS_TYPE (class),
+		G_SIGNAL_RUN_LAST,
+		0,
+		NULL, NULL,
+		g_cclosure_marshal_VOID__POINTER,
+		G_TYPE_NONE, 1,
+		G_TYPE_POINTER);
 }
 
 static void
@@ -1729,4 +1740,33 @@ gtkhtml_editor_drop_undo (GtkhtmlEditor *editor)
 	html = gtkhtml_editor_get_html (editor);
 
 	gtk_html_drop_undo (html);
+}
+
+void
+gtkthtml_editor_emit_spell_languages_changed (GtkhtmlEditor *editor)
+{
+	GList *languages, *iter;
+
+	g_return_if_fail (editor != NULL);
+
+	languages = NULL;
+	for (iter = editor->priv->active_spell_checkers; iter; iter = g_list_next (iter)) {
+		const GtkhtmlSpellLanguage *language;
+		GtkhtmlSpellChecker *checker = iter->data;
+
+		if (!checker)
+			continue;
+
+		language = gtkhtml_spell_checker_get_language (checker);
+		if (!language)
+			continue;
+
+		languages = g_list_prepend (languages, (gpointer) language);
+	}
+
+	languages = g_list_reverse (languages);
+
+	g_signal_emit (editor, signals[SPELL_LANGUAGES_CHANGED], 0, languages);
+
+	g_list_free (languages);
 }

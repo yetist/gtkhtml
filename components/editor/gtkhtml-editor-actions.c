@@ -798,6 +798,8 @@ action_language_cb (GtkToggleAction *action,
 
 	html = gtkhtml_editor_get_html (editor);
 	html_engine_spell_check (html->engine);
+
+	gtkthtml_editor_emit_spell_languages_changed (editor);
 }
 
 static void
