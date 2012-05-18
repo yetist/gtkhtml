@@ -61,6 +61,8 @@ struct _GtkhtmlColorComboPrivate {
 
 	guint popup_shown	: 1;
 	guint popup_in_progress	: 1;
+	GdkDevice *grab_keyboard;
+	GdkDevice *grab_mouse;
 };
 
 static gpointer parent_class;
@@ -637,14 +639,28 @@ color_combo_popup (GtkhtmlColorCombo *combo)
 	GtkToggleButton *toggle_button;
 	GtkButton *button;
 	GdkWindow *window;
-	GdkGrabStatus status;
+	gboolean grab_status;
+	GdkDevice *device, *mouse, *keyboard;
+	guint32 activate_time;
 	const gchar *label;
+
+	device = gtk_get_current_event_device ();
+	g_return_if_fail (device != NULL);
 
 	if (!gtk_widget_get_realized (GTK_WIDGET (combo)))
 		return;
 
 	if (combo->priv->popup_shown)
 		return;
+
+	activate_time = gtk_get_current_event_time ();
+	if (gdk_device_get_source (device) == GDK_SOURCE_KEYBOARD) {
+		keyboard = device;
+		mouse = gdk_device_get_associated_device (device);
+	} else {
+		keyboard = gdk_device_get_associated_device (device);
+		mouse = device;
+	}
 
 	/* Update the default button label. */
 	button = GTK_BUTTON (combo->priv->default_button);
@@ -664,22 +680,28 @@ color_combo_popup (GtkhtmlColorCombo *combo)
 
 	/* Try to grab the pointer and keyboard. */
 	window = gtk_widget_get_window (combo->priv->window);
-	status = gdk_pointer_grab (
-		window, TRUE,
-		GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
-		GDK_POINTER_MOTION_MASK, NULL, NULL, GDK_CURRENT_TIME);
-	if (status == GDK_GRAB_SUCCESS) {
-		status = gdk_keyboard_grab (window, TRUE, GDK_CURRENT_TIME);
-		if (status != GDK_GRAB_SUCCESS)
-			gdk_display_pointer_ungrab (
-				gdk_window_get_display (window),
-				GDK_CURRENT_TIME);
+	grab_status = !keyboard ||
+		gdk_device_grab (keyboard, window,
+			GDK_OWNERSHIP_WINDOW, TRUE,
+			GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK,
+			NULL, activate_time) == GDK_GRAB_SUCCESS;
+	if (grab_status) {
+		grab_status = !mouse ||
+			gdk_device_grab (mouse, window,
+				GDK_OWNERSHIP_WINDOW, TRUE,
+				GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK,
+				NULL, activate_time) == GDK_GRAB_SUCCESS;
+		if (!grab_status && keyboard)
+			gdk_device_ungrab (keyboard, activate_time);
 	}
 
-	if (status == GDK_GRAB_SUCCESS)
-		gtk_grab_add (combo->priv->window);
-	else
+	if (grab_status) {
+		gtk_device_grab_add (combo->priv->window, mouse, TRUE);
+		combo->priv->grab_keyboard = keyboard;
+		combo->priv->grab_mouse = mouse;
+	} else {
 		gtk_widget_hide (combo->priv->window);
+	}
 }
 
 static void
@@ -694,12 +716,20 @@ color_combo_popdown (GtkhtmlColorCombo *combo)
 		return;
 
 	/* Hide the pop-up. */
-	gtk_grab_remove (combo->priv->window);
+	gtk_device_grab_remove (combo->priv->window, combo->priv->grab_mouse);
 	gtk_widget_hide (combo->priv->window);
 
 	/* Deactivate the toggle button. */
 	toggle_button = GTK_TOGGLE_BUTTON (combo->priv->toggle_button);
 	gtk_toggle_button_set_active (toggle_button, FALSE);
+
+	if (combo->priv->grab_keyboard)
+		gdk_device_ungrab (combo->priv->grab_keyboard, GDK_CURRENT_TIME);
+	if (combo->priv->grab_mouse)
+		gdk_device_ungrab (combo->priv->grab_mouse, GDK_CURRENT_TIME);
+
+	combo->priv->grab_keyboard = NULL;
+	combo->priv->grab_mouse = NULL;
 }
 
 static void
