@@ -1,3 +1,17 @@
+GtkHTML-4.5.2 2012-06-04
+------------------------
+
+Bug Fixes:
+	Bug 672582 - Fix selection behavior inside <iframe> (Sam Thursfield)
+	Bug 675871 - Hide gnu make extensions warnings for automake 1.12
+	             (Milan Crha)
+	Bug 676218 - Using the color Picker blocks any input for composer
+	             (Milan Crha)
+
+Other Changes:
+	Add signal "spell-languages-changed" (Milan Crha)
+
+
 GtkHTML-4.5.1 2012-04-28
 ------------------------
 
