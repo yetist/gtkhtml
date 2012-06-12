@@ -53,6 +53,8 @@ struct _GtkhtmlFaceToolButtonPrivate {
 
 	guint popup_shown	: 1;
 	guint popup_in_progress	: 1;
+	GdkDevice *grab_keyboard;
+	GdkDevice *grab_mouse;
 };
 
 static gpointer parent_class;
@@ -325,13 +327,27 @@ face_tool_button_popup (GtkhtmlFaceToolButton *button)
 {
 	GtkToggleToolButton *tool_button;
 	GdkWindow *window;
-	GdkGrabStatus status;
+	gboolean grab_status;
+	GdkDevice *device, *mouse, *keyboard;
+	guint32 activate_time;
+
+	device = gtk_get_current_event_device ();
+	g_return_if_fail (device != NULL);
 
 	if (!gtk_widget_get_realized (GTK_WIDGET (button)))
 		return;
 
 	if (button->priv->popup_shown)
 		return;
+
+	activate_time = gtk_get_current_event_time ();
+	if (gdk_device_get_source (device) == GDK_SOURCE_KEYBOARD) {
+		keyboard = device;
+		mouse = gdk_device_get_associated_device (device);
+	} else {
+		keyboard = gdk_device_get_associated_device (device);
+		mouse = device;
+	}
 
 	/* Position the window over the button. */
 	face_tool_button_reposition_window (button);
@@ -346,22 +362,28 @@ face_tool_button_popup (GtkhtmlFaceToolButton *button)
 
 	/* Try to grab the pointer and keyboard. */
 	window = gtk_widget_get_window (button->priv->window);
-	status = gdk_pointer_grab (
-		window, TRUE,
-		GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK |
-		GDK_POINTER_MOTION_MASK, NULL, NULL, GDK_CURRENT_TIME);
-	if (status == GDK_GRAB_SUCCESS) {
-		status = gdk_keyboard_grab (window, TRUE, GDK_CURRENT_TIME);
-		if (status != GDK_GRAB_SUCCESS)
-			gdk_display_pointer_ungrab (
-				gdk_window_get_display (window),
-				GDK_CURRENT_TIME);
-	}
+	grab_status = !keyboard ||
+		gdk_device_grab (keyboard, window,
+			GDK_OWNERSHIP_WINDOW, TRUE,
+			GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK,
+			NULL, activate_time) == GDK_GRAB_SUCCESS;
+	if (grab_status) {
+		grab_status = !mouse ||
+			gdk_device_grab (mouse, window,
+				GDK_OWNERSHIP_WINDOW, TRUE,
+				GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK,
+				NULL, activate_time) == GDK_GRAB_SUCCESS;
+		if (!grab_status && keyboard)
+			gdk_device_ungrab (keyboard, activate_time);
+ 	}
 
-	if (status == GDK_GRAB_SUCCESS)
-		gtk_grab_add (button->priv->window);
-	else
+	if (grab_status) {
+		gtk_device_grab_add (button->priv->window, mouse, TRUE);
+		button->priv->grab_keyboard = keyboard;
+		button->priv->grab_mouse = mouse;
+	} else {
 		gtk_widget_hide (button->priv->window);
+	}
 }
 
 static void
@@ -376,12 +398,20 @@ face_tool_button_popdown (GtkhtmlFaceToolButton *button)
 		return;
 
 	/* Hide the pop-up. */
-	gtk_grab_remove (button->priv->window);
+	gtk_device_grab_remove (button->priv->window, button->priv->grab_mouse);
 	gtk_widget_hide (button->priv->window);
 
 	/* Deactivate the tool button. */
 	tool_button = GTK_TOGGLE_TOOL_BUTTON (button);
 	gtk_toggle_tool_button_set_active (tool_button, FALSE);
+
+	if (button->priv->grab_keyboard)
+		gdk_device_ungrab (button->priv->grab_keyboard, GDK_CURRENT_TIME);
+	if (button->priv->grab_mouse)
+		gdk_device_ungrab (button->priv->grab_mouse, GDK_CURRENT_TIME);
+
+	button->priv->grab_keyboard = NULL;
+	button->priv->grab_mouse = NULL;
 }
 
 static GtkhtmlFace *
