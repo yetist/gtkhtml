@@ -1,3 +1,11 @@
+GtkHTML-4.4.3 2012-06-18
+------------------------
+
+Bug Fixes:
+	Bug #676218 - Using the color Picker blocks any input for composer
+	              (Milan Crha)
+
+
 GtkHTML-4.4.2 2012-05-14
 ------------------------
 
