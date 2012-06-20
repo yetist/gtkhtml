@@ -970,7 +970,7 @@ insert_text (HTMLEngine *e,
 				text++;
 			text--;
 		}
-	} else if ((e->flow == NULL && !e->editable) || ((prev == NULL || prev_text_ends_in_space) && !e->inPre)) {
+	} else if (!e->inPre && ((e->flow == NULL && !e->editable) || ((prev == NULL || prev_text_ends_in_space) && !e->inPre))) {
 		while (*text == ' ')
 			text++;
 		if (*text == 0)
