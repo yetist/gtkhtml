@@ -375,7 +375,7 @@ face_tool_button_popup (GtkhtmlFaceToolButton *button)
 				NULL, activate_time) == GDK_GRAB_SUCCESS;
 		if (!grab_status && keyboard)
 			gdk_device_ungrab (keyboard, activate_time);
- 	}
+	}
 
 	if (grab_status) {
 		gtk_device_grab_add (button->priv->window, mouse, TRUE);
