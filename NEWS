@@ -1,3 +1,13 @@
+GtkHTML-4.5.3 2012-06-25
+------------------------
+
+Bug Fixes:
+	Bug 676218 - Using Emoticon picker blocks input in composer
+	             (Milan Crha)
+	Bug 678479 - Leading spaces in first line of <pre> are ignored
+	             (Kouhei Sutou)
+
+
 GtkHTML-4.5.2 2012-06-04
 ------------------------
 
