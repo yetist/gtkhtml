@@ -715,8 +715,6 @@ scroll_timeout_cb (gpointer data)
 	gint x_scroll, y_scroll;
 	gint x, y;
 
-	GDK_THREADS_ENTER ();
-
 	widget = GTK_WIDGET (data);
 	html = GTK_HTML (data);
 	engine = html->engine;
@@ -762,8 +760,6 @@ scroll_timeout_cb (gpointer data)
 	inc_adjustment (vadjustment, html_engine_get_doc_height (html->engine),
 			allocation.height, y_scroll);
 
-	GDK_THREADS_LEAVE ();
-
 	return TRUE;
 }
 
@@ -776,9 +772,7 @@ setup_scroll_timeout (GtkHTML *html)
 	html->priv->scroll_timeout_id = g_timeout_add (SCROLL_TIMEOUT_INTERVAL,
 						   scroll_timeout_cb, html);
 
-	GDK_THREADS_LEAVE ();
 	scroll_timeout_cb (html);
-	GDK_THREADS_ENTER ();
 }
 
 static void
