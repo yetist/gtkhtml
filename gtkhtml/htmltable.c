@@ -1911,7 +1911,7 @@ html_table_set_max_width (HTMLObject *o,
 	html_table_set_cells_max_width (table, painter, max_size);
 	set_columns_optimal_width (table, max_size, pixel_size);
 
-	/* printf ("max_width %d opt_width %d\n", o->max_width, COLUMN_OPT (table, table->totalCols) + ); */
+	/* printf ("max_width %d opt_width %d\n", o->max_width, COLUMN_OPT (table, table->totalCols) +); */
 
 	g_free (max_size);
 }

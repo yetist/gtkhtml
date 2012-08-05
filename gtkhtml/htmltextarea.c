@@ -59,7 +59,7 @@ copy (HTMLObject *self,
 static void
 reset (HTMLEmbedded *e)
 {
-	html_textarea_set_text ( HTML_TEXTAREA (e), HTML_TEXTAREA (e)->default_text);
+	html_textarea_set_text (HTML_TEXTAREA (e), HTML_TEXTAREA (e)->default_text);
 }
 
 static gchar *

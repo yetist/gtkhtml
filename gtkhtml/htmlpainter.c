@@ -1010,14 +1010,14 @@ guint
 html_painter_get_page_width (HTMLPainter *painter,
                              HTMLEngine *e)
 {
-	return	(* HP_CLASS (painter)->get_page_width) (painter, e);
+	return (* HP_CLASS (painter)->get_page_width) (painter, e);
 }
 
 guint
 html_painter_get_page_height (HTMLPainter *painter,
                               HTMLEngine *e)
 {
-	return	(* HP_CLASS (painter)->get_page_height) (painter, e);
+	return (* HP_CLASS (painter)->get_page_height) (painter, e);
 }
 
 /**

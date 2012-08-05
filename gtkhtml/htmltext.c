@@ -199,7 +199,7 @@ debug_word_width (HTMLText *t)
  *
 	printf ("words: %d | ", t->words);
 	for (i = 0; i < t->words; i++)
-		printf ("%d ", t->word_width [i]);
+		printf ("%d ", t->word_width[i]);
 	printf ("\n");
 }
  *

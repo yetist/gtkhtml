@@ -423,7 +423,7 @@ find_anchor (HTMLObject *self,
 	clue = HTML_CLUE (self);
 
 	for (obj = clue->head; obj != NULL; obj = obj->next) {
-		if ((anchor = html_object_find_anchor ( obj, name, x, y)) != 0 )
+		if ((anchor = html_object_find_anchor (obj, name, x, y)) != 0 )
 			return anchor;
 	}
 

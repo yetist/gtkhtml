@@ -1516,7 +1516,7 @@ check_point (HTMLObject *self,
 	if (for_cursor)
 		x = MAX (x, get_indent (HTML_CLUEFLOW (self), painter));
 
-	for (p = clue->head; p; ) {
+	for (p = clue->head; p;) {
 
 		if (html_object_is_text (p))
 			p = p->next;
@@ -1526,7 +1526,7 @@ check_point (HTMLObject *self,
 		line_y  = line_ly;
 		line_ly = p->y + p->descent;
 
-		for (eol = p; eol && (eol->y - eol->ascent < line_ly || eol->ascent + eol->y == line_y); ) {
+		for (eol = p; eol && (eol->y - eol->ascent < line_ly || eol->ascent + eol->y == line_y);) {
 			line_ly = MAX (line_ly, eol->y + eol->descent);
 			do
 				eol = eol->next;
@@ -1534,7 +1534,7 @@ check_point (HTMLObject *self,
 		}
 
 		if (y >= line_y && y < line_ly)
-			for (cur = p; cur && cur != eol; ) {
+			for (cur = p; cur && cur != eol;) {
 				obj = html_object_check_point (cur, painter, x, for_cursor
 							       ? MIN (MAX (y, cur->y - cur->ascent),
 								      cur->y + cur->descent - 1) : y,

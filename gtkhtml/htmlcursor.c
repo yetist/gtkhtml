@@ -52,7 +52,7 @@ debug_location (const HTMLCursor *cursor)
 	HTMLObject *object;
 
 	if (gtk_html_cursor_debug_flag == -1) {
-		if (getenv("GTK_HTML_DEBUG_CURSOR") != NULL)
+		if (getenv ("GTK_HTML_DEBUG_CURSOR") != NULL)
 			gtk_html_cursor_debug_flag = 1;
 		else
 			gtk_html_cursor_debug_flag = 0;

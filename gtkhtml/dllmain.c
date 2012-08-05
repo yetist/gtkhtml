@@ -43,7 +43,7 @@ replace_prefix (const gchar *runtime_prefix,
                 const gchar *configure_time_path)
 {
 	if (runtime_prefix &&
-            strncmp (configure_time_path, PREFIX "/",
+	    strncmp (configure_time_path, PREFIX "/",
 		     strlen (PREFIX) + 1) == 0)
 		return g_strconcat (runtime_prefix,
 				    configure_time_path + strlen (PREFIX),

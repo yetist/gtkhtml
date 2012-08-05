@@ -325,7 +325,7 @@ save (HTMLObject *self,
 		   html_engine_save_get_paragraph_align (html_alignment_to_paragraph (HTML_CLUE (cell)->halign)) SE;
 	if (HTML_CLUE (cell)->valign != HTML_VALIGN_MIDDLE)
 		SB " VALIGN=\"%s\"",
-                   HTML_CLUE (cell)->valign == HTML_VALIGN_TOP ? "top" : "bottom" SE;
+		   HTML_CLUE (cell)->valign == HTML_VALIGN_TOP ? "top" : "bottom" SE;
 	SB ">\n" SE;
 	if (!(*HTML_OBJECT_CLASS (parent_class)->save) (self, state))
 		return FALSE;

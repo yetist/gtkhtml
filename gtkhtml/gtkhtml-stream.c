@@ -173,7 +173,7 @@ stream_log_write (GtkHTMLStream *stream,
 	gint i;
 
 	for (i = 0; i < size; i++)
-		fprintf (log->file, "%c", buffer [i]);
+		fprintf (log->file, "%c", buffer[i]);
 
 	gtk_html_stream_write (log->stream, buffer, size);
 

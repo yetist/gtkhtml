@@ -259,7 +259,7 @@ gint main (gint argc, gchar *argv[])
 		gint j, result;
 
 		if (tests[i].test_function) {
-			fprintf (stderr, "  %s ", tests [i].name);
+			fprintf (stderr, "  %s ", tests[i].name);
 			for (j = strlen (tests[i].name); j < 69; j++)
 				fputc ('.', stderr);
 			result = (*tests[i].test_function) (html);
@@ -269,7 +269,7 @@ gint main (gint argc, gchar *argv[])
 			if (result)
 				n_successful++;
 		} else {
-			fprintf (stderr, "* %s\n", tests [i].name);
+			fprintf (stderr, "* %s\n", tests[i].name);
 		}
 	}
 

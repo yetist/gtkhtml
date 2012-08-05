@@ -109,7 +109,7 @@ html_encode_entities (const gchar *input,
 		} else {
 			gchar buf[10], *ptr;
 
-			g_snprintf(buf, 9, "&#%d;", uc);
+			g_snprintf (buf, 9, "&#%d;", uc);
 
 			ptr = buf;
 			while (*ptr != 0)
@@ -253,9 +253,9 @@ get_body (HTMLEngine *e)
 	gchar *url = NULL;
 
 	cset = e->settings->color_set;
-	text = (cset->changed [HTMLTextColor]) ? color_to_string ("TEXT", cset->color [HTMLTextColor]) : g_strdup ("");
-	link = (cset->changed [HTMLLinkColor]) ? color_to_string ("LINK", cset->color [HTMLLinkColor]) : g_strdup ("");
-	bg   = (cset->changed [HTMLBgColor]) ? color_to_string ("BGCOLOR", cset->color [HTMLBgColor]) : g_strdup ("");
+	text = (cset->changed[HTMLTextColor]) ? color_to_string ("TEXT", cset->color[HTMLTextColor]) : g_strdup ("");
+	link = (cset->changed[HTMLLinkColor]) ? color_to_string ("LINK", cset->color[HTMLLinkColor]) : g_strdup ("");
+	bg   = (cset->changed[HTMLBgColor]) ? color_to_string ("BGCOLOR", cset->color[HTMLBgColor]) : g_strdup ("");
 	bg_image = e->bgPixmapPtr ? g_strdup_printf (" BACKGROUND=\"%s\"",
 						     url = html_image_resolve_image_url
 						     (e->widget, ((HTMLImagePointer *) e->bgPixmapPtr)->url))

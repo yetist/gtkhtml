@@ -212,7 +212,7 @@ example_changed_cb (GtkComboBox *combo_box,
 	if (example->filename) {
 		goto_url (example->filename, 0);
 	} else
-		goto_url("http://www.gnome.org", 0);
+		goto_url ("http://www.gnome.org", 0);
 }
 
 /* We want to sort "a2" < "b1" < "B1" < "b2" < "b12". Vastly
@@ -640,7 +640,7 @@ entry_goto_url (GtkWidget *widget,
 	} else {
 		gchar *url;
 
-		url = g_strdup_printf("http://%s", tmpurl);
+		url = g_strdup_printf ("http://%s", tmpurl);
 		on_set_base (NULL, url, NULL);
 		goto_url (url, 0);
 		g_free (url);
@@ -652,7 +652,7 @@ static void
 home_cb (GtkWidget *widget,
          gpointer data)
 {
-	goto_url("http://www.gnome.org", 0);
+	goto_url ("http://www.gnome.org", 0);
 }
 
 static void
@@ -773,30 +773,32 @@ on_set_base (GtkHTML *html,
 }
 
 static gboolean
-redirect_timer_event (gpointer data) {
-	g_print("Redirecting to '%s' NOW\n", redirect_url);
-        goto_url (redirect_url,
-                      0);
+redirect_timer_event (gpointer data)
+{
+	g_print ("Redirecting to '%s' NOW\n", redirect_url);
+	goto_url (redirect_url, 0);
 
 	/*	OBS: redirect_url is freed in goto_url */
 
-        return FALSE;
+	return FALSE;
 }
 
 static void
 on_redirect (GtkHTML *html,
              const gchar *url,
              gint delay,
-             gpointer data) {
-	g_print("Redirecting to '%s' in %d seconds\n", url, delay);
+             gpointer data)
+{
+	g_print ("Redirecting to '%s' in %d seconds\n", url, delay);
 
-        if (redirect_timerId == 0) {
+	if (redirect_timerId == 0) {
 
-                redirect_url = g_strdup (url);
+		redirect_url = g_strdup (url);
 
-                redirect_timerId = g_timeout_add (delay *1000,(GSourceFunc) redirect_timer_event,
-             NULL);
-        }
+		redirect_timerId = g_timeout_add (
+			delay * 1000,
+			(GSourceFunc) redirect_timer_event, NULL);
+	}
 }
 
 static void
@@ -804,26 +806,24 @@ on_submit (GtkHTML *html,
            const gchar *method,
            const gchar *action,
            const gchar *encoding,
-           gpointer data) {
-        GString *tmpstr = g_string_new (action);
+           gpointer data)
+{
+	GString *tmpstr = g_string_new (action);
 
-	g_print("submitting '%s' to '%s' using method '%s'\n", encoding, action, method);
+	g_print (
+		"submitting '%s' to '%s' using method '%s'\n",
+		encoding, action, method);
 
-	if (g_ascii_strcasecmp(method, "GET") == 0) {
+	if (g_ascii_strcasecmp (method, "GET") == 0) {
+		tmpstr = g_string_append_c (tmpstr, '?');
+		tmpstr = g_string_append (tmpstr, encoding);
 
-                tmpstr = g_string_append_c (tmpstr, '?');
-                tmpstr = g_string_append (tmpstr,
-           encoding);
+		goto_url (tmpstr->str, 0);
 
-                goto_url (tmpstr->str,
-           0);
-
-                g_string_free (tmpstr,
-           TRUE);
-        } else {
+		g_string_free (tmpstr, TRUE);
+	} else {
 		g_warning ("Unsupported submit method '%s'\n", method);
-        }
-
+	}
 }
 
 static void
@@ -871,7 +871,7 @@ object_timeout (GtkHTMLEmbedded *eb)
 	w = gtk_check_button_new ();
 	gtk_widget_show (w);
 
-	printf("inserting custom widget after a delay ...\n");
+	printf ("inserting custom widget after a delay ...\n");
 	gtk_html_embedded_set_descent (eb, rand () % 8);
 	gtk_container_add (GTK_CONTAINER (eb), w);
 	g_object_unref (eb);
@@ -1067,13 +1067,15 @@ go_list_cb (GtkWidget *widget,
 	}
 }
 
-static void remove_go_list (gpointer data, gpointer user_data) {
-	go_item *item = (go_item *) data;
+static void
+remove_go_list (gpointer data,
+                gpointer user_data) {
+        go_item *item = (go_item *) data;
 
-	if (item->widget)
-		gtk_widget_destroy (item->widget);
+        if (item->widget)
+                gtk_widget_destroy (item->widget);
 
-	item->widget = NULL;
+        item->widget = NULL;
 }
 
 static void
@@ -1198,7 +1200,7 @@ bug_cb (GtkWidget *widget,
 	gchar *cwd, *filename, *url;
 
 	cwd = g_get_current_dir ();
-	filename = g_strdup_printf("%s/bugs.html", cwd);
+	filename = g_strdup_printf ("%s/bugs.html", cwd);
 	url = g_filename_to_uri (filename, NULL, NULL);
 	goto_url (url, 0);
 	g_free (url);
@@ -1284,25 +1286,25 @@ main (gint argc,
 
 	gtk_table_attach (GTK_TABLE (main_table),
 			bar,
-                        /* X direction */       /* Y direction */
+			/* X direction */       /* Y direction */
 			0, 1,                   0, 1,
 			GTK_EXPAND | GTK_FILL,  GTK_SHRINK,
 			0,                      0);
 	gtk_table_attach (GTK_TABLE (main_table),
 			create_toolbars (),
-                        /* X direction */       /* Y direction */
+			/* X direction */       /* Y direction */
 			0, 1,                   1, 2,
 			GTK_EXPAND | GTK_FILL,  GTK_SHRINK,
 			0,                      0);
 	gtk_table_attach (GTK_TABLE (main_table),
 			scrolled_window,
-                        /* X direction */       /* Y direction */
+			/* X direction */       /* Y direction */
 			0, 1,                   2, 3,
 			GTK_EXPAND | GTK_FILL,  GTK_EXPAND | GTK_FILL,
 			0,                      0);
 	gtk_table_attach (GTK_TABLE (main_table),
 			statusbar,
-                        /* X direction */       /* Y direction */
+			/* X direction */       /* Y direction */
 			0, 1,                   3, 4,
 			GTK_EXPAND | GTK_FILL,  GTK_SHRINK,
 			0,                      0);
@@ -1342,11 +1344,11 @@ main (gint argc,
 
 	gtk_widget_set_events (html_widget, GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK);
 
-	g_signal_connect (html, "title_changed", G_CALLBACK (title_changed_cb), (gpointer)app);
-	g_signal_connect (html, "url_requested", G_CALLBACK (url_requested), (gpointer)app);
-	g_signal_connect (html, "load_done", G_CALLBACK (load_done), (gpointer)app);
-	g_signal_connect (html, "on_url", G_CALLBACK (on_url), (gpointer)app);
-	g_signal_connect (html, "set_base", G_CALLBACK (on_set_base), (gpointer)app);
+	g_signal_connect (html, "title_changed", G_CALLBACK (title_changed_cb), (gpointer) app);
+	g_signal_connect (html, "url_requested", G_CALLBACK (url_requested), (gpointer) app);
+	g_signal_connect (html, "load_done", G_CALLBACK (load_done), (gpointer) app);
+	g_signal_connect (html, "on_url", G_CALLBACK (on_url), (gpointer) app);
+	g_signal_connect (html, "set_base", G_CALLBACK (on_set_base), (gpointer) app);
 	g_signal_connect (html, "button_press_event", G_CALLBACK (on_button_press_event), popup_menu);
 	g_signal_connect (html, "link_clicked", G_CALLBACK (on_link_clicked), NULL);
 	g_signal_connect (html, "redirect", G_CALLBACK (on_redirect), NULL);

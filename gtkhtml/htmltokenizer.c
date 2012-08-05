@@ -370,7 +370,7 @@ html_token_buffer_append_token (HTMLTokenBuffer *buf,
 	buf->data[buf->used] = 0;
 	buf->used++;
 
-	dt(printf ("html_token_buffer_append_token: '%s'\n", buf->data + buf->used - 1 - len));
+	dt (printf ("html_token_buffer_append_token: '%s'\n", buf->data + buf->used - 1 - len));
 
 	return TRUE;
 }
@@ -746,7 +746,7 @@ html_tokenizer_real_change (HTMLTokenizer *t,
 	if (p->content_type)
 		g_free (p->content_type);
 
-	p->content_type = g_ascii_strdown ( content_type, -1);
+	p->content_type = g_ascii_strdown (content_type, -1);
 
 	if (is_valid_g_iconv (p->iconv_cd))
 		g_iconv_close (p->iconv_cd);
@@ -1035,7 +1035,7 @@ in_script_or_style (HTMLTokenizer *t,
 	if (p->scriptCodeSize + 11 > p->scriptCodeMaxSize)
 		p->scriptCode = g_realloc (p->scriptCode, p->scriptCodeMaxSize += 1024);
 
-	if ((**src == '>' ) && ( p->searchFor[p->searchCount] == '>')) {
+	if ((**src == '>') && (p->searchFor[p->searchCount] == '>')) {
 		(*src)++;
 		p->scriptCode[p->scriptCodeSize] = 0;
 		p->scriptCode[p->scriptCodeSize + 1] = 0;

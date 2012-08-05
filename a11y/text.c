@@ -123,7 +123,7 @@ action_get_name (AtkAction *action,
                  gint i)
 {
 	if (i == 0)
-                return _("grab focus");
+		return _("grab focus");
 
 	return NULL;
 }
@@ -829,7 +829,7 @@ html_a11y_text_get_run_attributes (AtkText *text,
 	/* Get attributes */
 	if ((pango_string = (PangoAttrString *) pango_attr_iterator_get (iter,
 						PANGO_ATTR_FAMILY)) != NULL) {
-		value = g_strdup_printf("%s", pango_string->value);
+		value = g_strdup_printf ("%s", pango_string->value);
 		attrib_set = gail_misc_add_attribute (attrib_set,
 				ATK_TEXT_ATTR_FAMILY_NAME,
 				value);
@@ -844,7 +844,7 @@ html_a11y_text_get_run_attributes (AtkText *text,
 
 	if ((pango_int = (PangoAttrInt *) pango_attr_iterator_get (iter,
 						PANGO_ATTR_WEIGHT)) != NULL) {
-		value = g_strdup_printf("%i", pango_int->value);
+		value = g_strdup_printf ("%i", pango_int->value);
 		attrib_set = gail_misc_add_attribute (attrib_set,
 				ATK_TEXT_ATTR_WEIGHT,
 				value);
@@ -865,7 +865,7 @@ html_a11y_text_get_run_attributes (AtkText *text,
 	}
 	if ((pango_int = (PangoAttrInt *) pango_attr_iterator_get (iter,
 						PANGO_ATTR_SIZE)) != NULL) {
-		value = g_strdup_printf("%i", pango_int->value / PANGO_SCALE);
+		value = g_strdup_printf ("%i", pango_int->value / PANGO_SCALE);
 		attrib_set = gail_misc_add_attribute (attrib_set,
 				ATK_TEXT_ATTR_SIZE,
 				value);
@@ -886,21 +886,21 @@ html_a11y_text_get_run_attributes (AtkText *text,
 	}
 	if ((pango_int = (PangoAttrInt *) pango_attr_iterator_get (iter,
 						PANGO_ATTR_RISE)) != NULL) {
-		value = g_strdup_printf("%i", pango_int->value);
+		value = g_strdup_printf ("%i", pango_int->value);
 		attrib_set = gail_misc_add_attribute (attrib_set,
 				ATK_TEXT_ATTR_RISE,
 				value);
 	}
 	if ((pango_lang = (PangoAttrLanguage *) pango_attr_iterator_get (iter,
 						PANGO_ATTR_LANGUAGE)) != NULL) {
-		value = g_strdup ( pango_language_to_string ( pango_lang->value));
+		value = g_strdup (pango_language_to_string (pango_lang->value));
 		attrib_set = gail_misc_add_attribute (attrib_set,
 				ATK_TEXT_ATTR_LANGUAGE,
 				value);
 	}
 	if ((pango_float = (PangoAttrFloat *) pango_attr_iterator_get (iter,
 						PANGO_ATTR_SCALE)) != NULL) {
-		value = g_strdup_printf("%g", pango_float->value);
+		value = g_strdup_printf ("%g", pango_float->value);
 		attrib_set = gail_misc_add_attribute (attrib_set,
 				ATK_TEXT_ATTR_SCALE,
 				value);
@@ -1057,7 +1057,7 @@ html_a11y_text_set_text_contents (AtkEditableText *text,
 	html_engine_paste_text (html->engine, string, -1);
 	html_engine_show_cursor (html->engine);
 
-        g_signal_emit_by_name(html, "grab_focus");
+	g_signal_emit_by_name (html, "grab_focus");
 }
 
 static void
@@ -1127,7 +1127,7 @@ html_a11y_text_cut_text (AtkEditableText *text,
 	html_engine_cut (html->engine);
 	html_engine_show_cursor (html->engine);
 
-        g_signal_emit_by_name(html, "grab_focus");
+	g_signal_emit_by_name (html, "grab_focus");
 }
 
 static void
@@ -1146,7 +1146,7 @@ html_a11y_text_delete_text (AtkEditableText *text,
 
 	html_cursor_jump_to (html->engine->cursor, html->engine, HTML_OBJECT (t), start_pos);
 	html_engine_delete_n (html->engine, end_pos - start_pos, TRUE);
-        g_signal_emit_by_name(html, "grab_focus");
+	g_signal_emit_by_name (html, "grab_focus");
 }
 
 static void
@@ -1168,7 +1168,7 @@ html_a11y_text_paste_text (AtkEditableText *text,
 	html_engine_paste (html->engine);
 	html_engine_show_cursor (html->engine);
 
-        g_signal_emit_by_name(html, "grab_focus");
+	g_signal_emit_by_name (html, "grab_focus");
 }
 
 static void

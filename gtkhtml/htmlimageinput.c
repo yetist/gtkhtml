@@ -123,7 +123,7 @@ encode (HTMLEmbedded *e,
 		encoding = g_string_assign (encoding, ptr);
 		g_free (ptr);
 
-		ptr = g_strdup_printf(".x=%d&", HTML_IMAGEINPUT(e)->m_x);
+		ptr = g_strdup_printf (".x=%d&", HTML_IMAGEINPUT (e)->m_x);
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
 
@@ -131,7 +131,7 @@ encode (HTMLEmbedded *e,
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
 
-		ptr = g_strdup_printf(".y=%d", HTML_IMAGEINPUT(e)->m_y);
+		ptr = g_strdup_printf (".y=%d", HTML_IMAGEINPUT (e)->m_y);
 		encoding = g_string_append (encoding, ptr);
 		g_free (ptr);
 	}

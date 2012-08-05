@@ -1525,14 +1525,14 @@ mouse_change_pos (GtkWidget *widget,
 			/* FIXME this is broken */
 
 			if (type == HTML_TYPE_BUTTON ||
-			    type ==  HTML_TYPE_CHECKBOX ||
-			    type ==  HTML_TYPE_EMBEDDED ||
-			    type ==  HTML_TYPE_HIDDEN ||
-			    type ==  HTML_TYPE_IMAGEINPUT ||
-			    type ==  HTML_TYPE_RADIO ||
-			    type ==  HTML_TYPE_SELECT ||
-			    type ==  HTML_TYPE_TEXTAREA ||
-			    type ==  HTML_TYPE_TEXTINPUT ) {
+			    type == HTML_TYPE_CHECKBOX ||
+			    type == HTML_TYPE_EMBEDDED ||
+			    type == HTML_TYPE_HIDDEN ||
+			    type == HTML_TYPE_IMAGEINPUT ||
+			    type == HTML_TYPE_RADIO ||
+			    type == HTML_TYPE_SELECT ||
+			    type == HTML_TYPE_TEXTAREA ||
+			    type == HTML_TYPE_TEXTINPUT) {
 				return FALSE;
 			}
 		}
@@ -2393,61 +2393,68 @@ gtk_html_get_selection_plain_text (GtkHTML *html,
 
 static gchar *
 utf16_to_utf8_with_bom_check (guchar *data,
-                              guint len) {
-        const gchar *fromcode = NULL;
-        GError *error = NULL;
-        guint16 c;
-        gsize read_len,
-                              written_len;
-        gchar *utf8_ret;
+                              guint len)
+{
+	const gchar *fromcode = NULL;
+	GError *error = NULL;
+	guint16 c;
+	gsize read_len;
+	gsize written_len;
+	gchar *utf8_ret;
 
 	/*
 	 * Unicode Techinical Report 20
-	 * ( http://www.unicode.org/unicode/reports/tr20/ ) says to treat an
+	 * (http://www.unicode.org/unicode/reports/tr20/) says to treat an
 	 * initial 0xfeff (ZWNBSP) as a byte order indicator so that is
 	 * what we do.  If there is no indicator assume it is in the default
 	 * order
 	 */
 
-        memcpy (&c,
-                              data,
-                              2);
-        switch (c) {
-        case 0xfeff:
-        case 0xfffe:
-                fromcode = utf16_order (c == 0xfeff);
-                data += 2;
-                len  -= 2;
-                break;
-        default:
+	memcpy (&c, data, 2);
+
+	switch (c) {
+	case 0xfeff:
+	case 0xfffe:
+		fromcode = utf16_order (c == 0xfeff);
+		data += 2;
+		len  -= 2;
+		break;
+	default:
 		fromcode = "UTF-16";
-                break;
-        }
+		break;
+	}
 
-	utf8_ret = g_convert ((gchar *) data, len, "UTF-8", fromcode, &read_len, &written_len, &error);
+	utf8_ret = g_convert ((gchar *) data,
+			      len,
+			      "UTF-8",
+			      fromcode,
+			      &read_len,
+			      &written_len,
+			      &error);
 
-        if (error) {
+	if (error) {
 		g_warning ("g_convert error: %s\n", error->message);
-                g_error_free (error);
-        }
-        return (utf8_ret);
+		g_error_free (error);
+	}
+	return (utf8_ret);
 }
 
 /* removes useless leading BOM from UTF-8 string if present */
 static gchar *
-utf8_filter_out_bom (gchar *str) {
-        if (!str)
-                return NULL;
+utf8_filter_out_bom (gchar *str)
+{
+	if (!str)
+		return NULL;
 
 	/* input is always valid, NUL-terminated UTF-8 sequence, we don't need
 	 * to validated it again */
-        if (g_utf8_get_char (str) == 0xfeff) {
-                gchar *out = g_strdup (g_utf8_next_char (str));
-                g_free (str);
-                return out;
-        }
+	if (g_utf8_get_char (str) == 0xfeff) {
+		gchar *out = g_strdup (g_utf8_next_char (str));
+		g_free (str);
+		return out;
+	}
 
-        return str;
+	return str;
 }
 
 /* Initialization.  */
@@ -2801,7 +2808,7 @@ drag_data_received (GtkWidget *widget,
 		 HTMLObject *obj;
 		 gint list_len, len;
 		 gchar *uri;
-                 html_undo_level_begin (engine->undo, "Dropped URI(s)", "Remove Dropped URI(s)");
+		 html_undo_level_begin (engine->undo, "Dropped URI(s)", "Remove Dropped URI(s)");
 		 list_len = length;
 		 do {
 			 uri = next_uri ((guchar **) &data, &len, &list_len);
@@ -3314,7 +3321,7 @@ gtk_html_im_commit_cb (GtkIMContext *context,
 	html->priv->im_block_reset = TRUE;
 
 	if (html->priv->im_pre_len > 0) {
-                D_IM (printf ("IM delete last preedit %d + %d\n", html->priv->im_pre_pos, html->priv->im_pre_len);)
+		D_IM (printf ("IM delete last preedit %d + %d\n", html->priv->im_pre_pos, html->priv->im_pre_len);)
 
 		html_undo_freeze (html->engine->undo);
 		html_cursor_exactly_jump_to_position_no_spell (html->engine->cursor, html->engine, html->priv->im_pre_pos);
@@ -4559,11 +4566,11 @@ clipboard_get_contents_cb (GtkClipboard *clipboard,
 		gtk_selection_data_set (selection_data,
 					gdk_atom_intern ("text/html", FALSE), 8,
 					(const guchar *) contents->html_text,
-					(gint ) strlen (contents->html_text));
+					(gint) strlen (contents->html_text));
 	} else if (contents->plain_text) {
 		gtk_selection_data_set_text (selection_data,
 					     contents->plain_text,
-					     (gint ) strlen (contents->plain_text));
+					     (gint) strlen (contents->plain_text));
 	}
 }
 
@@ -4801,26 +4808,26 @@ void
 gtk_html_set_default_engine (GtkHTML *html,
                              gboolean engine_type)
 {
-	html_engine_set_engine_type ( html->engine, engine_type);
+	html_engine_set_engine_type (html->engine, engine_type);
 }
 
 gboolean
 gtk_html_get_default_engine (GtkHTML *html)
 {
-	return html_engine_get_engine_type ( html->engine);
+	return html_engine_get_engine_type (html->engine);
 }
 
 void
 gtk_html_set_default_content_type (GtkHTML *html,
                                    const gchar *content_type)
 {
-    html_engine_set_content_type ( html->engine, content_type);
+    html_engine_set_content_type (html->engine, content_type);
 }
 
 const gchar *
 gtk_html_get_default_content_type (GtkHTML *html)
 {
-    return html_engine_get_content_type ( html->engine);
+    return html_engine_get_content_type (html->engine);
 }
 
 gpointer
@@ -4969,7 +4976,7 @@ scroll_command (GtkHTML *html,
 		return FALSE;
 	}
 
-	d_s(printf("%f %f %f\n", value + delta, lower, MAX (0.0, upper - page_size));)
+	d_s (printf ("%f %f %f\n", value + delta, lower, MAX (0.0, upper - page_size));)
 
 	if (lower > (value + delta)) {
 		if (lower >= value)

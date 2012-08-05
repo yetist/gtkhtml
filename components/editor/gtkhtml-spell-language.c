@@ -98,7 +98,7 @@ _get_isocodeslocaledir (void)
 		return retval;
 
 	strcpy (retval, _get_iso_codes_prefix ());
-	strcat (retval, "\\share\\locale" );
+	strcat (retval, "\\share\\locale");
 	beenhere = 1;
 	return retval;
 }

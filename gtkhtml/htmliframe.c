@@ -709,7 +709,7 @@ html_iframe_init (HTMLIFrame *iframe,
 				     parent_html->engine->settings->color_set);
 	html_painter_set_focus (new_html->engine->painter, parent_html->engine->have_focus);
 	/*
-	g_signal_connect (html, "title_changed", G_CALLBACK (title_changed_cb), (gpointer)app);
+	g_signal_connect (html, "title_changed", G_CALLBACK (title_changed_cb), (gpointer) app);
 	g_signal_connect (html, "button_press_event", G_CALLBACK (on_button_press_event), popup_menu);
 	g_signal_connect (html, "redirect", G_CALLBACK (on_redirect), NULL);
 	g_signal_connect (html, "object_requested", G_CALLBACK (object_requested_cmd), NULL);

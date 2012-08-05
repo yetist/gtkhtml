@@ -195,7 +195,7 @@ prepare_rectangle (HTMLPainter *painter,
 	y = SCALE_ENGINE_TO_GNOME_PRINT (_y);
 	cr = gtk_print_context_get_cairo_context (context);
 	cairo_new_path (cr);
-	cairo_rectangle (cr, x, y, x + width, y + height );
+	cairo_rectangle (cr, x, y, x + width, y + height);
 	cairo_close_path (cr);
 }
 
@@ -334,7 +334,7 @@ draw_border (HTMLPainter *painter,
 	cairo_move_to  (cr, x, y);
 	cairo_line_to  (cr, x + width, y);
 	cairo_line_to  (cr, x + width - bs, y + bs);
-	cairo_line_to  (cr, x + bs, y + bs );
+	cairo_line_to  (cr, x + bs, y + bs);
 	cairo_line_to  (cr, x + bs, y + height - bs);
 	cairo_line_to  (cr, x, y + height);
 	cairo_close_path (cr);

@@ -419,9 +419,9 @@ draw (HTMLObject *o,
 	tx += o->x;
 	ty += o->y - o->ascent;
 
-	for ( aclue = HTML_CLUEV (o)->align_left_list;
+	for (aclue = HTML_CLUEV (o)->align_left_list;
 	      aclue != NULL;
-	      aclue = cluev_next_aligned (aclue) ) {
+	      aclue = cluev_next_aligned (aclue)) {
 		html_object_draw (aclue,
 				  p,
 				  x - o->x - aclue->parent->x,

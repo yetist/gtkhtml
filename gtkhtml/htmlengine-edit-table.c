@@ -516,7 +516,7 @@ html_engine_delete_table_column (HTMLEngine *e)
 	table = html_engine_get_table (e);
 	if (!table || !HTML_IS_TABLE (table) ||
 		!html_engine_get_table_start_end_cells (e, &start_cell, &end_cell))       {
-                g_warning ("Invalid table object! Row deletion failed!");
+		g_warning ("Invalid table object! Row deletion failed!");
 		return;
 	}
 

@@ -338,7 +338,7 @@ gtk_html_a11y_cursor_changed_cb (GtkWidget *widget)
 			gint offset;
 
 			offset = (GTK_HTML (widget))->engine->cursor->offset;
-			g_signal_emit_by_name(focus_object, "text_caret_moved",offset);
+			g_signal_emit_by_name (focus_object, "text_caret_moved",offset);
 		}
 	}
 }

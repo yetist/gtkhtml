@@ -249,12 +249,12 @@ html_embedded_encode_string (const gchar *before,
 	    const gchar * str = before;
 	    static const gchar *safe = "$-._!*(),"; /* RFC 1738 */
 	unsigned pos = 0;
-        GString *encoded = g_string_new ("");
+	GString *encoded = g_string_new ("");
 	gchar buffer[5], *ptr;
 		guchar c;
 
 	    GIConv iconv_cd = generate_iconv_to (codepage);
-	    if ( is_valid_g_iconv (iconv_cd))
+	    if (is_valid_g_iconv (iconv_cd))
 	    {
 		str= convert_text_encoding (iconv_cd, before);
 		g_iconv_close (iconv_cd);
@@ -264,27 +264,19 @@ html_embedded_encode_string (const gchar *before,
 
 		c = (guchar) str[pos];
 
-		if ( (( c >= 'A') && ( c <= 'Z')) ||
-		     (( c >= 'a') && ( c <= 'z')) ||
-		     (( c >= '0') && ( c <= '9')) ||
-		     (strchr (safe, c))
-		     )
-			{
-				encoded = g_string_append_c (encoded, c);
-			}
-		else if (c == ' ')
-			{
-				encoded = g_string_append_c (encoded, '+');
-			}
-		else if (c == '\n')
-			{
-				encoded = g_string_append (encoded, "%0D%0A");
-			}
-		else if (c != '\r')
-			{
-				sprintf( buffer, "%%%02X", (gint)c );
-				encoded = g_string_append (encoded, buffer);
-				}
+		if ((( c >= 'A') && (c <= 'Z')) ||
+		    (( c >= 'a') && (c <= 'z')) ||
+		    (( c >= '0') && (c <= '9')) ||
+		    (strchr (safe, c))) {
+			encoded = g_string_append_c (encoded, c);
+		} else if (c == ' ') {
+			encoded = g_string_append_c (encoded, '+');
+		} else if (c == '\n') {
+			encoded = g_string_append (encoded, "%0D%0A");
+		} else if (c != '\r') {
+			sprintf (buffer, "%%%02X", (gint) c);
+			encoded = g_string_append (encoded, buffer);
+		}
 		pos++;
 	}
 
@@ -346,11 +338,11 @@ html_embedded_init (HTMLEmbedded *element,
 	if (name)
 		element->name = g_strdup (name);
 	else
-		element->name = g_strdup("");
+		element->name = g_strdup ("");
 	if (value)
 		element->value = g_strdup (value);
 	else
-		element->value = g_strdup("");
+		element->value = g_strdup ("");
 	element->widget = NULL;
 	element->parent = parent;
 	element->width  = 0;
@@ -397,7 +389,7 @@ html_embedded_new_widget (GtkWidget *parent,
 	/* pass em as the user_data so that the handler will disconnect
 	 * when the object is destoyed
 	 */
-	g_signal_connect(eb, "button_press_event", G_CALLBACK (html_embedded_grab_cursor), em);
+	g_signal_connect (eb, "button_press_event", G_CALLBACK (html_embedded_grab_cursor), em);
 	em->changed_id = g_signal_connect (eb, "changed", G_CALLBACK (html_embedded_object_changed), engine);
 	/* printf ("id %u\n", em->changed_id); */
 

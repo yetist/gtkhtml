@@ -129,7 +129,7 @@ html_button_init (HTMLButton *button,
 
 	html_embedded_init (element, HTML_EMBEDDED_CLASS (klass), parent, name, value);
 
-	if ( strlen (element->value)) {
+	if (strlen (element->value)) {
 		widget = gtk_button_new_with_label (element->value);
 	} else {
 		switch (type) {
