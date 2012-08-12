@@ -1,3 +1,11 @@
+GtkHTML-4.4.4 2012-08-13
+------------------------
+
+Bug Fixes:
+	Bug 678479 - Leading spaces in first line of <pre> are ignored
+	             (Kouhei Sutou)
+
+
 GtkHTML-4.4.3 2012-06-18
 ------------------------
 
