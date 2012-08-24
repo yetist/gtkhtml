@@ -3600,18 +3600,14 @@ html_text_add_link_full (HTMLText *text,
 					html_link_free (new_link);
 					new_link = NULL;
 				} else {
-					l = g_slist_prepend (l, new_link);
-					if (prev)
-						prev->next = l;
-					else
-						text->links = l;
+					text->links = g_slist_insert_before (text->links, l, new_link);
 					link = new_link;
 					new_link = NULL;
 				}
 				if (plink && html_link_equal (plink, link) && plink->start_offset == link->end_offset) {
 					plink->start_offset = link->start_offset;
 					plink->start_index = link->start_index;
-					prev->next = g_slist_remove (prev->next, link);
+					text->links = g_slist_remove (text->links, link);
 					html_link_free (link);
 					link = plink;
 				}
@@ -3620,8 +3616,13 @@ html_text_add_link_full (HTMLText *text,
 			}
 		}
 
-		if (new_link && prev)
-			prev->next = g_slist_prepend (NULL, new_link);
+		if (new_link && prev) {
+			if (prev->next)
+				text->links = g_slist_insert_before (text->links, prev->next, new_link);
+			else
+				text->links = g_slist_append (text->links, new_link);
+		} else if (new_link)
+			text->links = g_slist_prepend (text->links, new_link);
 	}
 
 	HTML_OBJECT (text)->change |= HTML_CHANGE_RECALC_PI;
