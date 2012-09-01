@@ -1,3 +1,18 @@
+GtkHTML-4.5.91 2012-09-03
+-------------------------
+
+Bug Fixes:
+	Bug 681495 - Cannot insert a link before another one (Milan Crha)
+
+Translations:
+	Tom Tryfonidis (el)
+	Daniel Mustieles (es)
+	Fran Diéguez (gl)
+	Aurimas Černius (lt)
+	Kjartan Maraas (nb)
+	Piotr Drąg (pl)
+
+
 GtkHTML-4.5.5 2012-08-06
 ------------------------
 
