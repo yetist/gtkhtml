@@ -5,218 +5,216 @@
 # Ahmad Riza H Nst  <ari@160c.afraid.org>, 2005.
 # Dirgita <dirgitadevina@yahoo.co.id>, 2010.
 # Dirgita Devina <dirgitadevina@yahoo.co.id>, 2010.
-# Andika Triwidada <andika@gmail.com>, 2011.
+# Andika Triwidada <andika@gmail.com>, 2011, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gtkhtml&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-04-07 22:09+0000\n"
-"PO-Revision-Date: 2011-08-18 11:26+0700\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gtkhtml&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2012-08-03 02:59+0000\n"
+"PO-Revision-Date: 2012-09-03 18:11+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: GNOME Indonesian Translation Team <gnome@i15n.org>\n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Poedit-Language: Indonesian\n"
-"X-Poedit-Country: Indonesia\n"
 
-#: ../a11y/image.c:151
+#: ../a11y/image.c:152
 #, c-format
 msgid "URL is %s, Alternative Text is %s"
 msgstr "URL adalah %s, Teks Alternatif adalah %s"
 
-#: ../a11y/image.c:153
+#: ../a11y/image.c:154
 #, c-format
 msgid "URL is %s"
 msgstr "URL adalah %s"
 
-#: ../a11y/object.c:51
-#: ../a11y/object.c:60
-#: ../a11y/text.c:125
+#: ../a11y/object.c:52 ../a11y/object.c:62 ../a11y/text.c:126
 msgid "grab focus"
 msgstr "tangkap fokus"
 
-#: ../a11y/object.c:253
+#: ../a11y/object.c:258
 msgid "Panel containing HTML"
 msgstr "Panel mengandung HTML"
 
-#: ../components/editor/gtkhtml-color-combo.c:75
+#: ../components/editor/gtkhtml-color-combo.c:77
 msgid "black"
 msgstr "hitam"
 
-#: ../components/editor/gtkhtml-color-combo.c:76
+#: ../components/editor/gtkhtml-color-combo.c:78
 msgid "light brown"
 msgstr "coklat muda"
 
-#: ../components/editor/gtkhtml-color-combo.c:77
+#: ../components/editor/gtkhtml-color-combo.c:79
 msgid "brown gold"
 msgstr "coklat emas"
 
-#: ../components/editor/gtkhtml-color-combo.c:78
+#: ../components/editor/gtkhtml-color-combo.c:80
 msgid "dark green #2"
 msgstr "hijau tua #2"
 
-#: ../components/editor/gtkhtml-color-combo.c:79
+#: ../components/editor/gtkhtml-color-combo.c:81
 msgid "navy"
 msgstr "navy"
 
-#: ../components/editor/gtkhtml-color-combo.c:80
+#: ../components/editor/gtkhtml-color-combo.c:82
 msgid "dark blue"
 msgstr "biru tua"
 
-#: ../components/editor/gtkhtml-color-combo.c:81
+#: ../components/editor/gtkhtml-color-combo.c:83
 msgid "purple #2"
 msgstr "ungu #2"
 
-#: ../components/editor/gtkhtml-color-combo.c:82
+#: ../components/editor/gtkhtml-color-combo.c:84
 msgid "very dark gray"
 msgstr "abu-abu sangat tua"
 
-#: ../components/editor/gtkhtml-color-combo.c:84
+#: ../components/editor/gtkhtml-color-combo.c:86
 msgid "dark red"
 msgstr "merah tua"
 
-#: ../components/editor/gtkhtml-color-combo.c:85
+#: ../components/editor/gtkhtml-color-combo.c:87
 msgid "red-orange"
 msgstr "oranye merah"
 
-#: ../components/editor/gtkhtml-color-combo.c:86
+#: ../components/editor/gtkhtml-color-combo.c:88
 msgid "gold"
 msgstr "emas"
 
-#: ../components/editor/gtkhtml-color-combo.c:87
+#: ../components/editor/gtkhtml-color-combo.c:89
 msgid "dark green"
 msgstr "hijau tua"
 
-#: ../components/editor/gtkhtml-color-combo.c:88
+#: ../components/editor/gtkhtml-color-combo.c:90
 msgid "dull blue"
 msgstr "biru dull"
 
-#: ../components/editor/gtkhtml-color-combo.c:89
+#: ../components/editor/gtkhtml-color-combo.c:91
 msgid "blue"
 msgstr "biru"
 
-#: ../components/editor/gtkhtml-color-combo.c:90
+#: ../components/editor/gtkhtml-color-combo.c:92
 msgid "dull purple"
 msgstr "ungu dull"
 
-#: ../components/editor/gtkhtml-color-combo.c:91
+#: ../components/editor/gtkhtml-color-combo.c:93
 msgid "dark grey"
 msgstr "abu-abu tua"
 
-#: ../components/editor/gtkhtml-color-combo.c:93
+#: ../components/editor/gtkhtml-color-combo.c:95
 msgid "red"
 msgstr "merah"
 
-#: ../components/editor/gtkhtml-color-combo.c:94
+#: ../components/editor/gtkhtml-color-combo.c:96
 msgid "orange"
 msgstr "oranye"
 
-#: ../components/editor/gtkhtml-color-combo.c:95
+#: ../components/editor/gtkhtml-color-combo.c:97
 msgid "lime"
 msgstr "hijau pupus"
 
-#: ../components/editor/gtkhtml-color-combo.c:96
+#: ../components/editor/gtkhtml-color-combo.c:98
 msgid "dull green"
 msgstr "hijau dull"
 
-#: ../components/editor/gtkhtml-color-combo.c:97
+#: ../components/editor/gtkhtml-color-combo.c:99
 msgid "dull blue #2"
 msgstr "biru dull #2"
 
-#: ../components/editor/gtkhtml-color-combo.c:98
+#: ../components/editor/gtkhtml-color-combo.c:100
 msgid "sky blue #2"
 msgstr "biru langit #2"
 
-#: ../components/editor/gtkhtml-color-combo.c:99
+#: ../components/editor/gtkhtml-color-combo.c:101
 msgid "purple"
 msgstr "ungu"
 
-#: ../components/editor/gtkhtml-color-combo.c:100
+#: ../components/editor/gtkhtml-color-combo.c:102
 msgid "gray"
 msgstr "abu-abu"
 
-#: ../components/editor/gtkhtml-color-combo.c:102
+#: ../components/editor/gtkhtml-color-combo.c:104
 msgid "magenta"
 msgstr "magenta"
 
-#: ../components/editor/gtkhtml-color-combo.c:103
+#: ../components/editor/gtkhtml-color-combo.c:105
 msgid "bright orange"
 msgstr "oranye terang"
 
-#: ../components/editor/gtkhtml-color-combo.c:104
+#: ../components/editor/gtkhtml-color-combo.c:106
 msgid "yellow"
 msgstr "kuning"
 
-#: ../components/editor/gtkhtml-color-combo.c:105
+#: ../components/editor/gtkhtml-color-combo.c:107
 msgid "green"
 msgstr "hijau"
 
-#: ../components/editor/gtkhtml-color-combo.c:106
+#: ../components/editor/gtkhtml-color-combo.c:108
 msgid "cyan"
 msgstr "cyan"
 
-#: ../components/editor/gtkhtml-color-combo.c:107
+#: ../components/editor/gtkhtml-color-combo.c:109
 msgid "bright blue"
 msgstr "biru terang"
 
-#: ../components/editor/gtkhtml-color-combo.c:108
+#: ../components/editor/gtkhtml-color-combo.c:110
 msgid "red purple"
 msgstr "ungu merah"
 
-#: ../components/editor/gtkhtml-color-combo.c:109
+#: ../components/editor/gtkhtml-color-combo.c:111
 msgid "light grey"
 msgstr "abu-abu muda"
 
-#: ../components/editor/gtkhtml-color-combo.c:111
+#: ../components/editor/gtkhtml-color-combo.c:113
 msgid "pink"
 msgstr "merah jambu"
 
-#: ../components/editor/gtkhtml-color-combo.c:112
+#: ../components/editor/gtkhtml-color-combo.c:114
 msgid "light orange"
 msgstr "oranye muda"
 
-#: ../components/editor/gtkhtml-color-combo.c:113
+#: ../components/editor/gtkhtml-color-combo.c:115
 msgid "light yellow"
 msgstr "kuning muda"
 
-#: ../components/editor/gtkhtml-color-combo.c:114
+#: ../components/editor/gtkhtml-color-combo.c:116
 msgid "light green"
 msgstr "hijau muda"
 
-#: ../components/editor/gtkhtml-color-combo.c:115
+#: ../components/editor/gtkhtml-color-combo.c:117
 msgid "light cyan"
 msgstr "cyan muda"
 
-#: ../components/editor/gtkhtml-color-combo.c:116
+#: ../components/editor/gtkhtml-color-combo.c:118
 msgid "light blue"
 msgstr "biru muda"
 
-#: ../components/editor/gtkhtml-color-combo.c:117
+#: ../components/editor/gtkhtml-color-combo.c:119
 msgid "light purple"
 msgstr "ungu muda"
 
-#: ../components/editor/gtkhtml-color-combo.c:118
+#: ../components/editor/gtkhtml-color-combo.c:120
 msgid "white"
 msgstr "putih"
 
-#: ../components/editor/gtkhtml-color-combo.c:273
+#: ../components/editor/gtkhtml-color-combo.c:275
 msgid "Choose Custom Color"
 msgstr "Pilih Warna Bebas"
 
-#: ../components/editor/gtkhtml-color-combo.c:755
+#: ../components/editor/gtkhtml-color-combo.c:785
 #: ../components/editor/gtkhtml-color-state.c:224
 msgid "Default"
 msgstr "Baku"
 
-#: ../components/editor/gtkhtml-color-combo.c:979
+#: ../components/editor/gtkhtml-color-combo.c:1009
 msgid "custom"
 msgstr "bebas"
 
-#: ../components/editor/gtkhtml-color-combo.c:987
+#: ../components/editor/gtkhtml-color-combo.c:1017
 msgid "Custom Color..."
 msgstr "Warna Bebas..."
 
@@ -342,506 +340,534 @@ msgid "Insert HTML File"
 msgstr "Masukkan Berkas HTML"
 
 #: ../components/editor/gtkhtml-editor-actions.c:628
-#: ../components/editor/gtkhtml-editor-actions.c:1562
+#: ../components/editor/gtkhtml-editor-actions.c:1558
 msgid "Insert Image"
 msgstr "Sisipkan Gambar"
 
-#: ../components/editor/gtkhtml-editor-actions.c:697
+#: ../components/editor/gtkhtml-editor-actions.c:691
 msgid "Insert Text File"
 msgstr "Masukkan Berkas Teks"
 
 #. Replace Button
-#: ../components/editor/gtkhtml-editor-actions.c:1197
+#: ../components/editor/gtkhtml-editor-actions.c:1193
 #: ../components/editor/gtkhtml-spell-dialog.c:516
 msgid "_Replace"
 msgstr "_Ganti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1204
+#: ../components/editor/gtkhtml-editor-actions.c:1200
 msgid "Replace _All"
 msgstr "Ganti Semu_a"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1218
+#: ../components/editor/gtkhtml-editor-actions.c:1214
 msgid "_Next"
 msgstr "Selanjut_nya"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1225
+#: ../components/editor/gtkhtml-editor-actions.c:1221
 msgid "_Copy"
 msgstr "S_alin"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1232
+#: ../components/editor/gtkhtml-editor-actions.c:1223
+msgid "Copy selected text to the clipboard"
+msgstr "Salin teks yang sudah dipilih ke dalam papan klip"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1228
 msgid "Cu_t"
 msgstr "Po_tong"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1246
+#: ../components/editor/gtkhtml-editor-actions.c:1230
+msgid "Cut selected text to the clipboard"
+msgstr "Potong teks yang sudah dipilih ke papan klip"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1242
 msgid "Find A_gain"
 msgstr "Cari La_gi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1260
+#: ../components/editor/gtkhtml-editor-actions.c:1256
 msgid "_Increase Indent"
 msgstr "Tambah _Indentasi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1262
+#: ../components/editor/gtkhtml-editor-actions.c:1258
 msgid "Increase Indent"
 msgstr "Naikkan _Indentasi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1267
+#: ../components/editor/gtkhtml-editor-actions.c:1263
 msgid "_HTML File..."
 msgstr "Berkas _HTML..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1274
+#: ../components/editor/gtkhtml-editor-actions.c:1270
 msgid "Te_xt File..."
 msgstr "Berkas te_ks..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1281
+#: ../components/editor/gtkhtml-editor-actions.c:1277
 msgid "_Paste"
 msgstr "Tem_pel"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1288
+#: ../components/editor/gtkhtml-editor-actions.c:1279
+msgid "Paste text from the clipboard"
+msgstr "Tempelkan teks dari papan klip"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1284
 msgid "Paste _Quotation"
 msgstr "Tempel _Kutipan"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1295
+#: ../components/editor/gtkhtml-editor-actions.c:1291
 msgid "_Redo"
 msgstr "_Jadi Lagi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1302
+#: ../components/editor/gtkhtml-editor-actions.c:1293
+msgid "Redo the last undone action"
+msgstr "Lakukan lagi aksi terakhir yang dibatalkan"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1298
 msgid "Select _All"
 msgstr "Pilih Semu_a"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1309
+#: ../components/editor/gtkhtml-editor-actions.c:1305
 msgid "_Find..."
 msgstr "_Cari..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1316
+#: ../components/editor/gtkhtml-editor-actions.c:1307
+msgid "Search for text"
+msgstr "Cari teks"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1312
 msgid "Re_place..."
 msgstr "_Ganti..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1323
+#: ../components/editor/gtkhtml-editor-actions.c:1314
+msgid "Search for and replace text"
+msgstr "Cari dan ganti teks"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1319
 msgid "Check _Spelling..."
 msgstr "Perik_sa Ejaan..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1330
-#: ../components/editor/gtkhtml-editor-builder.ui.h:80
+#: ../components/editor/gtkhtml-editor-actions.c:1326
+#: ../components/editor/gtkhtml-editor-builder.ui.h:91
 msgid "_Test URL..."
 msgstr "_Periksa URL..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1337
+#: ../components/editor/gtkhtml-editor-actions.c:1333
 msgid "_Undo"
 msgstr "_Tak Jadi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1344
+#: ../components/editor/gtkhtml-editor-actions.c:1335
+msgid "Undo the last action"
+msgstr "Batalkan aksi terakhir"
+
+#: ../components/editor/gtkhtml-editor-actions.c:1340
 msgid "_Decrease Indent"
 msgstr "Kurangi In_dentasi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1346
+#: ../components/editor/gtkhtml-editor-actions.c:1342
 msgid "Decrease Indent"
 msgstr "Kurangi Indentasi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1351
+#: ../components/editor/gtkhtml-editor-actions.c:1347
 msgid "_Wrap Lines"
 msgstr "_Potong Baris"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1360
+#: ../components/editor/gtkhtml-editor-actions.c:1356
 msgid "_Edit"
 msgstr "_Ubah"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1367
-#: ../components/editor/main.c:326
+#: ../components/editor/gtkhtml-editor-actions.c:1363
+#: ../components/editor/main.c:323
 msgid "_File"
 msgstr "_Berkas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1374
+#: ../components/editor/gtkhtml-editor-actions.c:1370
 msgid "For_mat"
 msgstr "Be_ntuk"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1381
+#: ../components/editor/gtkhtml-editor-actions.c:1377
 msgid "_Paragraph Style"
 msgstr "Gaya _Paragraf"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1388
+#: ../components/editor/gtkhtml-editor-actions.c:1384
 msgid "_Insert"
 msgstr "_Masukkan"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1395
+#: ../components/editor/gtkhtml-editor-actions.c:1391
 msgid "_Alignment"
 msgstr "Per_ataan"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1402
+#: ../components/editor/gtkhtml-editor-actions.c:1398
 msgid "Current _Languages"
 msgstr "_Bahasa"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1409
-#: ../components/editor/main.c:357
+#: ../components/editor/gtkhtml-editor-actions.c:1405
+#: ../components/editor/main.c:354
 msgid "_View"
 msgstr "_Tampilan"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1419
+#: ../components/editor/gtkhtml-editor-actions.c:1415
 msgid "_Center"
 msgstr "_Tengah"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1421
+#: ../components/editor/gtkhtml-editor-actions.c:1417
 msgid "Center Alignment"
 msgstr "Perataan Tengah"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1426
+#: ../components/editor/gtkhtml-editor-actions.c:1422
 msgid "_Left"
 msgstr "_Kiri"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1428
+#: ../components/editor/gtkhtml-editor-actions.c:1424
 msgid "Left Alignment"
 msgstr "Perataan Kiri"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1433
+#: ../components/editor/gtkhtml-editor-actions.c:1429
 msgid "_Right"
 msgstr "_Kanan"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1435
+#: ../components/editor/gtkhtml-editor-actions.c:1431
 msgid "Right Alignment"
 msgstr "Perataan Kanan"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1443
+#: ../components/editor/gtkhtml-editor-actions.c:1439
 msgid "_HTML"
 msgstr "_HTML"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1445
+#: ../components/editor/gtkhtml-editor-actions.c:1441
 msgid "HTML editing mode"
 msgstr "Mode sunting HTML"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1450
+#: ../components/editor/gtkhtml-editor-actions.c:1446
 msgid "Plain _Text"
 msgstr "_Teks Biasa"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1452
+#: ../components/editor/gtkhtml-editor-actions.c:1448
 msgid "Plain text editing mode"
 msgstr "Mode sunting teks biasa"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1460
+#: ../components/editor/gtkhtml-editor-actions.c:1456
 msgid "_Normal"
 msgstr "_Normal"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1467
+#: ../components/editor/gtkhtml-editor-actions.c:1463
 msgid "Header _1"
 msgstr "Kepala _1"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1474
+#: ../components/editor/gtkhtml-editor-actions.c:1470
 msgid "Header _2"
 msgstr "Kepala _2"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1481
+#: ../components/editor/gtkhtml-editor-actions.c:1477
 msgid "Header _3"
 msgstr "Kepala _3"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1488
+#: ../components/editor/gtkhtml-editor-actions.c:1484
 msgid "Header _4"
 msgstr "Kepala _4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1495
+#: ../components/editor/gtkhtml-editor-actions.c:1491
 msgid "Header _5"
 msgstr "Kepala _5"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1502
+#: ../components/editor/gtkhtml-editor-actions.c:1498
 msgid "Header _6"
 msgstr "Kepala _6"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1509
+#: ../components/editor/gtkhtml-editor-actions.c:1505
 msgid "A_ddress"
 msgstr "_Alamat"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1516
+#: ../components/editor/gtkhtml-editor-actions.c:1512
 msgid "_Preformatted"
 msgstr "_Preformatted"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1523
+#: ../components/editor/gtkhtml-editor-actions.c:1519
 msgid "_Bulleted List"
 msgstr "Daftar _Bulatan"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1530
+#: ../components/editor/gtkhtml-editor-actions.c:1526
 msgid "_Roman Numeral List"
 msgstr "Daftar Bernomor _Romawi"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1537
+#: ../components/editor/gtkhtml-editor-actions.c:1533
 msgid "Numbered _List"
 msgstr "Daftar _Bernomor"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1544
+#: ../components/editor/gtkhtml-editor-actions.c:1540
 msgid "_Alphabetical List"
 msgstr "Daftar _Alfabet"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1560
-#: ../components/editor/gtkhtml-editor-actions.c:1597
+#: ../components/editor/gtkhtml-editor-actions.c:1556
+#: ../components/editor/gtkhtml-editor-actions.c:1593
 msgid "_Image..."
 msgstr "_Gambar..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1567
-#: ../components/editor/gtkhtml-editor-actions.c:1604
+#: ../components/editor/gtkhtml-editor-actions.c:1563
+#: ../components/editor/gtkhtml-editor-actions.c:1600
 msgid "_Link..."
 msgstr "_Taut..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1569
+#: ../components/editor/gtkhtml-editor-actions.c:1565
 msgid "Insert Link"
 msgstr "Masukkan Taut"
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
-#: ../components/editor/gtkhtml-editor-actions.c:1575
-#: ../components/editor/gtkhtml-editor-actions.c:1619
+#: ../components/editor/gtkhtml-editor-actions.c:1571
+#: ../components/editor/gtkhtml-editor-actions.c:1615
 msgid "_Rule..."
 msgstr "Ga_ris..."
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
-#: ../components/editor/gtkhtml-editor-actions.c:1578
+#: ../components/editor/gtkhtml-editor-actions.c:1574
 msgid "Insert Rule"
 msgstr "Sisipkan Garis"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1583
-#: ../components/editor/gtkhtml-editor-actions.c:1626
+#: ../components/editor/gtkhtml-editor-actions.c:1579
+#: ../components/editor/gtkhtml-editor-actions.c:1622
 msgid "_Table..."
 msgstr "_Tabel..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1585
+#: ../components/editor/gtkhtml-editor-actions.c:1581
 msgid "Insert Table"
 msgstr "Sisipkan Tabel"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1590
+#: ../components/editor/gtkhtml-editor-actions.c:1586
 msgid "_Cell..."
 msgstr "_Sel..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1611
+#: ../components/editor/gtkhtml-editor-actions.c:1607
 msgid "Pa_ge..."
 msgstr "_Halaman..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1635
+#: ../components/editor/gtkhtml-editor-actions.c:1631
 msgid "Font _Size"
 msgstr "_Ukuran Fonta"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1642
+#: ../components/editor/gtkhtml-editor-actions.c:1638
 msgid "_Font Style"
 msgstr "Gaya _Fonta"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1652
-#: ../components/editor/gtkhtml-editor-builder.ui.h:61
+#: ../components/editor/gtkhtml-editor-actions.c:1648
+#: ../components/editor/gtkhtml-editor-builder.ui.h:24
 msgid "_Bold"
 msgstr "Te_bal"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1654
+#: ../components/editor/gtkhtml-editor-actions.c:1650
 msgid "Bold"
 msgstr "Tebal"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1660
-#: ../components/editor/gtkhtml-editor-builder.ui.h:68
+#: ../components/editor/gtkhtml-editor-actions.c:1656
+#: ../components/editor/gtkhtml-editor-builder.ui.h:23
 msgid "_Italic"
 msgstr "M_iring"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1662
+#: ../components/editor/gtkhtml-editor-actions.c:1658
 msgid "Italic"
 msgstr "Miring"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1668
+#: ../components/editor/gtkhtml-editor-actions.c:1664
 msgid "_Plain Text"
 msgstr "Teks _biasa"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1670
+#: ../components/editor/gtkhtml-editor-actions.c:1666
 msgid "Plain Text"
 msgstr "Teks Biasa"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1676
-#: ../components/editor/gtkhtml-editor-builder.ui.h:77
+#: ../components/editor/gtkhtml-editor-actions.c:1672
+#: ../components/editor/gtkhtml-editor-builder.ui.h:21
 msgid "_Strikethrough"
 msgstr "_Coret"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1678
+#: ../components/editor/gtkhtml-editor-actions.c:1674
 msgid "Strikethrough"
 msgstr "Coret"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1684
-#: ../components/editor/gtkhtml-editor-builder.ui.h:83
+#: ../components/editor/gtkhtml-editor-actions.c:1680
+#: ../components/editor/gtkhtml-editor-builder.ui.h:22
 msgid "_Underline"
 msgstr "_Garis bawah"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1686
+#: ../components/editor/gtkhtml-editor-actions.c:1682
 msgid "Underline"
 msgstr "Garis bawah"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1696
+#: ../components/editor/gtkhtml-editor-actions.c:1692
 msgid "-2"
 msgstr "-2"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1704
+#: ../components/editor/gtkhtml-editor-actions.c:1700
 msgid "-1"
 msgstr "-1"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1712
+#: ../components/editor/gtkhtml-editor-actions.c:1708
 msgid "+0"
 msgstr "+0"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1720
+#: ../components/editor/gtkhtml-editor-actions.c:1716
 msgid "+1"
 msgstr "+1"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1728
+#: ../components/editor/gtkhtml-editor-actions.c:1724
 msgid "+2"
 msgstr "+2"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1736
+#: ../components/editor/gtkhtml-editor-actions.c:1732
 msgid "+3"
 msgstr "+3"
 
 #. Translators: This is a font size level. It is shown on a tool bar. Please keep it as short as possible.
-#: ../components/editor/gtkhtml-editor-actions.c:1744
+#: ../components/editor/gtkhtml-editor-actions.c:1740
 msgid "+4"
 msgstr "+4"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1763
+#: ../components/editor/gtkhtml-editor-actions.c:1759
 msgid "Cell Contents"
 msgstr "Isi Sel"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1770
+#: ../components/editor/gtkhtml-editor-actions.c:1766
 msgid "Column"
 msgstr "Kolom"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1777
+#: ../components/editor/gtkhtml-editor-actions.c:1773
 msgid "Row"
 msgstr "Baris"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1784
-#: ../components/editor/gtkhtml-editor-actions.c:1869
+#: ../components/editor/gtkhtml-editor-actions.c:1780
+#: ../components/editor/gtkhtml-editor-actions.c:1865
 msgid "Table"
 msgstr "Tabel"
 
 #. Translators: Popup menu item caption, containing all the Delete options for a table
-#: ../components/editor/gtkhtml-editor-actions.c:1794
+#: ../components/editor/gtkhtml-editor-actions.c:1790
 msgid "Table Delete"
 msgstr "Hapus Tabel"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1801
+#: ../components/editor/gtkhtml-editor-actions.c:1797
 msgid "Input Methods"
 msgstr "Metode Masukan"
 
 #. Translators: Popup menu item caption, containing all the Insert options for a table
-#: ../components/editor/gtkhtml-editor-actions.c:1809
+#: ../components/editor/gtkhtml-editor-actions.c:1805
 msgid "Table Insert"
 msgstr "Sisipkan Tabel"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1816
+#: ../components/editor/gtkhtml-editor-actions.c:1812
 msgid "Properties"
 msgstr "Properti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1834
+#: ../components/editor/gtkhtml-editor-actions.c:1830
 msgid "Column After"
 msgstr "Kolom Setelah"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1841
+#: ../components/editor/gtkhtml-editor-actions.c:1837
 msgid "Column Before"
 msgstr "Kolom Sebelum"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1848
+#: ../components/editor/gtkhtml-editor-actions.c:1844
 msgid "Insert _Link"
 msgstr "Sisipkan _Taut"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1855
+#: ../components/editor/gtkhtml-editor-actions.c:1851
 msgid "Row Above"
 msgstr "Baris Atas"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1862
+#: ../components/editor/gtkhtml-editor-actions.c:1858
 msgid "Row Below"
 msgstr "Baris Bawah"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1876
+#: ../components/editor/gtkhtml-editor-actions.c:1872
 msgid "Cell..."
 msgstr "Sel..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1883
+#: ../components/editor/gtkhtml-editor-actions.c:1879
 msgid "Image..."
 msgstr "Gambar..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1890
+#: ../components/editor/gtkhtml-editor-actions.c:1886
 msgid "Link..."
 msgstr "Taut..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1897
+#: ../components/editor/gtkhtml-editor-actions.c:1893
 msgid "Page..."
 msgstr "Halaman..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1904
+#: ../components/editor/gtkhtml-editor-actions.c:1900
 msgid "Paragraph..."
 msgstr "Paragraf..."
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
-#: ../components/editor/gtkhtml-editor-actions.c:1912
+#: ../components/editor/gtkhtml-editor-actions.c:1908
 msgid "Rule..."
 msgstr "Garis..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1919
+#: ../components/editor/gtkhtml-editor-actions.c:1915
 msgid "Table..."
 msgstr "Tabel..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1926
+#: ../components/editor/gtkhtml-editor-actions.c:1922
 msgid "Text..."
 msgstr "Teks..."
 
-#: ../components/editor/gtkhtml-editor-actions.c:1933
+#: ../components/editor/gtkhtml-editor-actions.c:1929
 msgid "Remove Link"
 msgstr "Buang Taut"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1950
+#: ../components/editor/gtkhtml-editor-actions.c:1946
 msgid "Add Word to Dictionary"
 msgstr "Tambahkan Kata ke Kamus"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1957
+#: ../components/editor/gtkhtml-editor-actions.c:1953
 msgid "Ignore Misspelled Word"
 msgstr "Abaikan Kata Yang Salah Ejaan"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1964
+#: ../components/editor/gtkhtml-editor-actions.c:1960
 msgid "Add Word To"
 msgstr "Tambah Kata Ke"
 
-#: ../components/editor/gtkhtml-editor-actions.c:1973
+#: ../components/editor/gtkhtml-editor-actions.c:1969
 msgid "More Suggestions"
 msgstr "Saran Lainnya"
 
 #. Translators: %s will be replaced with the actual dictionary name,
-#. where a user can add a word to. This is part of an "Add Word To" submenu.
-#: ../components/editor/gtkhtml-editor-actions.c:2074
+#. * where a user can add a word to. This is part of an "Add Word To" submenu.
+#: ../components/editor/gtkhtml-editor-actions.c:2070
 #, c-format
 msgid "%s Dictionary"
 msgstr "Kamus %s"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2142
+#: ../components/editor/gtkhtml-editor-actions.c:2138
 msgid "_Emoticon"
 msgstr "_Emotikon"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2143
+#: ../components/editor/gtkhtml-editor-actions.c:2139
 msgid "Insert Emoticon"
 msgstr "Sisipkan Emoticon"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2204
+#: ../components/editor/gtkhtml-editor-actions.c:2200
 msgid "_Find"
 msgstr "_Cari"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2207
+#: ../components/editor/gtkhtml-editor-actions.c:2203
 msgid "Re_place"
 msgstr "_Ganti"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2210
+#: ../components/editor/gtkhtml-editor-actions.c:2206
 msgid "_Image"
 msgstr "_Gambar"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2213
+#: ../components/editor/gtkhtml-editor-actions.c:2209
 msgid "_Link"
 msgstr "_Taut"
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
-#: ../components/editor/gtkhtml-editor-actions.c:2217
+#: ../components/editor/gtkhtml-editor-actions.c:2213
 msgid "_Rule"
 msgstr "Ga_ris"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2220
-#: ../components/editor/gtkhtml-editor-builder.ui.h:79
+#: ../components/editor/gtkhtml-editor-actions.c:2216
+#: ../components/editor/gtkhtml-editor-builder.ui.h:72
 msgid "_Table"
 msgstr "_Tabel"
 
@@ -865,335 +891,339 @@ msgstr "Ukuran Fonta"
 msgid "Automatic"
 msgstr "Otomatis"
 
-#: ../components/editor/gtkhtml-editor-private.c:563
+#: ../components/editor/gtkhtml-editor-private.c:548
 msgid "Could not open the link."
 msgstr "Tidak dapat membuka taut."
 
-#: ../components/editor/gtkhtml-editor.c:897
+#: ../components/editor/gtkhtml-editor.c:878
 msgid "Changed property"
 msgstr "Properti yang diubah"
 
-#: ../components/editor/gtkhtml-editor.c:898
+#: ../components/editor/gtkhtml-editor.c:879
 msgid "Whether editor changed"
 msgstr "Bagian-bagian yang diubah oleh penyunting"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:2
+#: ../components/editor/gtkhtml-editor-builder.ui.h:1
+msgid "px"
+msgstr "px"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:3
 #, no-c-format
 msgid "%"
 msgstr "%"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:3
-msgid "Alignment"
-msgstr "Perataan"
-
 #: ../components/editor/gtkhtml-editor-builder.ui.h:4
-msgid "Alignment & Behavior"
-msgstr "Perataan & Perilaku"
+msgid "follow"
+msgstr "ikuti"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:5
-msgid "Background"
-msgstr "Latar Belakang"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:6
-msgid "Background Image"
-msgstr "Gambar Latar Belakang"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:7
-msgid "Blue Ink"
-msgstr "Tinta Biru"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:8
-msgid "Bottom"
-msgstr "Bawah"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:9
-msgid "C_ell"
-msgstr "S_el"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:10
-msgid "C_olor:"
-msgstr "_Warna:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:11
-msgid "C_olumns:"
-msgstr "K_olom:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:12
-msgid "C_ustom:"
-msgstr "Ses_uaikan:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:13
-msgid "Case _sensitive"
-msgstr "Perhatikan huruf be_sar/kecil"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:14
-msgid "Cell Properties"
-msgstr "Properti Sel"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:15
-msgid "Center"
-msgstr "Tengah"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:16
-msgid "Co_lor:"
-msgstr "_Warna:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:17
-msgid "Col_umn"
-msgstr "_Kolom"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:18
-msgid "Colors"
-msgstr "Warna"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:19
-msgid "Column Span:"
-msgstr "Rentang Kolom:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:20
-msgid "Confidential"
-msgstr "Rahasia"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:21
-msgid "Draft"
-msgstr "Draf"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:22
-msgid "Find"
-msgstr "Cari"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:23
-msgid "General"
-msgstr "Umum"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:24
-msgid "Graph Paper"
-msgstr "Kertas Grafik"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:25
-msgid "Hea_der Style"
-msgstr "Gaya _Kepala"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:26
-msgid "I_mage:"
-msgstr "Ga_mbar:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:27
-msgid "Image Properties"
-msgstr "Properti Gambar"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:28
-msgid "Layout"
-msgstr "Tata Letak"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:29
-msgid "Left"
-msgstr "Kiri"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:30
-msgid "Link"
-msgstr "Taut"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:31
-msgid "Link Properties"
-msgstr "Properti Taut"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:32
-msgid "Middle"
-msgstr "Tengah"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:33
-msgid "Midnight"
-msgstr "Tengah Malam"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:34
-msgid "None"
-msgstr "Nihil"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:35
-msgid "Page Properties"
-msgstr "Properti Halaman"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:36
-msgid "Paper"
-msgstr "Kertas"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:37
-msgid "Paragraph Properties"
-msgstr "Properti Paragraf"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:38
-msgid "Perforated Paper"
-msgstr "Kertas Diperforasi"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:39
-msgid "R_eplace:"
-msgstr "Ganti:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:40
-msgid "Replace"
-msgstr "Ganti"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:41
-msgid "Replace Confirmation"
-msgstr "Konfirmasi Penggantian"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:42
-msgid "Ribbon"
-msgstr "Karbon"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:43
-msgid "Right"
-msgstr "Kanan"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:44
-msgid "Row Span:"
-msgstr "Rentangan Baris:"
-
-#. Translators: Caption of a window. 'Rule' here means a horizontal line in an HTML text.
-#: ../components/editor/gtkhtml-editor-builder.ui.h:46
-msgid "Rule Properties"
-msgstr "Properti Garis"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:47
-msgid "S_haded"
-msgstr "_Bercorak"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:48
-msgid "Scope"
-msgstr "Jangkauan"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:49
-msgid "Search _backwards"
-msgstr "Cari _mundur"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:50
-msgid "Select An Image"
-msgstr "Pilih Suatu Gambar"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:51
-msgid "Si_ze:"
-msgstr "_Ukuran:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:52
-msgid "Size"
-msgstr "Ukuran"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:53
-msgid "Style"
-msgstr "Gaya"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:54
-msgid "T_emplate:"
-msgstr "Pal_et:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:55
-msgid "Table Properties"
-msgstr "Properti Tabel"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:56
-msgid "Text Properties"
-msgstr "Properti Teks"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:57
 msgid "Top"
 msgstr "Atas"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:58
-msgid "Width:"
-msgstr "Lebar:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:6
+msgid "Middle"
+msgstr "Tengah"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:59
-msgid "_Alignment:"
-msgstr "Per_ataan:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:7
+msgid "Bottom"
+msgstr "Bawah"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:60
-msgid "_Background:"
-msgstr "Latar _Belakang:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:8
+msgid "Left"
+msgstr "Kiri"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:62
-msgid "_Border:"
-msgstr "_Batas:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:9
+msgid "Center"
+msgstr "Tengah"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:63
+#: ../components/editor/gtkhtml-editor-builder.ui.h:10
+msgid "Right"
+msgstr "Kanan"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:11
+msgid "None"
+msgstr "Nihil"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:12
+msgid "Perforated Paper"
+msgstr "Kertas Diperforasi"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:13
+msgid "Blue Ink"
+msgstr "Tinta Biru"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:14
+msgid "Paper"
+msgstr "Kertas"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:15
+msgid "Ribbon"
+msgstr "Karbon"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:16
+msgid "Midnight"
+msgstr "Tengah Malam"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:17
+msgid "Confidential"
+msgstr "Rahasia"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:18
+msgid "Draft"
+msgstr "Draf"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:19
+msgid "Graph Paper"
+msgstr "Kertas Grafik"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:20
+msgid "Text Properties"
+msgstr "Properti Teks"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:25
+msgid "Si_ze:"
+msgstr "_Ukuran:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:26
 msgid "_Color:"
 msgstr "_Warna:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:64
-msgid "_Description:"
-msgstr "_Deskripsi:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:27
+msgid "Paragraph Properties"
+msgstr "Properti Paragraf"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:65
-msgid "_Height:"
-msgstr "_Tinggi:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:28
+msgid "General"
+msgstr "Umum"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:66
-msgid "_Horizontal:"
-msgstr "_Horisontal:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:29
+msgid "_Style:"
+msgstr "_Gaya:"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:67
-msgid "_Image:"
-msgstr "_Gambar:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:30
+msgid "Alignment"
+msgstr "Perataan"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:69
-msgid "_Link:"
-msgstr "_Taut:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:31
+msgid "Find"
+msgstr "Cari"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:70
-msgid "_Padding:"
-msgstr "_Isian:"
+#: ../components/editor/gtkhtml-editor-builder.ui.h:32
+msgid "Search _backwards"
+msgstr "Cari _mundur"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:71
+#: ../components/editor/gtkhtml-editor-builder.ui.h:33
+msgid "Case _sensitive"
+msgstr "Perhatikan huruf be_sar/kecil"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:34
 msgid "_Regular expression"
 msgstr "Ekspresi _reguler"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:72
+#: ../components/editor/gtkhtml-editor-builder.ui.h:35
+msgid "Replace"
+msgstr "Ganti"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:36
+msgid "_With:"
+msgstr "_Dengan:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:37
+msgid "R_eplace:"
+msgstr "Ganti:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:38
+msgid "Replace Confirmation"
+msgstr "Konfirmasi Penggantian"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:39
+msgid "Link Properties"
+msgstr "Properti Taut"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:40
+msgid "_URL:"
+msgstr "_URL:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:41
+msgid "_Description:"
+msgstr "_Deskripsi:"
+
+#. Translators: Caption of a window. 'Rule' here means a horizontal line in an HTML text.
+#: ../components/editor/gtkhtml-editor-builder.ui.h:43
+msgid "Rule Properties"
+msgstr "Properti Garis"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:44
+msgid "Size"
+msgstr "Ukuran"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:45
+msgid "_Width:"
+msgstr "_Lebar:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:46
+msgid "_Size:"
+msgstr "_Ukuran:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:47
+msgid "Style"
+msgstr "Gaya"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:48
+msgid "_Alignment:"
+msgstr "Per_ataan:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:49
+msgid "S_haded"
+msgstr "_Bercorak"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:50
+msgid "Table Properties"
+msgstr "Properti Tabel"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:51
+msgid "_Rows:"
+msgstr "Ba_ris:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:52
+msgid "C_olumns:"
+msgstr "K_olom:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:53
+msgid "Layout"
+msgstr "Tata Letak"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:54
+msgid "_Spacing:"
+msgstr "_Ruang:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:55
+msgid "_Padding:"
+msgstr "_Isian:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:56
+msgid "_Border:"
+msgstr "_Batas:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:57
+msgid "Background"
+msgstr "Latar Belakang"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:58
+msgid "Co_lor:"
+msgstr "_Warna:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:59
+msgid "_Image:"
+msgstr "_Gambar:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:60
+msgid "Page Properties"
+msgstr "Properti Halaman"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:61
+msgid "Colors"
+msgstr "Warna"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:62
+msgid "_Text:"
+msgstr "_Teks:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:63
+msgid "_Link:"
+msgstr "_Taut:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:64
+msgid "_Background:"
+msgstr "Latar _Belakang:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:65
+msgid "Background Image"
+msgstr "Gambar Latar Belakang"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:66
+msgid "T_emplate:"
+msgstr "Pal_et:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:67
+msgid "C_ustom:"
+msgstr "Ses_uaikan:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:68
+msgid "Cell Properties"
+msgstr "Properti Sel"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:69
+msgid "Scope"
+msgstr "Jangkauan"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:70
+msgid "Col_umn"
+msgstr "_Kolom"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:71
 msgid "_Row"
 msgstr "Ba_ris"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:73
-msgid "_Rows:"
-msgstr "Ba_ris:"
+msgid "C_ell"
+msgstr "S_el"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:74
-msgid "_Size:"
-msgstr "_Ukuran:"
+msgid "Alignment & Behavior"
+msgstr "Perataan & Perilaku"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:75
-msgid "_Source:"
-msgstr "_Sumber:"
+msgid "_Wrap Text"
+msgstr "_Potong Teks"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:76
-msgid "_Spacing:"
-msgstr "_Ruang:"
+msgid "Hea_der Style"
+msgstr "Gaya _Kepala"
 
-#: ../components/editor/gtkhtml-editor-builder.ui.h:78
-msgid "_Style:"
-msgstr "_Gaya:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:81
-msgid "_Text:"
-msgstr "_Teks:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:82
-msgid "_URL:"
-msgstr "_URL:"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:84
+#: ../components/editor/gtkhtml-editor-builder.ui.h:77
 msgid "_Vertical:"
 msgstr "_Vertikal:"
 
+#: ../components/editor/gtkhtml-editor-builder.ui.h:78
+msgid "_Horizontal:"
+msgstr "_Horisontal:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:79
+msgid "Column Span:"
+msgstr "Rentang Kolom:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:80
+msgid "Row Span:"
+msgstr "Rentangan Baris:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:81
+msgid "Width:"
+msgstr "Lebar:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:82
+msgid "Select An Image"
+msgstr "Pilih Suatu Gambar"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:83
+msgid "I_mage:"
+msgstr "Ga_mbar:"
+
+#: ../components/editor/gtkhtml-editor-builder.ui.h:84
+msgid "C_olor:"
+msgstr "_Warna:"
+
 #: ../components/editor/gtkhtml-editor-builder.ui.h:85
-msgid "_Width:"
-msgstr "_Lebar:"
+msgid "Image Properties"
+msgstr "Properti Gambar"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:86
-msgid "_With:"
-msgstr "_Dengan:"
+msgid "_Source:"
+msgstr "_Sumber:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:87
-msgid "_Wrap Text"
-msgstr "_Potong Teks"
+msgid "_Height:"
+msgstr "_Tinggi:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:88
 msgid "_X-Padding:"
@@ -1204,12 +1234,8 @@ msgid "_Y-Padding:"
 msgstr "Isian _Y:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:90
-msgid "follow"
-msgstr "ikuti"
-
-#: ../components/editor/gtkhtml-editor-builder.ui.h:91
-msgid "px"
-msgstr "px"
+msgid "Link"
+msgstr "Taut"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:113
 #, c-format
@@ -1277,69 +1303,67 @@ msgstr "Baku"
 msgid "Save As"
 msgstr "Simpan Sebagai"
 
-#: ../components/editor/main.c:111
+#: ../components/editor/main.c:109
 msgid "Untitled document"
 msgstr "Dokumen tidak berjudul"
 
-#: ../components/editor/main.c:270
+#: ../components/editor/main.c:267
 msgid "HTML Output"
 msgstr "Keluaran HTML"
 
-#: ../components/editor/main.c:277
+#: ../components/editor/main.c:274
 msgid "HTML Source"
 msgstr "Sumber HTML"
 
-#: ../components/editor/main.c:284
+#: ../components/editor/main.c:281
 msgid "Plain Source"
 msgstr "Sumber Biasa"
 
-#: ../components/editor/main.c:291
+#: ../components/editor/main.c:288
 msgid "_Print..."
 msgstr "_Cetak..."
 
-#: ../components/editor/main.c:298
+#: ../components/editor/main.c:295
 msgid "Print Pre_view"
 msgstr "Pratilik _Cetak"
 
-#: ../components/editor/main.c:305
+#: ../components/editor/main.c:302
 msgid "_Quit"
 msgstr "_Keluar"
 
-#: ../components/editor/main.c:312
+#: ../components/editor/main.c:309
 msgid "_Save"
 msgstr "_Simpan"
 
-#: ../components/editor/main.c:319
+#: ../components/editor/main.c:316
 msgid "Save _As..."
 msgstr "Simpan Seb_agai..."
 
-#: ../components/editor/main.c:336
+#: ../components/editor/main.c:333
 msgid "HTML _Output"
 msgstr "_Keluaran HTML"
 
-#: ../components/editor/main.c:343
+#: ../components/editor/main.c:340
 msgid "_HTML Source"
 msgstr "Sumber _HTML"
 
-#: ../components/editor/main.c:350
+#: ../components/editor/main.c:347
 msgid "_Plain Source"
 msgstr "Sumber _Biasa"
 
-#: ../gtkhtml/htmlbutton.c:138
+#: ../gtkhtml/htmlbutton.c:140
 msgid "Submit Query"
-msgstr "Kirim"
+msgstr "Kirim Query"
 
-#: ../gtkhtml/htmlbutton.c:141
+#: ../gtkhtml/htmlbutton.c:143
 msgid "Reset"
 msgstr "Reset"
 
 #. TODO2 dialog instead of warning
-#: ../gtkhtml/htmlengine-print.c:231
-#: ../gtkhtml/htmlengine-print.c:309
+#: ../gtkhtml/htmlengine-print.c:231 ../gtkhtml/htmlengine-print.c:310
 msgid "Cannot allocate default font for printing"
 msgstr "Tidak dapat mengalokasikan fonta baku untuk mencetak"
 
-#: ../gtkhtml/test.c:364
+#: ../gtkhtml/test.c:374
 msgid "GtkHTML Test"
 msgstr "Coba GtkHTML"
-
