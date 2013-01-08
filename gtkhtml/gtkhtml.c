@@ -26,7 +26,7 @@
 #include <glib/gi18n-lib.h>
 #include <string.h>
 
-#include "../a11y/factory.h"
+#include "../a11y/object.h"
 
 #include "htmlcolorset.h"
 #include "htmlcluev.h"
@@ -3270,7 +3270,7 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	html_class->properties        = gtk_html_class_properties_new ();
 
 	add_bindings (klass);
-	gtk_html_accessibility_init ();
+	gtk_widget_class_set_accessible_type (widget_class, G_TYPE_GTK_HTML_A11Y);
 
 	filename = g_build_filename (PREFIX, "share", GTKHTML_RELEASE_STRING, "keybindingsrc.emacs", NULL);
 	gtk_rc_parse (filename);

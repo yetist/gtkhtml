@@ -25,6 +25,7 @@
 #define __GTK_HTML_A11Y_OBJECT_H__
 
 #include <gtk/gtk.h>
+#include <gtk/gtk-a11y.h>
 
 #define G_TYPE_GTK_HTML_A11Y                     (gtk_html_a11y_get_type ())
 #define GTK_HTML_A11Y(obj)                       (G_TYPE_CHECK_INSTANCE_CAST ((obj), G_TYPE_GTK_HTML_A11Y, GtkHTMLA11Y))
@@ -42,14 +43,14 @@ typedef struct _GtkHTMLA11YClass GtkHTMLA11YClass;
 
 struct _GtkHTMLA11Y
 {
-	GtkAccessible parent;
+	GtkContainerAccessible parent;
 };
 
 GType gtk_html_a11y_get_type (void);
 
 struct _GtkHTMLA11YClass
 {
-  GtkAccessibleClass parent_class;
+  GtkContainerAccessibleClass parent_class;
 };
 
 AtkObject * gtk_html_a11y_new (GtkWidget *widget);
