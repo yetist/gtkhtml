@@ -6339,10 +6339,13 @@ gtk_html_insert_html_generic (GtkHTML *html,
 		g_return_if_fail (tmp->engine->clue);
 
 		o = tmp->engine->clue;
-		tmp->engine->clue = NULL;
-		html_engine_insert_object (html->engine, o,
-					   html_object_get_recursive_length (o),
-					   html_engine_get_insert_level_for_object (html->engine, o));
+		/* skip empty HTML */
+		if (html_object_get_recursive_length (o) > 0) {
+			tmp->engine->clue = NULL;
+			html_engine_insert_object (html->engine, o,
+						   html_object_get_recursive_length (o),
+						   html_engine_get_insert_level_for_object (html->engine, o));
+		}
 	}
 	gtk_widget_destroy (window);
 	html_engine_thaw (html->engine);
