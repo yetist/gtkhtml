@@ -120,6 +120,8 @@ static struct {
 	{ "#FFFFFF", N_("white") }
 };
 
+static void color_combo_build_popup_window (GtkhtmlColorCombo *combo);
+
 static void
 color_combo_notify_current_color_cb (GtkhtmlColorCombo *combo)
 {
@@ -574,7 +576,7 @@ color_combo_dispose (GObject *object)
 	}
 
 	if (priv->window != NULL) {
-		g_object_unref (priv->window);
+		gtk_widget_destroy (priv->window);
 		priv->window = NULL;
 	}
 
@@ -652,6 +654,9 @@ color_combo_popup (GtkhtmlColorCombo *combo)
 
 	if (combo->priv->popup_shown)
 		return;
+
+	if (!combo->priv->window)
+		color_combo_build_popup_window (combo);
 
 	activate_time = gtk_get_current_event_time ();
 	if (gdk_device_get_source (device) == GDK_SOURCE_KEYBOARD) {
@@ -875,11 +880,8 @@ static void
 color_combo_init (GtkhtmlColorCombo *combo)
 {
 	GtkhtmlColorState *state;
-	GtkWidget *toplevel;
 	GtkWidget *container;
 	GtkWidget *widget;
-	GtkWidget *window;
-	guint ii;
 
 	combo->priv = G_TYPE_INSTANCE_GET_PRIVATE (
 		combo, GTKHTML_TYPE_COLOR_COMBO, GtkhtmlColorComboPrivate);
@@ -925,22 +927,33 @@ color_combo_init (GtkhtmlColorCombo *combo)
 	g_signal_connect_swapped (
 		combo->priv->toggle_button, "toggled",
 		G_CALLBACK (color_combo_toggled_cb), combo);
+}
 
-	/* Build the pop-up window. */
+static void
+color_combo_build_popup_window (GtkhtmlColorCombo *combo)
+{
+	GtkWidget *toplevel;
+	GtkWidget *container;
+	GtkWidget *widget;
+	GtkWidget *window;
+	guint ii;
+
+	g_return_if_fail (combo->priv->window == NULL);
 
 	window = gtk_window_new (GTK_WINDOW_POPUP);
 	toplevel = gtk_widget_get_toplevel (GTK_WIDGET (combo));
 	gtk_window_set_resizable (GTK_WINDOW (window), FALSE);
 	gtk_window_set_type_hint (
 		GTK_WINDOW (window), GDK_WINDOW_TYPE_HINT_COMBO);
-	if (gtk_widget_is_toplevel (toplevel)) {
+	if (GTK_IS_WINDOW (toplevel)) {
 		gtk_window_group_add_window (
 			gtk_window_get_group (GTK_WINDOW (toplevel)),
 			GTK_WINDOW (window));
 		gtk_window_set_transient_for (
 			GTK_WINDOW (window), GTK_WINDOW (toplevel));
 	}
-	combo->priv->window = g_object_ref (window);
+
+	combo->priv->window = window;
 
 	g_signal_connect_swapped (
 		window, "show",
