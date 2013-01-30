@@ -60,6 +60,8 @@ struct _GtkhtmlFaceToolButtonPrivate {
 static gpointer parent_class;
 static guint signals[LAST_SIGNAL];
 
+static void face_tool_button_build_popup_window (GtkhtmlFaceToolButton *button);
+
 /* XXX Copied from _gtk_toolbar_elide_underscores() */
 static gchar *
 face_tool_button_elide_underscores (const gchar *original)
@@ -273,8 +275,13 @@ face_tool_button_dispose (GObject *object)
 
 	priv = GTKHTML_FACE_TOOL_BUTTON (object)->priv;
 
+	if (priv->table != NULL) {
+		g_object_unref (priv->table);
+		priv->table = NULL;
+	}
+
 	if (priv->window != NULL) {
-		g_object_unref (priv->window);
+		gtk_widget_destroy (priv->window);
 		priv->window = NULL;
 	}
 
@@ -339,6 +346,9 @@ face_tool_button_popup (GtkhtmlFaceToolButton *button)
 
 	if (button->priv->popup_shown)
 		return;
+
+	if (!button->priv->window)
+		face_tool_button_build_popup_window (button);
 
 	activate_time = gtk_get_current_event_time ();
 	if (gdk_device_get_source (device) == GDK_SOURCE_KEYBOARD) {
@@ -538,6 +548,14 @@ face_tool_button_iface_init (GtkhtmlFaceChooserIface *iface)
 static void
 face_tool_button_init (GtkhtmlFaceToolButton *button)
 {
+	button->priv = G_TYPE_INSTANCE_GET_PRIVATE (
+		button, GTKHTML_TYPE_FACE_TOOL_BUTTON,
+		GtkhtmlFaceToolButtonPrivate);
+}
+
+static void
+face_tool_button_build_popup_window (GtkhtmlFaceToolButton *button)
+{
 	GtkhtmlFaceChooser *chooser;
 	GtkWidget *toplevel;
 	GtkWidget *container;
@@ -546,25 +564,21 @@ face_tool_button_init (GtkhtmlFaceToolButton *button)
 	GList *list, *iter;
 	gint ii;
 
-	button->priv = G_TYPE_INSTANCE_GET_PRIVATE (
-		button, GTKHTML_TYPE_FACE_TOOL_BUTTON,
-		GtkhtmlFaceToolButtonPrivate);
-
-	/* Build the pop-up window. */
+	g_return_if_fail (button->priv->window == NULL);
 
 	window = gtk_window_new (GTK_WINDOW_POPUP);
 	toplevel = gtk_widget_get_toplevel (GTK_WIDGET (button));
 	gtk_window_set_resizable (GTK_WINDOW (window), FALSE);
 	gtk_window_set_type_hint (
 		GTK_WINDOW (window), GDK_WINDOW_TYPE_HINT_COMBO);
-	if (gtk_widget_is_toplevel (toplevel)) {
+	if (GTK_IS_WINDOW (toplevel)) {
 		gtk_window_group_add_window (
 			gtk_window_get_group (GTK_WINDOW (toplevel)),
 			GTK_WINDOW (window));
 		gtk_window_set_transient_for (
 			GTK_WINDOW (window), GTK_WINDOW (toplevel));
 	}
-	button->priv->window = g_object_ref (window);
+	button->priv->window = window;
 
 	g_signal_connect_swapped (
 		window, "show",
