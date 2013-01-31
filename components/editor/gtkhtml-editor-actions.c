@@ -2142,6 +2142,7 @@ gtkhtml_editor_actions_init (GtkhtmlEditor *editor)
 		action, "item-activated",
 		G_CALLBACK (action_insert_face_cb), editor);
 	gtk_action_group_add_action (action_group, action);
+	g_object_unref (action);
 
 	/* Core Actions (HTML only) */
 	action_group = editor->priv->html_actions;
