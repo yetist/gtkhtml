@@ -1,3 +1,17 @@
+GtkHTML-4.6.3 2012-02-04
+------------------------
+
+Bug Fixes:
+	Bug 689476 - Slow composer open (emoticon and color widget leaks)
+	             (Milan Crha)
+
+Other Changes:
+	* Fix a memory leak (GtkhtmlFaceAction instance) (Milan Crha)
+
+Translations:
+	Rafael Ferreira (pt_BR)
+
+
 GtkHTML-4.6.2 2012-01-14
 ------------------------
 
