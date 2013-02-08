@@ -5075,6 +5075,7 @@ html_engine_schedule_update (HTMLEngine *e)
 		return;
 	DI (printf ("html_engine_schedule_update - timer %d\n", e->updateTimer));
 	if (e->updateTimer == 0)
+		/* schedule with priority higher than gtk+ uses for animations (check docs for G_PRIORITY_HIGH_IDLE) */
 		e->updateTimer = g_idle_add_full (G_PRIORITY_HIGH_IDLE, (GSourceFunc) html_engine_update_event, e, NULL);
 }
 
@@ -5382,6 +5383,7 @@ html_engine_schedule_redraw (HTMLEngine *e)
 	else if (e->redraw_idle_id == 0) {
 		clear_pending_expose (e);
 		html_draw_queue_clear (e->draw_queue);
+		/* schedule with priority higher than gtk+ uses for animations (check docs for G_PRIORITY_HIGH_IDLE) */
 		e->redraw_idle_id = g_idle_add_full (G_PRIORITY_HIGH_IDLE, (GSourceFunc) redraw_idle, e, NULL);
 	}
 }
@@ -5598,6 +5600,7 @@ html_engine_parse (HTMLEngine *e)
 
 	e->avoid_para = FALSE;
 
+	/* schedule with priority higher than gtk+ uses for animations (check docs for G_PRIORITY_HIGH_IDLE) */
 	e->timerId = g_idle_add_full (G_PRIORITY_HIGH_IDLE, (GSourceFunc) html_engine_timer_event, e, NULL);
 }
 
@@ -6202,6 +6205,7 @@ html_engine_thaw (HTMLEngine *engine)
 	if (engine->freeze_count == 1) {
 		if (engine->thaw_idle_id == 0) {
 			DF (printf ("queueing thaw_idle %d\n", engine->freeze_count);)
+			/* schedule with priority higher than gtk+ uses for animations (check docs for G_PRIORITY_HIGH_IDLE) */
 			engine->thaw_idle_id = g_idle_add_full (G_PRIORITY_HIGH_IDLE, thaw_idle, engine, NULL);
 		}
 	} else {
