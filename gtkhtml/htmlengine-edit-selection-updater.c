@@ -114,7 +114,7 @@ html_engine_edit_selection_updater_schedule (HTMLEngineEditSelectionUpdater *upd
 	if (updater->idle_id != 0)
 		return;
 
-	updater->idle_id = g_idle_add (updater_idle_callback, updater);
+	updater->idle_id = g_idle_add_full (G_PRIORITY_HIGH_IDLE, updater_idle_callback, updater, NULL);
 }
 
 /**
