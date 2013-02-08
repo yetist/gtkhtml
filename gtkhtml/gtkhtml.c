@@ -452,6 +452,7 @@ queue_draw (GtkHTML *html)
 {
 	if (html->priv->idle_handler_id == 0)
 		html->priv->idle_handler_id =
+			/* schedule with priority higher than gtk+ uses for animations (check docs for G_PRIORITY_HIGH_IDLE)  */
 			g_idle_add_full (G_PRIORITY_HIGH_IDLE, idle_handler, html, NULL);
 }
 

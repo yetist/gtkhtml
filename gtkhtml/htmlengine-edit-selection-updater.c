@@ -114,6 +114,7 @@ html_engine_edit_selection_updater_schedule (HTMLEngineEditSelectionUpdater *upd
 	if (updater->idle_id != 0)
 		return;
 
+	/* schedule with priority higher than gtk+ uses for animations (check docs for G_PRIORITY_HIGH_IDLE)  */
 	updater->idle_id = g_idle_add_full (G_PRIORITY_HIGH_IDLE, updater_idle_callback, updater, NULL);
 }
 
