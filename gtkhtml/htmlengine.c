@@ -5075,7 +5075,7 @@ html_engine_schedule_update (HTMLEngine *e)
 		return;
 	DI (printf ("html_engine_schedule_update - timer %d\n", e->updateTimer));
 	if (e->updateTimer == 0)
-		e->updateTimer = g_idle_add_full (G_PRIORITY_HIGH_IDLE, (GSourceFunc) html_engine_update_event, e, NULL);
+		e->updateTimer = g_idle_add ((GSourceFunc) html_engine_update_event, e);
 }
 
 
@@ -5382,7 +5382,7 @@ html_engine_schedule_redraw (HTMLEngine *e)
 	else if (e->redraw_idle_id == 0) {
 		clear_pending_expose (e);
 		html_draw_queue_clear (e->draw_queue);
-		e->redraw_idle_id = g_idle_add_full (G_PRIORITY_HIGH_IDLE, (GSourceFunc) redraw_idle, e, NULL);
+		e->redraw_idle_id = g_idle_add ((GSourceFunc) redraw_idle, e);
 	}
 }
 
@@ -5598,7 +5598,7 @@ html_engine_parse (HTMLEngine *e)
 
 	e->avoid_para = FALSE;
 
-	e->timerId = g_idle_add_full (G_PRIORITY_HIGH_IDLE, (GSourceFunc) html_engine_timer_event, e, NULL);
+	e->timerId = g_idle_add ((GSourceFunc) html_engine_timer_event, e);
 }
 
 
@@ -6202,7 +6202,7 @@ html_engine_thaw (HTMLEngine *engine)
 	if (engine->freeze_count == 1) {
 		if (engine->thaw_idle_id == 0) {
 			DF (printf ("queueing thaw_idle %d\n", engine->freeze_count);)
-			engine->thaw_idle_id = g_idle_add_full (G_PRIORITY_HIGH_IDLE, thaw_idle, engine, NULL);
+			engine->thaw_idle_id = g_idle_add (thaw_idle, engine);
 		}
 	} else {
 		engine->freeze_count--;

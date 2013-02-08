@@ -451,8 +451,7 @@ static void
 queue_draw (GtkHTML *html)
 {
 	if (html->priv->idle_handler_id == 0)
-		html->priv->idle_handler_id =
-			g_idle_add_full (G_PRIORITY_HIGH_IDLE, idle_handler, html, NULL);
+		html->priv->idle_handler_id = g_idle_add (idle_handler, html);
 }
 
 
