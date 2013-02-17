@@ -8,14 +8,14 @@
 # Artur Flinta <aflinta@at.kernel.pl>, 2004-2005.
 # Wadim Dziedzic <wdziedzic@aviary.pl>, 2007-2009.
 # Tomasz Dominikowski <dominikowski@gmail.com>, 2008.
-# Piotr Drąg <piotrdrag@gmail.com>, 2009-2012.
-# Aviary.pl <gnomepl@aviary.pl>, 2007-2012.
+# Piotr Drąg <piotrdrag@gmail.com>, 2009-2013.
+# Aviary.pl <gnomepl@aviary.pl>, 2007-2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-04 01:26+0200\n"
-"PO-Revision-Date: 2012-09-04 01:29+0200\n"
+"POT-Creation-Date: 2013-02-17 19:50+0100\n"
+"PO-Revision-Date: 2013-02-17 19:51+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -205,20 +205,20 @@ msgstr "jasnopurpurowy"
 msgid "white"
 msgstr "biały"
 
-#: ../components/editor/gtkhtml-color-combo.c:275
+#: ../components/editor/gtkhtml-color-combo.c:277
 msgid "Choose Custom Color"
 msgstr "Wybór własnego koloru"
 
-#: ../components/editor/gtkhtml-color-combo.c:785
+#: ../components/editor/gtkhtml-color-combo.c:790
 #: ../components/editor/gtkhtml-color-state.c:224
 msgid "Default"
 msgstr "Domyślny"
 
-#: ../components/editor/gtkhtml-color-combo.c:1009
+#: ../components/editor/gtkhtml-color-combo.c:1022
 msgid "custom"
 msgstr "własny"
 
-#: ../components/editor/gtkhtml-color-combo.c:1017
+#: ../components/editor/gtkhtml-color-combo.c:1030
 msgid "Custom Color..."
 msgstr "Własny kolor..."
 
@@ -444,7 +444,7 @@ msgstr "Wyszukuje i zastępuje tekst"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1319
 msgid "Check _Spelling..."
-msgstr "Sprawdź pisownię..."
+msgstr "_Sprawdź pisownię..."
 
 #: ../components/editor/gtkhtml-editor-actions.c:1326
 #: ../components/editor/gtkhtml-editor-builder.ui.h:91
@@ -849,28 +849,28 @@ msgstr "Emoti_kona"
 msgid "Insert Emoticon"
 msgstr "Wstaw emotikonę"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2200
+#: ../components/editor/gtkhtml-editor-actions.c:2201
 msgid "_Find"
 msgstr "_Znajdź"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2203
+#: ../components/editor/gtkhtml-editor-actions.c:2204
 msgid "Re_place"
 msgstr "Z_mień"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2206
+#: ../components/editor/gtkhtml-editor-actions.c:2207
 msgid "_Image"
 msgstr "Obra_z"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2209
+#: ../components/editor/gtkhtml-editor-actions.c:2210
 msgid "_Link"
 msgstr "O_dnośnik"
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
-#: ../components/editor/gtkhtml-editor-actions.c:2213
+#: ../components/editor/gtkhtml-editor-actions.c:2214
 msgid "_Rule"
 msgstr "_Linia"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2216
+#: ../components/editor/gtkhtml-editor-actions.c:2217
 #: ../components/editor/gtkhtml-editor-builder.ui.h:72
 msgid "_Table"
 msgstr "_Tabela"
