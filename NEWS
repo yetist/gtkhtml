@@ -1,3 +1,11 @@
+GtkHTML-4.6.4 2012-02-18
+------------------------
+
+Bug Fixes:
+	Bug #683867 - Schedule actions with higher idle priority
+	              (Michel Dänzer)
+
+
 GtkHTML-4.6.3 2012-02-04
 ------------------------
 
