@@ -1393,7 +1393,7 @@ get_pango_base_direction (HTMLText *text)
 		if (text->text)
 			return html_text_get_pango_direction (text);
 		else
-			return HTML_DIRECTION_LTR;
+			return PANGO_DIRECTION_LTR;
 	}
 }
 
