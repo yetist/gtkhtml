@@ -326,7 +326,7 @@ gtkhtml_spell_checker_get_suggestions (GtkhtmlSpellChecker *checker,
 {
 	EnchantDict *dict;
 	gchar **suggestions;
-	gsize n_suggestions;
+	gsize n_suggestions = 0;
 	GList *list = NULL;
 
 	g_return_val_if_fail (GTKHTML_IS_SPELL_CHECKER (checker), NULL);
