@@ -1,4 +1,18 @@
-GtkHTML-4.6.4 2012-02-18
+GtkHTML-4.6.5 2013-05-12
+------------------------
+
+Bug Fixes:
+	Bug 691362 – gtkhtml/htmltext.c: Return correct enum type
+	             `PangoDirection` in `get_pango_base_direction`
+	             (Paul Menzel)
+	Bug 699757 - Crash in gtkhtml_spell_checker_get_suggestions()
+	             (Matthew Barnes)
+
+Translations:
+	Alexandre Franke (fr)
+
+
+GtkHTML-4.6.4 2013-02-18
 ------------------------
 
 Bug Fixes:
@@ -6,7 +20,7 @@ Bug Fixes:
 	              (Michel Dänzer)
 
 
-GtkHTML-4.6.3 2012-02-04
+GtkHTML-4.6.3 2013-02-04
 ------------------------
 
 Bug Fixes:
@@ -20,7 +34,7 @@ Translations:
 	Rafael Ferreira (pt_BR)
 
 
-GtkHTML-4.6.2 2012-01-14
+GtkHTML-4.6.2 2013-01-14
 ------------------------
 
 Bug Fixes:
