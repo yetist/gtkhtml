@@ -4627,9 +4627,38 @@ clipboard_paste_received_cb (GtkClipboard *clipboard,
 				g_free (utf8);
 				utf8 = cite;
 			}
-			if (utf8)
-				gtk_html_insert_html (GTK_HTML (widget), utf8);
-			else
+			if (utf8) {
+				gint leading_spaces = 0;
+
+				/* check for leading spaces */
+				while (g_ascii_isspace (utf8[leading_spaces]))
+					leading_spaces++;
+
+				if (leading_spaces)
+					html_engine_paste_text (e, utf8, leading_spaces);
+
+				if (utf8[leading_spaces])
+					gtk_html_insert_html (GTK_HTML (widget), utf8 + leading_spaces);
+
+				/* check for trailing spaces */
+				length = g_utf8_strlen (utf8, -1);
+				if (length > leading_spaces) {
+					const gchar *ptr, *from = NULL;
+
+					ptr = utf8;
+					while (ptr = g_utf8_next_char (ptr), ptr && *ptr) {
+						if (g_ascii_isspace (*ptr)) {
+							if (!from)
+								from = ptr;
+						} else {
+							from = NULL;
+						}
+					}
+
+					if (from)
+						html_engine_paste_text (e, from, g_utf8_strlen (from, -1));
+				}
+			} else
 				g_warning ("selection was empty");
 		} else if ((utf8 = (gchar *) gtk_selection_data_get_text (selection_data))) {
 			utf8 = utf8_filter_out_bom (utf8);
