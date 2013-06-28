@@ -4631,7 +4631,9 @@ clipboard_paste_received_cb (GtkClipboard *clipboard,
 				gint leading_spaces = 0;
 
 				/* check for leading spaces */
-				while (g_ascii_isspace (utf8[leading_spaces]))
+				while (g_ascii_isspace (utf8[leading_spaces]) &&
+				       utf8[leading_spaces] != '\n' &&
+				       utf8[leading_spaces] != '\r')
 					leading_spaces++;
 
 				if (leading_spaces)
@@ -4647,7 +4649,7 @@ clipboard_paste_received_cb (GtkClipboard *clipboard,
 
 					ptr = utf8;
 					while (ptr = g_utf8_next_char (ptr), ptr && *ptr) {
-						if (g_ascii_isspace (*ptr)) {
+						if (g_ascii_isspace (*ptr) && *ptr != '\n' && *ptr != '\r') {
 							if (!from)
 								from = ptr;
 						} else {
