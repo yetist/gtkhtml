@@ -935,6 +935,20 @@ html_cluev_real_get_direction (HTMLObject *o)
 	return HTML_CLUEV (o)->dir;
 }
 
+static guint
+get_recursive_length (HTMLObject *self)
+{
+	HTMLClueV *cluev = HTML_CLUEV (self);
+	guint len;
+
+	len = (* HTML_OBJECT_CLASS (parent_class)->get_recursive_length) (self);
+
+	if (cluev->display == DISPLAY_BLOCK)
+		len++;
+
+	return len;
+}
+
 static void
 html_cluev_destroy (HTMLObject *self)
 {
@@ -984,6 +998,7 @@ html_cluev_class_init (HTMLClueVClass *klass,
 	object_class->get_left_margin = get_left_margin;
 	object_class->get_right_margin = get_right_margin;
 	object_class->get_direction = html_cluev_real_get_direction;
+	object_class->get_recursive_length = get_recursive_length;
 	object_class->destroy = html_cluev_destroy;
 
 	clue_class->get_left_clear = get_left_clear;
@@ -1027,6 +1042,7 @@ html_cluev_init (HTMLClueV *cluev,
 	cluev->border_width = 0;
 	cluev->border_color = NULL;
 	cluev->background_color = NULL;
+	cluev->display = DISPLAY_INLINE;
 }
 
 HTMLObject *
@@ -1064,6 +1080,7 @@ html_cluev_set_style (HTMLClueV *cluev,
 		cluev->background_color = style->bg_color;
 		if (cluev->background_color)
 			html_color_ref (cluev->background_color);
+		cluev->display = style->display;
 	} else {
 		if (cluev->border_color)
 			html_color_unref (cluev->border_color);
@@ -1075,5 +1092,6 @@ html_cluev_set_style (HTMLClueV *cluev,
 		cluev->border_width = 0;
 		cluev->border_color = NULL;
 		cluev->background_color = NULL;
+		cluev->display = DISPLAY_INLINE;
 	}
 }
