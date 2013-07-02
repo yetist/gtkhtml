@@ -1039,6 +1039,9 @@ html_object_set_parent (HTMLObject *o,
                         HTMLObject *parent)
 {
 	o->parent = parent;
+
+	/* parent change requires recalc of everything */
+	o->change = HTML_CHANGE_ALL;
 }
 
 static void
