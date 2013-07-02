@@ -474,11 +474,13 @@ static void
 draw_lines (HTMLPrinter *printer,
             double x,
             double y,
-            double width,
+            const PangoRectangle log_rect,
             PangoAnalysis *analysis,
             HTMLPangoProperties *properties)
 {
 	PangoFontMetrics *metrics;
+	gint dsc, asc;
+	gdouble width;
 	cairo_t *cr;
 
 	if (!properties->underline && !properties->strikethrough)
@@ -488,26 +490,26 @@ draw_lines (HTMLPrinter *printer,
 	cr = gtk_print_context_get_cairo_context (printer->context);
 	cairo_set_line_cap (cr, CAIRO_LINE_CAP_BUTT);
 
+	width = pango_units_to_double (log_rect.width);
+	dsc = PANGO_PIXELS (PANGO_DESCENT (log_rect));
+	asc = PANGO_PIXELS (PANGO_ASCENT (log_rect));
+
 	if (properties->underline) {
 		gdouble thickness = pango_units_to_double (pango_font_metrics_get_underline_thickness (metrics));
-		gdouble position = pango_units_to_double (pango_font_metrics_get_underline_position (metrics));
-		gdouble ly = y + position - thickness / 2;
 
 		cairo_new_path (cr);
-		cairo_move_to (cr, x, ly + 4);
-		cairo_line_to (cr, x + width, ly + 4);
+		cairo_move_to (cr, x, y + dsc - 2);
+		cairo_line_to (cr, x + width, y + dsc - 2);
 		cairo_set_line_width (cr, thickness);
 		cairo_stroke (cr);
 	}
 
 	if (properties->strikethrough) {
 		gdouble thickness = pango_units_to_double (pango_font_metrics_get_strikethrough_thickness (metrics));
-		gdouble position = pango_units_to_double (pango_font_metrics_get_strikethrough_position (metrics));
-		gdouble ly = y + position - thickness / 2;
 
 		cairo_new_path (cr);
-		cairo_move_to (cr, x, ly - 8);
-		cairo_line_to (cr, x + width, ly - 8);
+		cairo_move_to (cr, x, y - asc + (asc + dsc) / 2);
+		cairo_line_to (cr, x + width, y - asc + (asc + dsc) / 2);
 		cairo_set_line_width (cr, thickness);
 		cairo_stroke (cr);
 	}
@@ -566,7 +568,7 @@ draw_glyphs (HTMLPainter *painter,
 				       item->analysis.font,
 				       glyphs);
 	draw_lines (printer, print_x, print_y,
-		    pango_units_to_double (log_rect.width),
+		    log_rect,
 		    &item->analysis, &properties);
 
 	cairo_restore (cr);
