@@ -421,7 +421,7 @@ html_engine_activate_selection (HTMLEngine *e,
 	/* printf ("activate selection\n"); */
 
 	if (e->selection && e->block_selection == 0 && gtk_widget_get_realized (GTK_WIDGET (e->widget))) {
-		gtk_selection_owner_set (GTK_WIDGET (e->widget), GDK_SELECTION_PRIMARY, time);
+		/* gtk_selection_owner_set (GTK_WIDGET (e->widget), GDK_SELECTION_PRIMARY, time); */
 		/* printf ("activated (%u).\n", time); */
 		clear_primary (e);
 		html_engine_copy_object (e, &e->primary, &e->primary_len);
