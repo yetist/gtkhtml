@@ -1,3 +1,22 @@
+GtkHTML-4.6.6 2013-07-23
+------------------------
+
+Bug Fixes:
+	Bug 699574 - gtk_selection_owner_set() breaks mouse wheel scrolling
+	             (Milan Crha)
+
+Other Changes:
+	* Paste of HTML text removes leading/trailing whitespaces (Milan Crha)
+	* Skip \n and \r from whitespace recognition on HTML text paste
+	  (Milan Crha)
+	* Underline and strikeout lines out of its position in a printout
+	  (Milan Crha)
+	* Paragraph style drawn incorrectly after font style change
+	  (Milan Crha)
+	* Wrong cursor position after paste of text with <div></div>
+	  (Milan Crha)
+
+
 GtkHTML-4.6.5 2013-05-12
 ------------------------
 
