@@ -1,3 +1,15 @@
+GtkHTML-4.8.0 2014-03-24
+-------------------------
+
+Miscellaneous:
+	Adjust to gtk+ a11y changes (Rui Matos)
+
+Translations:
+	Milo Casagrande (it)
+	Inaki Larranaga Murgoitio (eu)
+	Rūdolfs Mazurs (lv)
+	Wylmer Wang (zh_CN)
+
 GtkHTML-4.5.91 2012-09-03
 -------------------------
 
