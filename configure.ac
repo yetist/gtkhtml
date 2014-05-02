@@ -11,7 +11,6 @@ PACKAGE=gtkhtml
 dnl Required Package Versions
 m4_define([gtk_minimum_version], [3.2.0])
 m4_define([enchant_minimum_version], [1.1.7])
-m4_define([gnome_icon_theme_minimum_version], [2.22.0])
 m4_define([cairo_minimum_version], [1.10.0])
 
 GTKHTML_API_VERSION=4.0
@@ -180,11 +179,6 @@ PKG_CHECK_MODULES(SOUP, libsoup-2.4  >= 2.26.0,
 AC_SUBST(HAVE_NEWSOUP)
 AM_CONDITIONAL(HAVE_SOUP, test x$have_soup != xno)
 AM_CONDITIONAL(HAVE_NEWSOUP, test x$HAVE_NEWSOUP != xno)
-
-dnl **************************************************
-dnl Gnome Icon Theme
-dnl **************************************************
-PKG_CHECK_MODULES(GIT, gnome-icon-theme >= gnome_icon_theme_minimum_version)
 
 dnl **************************************************
 dnl iso-codes
