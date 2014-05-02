@@ -1,5 +1,12 @@
+GtkHTML-4.8.1 2014-05-02
+------------------------
+
+Bugs:
+	Bug #729020 - Drop gnome-icon-theme dependency (Matthias Clasen)
+
+
 GtkHTML-4.8.0 2014-03-24
--------------------------
+------------------------
 
 Miscellaneous:
 	Adjust to gtk+ a11y changes (Rui Matos)
