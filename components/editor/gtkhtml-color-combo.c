@@ -1008,7 +1008,7 @@ color_combo_build_popup_window (GtkhtmlColorCombo *combo)
 		GdkColor color;
 		const gchar *tooltip;
 
-		tooltip = gettext (default_colors[ii].tooltip);
+		tooltip = _(default_colors[ii].tooltip);
 		gdk_color_parse (default_colors[ii].color, &color);
 		widget = color_combo_new_swatch_button (
 			combo, tooltip, &color);
