@@ -353,7 +353,7 @@ html_undo_thaw (HTMLUndo *undo)
  *               from cut_buffer on actual cursor position
  *             - if you don't use udo levels, it will generate two undo
  *               steps/actions replace
- *             - replace uses paste operation, so when it replaces N occurences,
+ *             - replace uses paste operation, so when it replaces N occurrences,
  *               it generates 2*N steps (without using undo levels in paste and
  *               replace)
  *

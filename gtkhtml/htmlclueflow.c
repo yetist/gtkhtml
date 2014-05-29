@@ -980,7 +980,7 @@ layout_line (HTMLObject *o,
 
 	if (html_object_is_text (begin)) {
 		update_leafs_children_changed_size (begin, leaf_children_changed_size);
-		/* this ever succeds and creates slaves */
+		/* this ever succeeds and creates slaves */
 		html_object_calc_size (begin, painter, changed_objs);
 		html_object_fit_line (begin, painter, first, first, FALSE, 0);
 		begin = begin->next;

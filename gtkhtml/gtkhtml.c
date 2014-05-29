@@ -3973,7 +3973,7 @@ gtk_html_save (GtkHTML *html,
  * by calling the function listed in @receiver data becomes avaiable.  When @receiver is
  * called @user_data is passed in as the user_data parameter.
  *
- * Returns: TRUE if the export was successfull, FALSE otherwise.
+ * Returns: TRUE if the export was successful, FALSE otherwise.
  **/
 gboolean
 gtk_html_export (GtkHTML *html,
