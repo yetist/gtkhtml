@@ -624,7 +624,7 @@ face_tool_button_build_popup_window (GtkhtmlFaceToolButton *button)
 		gchar *tooltip;
 
 		tooltip = face_tool_button_elide_underscores (
-			gettext (face->label));
+			_(face->label));
 
 		widget = gtk_button_new ();
 		gtk_button_set_image (
