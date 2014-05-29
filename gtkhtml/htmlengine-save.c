@@ -37,6 +37,13 @@
 
 #include "gtkhtmldebug.h"
 
+/* %# = 2 characters
+ * at most 10 characters from gunichar = guint32 (0 to 4294967296)
+ * ;  = 1 character
+ * \0 = 1 character
+ */
+#define HTML_ENTITIES_MAX_LENGTH	14
+
 
 /* This routine was originally written by Daniel Velliard, (C) 1998 World Wide
  * Web Consortium.  */
@@ -107,9 +114,9 @@ html_encode_entities (const gchar *input,
 			/* Default case, just copy. */
 			*out++ = uc;
 		} else {
-			gchar buf[10], *ptr;
+			gchar buf[HTML_ENTITIES_MAX_LENGTH], *ptr;
 
-			g_snprintf (buf, 9, "&#%d;", uc);
+			g_snprintf (buf, HTML_ENTITIES_MAX_LENGTH, "&#%d;", uc);
 
 			ptr = buf;
 			while (*ptr != 0)
