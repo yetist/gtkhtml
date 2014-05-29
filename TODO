@@ -36,6 +36,6 @@
 - If editing an HTML file loaded (or already saved at least once) where
   we thus know its location in the file system, pathnames for images,
   background pixmaps, and links that point to files in the same file
-  system subtree sould be automatically converted to relative URIs
+  system subtree should be automatically converted to relative URIs
   instead of full absolute path file: URIs. That would be much more
   useful.

@@ -4244,7 +4244,7 @@ html_engine_finalize (GObject *object)
 
         /* it is critical to destroy timers immediately so that
 	 * if widgets contained in the object tree manage to iterate the
-	 * mainloop we don't reenter in an inconsistant state.
+	 * mainloop we don't reenter in an inconsistent state.
 	 */
 	if (engine->timerId != 0) {
 		g_source_remove (engine->timerId);
@@ -4967,7 +4967,7 @@ update_embedded (GtkWidget *widget,
 	HTMLObject *obj;
 
 	/* FIXME: this is a hack to update all the embedded widgets when
-	 * they get moved off screen it isn't gracefull, but it should be a effective
+	 * they get moved off screen it isn't graceful, but it should be a effective
 	 * it also duplicates the draw_obj function in the drawqueue function very closely
 	 * the common code in these functions should be merged and removed, but until then
 	 * enjoy having your objects out of the way :)

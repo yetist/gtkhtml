@@ -621,7 +621,7 @@ html_cursor_real_jump_to (HTMLCursor *cursor,
  * Where exactly move to, depends on the is_cursor_position in PangoLogAttr say.
  * This is useful for such as Indic languages that relies on that feature.
  *
- * Return value: %TRUE if successfull, %FALSE if failed.
+ * Return value: %TRUE if successful, %FALSE if failed.
  **/
 gboolean
 html_cursor_jump_to (HTMLCursor *cursor,
