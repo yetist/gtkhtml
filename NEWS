@@ -1,3 +1,13 @@
+GtkHTML-4.8.2 2014-06-09
+------------------------
+
+Bug Fixes:
+	Bug 729414 - Correct spelling typos in devel docs and code comments (Ville Skyttä)
+	Bug 729944 - UTF-8 characters are not always encoded correctly (Jonas Hahnfeld)
+
+Translations:
+	Lasse Liehu (fi)
+
 GtkHTML-4.8.1 2014-05-02
 ------------------------
 
