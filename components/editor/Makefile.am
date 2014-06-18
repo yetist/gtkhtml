@@ -115,6 +115,9 @@ EXTRA_DIST = \
 CLEANFILES = $(BUILT_SOURCES)
 DISTCLEANFILES = $(pkgconfig_DATA)
 
+dist-hook:
+	cd $(distdir); rm -f $(BUILT_SOURCES)
+
 if GLADE_CATALOG
 
 gladecatalog_DATA = gtkhtml-editor.xml
