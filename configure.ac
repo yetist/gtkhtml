@@ -279,7 +279,6 @@ dnl **************
 
 AC_CONFIG_FILES([
 Makefile
-gtkhtml-zip
 a11y/Makefile
 art/Makefile
 components/Makefile

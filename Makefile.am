@@ -34,7 +34,6 @@ MAINTAINERCLEANFILES =				\
 	$(srcdir)/m4/lt~obsolete.m4
 
 EXTRA_DIST =					\
-	gtkhtml-zip.in				\
 	COPYING.LIB				\
 	BUGS					\
 	intltool-extract.in			\
