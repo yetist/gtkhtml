@@ -318,7 +318,6 @@ gtkhtml_editor_private_constructed (GtkhtmlEditor *editor)
 	/* Initialize painters (requires "edit_area"). */
 
 	html = gtkhtml_editor_get_html (editor);
-	gtk_widget_ensure_style (GTK_WIDGET (html));
 	priv->html_painter = g_object_ref (html->engine->painter);
 	priv->plain_painter = html_plain_painter_new (priv->edit_area, TRUE);
 

@@ -42,8 +42,6 @@ set_format (GtkHTML *html,
 {
 	HTMLGdkPainter *p, *old_p;
 
-	gtk_widget_ensure_style (GTK_WIDGET (html));
-
 	if (!plain_painter) {
 		gdk_painter = HTML_GDK_PAINTER (html->engine->painter);
 		plain_painter = HTML_GDK_PAINTER (html_plain_painter_new (GTK_WIDGET (html), TRUE));
