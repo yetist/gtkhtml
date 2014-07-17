@@ -149,6 +149,9 @@ image_chooser_dialog_constructed (GObject *object)
 	GtkFileChooser *file_chooser;
 	GtkFileFilter *file_filter;
 
+	/* Chain up to parent's method. */
+	G_OBJECT_CLASS (gtkhtml_image_chooser_dialog_parent_class)->constructed (object);
+
 	file_chooser = GTK_FILE_CHOOSER (object);
 	gtk_file_chooser_set_local_only (file_chooser, FALSE);
 
