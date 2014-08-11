@@ -1,3 +1,9 @@
+GtkHTML-4.8.4 2014-08-11
+------------------------
+
+Miscellaneous:
+	Add forgotten chain-up-s to parent's constructed() method (Milan Crha)
+
 GtkHTML-4.8.3 2014-07-14
 ------------------------
 
