@@ -5290,10 +5290,11 @@ html_engine_draw_real (HTMLEngine *e,
 		e->clue->y = html_engine_get_top_border (e) + e->clue->ascent;
 		html_object_draw (e->clue, e->painter, x1, y1, x2 - x1, y2 - y1, 0, 0);
 	}
-	html_painter_end (e->painter);
 
 	if (e->editable || e->caret_mode)
 		html_engine_draw_cursor_in_area (e, x1, y1, x2 - x1, y2 - y1);
+
+	html_painter_end (e->painter);
 
 	e->expose = FALSE;
 }
