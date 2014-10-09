@@ -207,6 +207,16 @@ html_colorset_set_style (HTMLColorSet *s,
 													\
 		SET_GCOLOR (t, color_rgba);								\
 	}
+#define SET_COLOR_STYLE2(t,nm1,nm2,flbk)								\
+	if (!s->changed[HTML ## t ## Color]) {								\
+		GdkRGBA color_rgba;									\
+													\
+		if (!gtk_style_context_lookup_color (style_context, nm1, &color_rgba) &&		\
+		    !gtk_style_context_lookup_color (style_context, nm2, &color_rgba))			\
+			gdk_rgba_parse (&color_rgba, flbk);						\
+													\
+		SET_GCOLOR (t, color_rgba);								\
+	}
 
 	GdkRGBA color;
 	gboolean backdrop;
@@ -217,7 +227,7 @@ html_colorset_set_style (HTMLColorSet *s,
 	backdrop = (state_flags & GTK_STATE_FLAG_BACKDROP) != 0;
 
 	SET_COLOR_STYLE (Bg,   backdrop ? "theme_unfocused_base_color" : "theme_base_color",   "#ffffff");
-	SET_COLOR_STYLE (Text, backdrop ? "theme_unfocused_text_color" : "theme_text_color", "#000000");
+	SET_COLOR_STYLE2 (Text, backdrop ? "theme_unfocused_text_color" : "theme_text_color", backdrop ? "theme_unfocused_fg_color" : "theme_fg_color", "#000000");
 
 	SET_COLOR_STYLE (Highlight,       backdrop ? "theme_unfocused_selected_bg_color" : "theme_selected_bg_color", "#7f7fff");
 	SET_COLOR_STYLE (HighlightText,   backdrop ? "theme_unfocused_selected_fg_color" : "theme_selected_fg_color", "#000000");
