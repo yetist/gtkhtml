@@ -3,89 +3,26 @@
 # Fatih Demir <kabalak@gtranslator.org>, 2001.
 # Nilgün Belma Bugüner <nilgun@fide.org>, 2001, 2002.
 # Onur Can ÇAKMAK <onur.cakmak@gmail.com>, 2006.
-# 
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
-# Baris Cicek <baris@teamforce.name.tr>, 2008.
 # Baris Cicek <baris@teamforce.name.tr>, 2008.
 # Muhammet Kara <muhammetk@gmail.com>, 2014.
+# Necdet Yücel <necdetyucel@gmail.com>, 2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gtkhtml&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-04-18 09:48+0000\n"
-"PO-Revision-Date: 2014-12-11 10:07+0200\n"
-"Last-Translator: Muhammet Kara <muhammetk@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gtkhtml"
+"&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2014-12-22 22:07+0000\n"
+"PO-Revision-Date: 2014-12-23 00:02+0000\n"
+"Last-Translator: Necdet Yücel <necdetyucel@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1419292972.000000\n"
 
 #: ../a11y/image.c:152
 #, c-format
@@ -304,13 +241,11 @@ msgstr "D_il"
 
 #. Translators: :-))
 #: ../components/editor/gtkhtml-face-chooser.c:42
-#| msgid "_Laughing"
 msgid "Laug_h"
 msgstr "Ka_hkaha at"
 
 #. Translators: :-|
 #: ../components/editor/gtkhtml-face-chooser.c:44
-#| msgid "_Plain Text"
 msgid "_Plain"
 msgstr "_Düz"
 
@@ -326,7 +261,6 @@ msgstr "_Utangaç"
 
 #. Translators: :-D
 #: ../components/editor/gtkhtml-face-chooser.c:50
-#| msgid "_Smile"
 msgid "_Big Smile"
 msgstr "_Büyük Gülümseme"
 
@@ -337,7 +271,6 @@ msgstr "Karars_ız"
 
 #. Translators: :-O
 #: ../components/editor/gtkhtml-face-chooser.c:54
-#| msgid "Su_rprised"
 msgid "S_urprise"
 msgstr "_Sürpriz"
 
@@ -363,7 +296,6 @@ msgstr "_Havalı"
 
 #. Translators: O:-)
 #: ../components/editor/gtkhtml-face-chooser.c:64
-#| msgid "_Angel"
 msgid "Ange_l"
 msgstr "Me_lek"
 
@@ -384,7 +316,6 @@ msgstr "Yorgu_n"
 
 #. Translators: >:-)
 #: ../components/editor/gtkhtml-face-chooser.c:72
-#| msgid "_Devilish"
 msgid "De_vilish"
 msgstr "Ş_eytani"
 
@@ -394,16 +325,14 @@ msgid "_Monkey"
 msgstr "_Maymun"
 
 #: ../components/editor/gtkhtml-editor-actions.c:175
-#, fuzzy
 #| msgid "Insert HTML File"
 msgid "Failed to insert HTML file."
-msgstr "HTML Dosyası Ekle"
+msgstr "HTML dosyasına ekleme başarısız oldu."
 
 #: ../components/editor/gtkhtml-editor-actions.c:212
-#, fuzzy
 #| msgid "Insert Text File"
 msgid "Failed to insert text file."
-msgstr "Metin Dosyası Ekle"
+msgstr "Metin dosyasına ekleme başarısız oldu."
 
 #: ../components/editor/gtkhtml-editor-actions.c:512
 msgid "No match found"
@@ -441,7 +370,6 @@ msgid "_Copy"
 msgstr "_Kopyala"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1223
-#| msgid "Copy selection to clipboard"
 msgid "Copy selected text to the clipboard"
 msgstr "Seçili metni panoya kopyala"
 
@@ -450,7 +378,6 @@ msgid "Cu_t"
 msgstr "_Kes"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1230
-#| msgid "Cut selection to clipboard"
 msgid "Cut selected text to the clipboard"
 msgstr "Seçili metni kes ve panoya yapıştır"
 
@@ -479,7 +406,6 @@ msgid "_Paste"
 msgstr "_Yapıştır"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1279
-#| msgid "Paste from clipboard"
 msgid "Paste text from the clipboard"
 msgstr "Panodaki metni yapıştır"
 
@@ -492,10 +418,9 @@ msgid "_Redo"
 msgstr "_Tekrar yap"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1293
-#, fuzzy
 #| msgid "Redo the undone action"
 msgid "Redo the last undone action"
-msgstr "Geri alınanları yeniden yap"
+msgstr "Son geri alınan işlemi tekrar yap"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1298
 msgid "Select _All"
@@ -906,7 +831,6 @@ msgid "Add Word To"
 msgstr "Kelimeyi Ekle"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1969
-#| msgid "Suggestions for \"%s\""
 msgid "More Suggestions"
 msgstr "Daha Fazla Öneri"
 
@@ -922,10 +846,9 @@ msgid "_Emoticon"
 msgstr "_Surat"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2139
-#, fuzzy
 #| msgid "Insert Link"
 msgid "Insert Emoticon"
-msgstr "Bağlantı Ekle"
+msgstr "Yüz İfadesi Simgesi Ekle"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2201
 msgid "_Find"
@@ -969,26 +892,23 @@ msgstr "Yazıtipi Rengi"
 msgid "Font Size"
 msgstr "Yazıtipi Boyutu"
 
-#: ../components/editor/gtkhtml-editor-private.c:340
+#: ../components/editor/gtkhtml-editor-private.c:339
 msgid "Automatic"
 msgstr "Otomatik"
 
-#: ../components/editor/gtkhtml-editor-private.c:548
-#| msgid "Could not load glade file."
+#: ../components/editor/gtkhtml-editor-private.c:547
 msgid "Could not open the link."
 msgstr "Bağlantı açılamadı."
 
 #: ../components/editor/gtkhtml-editor.c:878
-#, fuzzy
 #| msgid "Page Properties"
 msgid "Changed property"
-msgstr "Sayfa Özellikleri"
+msgstr "Değiştirilen Özellik"
 
 #: ../components/editor/gtkhtml-editor.c:879
-#, fuzzy
 #| msgid "Whether the html can be edited"
 msgid "Whether editor changed"
-msgstr "Html düzenlenebilirliği"
+msgstr "Düzenleyici değiştirilmiş olsun"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:1
 msgid "px"
@@ -1000,10 +920,6 @@ msgid "%"
 msgstr "%"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:4
-#| msgid ""
-#| "px\n"
-#| "%\n"
-#| "follow"
 msgid "follow"
 msgstr "takip et"
 
@@ -1036,13 +952,11 @@ msgid "None"
 msgstr "Yok"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:12
-#, fuzzy
 #| msgid "Perforated paper"
 msgid "Perforated Paper"
-msgstr "Delikli kağıt"
+msgstr "Delikli Kağıt"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:13
-#| msgid "Blue ink"
 msgid "Blue Ink"
 msgstr "Mavi Mürekkep"
 
@@ -1067,7 +981,6 @@ msgid "Draft"
 msgstr "Taslak"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:19
-#| msgid "Graph paper"
 msgid "Graph Paper"
 msgstr "Grafik Kağıdı"
 
@@ -1149,7 +1062,6 @@ msgid "Rule Properties"
 msgstr "Kural Özellikleri"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:44
-#| msgid "Size:"
 msgid "Size"
 msgstr "Boyut"
 
@@ -1186,7 +1098,6 @@ msgid "C_olumns:"
 msgstr "_Sütunlar:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:53
-#| msgid "<b>Layout</b>"
 msgid "Layout"
 msgstr "Düzen"
 
@@ -1203,7 +1114,6 @@ msgid "_Border:"
 msgstr "_Kenarlık:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:57
-#| msgid "_Background:"
 msgid "Background"
 msgstr "Arkaplan"
 
@@ -1268,7 +1178,6 @@ msgid "C_ell"
 msgstr "H_ücre"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:74
-#| msgid "<b>Alignment &amp; Behavior</b>"
 msgid "Alignment & Behavior"
 msgstr "Hizalama ve Davranış"
 
