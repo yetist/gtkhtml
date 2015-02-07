@@ -1,24 +1,25 @@
-# translation of eu.po to Basque
+# Basque translation for gtkhtml
 #
 # Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>, 2005.
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2006, 2007, 2008, 2009, 2010.
-# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2011, 2013.
+# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2011, 2013, 2014, 2015.
+# Edurne Labaka <elabaka@uzei.com>, 2015.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eu\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-30 16:52+0200\n"
-"PO-Revision-Date: 2013-08-30 16:49+0200\n"
+"Project-Id-Version: gtkhtml master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gtkhtml&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-02-07 17:29+0100\n"
+"PO-Revision-Date: 2014-11-19 13:45+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
 "Language-Team: Basque <librezale@librezale.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Poedit 1.6.10\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"\n"
 
 #: ../a11y/image.c:152
 #, c-format
@@ -30,11 +31,11 @@ msgstr "URLa %s da, bestelako testua %s da"
 msgid "URL is %s"
 msgstr "URLa %s da"
 
-#: ../a11y/object.c:52 ../a11y/object.c:62 ../a11y/text.c:126
+#: ../a11y/object.c:54 ../a11y/object.c:64 ../a11y/text.c:126
 msgid "grab focus"
 msgstr "lortu fokua"
 
-#: ../a11y/object.c:258
+#: ../a11y/object.c:234
 msgid "Panel containing HTML"
 msgstr "HTML duen panela"
 
@@ -313,7 +314,7 @@ msgstr "_Nekatua"
 #. Translators: >:-)
 #: ../components/editor/gtkhtml-face-chooser.c:72
 msgid "De_vilish"
-msgstr "_Inpernukoa"
+msgstr "_Infernukoa"
 
 #. Translators: :-(|)
 #: ../components/editor/gtkhtml-face-chooser.c:74
@@ -504,7 +505,7 @@ msgstr "_Erdian"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1417
 msgid "Center Alignment"
-msgstr "Zentruan lerrokatua"
+msgstr "Zentroan lerrokatua"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1422
 msgid "_Left"
@@ -884,11 +885,11 @@ msgstr "Letra-tipoaren kolorea"
 msgid "Font Size"
 msgstr "Letra-tamaina"
 
-#: ../components/editor/gtkhtml-editor-private.c:340
+#: ../components/editor/gtkhtml-editor-private.c:339
 msgid "Automatic"
 msgstr "Automatikoa"
 
-#: ../components/editor/gtkhtml-editor-private.c:548
+#: ../components/editor/gtkhtml-editor-private.c:547
 msgid "Could not open the link."
 msgstr "Ezin izan da esteka ireki."
 
