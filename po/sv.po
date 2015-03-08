@@ -1,26 +1,24 @@
 # Swedish messages for gtkhtml.
-# Copyright © 2000-2009, 2014 Free Software Foundation, Inc.
+# Copyright © 2000-2009, 2014, 2015 Free Software Foundation, Inc.
 # Christian Rose <menthos@menthos.com>, 2000, 2001, 2002, 2003, 2004, 2005.
 # Martin Norbäck <d95mback@dtek.chalmers.se>, 2000.
 # Daniel Nylander <po@danielnylander.se>, 2006, 2007, 2008, 2009, 2010.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2014.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2014, 2015.
 #
-# $Id: sv.po,v 1.103 2006/07/16 16:47:50 dnylande Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gtkhtml&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2014-04-17 09:42+0000\n"
-"PO-Revision-Date: 2014-05-26 14:59+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gtkhtml&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-02-26 10:31+0000\n"
+"PO-Revision-Date: 2015-02-26 17:45+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.7.3\n"
 
 #: ../a11y/image.c:152
 #, c-format
@@ -250,7 +248,7 @@ msgstr "_Likgiltig"
 #. Translators: :-!
 #: ../components/editor/gtkhtml-face-chooser.c:46
 msgid "Smi_rk"
-msgstr "Smi_la"
+msgstr "Fli_na"
 
 #. Translators: :"-)
 #: ../components/editor/gtkhtml-face-chooser.c:48
@@ -838,11 +836,11 @@ msgstr "Ordboken %s"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2138
 msgid "_Emoticon"
-msgstr "Känsloik_on"
+msgstr "Humörsymb_ol"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2139
 msgid "Insert Emoticon"
-msgstr "Infoga känsloikon"
+msgstr "Infoga humörsymbol"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2201
 msgid "_Find"
@@ -886,11 +884,11 @@ msgstr "Typsnittsfärg"
 msgid "Font Size"
 msgstr "Typsnittsstorlek"
 
-#: ../components/editor/gtkhtml-editor-private.c:340
+#: ../components/editor/gtkhtml-editor-private.c:339
 msgid "Automatic"
 msgstr "Automatisk"
 
-#: ../components/editor/gtkhtml-editor-private.c:548
+#: ../components/editor/gtkhtml-editor-private.c:547
 msgid "Could not open the link."
 msgstr "Kunde inte öppna länken."
 
@@ -1367,252 +1365,3 @@ msgstr "Kan inte allokera standardtypsnitt för utskrift"
 #: ../gtkhtml/test.c:374
 msgid "GtkHTML Test"
 msgstr "GtkHTML-test"
-
-#~ msgid "Current color"
-#~ msgstr "Aktuell färg"
-
-#~ msgid "The currently selected color"
-#~ msgstr "Den för närvarande valda färgen"
-
-#~ msgid "Default color"
-#~ msgstr "Standardfärg"
-
-#~ msgid "The color associated with the default button"
-#~ msgstr "Färgen som associerats med standardknappen"
-
-#~ msgid "Default label"
-#~ msgstr "Standardetikett"
-
-#~ msgid "The label for the default button"
-#~ msgstr "Etiketten för standardknappen"
-
-#~ msgid "Default is transparent"
-#~ msgstr "Standard är genomskinlig"
-
-#~ msgid "Whether the default color is transparent"
-#~ msgstr "Huruvida standardfärgen är genomskinlig"
-
-#~ msgid "Color palette"
-#~ msgstr "Färgpalett"
-
-#~ msgid "Custom color palette"
-#~ msgstr "Anpassad färgpalett"
-
-#~ msgid "Popup shown"
-#~ msgstr "Popup visad"
-
-#~ msgid "Whether the combo's dropdown is shown"
-#~ msgstr "Huruvida kombinationsrutans rullgardinsmeny visas"
-
-#~ msgid "Color state"
-#~ msgstr "Färgtillstånd"
-
-#~ msgid "The state of a color combo box"
-#~ msgstr "Tillståndet för en färgkombinationsruta"
-
-#~ msgid "The current color"
-#~ msgstr "Aktuella färgen"
-
-#~ msgid "The default color"
-#~ msgstr "Standardfärgen"
-
-#~ msgid "Description of the default color"
-#~ msgstr "Beskrivning av standardfärgen"
-
-#~ msgid "Color"
-#~ msgstr "Färg"
-
-#~ msgid "Frame Shadow"
-#~ msgstr "Ramskugga"
-
-#~ msgid "Appearance of the frame border"
-#~ msgstr "Utseende för ramkanten"
-
-#~ msgid "Action"
-#~ msgstr "Åtgärd"
-
-#~ msgid "A GtkRadioAction"
-#~ msgstr "En GtkRadioAction"
-
-#~ msgid "Current Folder"
-#~ msgstr "Aktuell mapp"
-
-#~ msgid "The initial folder for file chooser dialogs"
-#~ msgstr "Den initiala mappen för filväljardialoger"
-
-#~ msgid "Filename"
-#~ msgstr "Filnamn"
-
-#~ msgid "The filename to use when saving"
-#~ msgstr "Filnamnet att använda när du sparar"
-
-#~ msgid "HTML Editing Widget"
-#~ msgstr "HTML-redigeringswidget"
-
-#~ msgid "The main HTML editing widget"
-#~ msgstr "Huvudsaklig HTML-redigeringswidget"
-
-#~ msgid "HTML Mode"
-#~ msgstr "HTML-läge"
-
-#~ msgid "Edit HTML or plain text"
-#~ msgstr "Redigera HTML eller vanlig text"
-
-#~ msgid "Inline Spelling"
-#~ msgstr "Använd stavningskontroll"
-
-#~ msgid "Check your spelling as you type"
-#~ msgstr "Kontrollera stavningen när du skriver"
-
-#~ msgid "Magic Links"
-#~ msgstr "Magiska länkar"
-
-#~ msgid "Make URIs clickable as you type"
-#~ msgstr "Gör URI:er klickbara när du skriver"
-
-#~ msgid "Magic Smileys"
-#~ msgstr "Magiska smilisar"
-
-#~ msgid "Convert emoticons to images as you type"
-#~ msgstr "Konvertera känsloikoner till bilder när du skriver"
-
-#~ msgid "Language"
-#~ msgstr "Språk"
-
-#~ msgid "The language used by the spell checker"
-#~ msgstr "Språket som används av stavningskontrollen"
-
-#~ msgid "Misspelled Word"
-#~ msgstr "Felstavat ord"
-
-#~ msgid "The current misspelled word"
-#~ msgstr "Det aktuella felstavade ordet"
-
-#~ msgid "Editable"
-#~ msgstr "Redigerbar"
-
-#~ msgid "Document Title"
-#~ msgstr "Dokumenttitel"
-
-#~ msgid "The title of the current document"
-#~ msgstr "Titeln på det aktuella dokumentet"
-
-#~ msgid "Document Base"
-#~ msgstr "Dokumentbas"
-
-#~ msgid "The base URL for relative references"
-#~ msgstr "Bas-URL:en för relativa referenser"
-
-#~ msgid "Target Base"
-#~ msgstr "Målbas"
-
-#~ msgid "The base URL of the target frame"
-#~ msgstr "Bas-URL:en för målramen"
-
-#~ msgid "Fixed Width Font"
-#~ msgstr "Typsnitt med fast breddsteg"
-
-#~ msgid "The Monospace font to use for typewriter text"
-#~ msgstr "Typsnittet med fast breddsteg som ska användas för skrivmaskinstext"
-
-#~ msgid "New Link Color"
-#~ msgstr "Färg för ny länk"
-
-#~ msgid "The color of new link elements"
-#~ msgstr "Färgen på nya länkelement"
-
-#~ msgid "Visited Link Color"
-#~ msgstr "Färg för besökt länk"
-
-#~ msgid "The color of visited link elements"
-#~ msgstr "Färgen på besökta länkelement"
-
-#~ msgid "Active Link Color"
-#~ msgstr "Färg för aktiv länk"
-
-#~ msgid "The color of active link elements"
-#~ msgstr "Färgen på aktiva länkelement"
-
-#~ msgid "Spelling Error Color"
-#~ msgstr "Stavfelsfärg"
-
-#~ msgid "The color of the spelling error markers"
-#~ msgstr "Färgen på markörerna för stavfel"
-
-#~ msgid "Cite Quotation Color"
-#~ msgstr "Citatfärg"
-
-#~ msgid "The color of the cited text"
-#~ msgstr "Färgen på den citerade texten"
-
-#~ msgid "<b>Alignment &amp; Behavior</b>"
-#~ msgstr "<b>Justering och beteende</b>"
-
-#~ msgid "<b>Alignment</b>"
-#~ msgstr "<b>Justering</b>"
-
-#~ msgid "<b>Background Image</b>"
-#~ msgstr "<b>Bakgrundsbild</b>"
-
-#~ msgid "<b>Background</b>"
-#~ msgstr "<b>Bakgrund</b>"
-
-#~ msgid "<b>Colors</b>"
-#~ msgstr "<b>Färger</b>"
-
-#~ msgid "<b>General</b>"
-#~ msgstr "<b>Allmänt</b>"
-
-#~ msgid "<b>Layout</b>"
-#~ msgstr "<b>Layout</b>"
-
-#~ msgid "<b>Link</b>"
-#~ msgstr "<b>Länk</b>"
-
-#~ msgid "<b>Scope</b>"
-#~ msgstr "<b>Räckvidd</b>"
-
-#~ msgid "<b>Size</b>"
-#~ msgstr "<b>Storlek</b>"
-
-#~ msgid "<b>Style</b>"
-#~ msgstr "<b>Stil</b>"
-
-#~ msgid ""
-#~ "Left\n"
-#~ "Center\n"
-#~ "Right"
-#~ msgstr ""
-#~ "Vänster\n"
-#~ "Centrera\n"
-#~ "Höger"
-
-#~ msgid ""
-#~ "None\n"
-#~ "Perforated Paper\n"
-#~ "Blue Ink\n"
-#~ "Paper\n"
-#~ "Ribbon\n"
-#~ "Midnight\n"
-#~ "Confidential\n"
-#~ "Draft\n"
-#~ "Graph Paper"
-#~ msgstr ""
-#~ "Ingen\n"
-#~ "Hålat papper\n"
-#~ "Blått bläck\n"
-#~ "Papper\n"
-#~ "Ribbon\n"
-#~ "Midnatt\n"
-#~ "Konfidentiellt\n"
-#~ "Utdrag\n"
-#~ "Mönsterpapper"
-
-#~ msgid ""
-#~ "Top\n"
-#~ "Middle\n"
-#~ "Bottom"
-#~ msgstr ""
-#~ "Överst\n"
-#~ "Mitten\n"
-#~ "Nederst"
