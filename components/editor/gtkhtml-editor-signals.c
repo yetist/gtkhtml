@@ -1053,17 +1053,22 @@ gtkhtml_editor_link_properties_description_changed_cb (GtkWidget *window))
 		glong length;
 		Link *link;
 
-		link = html_text_get_link_at_offset (HTML_TEXT (html->engine->cursor->object), html->engine->cursor->offset);
+		if (HTML_IS_TEXT (html->engine->cursor->object))
+			link = html_text_get_link_at_offset (HTML_TEXT (html->engine->cursor->object), html->engine->cursor->offset);
+		else
+			link = NULL;
 		length = g_utf8_strlen (text, -1);
 
 		if (link && link->start_offset != link->end_offset) {
+			HTMLObject *cursor_object = html->engine->cursor->object;
+
 			html_cursor_jump_to (
 				html->engine->cursor, html->engine,
-				html->engine->cursor->object, link->start_offset);
+				cursor_object, link->start_offset);
 			html_engine_set_mark (html->engine);
 			html_cursor_jump_to (
 				html->engine->cursor, html->engine,
-				html->engine->cursor->object, link->end_offset);
+				cursor_object, link->end_offset);
 			html_engine_delete (html->engine);
 		}
 
@@ -1109,17 +1114,22 @@ gtkhtml_editor_link_properties_url_changed_cb (GtkWidget *window))
 		Link *link;
 		const gchar *descr = gtk_entry_get_text (GTK_ENTRY (dsc_entry));
 
-		link = html_text_get_link_at_offset (HTML_TEXT (html->engine->cursor->object), html->engine->cursor->offset);
+		if (HTML_IS_TEXT (html->engine->cursor->object))
+			link = html_text_get_link_at_offset (HTML_TEXT (html->engine->cursor->object), html->engine->cursor->offset);
+		else
+			link = NULL;
 		length = g_utf8_strlen (descr, -1);
 
 		if (link && link->start_offset != link->end_offset) {
+			HTMLObject *cursor_object = html->engine->cursor->object;
+
 			html_cursor_jump_to (
 				html->engine->cursor, html->engine,
-				html->engine->cursor->object, link->start_offset);
+				cursor_object, link->start_offset);
 			html_engine_set_mark (html->engine);
 			html_cursor_jump_to (
 				html->engine->cursor, html->engine,
-				html->engine->cursor->object, link->end_offset);
+				cursor_object, link->end_offset);
 			html_engine_delete (html->engine);
 		}
 
@@ -1158,7 +1168,7 @@ gtkhtml_editor_link_properties_show_window_cb (GtkWidget *window))
 			cursor->object, cursor->offset);
 
 	if (url != NULL) {
-		if (!HTML_IS_IMAGE (cursor->object)) {
+		if (HTML_IS_TEXT (cursor->object)) {
 			Link *link;
 
 			link = html_text_get_link_at_offset (
