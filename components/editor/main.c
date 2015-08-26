@@ -62,6 +62,36 @@ handle_error (GError **error)
 	}
 }
 
+static void
+editor_test_url_requested_cb (GtkhtmlEditor *editor,
+			      const gchar *uri,
+			      GtkHTMLStream *stream)
+{
+	GFile *file;
+	gchar *contents = NULL;
+	gsize length = 0;
+	GError *error = NULL;
+
+	g_return_if_fail (uri != NULL);
+	g_return_if_fail (stream != NULL);
+
+	if (*uri == '/')
+		file = g_file_new_for_path (uri);
+	else
+		file = g_file_new_for_uri (uri);
+
+	if (g_file_load_contents (file, NULL, &contents, &length, NULL, &error)) {
+		gtk_html_stream_write (stream, contents, length);
+		gtk_html_stream_close (stream, GTK_HTML_STREAM_OK);
+		g_free (contents);
+	} else
+		gtk_html_stream_close (stream, GTK_HTML_STREAM_ERROR);
+
+	handle_error (&error);
+
+	g_object_unref (file);
+}
+
 static GtkPrintOperationResult
 print (GtkhtmlEditor *editor,
        GtkPrintOperationAction action)
@@ -400,6 +430,8 @@ main (gint argc,
 
 	gtk_ui_manager_ensure_update (manager);
 	gtk_widget_show (editor);
+
+	g_signal_connect (editor, "uri-requested", G_CALLBACK (editor_test_url_requested_cb), NULL);
 
 	g_signal_connect (
 		editor, "destroy",
