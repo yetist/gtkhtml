@@ -8,14 +8,14 @@
 # Artur Flinta <aflinta@at.kernel.pl>, 2004-2005.
 # Wadim Dziedzic <wdziedzic@aviary.pl>, 2007-2009.
 # Tomasz Dominikowski <dominikowski@gmail.com>, 2008.
-# Piotr Drąg <piotrdrag@gmail.com>, 2009-2013.
-# Aviary.pl <gnomepl@aviary.pl>, 2007-2013.
+# Piotr Drąg <piotrdrag@gmail.com>, 2009-2015.
+# Aviary.pl <gnomepl@aviary.pl>, 2007-2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-17 19:50+0100\n"
-"PO-Revision-Date: 2013-02-17 19:51+0100\n"
+"POT-Creation-Date: 2015-08-31 01:37+0200\n"
+"PO-Revision-Date: 2015-08-31 01:38+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -37,11 +37,11 @@ msgstr "Adres URL to %s, alternatywnym tekstem jest %s"
 msgid "URL is %s"
 msgstr "Adres URL to %s"
 
-#: ../a11y/object.c:52 ../a11y/object.c:62 ../a11y/text.c:126
+#: ../a11y/object.c:54 ../a11y/object.c:64 ../a11y/text.c:126
 msgid "grab focus"
 msgstr "przejęcie zaznaczenia"
 
-#: ../a11y/object.c:258
+#: ../a11y/object.c:234
 msgid "Panel containing HTML"
 msgstr "Panel zawierający HTML"
 
@@ -220,7 +220,7 @@ msgstr "własny"
 
 #: ../components/editor/gtkhtml-color-combo.c:1030
 msgid "Custom Color..."
-msgstr "Własny kolor..."
+msgstr "Własny kolor…"
 
 #. Translators: :-)
 #: ../components/editor/gtkhtml-face-chooser.c:34
@@ -250,7 +250,7 @@ msgstr "Śmi_ech"
 #. Translators: :-|
 #: ../components/editor/gtkhtml-face-chooser.c:44
 msgid "_Plain"
-msgstr "_Zwykły"
+msgstr "_Prosty"
 
 #. Translators: :-!
 #: ../components/editor/gtkhtml-face-chooser.c:46
@@ -337,7 +337,7 @@ msgstr "Wstawienie pliku tekstowego się nie powiodło."
 
 #: ../components/editor/gtkhtml-editor-actions.c:512
 msgid "No match found"
-msgstr "Nie odnaleziono wyników"
+msgstr "Brak wyników"
 
 #: ../components/editor/gtkhtml-editor-actions.c:605
 msgid "Insert HTML File"
@@ -392,15 +392,15 @@ msgstr "Z_większ wcięcie"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1258
 msgid "Increase Indent"
-msgstr "Zwiększ wcięcie"
+msgstr "Zwiększa wcięcie"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1263
 msgid "_HTML File..."
-msgstr "Plik _HTML..."
+msgstr "Plik _HTML…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1270
 msgid "Te_xt File..."
-msgstr "Plik _tekstowy..."
+msgstr "Plik _tekstowy…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1277
 msgid "_Paste"
@@ -428,7 +428,7 @@ msgstr "Z_aznacz wszystko"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1305
 msgid "_Find..."
-msgstr "_Znajdź..."
+msgstr "_Znajdź…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1307
 msgid "Search for text"
@@ -436,7 +436,7 @@ msgstr "Wyszukuje tekst"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1312
 msgid "Re_place..."
-msgstr "Za_stąp..."
+msgstr "Za_stąp…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1314
 msgid "Search for and replace text"
@@ -444,12 +444,12 @@ msgstr "Wyszukuje i zastępuje tekst"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1319
 msgid "Check _Spelling..."
-msgstr "_Sprawdź pisownię..."
+msgstr "_Sprawdź pisownię…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1326
 #: ../components/editor/gtkhtml-editor-builder.ui.h:91
 msgid "_Test URL..."
-msgstr "_Sprawdź adres URL..."
+msgstr "_Sprawdź adres URL…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1333
 msgid "_Undo"
@@ -465,7 +465,7 @@ msgstr "Z_mniejsz wcięcie"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1342
 msgid "Decrease Indent"
-msgstr "Zmniejsz wcięcie"
+msgstr "Zmniejsza wcięcie"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1347
 msgid "_Wrap Lines"
@@ -476,7 +476,7 @@ msgid "_Edit"
 msgstr "_Edycja"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1363
-#: ../components/editor/main.c:323
+#: ../components/editor/main.c:353
 msgid "_File"
 msgstr "_Plik"
 
@@ -498,10 +498,10 @@ msgstr "Wyrówn_anie"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1398
 msgid "Current _Languages"
-msgstr "Aktualne ję_zyki"
+msgstr "Obecne ję_zyki"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1405
-#: ../components/editor/main.c:354
+#: ../components/editor/main.c:384
 msgid "_View"
 msgstr "_Widok"
 
@@ -600,44 +600,44 @@ msgstr "_Lista wyliczana literami"
 #: ../components/editor/gtkhtml-editor-actions.c:1556
 #: ../components/editor/gtkhtml-editor-actions.c:1593
 msgid "_Image..."
-msgstr "O_braz..."
+msgstr "O_braz…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1563
 #: ../components/editor/gtkhtml-editor-actions.c:1600
 msgid "_Link..."
-msgstr "_Odnośnik..."
+msgstr "_Odnośnik…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1565
 msgid "Insert Link"
-msgstr "Wstaw odnośnik"
+msgstr "Wstawia odnośnik"
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
 #: ../components/editor/gtkhtml-editor-actions.c:1571
 #: ../components/editor/gtkhtml-editor-actions.c:1615
 msgid "_Rule..."
-msgstr "_Linia..."
+msgstr "_Linia…"
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
 #: ../components/editor/gtkhtml-editor-actions.c:1574
 msgid "Insert Rule"
-msgstr "Wstaw linię"
+msgstr "Wstawia linię"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1579
 #: ../components/editor/gtkhtml-editor-actions.c:1622
 msgid "_Table..."
-msgstr "_Tabelę..."
+msgstr "_Tabela…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1581
 msgid "Insert Table"
-msgstr "Wstaw tabelę"
+msgstr "Wstawia tabelę"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1586
 msgid "_Cell..."
-msgstr "_Komórka..."
+msgstr "_Komórka…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1607
 msgid "Pa_ge..."
-msgstr "_Strona..."
+msgstr "_Strona…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1631
 msgid "Font _Size"
@@ -783,36 +783,36 @@ msgstr "Wiersz poniżej"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1872
 msgid "Cell..."
-msgstr "Komórka..."
+msgstr "Komórka…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1879
 msgid "Image..."
-msgstr "Obraz..."
+msgstr "Obraz…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1886
 msgid "Link..."
-msgstr "Odnośnik..."
+msgstr "Odnośnik…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1893
 msgid "Page..."
-msgstr "Strona..."
+msgstr "Strona…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1900
 msgid "Paragraph..."
-msgstr "Akapit..."
+msgstr "Akapit…"
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
 #: ../components/editor/gtkhtml-editor-actions.c:1908
 msgid "Rule..."
-msgstr "Linia..."
+msgstr "Linia…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1915
 msgid "Table..."
-msgstr "Tabela..."
+msgstr "Tabela…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1922
 msgid "Text..."
-msgstr "Tekst..."
+msgstr "Tekst…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1929
 msgid "Remove Link"
@@ -824,7 +824,7 @@ msgstr "Dodaj słowo do słownika"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1953
 msgid "Ignore Misspelled Word"
-msgstr "Ignoruj błędnie wpisane słowa"
+msgstr "Ignoruj błędnie napisane słowa"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1960
 msgid "Add Word To"
@@ -839,7 +839,7 @@ msgstr "Więcej sugestii"
 #: ../components/editor/gtkhtml-editor-actions.c:2070
 #, c-format
 msgid "%s Dictionary"
-msgstr "Słownik %s"
+msgstr "Słownik „%s”"
 
 #: ../components/editor/gtkhtml-editor-actions.c:2138
 msgid "_Emoticon"
@@ -891,11 +891,11 @@ msgstr "Kolor czcionki"
 msgid "Font Size"
 msgstr "Rozmiar czcionki"
 
-#: ../components/editor/gtkhtml-editor-private.c:340
+#: ../components/editor/gtkhtml-editor-private.c:339
 msgid "Automatic"
 msgstr "Automatycznie"
 
-#: ../components/editor/gtkhtml-editor-private.c:548
+#: ../components/editor/gtkhtml-editor-private.c:547
 msgid "Could not open the link."
 msgstr "Nie można otworzyć odnośnika."
 
@@ -976,10 +976,9 @@ msgstr "Poufne"
 msgid "Draft"
 msgstr "Szkic"
 
-# FIXME - jak się nazywa papier do rysowania wykresów?
 #: ../components/editor/gtkhtml-editor-builder.ui.h:19
 msgid "Graph Paper"
-msgstr "Papier kratkowany"
+msgstr "Papier milimetrowy"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:20
 msgid "Text Properties"
@@ -1053,7 +1052,7 @@ msgstr "_URL:"
 msgid "_Description:"
 msgstr "Op_is:"
 
-#. Translators: Caption of a window. 'Rule' here means a horizontal line in an HTML text.
+#. Translators: Caption of a window.
 #: ../components/editor/gtkhtml-editor-builder.ui.h:43
 msgid "Rule Properties"
 msgstr "Właściwości linii"
@@ -1245,7 +1244,7 @@ msgstr "Odnośnik"
 #: ../components/editor/gtkhtml-spell-dialog.c:113
 #, c-format
 msgid "Suggestions for \"%s\""
-msgstr "Sugestie dla \"%s\""
+msgstr "Sugestie dla „%s”"
 
 #: ../components/editor/gtkhtml-spell-dialog.c:443
 msgid "Spell Checker"
@@ -1304,55 +1303,55 @@ msgctxt "language"
 msgid "Default"
 msgstr "Domyślny"
 
-#: ../components/editor/main.c:93
+#: ../components/editor/main.c:123
 msgid "Save As"
 msgstr "Zapisz jako"
 
-#: ../components/editor/main.c:109
+#: ../components/editor/main.c:139
 msgid "Untitled document"
 msgstr "Dokument bez tytułu"
 
-#: ../components/editor/main.c:267
+#: ../components/editor/main.c:297
 msgid "HTML Output"
 msgstr "Wyjście HTML"
 
-#: ../components/editor/main.c:274
+#: ../components/editor/main.c:304
 msgid "HTML Source"
 msgstr "Kod źródłowy HTML"
 
-#: ../components/editor/main.c:281
+#: ../components/editor/main.c:311
 msgid "Plain Source"
 msgstr "Tekst źródłowy"
 
-#: ../components/editor/main.c:288
+#: ../components/editor/main.c:318
 msgid "_Print..."
-msgstr "Wy_drukuj..."
+msgstr "Wy_drukuj…"
 
-#: ../components/editor/main.c:295
+#: ../components/editor/main.c:325
 msgid "Print Pre_view"
 msgstr "Podgląd _wydruku"
 
-#: ../components/editor/main.c:302
+#: ../components/editor/main.c:332
 msgid "_Quit"
 msgstr "Za_kończ"
 
-#: ../components/editor/main.c:309
+#: ../components/editor/main.c:339
 msgid "_Save"
 msgstr "_Zapisz"
 
-#: ../components/editor/main.c:316
+#: ../components/editor/main.c:346
 msgid "Save _As..."
-msgstr "Z_apisz jako..."
+msgstr "Z_apisz jako…"
 
-#: ../components/editor/main.c:333
+#: ../components/editor/main.c:363
 msgid "HTML _Output"
 msgstr "_Wyjście HTML"
 
-#: ../components/editor/main.c:340
+#: ../components/editor/main.c:370
 msgid "_HTML Source"
 msgstr "Kod źródłowy _HTML"
 
-#: ../components/editor/main.c:347
+#: ../components/editor/main.c:377
 msgid "_Plain Source"
 msgstr "_Tekst źródłowy"
 
