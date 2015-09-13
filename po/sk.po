@@ -15,14 +15,15 @@ msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gtkhtml&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-08-03 02:59+0000\n"
-"PO-Revision-Date: 2013-01-19 20:24+0100\n"
-"Last-Translator: Marián Čavojský <cavo+gnomel10n@cavo.sk>\n"
+"POT-Creation-Date: 2015-09-12 22:09+0000\n"
+"PO-Revision-Date: 2015-09-13 11:14+0200\n"
+"Last-Translator: Dušan Kazik <prescott66@gmail.com>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.4\n"
 
 #: ../a11y/image.c:152
 #, c-format
@@ -35,11 +36,11 @@ msgid "URL is %s"
 msgstr "URL je %s"
 
 # MČ: zameranie
-#: ../a11y/object.c:52 ../a11y/object.c:62 ../a11y/text.c:126
+#: ../a11y/object.c:54 ../a11y/object.c:64 ../a11y/text.c:126
 msgid "grab focus"
 msgstr "získať ohnisko"
 
-#: ../a11y/object.c:258
+#: ../a11y/object.c:234
 msgid "Panel containing HTML"
 msgstr "Panel obsahujúci HTML"
 
@@ -204,20 +205,20 @@ msgstr "svetlofialová"
 msgid "white"
 msgstr "biela"
 
-#: ../components/editor/gtkhtml-color-combo.c:275
+#: ../components/editor/gtkhtml-color-combo.c:277
 msgid "Choose Custom Color"
 msgstr "Vybrať vlastnú farbu"
 
-#: ../components/editor/gtkhtml-color-combo.c:785
+#: ../components/editor/gtkhtml-color-combo.c:790
 #: ../components/editor/gtkhtml-color-state.c:224
 msgid "Default"
 msgstr "východzia"
 
-#: ../components/editor/gtkhtml-color-combo.c:1009
+#: ../components/editor/gtkhtml-color-combo.c:1022
 msgid "custom"
 msgstr "vlastná"
 
-#: ../components/editor/gtkhtml-color-combo.c:1017
+#: ../components/editor/gtkhtml-color-combo.c:1030
 msgid "Custom Color..."
 msgstr "Vlastná farba…"
 
@@ -475,7 +476,7 @@ msgid "_Edit"
 msgstr "_Upraviť"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1363
-#: ../components/editor/main.c:323
+#: ../components/editor/main.c:353
 msgid "_File"
 msgstr "_Súbor"
 
@@ -500,7 +501,7 @@ msgid "Current _Languages"
 msgstr "Aktuálne _jazyky"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1405
-#: ../components/editor/main.c:354
+#: ../components/editor/main.c:384
 msgid "_View"
 msgstr "_Zobraziť"
 
@@ -848,28 +849,28 @@ msgstr "_Smejkovia"
 msgid "Insert Emoticon"
 msgstr "Vložiť smejka"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2200
+#: ../components/editor/gtkhtml-editor-actions.c:2201
 msgid "_Find"
 msgstr "_Nájsť"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2203
+#: ../components/editor/gtkhtml-editor-actions.c:2204
 msgid "Re_place"
 msgstr "Na_hradiť"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2206
+#: ../components/editor/gtkhtml-editor-actions.c:2207
 msgid "_Image"
 msgstr "_Obrázok"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2209
+#: ../components/editor/gtkhtml-editor-actions.c:2210
 msgid "_Link"
 msgstr "_Odkaz"
 
 #. Translators: 'Rule' here means a horizontal line in an HTML text
-#: ../components/editor/gtkhtml-editor-actions.c:2213
+#: ../components/editor/gtkhtml-editor-actions.c:2214
 msgid "_Rule"
 msgstr "Čia_ra"
 
-#: ../components/editor/gtkhtml-editor-actions.c:2216
+#: ../components/editor/gtkhtml-editor-actions.c:2217
 #: ../components/editor/gtkhtml-editor-builder.ui.h:72
 msgid "_Table"
 msgstr "_Tabuľka"
@@ -890,23 +891,22 @@ msgstr "Farba písma"
 msgid "Font Size"
 msgstr "Veľkosť písma"
 
-#: ../components/editor/gtkhtml-editor-private.c:340
+#: ../components/editor/gtkhtml-editor-private.c:339
 msgid "Automatic"
 msgstr "Automatické"
 
-#: ../components/editor/gtkhtml-editor-private.c:548
+#: ../components/editor/gtkhtml-editor-private.c:547
 msgid "Could not open the link."
 msgstr "Nedá sa otvoriť odkaz."
 
 # MČ: Nie je mi jasné prečo je to jediný property, ktorý sa prekladá
 #: ../components/editor/gtkhtml-editor.c:878
 msgid "Changed property"
-msgstr ""
+msgstr "Zmenená vlastnosť"
 
 #: ../components/editor/gtkhtml-editor.c:879
-#, fuzzy
 msgid "Whether editor changed"
-msgstr "Určuje, či má editor oznamovať zmenu súboru"
+msgstr "Určuje, či editor vykonal zmenu"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:1
 msgid "px"
@@ -1304,55 +1304,55 @@ msgctxt "language"
 msgid "Default"
 msgstr "Východzí"
 
-#: ../components/editor/main.c:93
+#: ../components/editor/main.c:123
 msgid "Save As"
 msgstr "Uložiť ako"
 
-#: ../components/editor/main.c:109
+#: ../components/editor/main.c:139
 msgid "Untitled document"
 msgstr "Dokument bez názvu"
 
-#: ../components/editor/main.c:267
+#: ../components/editor/main.c:297
 msgid "HTML Output"
 msgstr "HTML výstup"
 
-#: ../components/editor/main.c:274
+#: ../components/editor/main.c:304
 msgid "HTML Source"
 msgstr "HTML zdroj"
 
-#: ../components/editor/main.c:281
+#: ../components/editor/main.c:311
 msgid "Plain Source"
 msgstr "Jednoduchý text"
 
-#: ../components/editor/main.c:288
+#: ../components/editor/main.c:318
 msgid "_Print..."
 msgstr "_Tlačiť…"
 
-#: ../components/editor/main.c:295
+#: ../components/editor/main.c:325
 msgid "Print Pre_view"
 msgstr "Ukážka _pred tlačou"
 
-#: ../components/editor/main.c:302
+#: ../components/editor/main.c:332
 msgid "_Quit"
 msgstr "U_končiť"
 
-#: ../components/editor/main.c:309
+#: ../components/editor/main.c:339
 msgid "_Save"
 msgstr "_Uložiť"
 
-#: ../components/editor/main.c:316
+#: ../components/editor/main.c:346
 msgid "Save _As..."
 msgstr "Uložiť _ako…"
 
-#: ../components/editor/main.c:333
+#: ../components/editor/main.c:363
 msgid "HTML _Output"
 msgstr "HTML _výstup"
 
-#: ../components/editor/main.c:340
+#: ../components/editor/main.c:370
 msgid "_HTML Source"
 msgstr "_HTML zdroj"
 
-#: ../components/editor/main.c:347
+#: ../components/editor/main.c:377
 msgid "_Plain Source"
 msgstr "_Jednoduchý text"
 
@@ -1372,4 +1372,3 @@ msgstr "Nepodarilo sa alokovať štandardné písmo pre tlač"
 #: ../gtkhtml/test.c:374
 msgid "GtkHTML Test"
 msgstr "GtkHTML Test"
-
