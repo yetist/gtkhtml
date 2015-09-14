@@ -1,3 +1,32 @@
+GtkHTML-4.9.92 2015-09-14
+-------------------------
+
+Bug Fixes:
+	Bug 729020 - Drop gnome-icon-theme dependency (Matthias Clasen)
+	Bug 729414 - Correct spelling typos in devel docs and code comments (Ville Skyttä)
+	Bug 729944 - UTF-8 characters are not always encoded correctly (Jonas Hahnfeld)
+	Bug 732499 - Use named colors from themes (Milan Crha)
+	Bug 537825 - Text cursor not erased when moved to new position (Owen W. Taylor)
+	Bug 737340 - theme_text_color is no longer in gtk 3.14 (Jérémy Lal)
+
+Miscellaneous:
+	doap: update URLs (Piotr Drąg)
+	Remove usages of deprecated gtk_widget_ensure_style() (Milan Crha)
+	Remove unused and obsolete gtkhtml-zip.in (Milan Crha)
+
+Translations:
+	Lasse Liehu (fi)
+	Anders Jonsson (sv)
+	Muhammet Kara (tr)
+	Necdet Yücel (tr)
+	Inaki Larranaga Murgoitio (eu)
+	Marián Čavojský (sk)
+	Samir Ribic (bs)
+	Cédric Valmary (oc)
+	Pedro Albuquerque (pt)
+	Piotr Drąg (pl)
+	Dušan Kazik (sk)
+
 GtkHTML-4.8.0 2014-03-24
 -------------------------
 
