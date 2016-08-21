@@ -1,31 +1,27 @@
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-# Aviary.pl
-# Jeśli masz jakiekolwiek uwagi odnoszące się do tłumaczenia lub chcesz
-# pomóc w jego rozwijaniu i pielęgnowaniu, napisz do nas:
-# gnomepl@aviary.pl
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# Polish translation for gtkhtml.
+# Copyright © 2000-2016 the gtkhtml authors.
+# This file is distributed under the same license as the gtkhtml package.
 # Zbigniew Chyla <chyla@alice.ci.pwr.wroc.pl>, 2000-2002.
 # Artur Flinta <aflinta@at.kernel.pl>, 2004-2005.
 # Wadim Dziedzic <wdziedzic@aviary.pl>, 2007-2009.
 # Tomasz Dominikowski <dominikowski@gmail.com>, 2008.
-# Piotr Drąg <piotrdrag@gmail.com>, 2009-2015.
-# Aviary.pl <gnomepl@aviary.pl>, 2007-2015.
+# Piotr Drąg <piotrdrag@gmail.com>, 2009-2016.
+# Aviary.pl <community-poland@mozilla.org>, 2007-2016.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gtkhtml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-31 01:37+0200\n"
-"PO-Revision-Date: 2015-08-31 01:38+0200\n"
+"POT-Creation-Date: 2016-08-21 11:10+0200\n"
+"PO-Revision-Date: 2016-08-21 11:11+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <gnomepl@aviary.pl>\n"
+"Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Poedit-Language: Polish\n"
-"X-Poedit-Country: Poland\n"
 
 #: ../a11y/image.c:152
 #, c-format
@@ -207,7 +203,7 @@ msgstr "biały"
 
 #: ../components/editor/gtkhtml-color-combo.c:277
 msgid "Choose Custom Color"
-msgstr "Wybór własnego koloru"
+msgstr "Wybór niestandardowego koloru"
 
 #: ../components/editor/gtkhtml-color-combo.c:790
 #: ../components/editor/gtkhtml-color-state.c:224
@@ -216,11 +212,11 @@ msgstr "Domyślny"
 
 #: ../components/editor/gtkhtml-color-combo.c:1022
 msgid "custom"
-msgstr "własny"
+msgstr "niestandardowy"
 
 #: ../components/editor/gtkhtml-color-combo.c:1030
 msgid "Custom Color..."
-msgstr "Własny kolor…"
+msgstr "Niestandardowy kolor…"
 
 #. Translators: :-)
 #: ../components/editor/gtkhtml-face-chooser.c:34
@@ -325,7 +321,7 @@ msgstr "_Diabelski"
 #. Translators: :-(|)
 #: ../components/editor/gtkhtml-face-chooser.c:74
 msgid "_Monkey"
-msgstr "_Małpa"
+msgstr "_Małpka"
 
 #: ../components/editor/gtkhtml-editor-actions.c:175
 msgid "Failed to insert HTML file."
@@ -440,7 +436,7 @@ msgstr "Za_stąp…"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1314
 msgid "Search for and replace text"
-msgstr "Wyszukuje i zastępuje tekst"
+msgstr "Wyszukuje i zastępuje tekst"
 
 #: ../components/editor/gtkhtml-editor-actions.c:1319
 msgid "Check _Spelling..."
@@ -1046,7 +1042,7 @@ msgstr "Właściwości odnośnika"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:40
 msgid "_URL:"
-msgstr "_URL:"
+msgstr "Adres _URL:"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:41
 msgid "_Description:"
@@ -1175,7 +1171,7 @@ msgstr "K_omórka"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:74
 msgid "Alignment & Behavior"
-msgstr "Wyrównanie i zachowanie"
+msgstr "Wyrównanie i zachowanie"
 
 #: ../components/editor/gtkhtml-editor-builder.ui.h:75
 msgid "_Wrap Text"
