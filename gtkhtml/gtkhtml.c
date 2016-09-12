@@ -3339,7 +3339,7 @@ gtk_html_im_commit_cb (GtkIMContext *context,
 		pos = html->engine->mark->position;
 
 	D_IM (printf ("IM commit %s\n", str);)
-	html_engine_paste_text (html->engine, str, -1);
+	html_engine_paste_text (html->engine, str, g_utf8_strlen (str, -1));
 	html->priv->im_block_reset = state;
 
 	D_IM (printf ("IM commit pos: %d pre_pos: %d\n", pos, html->priv->im_pre_pos);)
