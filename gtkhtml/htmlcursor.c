@@ -70,6 +70,10 @@ debug_location (const HTMLCursor *cursor)
 	g_print ("Cursor in %s (%p), offset %d, position %d\n",
 		 html_type_name (HTML_OBJECT_TYPE (object)),
 		 (gpointer) object, cursor->offset, cursor->position);
+
+	if (cursor->position < 0) {
+		g_error ("error! cursor->position < 0");
+	}
 }
 #else
 #define debug_location(cursor)
