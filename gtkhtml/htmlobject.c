@@ -1909,7 +1909,7 @@ move_object_cursor (HTMLObject *obj,
 
 	do {
 		gboolean found = FALSE;
-		if (((*offset == 0 && forward) || (*offset && !forward)) && html_object_is_container (obj))
+		if (((*offset == 0 && forward) || (*offset && !forward)) && html_object_is_container (obj)) {
 			if ((down = (*down_fn) (obj))) {
 				HTMLObject *down_child;
 
