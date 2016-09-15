@@ -1911,13 +1911,19 @@ move_object_cursor (HTMLObject *obj,
 		gboolean found = FALSE;
 		if (((*offset == 0 && forward) || (*offset && !forward)) && html_object_is_container (obj))
 			if ((down = (*down_fn) (obj))) {
-				down = move_object_downtree_cursor (down, down_fn, next_fn);
-				if (down) {
-					if (html_object_is_container (down))
+				HTMLObject *down_child;
+
+				down_child = move_object_downtree_cursor (down, down_fn, next_fn);
+				if (down_child) {
+					if (html_object_is_container (down_child))
 						*offset = forward ? 0 : 1;
-					return down;
+
+					return down_child;
+				} else {
+					obj = down;
 				}
 			}
+		}
 
 		before = obj;
 		do {
