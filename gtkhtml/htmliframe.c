@@ -383,6 +383,10 @@ html_iframe_real_calc_size (HTMLObject *o,
 		o->width = e->width;
 		o->ascent = e->height;
 		o->descent = 0;
+
+		if (G_OBJECT_TYPE (painter) == HTML_TYPE_PRINTER) {
+			o->ascent += html_painter_get_pixel_size (painter) * (html_engine_get_top_border (e) + html_engine_get_bottom_border (e));
+		}
 	} else
 		return (* HTML_OBJECT_CLASS (parent_class)->calc_size) (o, painter, changed_objs);
 
