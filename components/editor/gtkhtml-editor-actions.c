@@ -1644,7 +1644,7 @@ static GtkActionEntry html_entries[] = {
 static GtkToggleActionEntry html_toggle_entries[] = {
 
 	{ "bold",
-	  GTK_STOCK_BOLD,
+	  "format-text-bold",
 	  N_("_Bold"),
 	  "<Control>b",
 	  N_("Bold"),
@@ -1652,7 +1652,7 @@ static GtkToggleActionEntry html_toggle_entries[] = {
 	  FALSE },
 
 	{ "italic",
-	  GTK_STOCK_ITALIC,
+	  "format-text-italic",
 	  N_("_Italic"),
 	  "<Control>i",
 	  N_("Italic"),
@@ -1668,7 +1668,7 @@ static GtkToggleActionEntry html_toggle_entries[] = {
 	  FALSE },
 
 	{ "strikethrough",
-	  GTK_STOCK_STRIKETHROUGH,
+	  "format-text-strikethrough",
 	  N_("_Strikethrough"),
 	  NULL,
 	  N_("Strikethrough"),
@@ -1676,7 +1676,7 @@ static GtkToggleActionEntry html_toggle_entries[] = {
 	  FALSE },
 
 	{ "underline",
-	  GTK_STOCK_UNDERLINE,
+	  "format-text-underline",
 	  N_("_Underline"),
 	  "<Control>u",
 	  N_("Underline"),
