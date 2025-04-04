@@ -35,7 +35,7 @@ Requirements
 In order to compile GtkHTML, you need:
        gail >= 1.1
        GTK+ >= 2.16
-       enchant
+       enchant >= 2.2.0
        iso-codes >= 0.49
        gnome-icon-theme >= 2.22
 

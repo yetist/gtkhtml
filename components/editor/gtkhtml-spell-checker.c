@@ -375,7 +375,7 @@ gtkhtml_spell_checker_add_word (GtkhtmlSpellChecker *checker,
 	if ((dict = spell_checker_request_dict (checker)) == NULL)
 		return;
 
-	enchant_dict_add_to_pwl (dict, word, length);
+	enchant_dict_add (dict, word, length);
 	g_signal_emit (G_OBJECT (checker), signals[ADDED], 0, word, length);
 }
 
