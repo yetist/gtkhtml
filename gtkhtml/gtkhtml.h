@@ -31,43 +31,16 @@
 /* FIXME we should remove html dep */
 #include "htmltypes.h"
 
+G_BEGIN_DECLS
+
 #define GTK_TYPE_HTML                  (gtk_html_get_type ())
-#define GTK_HTML(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), GTK_TYPE_HTML, GtkHTML))
-#define GTK_HTML_CLASS(klass)          (G_TYPE_CHECK_CLASS_CAST ((klass), GTK_TYPE_HTML, GtkHTMLClass))
-#define GTK_IS_HTML(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GTK_TYPE_HTML))
-#define GTK_IS_HTML_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE ((klass), GTK_TYPE_HTML))
+//#define GTK_HTML(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), GTK_TYPE_HTML, GtkHTML))
+//#define GTK_HTML_CLASS(klass)          (G_TYPE_CHECK_CLASS_CAST ((klass), GTK_TYPE_HTML, GtkHTMLClass))
+//#define GTK_IS_HTML(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GTK_TYPE_HTML))
+//#define GTK_IS_HTML_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE ((klass), GTK_TYPE_HTML))
 
-struct _GtkHTML {
-	GtkLayout layout;
+G_DECLARE_DERIVABLE_TYPE (GtkHTML, gtk_html, GTK, HTML, GtkLayout)
 
-	GtkWidget            *iframe_parent;
-	HTMLObject           *frame;
-	GtkHTMLEditorAPI     *editor_api;
-	gpointer              editor_data;
-	HTMLEngine           *engine;
-
-	/* The URL of the link over which the pointer currently is.  NULL if
-	 * the pointer is not over a link.  */
-	gchar *pointer_url;
-
-	/* The cursors we use within the widget.  */
-	GdkCursor *hand_cursor;
-	GdkCursor *ibeam_cursor;
-
-	gint selection_x1, selection_y1;
-
-	guint in_selection : 1;
-	guint in_selection_drag : 1;
-
-	guint debug : 1;
-	guint allow_selection : 1;
-
-	guint hadj_connection;
-	guint vadj_connection;
-
-	gboolean binding_handled;
-	GtkHTMLPrivate *priv;
-};
 
 struct _GtkHTMLClass {
 	GtkLayoutClass parent_class;
@@ -129,7 +102,7 @@ struct _GtkHTMLEditorAPI
 };
 
 /* Creation.  */
-GType                    gtk_html_get_type                      (void);
+//GType                    gtk_html_get_type                      (void);
 void                       gtk_html_construct                     (GtkHTML                   *html);
 GtkWidget                 *gtk_html_new                           (void);
 void                       gtk_html_set_editor_api                (GtkHTML                   *html,
@@ -358,5 +331,7 @@ GtkHTMLStream             *gtk_html_begin_content                 (GtkHTML      
 void                       gtk_html_drag_dest_set                 (GtkHTML                   *html);
 
 #endif
+
+G_END_DECLS
 
 #endif /* _GTKHTML_H_ */
