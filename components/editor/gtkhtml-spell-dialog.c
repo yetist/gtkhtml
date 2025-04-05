@@ -725,7 +725,7 @@ gtkhtml_spell_dialog_set_spell_checkers (GtkhtmlSpellDialog *dialog,
 
 	/* Free the old list of spell checkers. */
 	list = dialog->priv->spell_checkers;
-	g_list_foreach (list, (GFunc) g_object_unref, NULL);
+	g_list_free_full (g_steal_pointer (&list), g_object_unref);
 	g_list_free (list);
 
 	/* Copy and sort the new list of spell checkers. */
