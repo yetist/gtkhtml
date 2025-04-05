@@ -91,7 +91,6 @@ static gchar *
 encode_html (const gchar *txt)
 {
 	GString *str;
-	gchar *rv;
 
 	str = g_string_new (NULL);
 
@@ -106,10 +105,7 @@ encode_html (const gchar *txt)
 		}
 	} while ((txt = g_utf8_next_char (txt)) && *txt);
 
-	rv = str->str;
-	g_string_free (str, FALSE);
-
-	return rv;
+	return g_string_free (str, FALSE);
 }
 
 static void

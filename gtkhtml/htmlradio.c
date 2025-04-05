@@ -68,8 +68,7 @@ encode (HTMLEmbedded *e,
 		g_free (ptr);
 	}
 
-	ptr = encoding->str;
-	g_string_free (encoding, FALSE);
+	ptr = g_string_free (encoding, FALSE);
 
 	return ptr;
 }

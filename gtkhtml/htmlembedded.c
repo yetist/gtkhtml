@@ -250,7 +250,7 @@ html_embedded_encode_string (const gchar *before,
 	    static const gchar *safe = "$-._!*(),"; /* RFC 1738 */
 	unsigned pos = 0;
 	GString *encoded = g_string_new ("");
-	gchar buffer[5], *ptr;
+	gchar buffer[5];
 		guchar c;
 
 	    GIConv iconv_cd = generate_iconv_to (codepage);
@@ -280,11 +280,7 @@ html_embedded_encode_string (const gchar *before,
 		pos++;
 	}
 
-	ptr = encoded->str;
-
-	g_string_free (encoded, FALSE);
-
-    return ptr;
+	return g_string_free (encoded, FALSE);
 }
 
 void
