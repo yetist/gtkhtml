@@ -6,6 +6,7 @@
  *  Copyright (C) 1999 Anders Carlsson (andersca@gnu.org)
  *  Copyright (C) 1999, 2000, Helix Code, Inc.
  *  Copyright (C) 2001, 2002, 2003 Ximian Inc.
+ *  Copyright (C) 2025 Xiaotian Wu <yetist@gmail.com>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -98,8 +99,8 @@
 
 /* #define CHECK_CURSOR */
 
-static void      html_engine_class_init       (HTMLEngineClass     *klass);
-static void      html_engine_init             (HTMLEngine          *engine);
+//static void      html_engine_class_init       (HTMLEngineClass     *klass);
+//static void      html_engine_init             (HTMLEngine          *engine);
 static gboolean  html_engine_timer_event      (HTMLEngine          *e);
 static gboolean  html_engine_update_event     (HTMLEngine          *e);
 static void      html_engine_queue_redraw_all (HTMLEngine *e);
@@ -149,6 +150,226 @@ enum {
 	UNDO_CHANGED,
 	LAST_SIGNAL
 };
+
+typedef struct {
+	//GObject parent;
+	HTMLDrawQueue *draw_queue;
+
+	HTMLPainter *painter;
+
+	HTMLSettings *settings;
+	HTMLSettings *defaultSettings;
+
+	HTMLUndo *undo;
+
+	GdkWindow *window;
+
+	gboolean editable;
+	gboolean caret_mode;
+
+	HTMLObject *clipboard;
+	guint       clipboard_len;
+	GList      *clipboard_stack;
+
+	HTMLObject *primary;
+	guint       primary_len;
+
+	/* Freeze counter.  When greater than zero, we never trigger relayouts
+	 * nor repaints.  When going from nonzero to zero, we relayout and
+	 * repaint everything.  */
+	guint freeze_count;
+	guint thaw_idle_id;
+	gint block_redraw;
+	gboolean need_redraw;
+	GSList *pending_expose;
+
+	gboolean parsing;
+	HTMLTokenizer *ht;
+	HTMLStringTokenizer *st;
+	HTMLObject *clue;         /* the document root */
+
+	HTMLObject *flow;
+
+	gint leftBorder;
+	gint rightBorder;
+	gint topBorder;
+	gint bottomBorder;
+
+	/* Current indentation level.  */
+	guint indent_level;
+
+	/* For the widget */
+	gint width;
+	gint height;
+
+	/* Number of tokens parsed in the current time-slice */
+	gint parseCount;
+	gint granularity;
+
+	/* Offsets */
+	gint x_offset, y_offset;
+
+	gboolean inTitle;
+	gboolean inPre;
+	gboolean inOption;
+	gboolean inTextArea;
+	gboolean eat_space;
+	gboolean allow_frameset;
+	gboolean newPage;
+	gboolean begin;
+
+	HTMLStack *span_stack;
+	HTMLStack *clueflow_style_stack; /* Clueflow style stack, elements are HTMLClueFlowStyles.  */
+	HTMLStack *frame_stack;
+	HTMLStack *body_stack;
+	HTMLStack *table_stack;
+
+	gchar *url;
+	gchar *target;
+
+	/* timer id to schedule paint events */
+	guint updateTimer;
+
+	/* timer id for parsing routine */
+	guint timerId;
+
+	guint redraw_idle_id;
+
+	/* FIXME: replace with a `gchar *'?  */
+	GString *title;
+
+	gboolean writing;
+
+	/* The background pixmap, an HTMLImagePointer */
+        gpointer bgPixmapPtr;
+
+	/* Stack of lists currently active */
+	HTMLStack *listStack;
+
+	/* Stack of embedded "object"'s */
+	HTMLStack *embeddedStack;
+
+	/* The associated widget.  */
+	GtkHTML *widget;
+
+        gpointer image_factory;
+
+	/*
+	 * This list holds strings which are displayed in the view,
+	 * but are not actually contained in the HTML source.
+	 * e.g. The numbers in an ordered list.
+	 * FIXME?
+	 */
+	GList *tempStrings;
+
+	HTMLMap *map;
+	HTMLForm *form;
+	HTMLSelect *formSelect;
+	HTMLTextArea *formTextArea;
+	GList *formList;
+	GString *formText;
+
+	/* This is TRUE if we cannot insert a paragraph break (which is just an
+	 * extra empty line).  It's set to FALSE as soon as some element is
+	 * added to a flow.  The purpose is to avoid having paragraph breaks to
+	 * be inserted in sequence, or after elements that have some vspace of
+	 * their own.  */
+	gboolean avoid_para;
+
+	/* Whether we have the keyboard focus.  */
+	guint have_focus : 1;
+
+	HTMLInterval *selection;
+	gboolean selected_in;
+
+	/* --- */
+
+	/* Editing stuff.  -- FIXME it should be in a separate object.  */
+
+	/* The current position of the cursor.  */
+	HTMLCursor *cursor;
+
+	/* If no region is active, this is NULL.  Otherwise, this is
+	 * one extreme of the selected region.  The other extreme is
+	 * always the cursor.  */
+	HTMLCursor *mark;
+
+	/* Hide counter for the cursor.  When greater than zero, it
+	 * means the cursor is invisible.  */
+	gint cursor_hide_count;
+
+	/* Timer ID for cursor blink.  */
+	gint blinking_timer_id;
+
+	/* Blinking status (visible/invisible).  */
+	gboolean blinking_status;
+
+	/* Font style for insertion.  If HTML_FONT_STYLE_DEFAULT, use that of
+	 * the text we are in.  */
+	GtkHTMLFontStyle  insertion_font_style;
+	HTMLColor        *insertion_color;
+	gchar            *insertion_url;
+	gchar            *insertion_target;
+
+	/* if we are doing shift selection - Shift + some event (arrows, mouse motion, ...) */
+	gboolean shift_selection;
+
+	/* This object is used to update the keyboard selection in the
+	 * idle loop.  */
+	HTMLEngineEditSelectionUpdater *selection_updater;
+
+	/* keeps selection between operation, which are changing selection
+	 * and need restore it after done */
+	GList *selection_stack;
+
+	/* search & replace */
+	HTMLSearch  *search_info;
+	HTMLReplace *replace_info;
+
+	/* id-to-object mapping */
+	GHashTable *id_table;
+
+	/* table contains data, which are set to objects by type during parse time */
+	GHashTable *class_data;
+
+	/* table of maps */
+	GHashTable *map_table;
+
+	gdouble min_split_index;
+
+	gboolean need_spell_check;
+	gint block_events;
+	gchar *language;
+
+	GSList *cursor_position_stack;
+	gboolean selection_mode;
+	gint block_selection;
+
+	HTMLCursorRectangle cursor_cell;
+	HTMLCursorRectangle cursor_table;
+	HTMLCursorRectangle cursor_image;
+
+	GList *cut_and_paste_stack;
+
+	gboolean block;
+	gboolean block_images;
+	gint opened_streams;
+	gboolean stopped;
+	gboolean keep_scroll;
+
+	HTMLObject *focus_object;
+	gint focus_object_offset;
+
+	gboolean save_data;
+	gint saved_step_count;
+
+	gboolean expose;
+	gboolean need_update;
+
+	HTMLObject *parser_clue;  /* the root of the currently parsed block */
+} HTMLEnginePrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (HTMLEngine, html_engine, G_TYPE_OBJECT)
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
@@ -264,6 +485,7 @@ html_element_new_parse (HTMLEngine *e,
                         const gchar *str)
 {
 	HTMLElement *element;
+	HTMLEnginePrivate *priv;
 	gchar *name;
 
 	name = parse_element_name (str);
@@ -271,14 +493,15 @@ html_element_new_parse (HTMLEngine *e,
 	if (!name)
 		return NULL;
 
+	priv = html_engine_get_instance_private (e);
 	element = html_element_new (e, name);
 	element->attributes = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
-	html_string_tokenizer_tokenize (e->st, str + strlen (name), " >");
+	html_string_tokenizer_tokenize (priv->st, str + strlen (name), " >");
 	g_free (name);
 
-	while (html_string_tokenizer_has_more_tokens (e->st)) {
-		const gchar *token = html_string_tokenizer_next_token (e->st);
+	while (html_string_tokenizer_has_more_tokens (priv->st)) {
+		const gchar *token = html_string_tokenizer_next_token (priv->st);
 		gchar **attr;
 
 		DE (g_print ("token = %s\n", token));
@@ -418,12 +641,15 @@ push_element (HTMLEngine *e,
               HTMLStyle *style)
 {
 	HTMLElement *element;
+	HTMLEnginePrivate *priv;
+
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
+	priv = html_engine_get_instance_private (e);
 	element = html_element_new (e, name);
 	element->style = html_style_set_display (style, DISPLAY_INLINE);
-	html_stack_push (e->span_stack, element);
+	html_stack_push (priv->span_stack, element);
 }
 
 #define DI(x)
@@ -432,11 +658,13 @@ static HTMLColor *
 current_color (HTMLEngine *e)
 {
 	HTMLElement *span;
+	HTMLEnginePrivate *priv;
 	GList *item;
 
 	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
+	priv = html_engine_get_instance_private (e);
 
-	for (item = e->span_stack->list; item; item = item->next) {
+	for (item = priv->span_stack->list; item; item = item->next) {
 		span = item->data;
 
 		if (span->style->display >= DISPLAY_TABLE_CELL)
@@ -446,18 +674,20 @@ current_color (HTMLEngine *e)
 			return span->style->color;
 	}
 
-	return html_colorset_get_color (e->settings->color_set, HTMLTextColor);
+	return html_colorset_get_color (priv->settings->color_set, HTMLTextColor);
 }
 
 static GdkColor *
 current_bg_color (HTMLEngine *e)
 {
 	HTMLElement *span;
+	HTMLEnginePrivate *priv;
 	GList *item;
 
 	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
+	priv = html_engine_get_instance_private (e);
 
-	for (item = e->span_stack->list; item; item = item->next) {
+	for (item = priv->span_stack->list; item; item = item->next) {
 		span = item->data;
 
 		if (span->style->display >= DISPLAY_TABLE_CELL)
@@ -478,11 +708,13 @@ static HTMLColor *
 current_row_bg_color (HTMLEngine *e)
 {
 	HTMLElement *span;
+	HTMLEnginePrivate *priv;
 	GList *item;
 
 	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
+	priv = html_engine_get_instance_private (e);
 
-	for (item = e->span_stack->list; item; item = item->next) {
+	for (item = priv->span_stack->list; item; item = item->next) {
 		span = item->data;
 		if (span->style->display == DISPLAY_TABLE_ROW)
 			return span->style->bg_color;
@@ -498,11 +730,13 @@ static gchar *
 current_row_bg_image (HTMLEngine *e)
 {
 	HTMLElement *span;
+	HTMLEnginePrivate *priv;
 	GList *item;
 
 	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
+	priv = html_engine_get_instance_private (e);
 
-	for (item = e->span_stack->list; item; item = item->next) {
+	for (item = priv->span_stack->list; item; item = item->next) {
 		span = item->data;
 		if (span->style->display == DISPLAY_TABLE_ROW)
 			return span->style->bg_image;
@@ -518,17 +752,19 @@ static HTMLVAlignType
 current_row_valign (HTMLEngine *e)
 {
 	HTMLElement *span;
+	HTMLEnginePrivate *priv;
 	GList *item;
 	HTMLVAlignType rv = HTML_VALIGN_MIDDLE;
 
 	g_return_val_if_fail (HTML_IS_ENGINE (e), HTML_VALIGN_TOP);
+	priv = html_engine_get_instance_private (e);
 
-	if (!html_stack_top (e->table_stack)) {
+	if (!html_stack_top (priv->table_stack)) {
 		DT (g_warning ("missing table");)
 		return rv;
 	}
 
-	for (item = e->span_stack->list; item; item = item->next) {
+	for (item = priv->span_stack->list; item; item = item->next) {
 		span = item->data;
 		if (span->style->display == DISPLAY_TABLE_ROW) {
 			DT (g_warning ("found row");)
@@ -556,17 +792,19 @@ static HTMLHAlignType
 current_row_align (HTMLEngine *e)
 {
 	HTMLElement *span;
+	HTMLEnginePrivate *priv;
 	GList *item;
 	HTMLHAlignType rv = HTML_HALIGN_NONE;
 
 	g_return_val_if_fail (HTML_IS_ENGINE (e), HTML_VALIGN_TOP);
+	priv = html_engine_get_instance_private (e);
 
-	if (!html_stack_top (e->table_stack)) {
+	if (!html_stack_top (priv->table_stack)) {
 		DT (g_warning ("missing table");)
 		return rv;
 	}
 
-	for (item = e->span_stack->list; item; item = item->next) {
+	for (item = priv->span_stack->list; item; item = item->next) {
 		span = item->data;
 		if (span->style->display == DISPLAY_TABLE_ROW) {
 			DT (g_warning ("found row");)
@@ -596,11 +834,13 @@ current_font_face (HTMLEngine *e)
 {
 
 	HTMLElement *span;
+	HTMLEnginePrivate *priv;
 	GList *item;
 
 	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
+	priv = html_engine_get_instance_private (e);
 
-	for (item = e->span_stack->list; item; item = item->next) {
+	for (item = priv->span_stack->list; item; item = item->next) {
 		span = item->data;
 		if (span->style && span->style->face)
 			return span->style->face;
@@ -614,12 +854,14 @@ static inline GtkHTMLFontStyle
 current_font_style (HTMLEngine *e)
 {
 	HTMLElement *span;
+	HTMLEnginePrivate *priv;
 	GList *item;
 	GtkHTMLFontStyle style = GTK_HTML_FONT_STYLE_DEFAULT;
 
 	g_return_val_if_fail (HTML_IS_ENGINE (e), GTK_HTML_FONT_STYLE_DEFAULT);
+	priv = html_engine_get_instance_private (e);
 
-	for (item = e->span_stack->list; item && item->next; item = item->next) {
+	for (item = priv->span_stack->list; item && item->next; item = item->next) {
 		span = item->data;
 		if (span->style->display == DISPLAY_TABLE_CELL)
 			break;
@@ -636,12 +878,14 @@ static HTMLHAlignType
 current_alignment (HTMLEngine *e)
 {
 	HTMLElement *span;
+	HTMLEnginePrivate *priv;
 	GList *item;
 	gint maxLevel = 0;
 
 	g_return_val_if_fail (HTML_IS_ENGINE (e), HTML_HALIGN_NONE);
+	priv = html_engine_get_instance_private (e);
 
-	for (item = e->span_stack->list; item; item = item->next) {
+	for (item = priv->span_stack->list; item; item = item->next) {
 		span = item->data;
 
 		/* we track the max display level here because an alignment on
@@ -696,13 +940,15 @@ static HTMLClueFlowStyle
 current_clueflow_style (HTMLEngine *e)
 {
 	HTMLClueFlowStyle style;
+	HTMLEnginePrivate *priv;
 
 	g_return_val_if_fail (HTML_IS_ENGINE (e), HTML_CLUEFLOW_STYLE_NORMAL);
+	priv = html_engine_get_instance_private (e);
 
-	if (html_stack_is_empty (e->clueflow_style_stack))
+	if (html_stack_is_empty (priv->clueflow_style_stack))
 		return HTML_CLUEFLOW_STYLE_NORMAL;
 
-	style = (HTMLClueFlowStyle) GPOINTER_TO_INT (html_stack_top (e->clueflow_style_stack));
+	style = (HTMLClueFlowStyle) GPOINTER_TO_INT (html_stack_top (priv->clueflow_style_stack));
 	return style;
 }
 
@@ -710,17 +956,22 @@ static void
 push_clueflow_style (HTMLEngine *e,
                      HTMLClueFlowStyle style)
 {
+	HTMLEnginePrivate *priv;
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
-	html_stack_push (e->clueflow_style_stack, GINT_TO_POINTER (style));
+	html_stack_push (priv->clueflow_style_stack, GINT_TO_POINTER (style));
 }
 
 static void
 pop_clueflow_style (HTMLEngine *e)
 {
-	g_return_if_fail (HTML_IS_ENGINE (e));
+	HTMLEnginePrivate *priv;
 
-	html_stack_pop (e->clueflow_style_stack);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
+
+	html_stack_pop (priv->clueflow_style_stack);
 }
 
 
@@ -753,15 +1004,17 @@ flow_new (HTMLEngine *e,
           HTMLClearType clear)
 {
 	HTMLObject *o;
+	HTMLEnginePrivate *priv;
 	GByteArray *levels;
 	GList *l;
 
 	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
+	priv = html_engine_get_instance_private (e);
 
 	levels = g_byte_array_new ();
 
-	if (e->listStack && e->listStack->list) {
-		l = e->listStack->list;
+	if (priv->listStack && priv->listStack->list) {
+		l = priv->listStack->list;
 		while (l) {
 			guint8 val = ((HTMLList *) l->data)->type;
 
@@ -793,9 +1046,12 @@ add_line_break (HTMLEngine *e,
                 HTMLClearType clear,
                 HTMLDirection dir)
 {
-	g_return_if_fail (HTML_IS_ENGINE (e));
+	HTMLEnginePrivate *priv;
 
-	if (!e->flow)
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
+
+	if (!priv->flow)
 		new_flow (e, clue, create_empty_text (e), HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
 	new_flow (e, clue, NULL, clear, dir);
 }
@@ -804,12 +1060,15 @@ static void
 finish_flow (HTMLEngine *e,
              HTMLObject *clue)
 {
-	g_return_if_fail (HTML_IS_ENGINE (e));
+	HTMLEnginePrivate *priv;
 
-	if (e->flow && HTML_CLUE (e->flow)->tail == NULL) {
-		html_clue_remove (HTML_CLUE (clue), e->flow);
-		html_object_destroy (e->flow);
-		e->flow = NULL;
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
+
+	if (priv->flow && HTML_CLUE (priv->flow)->tail == NULL) {
+		html_clue_remove (HTML_CLUE (clue), priv->flow);
+		html_object_destroy (priv->flow);
+		priv->flow = NULL;
 	}
 	close_flow (e, clue);
 }
@@ -819,37 +1078,42 @@ close_flow (HTMLEngine *e,
             HTMLObject *clue)
 {
 	HTMLObject *last;
+	HTMLEnginePrivate *priv;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	if (e->flow == NULL)
+	priv = html_engine_get_instance_private (e);
+	if (priv->flow == NULL)
 		return;
 
-	last = HTML_CLUE (e->flow)->tail;
+	last = HTML_CLUE (priv->flow)->tail;
 	if (last == NULL) {
-		html_clue_append (HTML_CLUE (e->flow), create_empty_text (e));
-	} else if (last != HTML_CLUE (e->flow)->head
+		html_clue_append (HTML_CLUE (priv->flow), create_empty_text (e));
+	} else if (last != HTML_CLUE (priv->flow)->head
 		   && html_object_is_text (last)
 		   && HTML_TEXT (last)->text_len == 1
 		   && HTML_TEXT (last)->text[0] == ' ') {
-		html_clue_remove (HTML_CLUE (e->flow), last);
+		html_clue_remove (HTML_CLUE (priv->flow), last);
 		html_object_destroy (last);
 	}
 
-	e->flow = NULL;
+	priv->flow = NULL;
 }
 
 static void
 update_flow_align (HTMLEngine *e,
                    HTMLObject *clue)
 {
-	g_return_if_fail (HTML_IS_ENGINE (e));
+	HTMLEnginePrivate *priv;
 
-	if (e->flow != NULL) {
-		if (HTML_CLUE (e->flow)->head != NULL)
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
+
+	if (priv->flow != NULL) {
+		if (HTML_CLUE (priv->flow)->head != NULL)
 			close_flow (e, clue);
 		else
-			HTML_CLUE (e->flow)->halign = current_alignment (e);
+			HTML_CLUE (priv->flow)->halign = current_alignment (e);
 	}
 }
 
@@ -860,21 +1124,24 @@ new_flow (HTMLEngine *e,
           HTMLClearType clear,
           HTMLDirection dir)
 {
+	HTMLEnginePrivate *priv;
+
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
 	close_flow (e, clue);
 
-	e->flow = flow_new (e, current_clueflow_style (e), HTML_LIST_TYPE_BLOCKQUOTE, 0, clear);
-	HTML_CLUEFLOW (e->flow)->dir = dir;
+	priv->flow = flow_new (e, current_clueflow_style (e), HTML_LIST_TYPE_BLOCKQUOTE, 0, clear);
+	HTML_CLUEFLOW (priv->flow)->dir = dir;
 	if (dir == HTML_DIRECTION_RTL)
 		printf ("rtl\n");
 
-	HTML_CLUE (e->flow)->halign = current_alignment (e);
+	HTML_CLUE (priv->flow)->halign = current_alignment (e);
 
 	if (first_object)
-		html_clue_append (HTML_CLUE (e->flow), first_object);
+		html_clue_append (HTML_CLUE (priv->flow), first_object);
 
-	html_clue_append (HTML_CLUE (clue), e->flow);
+	html_clue_append (HTML_CLUE (clue), priv->flow);
 }
 
 static void
@@ -882,14 +1149,17 @@ append_element (HTMLEngine *e,
                 HTMLObject *clue,
                 HTMLObject *obj)
 {
+	HTMLEnginePrivate *priv;
+
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
-	e->avoid_para = FALSE;
+	priv->avoid_para = FALSE;
 
-	if (e->flow == NULL)
+	if (priv->flow == NULL)
 		new_flow (e, clue, obj, HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
 	else
-		html_clue_append (HTML_CLUE (e->flow), obj);
+		html_clue_append (HTML_CLUE (priv->flow), obj);
 }
 
 static void
@@ -902,13 +1172,15 @@ apply_attributes (HTMLText *text,
                   gboolean link)
 {
 	PangoAttribute *attr;
+	HTMLEnginePrivate *priv;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
 	html_text_set_style_in_range (text, style, e, last_pos, text->text_bytes);
 
 	/* color */
-	if (color != html_colorset_get_color (e->settings->color_set, HTMLTextColor))
+	if (color != html_colorset_get_color (priv->settings->color_set, HTMLTextColor))
 		html_text_set_color_in_range (text, color, last_pos, text->text_bytes);
 
 	if (bg_color) {
@@ -933,18 +1205,20 @@ insert_text (HTMLEngine *e,
 	gint last_pos = 0;
 	gint last_bytes = 0;
 	gboolean prev_text_ends_in_space = FALSE;
+	HTMLEnginePrivate *priv;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
+	priv = html_engine_get_instance_private (e);
 	if (text[0] == ' ' && text[1] == 0) {
-		if (e->eat_space)
+		if (priv->eat_space)
 			return;
 		else
-			e->eat_space = TRUE;
+			priv->eat_space = TRUE;
 	} else
-		e->eat_space = FALSE;
+		priv->eat_space = FALSE;
 
-	if (e->url != NULL || e->target != NULL)
+	if (priv->url != NULL || priv->target != NULL)
 		create_link = TRUE;
 	else
 		create_link = FALSE;
@@ -952,10 +1226,10 @@ insert_text (HTMLEngine *e,
 	font_style = current_font_style (e);
 	color = current_color (e);
 
-	if (e->flow == NULL)
+	if (priv->flow == NULL)
 		prev = NULL;
 	else
-		prev = HTML_CLUE (e->flow)->tail;
+		prev = HTML_CLUE (priv->flow)->tail;
 
 	if (NULL != prev)
 	    if (HTML_IS_TEXT (prev))
@@ -963,14 +1237,14 @@ insert_text (HTMLEngine *e,
 		    if (' ' == (HTML_TEXT (prev)->text)[HTML_TEXT (prev)->text_bytes - 1])
 			prev_text_ends_in_space = TRUE;
 
-	if (e->flow == NULL && e->editable) {
+	if (priv->flow == NULL && priv->editable) {
 		/* Preserve one leading space. */
 		if (*text == ' ') {
 			while (*text == ' ')
 				text++;
 			text--;
 		}
-	} else if (!e->inPre && ((e->flow == NULL && !e->editable) || ((prev == NULL || prev_text_ends_in_space) && !e->inPre))) {
+	} else if (!priv->inPre && ((priv->flow == NULL && !priv->editable) || ((prev == NULL || prev_text_ends_in_space) && !priv->inPre))) {
 		while (*text == ' ')
 			text++;
 		if (*text == 0)
@@ -989,7 +1263,7 @@ insert_text (HTMLEngine *e,
 	if (prev && HTML_IS_TEXT (prev)) {
 		apply_attributes (HTML_TEXT (prev), e, font_style, color, current_bg_color (e), last_bytes, create_link);
 		if (create_link)
-			html_text_append_link (HTML_TEXT (prev), e->url, e->target, last_pos, HTML_TEXT (prev)->text_len);
+			html_text_append_link (HTML_TEXT (prev), priv->url, priv->target, last_pos, HTML_TEXT (prev)->text_len);
 	}
 }
 
@@ -1006,9 +1280,11 @@ html_element_push (HTMLElement *node,
                    HTMLObject *clue)
 {
 	HTMLObject *block_clue;
+	HTMLEnginePrivate *priv;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
+	priv = html_engine_get_instance_private (e);
 	switch (node->style->display) {
 	case DISPLAY_BLOCK:
 		/* close anon p elements */
@@ -1017,13 +1293,13 @@ html_element_push (HTMLElement *node,
 		node->exitFunc = block_end_display_block;
 		block_clue = html_cluev_new (0, 0, 100);
 		html_cluev_set_style (HTML_CLUEV (block_clue), node->style);
-		html_clue_append (HTML_CLUE (e->parser_clue), block_clue);
+		html_clue_append (HTML_CLUE (priv->parser_clue), block_clue);
 		push_clue (e, block_clue);
-		html_stack_push (e->span_stack, node);
+		html_stack_push (priv->span_stack, node);
 		break;
 	case DISPLAY_TABLE_ROW:
 		{
-			HTMLTable *table = html_stack_top (e->table_stack);
+			HTMLTable *table = html_stack_top (priv->table_stack);
 
 			if (!table) {
 				html_element_free (node);
@@ -1036,12 +1312,12 @@ html_element_push (HTMLElement *node,
 			html_table_start_row (table);
 
 			node->exitFunc = block_end_row;
-			html_stack_push (e->span_stack, node);
+			html_stack_push (priv->span_stack, node);
 		}
 		break;
 	case DISPLAY_INLINE:
 	default:
-		html_stack_push (e->span_stack, node);
+		html_stack_push (priv->span_stack, node);
 		break;
 	}
 }
@@ -1055,9 +1331,11 @@ push_block_element (HTMLEngine *e,
                     gint miscData1,
                     gint miscData2)
 {
+	HTMLEnginePrivate *priv;
 	HTMLElement *element = html_element_new (e, name);
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
 	element->style = html_style_set_display (style, level);
 	element->exitFunc = exitFunc;
@@ -1067,7 +1345,7 @@ push_block_element (HTMLEngine *e,
 	if (element->style->display == DISPLAY_BLOCK)
 		pop_element (e, ID_P);
 
-	html_stack_push (e->span_stack, element);
+	html_stack_push (priv->span_stack, element);
 }
 
 static void
@@ -1087,14 +1365,16 @@ remove_element (HTMLEngine *e,
 {
 	HTMLElement *elem = item->data;
 	GList *next = item->next;
+	HTMLEnginePrivate *priv;
 
 	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
 
+	priv = html_engine_get_instance_private (e);
 	/* CLUECHECK */
 	if (elem->exitFunc)
-		(*(elem->exitFunc))(e, e->parser_clue, elem);
+		(*(elem->exitFunc))(e, priv->parser_clue, elem);
 
-	e->span_stack->list = g_list_remove_link (e->span_stack->list, item);
+	priv->span_stack->list = g_list_remove_link (priv->span_stack->list, item);
 
 	g_list_free (item);
 	html_element_free (elem);
@@ -1107,10 +1387,12 @@ pop_block (HTMLEngine *e,
            HTMLElement *elem)
 {
 	GList *l;
+	HTMLEnginePrivate *priv;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
-	l = e->span_stack->list;
+	l = priv->span_stack->list;
 	while (l) {
 		HTMLElement *cur = l->data;
 
@@ -1130,10 +1412,12 @@ pop_inline (HTMLEngine *e,
             HTMLElement *elem)
 {
 	GList *l;
+	HTMLEnginePrivate *priv;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
-	l = e->span_stack->list;
+	l = priv->span_stack->list;
 	while (l) {
 		HTMLElement *cur = l->data;
 
@@ -1156,10 +1440,12 @@ pop_element_by_type (HTMLEngine *e,
 	HTMLElement *elem = NULL;
 	GList *l;
 	gint maxLevel = display;
+	HTMLEnginePrivate *priv;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
-	l = e->span_stack->list;
+	l = priv->span_stack->list;
 
 	while (l) {
 		gint cd;
@@ -1196,13 +1482,15 @@ pop_element (HTMLEngine *e,
              const gchar *name)
 {
 	HTMLElement *elem = NULL;
+	HTMLEnginePrivate *priv;
 	GList *l;
 	gint maxLevel;
 	GQuark id = g_quark_from_string (name);
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
-	l = e->span_stack->list;
+	l = priv->span_stack->list;
 	maxLevel = 0;
 
 	while (l) {
@@ -1245,14 +1533,17 @@ block_end_p (HTMLEngine *e,
              HTMLObject *clue,
              HTMLElement *elem)
 {
-	g_return_if_fail (HTML_IS_ENGINE (e));
+	HTMLEnginePrivate *priv;
 
-	if (e->avoid_para) {
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
+
+	if (priv->avoid_para) {
 		finish_flow (e, clue);
 	} else {
 		new_flow (e, clue, NULL, HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
 		new_flow (e, clue, NULL, HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
-		e->avoid_para = TRUE;
+		priv->avoid_para = TRUE;
 	}
 }
 
@@ -1261,9 +1552,12 @@ block_end_map (HTMLEngine *e,
                HTMLObject *clue,
                HTMLElement *elem)
 {
-	g_return_if_fail (HTML_IS_ENGINE (e));
+	HTMLEnginePrivate *priv;
 
-	e->map = NULL;
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
+
+	priv->map = NULL;
 }
 
 static void
@@ -1271,12 +1565,15 @@ block_end_option (HTMLEngine *e,
                   HTMLObject *clue,
                   HTMLElement *elem)
 {
+	HTMLEnginePrivate *priv;
+
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
-	if (e->inOption)
-		html_select_set_text (e->formSelect, e->formText->str);
+	if (priv->inOption)
+		html_select_set_text (priv->formSelect, priv->formText->str);
 
-	e->inOption = FALSE;
+	priv->inOption = FALSE;
 }
 
 static void
@@ -1284,14 +1581,17 @@ block_end_select (HTMLEngine *e,
                   HTMLObject *clue,
                   HTMLElement *elem)
 {
+	HTMLEnginePrivate *priv;
+
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
-	if (e->inOption)
-		html_select_set_text (e->formSelect, e->formText->str);
+	if (priv->inOption)
+		html_select_set_text (priv->formSelect, priv->formText->str);
 
-	e->inOption = FALSE;
-	e->formSelect = NULL;
-	e->eat_space = FALSE;
+	priv->inOption = FALSE;
+	priv->formSelect = NULL;
+	priv->eat_space = FALSE;
 }
 
 static void
@@ -1299,71 +1599,86 @@ block_end_textarea (HTMLEngine *e,
                     HTMLObject *clue,
                     HTMLElement *elem)
 {
+	HTMLEnginePrivate *priv;
+
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
-	if (e->inTextArea)
-		html_textarea_set_text (e->formTextArea, e->formText->str);
+	if (priv->inTextArea)
+		html_textarea_set_text (priv->formTextArea, priv->formText->str);
 
-	e->inTextArea = FALSE;
-	e->formTextArea = NULL;
-	e->eat_space = FALSE;
+	priv->inTextArea = FALSE;
+	priv->formTextArea = NULL;
+	priv->eat_space = FALSE;
 }
 
 static void
 push_clue_style (HTMLEngine *e)
 {
-	g_return_if_fail (HTML_IS_ENGINE (e));
+	HTMLEnginePrivate *priv;
 
-	html_stack_push (e->body_stack, e->clueflow_style_stack);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
+
+	html_stack_push (priv->body_stack, priv->clueflow_style_stack);
 	/* CLUECHECK */
 
-	e->clueflow_style_stack = html_stack_new (NULL);
+	priv->clueflow_style_stack = html_stack_new (NULL);
 
-	html_stack_push (e->body_stack, GINT_TO_POINTER (e->avoid_para));
-	e->avoid_para = TRUE;
+	html_stack_push (priv->body_stack, GINT_TO_POINTER (priv->avoid_para));
+	priv->avoid_para = TRUE;
 
-	html_stack_push (e->body_stack, GINT_TO_POINTER (e->inPre));
-	e->inPre = 0;
+	html_stack_push (priv->body_stack, GINT_TO_POINTER (priv->inPre));
+	priv->inPre = 0;
 }
 
 static void
 push_clue (HTMLEngine *e,
            HTMLObject *clue)
 {
+	HTMLEnginePrivate *priv;
+
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
 	push_clue_style (e);
 
-	html_stack_push (e->body_stack, e->parser_clue);
-	html_stack_push (e->body_stack, e->flow);
-	e->parser_clue = clue;
-	e->flow = NULL;
+	html_stack_push (priv->body_stack, priv->parser_clue);
+	html_stack_push (priv->body_stack, priv->flow);
+	priv->parser_clue = clue;
+	priv->flow = NULL;
 }
 
 static void
 pop_clue_style (HTMLEngine *e)
 {
+	HTMLEnginePrivate *priv;
+
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
 	/* CLUECHECK */
-	finish_flow (e, HTML_OBJECT (e->parser_clue));
+	finish_flow (e, HTML_OBJECT (priv->parser_clue));
 
-	e->inPre = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
-	e->avoid_para = GPOINTER_TO_INT (html_stack_pop (e->body_stack));
+	priv->inPre = GPOINTER_TO_INT (html_stack_pop (priv->body_stack));
+	priv->avoid_para = GPOINTER_TO_INT (html_stack_pop (priv->body_stack));
 
-	html_stack_destroy (e->clueflow_style_stack);
+	html_stack_destroy (priv->clueflow_style_stack);
 
 	/* CLUECHECK */
-	e->clueflow_style_stack = html_stack_pop (e->body_stack);
+	priv->clueflow_style_stack = html_stack_pop (priv->body_stack);
 }
 
 static void
 pop_clue (HTMLEngine *e)
 {
-	g_return_if_fail (HTML_IS_ENGINE (e));
+	HTMLEnginePrivate *priv;
 
-	e->flow = html_stack_pop (e->body_stack);
-	e->parser_clue = html_stack_pop (e->body_stack);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
+
+	priv->flow = html_stack_pop (priv->body_stack);
+	priv->parser_clue = html_stack_pop (priv->body_stack);
 
 	pop_clue_style (e);
 }
@@ -1386,15 +1701,18 @@ block_end_title (HTMLEngine *e,
                  HTMLObject *clue,
                  HTMLElement *elem)
 {
+	HTMLEnginePrivate *priv;
+
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
 	/*
 	 * only emit the title changed signal if we have a
 	 * valid title
 	 */
-	if (e->inTitle && e->title)
+	if (priv->inTitle && priv->title)
 		g_signal_emit (e, signals[TITLE_CHANGED], 0);
-	e->inTitle = FALSE;
+	priv->inTitle = FALSE;
 }
 
 static void
@@ -1402,12 +1720,15 @@ element_parse_title (HTMLEngine *e,
                      HTMLObject *clue,
                      const gchar *str)
 {
-	g_return_if_fail (HTML_IS_ENGINE (e));
+	HTMLEnginePrivate *priv;
 
-	e->inTitle = TRUE;
-	if (e->title)
-		g_string_free (e->title, TRUE);
-	e->title = g_string_new ("");
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
+
+	priv->inTitle = TRUE;
+	if (priv->title)
+		g_string_free (priv->title, TRUE);
+	priv->title = g_string_new ("");
 
 	push_block (e, "title", DISPLAY_NONE, block_end_title, 0, 0);
 }
@@ -1417,12 +1738,15 @@ parse_text (HTMLEngine *e,
             HTMLObject *clue,
             gchar *str)
 {
-	g_return_if_fail (HTML_IS_ENGINE (e));
+	HTMLEnginePrivate *priv;
 
-	if (e->inOption || e->inTextArea) {
-		g_string_append (e->formText, str);
-	} else if (e->inTitle) {
-		g_string_append (e->title, str);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
+
+	if (priv->inOption || priv->inTextArea) {
+		g_string_append (priv->formText, str);
+	} else if (priv->inTitle) {
+		g_string_append (priv->title, str);
 	} else {
 		insert_text (e, clue, str);
 	}
@@ -1433,20 +1757,22 @@ new_parse_body (HTMLEngine *e,
                 const gchar *end[])
 {
 	HTMLObject *clue = NULL;
+	HTMLEnginePrivate *priv;
 	gchar *rv = NULL;
 
 	g_return_val_if_fail (HTML_IS_ENGINE (e), NULL);
+	priv = html_engine_get_instance_private (e);
 
-	e->eat_space = FALSE;
+	priv->eat_space = FALSE;
 
-	while (html_tokenizer_has_more_tokens (e->ht) && e->parsing) {
+	while (html_tokenizer_has_more_tokens (priv->ht) && priv->parsing) {
 		gchar *token;
 
-		token = html_tokenizer_next_token (e->ht);
+		token = html_tokenizer_next_token (priv->ht);
 
 		/* The token parser has pushed a body we want to use it. */
 		/* CLUECHECK */
-		clue = e->parser_clue;
+		clue = priv->parser_clue;
 		/* printf ("%p <-- clue\n", clue); */
 
 		if (token == NULL)
@@ -1472,7 +1798,7 @@ new_parse_body (HTMLEngine *e,
 
 			/* The tag used for line break when we are in <pre>...</pre> */
 			if (*str == '\n') {
-				if (e->inPre)
+				if (priv->inPre)
 					add_line_break (e, clue, HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
 				else {
 					gchar *str_copy = g_strdup (str);
@@ -1483,9 +1809,9 @@ new_parse_body (HTMLEngine *e,
 				}
 			} else {
 				/* Handle both <TEXTAREA> and </TEXTAREA> */
-				if (e->inTextArea) {
+				if (priv->inTextArea) {
 					parse_one_token (e, clue, str);
-					if (e->inTextArea)
+					if (priv->inTextArea)
 						parse_text (e, clue, str);
 				} else
 					parse_one_token (e, clue, str);
@@ -1496,7 +1822,7 @@ new_parse_body (HTMLEngine *e,
 		g_free (token);
 	}
 
-	if (!html_tokenizer_has_more_tokens (e->ht) && !e->writing)
+	if (!html_tokenizer_has_more_tokens (priv->ht) && !priv->writing)
 		html_engine_stop_parser (e);
 
 	return rv;
@@ -1506,12 +1832,15 @@ static gboolean
 discard_body (HTMLEngine *p,
               const gchar *end[])
 {
+	HTMLEnginePrivate *priv;
 	gchar *str = NULL;
+
+	priv = html_engine_get_instance_private (p);
 
 	g_return_val_if_fail (p != NULL && HTML_IS_ENGINE (p), FALSE);
 
-	while (html_tokenizer_has_more_tokens (p->ht) && p->parsing) {
-		str = html_tokenizer_next_token (p->ht);
+	while (html_tokenizer_has_more_tokens (priv->ht) && priv->parsing) {
+		str = html_tokenizer_next_token (priv->ht);
 
 		if (*str == '\0') {
 			g_free (str);
@@ -1560,13 +1889,15 @@ element_parse_param (HTMLEngine *e,
 	GtkHTMLEmbedded *eb;
 	HTMLElement *element;
 	gchar *name = NULL, *value = NULL;
+	HTMLEnginePrivate *priv;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
-	if (html_stack_is_empty (e->embeddedStack))
+	if (html_stack_is_empty (priv->embeddedStack))
 		return;
 
-	eb = html_stack_top (e->embeddedStack);
+	eb = html_stack_top (priv->embeddedStack);
 
 	element = html_element_new_parse (e, str);
 
@@ -1583,6 +1914,9 @@ parse_object_params (HTMLEngine *p,
                      HTMLObject *clue)
 {
 	gchar *str;
+	HTMLEnginePrivate *priv;
+
+	priv = html_engine_get_instance_private (p);
 
 	g_return_val_if_fail (p != NULL && HTML_IS_ENGINE (p), FALSE);
 
@@ -1590,20 +1924,20 @@ parse_object_params (HTMLEngine *p,
 	 * as soon as we find something that is not whitespace or a param
 	 * element we bail and the caller deal with the rest
 	 */
-	while (html_tokenizer_has_more_tokens (p->ht) && p->parsing) {
-		str = html_tokenizer_peek_token (p->ht);
+	while (html_tokenizer_has_more_tokens (priv->ht) && priv->parsing) {
+		str = html_tokenizer_peek_token (priv->ht);
 
 		if (*str == '\0' ||
 		    *str == '\n' ||
 		    is_leading_space ((guchar *) str)) {
-				html_tokenizer_next_token (p->ht);
+				html_tokenizer_next_token (priv->ht);
 				/* printf ("\"%s\": was the string\n", str); */
 				g_free (str);
 				continue;
 		} else if (*str == TAG_ESCAPE) {
 			if (g_ascii_strncasecmp ("<param", str + 1, 6) == 0) {
 				/* go ahead and remove the token */
-				html_tokenizer_next_token (p->ht);
+				html_tokenizer_next_token (priv->ht);
 
 				parse_one_token (p, clue, str + 1);
 				g_free (str);
@@ -1624,10 +1958,13 @@ block_end_object (HTMLEngine *e,
                   HTMLObject *clue,
                   HTMLElement *elem)
 {
-	g_return_if_fail (HTML_IS_ENGINE (e));
+	HTMLEnginePrivate *priv;
 
-	if (!html_stack_is_empty (e->embeddedStack)) {
-		GObject *o = G_OBJECT (html_stack_pop (e->embeddedStack));
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
+
+	if (!html_stack_is_empty (priv->embeddedStack)) {
+		GObject *o = G_OBJECT (html_stack_pop (priv->embeddedStack));
 		g_object_unref (o);
 	}
 }
@@ -1648,9 +1985,11 @@ element_parse_object (HTMLEngine *e,
 	HTMLEmbedded *el;
 	gboolean object_found;
 	HTMLElement *element;
+	HTMLEnginePrivate *priv;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
+	priv = html_engine_get_instance_private (e);
 	/* this might have to do something different for form object
 	 * elements - check the spec MPZ */
 
@@ -1687,27 +2026,27 @@ element_parse_object (HTMLEngine *e,
 	eb = (GtkHTMLEmbedded *) gtk_html_embedded_new (classid, name, type, data,
 							width, height);
 
-	html_stack_push (e->embeddedStack, eb);
+	html_stack_push (priv->embeddedStack, eb);
 	g_object_ref (eb);
-	el = html_embedded_new_widget (GTK_WIDGET (e->widget), eb, e);
+	el = html_embedded_new_widget (GTK_WIDGET (priv->widget), eb, e);
 
 	/* evaluate params */
 	parse_object_params (e, clue);
 
 	/* create the object */
 	object_found = FALSE;
-	gtk_html_debug_log (e->widget,
+	gtk_html_debug_log (priv->widget,
 			    "requesting object classid: %s\n",
 			    classid ? classid : "(null)");
 	g_signal_emit (e, signals[OBJECT_REQUESTED], 0, eb, &object_found);
-	gtk_html_debug_log (e->widget, "object_found: %d\n", object_found);
+	gtk_html_debug_log (priv->widget, "object_found: %d\n", object_found);
 
 	/* show alt text on TRUE */
 	if (object_found) {
 		append_element (e, clue, HTML_OBJECT (el));
 		/* automatically add this to a form if it is part of one */
-		if (e->form)
-			html_form_add_element (e->form, HTML_EMBEDDED (el));
+		if (priv->form)
+			html_form_add_element (priv->form, HTML_EMBEDDED (el));
 
 		/* throw away the contents we can deal with the object */
 		discard_body (e, end);
@@ -1729,11 +2068,13 @@ element_parse_noframe (HTMLEngine *e,
                        HTMLObject *clue,
                        const gchar *str)
 {
+	HTMLEnginePrivate *priv;
 	static const gchar *end[] = {"</noframe", NULL};
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
-	if (e->allow_frameset)
+	if (priv->allow_frameset)
 		discard_body (e, end);
 }
 
@@ -1742,10 +2083,13 @@ block_end_frameset (HTMLEngine *e,
                     HTMLObject *clue,
                     HTMLElement *elem)
 {
-	g_return_if_fail (HTML_IS_ENGINE (e));
+	HTMLEnginePrivate *priv;
 
-	if (!html_stack_is_empty (e->frame_stack))
-		html_stack_pop (e->frame_stack);
+	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
+
+	if (!html_stack_is_empty (priv->frame_stack))
+		html_stack_pop (priv->frame_stack);
 }
 
 static void
@@ -1758,10 +2102,12 @@ element_parse_frameset (HTMLEngine *e,
 	gchar *value = NULL;
 	gchar *rows  = NULL;
 	gchar *cols  = NULL;
+	HTMLEnginePrivate *priv;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
-	if (e->allow_frameset)
+	if (priv->allow_frameset)
 		return;
 
 	element = html_element_new_parse (e, str);
@@ -1778,20 +2124,20 @@ element_parse_frameset (HTMLEngine *e,
 	*/
 
 	/* clear the borders */
-	e->bottomBorder = 0;
-	e->topBorder = 0;
-	e->leftBorder = 0;
-	e->rightBorder = 0;
+	priv->bottomBorder = 0;
+	priv->topBorder = 0;
+	priv->leftBorder = 0;
+	priv->rightBorder = 0;
 
-	frame = html_frameset_new (e->widget, rows, cols);
+	frame = html_frameset_new (priv->widget, rows, cols);
 
-	if (html_stack_is_empty (e->frame_stack)) {
+	if (html_stack_is_empty (priv->frame_stack)) {
 		append_element (e, clue, frame);
 	} else {
-		html_frameset_append (html_stack_top (e->frame_stack), frame);
+		html_frameset_append (html_stack_top (priv->frame_stack), frame);
 	}
 
-	html_stack_push (e->frame_stack, frame);
+	html_stack_push (priv->frame_stack, frame);
 	push_block (e, "frameset", DISPLAY_NONE, block_end_frameset, 0, 0);
 }
 
@@ -1813,7 +2159,9 @@ element_parse_iframe (HTMLEngine *e,
 	gint margin_height   = -1;
 	HTMLHAlignType halign = HTML_HALIGN_NONE;
 	HTMLVAlignType valign = HTML_VALIGN_NONE;
+	HTMLEnginePrivate *priv;
 
+	priv = html_engine_get_instance_private (e);
 	element = html_element_new_parse (e, str);
 
 	if (html_element_get_attr (element, "src", &value))
@@ -1863,7 +2211,7 @@ element_parse_iframe (HTMLEngine *e,
 		if (element->style->height)
 			height = element->style->height->val;
 
-		iframe = html_iframe_new (GTK_WIDGET (e->widget), src, width, height, border);
+		iframe = html_iframe_new (GTK_WIDGET (priv->widget), src, width, height, border);
 		if (margin_height >= 0)
 			html_iframe_set_margin_height (HTML_IFRAME (iframe), margin_height);
 		if (margin_width >= 0)
@@ -1897,15 +2245,17 @@ element_parse_area (HTMLEngine *e,
 	gchar *href = NULL;
 	gchar *coords = NULL;
 	gchar *target = NULL;
+	HTMLEnginePrivate *priv;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
-	if (e->map == NULL)
+	priv = html_engine_get_instance_private (e);
+	if (priv->map == NULL)
 		return;
 
-	html_string_tokenizer_tokenize (e->st, str + 5, " >");
-	while (html_string_tokenizer_has_more_tokens (e->st)) {
-		gchar *token = html_string_tokenizer_next_token (e->st);
+	html_string_tokenizer_tokenize (priv->st, str + 5, " >");
+	while (html_string_tokenizer_has_more_tokens (priv->st)) {
+		gchar *token = html_string_tokenizer_next_token (priv->st);
 
 		if (g_ascii_strncasecmp (token, "shape=", 6) == 0) {
 			type = g_strdup (token + 6);
@@ -1922,7 +2272,7 @@ element_parse_area (HTMLEngine *e,
 
 		shape = html_shape_new (type, coords, href, target);
 		if (shape != NULL) {
-			html_map_add_shape (e->map, shape);
+			html_map_add_shape (priv->map, shape);
 		}
 	}
 
@@ -1937,15 +2287,18 @@ block_end_anchor (HTMLEngine *e,
                   HTMLObject *clue,
                   HTMLElement *elem)
 {
+	HTMLEnginePrivate *priv;
+
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
-	g_free (e->url);
-	e->url = NULL;
+	g_free (priv->url);
+	priv->url = NULL;
 
-	g_free (e->target);
-	e->target = NULL;
+	g_free (priv->target);
+	priv->target = NULL;
 
-	e->eat_space = FALSE;
+	priv->eat_space = FALSE;
 }
 
 static void
@@ -1960,8 +2313,10 @@ element_parse_a (HTMLEngine *e,
 	gchar *coords = NULL;
 	gchar *target = NULL;
 	gchar *value;
+	HTMLEnginePrivate *priv;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
 	pop_element (e, ID_A);
 
@@ -1971,8 +2326,8 @@ element_parse_a (HTMLEngine *e,
 	if (html_element_get_attr (element, "href", &value)) {
 		url = g_strdup (value);
 
-		g_free (e->url);
-		e->url = url;
+		g_free (priv->url);
+		priv->url = url;
 	}
 
 	if (html_element_get_attr (element, "target", &value))
@@ -1984,20 +2339,20 @@ element_parse_a (HTMLEngine *e,
 	if (id == NULL && html_element_get_attr (element, "name", &value))
 		id = g_strdup (value);
 
-	if (e->map && (html_element_get_attr (element, "shape", &type) || html_element_get_attr (element, "coords", &coords))) {
+	if (priv->map && (html_element_get_attr (element, "shape", &type) || html_element_get_attr (element, "coords", &coords))) {
 		HTMLShape *shape;
 
 		shape = html_shape_new (type, coords, url, target);
 		if (shape)
-			html_map_add_shape (e->map, shape);
+			html_map_add_shape (priv->map, shape);
 	}
 
 	if (id != NULL) {
-		if (e->flow == NULL)
+		if (priv->flow == NULL)
 			html_clue_append (HTML_CLUE (clue),
 					  html_anchor_new (id));
 		else
-			html_clue_append (HTML_CLUE (e->flow),
+			html_clue_append (HTML_CLUE (priv->flow),
 					  html_anchor_new (id));
 		g_free (id);
 	}
@@ -2026,8 +2381,10 @@ element_parse_address (HTMLEngine *e,
                        const gchar *str)
 {
 	HTMLStyle *style = NULL;
+	HTMLEnginePrivate *priv;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
 	style = html_style_set_decoration (style, GTK_HTML_FONT_STYLE_ITALIC);
 	push_block_element (e, ID_ADDRESS, style, DISPLAY_BLOCK, block_end_clueflow_style, 0, 0);
@@ -2035,7 +2392,7 @@ element_parse_address (HTMLEngine *e,
 	push_clueflow_style (e, HTML_CLUEFLOW_STYLE_ADDRESS);
 	close_flow (e, clue);
 
-	e->avoid_para = TRUE;
+	priv->avoid_para = TRUE;
 }
 
 static void
@@ -2043,13 +2400,16 @@ block_end_pre (HTMLEngine *e,
                HTMLObject *clue,
                HTMLElement *elem)
 {
+	HTMLEnginePrivate *priv;
+
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
 	block_end_clueflow_style (e, clue, elem);
 
 	finish_flow (e, clue);
 
-	e->inPre--;
+	priv->inPre--;
 }
 
 static void
@@ -2057,15 +2417,18 @@ element_parse_pre (HTMLEngine *e,
                    HTMLObject *clue,
                    const gchar *str)
 {
+	HTMLEnginePrivate *priv;
+
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
 	push_block (e, ID_PRE, DISPLAY_BLOCK, block_end_pre, 0, 0);
 
 	push_clueflow_style (e, HTML_CLUEFLOW_STYLE_PRE);
 	finish_flow (e, clue);
 
-	e->inPre++;
-	e->avoid_para = TRUE;
+	priv->inPre++;
+	priv->avoid_para = TRUE;
 }
 
 static void
@@ -2092,18 +2455,20 @@ element_parse_html (HTMLEngine *e,
                     const gchar *str)
 {
 	HTMLElement *element;
+	HTMLEnginePrivate *priv;
 	gchar *value;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
+	priv = html_engine_get_instance_private (e);
 	element = html_element_new_parse (e, str);
 
 	if (element) {
-		if (e->parser_clue && html_element_get_attr (element, "dir", &value)) {
+		if (priv->parser_clue && html_element_get_attr (element, "dir", &value)) {
 			if (!g_ascii_strcasecmp (value, "ltr"))
-				HTML_CLUEV (e->parser_clue)->dir = HTML_DIRECTION_LTR;
+				HTML_CLUEV (priv->parser_clue)->dir = HTML_DIRECTION_LTR;
 			else if (!g_ascii_strcasecmp (value, "rtl"))
-				HTML_CLUEV (e->parser_clue)->dir = HTML_DIRECTION_RTL;
+				HTML_CLUEV (priv->parser_clue)->dir = HTML_DIRECTION_RTL;
 		}
 
 		html_element_free (element);
@@ -2136,7 +2501,10 @@ element_parse_p (HTMLEngine *e,
                  HTMLObject *clue,
                  const gchar *str)
 {
+	HTMLEnginePrivate *priv;
+
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
 	if (*str != '/') {
 		HTMLStyle *style = NULL;
@@ -2144,9 +2512,9 @@ element_parse_p (HTMLEngine *e,
 		gchar *class = NULL;
 		gchar *token;
 
-		html_string_tokenizer_tokenize (e->st, (gchar *)(str + 2), " >");
-		while (html_string_tokenizer_has_more_tokens (e->st)) {
-			token = html_string_tokenizer_next_token (e->st);
+		html_string_tokenizer_tokenize (priv->st, (gchar *)(str + 2), " >");
+		while (html_string_tokenizer_has_more_tokens (priv->st)) {
+			token = html_string_tokenizer_next_token (priv->st);
 
 			if (g_ascii_strncasecmp (token, "align=", 6) == 0) {
 				style = html_style_add_text_align (style, parse_halign (token + 6, HTML_HALIGN_NONE));
@@ -2161,18 +2529,18 @@ element_parse_p (HTMLEngine *e,
 		}
 
 		push_block_element (e, ID_P, style, DISPLAY_BLOCK, block_end_p, 0, 0);
-		if (!e->avoid_para) {
-			if (e->parser_clue && HTML_CLUE (e->parser_clue)->head)
+		if (!priv->avoid_para) {
+			if (priv->parser_clue && HTML_CLUE (priv->parser_clue)->head)
 				new_flow (e, clue, NULL, HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
 			new_flow (e, clue, NULL, HTML_CLEAR_NONE, dir);
 		} else {
 #if 1
 			update_flow_align (e, clue);
-			if (e->flow)
-				HTML_CLUEFLOW (e->flow)->dir = dir;
+			if (priv->flow)
+				HTML_CLUEFLOW (priv->flow)->dir = dir;
 #else
-			if (e->flow)
-				HTML_CLUE (e->flow)->halign = current_alignment (e);
+			if (priv->flow)
+				HTML_CLUE (priv->flow)->halign = current_alignment (e);
 			else
 				new_flow (e, clue, NULL, HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
 
@@ -2180,13 +2548,13 @@ element_parse_p (HTMLEngine *e,
 		}
 		g_free (class);
 
-		e->avoid_para = TRUE;
+		priv->avoid_para = TRUE;
 	} else {
 		pop_element (e, ID_P);
-		if (!e->avoid_para) {
+		if (!priv->avoid_para) {
 			new_flow (e, clue, NULL, HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
 			new_flow (e, clue, NULL, HTML_CLEAR_NONE, HTML_DIRECTION_DERIVED);
-			e->avoid_para = TRUE;
+			priv->avoid_para = TRUE;
 		}
 	}
 }
@@ -2198,9 +2566,11 @@ element_parse_br (HTMLEngine *e,
 {
 	HTMLClearType clear;
 	HTMLDirection dir = HTML_DIRECTION_DERIVED;
+	HTMLEnginePrivate *priv;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
+	priv = html_engine_get_instance_private (e);
 	clear = HTML_CLEAR_NONE;
 
 	/*
@@ -2208,9 +2578,9 @@ element_parse_br (HTMLEngine *e,
 	 * as well I'm not sure if we should do that or not, someone
 	 * should check the mozilla behavior
 	 */
-	html_string_tokenizer_tokenize (e->st, str + 3, " >");
-	while (html_string_tokenizer_has_more_tokens (e->st)) {
-		gchar *token = html_string_tokenizer_next_token (e->st);
+	html_string_tokenizer_tokenize (priv->st, str + 3, " >");
+	while (html_string_tokenizer_has_more_tokens (priv->st)) {
+		gchar *token = html_string_tokenizer_next_token (priv->st);
 
 		if (g_ascii_strncasecmp (token, "clear=", 6) == 0) {
 			gtk_html_debug_log (e->widget, "%s\n", token);
@@ -2239,74 +2609,76 @@ element_parse_body (HTMLEngine *e,
                     const gchar *str)
 {
 	GdkColor color;
+	HTMLEnginePrivate *priv;
 
 	g_return_if_fail (HTML_IS_ENGINE (e));
+	priv = html_engine_get_instance_private (e);
 
-	html_string_tokenizer_tokenize (e->st, str + 5, " >");
-	while (html_string_tokenizer_has_more_tokens (e->st)) {
+	html_string_tokenizer_tokenize (priv->st, str + 5, " >");
+	while (html_string_tokenizer_has_more_tokens (priv->st)) {
 		gchar *token;
 
-		token = html_string_tokenizer_next_token (e->st);
-		gtk_html_debug_log (e->widget, "token is: %s\n", token);
+		token = html_string_tokenizer_next_token (priv->st);
+		gtk_html_debug_log (priv->widget, "token is: %s\n", token);
 
 		if (g_ascii_strncasecmp (token, "bgcolor=", 8) == 0) {
 			gtk_html_debug_log (e->widget, "setting color\n");
 			if (html_parse_color (token + 8, &color)) {
-				gtk_html_debug_log (e->widget, "bgcolor is set\n");
-				html_colorset_set_color (e->settings->color_set, &color, HTMLBgColor);
+				gtk_html_debug_log (priv->widget, "bgcolor is set\n");
+				html_colorset_set_color (priv->settings->color_set, &color, HTMLBgColor);
 			} else {
-				gtk_html_debug_log (e->widget, "Color `%s' could not be parsed\n", token);
+				gtk_html_debug_log (priv->widget, "Color `%s' could not be parsed\n", token);
 			}
 		} else if (g_ascii_strncasecmp (token, "background=", 11) == 0
 			   && token[12]
-			   && !e->defaultSettings->forceDefault) {
+			   && !priv->defaultSettings->forceDefault) {
 			gchar *bgurl;
 
 			bgurl = g_strdup (token + 11);
-			if (e->bgPixmapPtr != NULL)
-				html_image_factory_unregister (e->image_factory, e->bgPixmapPtr, NULL);
-			e->bgPixmapPtr = html_image_factory_register (e->image_factory, NULL, bgurl, FALSE);
+			if (priv->bgPixmapPtr != NULL)
+				html_image_factory_unregister (priv->image_factory, priv->bgPixmapPtr, NULL);
+			priv->bgPixmapPtr = html_image_factory_register (priv->image_factory, NULL, bgurl, FALSE);
 			g_free (bgurl);
 		} else if (g_ascii_strncasecmp (token, "text=", 5) == 0
-			    && !e->defaultSettings->forceDefault) {
+			    && !priv->defaultSettings->forceDefault) {
 			if (html_parse_color (token + 5, &color)) {
-				html_colorset_set_color (e->settings->color_set, &color, HTMLTextColor);
+				html_colorset_set_color (priv->settings->color_set, &color, HTMLTextColor);
 				push_element (e, ID_BODY, NULL,
-					      html_style_add_color (NULL, html_colorset_get_color (e->settings->color_set, HTMLTextColor)));
+					      html_style_add_color (NULL, html_colorset_get_color (priv->settings->color_set, HTMLTextColor)));
 			}
 		} else if (g_ascii_strncasecmp (token, "link=", 5) == 0
-			    && !e->defaultSettings->forceDefault) {
+			    && !priv->defaultSettings->forceDefault) {
 			html_parse_color (token + 5, &color);
-			html_colorset_set_color (e->settings->color_set, &color, HTMLLinkColor);
+			html_colorset_set_color (priv->settings->color_set, &color, HTMLLinkColor);
 		} else if (g_ascii_strncasecmp (token, "vlink=", 6) == 0
-			    && !e->defaultSettings->forceDefault) {
+			    && !priv->defaultSettings->forceDefault) {
 			html_parse_color (token + 6, &color);
-			html_colorset_set_color (e->settings->color_set, &color, HTMLVLinkColor);
+			html_colorset_set_color (priv->settings->color_set, &color, HTMLVLinkColor);
 		} else if (g_ascii_strncasecmp (token, "alink=", 6) == 0
-			    && !e->defaultSettings->forceDefault) {
+			    && !priv->defaultSettings->forceDefault) {
 			html_parse_color (token + 6, &color);
-			html_colorset_set_color (e->settings->color_set, &color, HTMLALinkColor);
+			html_colorset_set_color (priv->settings->color_set, &color, HTMLALinkColor);
 		} else if (g_ascii_strncasecmp (token, "leftmargin=", 11) == 0) {
-			e->leftBorder = atoi (token + 11);
+			priv->leftBorder = atoi (token + 11);
 		} else if (g_ascii_strncasecmp (token, "rightmargin=", 12) == 0) {
-			e->rightBorder = atoi (token + 12);
+			priv->rightBorder = atoi (token + 12);
 		} else if (g_ascii_strncasecmp (token, "topmargin=", 10) == 0) {
-			e->topBorder = atoi (token + 10);
+			priv->topBorder = atoi (token + 10);
 		} else if (g_ascii_strncasecmp (token, "bottommargin=", 13) == 0) {
-			e->bottomBorder = atoi (token + 13);
+			priv->bottomBorder = atoi (token + 13);
 		} else if (g_ascii_strncasecmp (token, "marginwidth=", 12) == 0) {
-			e->leftBorder = e->rightBorder = atoi (token + 12);
+			priv->leftBorder = e->rightBorder = atoi (token + 12);
 		} else if (g_ascii_strncasecmp (token, "marginheight=", 13) == 0) {
-			e->topBorder = e->bottomBorder = atoi (token + 13);
-		} else if (e->parser_clue && g_ascii_strncasecmp (token, "dir=", 4) == 0) {
+			priv->topBorder = e->bottomBorder = atoi (token + 13);
+		} else if (priv->parser_clue && g_ascii_strncasecmp (token, "dir=", 4) == 0) {
 			if (!g_ascii_strncasecmp (token + 4, "ltr", 3))
-				HTML_CLUEV (e->parser_clue)->dir = HTML_DIRECTION_LTR;
+				HTML_CLUEV (priv->parser_clue)->dir = HTML_DIRECTION_LTR;
 			else if (!g_ascii_strncasecmp (token + 4, "rtl", 3))
-				HTML_CLUEV (e->parser_clue)->dir = HTML_DIRECTION_RTL;
+				HTML_CLUEV (priv->parser_clue)->dir = HTML_DIRECTION_RTL;
 		}
 	}
 
-	gtk_html_debug_log (e->widget, "parsed <body>\n");
+	gtk_html_debug_log (priv->widget, "parsed <body>\n");
 }
 
 static void
@@ -4196,30 +4568,6 @@ parse_one_token (HTMLEngine *e,
 	g_free (name);
 }
 
-
-GType
-html_engine_get_type (void)
-{
-	static GType html_engine_type = 0;
-
-	if (html_engine_type == 0) {
-		static const GTypeInfo html_engine_info = {
-			sizeof (HTMLEngineClass),
-			NULL,
-			NULL,
-			(GClassInitFunc) html_engine_class_init,
-			NULL,
-			NULL,
-			sizeof (HTMLEngine),
-			1,
-			(GInstanceInitFunc) html_engine_init,
-		};
-		html_engine_type = g_type_register_static (G_TYPE_OBJECT, "HTMLEngine", &html_engine_info, 0);
-	}
-
-	return html_engine_type;
-}
-
 static void
 clear_selection (HTMLEngine *e)
 {
@@ -4574,100 +4922,102 @@ html_engine_class_init (HTMLEngineClass *klass)
 static void
 html_engine_init (HTMLEngine *engine)
 {
-	engine->clue = engine->parser_clue = NULL;
+	HTMLEnginePrivate *priv = html_engine_get_instance_private (engine);
+
+	priv->clue = priv->parser_clue = NULL;
 
 	/* STUFF might be missing here!   */
-	engine->freeze_count = 0;
-	engine->thaw_idle_id = 0;
-	engine->pending_expose = NULL;
+	priv->freeze_count = 0;
+	priv->thaw_idle_id = 0;
+	priv->pending_expose = NULL;
 
-	engine->window = NULL;
+	priv->window = NULL;
 
 	/* settings, colors and painter init */
 
-	engine->newPage = FALSE;
-	engine->allow_frameset = FALSE;
+	priv->newPage = FALSE;
+	priv->allow_frameset = FALSE;
 
-	engine->editable = FALSE;
-	engine->caret_mode = FALSE;
-	engine->clipboard = NULL;
-	engine->clipboard_stack = NULL;
-	engine->selection_stack  = NULL;
+	priv->editable = FALSE;
+	priv->caret_mode = FALSE;
+	priv->clipboard = NULL;
+	priv->clipboard_stack = NULL;
+	priv->selection_stack  = NULL;
 
-	engine->ht = html_tokenizer_new ();
-	engine->st = html_string_tokenizer_new ();
-	engine->image_factory = html_image_factory_new (engine);
+	priv->ht = html_tokenizer_new ();
+	priv->st = html_string_tokenizer_new ();
+	priv->image_factory = html_image_factory_new (engine);
 
-	engine->undo = html_undo_new ();
+	priv->undo = html_undo_new ();
 
-	engine->body_stack = html_stack_new (NULL);
-	engine->span_stack = html_stack_new ((HTMLStackFreeFunc) html_element_free);
-	engine->clueflow_style_stack = html_stack_new (NULL);
-	engine->frame_stack = html_stack_new (NULL);
-	engine->table_stack = html_stack_new (NULL);
+	priv->body_stack = html_stack_new (NULL);
+	priv->span_stack = html_stack_new ((HTMLStackFreeFunc) html_element_free);
+	priv->clueflow_style_stack = html_stack_new (NULL);
+	priv->frame_stack = html_stack_new (NULL);
+	priv->table_stack = html_stack_new (NULL);
 
-	engine->listStack = html_stack_new ((HTMLStackFreeFunc) html_list_destroy);
-	engine->embeddedStack = html_stack_new (g_object_unref);
+	priv->listStack = html_stack_new ((HTMLStackFreeFunc) html_list_destroy);
+	priv->embeddedStack = html_stack_new (g_object_unref);
 
-	engine->url = NULL;
-	engine->target = NULL;
+	priv->url = NULL;
+	priv->target = NULL;
 
-	engine->leftBorder = LEFT_BORDER;
-	engine->rightBorder = RIGHT_BORDER;
-	engine->topBorder = TOP_BORDER;
-	engine->bottomBorder = BOTTOM_BORDER;
+	priv->leftBorder = LEFT_BORDER;
+	priv->rightBorder = RIGHT_BORDER;
+	priv->topBorder = TOP_BORDER;
+	priv->bottomBorder = BOTTOM_BORDER;
 
-	engine->inPre = FALSE;
-	engine->inTitle = FALSE;
+	priv->inPre = FALSE;
+	priv->inTitle = FALSE;
 
-	engine->tempStrings = NULL;
+	priv->tempStrings = NULL;
 
-	engine->draw_queue = html_draw_queue_new (engine);
+	priv->draw_queue = html_draw_queue_new (engine);
 
-	engine->map = NULL;
-	engine->formList = NULL;
+	priv->map = NULL;
+	priv->formList = NULL;
 
-	engine->avoid_para = FALSE;
+	priv->avoid_para = FALSE;
 
-	engine->have_focus = FALSE;
+	priv->have_focus = FALSE;
 
-	engine->cursor = html_cursor_new ();
-	engine->mark = NULL;
-	engine->cursor_hide_count = 1;
+	priv->cursor = html_cursor_new ();
+	priv->mark = NULL;
+	priv->cursor_hide_count = 1;
 
-	engine->timerId = 0;
-	engine->updateTimer = 0;
+	priv->timerId = 0;
+	priv->updateTimer = 0;
 
-	engine->blinking_timer_id = 0;
-	engine->blinking_status = FALSE;
+	priv->blinking_timer_id = 0;
+	priv->blinking_status = FALSE;
 
-	engine->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
-	engine->insertion_url = NULL;
-	engine->insertion_target = NULL;
-	engine->selection = NULL;
-	engine->shift_selection = FALSE;
-	engine->selection_mode = FALSE;
-	engine->block_selection = 0;
-	engine->cursor_position_stack = NULL;
+	priv->insertion_font_style = GTK_HTML_FONT_STYLE_DEFAULT;
+	priv->insertion_url = NULL;
+	priv->insertion_target = NULL;
+	priv->selection = NULL;
+	priv->shift_selection = FALSE;
+	priv->selection_mode = FALSE;
+	priv->block_selection = 0;
+	priv->cursor_position_stack = NULL;
 
-	engine->selection_updater = html_engine_edit_selection_updater_new (engine);
+	priv->selection_updater = html_engine_edit_selection_updater_new (engine);
 
-	engine->search_info = NULL;
-	engine->need_spell_check = FALSE;
+	priv->search_info = NULL;
+	priv->need_spell_check = FALSE;
 
 	html_engine_print_set_min_split_index (engine, .75);
 
-	engine->block = FALSE;
-	engine->block_images = FALSE;
-	engine->save_data = FALSE;
-	engine->saved_step_count = -1;
+	priv->block = FALSE;
+	priv->block_images = FALSE;
+	priv->save_data = FALSE;
+	priv->saved_step_count = -1;
 
-	engine->map_table = NULL;
+	priv->map_table = NULL;
 
-	engine->expose = FALSE;
-	engine->need_update = FALSE;
+	priv->expose = FALSE;
+	priv->need_update = FALSE;
 
-	engine->language = NULL;
+	priv->language = NULL;
 
 }
 

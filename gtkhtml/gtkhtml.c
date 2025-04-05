@@ -157,6 +157,40 @@ enum {
 	LAST_SIGNAL
 };
 
+/* Private structure definition. */
+typedef struct {
+	GtkLayout layout;
+
+	GtkWidget            *iframe_parent;
+	HTMLObject           *frame;
+	GtkHTMLEditorAPI     *editor_api;
+	gpointer              editor_data;
+	HTMLEngine           *engine;
+
+	/* The URL of the link over which the pointer currently is.  NULL if
+	 * the pointer is not over a link.  */
+	gchar *pointer_url;
+
+	/* The cursors we use within the widget.  */
+	GdkCursor *hand_cursor;
+	GdkCursor *ibeam_cursor;
+
+	gint selection_x1, selection_y1;
+
+	guint in_selection : 1;
+	guint in_selection_drag : 1;
+
+	guint debug : 1;
+	guint allow_selection : 1;
+
+	guint hadj_connection;
+	guint vadj_connection;
+
+	gboolean binding_handled;
+} GtkHTMLPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (GtkHTML, gtk_html, GTK_TYPE_LAYOUT)
+
 /* #define USE_PROPS */
 #ifdef USE_PROPS
 enum {
@@ -350,12 +384,13 @@ gtk_html_update_styles (GtkHTML *html)
 	HTMLListType item_type;
 	guint indentation;
 
+	GtkHTMLPrivate *priv = gtk_html_get_instance_private (html);
 	/* printf ("gtk_html_update_styles called\n"); */
 
-	if (!html_engine_get_editable (html->engine))
+	if (!html_engine_get_editable (priv->engine))
 		return;
 
-	engine          = html->engine;
+	engine          = priv->engine;
 	html_engine_get_current_clueflow_style (engine, &flow_style, &item_type);
 	paragraph_style = clueflow_style_to_paragraph_style (flow_style, item_type);
 
@@ -3540,6 +3575,8 @@ gtk_html_init (GtkHTML *html)
 	gtk_widget_set_app_paintable (GTK_WIDGET (html), TRUE);
 	gtk_widget_set_double_buffered (GTK_WIDGET (html), TRUE);
 
+	GtkHTMLPrivate *priv = gtk_html_get_instance_private (html);
+
 	html->editor_api = NULL;
 	html->debug = FALSE;
 	html->allow_selection = TRUE;
@@ -3626,30 +3663,6 @@ gtk_html_init (GtkHTML *html)
 	html->priv->desktop_interface = settings;
 
 	gtk_html_construct (html);
-}
-
-GType
-gtk_html_get_type (void)
-{
-	static GType html_type = 0;
-
-	if (!html_type) {
-		static const GTypeInfo html_info = {
-			sizeof (GtkHTMLClass),
-			NULL,           /* base_init */
-			NULL,           /* base_finalize */
-			(GClassInitFunc) gtk_html_class_init,
-			NULL,           /* class_finalize */
-			NULL,           /* class_data */
-			sizeof (GtkHTML),
-			1,              /* n_preallocs */
-			(GInstanceInitFunc) gtk_html_init,
-		};
-
-		html_type = g_type_register_static (GTK_TYPE_LAYOUT, "GtkHTML", &html_info, 0);
-	}
-
-	return html_type;
 }
 
 /**

@@ -33,7 +33,7 @@ typedef struct _GtkHTMLEditorAPI GtkHTMLEditorAPI;
 typedef struct _GtkHTMLEmbedded GtkHTMLEmbedded;
 typedef struct _GtkHTMLEmbeddedClass GtkHTMLEmbeddedClass;
 typedef struct _GtkHTMLEmbeddedPrivate GtkHTMLEmbeddedPrivate;
-typedef struct _GtkHTMLPrivate GtkHTMLPrivate;
+//typedef struct _GtkHTMLPrivate GtkHTMLPrivate;
 typedef struct _GtkHTMLStream GtkHTMLStream;
 
 typedef gchar **(* GtkHTMLStreamTypesFunc) (GtkHTMLStream *stream,
