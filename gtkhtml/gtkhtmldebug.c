@@ -270,6 +270,7 @@ gtk_html_debug_dump_object (HTMLObject *obj,
 	}
 	case HTML_TYPE_CLUEV:
 		g_print ("Direction: %s\n", direction_to_string (HTML_CLUEV (obj)->dir));
+		break;
 	case HTML_TYPE_CLUEH:
 	case HTML_TYPE_CLUEFLOW:
 		/* g_print ("Head: %p Tail: %p\n", HTML_CLUE (obj)->head, HTML_CLUE (obj)->tail); */
