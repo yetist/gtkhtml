@@ -539,7 +539,7 @@ test_quotes_in_div_block (GtkHTML *html)
 	flow_levels = HTML_CLUEFLOW (HTML_CLUE (HTML_CLUE (e->clue)->head)->head)->levels;
 
 	/* test if levels are OK */
-	if (!flow_levels || !flow_levels->len == 1 || flow_levels->data[0] != HTML_LIST_TYPE_BLOCKQUOTE_CITE)
+	if (!flow_levels || !(flow_levels->len == 1) || flow_levels->data[0] != HTML_LIST_TYPE_BLOCKQUOTE_CITE)
 		return FALSE;
 
 	return TRUE;
