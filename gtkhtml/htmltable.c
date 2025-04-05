@@ -1633,7 +1633,8 @@ divide_upto_preferred_width (HTMLTable *table,
                              gint left)
 {
 	gint added, part, c, pw, pixel_size = html_painter_get_pixel_size (painter);
-	gint total, total_pref, to_divide, min_col, min_fill, min_pw, processed_pw, border_extra = table->border ? 2 : 0;
+	gint total, total_pref, to_divide, min_fill, min_pw, processed_pw, border_extra = table->border ? 2 : 0;
+	gint min_col = 0;
 
 	/* printf ("cols: %d left: %d\n", table->totalCols, left); */
 	while (left > 0 && calc_lowest_fill (table, pref, max_size, col_percent, pixel_size, &min_col, &total_pref, &total)) {
