@@ -88,8 +88,7 @@ encode (HTMLEmbedded *e,
 		g_free (gtk_text);
 	}
 
-	utf8_str = encoding->str;
-	g_string_free (encoding, FALSE);
+	utf8_str = g_string_free (encoding, FALSE);
 
 	return utf8_str;
 }

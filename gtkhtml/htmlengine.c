@@ -5877,7 +5877,6 @@ gchar *
 html_engine_get_selection_string (HTMLEngine *engine)
 {
 	GString *buffer;
-	gchar *string;
 
 	g_return_val_if_fail (HTML_IS_ENGINE (engine), NULL);
 
@@ -5887,10 +5886,7 @@ html_engine_get_selection_string (HTMLEngine *engine)
 	buffer = g_string_new (NULL);
 	html_object_append_selection_string (engine->clue, buffer);
 
-	string = buffer->str;
-	g_string_free (buffer, FALSE);
-
-	return string;
+	return g_string_free (buffer, FALSE);
 }
 
 
@@ -6427,8 +6423,7 @@ html_engine_get_spell_word (HTMLEngine *e)
 	if (text->str[text->len - 1] == '\'')
 		text = g_string_erase (text, text->len - 1, 1);
 
-	word = text->str;
-	g_string_free (text, FALSE);
+	word = g_string_free (text, FALSE);
 	html_cursor_destroy (cursor);
 
 	return word;

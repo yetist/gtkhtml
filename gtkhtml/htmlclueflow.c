@@ -1195,7 +1195,6 @@ get_alpha_value (gint value,
                  gboolean lower)
 {
 	GString *str;
-	gchar *rv;
 	gint add = lower ? 'a' : 'A';
 
 	str = g_string_new (". ");
@@ -1205,10 +1204,7 @@ get_alpha_value (gint value,
 		value = (value - 1) / 26;
 	} while (value);
 
-	rv = str->str;
-	g_string_free (str, FALSE);
-
-	return rv;
+	return g_string_free (str, FALSE);
 }
 
 #define BASES 7
@@ -1219,7 +1215,6 @@ get_roman_value (gint value,
 {
 	GString *str;
 	const gchar *base = "IVXLCDM";
-	gchar *rv;
 	gint b, r, add = lower ? 'a' - 'A' : 0;
 
 	if (value > 3999)
@@ -1249,10 +1244,7 @@ get_roman_value (gint value,
 		}
 	}
 
-	rv = str->str;
-	g_string_free (str, FALSE);
-
-	return rv;
+	return g_string_free (str, FALSE);
 }
 
 static gchar *

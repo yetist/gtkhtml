@@ -2211,7 +2211,6 @@ html_object_get_selection_string (HTMLObject *o,
 {
 	HTMLObject *tail;
 	tmpSelData data;
-	gchar *string;
 
 	g_assert (o);
 
@@ -2225,10 +2224,7 @@ html_object_get_selection_string (HTMLObject *o,
 	html_interval_forall (data.i, e, unselect_object, NULL);
 
 	html_interval_destroy (data.i);
-	string = data.buffer->str;
-	g_string_free (data.buffer, FALSE);
-
-	return string;
+	return g_string_free (data.buffer, FALSE);
 }
 
 HTMLObject *
