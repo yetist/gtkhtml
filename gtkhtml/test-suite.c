@@ -91,14 +91,10 @@ static gchar *
 get_plain (GtkHTML *html)
 {
 	GString *str = g_string_new (NULL);
-	gchar *rv;
 
 	html_engine_save_plain (html->engine, plain_save_receiver, str);
 
-	rv = str->str;
-	g_string_free (str, FALSE);
-
-	return rv;
+	return g_string_free (str, FALSE);
 }
 
 static gint test_delete_nested_cluevs_and_undo (GtkHTML *html)
@@ -145,31 +141,29 @@ static gint test_insert_nested_cluevs (GtkHTML *html)
 static gint test_indentation_plain_text (GtkHTML *html)
 {
 	gchar *str;
+	gint ret;
 
 	load_editable (html, "abc<div align=right>abc</div>");
 
 	str = get_plain (html);
-	if (!str || strcmp (str, "abc\n                                                                     abc\n"))
-		return FALSE;
+	ret = g_strcmp0(str, "abc\n                                                                     abc\n");
+	g_free(str);
 
-	g_free (str);
-
-	return TRUE;
+	return (ret == 0) ? TRUE : FALSE;
 }
 
 static gint test_indentation_plain_text_rtl (GtkHTML *html)
 {
 	gchar *str;
+        gint ret;
 
 	load_editable (html, "שנבגקכעי<div align=left>שנבגקכעי</div>");
 
 	str = get_plain (html);
-	if (!str || strcmp (str, "שנבגקכעי\n                                                                שנבגקכעי\n"))
-		return FALSE;
-
+	ret = g_strcmp0(str, "שנבגקכעי\n                                                                שנבגקכעי\n");
 	g_free (str);
 
-	return TRUE;
+	return (ret == 0) ? TRUE : FALSE;
 }
 
 static gint test_cursor_around_containers (GtkHTML *html)
