@@ -6310,6 +6310,8 @@ html_engine_replace_do (HTMLEngine *e,
 		while (html_engine_search_next (e))
 			replace (e);
 		html_undo_level_end (e->undo, e);
+		break;
+
 	case RQA_Cancel:
 		html_replace_destroy (e->replace_info);
 		e->replace_info = NULL;
@@ -6321,6 +6323,8 @@ html_engine_replace_do (HTMLEngine *e,
 		html_undo_level_begin (e->undo, "Replace", "Revert replace");
 		replace (e);
 		html_undo_level_end (e->undo, e);
+		break;
+
 	case RQA_Next:
 		finished = !html_engine_search_next (e);
 		if (finished)
