@@ -28,51 +28,23 @@
 #include "htmltypes.h"
 #include "htmlenums.h"
 
-#define HTML_OBJECT(x)		((HTMLObject *) (x))
-#define HTML_OBJECT_CLASS(x)	((HTMLObjectClass *) (x))
-#define HTML_OBJECT_TYPE(x)     (HTML_OBJECT (x)->klass->type)
 
-struct _HTMLObject {
-	HTMLObjectClass *klass;
+G_BEGIN_DECLS
 
-	/* Pointer to the parent object.  */
-	HTMLObject *parent;
+#define HTML_TYPE_OBJECT              (html_object_get_type ())
+G_DECLARE_DERIVABLE_TYPE (HTMLObject, html_object, HTML, OBJECT, GObject)
 
-	HTMLObject *prev;
-	HTMLObject *next;
-
-	HTMLChangeFlags change;
-
-	gint x, y;
-
-	gint ascent, descent;
-
-	gint min_width;
-	gint width;
-	gint pref_width;
-	gint max_width;
-
-	gint percent;
-
-	guchar flags;
-
-	/* FIXME maybe unify with `flags'?  */
-	guint redraw_pending : 1;
-	guint selected : 1;
-
-	/* If an object has a redraw pending and is being destroyed, this flag
-	 * is set to TRUE instead of g_free () ing the object.  When the draw
-	 * queue is flushed, the g_free () is performed.  */
-	guint free_pending : 1;
-
-	/* FIXME add the other dynamic pusedo-classes... */
-	guint draw_focused : 1;
-
-	GData *object_data;
-	GData *object_data_nocp;
-
-	gchar *id;
+struct _HTMLObjectClass
+{
+    GObjectClass     parent_class;
+    
 };
+
+GType   html_object_get_type           (void) G_GNUC_CONST;
+
+HTMLObject*     html_object_new                (void);
+
+G_END_DECLS
 
 struct _HTMLObjectClearRectangle {
 	HTMLObject *object;

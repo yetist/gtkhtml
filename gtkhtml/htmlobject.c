@@ -53,6 +53,145 @@ HTMLObjectClass html_object_class;
 
 #define HO_CLASS(x) HTML_OBJECT_CLASS (HTML_OBJECT (x)->klass)
 
+enum {
+  LAST_SIGNAL
+};
+
+enum {
+  PROP_0,
+  NUM_PROPERTIES
+};
+
+static GParamSpec *widget_props[NUM_PROPERTIES] = { NULL, };
+static guint signals[LAST_SIGNAL] = { 0 };
+
+typedef struct {
+  GObject      object;
+	//HTMLObjectClass *klass;
+
+	/* Pointer to the parent object.  */
+	//HTMLObject *parent;
+
+	HTMLObject *prev;
+	HTMLObject *next;
+
+	HTMLChangeFlags change;
+
+	gint x, y;
+
+	gint ascent, descent;
+
+	gint min_width;
+	gint width;
+	gint pref_width;
+	gint max_width;
+
+	gint percent;
+
+	guchar flags;
+
+	/* FIXME maybe unify with `flags'?  */
+	guint redraw_pending : 1;
+	guint selected : 1;
+
+	/* If an object has a redraw pending and is being destroyed, this flag
+	 * is set to TRUE instead of g_free () ing the object.  When the draw
+	 * queue is flushed, the g_free () is performed.  */
+	guint free_pending : 1;
+
+	/* FIXME add the other dynamic pusedo-classes... */
+	guint draw_focused : 1;
+
+	GData *object_data;
+	GData *object_data_nocp;
+
+	gchar *id;
+} HtmlObjectPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (HTMLObject, html_object, G_TYPE_OBJECT);
+
+
+
+
+enum {
+  LAST_SIGNAL
+};
+
+enum {
+  PROP_0,
+  NUM_PROPERTIES
+};
+
+static GParamSpec *widget_props[NUM_PROPERTIES] = { NULL, };
+static guint signals[LAST_SIGNAL] = { 0 };
+
+#if 1
+struct _HtmlObject
+{
+  GObject      object;
+};
+
+G_DEFINE_TYPE (HtmlObject, html_object, G_TYPE_OBJECT);
+#else
+typedef struct {
+  GObject      object;
+} HtmlObjectPrivate;
+
+G_DEFINE_TYPE_WITH_PRIVATE (HtmlObject, html_object, G_TYPE_OBJECT);
+#endif //#if 0/1
+
+static void html_object_set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
+{
+  HtmlObject *object;
+
+  object = HTML_OBJECT (object);
+
+  switch (prop_id)
+  {
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+      break;
+  }
+}
+
+static void html_object_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec)
+{
+  HtmlObject *object;
+
+  object = HTML_OBJECT (object);
+
+  switch (prop_id)
+  {
+
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+      break;
+  }
+}
+
+static void html_object_init (HtmlObject *object)
+{
+#if 0
+  HtmlObjectPrivate *priv;
+
+  priv = html_object_get_instance_private (client);
+#endif
+
+}
+
+HtmlObject* html_object_new (void)
+{
+  return g_object_new (HTML_TYPE_OBJECT, NULL);
+}
+
+
+
+
+
+
+
+
+
 static void remove_child (HTMLObject *self, HTMLObject *child) G_GNUC_NORETURN;
 
 static void
@@ -820,133 +959,165 @@ html_object_real_get_left_edge_offset (HTMLObject *o,
 
 /* Class initialization.  */
 
+
+static void html_object_set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
+{
+  HtmlObject *object;
+
+  object = HTML_OBJECT (object);
+
+  switch (prop_id)
+  {
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+      break;
+  }
+}
+
+static void html_object_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec)
+{
+  HtmlObject *object;
+
+  object = HTML_OBJECT (object);
+
+  switch (prop_id)
+  {
+
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+      break;
+  }
+}
+
 void
 html_object_type_init (void)
 {
 	html_object_class_init (&html_object_class, HTML_TYPE_OBJECT, sizeof (HTMLObject));
 }
 
-void
-html_object_class_init (HTMLObjectClass *klass,
-                        HTMLType type,
-                        guint object_size)
+static void
+html_object_class_init (HtmlObjectClass *klass)
 {
-	g_return_if_fail (klass != NULL);
+//html_object_class_init (HTMLObjectClass *klass,
+//                        HTMLType type,
+//                        guint object_size)
+  GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+  HTMLObjectClass *object_class = HTML_OBJECT_CLASS (klass);
+
+  gobject_class->set_property = html_object_set_property;
+  gobject_class->get_property = html_object_get_property;
 
 	/* Set type.  */
-	klass->type = type;
-	klass->object_size = object_size;
+	//object_class->type = type;
+	//object_class->object_size = object_size;
 
 	/* Install virtual methods.  */
-	klass->destroy = destroy;
-	klass->copy = copy;
-	klass->op_copy = op_copy;
-	klass->op_cut = op_cut;
-	klass->merge = merge;
-	klass->remove_child = remove_child;
-	klass->split = split;
-	klass->draw = draw;
-	klass->is_transparent = is_transparent;
-	klass->fit_line = fit_line;
-	klass->calc_size = html_object_real_calc_size;
-	klass->set_max_width = set_max_width;
-	klass->set_max_height = set_max_height;
-	klass->get_left_margin = get_left_margin;
-	klass->get_right_margin = get_right_margin;
-	klass->set_painter = set_painter;
-	klass->reset = reset;
-	klass->calc_min_width = calc_min_width;
-	klass->calc_preferred_width = calc_preferred_width;
-	klass->get_url = get_url;
-	klass->get_target = get_target;
-	klass->get_src = get_src;
-	klass->find_anchor = find_anchor;
-	klass->set_link = NULL;
-	klass->set_bg_color = set_bg_color;
-	klass->get_bg_color = get_bg_color;
-	klass->check_point = check_point;
-	klass->relayout = relayout;
-	klass->get_valign = get_valign;
-	klass->accepts_cursor = accepts_cursor;
-	klass->get_cursor = get_cursor;
-	klass->get_cursor_base = get_cursor_base;
-	klass->select_range = select_range;
-	klass->append_selection_string = append_selection_string;
-	klass->forall = forall;
-	klass->is_container = is_container;
-	klass->save = save;
-	klass->save_plain = save_plain;
-	klass->check_page_split = check_page_split;
-	klass->search = search;
-	klass->search_next = search;
-	klass->get_length = get_length;
-	klass->get_line_length = get_line_length;
-	klass->get_recursive_length = get_recursive_length;
-	klass->next = next;
-	klass->prev = prev;
-	klass->head = head;
-	klass->tail = tail;
-	klass->get_engine = get_engine;
-	klass->get_clear = get_clear;
-	klass->get_direction = html_object_real_get_direction;
-	klass->cursor_forward = html_object_real_cursor_forward;
-	klass->cursor_forward_one = html_object_real_cursor_forward;
-	klass->cursor_backward = html_object_real_cursor_backward;
-	klass->cursor_backward_one = html_object_real_cursor_backward;
-	klass->cursor_left = html_object_real_cursor_left;
-	klass->cursor_right = html_object_real_cursor_right;
-	klass->backspace = html_object_real_backspace;
-	klass->get_right_edge_offset = html_object_real_get_right_edge_offset;
-	klass->get_left_edge_offset = html_object_real_get_left_edge_offset;
+	object_class->destroy = destroy;
+	object_class->copy = copy;
+	object_class->op_copy = op_copy;
+	object_class->op_cut = op_cut;
+	object_class->merge = merge;
+	object_class->remove_child = remove_child;
+	object_class->split = split;
+	object_class->draw = draw;
+	object_class->is_transparent = is_transparent;
+	object_class->fit_line = fit_line;
+	object_class->calc_size = html_object_real_calc_size;
+	object_class->set_max_width = set_max_width;
+	object_class->set_max_height = set_max_height;
+	object_class->get_left_margin = get_left_margin;
+	object_class->get_right_margin = get_right_margin;
+	object_class->set_painter = set_painter;
+	object_class->reset = reset;
+	object_class->calc_min_width = calc_min_width;
+	object_class->calc_preferred_width = calc_preferred_width;
+	object_class->get_url = get_url;
+	object_class->get_target = get_target;
+	object_class->get_src = get_src;
+	object_class->find_anchor = find_anchor;
+	object_class->set_link = NULL;
+	object_class->set_bg_color = set_bg_color;
+	object_class->get_bg_color = get_bg_color;
+	object_class->check_point = check_point;
+	object_class->relayout = relayout;
+	object_class->get_valign = get_valign;
+	object_class->accepts_cursor = accepts_cursor;
+	object_class->get_cursor = get_cursor;
+	object_class->get_cursor_base = get_cursor_base;
+	object_class->select_range = select_range;
+	object_class->append_selection_string = append_selection_string;
+	object_class->forall = forall;
+	object_class->is_container = is_container;
+	object_class->save = save;
+	object_class->save_plain = save_plain;
+	object_class->check_page_split = check_page_split;
+	object_class->search = search;
+	object_class->search_next = search;
+	object_class->get_length = get_length;
+	object_class->get_line_length = get_line_length;
+	object_class->get_recursive_length = get_recursive_length;
+	object_class->next = next;
+	object_class->prev = prev;
+	object_class->head = head;
+	object_class->tail = tail;
+	object_class->get_engine = get_engine;
+	object_class->get_clear = get_clear;
+	object_class->get_direction = html_object_real_get_direction;
+	object_class->cursor_forward = html_object_real_cursor_forward;
+	object_class->cursor_forward_one = html_object_real_cursor_forward;
+	object_class->cursor_backward = html_object_real_cursor_backward;
+	object_class->cursor_backward_one = html_object_real_cursor_backward;
+	object_class->cursor_left = html_object_real_cursor_left;
+	object_class->cursor_right = html_object_real_cursor_right;
+	object_class->backspace = html_object_real_backspace;
+	object_class->get_right_edge_offset = html_object_real_get_right_edge_offset;
+	object_class->get_left_edge_offset = html_object_real_get_left_edge_offset;
 }
 
-void
-html_object_init (HTMLObject *o,
-                  HTMLObjectClass *klass)
+static void
+html_object_init (HTMLObject *object)
 {
-	o->klass = klass;
+  HTMLObjectPrivate *priv;
 
-	o->parent = NULL;
-	o->prev = NULL;
-	o->next = NULL;
+  priv = html_object_get_instance_private (object);
+
+	//priv->klass = klass;
+	//priv->parent = NULL;
+	priv->prev = NULL;
+	priv->next = NULL;
 
 	/* we don't have any info cached in the beginning */
-	o->change = HTML_CHANGE_ALL;
+	priv->change = HTML_CHANGE_ALL;
 
-	o->x = 0;
-	o->y = 0;
+	priv->x = 0;
+	priv->y = 0;
 
-	o->ascent = 0;
-	o->descent = 0;
+	priv->ascent = 0;
+	priv->descent = 0;
 
-	o->width = 0;
-	o->max_width = 0;
-	o->min_width = 0;
-	o->pref_width = 0;
-	o->percent = 0;
+	priv->width = 0;
+	priv->max_width = 0;
+	priv->min_width = 0;
+	priv->pref_width = 0;
+	priv->percent = 0;
 
-	o->flags = HTML_OBJECT_FLAG_FIXEDWIDTH; /* FIXME Why? */
+	priv->flags = HTML_OBJECT_FLAG_FIXEDWIDTH; /* FIXME Why? */
 
-	o->redraw_pending = FALSE;
-	o->free_pending = FALSE;
-	o->selected = FALSE;
-	o->draw_focused = FALSE;
+	priv->redraw_pending = FALSE;
+	priv->free_pending = FALSE;
+	priv->selected = FALSE;
+	priv->draw_focused = FALSE;
 
-	g_datalist_init (&o->object_data);
-	g_datalist_init (&o->object_data_nocp);
+	g_datalist_init (&priv->object_data);
+	g_datalist_init (&priv->object_data_nocp);
 
-	o->id = NULL;
+	priv->id = NULL;
 }
 
-HTMLObject *
-html_object_new (HTMLObject *parent)
+HTMLObject*
+html_object_new (void)
 {
-	HTMLObject *o;
-
-	o = g_new0 (HTMLObject, 1);
-	html_object_init (o, &html_object_class);
-
-	return o;
+  return g_object_new (HTML_TYPE_OBJECT, NULL);
 }
 
 
