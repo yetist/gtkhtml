@@ -281,6 +281,7 @@ AC_CONFIG_FILES([
 Makefile
 a11y/Makefile
 art/Makefile
+icons/Makefile
 components/Makefile
 components/editor/Makefile
 components/editor/gtkhtml-editor.pc

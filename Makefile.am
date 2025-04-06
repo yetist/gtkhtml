@@ -7,6 +7,7 @@ SUBDIRS =					\
 	gtkhtml					\
 	components				\
 	art					\
+	icons					\
 	po
 
 CLEANFILES =					\
