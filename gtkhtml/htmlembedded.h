@@ -24,6 +24,23 @@
 #include <gtk/gtk.h>
 #include "htmlobject.h"
 
+
+G_BEGIN_DECLS
+
+#define HTML_TYPE_EMBEDDED              (html_embedded_get_type ())
+G_DECLARE_DERIVABLE_TYPE (HtmlEmbedded, html_embedded, HTML, EMBEDDED, HtmlObject)
+
+struct _HtmlEmbeddedClass
+{
+    HtmlObjectClass     parent_class;
+
+};
+
+GType   html_embedded_get_type           (void) G_GNUC_CONST;
+HtmlEmbedded*     html_embedded_new                (void);
+
+G_END_DECLS
+
 #define HTML_EMBEDDED(x) ((HTMLEmbedded *)(x))
 #define HTML_EMBEDDED_CLASS(x) ((HTMLEmbeddedClass *)(x))
 
