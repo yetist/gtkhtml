@@ -6760,6 +6760,18 @@ gtk_html_get_cursor_pos (GtkHTML *html,
 	return read;
 }
 
+HTMLEngine *
+gtk_html_get_engine (GtkHTML *html)
+{
+	GtkHTMLPrivate *priv;
+
+	g_return_val_if_fail (GTK_IS_HTML (html), NULL);
+
+	priv = gtk_html_get_instance_private (html);
+
+	return priv->engine;
+}
+
 gchar *
 gtk_html_filename_from_uri (const gchar *uri)
 {

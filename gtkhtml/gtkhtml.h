@@ -310,6 +310,7 @@ void                       gtk_html_set_tokenizer                 (GtkHTML      
 								   HTMLTokenizer             *tokenizer);
 
 gboolean		   gtk_html_get_cursor_pos		  (GtkHTML *html, gint *position, gint *offset);
+HTMLEngine *		   gtk_html_get_engine		  (GtkHTML *html);
 
 /* DEPRECATED */
 #if 1
