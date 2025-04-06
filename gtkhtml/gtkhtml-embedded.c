@@ -26,19 +26,6 @@
 #include "gtkhtml-embedded.h"
 #include "htmlengine.h"
 
-static void gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *class);
-static void gtk_html_embedded_init       (GtkHTMLEmbedded *gspaper);
-
-static void gtk_html_embedded_get_preferred_width (GtkWidget *widget, gint *minimum_width, gint *natural_width);
-static void gtk_html_embedded_get_preferred_height (GtkWidget *widget, gint *minimum_height, gint *natural_height);
-static void gtk_html_embedded_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
-
-/* saved parent calls */
-static void (*old_add)(GtkContainer *container, GtkWidget *child);
-static void (*old_remove)(GtkContainer *container, GtkWidget *child);
-
-static GtkBin *parent_class;
-
 enum {
 	DRAW_GDK,
 	DRAW_PRINT,
@@ -48,30 +35,30 @@ enum {
 
 static guint signals[LAST_SIGNAL] = { 0 };
 
-GType
-gtk_html_embedded_get_type (void)
-{
-	static GType embedded_type = 0;
+struct _GtkHTMLEmbeddedPrivate {
+  GtkBin      bin;
+  /* class id of this object */
+  gchar *classid;
+  gchar *name;
+  gchar *type;
+  gchar *data;
 
-	if (!embedded_type) {
-		static const GTypeInfo embedded_info =
-			{
-				sizeof (GtkHTMLEmbeddedClass),
-				NULL,           /* base_init */
-				NULL,           /* base_finalize */
-				(GClassInitFunc) gtk_html_embedded_class_init,
-				NULL,           /* class_finalize */
-				NULL,           /* class_data */
-				sizeof (GtkHTMLEmbedded),
-				4,              /* n_preallocs */
-				(GInstanceInitFunc) gtk_html_embedded_init,
-			};
+  /* parameters to class */
+  gint width, height;
+  GHashTable *params;
 
-		embedded_type = g_type_register_static (GTK_TYPE_BIN, "GtkHTMLEmbedded", &embedded_info, 0);
-	}
+  gint descent;
+};
 
-	return embedded_type;
-}
+G_DEFINE_TYPE_WITH_PRIVATE (GtkHTMLEmbedded, gtk_html_embedded, GTK_TYPE_BIN);
+
+static void gtk_html_embedded_get_preferred_width (GtkWidget *widget, gint *minimum_width, gint *natural_width);
+static void gtk_html_embedded_get_preferred_height (GtkWidget *widget, gint *minimum_height, gint *natural_height);
+static void gtk_html_embedded_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
+
+/* saved parent calls */
+static void (*old_add)(GtkContainer *container, GtkWidget *child);
+static void (*old_remove)(GtkContainer *container, GtkWidget *child);
 
 static void
 free_param (gpointer key,
@@ -85,14 +72,17 @@ free_param (gpointer key,
 static void
 gtk_html_embedded_finalize (GObject *object)
 {
+  GtkHTMLEmbeddedPrivate *priv;
 	GtkHTMLEmbedded *eb = GTK_HTML_EMBEDDED (object);
 
-	g_hash_table_foreach (eb->params, free_param, NULL);
-	g_hash_table_destroy (eb->params);
-	g_free (eb->classid);
-	g_free (eb->type);
+  priv = gtk_html_embedded_get_instance_private (eb);
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+  g_hash_table_foreach (priv->params, free_param, NULL);
+  g_hash_table_destroy (priv->params);
+  g_free (priv->classid);
+  g_free (priv->type);
+
+  G_OBJECT_CLASS (gtk_html_embedded_parent_class)->finalize (object);
 }
 
 static void
@@ -159,17 +149,15 @@ draw_gdk_signal_marshaller (GClosure *closure,
 }
 
 static void
-gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *class)
+gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *klass)
 {
 	GObjectClass *object_class;
 	GtkWidgetClass *widget_class;
 	GtkContainerClass *container_class;
 
-	object_class = G_OBJECT_CLASS (class);
-	widget_class = GTK_WIDGET_CLASS (class);
-	container_class = GTK_CONTAINER_CLASS (class);
-
-	parent_class = g_type_class_peek_parent (class);
+  object_class = G_OBJECT_CLASS (klass);
+  widget_class = GTK_WIDGET_CLASS (klass);
+  container_class = GTK_CONTAINER_CLASS (klass);
 
 	signals[CHANGED] =
 		g_signal_new ("changed",
@@ -263,10 +251,13 @@ gtk_html_embedded_size_allocate (GtkWidget *widget,
 }
 
 static void
-gtk_html_embedded_init (GtkHTMLEmbedded *ge)
+gtk_html_embedded_init (GtkHTMLEmbedded *embedded)
 {
-	ge->descent = 0;
-	ge->params  = g_hash_table_new (g_str_hash, g_str_equal);
+  GtkHTMLEmbeddedPrivate *priv;
+
+  priv = gtk_html_embedded_get_instance_private (embedded);
+  priv->descent = 0;
+  priv->params  = g_hash_table_new (g_str_hash, g_str_equal);
 }
 
 /**
@@ -286,18 +277,20 @@ gtk_html_embedded_new (gchar *classid,
                        gint height)
 {
 	GtkHTMLEmbedded *em;
+  GtkHTMLEmbeddedPrivate *priv;
 
 	em = (GtkHTMLEmbedded *) g_object_new (GTK_TYPE_HTML_EMBEDDED, NULL);
+  priv = gtk_html_embedded_get_instance_private (em);
 
 	if (width != -1 || height != -1)
 		gtk_widget_set_size_request (GTK_WIDGET (em), width, height);
 
-	em->width = width;
-	em->height = height;
-	em->type = type ? g_strdup (type) : NULL;
-	em->classid = g_strdup (classid);
-	em->name = g_strdup (name);
-	em->data = g_strdup (data);
+  priv->width = width;
+  priv->height = height;
+  priv->type = type ? g_strdup (type) : NULL;
+  priv->classid = g_strdup (classid);
+  priv->name = g_strdup (name);
+  priv->data = g_strdup (data);
 
 	return (GtkWidget *) em;
 }
@@ -313,7 +306,10 @@ gchar *
 gtk_html_embedded_get_parameter (GtkHTMLEmbedded *ge,
                                  gchar *param)
 {
-	return g_hash_table_lookup (ge->params, param);
+  GtkHTMLEmbeddedPrivate *priv;
+
+  priv = gtk_html_embedded_get_instance_private (ge);
+  return g_hash_table_lookup (priv->params, param);
 }
 
 /**
@@ -329,16 +325,19 @@ gtk_html_embedded_set_parameter (GtkHTMLEmbedded *ge,
                                  gchar *param,
                                  gchar *value)
 {
+  GtkHTMLEmbeddedPrivate *priv;
 	gchar *lookup;
+
+  priv = gtk_html_embedded_get_instance_private (ge);
 
 	if (!param)
 		return;
-	lookup = (gchar *) g_hash_table_lookup (ge->params, param);
+  lookup = (gchar *) g_hash_table_lookup (priv->params, param);
 	if (lookup)
 		g_free (lookup);
-	g_hash_table_insert (ge->params,
-			     lookup ? param : g_strdup (param),
-			     value  ? g_strdup (value) : NULL);
+  g_hash_table_insert (priv->params,
+                       lookup ? param : g_strdup (param),
+                       value  ? g_strdup (value) : NULL);
 }
 
 /**
@@ -352,10 +351,46 @@ void
 gtk_html_embedded_set_descent (GtkHTMLEmbedded *ge,
                                gint descent)
 {
-	if (ge->descent == descent)
+  GtkHTMLEmbeddedPrivate *priv;
+
+  priv = gtk_html_embedded_get_instance_private (ge);
+  if (priv->descent == descent)
 		return;
 
-	ge->descent = descent;
+  priv->descent = descent;
 	gtk_html_embedded_changed (ge);
 }
 
+gint
+gtk_html_embedded_get_descent (GtkHTMLEmbedded *self)
+{
+  GtkHTMLEmbeddedPrivate *priv;
+
+  priv = gtk_html_embedded_get_instance_private (self);
+
+  return priv->descent;
+}
+
+const gchar*
+gtk_html_embedded_get_classid (GtkHTMLEmbedded *self)
+{
+  GtkHTMLEmbeddedPrivate *priv;
+
+  g_return_val_if_fail (GTK_HTML_IS_EMBEDDED(self), NULL);
+
+  priv = gtk_html_embedded_get_instance_private (self);
+
+  return priv->classid;
+}
+
+const gchar*
+gtk_html_embedded_get_name (GtkHTMLEmbedded *self)
+{
+  GtkHTMLEmbeddedPrivate *priv;
+
+  g_return_val_if_fail (GTK_HTML_IS_EMBEDDED(self), NULL);
+
+  priv = gtk_html_embedded_get_instance_private (self);
+
+  return priv->name;
+}

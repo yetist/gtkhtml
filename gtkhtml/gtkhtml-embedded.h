@@ -20,53 +20,35 @@
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef _GTK_HTML_EMBEDDED_H
-#define _GTK_HTML_EMBEDDED_H
+#pragma once
 
 #include <gtk/gtk.h>
 
-#include "gtkhtml-types.h"
+G_BEGIN_DECLS
 
 #define GTK_TYPE_HTML_EMBEDDED         (gtk_html_embedded_get_type ())
-#define GTK_HTML_EMBEDDED(obj)         G_TYPE_CHECK_INSTANCE_CAST (obj, GTK_TYPE_HTML_EMBEDDED, GtkHTMLEmbedded)
-#define GTK_HTML_EMBEDDED_CLASS(klass) G_TYPE_CHECK_CLASS_CAST (klass, GTK_TYPE_HTML_EMBEDDED, GtkHTMLEmbeddedClass)
 #define GTK_IS_HTML_EMBEDDED(obj)      G_TYPE_CHECK_INSTANCE_TYPE (obj, GTK_TYPE_HTML_EMBEDDED)
 
-struct _GtkHTMLEmbedded {
-	GtkBin bin;
+G_DECLARE_DERIVABLE_TYPE (GtkHTMLEmbedded, gtk_html_embedded, GTK_HTML, EMBEDDED, GtkBin)
 
-	/* class id of this object */
-	gchar *classid;
-	gchar *name;
-        gchar *type;
-        gchar *data;
+struct _GtkHTMLEmbeddedClass
+{
+  GtkBinClass     parent_class;
 
-	/* parameters to class */
-	gint width, height;
-	GHashTable *params;
-
-	GtkHTMLEmbeddedPrivate *priv;
-
-	gint descent;
-};
-
-struct _GtkHTMLEmbeddedClass {
-        GtkBinClass parent_class;
-
-        void (*changed)(GtkHTMLEmbedded *);
-        void (*draw_gdk)(GtkHTMLEmbedded *, cairo_t *,
-                         gint, gint);
-        void (*draw_print)(GtkHTMLEmbedded *, GtkPrintContext *);
+  void (*changed)    (GtkHTMLEmbedded *);
+  void (*draw_gdk)   (GtkHTMLEmbedded *, cairo_t *, gint, gint);
+  void (*draw_print) (GtkHTMLEmbedded *, GtkPrintContext *);
 };
 
 /* FIXME: There needs to be a way for embedded objects in forms to encode
  * themselves for a form */
+GtkWidget*   gtk_html_embedded_new           (gchar *classid, gchar *name, gchar *type, gchar *data, gint width, gint height);
+void         gtk_html_embedded_set_parameter (GtkHTMLEmbedded *ge, gchar *param, gchar *value);
+gchar*       gtk_html_embedded_get_parameter (GtkHTMLEmbedded *ge, gchar *param);
+void         gtk_html_embedded_set_descent   (GtkHTMLEmbedded *ge, gint descent);
+// TODO: new api since XX
+const gchar* gtk_html_embedded_get_classid   (GtkHTMLEmbedded *ge);
+const gchar* gtk_html_embedded_get_name      (GtkHTMLEmbedded *ge);
+gint         gtk_html_embedded_get_descent   (GtkHTMLEmbedded *ge);
 
-GType		 gtk_html_embedded_get_type	(void);
-GtkWidget	*gtk_html_embedded_new (gchar *classid, gchar *name, gchar *type, gchar *data, gint width, gint height);
-
-void gtk_html_embedded_set_parameter (GtkHTMLEmbedded *ge, gchar *param, gchar *value);
-gchar *gtk_html_embedded_get_parameter (GtkHTMLEmbedded *ge, gchar *param);
-void gtk_html_embedded_set_descent (GtkHTMLEmbedded *ge, gint descent);
-
-#endif /* _GTK_HTML_EMBEDDED_H */
+G_END_DECLS
