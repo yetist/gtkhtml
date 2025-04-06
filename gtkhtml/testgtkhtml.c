@@ -884,9 +884,11 @@ object_requested_cmd (GtkHTML *html,
                       GtkHTMLEmbedded *eb,
                       gpointer data)
 {
+	const gchar* classid;
 	/* printf("object requested, wiaint a bit before creating it ...\n"); */
 
-	if (eb->classid && strcmp (eb->classid, "mine:NULL") == 0)
+	classid = gtk_html_embedded_get_classid (eb);
+	if (classid && strcmp (classid, "mine:NULL") == 0)
 		return FALSE;
 
 	g_object_ref (eb);

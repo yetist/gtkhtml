@@ -175,6 +175,7 @@ html_embedded_real_calc_size (HTMLObject *self,
 	gint pixel_size;
 	gint old_width, old_ascent;
 	GtkRequisition requisition;
+	gint descent;
 
 	widget = emb->widget;
 	if (widget == NULL)
@@ -188,8 +189,10 @@ html_embedded_real_calc_size (HTMLObject *self,
 	requisition.width = requisition.height = 0;
 	gtk_widget_get_preferred_size (widget, &requisition, NULL);
 
-	if (GTK_IS_HTML_EMBEDDED (widget))
-		self->descent = GTK_HTML_EMBEDDED (widget)->descent * pixel_size;
+	if (GTK_IS_HTML_EMBEDDED (GTK_HTML_EMBEDDED(widget))) {
+		descent = gtk_html_embedded_get_descent(GTK_HTML_EMBEDDED(widget));
+		self->descent = descent * pixel_size;
+	}
 	else
 		self->descent = 0;
 
@@ -375,11 +378,13 @@ html_embedded_new_widget (GtkWidget *parent,
                           HTMLEngine *engine)
 {
 	HTMLEmbedded *em;
+	const gchar* name;
 
 	em = g_new0 (HTMLEmbedded, 1);
 	d (printf ("embedded %p new widget\n", em));
 
-	html_embedded_init (em, HTML_EMBEDDED_CLASS (&html_embedded_class), parent, eb->name, "");
+	name = gtk_html_embedded_get_name(eb);
+	html_embedded_init (em, HTML_EMBEDDED_CLASS (&html_embedded_class), parent, name, "");
 	html_embedded_set_widget (em, GTK_WIDGET (eb));
 
 	/* pass em as the user_data so that the handler will disconnect
