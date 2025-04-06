@@ -24,9 +24,10 @@
 
 #include "htmlembedded.h"
 
-#define HTML_FRAME(x) ((HTMLFrame *)(x))
-#define HTML_FRAME_CLASS(x) ((HTMLFrameClass *)(x))
-#define HTML_IS_FRAME(x) (HTML_CHECK_TYPE ((x), HTML_TYPE_FRAME))
+G_BEGIN_DECLS
+
+#define HTML_TYPE_FRAME              (html_frame_get_type ())
+G_DECLARE_FINAL_TYPE (HTMLFrame, html_frame, HTML, FRAME, HTMLEmbedded)
 
 struct _HTMLFrame {
 	HTMLEmbedded embedded;
@@ -38,10 +39,6 @@ struct _HTMLFrame {
 	gint width;
 	gint height;
 	gboolean frameborder;
-};
-
-struct _HTMLFrameClass {
-	HTMLEmbeddedClass embedded_class;
 };
 
 void           html_frame_type_init             (void);
@@ -70,11 +67,13 @@ void           html_frame_init                  (HTMLFrame        *frame,
 						 gint               height,
 						 gboolean           border);
 
+//HtmlFrame*     html_frame_new			(void);
 HTMLObject *   html_frame_new                   (GtkWidget *parent,
 						 gchar *src,
 						 gint width,
 						 gint height,
 						 gboolean border);
 
+G_END_DECLS
 #endif
 

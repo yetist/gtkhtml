@@ -36,6 +36,81 @@
 #include "htmlselection.h"
 #include "htmlsettings.h"
 
+enum {
+  LAST_SIGNAL
+};
+
+enum {
+  PROP_0,
+  NUM_PROPERTIES
+};
+
+static GParamSpec *widget_props[NUM_PROPERTIES] = { NULL, };
+static guint signals[LAST_SIGNAL] = { 0 };
+
+#if 1
+struct _HtmlFrame
+{
+  GObject      object;
+  HTMLEmbedded object;
+};
+
+G_DEFINE_TYPE (HtmlFrame, html_frame, G_TYPE_OBJECT);
+#endif //#if 0/1
+
+static void html_frame_set_property (GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
+{
+  HtmlFrame *frame;
+
+  frame = HTML_FRAME (object);
+
+  switch (prop_id)
+  {
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+      break;
+  }
+}
+
+static void html_frame_get_property (GObject *object, guint prop_id, GValue *value, GParamSpec *pspec)
+{
+  HtmlFrame *frame;
+
+  frame = HTML_FRAME (object);
+
+  switch (prop_id)
+  {
+
+    default:
+      G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+      break;
+  }
+}
+
+static void html_frame_class_init (HtmlFrameClass *klass)
+{
+  GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+  GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
+
+  gobject_class->set_property = html_frame_set_property;
+  gobject_class->get_property = html_frame_get_property;
+}
+
+static void html_frame_init (HtmlFrame *frame)
+{
+#if 0
+  HtmlFramePrivate *priv;
+
+  priv = html_frame_get_instance_private (client);
+#endif
+
+}
+
+HtmlFrame* html_frame_new (void)
+{
+  return g_object_new (HTML_TYPE_FRAME, NULL);
+}
+
 HTMLFrameClass html_frame_class;
 static HTMLEmbeddedClass *parent_class = NULL;
 
