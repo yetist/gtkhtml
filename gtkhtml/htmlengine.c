@@ -5199,7 +5199,7 @@ html_engine_ensure_editable (HTMLEngine *engine)
 	HTMLEnginePrivate *priv;
 
 	g_return_if_fail (HTML_IS_ENGINE (engine));
-	priv = html_engine_get_instance_private (e);
+	priv = html_engine_get_instance_private (engine);
 
 	cluev = priv->clue;
 	if (cluev == NULL)
@@ -5398,10 +5398,15 @@ html_engine_stop_forall (HTMLObject *o,
                          HTMLEngine *e,
                          gpointer data)
 {
-	if (HTML_IS_FRAME (o))
+	//TODO::
+	if (HTML_IS_FRAME (o)) {
+		HTMLEngine *engine;
+		engine = gtk_html_get_engine(o);
 		GTK_HTML (HTML_FRAME (o)->html)->engine->stopped = TRUE;
-	else if (HTML_IS_IFRAME (o))
+	}
+	else if (HTML_IS_IFRAME (o)) {
 		GTK_HTML (HTML_IFRAME (o)->html)->engine->stopped = TRUE;
+	}
 }
 
 void
