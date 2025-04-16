@@ -39,7 +39,7 @@
 #include "gtkhtml-embedded.h"
 #include "gtkhtml.h"
 
-static HTMLPainterClass *parent_class = NULL;
+G_DEFINE_TYPE (HTMLGdkPainter, html_gdk_painter, HTML_TYPE_PAINTER);
 
 static void set_clip_rectangle (HTMLPainter *painter, gint x, gint y, gint width, gint height);
 
@@ -63,7 +63,7 @@ finalize (GObject *object)
 	}
 
 	/* Chain up to parent's finalize() method. */
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (html_gdk_painter_parent_class)->finalize (object);
 }
 
 static void
@@ -935,13 +935,11 @@ init_color (GdkColor *color,
 }
 
 static void
-html_gdk_painter_init (GObject *object)
+html_gdk_painter_init (HTMLGdkPainter *gdk_painter)
 {
 	HTMLPainter *painter;
-	HTMLGdkPainter *gdk_painter;
 
-	painter = HTML_PAINTER (object);
-	gdk_painter = HTML_GDK_PAINTER (object);
+	painter = HTML_PAINTER (gdk_painter);
 
 	painter->engine_to_pango = PANGO_SCALE;
 
@@ -965,7 +963,7 @@ static void
 html_gdk_painter_real_set_widget (HTMLPainter *painter,
                                   GtkWidget *widget)
 {
-	parent_class->set_widget (painter, widget);
+	HTML_PAINTER_CLASS (html_gdk_painter_parent_class)->set_widget (painter, widget);
 
 	if (painter->pango_context)
 		g_object_unref (painter->pango_context);
@@ -974,14 +972,12 @@ html_gdk_painter_real_set_widget (HTMLPainter *painter,
 }
 
 static void
-html_gdk_painter_class_init (GObjectClass *object_class)
+html_gdk_painter_class_init (HTMLGdkPainterClass *klass)
 {
-	HTMLPainterClass *painter_class;
-
-	painter_class = HTML_PAINTER_CLASS (object_class);
+	GObjectClass *object_class = G_OBJECT_CLASS (klass);
+	HTMLPainterClass *painter_class = HTML_PAINTER_CLASS (klass);
 
 	object_class->finalize = finalize;
-	parent_class = g_type_class_ref (HTML_TYPE_PAINTER);
 
 	painter_class->set_widget = html_gdk_painter_real_set_widget;
 	painter_class->begin = begin;
@@ -1007,30 +1003,8 @@ html_gdk_painter_class_init (GObjectClass *object_class)
 	painter_class->draw_embedded = draw_embedded;
 	painter_class->get_page_width = get_page_width;
 	painter_class->get_page_height = get_page_height;
-}
 
-GType
-html_gdk_painter_get_type (void)
-{
-	static GType html_gdk_painter_type = 0;
-
-	if (html_gdk_painter_type == 0) {
-		static const GTypeInfo html_gdk_painter_info = {
-			sizeof (HTMLGdkPainterClass),
-			NULL,
-			NULL,
-			(GClassInitFunc) html_gdk_painter_class_init,
-			NULL,
-			NULL,
-			sizeof (HTMLGdkPainter),
-			1,
-			(GInstanceInitFunc) html_gdk_painter_init,
-		};
-		html_gdk_painter_type = g_type_register_static (HTML_TYPE_PAINTER, "HTMLGdkPainter",
-								&html_gdk_painter_info, 0);
-	}
-
-	return html_gdk_painter_type;
+	html_gdk_painter_parent_class = g_type_class_peek_parent (klass);
 }
 
 HTMLPainter *

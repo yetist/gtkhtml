@@ -26,6 +26,8 @@
 #include "htmlpainter.h"
 #include "htmlfontmanager.h"
 
+G_BEGIN_DECLS
+
 #define HTML_TYPE_GDK_PAINTER                 (html_gdk_painter_get_type ())
 #define HTML_GDK_PAINTER(obj)                 (G_TYPE_CHECK_INSTANCE_CAST ((obj), HTML_TYPE_GDK_PAINTER, HTMLGdkPainter))
 #define HTML_GDK_PAINTER_CLASS(klass)         (G_TYPE_CHECK_CLASS_CAST ((klass), HTML_TYPE_GDK_PAINTER, HTMLGdkPainterClass))
@@ -65,5 +67,7 @@ void               html_gdk_painter_realize                          (HTMLGdkPai
 								      GdkWindow             *window);
 void               html_gdk_painter_unrealize                        (HTMLGdkPainter        *painter);
 gboolean           html_gdk_painter_realized                         (HTMLGdkPainter        *painter);
+
+G_END_DECLS
 
 #endif /* _HTMLGDKPAINTER_H */
