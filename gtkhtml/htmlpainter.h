@@ -30,12 +30,14 @@
 #include "htmltypes.h"
 #include "htmlfontmanager.h"
 
+G_BEGIN_DECLS
 
 #define HTML_TYPE_PAINTER                 (html_painter_get_type ())
 #define HTML_PAINTER(obj)                 (G_TYPE_CHECK_INSTANCE_CAST ((obj), HTML_TYPE_PAINTER, HTMLPainter))
 #define HTML_PAINTER_CLASS(klass)         (G_TYPE_CHECK_CLASS_CAST ((klass), HTML_TYPE_PAINTER, HTMLPainterClass))
 #define HTML_IS_PAINTER(obj)              (G_TYPE_CHECK_INSTANCE_TYPE ((obj), HTML_TYPE_PAINTER))
 #define HTML_IS_PAINTER_CLASS(klass)      (G_TYPE_CHECK_CLASS_TYPE ((klass), HTML_TYPE_PAINTER))
+#define HTML_PAINTER_GET_CLASS(obj)       (G_TYPE_INSTANCE_GET_CLASS((obj), HTML_TYPE_PAINTER, HTMLPainterClass))
 
 
 struct _HTMLPainter {
@@ -317,4 +319,5 @@ void html_pango_get_item_properties (PangoItem *item, HTMLPangoProperties *prope
 #define HTML_BLOCK_CITE_RTL "<"
 #define HTML_ALLOCA_MAX     2048
 
+G_END_DECLS
 #endif /* _HTMLPAINTER_H_ */

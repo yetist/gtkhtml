@@ -35,12 +35,7 @@
 #include "htmlpainter.h"
 
 
-/* Convenience macro to extract the HTMLPainterClass from a GTK+ object.  */
-#define HP_CLASS(obj)					\
-	HTML_PAINTER_CLASS (G_OBJECT_GET_CLASS (obj))
-
-/* Our parent class.  */
-static GObjectClass *parent_class = NULL;
+G_DEFINE_TYPE (HTMLPainter, html_painter, G_TYPE_OBJECT);
 
 
 /* GObject methods.  */
@@ -59,8 +54,7 @@ finalize (GObject *object)
 		g_object_unref (painter->pango_context);
 
 	/* FIXME ownership of the color set?  */
-
-	(* G_OBJECT_CLASS (parent_class)->finalize) (object);
+	G_OBJECT_CLASS (html_painter_parent_class)->finalize (object);
 
 	if (painter->widget) {
 		g_object_unref (painter->widget);
@@ -107,12 +101,8 @@ DEFINE_UNIMPLEMENTED (get_page_width)
 DEFINE_UNIMPLEMENTED (get_page_height)
 
 static void
-html_painter_init (GObject *object,
-                   HTMLPainterClass *real_klass)
+html_painter_init (HTMLPainter *painter)
 {
-	HTMLPainter *painter;
-
-	painter = HTML_PAINTER (object);
 	html_font_manager_init (&painter->font_manager, painter);
 	painter->font_style = GTK_HTML_FONT_STYLE_DEFAULT;
 	painter->font_face = NULL;
@@ -229,67 +219,42 @@ text_size (HTMLPainter *painter,
 }
 
 static void
-html_painter_class_init (GObjectClass *object_class)
+html_painter_class_init (HTMLPainterClass *klass)
 {
-	HTMLPainterClass *class;
-
-	class = HTML_PAINTER_CLASS (object_class);
+	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
 	object_class->finalize = finalize;
-	parent_class = g_type_class_ref (G_TYPE_OBJECT);
+	klass->set_widget = html_painter_real_set_widget;
+	klass->begin = (gpointer) begin_unimplemented;
+	klass->end = (gpointer) end_unimplemented;
 
-	class->set_widget = html_painter_real_set_widget;
-	class->begin = (gpointer) begin_unimplemented;
-	class->end = (gpointer) end_unimplemented;
+	klass->alloc_color = (gpointer) alloc_color_unimplemented;
+	klass->free_color = (gpointer) free_color_unimplemented;
 
-	class->alloc_color = (gpointer) alloc_color_unimplemented;
-	class->free_color = (gpointer) free_color_unimplemented;
+	klass->set_pen = (gpointer) set_pen_unimplemented;
+	klass->get_black = (gpointer) get_black_unimplemented;
+	klass->draw_line = (gpointer) draw_line_unimplemented;
+	klass->draw_rect = (gpointer) draw_rect_unimplemented;
+	klass->draw_glyphs = (gpointer) draw_glyphs_unimplemented;
+	klass->draw_spell_error = (gpointer) draw_spell_error_unimplemented;
+	klass->fill_rect = (gpointer) fill_rect_unimplemented;
+	klass->draw_pixmap = (gpointer) draw_pixmap_unimplemented;
+	klass->draw_ellipse = (gpointer) draw_ellipse_unimplemented;
+	klass->clear = (gpointer) clear_unimplemented;
+	klass->set_background_color = (gpointer) set_background_color_unimplemented;
+	klass->draw_shade_line = (gpointer) draw_shade_line_unimplemented;
+	klass->draw_border = (gpointer) draw_border_unimplemented;
 
-	class->set_pen = (gpointer) set_pen_unimplemented;
-	class->get_black = (gpointer) get_black_unimplemented;
-	class->draw_line = (gpointer) draw_line_unimplemented;
-	class->draw_rect = (gpointer) draw_rect_unimplemented;
-	class->draw_glyphs = (gpointer) draw_glyphs_unimplemented;
-	class->draw_spell_error = (gpointer) draw_spell_error_unimplemented;
-	class->fill_rect = (gpointer) fill_rect_unimplemented;
-	class->draw_pixmap = (gpointer) draw_pixmap_unimplemented;
-	class->draw_ellipse = (gpointer) draw_ellipse_unimplemented;
-	class->clear = (gpointer) clear_unimplemented;
-	class->set_background_color = (gpointer) set_background_color_unimplemented;
-	class->draw_shade_line = (gpointer) draw_shade_line_unimplemented;
-	class->draw_border = (gpointer) draw_border_unimplemented;
+	klass->set_clip_rectangle = (gpointer) set_clip_rectangle_unimplemented;
+	klass->draw_background = (gpointer) draw_background_unimplemented;
+	klass->draw_embedded = (gpointer) draw_embedded_unimplemented;
 
-	class->set_clip_rectangle = (gpointer) set_clip_rectangle_unimplemented;
-	class->draw_background = (gpointer) draw_background_unimplemented;
-	class->draw_embedded = (gpointer) draw_embedded_unimplemented;
+	klass->get_pixel_size = (gpointer) get_pixel_size_unimplemented;
 
-	class->get_pixel_size = (gpointer) get_pixel_size_unimplemented;
+	klass->get_page_width  = (gpointer) get_page_width_unimplemented;
+	klass->get_page_height = (gpointer) get_page_height_unimplemented;
 
-	class->get_page_width  = (gpointer) get_page_width_unimplemented;
-	class->get_page_height = (gpointer) get_page_height_unimplemented;
-}
-
-GType
-html_painter_get_type (void)
-{
-	static GType html_painter_type = 0;
-
-	if (html_painter_type == 0) {
-		static const GTypeInfo html_painter_info = {
-			sizeof (HTMLPainterClass),
-			NULL,
-			NULL,
-			(GClassInitFunc) html_painter_class_init,
-			NULL,
-			NULL,
-			sizeof (HTMLPainter),
-			1,
-			(GInstanceInitFunc) html_painter_init,
-		};
-		html_painter_type = g_type_register_static (G_TYPE_OBJECT, "HTMLPainter", &html_painter_info, 0);
-	}
-
-	return html_painter_type;
+	html_painter_parent_class = g_type_class_peek_parent (klass);
 }
 
 /* Functions to begin/end a painting process.  */
@@ -301,21 +266,31 @@ html_painter_begin (HTMLPainter *painter,
                     gint x2,
                     gint y2)
 {
+	HTMLPainterClass *klass;
 	g_return_if_fail (painter != NULL);
+
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 
 	painter->clip_height = painter->clip_width = 0;
 
-	(* HP_CLASS (painter)->begin) (painter, x1, y1, x2, y2);
+	klass = HTML_PAINTER_GET_CLASS (painter);
+	g_return_if_fail (klass->begin != NULL);
+
+	klass->begin (painter, x1, y1, x2, y2);
 }
 
 void
 html_painter_end (HTMLPainter *painter)
 {
+	HTMLPainterClass *klass;
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 
-	(* HP_CLASS (painter)->end) (painter);
+	klass = HTML_PAINTER_GET_CLASS (painter);
+	g_return_if_fail (klass->end!= NULL);
+
+	klass->end (painter);
 }
 
 
@@ -324,22 +299,30 @@ void
 html_painter_alloc_color (HTMLPainter *painter,
                           GdkColor *color)
 {
+	HTMLPainterClass *klass;
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 	g_return_if_fail (color != NULL);
 
-	(* HP_CLASS (painter)->alloc_color) (painter, color);
+	klass = HTML_PAINTER_GET_CLASS (painter);
+	g_return_if_fail (klass->alloc_color != NULL);
+	klass->alloc_color (painter, color);
 }
 
 void
 html_painter_free_color (HTMLPainter *painter,
                          GdkColor *color)
 {
+	HTMLPainterClass *klass;
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 	g_return_if_fail (color != NULL);
 
-	(* HP_CLASS (painter)->free_color) (painter, color);
+	klass = HTML_PAINTER_GET_CLASS (painter);
+	g_return_if_fail (klass->free_color != NULL);
+	klass->free_color (painter, color);
 }
 
 
@@ -513,11 +496,16 @@ void
 html_painter_set_pen (HTMLPainter *painter,
                       const GdkColor *color)
 {
+	HTMLPainterClass *klass;
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 	g_return_if_fail (color != NULL);
 
-	(* HP_CLASS (painter)->set_pen) (painter, color);
+	klass = HTML_PAINTER_GET_CLASS (painter);
+
+	g_return_if_fail (klass->set_pen != NULL);
+	klass->set_pen (painter, color);
 }
 
 void
@@ -527,10 +515,15 @@ html_painter_draw_line (HTMLPainter *painter,
                         gint x2,
                         gint y2)
 {
+	HTMLPainterClass *klass;
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 
-	(* HP_CLASS (painter)->draw_line) (painter, x1, y1, x2, y2);
+	klass = HTML_PAINTER_GET_CLASS (painter);
+
+	g_return_if_fail (klass->draw_line != NULL);
+	klass->draw_line (painter, x1, y1, x2, y2);
 }
 
 void
@@ -540,10 +533,15 @@ html_painter_draw_rect (HTMLPainter *painter,
                         gint width,
                         gint height)
 {
+	HTMLPainterClass *klass;
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 
-	(* HP_CLASS (painter)->draw_rect) (painter, x, y, width, height);
+	klass = HTML_PAINTER_GET_CLASS (painter);
+
+	g_return_if_fail (klass->draw_rect != NULL);
+	klass->draw_rect (painter, x, y, width, height);
 }
 
 void
@@ -601,6 +599,7 @@ html_painter_draw_entries (HTMLPainter *painter,
                            GList *glyphs,
                            gint line_offset)
 {
+	HTMLPainterClass *klass;
 	const gchar *tab, *c_text;
 	gint bytes;
 	GList *gl;
@@ -609,6 +608,7 @@ html_painter_draw_entries (HTMLPainter *painter,
 
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
+	klass = HTML_PAINTER_GET_CLASS (painter);
 
 	c_text = text;
 	bytes = g_utf8_offset_to_pointer (text, len) - text;
@@ -651,7 +651,7 @@ html_painter_draw_entries (HTMLPainter *painter,
 
 			tab = memchr (c_text + 1, (guchar) '\t', bytes - 1);
 		} else {
-			x += html_painter_pango_to_engine (painter, (* HP_CLASS (painter)->draw_glyphs) (painter, x, y, item, gl->data, NULL, NULL));
+			x += html_painter_pango_to_engine (painter, klass->draw_glyphs (painter, x, y, item, gl->data, NULL, NULL));
 
 			if (line_offset != -1)
 				line_offset += g_utf8_pointer_to_offset (c_text, next);
@@ -673,7 +673,11 @@ html_painter_draw_glyphs (HTMLPainter *painter,
                           GdkColor *fg,
                           GdkColor *bg)
 {
-	return (* HP_CLASS (painter)->draw_glyphs) (painter, x, y, item, glyphs, fg, bg);
+	HTMLPainterClass *klass;
+
+	klass = HTML_PAINTER_GET_CLASS (painter);
+
+	return klass->draw_glyphs (painter, x, y, item, glyphs, fg, bg);
 }
 
 /**
@@ -723,10 +727,16 @@ html_painter_fill_rect (HTMLPainter *painter,
                         gint width,
                         gint height)
 {
+	HTMLPainterClass *klass;
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 
-	(* HP_CLASS (painter)->fill_rect) (painter, x, y, width, height);
+	klass = HTML_PAINTER_GET_CLASS (painter);
+
+	g_return_if_fail (klass->fill_rect != NULL);
+
+	klass->fill_rect (painter, x, y, width, height);
 }
 
 void
@@ -738,11 +748,16 @@ html_painter_draw_pixmap (HTMLPainter *painter,
                           gint scale_height,
                           const GdkColor *color)
 {
+	HTMLPainterClass *klass;
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 	g_return_if_fail (pixbuf != NULL);
 
-	(* HP_CLASS (painter)->draw_pixmap) (painter, pixbuf, x, y, scale_width, scale_height, color);
+	klass = HTML_PAINTER_GET_CLASS (painter);
+
+	g_return_if_fail (klass->draw_pixmap != NULL);
+	klass->draw_pixmap (painter, pixbuf, x, y, scale_width, scale_height, color);
 }
 
 void
@@ -752,30 +767,43 @@ html_painter_draw_ellipse (HTMLPainter *painter,
                            gint width,
                            gint height)
 {
+	HTMLPainterClass *klass;
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 
-	(* HP_CLASS (painter)->draw_ellipse) (painter, x, y, width, height);
+	klass = HTML_PAINTER_GET_CLASS (painter);
+
+	g_return_if_fail (klass->draw_ellipse != NULL);
+	klass->draw_ellipse (painter, x, y, width, height);
 }
 
 void
 html_painter_clear (HTMLPainter *painter)
 {
+	HTMLPainterClass *klass;
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 
-	(* HP_CLASS (painter)->clear) (painter);
+	klass = HTML_PAINTER_GET_CLASS (painter);
+	g_return_if_fail (klass->clear != NULL);
+	klass->clear (painter);
 }
 
 void
 html_painter_set_background_color (HTMLPainter *painter,
-                                   const GdkColor *color)
+	                           const GdkColor *color)
 {
+	HTMLPainterClass *klass;
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 	g_return_if_fail (color != NULL);
 
-	(* HP_CLASS (painter)->set_background_color) (painter, color);
+	klass = HTML_PAINTER_GET_CLASS (painter);
+
+	g_return_if_fail (klass->set_background_color != NULL);
+	klass->set_background_color (painter, color);
 }
 
 void
@@ -784,10 +812,15 @@ html_painter_draw_shade_line (HTMLPainter *painter,
                               gint y,
                               gint width)
 {
+	HTMLPainterClass *klass;
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 
-	(* HP_CLASS (painter)->draw_shade_line) (painter, x, y, width);
+	klass = HTML_PAINTER_GET_CLASS (painter);
+
+	g_return_if_fail (klass->draw_shade_line != NULL);
+	klass->draw_shade_line (painter, x, y, width);
 }
 
 void
@@ -800,10 +833,15 @@ html_painter_draw_border (HTMLPainter *painter,
                           HTMLBorderStyle style,
                           gint bordersize)
 {
+	HTMLPainterClass *klass;
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 
-	(* HP_CLASS (painter)->draw_border) (painter, bg, x, y, width, height, style, bordersize);
+	klass = HTML_PAINTER_GET_CLASS (painter);
+
+	g_return_if_fail (klass->draw_border != NULL);
+	klass->draw_border (painter, bg, x, y, width, height, style, bordersize);
 }
 
 void
@@ -812,11 +850,16 @@ html_painter_draw_embedded (HTMLPainter *painter,
                             gint x,
                             gint y)
 {
+	HTMLPainterClass *klass;
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 	g_return_if_fail (element != NULL);
 
-	(* HP_CLASS (painter)->draw_embedded) (painter, element, x, y);
+	klass = HTML_PAINTER_GET_CLASS (painter);
+
+        g_return_if_fail (klass->draw_embedded != NULL);
+	klass->draw_embedded (painter, element, x, y);
 }
 
 /* Passing 0 for width/height means remove clip rectangle */
@@ -827,6 +870,8 @@ html_painter_set_clip_rectangle (HTMLPainter *painter,
                                  gint width,
                                  gint height)
 {
+	HTMLPainterClass *klass;
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 
@@ -836,8 +881,9 @@ html_painter_set_clip_rectangle (HTMLPainter *painter,
 	painter->clip_height = height;
 
 	/* printf ("clip rect: %d,%d %dx%d\n", x, y, width, height); */
-
-	(* HP_CLASS (painter)->set_clip_rectangle) (painter, x, y, width, height);
+	klass = HTML_PAINTER_GET_CLASS (painter);
+	g_return_if_fail (klass->set_clip_rectangle != NULL);
+	klass->set_clip_rectangle (painter, x, y, width, height);
 }
 
 void
@@ -865,19 +911,29 @@ html_painter_draw_background (HTMLPainter *painter,
                               gint tile_x,
                               gint tile_y)
 {
+        HTMLPainterClass *klass;
+
 	g_return_if_fail (painter != NULL);
 	g_return_if_fail (HTML_IS_PAINTER (painter));
 
-	(* HP_CLASS (painter)->draw_background) (painter, color, pixbuf, x, y, width, height, tile_x, tile_y);
+	klass = HTML_PAINTER_GET_CLASS (painter);
+
+	g_return_if_fail (klass->draw_background != NULL);
+	klass->draw_background (painter, color, pixbuf, x, y, width, height, tile_x, tile_y);
 }
 
 guint
 html_painter_get_pixel_size (HTMLPainter *painter)
 {
+	HTMLPainterClass *klass;
+
 	g_return_val_if_fail (painter != NULL, 0);
 	g_return_val_if_fail (HTML_IS_PAINTER (painter), 0);
 
-	return (* HP_CLASS (painter)->get_pixel_size) (painter);
+	klass = HTML_PAINTER_GET_CLASS (painter);
+
+        g_return_val_if_fail (klass->get_pixel_size != NULL, 0);
+	return klass->get_pixel_size (painter);
 }
 
 gint
@@ -886,7 +942,11 @@ html_painter_draw_spell_error (HTMLPainter *painter,
                                gint y,
                                gint width)
 {
-	return (* HP_CLASS (painter)->draw_spell_error) (painter, x, y, width);
+	HTMLPainterClass *klass;
+
+	klass = HTML_PAINTER_GET_CLASS (painter);
+
+	return klass->draw_spell_error (painter, x, y, width);
 }
 
 HTMLFont *
@@ -1010,14 +1070,20 @@ guint
 html_painter_get_page_width (HTMLPainter *painter,
                              HTMLEngine *e)
 {
-	return (* HP_CLASS (painter)->get_page_width) (painter, e);
+	HTMLPainterClass *klass;
+	klass = HTML_PAINTER_GET_CLASS (painter);
+
+	return klass->get_page_width (painter, e);
 }
 
 guint
 html_painter_get_page_height (HTMLPainter *painter,
-                              HTMLEngine *e)
+			      HTMLEngine *e)
 {
-	return (* HP_CLASS (painter)->get_page_height) (painter, e);
+	HTMLPainterClass *klass;
+	klass = HTML_PAINTER_GET_CLASS (painter);
+
+	return klass->get_page_height (painter, e);
 }
 
 /**
@@ -1059,17 +1125,23 @@ html_painter_engine_to_pango (HTMLPainter *painter,
 }
 
 void
-html_painter_set_focus (HTMLPainter *p,
+html_painter_set_focus (HTMLPainter *painter,
                         gboolean focus)
 {
-	p->focus = focus;
+	painter->focus = focus;
 }
 
 void
 html_painter_set_widget (HTMLPainter *painter,
                          GtkWidget *widget)
 {
-	(* HP_CLASS (painter)->set_widget) (painter, widget);
+	HTMLPainterClass *klass;
+
+	klass = HTML_PAINTER_GET_CLASS (painter);
+
+	g_return_if_fail (klass->set_widget != NULL);
+
+	klass->set_widget (painter, widget);
 }
 
 HTMLTextPangoInfo *
