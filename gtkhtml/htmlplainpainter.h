@@ -26,6 +26,8 @@
 #include "htmlfontmanager.h"
 #include "htmlgdkpainter.h"
 
+G_BEGIN_DECLS
+
 typedef struct _HTMLPlainPainterClass HTMLPlainPainterClass;
 typedef struct _HTMLPlainPainter HTMLPlainPainter;
 
@@ -46,5 +48,7 @@ struct _HTMLPlainPainterClass {
 
 GType      html_plain_painter_get_type (void);
 HTMLPainter *html_plain_painter_new      (GtkWidget *widget, gboolean double_buffer);
+
+G_END_DECLS
 
 #endif /* _HTMLPLAINPAINTER_H */

@@ -31,8 +31,7 @@
 #include "htmlengine.h"
 #include "htmltext.h"
 
-static HTMLGdkPainterClass *parent_class = NULL;
-
+G_DEFINE_TYPE (HTMLPlainPainter, html_plain_painter, HTML_TYPE_GDK_PAINTER);
 static void
 draw_border (HTMLPainter *painter,
              GdkColor *bg,
@@ -121,7 +120,7 @@ draw_shade_line (HTMLPainter *painter,
 }
 
 static void
-html_plain_painter_init (GObject *object)
+html_plain_painter_init (HTMLPlainPainter *painter)
 {
 }
 
@@ -151,12 +150,12 @@ get_page_height (HTMLPainter *painter,
 }
 
 static void
-html_plain_painter_class_init (GObjectClass *object_class)
+html_plain_painter_class_init (HTMLPlainPainterClass *klass)
 {
 	HTMLPainterClass *painter_class;
 
-	painter_class = HTML_PAINTER_CLASS (object_class);
-	parent_class = g_type_class_ref (HTML_TYPE_GDK_PAINTER);
+	painter_class = HTML_PAINTER_CLASS (klass);
+	html_plain_painter_parent_class = g_type_class_peek_parent (klass);
 
 	painter_class->draw_rect = draw_rect;
 	painter_class->fill_rect = fill_rect;
@@ -166,30 +165,6 @@ html_plain_painter_class_init (GObjectClass *object_class)
 	painter_class->draw_background = draw_background;
 	painter_class->get_page_width = get_page_width;
 	painter_class->get_page_height = get_page_height;
-}
-
-GType
-html_plain_painter_get_type (void)
-{
-	static GType html_plain_painter_type = 0;
-
-	if (html_plain_painter_type == 0) {
-		static const GTypeInfo html_plain_painter_info = {
-			sizeof (HTMLPlainPainterClass),
-			NULL,
-			NULL,
-			(GClassInitFunc) html_plain_painter_class_init,
-			NULL,
-			NULL,
-			sizeof (HTMLPlainPainter),
-			1,
-			(GInstanceInitFunc) html_plain_painter_init,
-		};
-		html_plain_painter_type = g_type_register_static (HTML_TYPE_GDK_PAINTER, "HTMLPlainPainter",
-								  &html_plain_painter_info, 0);
-	}
-
-	return html_plain_painter_type;
 }
 
 HTMLPainter *
