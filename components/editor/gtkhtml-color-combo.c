@@ -65,7 +65,6 @@ struct _GtkhtmlColorComboPrivate {
 	GdkDevice *grab_mouse;
 };
 
-static gpointer parent_class;
 static guint signals[LAST_SIGNAL];
 static GdkColor black = { 0, 0, 0, 0 };
 
@@ -120,6 +119,7 @@ static struct {
 	{ "#FFFFFF", N_("white") }
 };
 
+G_DEFINE_TYPE_WITH_PRIVATE (GtkhtmlColorCombo, gtkhtml_color_combo, GTK_TYPE_BIN);
 static void color_combo_build_popup_window (GtkhtmlColorCombo *combo);
 
 static void
@@ -127,8 +127,10 @@ color_combo_notify_current_color_cb (GtkhtmlColorCombo *combo)
 {
 	GtkhtmlColorSwatch *swatch;
 	GdkColor color;
+	GtkhtmlColorComboPrivate *priv;
 
-	swatch = GTKHTML_COLOR_SWATCH (combo->priv->swatch);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	swatch = GTKHTML_COLOR_SWATCH (priv->swatch);
 	if (gtkhtml_color_combo_get_current_color (combo, &color))
 		gtkhtml_color_swatch_set_color (swatch, &color);
 	else if (gtkhtml_color_combo_get_default_transparent (combo))
@@ -155,6 +157,7 @@ color_combo_reposition_window (GtkhtmlColorCombo *combo)
 	GtkAllocation allocation;
 	gint monitor_num;
 	gint x, y, width, height;
+	GtkhtmlColorComboPrivate *priv;
 
 	screen = gtk_widget_get_screen (GTK_WIDGET (combo));
 	window = gtk_widget_get_window (GTK_WIDGET (combo));
@@ -169,14 +172,15 @@ color_combo_reposition_window (GtkhtmlColorCombo *combo)
 		y += allocation.y;
 	}
 
-	gtk_widget_get_allocation (combo->priv->window, &allocation);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	gtk_widget_get_allocation (priv->window, &allocation);
 	width = allocation.width;
 	height = allocation.height;
 
 	x = CLAMP (x, monitor.x, monitor.x + monitor.width - width);
 	y = CLAMP (y, monitor.y, monitor.y + monitor.height - height);
 
-	gtk_window_move (GTK_WINDOW (combo->priv->window), x, y);
+	gtk_window_move (GTK_WINDOW (priv->window), x, y);
 }
 
 static gboolean
@@ -185,14 +189,16 @@ color_combo_button_press_event_cb (GtkhtmlColorCombo *combo,
 {
 	GtkToggleButton *toggle_button;
 	GtkWidget *event_widget;
+	GtkhtmlColorComboPrivate *priv;
 
-	toggle_button = GTK_TOGGLE_BUTTON (combo->priv->toggle_button);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	toggle_button = GTK_TOGGLE_BUTTON (priv->toggle_button);
 	event_widget = gtk_get_event_widget ((GdkEvent *) event);
 
-	if (event_widget == combo->priv->window)
+	if (event_widget == priv->window)
 		return TRUE;
 
-	if (event_widget != combo->priv->toggle_button)
+	if (event_widget != priv->toggle_button)
 		return FALSE;
 
 	if (gtk_toggle_button_get_active (toggle_button))
@@ -200,7 +206,7 @@ color_combo_button_press_event_cb (GtkhtmlColorCombo *combo,
 
 	gtkhtml_color_combo_popup (combo);
 
-	combo->priv->popup_in_progress = TRUE;
+	priv->popup_in_progress = TRUE;
 
 	return TRUE;
 }
@@ -212,14 +218,16 @@ color_combo_button_release_event_cb (GtkhtmlColorCombo *combo,
 	GtkToggleButton *toggle_button;
 	GtkWidget *event_widget;
 	gboolean popup_in_progress;
+	GtkhtmlColorComboPrivate *priv;
 
-	toggle_button = GTK_TOGGLE_BUTTON (combo->priv->toggle_button);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	toggle_button = GTK_TOGGLE_BUTTON (priv->toggle_button);
 	event_widget = gtk_get_event_widget ((GdkEvent *) event);
 
-	popup_in_progress = combo->priv->popup_in_progress;
-	combo->priv->popup_in_progress = FALSE;
+	popup_in_progress = priv->popup_in_progress;
+	priv->popup_in_progress = FALSE;
 
-	if (event_widget != combo->priv->toggle_button)
+	if (event_widget != priv->toggle_button)
 		goto popdown;
 
 	if (popup_in_progress)
@@ -239,14 +247,20 @@ popdown:
 static void
 color_combo_child_show_cb (GtkhtmlColorCombo *combo)
 {
-	combo->priv->popup_shown = TRUE;
+	GtkhtmlColorComboPrivate *priv;
+
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	priv->popup_shown = TRUE;
 	g_object_notify (G_OBJECT (combo), "popup-shown");
 }
 
 static void
 color_combo_child_hide_cb (GtkhtmlColorCombo *combo)
 {
-	combo->priv->popup_shown = FALSE;
+	GtkhtmlColorComboPrivate *priv;
+
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	priv->popup_shown = FALSE;
 	g_object_notify (G_OBJECT (combo), "popup-shown");
 }
 
@@ -254,7 +268,11 @@ static gboolean
 color_combo_child_key_press_event_cb (GtkhtmlColorCombo *combo,
                                       GdkEventKey *event)
 {
-	GtkWidget *window = combo->priv->window;
+	GtkhtmlColorComboPrivate *priv;
+	GtkWidget *window;
+
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	window = priv->window;
 
 	if (!gtk_bindings_activate_event (G_OBJECT (window), event))
 		gtk_bindings_activate_event (G_OBJECT (combo), event);
@@ -271,6 +289,7 @@ color_combo_custom_clicked_cb (GtkhtmlColorCombo *combo)
 	GtkWidget *toplevel;
 	GdkColor color;
 	gint response;
+	GtkhtmlColorComboPrivate *priv;
 
 	gtkhtml_color_combo_popdown (combo);
 
@@ -288,7 +307,8 @@ color_combo_custom_clicked_cb (GtkhtmlColorCombo *combo)
 	if (response != GTK_RESPONSE_OK)
 		goto exit;
 
-	palette = gtkhtml_color_state_get_palette (combo->priv->state);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	palette = gtkhtml_color_state_get_palette (priv->state);
 
 	gtk_color_selection_get_current_color (
 		GTK_COLOR_SELECTION (colorsel), &color);
@@ -338,8 +358,10 @@ color_combo_palette_changed_cb (GtkhtmlColorCombo *combo)
 	GtkhtmlColorSwatch *swatch;
 	GSList *list;
 	guint ii;
+	GtkhtmlColorComboPrivate *priv;
 
-	palette = gtkhtml_color_state_get_palette (combo->priv->state);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	palette = gtkhtml_color_state_get_palette (priv->state);
 	list = gtkhtml_color_palette_list_colors (palette);
 
 	/* Make sure we have at least NUM_CUSTOM_COLORS. */
@@ -348,7 +370,7 @@ color_combo_palette_changed_cb (GtkhtmlColorCombo *combo)
 
 	/* Pop items off the list and update the custom swatches. */
 	for (ii = 0; ii < NUM_CUSTOM_COLORS; ii++) {
-		swatch = GTKHTML_COLOR_SWATCH (combo->priv->custom[ii]);
+		swatch = GTKHTML_COLOR_SWATCH (priv->custom[ii]);
 		gtkhtml_color_swatch_set_color (swatch, list->data);
 		gdk_color_free (list->data);
 		list = g_slist_delete_link (list, list);
@@ -365,11 +387,13 @@ color_combo_swatch_clicked_cb (GtkhtmlColorCombo *combo,
 {
 	GtkWidget *swatch;
 	GdkColor color;
+	GtkhtmlColorComboPrivate *priv;
 
+	priv = gtkhtml_color_combo_get_instance_private (combo);
 	swatch = gtk_bin_get_child (GTK_BIN (button));
 	gtkhtml_color_swatch_get_color (
 		GTKHTML_COLOR_SWATCH (swatch), &color);
-	gtkhtml_color_state_set_current_color (combo->priv->state, &color);
+	gtkhtml_color_state_set_current_color (priv->state, &color);
 	gtkhtml_color_combo_popdown (combo);
 }
 
@@ -393,8 +417,10 @@ color_combo_toggled_cb (GtkhtmlColorCombo *combo)
 {
 	GtkToggleButton *toggle_button;
 	gboolean active;
+	GtkhtmlColorComboPrivate *priv;
 
-	toggle_button = GTK_TOGGLE_BUTTON (combo->priv->toggle_button);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	toggle_button = GTK_TOGGLE_BUTTON (priv->toggle_button);
 	active = gtk_toggle_button_get_active (toggle_button);
 
 	if (active)
@@ -497,9 +523,11 @@ color_combo_get_property (GObject *object,
                           GParamSpec *pspec)
 {
 	GtkhtmlColorComboPrivate *priv;
+	GtkhtmlColorCombo *combo;
 	GdkColor color;
 
-	priv = GTKHTML_COLOR_COMBO (object)->priv;
+	combo = GTKHTML_COLOR_COMBO (object);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
 
 	switch (property_id) {
 		case PROP_CURRENT_COLOR:
@@ -551,9 +579,11 @@ static void
 color_combo_dispose (GObject *object)
 {
 	GtkhtmlColorComboPrivate *priv;
+	GtkhtmlColorCombo *combo;
 	gint ii;
 
-	priv = GTKHTML_COLOR_COMBO (object)->priv;
+	combo = GTKHTML_COLOR_COMBO (object);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
 
 	if (priv->color_button != NULL) {
 		g_object_unref (priv->color_button);
@@ -568,11 +598,6 @@ color_combo_dispose (GObject *object)
 	if (priv->toggle_button != NULL) {
 		g_object_unref (priv->toggle_button);
 		priv->toggle_button = NULL;
-	}
-
-	if (priv->swatch != NULL) {
-		g_object_unref (priv->swatch);
-		priv->swatch = NULL;
 	}
 
 	if (priv->window != NULL) {
@@ -596,7 +621,7 @@ color_combo_dispose (GObject *object)
 	}
 
 	/* Chain up to parent's dispose() method. */
-	G_OBJECT_CLASS (parent_class)->dispose (object);
+	G_OBJECT_CLASS (gtkhtml_color_combo_parent_class)->dispose (object);
 }
 
 static void
@@ -605,8 +630,10 @@ color_combo_get_preferred_width (GtkWidget *widget,
                                  gint *natural_width)
 {
 	GtkhtmlColorComboPrivate *priv;
+	GtkhtmlColorCombo *combo;
 
-	priv = GTKHTML_COLOR_COMBO (widget)->priv;
+	combo = GTKHTML_COLOR_COMBO (widget);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
 
 	gtk_widget_get_preferred_width (priv->toggle_button, minimum_width, natural_width);
 }
@@ -617,8 +644,10 @@ color_combo_get_preferred_height (GtkWidget *widget,
                                   gint *natural_height)
 {
 	GtkhtmlColorComboPrivate *priv;
+	GtkhtmlColorCombo *combo;
 
-	priv = GTKHTML_COLOR_COMBO (widget)->priv;
+	combo = GTKHTML_COLOR_COMBO (widget);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
 
 	gtk_widget_get_preferred_height (priv->toggle_button, minimum_height, natural_height);
 }
@@ -628,8 +657,10 @@ color_combo_size_allocate (GtkWidget *widget,
                            GtkAllocation *allocation)
 {
 	GtkhtmlColorComboPrivate *priv;
+	GtkhtmlColorCombo *combo;
 
-	priv = GTKHTML_COLOR_COMBO (widget)->priv;
+	combo = GTKHTML_COLOR_COMBO (widget);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
 
 	gtk_widget_set_allocation (widget, allocation);
 	gtk_widget_size_allocate (priv->toggle_button, allocation);
@@ -645,6 +676,7 @@ color_combo_popup (GtkhtmlColorCombo *combo)
 	GdkDevice *device, *mouse, *keyboard;
 	guint32 activate_time;
 	const gchar *label;
+	GtkhtmlColorComboPrivate *priv;
 
 	device = gtk_get_current_event_device ();
 	g_return_if_fail (device != NULL);
@@ -652,10 +684,11 @@ color_combo_popup (GtkhtmlColorCombo *combo)
 	if (!gtk_widget_get_realized (GTK_WIDGET (combo)))
 		return;
 
-	if (combo->priv->popup_shown)
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	if (priv->popup_shown)
 		return;
 
-	if (!combo->priv->window)
+	if (!priv->window)
 		color_combo_build_popup_window (combo);
 
 	activate_time = gtk_get_current_event_time ();
@@ -668,23 +701,23 @@ color_combo_popup (GtkhtmlColorCombo *combo)
 	}
 
 	/* Update the default button label. */
-	button = GTK_BUTTON (combo->priv->default_button);
-	label = gtkhtml_color_state_get_default_label (combo->priv->state);
+	button = GTK_BUTTON (priv->default_button);
+	label = gtkhtml_color_state_get_default_label (priv->state);
 	gtk_button_set_label (button, label);
 
 	/* Position the window over the button. */
 	color_combo_reposition_window (combo);
 
 	/* Show the pop-up. */
-	gtk_widget_show (combo->priv->window);
-	gtk_widget_grab_focus (combo->priv->window);
+	gtk_widget_show (priv->window);
+	gtk_widget_grab_focus (priv->window);
 
 	/* Activate the toggle button. */
-	toggle_button = GTK_TOGGLE_BUTTON (combo->priv->toggle_button);
+	toggle_button = GTK_TOGGLE_BUTTON (priv->toggle_button);
 	gtk_toggle_button_set_active (toggle_button, TRUE);
 
 	/* Try to grab the pointer and keyboard. */
-	window = gtk_widget_get_window (combo->priv->window);
+	window = gtk_widget_get_window (priv->window);
 	grab_status = !keyboard ||
 		gdk_device_grab (keyboard, window,
 			GDK_OWNERSHIP_WINDOW, TRUE,
@@ -701,11 +734,11 @@ color_combo_popup (GtkhtmlColorCombo *combo)
 	}
 
 	if (grab_status) {
-		gtk_device_grab_add (combo->priv->window, mouse, TRUE);
-		combo->priv->grab_keyboard = keyboard;
-		combo->priv->grab_mouse = mouse;
+		gtk_device_grab_add (priv->window, mouse, TRUE);
+		priv->grab_keyboard = keyboard;
+		priv->grab_mouse = mouse;
 	} else {
-		gtk_widget_hide (combo->priv->window);
+		gtk_widget_hide (priv->window);
 	}
 }
 
@@ -713,51 +746,52 @@ static void
 color_combo_popdown (GtkhtmlColorCombo *combo)
 {
 	GtkToggleButton *toggle_button;
+	GtkhtmlColorComboPrivate *priv;
 
 	if (!gtk_widget_get_realized (GTK_WIDGET (combo)))
 		return;
 
-	if (!combo->priv->popup_shown)
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	if (!priv->popup_shown)
 		return;
 
 	/* Hide the pop-up. */
-	gtk_device_grab_remove (combo->priv->window, combo->priv->grab_mouse);
-	gtk_widget_hide (combo->priv->window);
+	gtk_device_grab_remove (priv->window, priv->grab_mouse);
+	gtk_widget_hide (priv->window);
 
 	/* Deactivate the toggle button. */
-	toggle_button = GTK_TOGGLE_BUTTON (combo->priv->toggle_button);
+	toggle_button = GTK_TOGGLE_BUTTON (priv->toggle_button);
 	gtk_toggle_button_set_active (toggle_button, FALSE);
 
-	if (combo->priv->grab_keyboard)
-		gdk_device_ungrab (combo->priv->grab_keyboard, GDK_CURRENT_TIME);
-	if (combo->priv->grab_mouse)
-		gdk_device_ungrab (combo->priv->grab_mouse, GDK_CURRENT_TIME);
+	if (priv->grab_keyboard)
+		gdk_device_ungrab (priv->grab_keyboard, GDK_CURRENT_TIME);
+	if (priv->grab_mouse)
+		gdk_device_ungrab (priv->grab_mouse, GDK_CURRENT_TIME);
 
-	combo->priv->grab_keyboard = NULL;
-	combo->priv->grab_mouse = NULL;
+	priv->grab_keyboard = NULL;
+	priv->grab_mouse = NULL;
 }
 
 static void
-color_combo_class_init (GtkhtmlColorComboClass *class)
+gtkhtml_color_combo_class_init (GtkhtmlColorComboClass *klass)
 {
 	GObjectClass *object_class;
 	GtkWidgetClass *widget_class;
 
-	parent_class = g_type_class_peek_parent (class);
-	g_type_class_add_private (class, sizeof (GtkhtmlColorComboPrivate));
+	gtkhtml_color_combo_parent_class = g_type_class_peek_parent (klass);
 
-	object_class = G_OBJECT_CLASS (class);
+	object_class = G_OBJECT_CLASS (klass);
 	object_class->set_property = color_combo_set_property;
 	object_class->get_property = color_combo_get_property;
 	object_class->dispose = color_combo_dispose;
 
-	widget_class = GTK_WIDGET_CLASS (class);
+	widget_class = GTK_WIDGET_CLASS (klass);
 	widget_class->get_preferred_width = color_combo_get_preferred_width;
 	widget_class->get_preferred_height = color_combo_get_preferred_height;
 	widget_class->size_allocate = color_combo_size_allocate;
 
-	class->popup = color_combo_popup;
-	class->popdown = color_combo_popdown;
+	klass->popup = color_combo_popup;
+	klass->popdown = color_combo_popdown;
 
 	g_object_class_install_property (
 		object_class,
@@ -834,7 +868,7 @@ color_combo_class_init (GtkhtmlColorComboClass *class)
 
 	signals[CHANGED] = g_signal_new (
 		"changed",
-		G_OBJECT_CLASS_TYPE (class),
+		G_OBJECT_CLASS_TYPE (klass),
 		G_SIGNAL_RUN_LAST,
 		0, NULL, NULL,
 		g_cclosure_marshal_VOID__VOID,
@@ -842,7 +876,7 @@ color_combo_class_init (GtkhtmlColorComboClass *class)
 
 	signals[POPUP] = g_signal_new (
 		"popup",
-		G_OBJECT_CLASS_TYPE (class),
+		G_OBJECT_CLASS_TYPE (klass),
 		G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 		G_STRUCT_OFFSET (GtkhtmlColorComboClass, popup),
 		NULL, NULL,
@@ -851,7 +885,7 @@ color_combo_class_init (GtkhtmlColorComboClass *class)
 
 	signals[POPDOWN] = g_signal_new (
 		"popdown",
-		G_OBJECT_CLASS_TYPE (class),
+		G_OBJECT_CLASS_TYPE (klass),
 		G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 		G_STRUCT_OFFSET (GtkhtmlColorComboClass, popdown),
 		NULL, NULL,
@@ -859,32 +893,32 @@ color_combo_class_init (GtkhtmlColorComboClass *class)
 		G_TYPE_NONE, 0);
 
 	gtk_binding_entry_add_signal (
-		gtk_binding_set_by_class (class),
+		gtk_binding_set_by_class (klass),
 		GDK_KEY_Down, GDK_MOD1_MASK, "popup", 0);
 	gtk_binding_entry_add_signal (
-		gtk_binding_set_by_class (class),
+		gtk_binding_set_by_class (klass),
 		GDK_KEY_KP_Down, GDK_MOD1_MASK, "popup", 0);
 
 	gtk_binding_entry_add_signal (
-		gtk_binding_set_by_class (class),
+		gtk_binding_set_by_class (klass),
 		GDK_KEY_Up, GDK_MOD1_MASK, "popdown", 0);
 	gtk_binding_entry_add_signal (
-		gtk_binding_set_by_class (class),
+		gtk_binding_set_by_class (klass),
 		GDK_KEY_KP_Up, GDK_MOD1_MASK, "popdown", 0);
 	gtk_binding_entry_add_signal (
-		gtk_binding_set_by_class (class),
+		gtk_binding_set_by_class (klass),
 		GDK_KEY_Escape, 0, "popdown", 0);
 }
 
 static void
-color_combo_init (GtkhtmlColorCombo *combo)
+gtkhtml_color_combo_init (GtkhtmlColorCombo *combo)
 {
 	GtkhtmlColorState *state;
 	GtkWidget *container;
 	GtkWidget *widget;
+	GtkhtmlColorComboPrivate *priv;
 
-	combo->priv = G_TYPE_INSTANCE_GET_PRIVATE (
-		combo, GTKHTML_TYPE_COLOR_COMBO, GtkhtmlColorComboPrivate);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
 
 	state = gtkhtml_color_state_new ();
 	gtkhtml_color_combo_set_state (combo, state);
@@ -894,7 +928,7 @@ color_combo_init (GtkhtmlColorCombo *combo)
 
 	widget = gtk_toggle_button_new ();
 	gtk_container_add (GTK_CONTAINER (combo), widget);
-	combo->priv->toggle_button = g_object_ref (widget);
+	priv->toggle_button = g_object_ref (widget);
 	gtk_widget_show (widget);
 
 	container = widget;
@@ -905,12 +939,11 @@ color_combo_init (GtkhtmlColorCombo *combo)
 
 	container = widget;
 
-	widget = gtkhtml_color_swatch_new ();
+	priv->swatch = gtkhtml_color_swatch_new ();
 	gtkhtml_color_swatch_set_shadow_type (
-		GTKHTML_COLOR_SWATCH (widget), GTK_SHADOW_ETCHED_OUT);
-	gtk_box_pack_start (GTK_BOX (container), widget, TRUE, TRUE, 0);
-	combo->priv->swatch = g_object_ref (widget);
-	gtk_widget_show (widget);
+		GTKHTML_COLOR_SWATCH (priv->swatch), GTK_SHADOW_ETCHED_OUT);
+	gtk_box_pack_start (GTK_BOX (container), priv->swatch, TRUE, TRUE, 0);
+	gtk_widget_show (priv->swatch);
 
 	widget = gtk_vseparator_new ();
 	gtk_box_pack_start (GTK_BOX (container), widget, FALSE, FALSE, 3);
@@ -921,11 +954,11 @@ color_combo_init (GtkhtmlColorCombo *combo)
 	gtk_widget_show (widget);
 
 	g_signal_connect_swapped (
-		combo->priv->toggle_button, "button-press-event",
+		priv->toggle_button, "button-press-event",
 		G_CALLBACK (color_combo_button_press_event_cb), combo);
 
 	g_signal_connect_swapped (
-		combo->priv->toggle_button, "toggled",
+		priv->toggle_button, "toggled",
 		G_CALLBACK (color_combo_toggled_cb), combo);
 }
 
@@ -937,8 +970,10 @@ color_combo_build_popup_window (GtkhtmlColorCombo *combo)
 	GtkWidget *widget;
 	GtkWidget *window;
 	guint ii;
+	GtkhtmlColorComboPrivate *priv;
 
-	g_return_if_fail (combo->priv->window == NULL);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	g_return_if_fail (priv->window == NULL);
 
 	window = gtk_window_new (GTK_WINDOW_POPUP);
 	toplevel = gtk_widget_get_toplevel (GTK_WIDGET (combo));
@@ -953,7 +988,7 @@ color_combo_build_popup_window (GtkhtmlColorCombo *combo)
 			GTK_WINDOW (window), GTK_WINDOW (toplevel));
 	}
 
-	combo->priv->window = window;
+	priv->window = window;
 
 	g_signal_connect_swapped (
 		window, "show",
@@ -992,7 +1027,7 @@ color_combo_build_popup_window (GtkhtmlColorCombo *combo)
 	gtk_table_attach (
 		GTK_TABLE (container), widget,
 		0, 8, 0, 1, GTK_EXPAND | GTK_FILL, GTK_FILL, 0, 0);
-	combo->priv->default_button = g_object_ref (widget);
+	priv->default_button = g_object_ref (widget);
 	gtk_widget_show (widget);
 
 	g_signal_connect_swapped (
@@ -1023,7 +1058,7 @@ color_combo_build_popup_window (GtkhtmlColorCombo *combo)
 		gtk_table_attach (
 			GTK_TABLE (container), widget,
 			ii, ii + 1, 6, 7, 0, 0, 0, 0);
-		combo->priv->custom[ii] = g_object_ref (
+		priv->custom[ii] = g_object_ref (
 			gtk_bin_get_child (GTK_BIN (widget)));
 	}
 
@@ -1034,7 +1069,7 @@ color_combo_build_popup_window (GtkhtmlColorCombo *combo)
 	gtk_table_attach (
 		GTK_TABLE (container), widget,
 		0, 8, 7, 8, GTK_FILL, 0, 0, 0);
-	combo->priv->color_button = g_object_ref (widget);
+	priv->color_button = g_object_ref (widget);
 	gtk_widget_show (widget);
 
 	g_signal_connect_swapped (
@@ -1043,32 +1078,6 @@ color_combo_build_popup_window (GtkhtmlColorCombo *combo)
 	g_signal_connect_swapped (
 		widget, "button-release-event",
 		G_CALLBACK (color_combo_custom_release_event_cb), combo);
-}
-
-GType
-gtkhtml_color_combo_get_type (void)
-{
-	static GType type = 0;
-
-	if (G_UNLIKELY (type == 0)) {
-		static const GTypeInfo type_info = {
-			sizeof (GtkhtmlColorComboClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) color_combo_class_init,
-			(GClassFinalizeFunc) NULL,
-			NULL,  /* class_data */
-			sizeof (GtkhtmlColorCombo),
-			0,     /* n_preallocs */
-			(GInstanceInitFunc) color_combo_init,
-			NULL   /* value_table */
-		};
-
-		type = g_type_register_static (
-			GTK_TYPE_BIN, "GtkhtmlColorCombo", &type_info, 0);
-	}
-
-	return type;
 }
 
 GtkWidget *
@@ -1111,103 +1120,130 @@ gboolean
 gtkhtml_color_combo_get_current_color (GtkhtmlColorCombo *combo,
                                        GdkColor *color)
 {
+	GtkhtmlColorComboPrivate *priv;
 	g_return_val_if_fail (GTKHTML_IS_COLOR_COMBO (combo), FALSE);
 
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+
 	return gtkhtml_color_state_get_current_color (
-		combo->priv->state, color);
+		priv->state, color);
 }
 
 void
 gtkhtml_color_combo_set_current_color (GtkhtmlColorCombo *combo,
                                        GdkColor *color)
 {
+	GtkhtmlColorComboPrivate *priv;
 	g_return_if_fail (GTKHTML_IS_COLOR_COMBO (combo));
 
-	gtkhtml_color_state_set_current_color (combo->priv->state, color);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	gtkhtml_color_state_set_current_color (priv->state, color);
 }
 
 void
 gtkhtml_color_combo_get_default_color (GtkhtmlColorCombo *combo,
                                        GdkColor *color)
 {
+	GtkhtmlColorComboPrivate *priv;
 	g_return_if_fail (GTKHTML_IS_COLOR_COMBO (combo));
 
-	gtkhtml_color_state_get_default_color (combo->priv->state, color);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	gtkhtml_color_state_get_default_color (priv->state, color);
 }
 
 void
 gtkhtml_color_combo_set_default_color (GtkhtmlColorCombo *combo,
                                        GdkColor *color)
 {
+	GtkhtmlColorComboPrivate *priv;
 	g_return_if_fail (GTKHTML_IS_COLOR_COMBO (combo));
 
-	gtkhtml_color_state_set_default_color (combo->priv->state, color);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	gtkhtml_color_state_set_default_color (priv->state, color);
 }
 
 const gchar *
 gtkhtml_color_combo_get_default_label (GtkhtmlColorCombo *combo)
 {
+	GtkhtmlColorComboPrivate *priv;
 	g_return_val_if_fail (GTKHTML_IS_COLOR_COMBO (combo), NULL);
 
-	return gtkhtml_color_state_get_default_label (combo->priv->state);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	return gtkhtml_color_state_get_default_label (priv->state);
 }
 
 void
 gtkhtml_color_combo_set_default_label (GtkhtmlColorCombo *combo,
                                        const gchar *text)
 {
+	GtkhtmlColorComboPrivate *priv;
+
 	g_return_if_fail (GTKHTML_IS_COLOR_COMBO (combo));
 
-	gtkhtml_color_state_set_default_label (combo->priv->state, text);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	gtkhtml_color_state_set_default_label (priv->state, text);
 }
 
 gboolean
 gtkhtml_color_combo_get_default_transparent (GtkhtmlColorCombo *combo)
 {
+	GtkhtmlColorComboPrivate *priv;
 	g_return_val_if_fail (GTKHTML_IS_COLOR_COMBO (combo), FALSE);
 
-	return gtkhtml_color_state_get_default_transparent (combo->priv->state);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	return gtkhtml_color_state_get_default_transparent (priv->state);
 }
 
 void
 gtkhtml_color_combo_set_default_transparent (GtkhtmlColorCombo *combo,
                                              gboolean transparent)
 {
-	g_return_if_fail (GTKHTML_IS_COLOR_COMBO (combo));
+	GtkhtmlColorComboPrivate *priv;
 
+	g_return_if_fail (GTKHTML_IS_COLOR_COMBO (combo));
+	priv = gtkhtml_color_combo_get_instance_private (combo);
 	gtkhtml_color_state_set_default_transparent (
-		combo->priv->state, transparent);
+		priv->state, transparent);
 }
 
 GtkhtmlColorPalette *
 gtkhtml_color_combo_get_palette (GtkhtmlColorCombo *combo)
 {
+	GtkhtmlColorComboPrivate *priv;
+
 	g_return_val_if_fail (GTKHTML_IS_COLOR_COMBO (combo), NULL);
 
-	return gtkhtml_color_state_get_palette (combo->priv->state);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	return gtkhtml_color_state_get_palette (priv->state);
 }
 
 void
 gtkhtml_color_combo_set_palette (GtkhtmlColorCombo *combo,
                                  GtkhtmlColorPalette *palette)
 {
-	g_return_if_fail (GTKHTML_IS_COLOR_COMBO (combo));
+	GtkhtmlColorComboPrivate *priv;
 
-	gtkhtml_color_state_set_palette (combo->priv->state, palette);
+	g_return_if_fail (GTKHTML_IS_COLOR_COMBO (combo));
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	gtkhtml_color_state_set_palette (priv->state, palette);
 }
 
 GtkhtmlColorState *
 gtkhtml_color_combo_get_state (GtkhtmlColorCombo *combo)
 {
-	g_return_val_if_fail (GTKHTML_IS_COLOR_COMBO (combo), NULL);
+	GtkhtmlColorComboPrivate *priv;
 
-	return combo->priv->state;
+	g_return_val_if_fail (GTKHTML_IS_COLOR_COMBO (combo), NULL);
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	return priv->state;
 }
 
 void
 gtkhtml_color_combo_set_state (GtkhtmlColorCombo *combo,
                                GtkhtmlColorState *state)
 {
+	GtkhtmlColorComboPrivate *priv;
+
 	g_return_if_fail (GTKHTML_IS_COLOR_COMBO (combo));
 
 	if (state == NULL)
@@ -1215,28 +1251,29 @@ gtkhtml_color_combo_set_state (GtkhtmlColorCombo *combo,
 	else
 		g_return_if_fail (GTKHTML_IS_COLOR_STATE (state));
 
-	if (combo->priv->state != NULL) {
+	priv = gtkhtml_color_combo_get_instance_private (combo);
+	if (priv->state != NULL) {
 		g_signal_handlers_disconnect_matched (
-			combo->priv->state, G_SIGNAL_MATCH_DATA,
+			priv->state, G_SIGNAL_MATCH_DATA,
 			0, 0, NULL, NULL, combo);
-		g_object_unref (combo->priv->state);
+		g_object_unref (priv->state);
 	}
 
-	combo->priv->state = g_object_ref (state);
+	priv->state = g_object_ref (state);
 
 	/* Listen and respond to changes in the state object. */
 
 	g_signal_connect_swapped (
-		combo->priv->state, "notify::current-color",
+		priv->state, "notify::current-color",
 		G_CALLBACK (color_combo_notify_current_color_cb), combo);
 
 	g_signal_connect_swapped (
-		combo->priv->state, "palette-changed",
+		priv->state, "palette-changed",
 		G_CALLBACK (color_combo_palette_changed_cb), combo);
 
 	/* Propagate all "notify" signals through our own properties. */
 
 	g_signal_connect_swapped (
-		combo->priv->state, "notify",
+		priv->state, "notify",
 		G_CALLBACK (color_combo_propagate_notify_cb), combo);
 }
