@@ -57,10 +57,17 @@ struct _GtkhtmlFaceToolButtonPrivate {
 	GdkDevice *grab_mouse;
 };
 
-static gpointer parent_class;
 static guint signals[LAST_SIGNAL];
-
 static void face_tool_button_build_popup_window (GtkhtmlFaceToolButton *button);
+static void gtkhtml_face_tool_button_iface_init (GtkhtmlFaceChooserIface *iface);
+
+G_DEFINE_TYPE_EXTENDED (GtkhtmlFaceToolButton,
+			gtkhtml_face_tool_button,
+			GTK_TYPE_TOGGLE_TOOL_BUTTON,
+			0,
+			G_ADD_PRIVATE (GtkhtmlFaceToolButton)
+			G_IMPLEMENT_INTERFACE (GTKHTML_TYPE_FACE_CHOOSER,
+			  gtkhtml_face_tool_button_iface_init));
 
 /* XXX Copied from _gtk_toolbar_elide_underscores() */
 static gchar *
@@ -112,6 +119,9 @@ face_tool_button_reposition_window (GtkhtmlFaceToolButton *button)
 	GtkAllocation allocation;
 	gint monitor_num;
 	gint x, y, width, height;
+	GtkhtmlFaceToolButtonPrivate *priv;
+
+	priv = gtkhtml_face_tool_button_get_instance_private (button);
 
 	screen = gtk_widget_get_screen (GTK_WIDGET (button));
 	window = gtk_widget_get_window (GTK_WIDGET (button));
@@ -126,21 +136,24 @@ face_tool_button_reposition_window (GtkhtmlFaceToolButton *button)
 		y += allocation.y;
 	}
 
-	gtk_widget_get_allocation (button->priv->window, &allocation);
+	gtk_widget_get_allocation (priv->window, &allocation);
 	width = allocation.width;
 	height = allocation.height;
 
 	x = CLAMP (x, monitor.x, monitor.x + monitor.width - width);
 	y = CLAMP (y, monitor.y, monitor.y + monitor.height - height);
 
-	gtk_window_move (GTK_WINDOW (button->priv->window), x, y);
+	gtk_window_move (GTK_WINDOW (priv->window), x, y);
 }
 
 static void
 face_tool_button_face_clicked_cb (GtkhtmlFaceToolButton *button,
                                   GtkWidget *face_button)
 {
-	button->priv->active_button = face_button;
+	GtkhtmlFaceToolButtonPrivate *priv;
+
+	priv = gtkhtml_face_tool_button_get_instance_private (button);
+	priv->active_button = face_button;
 	gtkhtml_face_tool_button_popdown (button);
 }
 
@@ -166,12 +179,15 @@ face_tool_button_button_release_event_cb (GtkhtmlFaceToolButton *button,
 	GtkToggleToolButton *tool_button;
 	GtkWidget *event_widget;
 	gboolean popup_in_progress;
+	GtkhtmlFaceToolButtonPrivate *priv;
+
+	priv = gtkhtml_face_tool_button_get_instance_private (button);
 
 	tool_button = GTK_TOGGLE_TOOL_BUTTON (button);
 	event_widget = gtk_get_event_widget ((GdkEvent *) event);
 
-	popup_in_progress = button->priv->popup_in_progress;
-	button->priv->popup_in_progress = FALSE;
+	popup_in_progress = priv->popup_in_progress;
+	priv->popup_in_progress = FALSE;
 
 	if (event_widget != GTK_WIDGET (button))
 		goto popdown;
@@ -193,14 +209,20 @@ popdown:
 static void
 face_tool_button_child_show_cb (GtkhtmlFaceToolButton *button)
 {
-	button->priv->popup_shown = TRUE;
+	GtkhtmlFaceToolButtonPrivate *priv;
+
+	priv = gtkhtml_face_tool_button_get_instance_private (button);
+	priv->popup_shown = TRUE;
 	g_object_notify (G_OBJECT (button), "popup-shown");
 }
 
 static void
 face_tool_button_child_hide_cb (GtkhtmlFaceToolButton *button)
 {
-	button->priv->popup_shown = FALSE;
+	GtkhtmlFaceToolButtonPrivate *priv;
+
+	priv = gtkhtml_face_tool_button_get_instance_private (button);
+	priv->popup_shown = FALSE;
 	g_object_notify (G_OBJECT (button), "popup-shown");
 }
 
@@ -208,8 +230,12 @@ static gboolean
 face_tool_button_child_key_press_event_cb (GtkhtmlFaceToolButton *button,
                                            GdkEventKey *event)
 {
-	GtkWidget *window = button->priv->window;
+	GtkhtmlFaceToolButtonPrivate *priv;
+	GtkWidget *window;
 
+	priv = gtkhtml_face_tool_button_get_instance_private (button);
+
+	window = priv->window;
 	if (!gtk_bindings_activate_event (G_OBJECT (window), event))
 		gtk_bindings_activate_event (G_OBJECT (button), event);
 
@@ -249,9 +275,10 @@ face_tool_button_get_property (GObject *object,
                                GParamSpec *pspec)
 {
 	GtkhtmlFaceToolButtonPrivate *priv;
+	GtkhtmlFaceToolButton *button;
 
-	priv = GTKHTML_FACE_TOOL_BUTTON (object)->priv;
-
+	button = GTKHTML_FACE_TOOL_BUTTON(object);
+	priv = gtkhtml_face_tool_button_get_instance_private (button);
 	switch (property_id) {
 		case PROP_CURRENT_FACE:
 			g_value_set_boxed (
@@ -272,9 +299,10 @@ static void
 face_tool_button_dispose (GObject *object)
 {
 	GtkhtmlFaceToolButtonPrivate *priv;
+	GtkhtmlFaceToolButton *button;
 
-	priv = GTKHTML_FACE_TOOL_BUTTON (object)->priv;
-
+	button = GTKHTML_FACE_TOOL_BUTTON(object);
+	priv = gtkhtml_face_tool_button_get_instance_private (button);
 	if (priv->table != NULL) {
 		g_object_unref (priv->table);
 		priv->table = NULL;
@@ -286,7 +314,7 @@ face_tool_button_dispose (GObject *object)
 	}
 
 	/* Chain up to parent's dispose() method. */
-	G_OBJECT_CLASS (parent_class)->dispose (object);
+	G_OBJECT_CLASS (gtkhtml_face_tool_button_parent_class)->dispose (object);
 }
 
 static gboolean
@@ -296,12 +324,14 @@ face_tool_button_press_event (GtkWidget *widget,
 	GtkhtmlFaceToolButton *button;
 	GtkToggleToolButton *toggle_button;
 	GtkWidget *event_widget;
+	GtkhtmlFaceToolButtonPrivate *priv;
+
 
 	button = GTKHTML_FACE_TOOL_BUTTON (widget);
-
+	priv = gtkhtml_face_tool_button_get_instance_private (button);
 	event_widget = gtk_get_event_widget ((GdkEvent *) event);
 
-	if (event_widget == button->priv->window)
+	if (event_widget == priv->window)
 		return TRUE;
 
 	if (event_widget != widget)
@@ -313,7 +343,7 @@ face_tool_button_press_event (GtkWidget *widget,
 
 	gtkhtml_face_tool_button_popup (button);
 
-	button->priv->popup_in_progress = TRUE;
+	priv->popup_in_progress = TRUE;
 
 	return TRUE;
 }
@@ -337,17 +367,19 @@ face_tool_button_popup (GtkhtmlFaceToolButton *button)
 	gboolean grab_status;
 	GdkDevice *device, *mouse, *keyboard;
 	guint32 activate_time;
+	GtkhtmlFaceToolButtonPrivate *priv;
 
+	priv = gtkhtml_face_tool_button_get_instance_private (button);
 	device = gtk_get_current_event_device ();
 	g_return_if_fail (device != NULL);
 
 	if (!gtk_widget_get_realized (GTK_WIDGET (button)))
 		return;
 
-	if (button->priv->popup_shown)
+	if (priv->popup_shown)
 		return;
 
-	if (!button->priv->window)
+	if (!priv->window)
 		face_tool_button_build_popup_window (button);
 
 	activate_time = gtk_get_current_event_time ();
@@ -363,15 +395,15 @@ face_tool_button_popup (GtkhtmlFaceToolButton *button)
 	face_tool_button_reposition_window (button);
 
 	/* Show the pop-up. */
-	gtk_widget_show (button->priv->window);
-	gtk_widget_grab_focus (button->priv->window);
+	gtk_widget_show (priv->window);
+	gtk_widget_grab_focus (priv->window);
 
 	/* Activate the tool button. */
 	tool_button = GTK_TOGGLE_TOOL_BUTTON (button);
 	gtk_toggle_tool_button_set_active (tool_button, TRUE);
 
 	/* Try to grab the pointer and keyboard. */
-	window = gtk_widget_get_window (button->priv->window);
+	window = gtk_widget_get_window (priv->window);
 	grab_status = !keyboard ||
 		gdk_device_grab (keyboard, window,
 			GDK_OWNERSHIP_WINDOW, TRUE,
@@ -388,11 +420,11 @@ face_tool_button_popup (GtkhtmlFaceToolButton *button)
 	}
 
 	if (grab_status) {
-		gtk_device_grab_add (button->priv->window, mouse, TRUE);
-		button->priv->grab_keyboard = keyboard;
-		button->priv->grab_mouse = mouse;
+		gtk_device_grab_add (priv->window, mouse, TRUE);
+		priv->grab_keyboard = keyboard;
+		priv->grab_mouse = mouse;
 	} else {
-		gtk_widget_hide (button->priv->window);
+		gtk_widget_hide (priv->window);
 	}
 }
 
@@ -400,37 +432,40 @@ static void
 face_tool_button_popdown (GtkhtmlFaceToolButton *button)
 {
 	GtkToggleToolButton *tool_button;
+	GtkhtmlFaceToolButtonPrivate *priv;
 
+	priv = gtkhtml_face_tool_button_get_instance_private (button);
 	if (!gtk_widget_get_realized (GTK_WIDGET (button)))
 		return;
 
-	if (!button->priv->popup_shown)
+	if (!priv->popup_shown)
 		return;
 
 	/* Hide the pop-up. */
-	gtk_device_grab_remove (button->priv->window, button->priv->grab_mouse);
-	gtk_widget_hide (button->priv->window);
+	gtk_device_grab_remove (priv->window, priv->grab_mouse);
+	gtk_widget_hide (priv->window);
 
 	/* Deactivate the tool button. */
 	tool_button = GTK_TOGGLE_TOOL_BUTTON (button);
 	gtk_toggle_tool_button_set_active (tool_button, FALSE);
 
-	if (button->priv->grab_keyboard)
-		gdk_device_ungrab (button->priv->grab_keyboard, GDK_CURRENT_TIME);
-	if (button->priv->grab_mouse)
-		gdk_device_ungrab (button->priv->grab_mouse, GDK_CURRENT_TIME);
+	if (priv->grab_keyboard)
+		gdk_device_ungrab (priv->grab_keyboard, GDK_CURRENT_TIME);
+	if (priv->grab_mouse)
+		gdk_device_ungrab (priv->grab_mouse, GDK_CURRENT_TIME);
 
-	button->priv->grab_keyboard = NULL;
-	button->priv->grab_mouse = NULL;
+	priv->grab_keyboard = NULL;
+	priv->grab_mouse = NULL;
 }
 
 static GtkhtmlFace *
 face_tool_button_get_current_face (GtkhtmlFaceChooser *chooser)
 {
 	GtkhtmlFaceToolButtonPrivate *priv;
+	GtkhtmlFaceToolButton *button;
 
-	priv = GTKHTML_FACE_TOOL_BUTTON (chooser)->priv;
-
+	button = GTKHTML_FACE_TOOL_BUTTON(chooser);
+	priv = gtkhtml_face_tool_button_get_instance_private (button);
 	if (priv->active_button == NULL)
 		return NULL;
 
@@ -443,9 +478,10 @@ face_tool_button_set_current_face (GtkhtmlFaceChooser *chooser,
 {
 	GtkhtmlFaceToolButtonPrivate *priv;
 	GList *list, *iter;
+	GtkhtmlFaceToolButton *button;
 
-	priv = GTKHTML_FACE_TOOL_BUTTON (chooser)->priv;
-
+	button = GTKHTML_FACE_TOOL_BUTTON(chooser);
+	priv = gtkhtml_face_tool_button_get_instance_private (button);
 	list = gtk_container_get_children (GTK_CONTAINER (priv->table));
 
 	for (iter = list; iter != NULL; iter = iter->next) {
@@ -466,14 +502,13 @@ face_tool_button_set_current_face (GtkhtmlFaceChooser *chooser,
 }
 
 static void
-face_tool_button_class_init (GtkhtmlFaceToolButtonClass *class)
+gtkhtml_face_tool_button_class_init (GtkhtmlFaceToolButtonClass *class)
 {
 	GObjectClass *object_class;
 	GtkWidgetClass *widget_class;
 	GtkToggleToolButtonClass *toggle_tool_button_class;
 
-	parent_class = g_type_class_peek_parent (class);
-	g_type_class_add_private (class, sizeof (GtkhtmlFaceToolButtonPrivate));
+	gtkhtml_face_tool_button_parent_class = g_type_class_peek_parent (class);
 
 	object_class = G_OBJECT_CLASS (class);
 	object_class->set_property = face_tool_button_set_property;
@@ -539,18 +574,15 @@ face_tool_button_class_init (GtkhtmlFaceToolButtonClass *class)
 }
 
 static void
-face_tool_button_iface_init (GtkhtmlFaceChooserIface *iface)
+gtkhtml_face_tool_button_iface_init (GtkhtmlFaceChooserIface *iface)
 {
 	iface->get_current_face = face_tool_button_get_current_face;
 	iface->set_current_face = face_tool_button_set_current_face;
 }
 
 static void
-face_tool_button_init (GtkhtmlFaceToolButton *button)
+gtkhtml_face_tool_button_init (GtkhtmlFaceToolButton *button)
 {
-	button->priv = G_TYPE_INSTANCE_GET_PRIVATE (
-		button, GTKHTML_TYPE_FACE_TOOL_BUTTON,
-		GtkhtmlFaceToolButtonPrivate);
 }
 
 static void
@@ -563,8 +595,11 @@ face_tool_button_build_popup_window (GtkhtmlFaceToolButton *button)
 	GtkWidget *window;
 	GList *list, *iter;
 	gint ii;
+	GtkhtmlFaceToolButtonPrivate *priv;
 
-	g_return_if_fail (button->priv->window == NULL);
+	priv = gtkhtml_face_tool_button_get_instance_private (button);
+
+	g_return_if_fail (priv->window == NULL);
 
 	window = gtk_window_new (GTK_WINDOW_POPUP);
 	toplevel = gtk_widget_get_toplevel (GTK_WIDGET (button));
@@ -578,7 +613,7 @@ face_tool_button_build_popup_window (GtkhtmlFaceToolButton *button)
 		gtk_window_set_transient_for (
 			GTK_WINDOW (window), GTK_WINDOW (toplevel));
 	}
-	button->priv->window = window;
+	priv->window = window;
 
 	g_signal_connect_swapped (
 		window, "show",
@@ -608,7 +643,7 @@ face_tool_button_build_popup_window (GtkhtmlFaceToolButton *button)
 	gtk_table_set_row_spacings (GTK_TABLE (widget), 0);
 	gtk_table_set_col_spacings (GTK_TABLE (widget), 0);
 	gtk_container_add (GTK_CONTAINER (container), widget);
-	button->priv->table = g_object_ref (widget);
+	priv->table = g_object_ref (widget);
 	gtk_widget_show (widget);
 
 	container = widget;
@@ -663,42 +698,6 @@ face_tool_button_build_popup_window (GtkhtmlFaceToolButton *button)
 	}
 
 	g_list_free (list);
-}
-
-GType
-gtkhtml_face_tool_button_get_type (void)
-{
-	static GType type = 0;
-
-	if (G_UNLIKELY (type == 0)) {
-		static const GTypeInfo type_info = {
-			sizeof (GtkhtmlFaceToolButtonClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) face_tool_button_class_init,
-			(GClassFinalizeFunc) NULL,
-			NULL,  /* class_data */
-			sizeof (GtkhtmlFaceToolButton),
-			0,     /* n_preallocs */
-			(GInstanceInitFunc) face_tool_button_init,
-			NULL   /* value_table */
-		};
-
-		static const GInterfaceInfo iface_info = {
-			(GInterfaceInitFunc) face_tool_button_iface_init,
-			(GInterfaceFinalizeFunc) NULL,
-			NULL  /* interface_data */
-		};
-
-		type = g_type_register_static (
-			GTK_TYPE_TOGGLE_TOOL_BUTTON,
-			"GtkhtmlFaceToolButton", &type_info, 0);
-
-		g_type_add_interface_static (
-			type, GTKHTML_TYPE_FACE_CHOOSER, &iface_info);
-	}
-
-	return type;
 }
 
 GtkToolItem *
