@@ -32,7 +32,15 @@ enum {
 	PROP_CURRENT_FACE
 };
 
-static gpointer parent_class;
+static void gtkhtml_face_chooser_menu_iface_init (GtkhtmlFaceChooserIface *iface);
+
+G_DEFINE_TYPE_EXTENDED (GtkhtmlFaceChooserMenu,
+			gtkhtml_face_chooser_menu,
+			GTK_TYPE_MENU,
+			0,
+			G_ADD_PRIVATE (GtkhtmlFaceChooserMenu)
+			G_IMPLEMENT_INTERFACE (GTKHTML_TYPE_FACE_CHOOSER,
+			  gtkhtml_face_chooser_menu_iface_init));
 
 static void
 face_chooser_menu_set_property (GObject *object,
@@ -108,12 +116,11 @@ face_chooser_menu_set_current_face (GtkhtmlFaceChooser *chooser,
 }
 
 static void
-face_chooser_menu_class_init (GtkhtmlFaceChooserMenuClass *class)
+gtkhtml_face_chooser_menu_class_init (GtkhtmlFaceChooserMenuClass *class)
 {
 	GObjectClass *object_class;
 
-	parent_class = g_type_class_peek_parent (class);
-	g_type_class_add_private (class, sizeof (GtkhtmlFaceChooserMenuPrivate));
+	gtkhtml_face_chooser_menu_parent_class = g_type_class_peek_parent (class);
 
 	object_class = G_OBJECT_CLASS (class);
 	object_class->set_property = face_chooser_menu_set_property;
@@ -124,21 +131,17 @@ face_chooser_menu_class_init (GtkhtmlFaceChooserMenuClass *class)
 }
 
 static void
-face_chooser_menu_iface_init (GtkhtmlFaceChooserIface *iface)
+gtkhtml_face_chooser_menu_iface_init (GtkhtmlFaceChooserIface *iface)
 {
 	iface->get_current_face = face_chooser_menu_get_current_face;
 	iface->set_current_face = face_chooser_menu_set_current_face;
 }
 
 static void
-face_chooser_menu_init (GtkhtmlFaceChooserMenu *chooser_menu)
+gtkhtml_face_chooser_menu_init (GtkhtmlFaceChooserMenu *chooser_menu)
 {
 	GtkhtmlFaceChooser *chooser;
 	GList *list, *iter;
-
-	chooser_menu->priv = G_TYPE_INSTANCE_GET_PRIVATE (
-		chooser_menu, GTKHTML_TYPE_FACE_CHOOSER_MENU,
-		GtkhtmlFaceChooserMenuPrivate);
 
 	chooser = GTKHTML_FACE_CHOOSER (chooser_menu);
 	list = gtkhtml_face_chooser_get_items (chooser);
@@ -169,42 +172,6 @@ face_chooser_menu_init (GtkhtmlFaceChooserMenu *chooser_menu)
 	}
 
 	g_list_free (list);
-}
-
-GType
-gtkhtml_face_chooser_menu_get_type (void)
-{
-	static GType type = 0;
-
-	if (G_UNLIKELY (type == 0)) {
-		static const GTypeInfo type_info = {
-			sizeof (GtkhtmlFaceChooserMenuClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) face_chooser_menu_class_init,
-			(GClassFinalizeFunc) NULL,
-			NULL,  /* class_data */
-			sizeof (GtkhtmlFaceChooserMenu),
-			0,     /* n_preallocs */
-			(GInstanceInitFunc) face_chooser_menu_init,
-			NULL   /* value_table */
-		};
-
-		static const GInterfaceInfo iface_info = {
-			(GInterfaceInitFunc) face_chooser_menu_iface_init,
-			(GInterfaceFinalizeFunc) NULL,
-			NULL  /* interface_data */
-		};
-
-		type = g_type_register_static (
-			GTK_TYPE_MENU, "GtkhtmlFileChooserMenu",
-			&type_info, 0);
-
-		g_type_add_interface_static (
-			type, GTKHTML_TYPE_FACE_CHOOSER, &iface_info);
-	}
-
-	return type;
 }
 
 GtkWidget *
