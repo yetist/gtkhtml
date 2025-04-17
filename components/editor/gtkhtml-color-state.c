@@ -45,9 +45,10 @@ struct _GtkhtmlColorStatePrivate {
 	gboolean default_transparent;
 };
 
-static gpointer parent_class;
 static guint signals[LAST_SIGNAL];
 static GdkColor black = { 0, 0, 0, 0 };
+
+G_DEFINE_TYPE_WITH_PRIVATE (GtkhtmlColorState, gtkhtml_color_state, G_TYPE_OBJECT);
 
 static void
 color_state_palette_changed_cb (GtkhtmlColorState *state)
@@ -145,8 +146,10 @@ static void
 color_state_dispose (GObject *object)
 {
 	GtkhtmlColorStatePrivate *priv;
+	GtkhtmlColorState *state;
 
-	priv = GTKHTML_COLOR_STATE (object)->priv;
+	state = GTKHTML_COLOR_STATE (object);
+	priv = gtkhtml_color_state_get_instance_private (state);
 
 	if (priv->palette != NULL) {
 		g_signal_handler_disconnect (
@@ -157,15 +160,17 @@ color_state_dispose (GObject *object)
 	}
 
 	/* Chain up to parent's dispose() method. */
-	G_OBJECT_CLASS (parent_class)->dispose (object);
+	G_OBJECT_CLASS (gtkhtml_color_state_parent_class)->dispose (object);
 }
 
 static void
 color_state_finalize (GObject *object)
 {
 	GtkhtmlColorStatePrivate *priv;
+	GtkhtmlColorState *state;
 
-	priv = GTKHTML_COLOR_STATE (object)->priv;
+	state = GTKHTML_COLOR_STATE (object);
+	priv = gtkhtml_color_state_get_instance_private (state);
 
 	if (priv->current_color != NULL)
 		gdk_color_free (priv->current_color);
@@ -176,18 +181,17 @@ color_state_finalize (GObject *object)
 	g_free (priv->default_label);
 
 	/* Chain up to parent's finalize() method. */
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (gtkhtml_color_state_parent_class)->finalize (object);
 }
 
 static void
-color_state_class_init (GtkhtmlColorStateClass *class)
+gtkhtml_color_state_class_init (GtkhtmlColorStateClass *klass)
 {
 	GObjectClass *object_class;
 
-	parent_class = g_type_class_peek_parent (class);
-	g_type_class_add_private (class, sizeof (GtkhtmlColorStatePrivate));
+	gtkhtml_color_state_parent_class = g_type_class_peek_parent (klass);
 
-	object_class = G_OBJECT_CLASS (class);
+	object_class = G_OBJECT_CLASS (klass);
 	object_class->set_property = color_state_set_property;
 	object_class->get_property = color_state_get_property;
 	object_class->dispose = color_state_dispose;
@@ -256,42 +260,13 @@ color_state_class_init (GtkhtmlColorStateClass *class)
 }
 
 static void
-color_state_init (GtkhtmlColorState *state)
+gtkhtml_color_state_init (GtkhtmlColorState *state)
 {
 	GtkhtmlColorPalette *palette;
-
-	state->priv = G_TYPE_INSTANCE_GET_PRIVATE (
-		state, GTKHTML_TYPE_COLOR_STATE, GtkhtmlColorStatePrivate);
 
 	palette = gtkhtml_color_palette_new ();
 	gtkhtml_color_state_set_palette (state, palette);
 	g_object_unref (palette);
-}
-
-GType
-gtkhtml_color_state_get_type (void)
-{
-	static GType type = 0;
-
-	if (G_UNLIKELY (type == 0)) {
-		static const GTypeInfo type_info = {
-			sizeof (GtkhtmlColorStateClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) color_state_class_init,
-			(GClassFinalizeFunc) NULL,
-			NULL,  /* class_data */
-			sizeof (GtkhtmlColorState),
-			0,     /* n_preallocs */
-			(GInstanceInitFunc) color_state_init,
-			NULL   /* value_table */
-		};
-
-		type = g_type_register_static (
-			G_TYPE_OBJECT, "GtkhtmlColorState", &type_info, 0);
-	}
-
-	return type;
 }
 
 GtkhtmlColorState *
@@ -317,18 +292,22 @@ gboolean
 gtkhtml_color_state_get_current_color (GtkhtmlColorState *state,
                                        GdkColor *color)
 {
+	GtkhtmlColorStatePrivate *priv;
+
 	g_return_val_if_fail (GTKHTML_IS_COLOR_STATE (state), FALSE);
 	g_return_val_if_fail (color != NULL, FALSE);
 
-	if (state->priv->current_color != NULL) {
-		color->red   = state->priv->current_color->red;
-		color->green = state->priv->current_color->green;
-		color->blue  = state->priv->current_color->blue;
+	priv = gtkhtml_color_state_get_instance_private (state);
+
+	if (priv->current_color != NULL) {
+		color->red   = priv->current_color->red;
+		color->green = priv->current_color->green;
+		color->blue  = priv->current_color->blue;
 		return TRUE;
 	} else {
-		color->red   = state->priv->default_color->red;
-		color->green = state->priv->default_color->green;
-		color->blue  = state->priv->default_color->blue;
+		color->red   = priv->default_color->red;
+		color->green = priv->default_color->green;
+		color->blue  = priv->default_color->blue;
 		return FALSE;
 	}
 }
@@ -337,15 +316,18 @@ void
 gtkhtml_color_state_set_current_color (GtkhtmlColorState *state,
                                        const GdkColor *color)
 {
+	GtkhtmlColorStatePrivate *priv;
 	g_return_if_fail (GTKHTML_IS_COLOR_STATE (state));
 
-	if (state->priv->current_color != NULL) {
-		gdk_color_free (state->priv->current_color);
-		state->priv->current_color = NULL;
+	priv = gtkhtml_color_state_get_instance_private (state);
+
+	if (priv->current_color != NULL) {
+		gdk_color_free (priv->current_color);
+		priv->current_color = NULL;
 	}
 
 	if (color != NULL)
-		state->priv->current_color = gdk_color_copy (color);
+		priv->current_color = gdk_color_copy (color);
 
 	g_object_notify (G_OBJECT (state), "current-color");
 }
@@ -354,56 +336,67 @@ void
 gtkhtml_color_state_get_default_color (GtkhtmlColorState *state,
                                        GdkColor *color)
 {
+	GtkhtmlColorStatePrivate *priv;
+
 	g_return_if_fail (GTKHTML_IS_COLOR_STATE (state));
 	g_return_if_fail (color != NULL);
 
-	color->red   = state->priv->default_color->red;
-	color->green = state->priv->default_color->green;
-	color->blue  = state->priv->default_color->blue;
+	priv = gtkhtml_color_state_get_instance_private (state);
+	color->red   = priv->default_color->red;
+	color->green = priv->default_color->green;
+	color->blue  = priv->default_color->blue;
 }
 
 void
 gtkhtml_color_state_set_default_color (GtkhtmlColorState *state,
                                        const GdkColor *color)
 {
+	GtkhtmlColorStatePrivate *priv;
 	g_return_if_fail (GTKHTML_IS_COLOR_STATE (state));
 
-	if (state->priv->default_color != NULL) {
-		gdk_color_free (state->priv->default_color);
-		state->priv->default_color = NULL;
+	priv = gtkhtml_color_state_get_instance_private (state);
+	if (priv->default_color != NULL) {
+		gdk_color_free (priv->default_color);
+		priv->default_color = NULL;
 	}
 
 	/* Default to black. */
 	if (color == NULL)
 		color = &black;
 
-	state->priv->default_color = gdk_color_copy (color);
+	priv->default_color = gdk_color_copy (color);
 
 	g_object_notify (G_OBJECT (state), "default-color");
 
 	/* If the current color is deferring to the default color, then
 	 * changing the default color also changes the current color. */
-	if (state->priv->current_color == NULL)
+	if (priv->current_color == NULL)
 		g_object_notify (G_OBJECT (state), "current-color");
 }
 
 const gchar *
 gtkhtml_color_state_get_default_label (GtkhtmlColorState *state)
 {
+	GtkhtmlColorStatePrivate *priv;
 	g_return_val_if_fail (GTKHTML_IS_COLOR_STATE (state), NULL);
 
-	return state->priv->default_label;
+	priv = gtkhtml_color_state_get_instance_private (state);
+
+	return priv->default_label;
 }
 
 void
 gtkhtml_color_state_set_default_label (GtkhtmlColorState *state,
                                        const gchar *text)
 {
+	GtkhtmlColorStatePrivate *priv;
 	g_return_if_fail (GTKHTML_IS_COLOR_STATE (state));
 	g_return_if_fail (text != NULL);
 
-	g_free (state->priv->default_label);
-	state->priv->default_label = g_strdup (text);
+	priv = gtkhtml_color_state_get_instance_private (state);
+
+	g_free (priv->default_label);
+	priv->default_label = g_strdup (text);
 
 	g_object_notify (G_OBJECT (state), "default-label");
 }
@@ -411,18 +404,24 @@ gtkhtml_color_state_set_default_label (GtkhtmlColorState *state,
 gboolean
 gtkhtml_color_state_get_default_transparent (GtkhtmlColorState *state)
 {
+	GtkhtmlColorStatePrivate *priv;
 	g_return_val_if_fail (GTKHTML_IS_COLOR_STATE (state), FALSE);
 
-	return state->priv->default_transparent;
+	priv = gtkhtml_color_state_get_instance_private (state);
+
+	return priv->default_transparent;
 }
 
 void
 gtkhtml_color_state_set_default_transparent (GtkhtmlColorState *state,
                                              gboolean transparent)
 {
+	GtkhtmlColorStatePrivate *priv;
 	g_return_if_fail (GTKHTML_IS_COLOR_STATE (state));
 
-	state->priv->default_transparent = transparent;
+	priv = gtkhtml_color_state_get_instance_private (state);
+
+	priv->default_transparent = transparent;
 
 	g_object_notify (G_OBJECT (state), "default-transparent");
 }
@@ -430,9 +429,12 @@ gtkhtml_color_state_set_default_transparent (GtkhtmlColorState *state,
 GtkhtmlColorPalette *
 gtkhtml_color_state_get_palette (GtkhtmlColorState *state)
 {
+	GtkhtmlColorStatePrivate *priv;
 	g_return_val_if_fail (GTKHTML_IS_COLOR_STATE (state), NULL);
 
-	return state->priv->palette;
+	priv = gtkhtml_color_state_get_instance_private (state);
+
+	return priv->palette;
 }
 
 void
@@ -440,6 +442,8 @@ gtkhtml_color_state_set_palette (GtkhtmlColorState *state,
                                  GtkhtmlColorPalette *palette)
 {
 	gulong handler_id;
+	GtkhtmlColorStatePrivate *priv;
+
 
 	g_return_if_fail (GTKHTML_IS_COLOR_STATE (state));
 
@@ -448,19 +452,20 @@ gtkhtml_color_state_set_palette (GtkhtmlColorState *state,
 	else
 		g_return_if_fail (GTKHTML_IS_COLOR_PALETTE (palette));
 
-	if (state->priv->palette != NULL) {
+	priv = gtkhtml_color_state_get_instance_private (state);
+	if (priv->palette != NULL) {
 		g_signal_handler_disconnect (
-			state->priv->palette,
-			state->priv->palette_handler_id);
-		g_object_unref (state->priv->palette);
+			priv->palette,
+			priv->palette_handler_id);
+		g_object_unref (priv->palette);
 	}
 
 	handler_id = g_signal_connect_swapped (
 		palette, "changed",
 		G_CALLBACK (color_state_palette_changed_cb), state);
 
-	state->priv->palette = g_object_ref (palette);
-	state->priv->palette_handler_id = handler_id;
+	priv->palette = g_object_ref (palette);
+	priv->palette_handler_id = handler_id;
 
 	g_object_notify (G_OBJECT (state), "palette");
 }
