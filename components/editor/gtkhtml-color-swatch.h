@@ -23,41 +23,11 @@
 
 #include "gtkhtml-editor-common.h"
 
-/* Standard GObject macros */
-#define GTKHTML_TYPE_COLOR_SWATCH \
-	(gtkhtml_color_swatch_get_type ())
-#define GTKHTML_COLOR_SWATCH(obj) \
-	(G_TYPE_CHECK_INSTANCE_CAST \
-	((obj), GTKHTML_TYPE_COLOR_SWATCH, GtkhtmlColorSwatch))
-#define GTKHTML_COLOR_SWATCH_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_CAST \
-	((cls), GTKHTML_TYPE_COLOR_SWATCH, GtkhtmlColorSwatchClass))
-#define GTKHTML_IS_COLOR_SWATCH(obj) \
-	(G_TYPE_CHECK_INSTANCE_TYPE \
-	((obj), GTKHTML_TYPE_COLOR_SWATCH))
-#define GTKHTML_IS_COLOR_SWATCH_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_TYPE \
-	((cls), GTKHTML_TYPE_COLOR_SWATCH))
-#define GTKHTML_COLOR_SWATCH_GET_CLASS(obj) \
-	(G_TYPE_INSTANCE_GET_CLASS \
-	((obj), GTKHTML_TYPE_COLOR_SWATCH, GtkhtmlColorSwatchClass))
-
 G_BEGIN_DECLS
 
-typedef struct _GtkhtmlColorSwatch GtkhtmlColorSwatch;
-typedef struct _GtkhtmlColorSwatchClass GtkhtmlColorSwatchClass;
-typedef struct _GtkhtmlColorSwatchPrivate GtkhtmlColorSwatchPrivate;
+#define GTKHTML_TYPE_COLOR_SWATCH              (gtkhtml_color_swatch_get_type ())
+G_DECLARE_FINAL_TYPE (GtkhtmlColorSwatch, gtkhtml_color_swatch, GTKHTML, COLOR_SWATCH, GtkBin)
 
-struct _GtkhtmlColorSwatch {
-	GtkBin parent;
-	GtkhtmlColorSwatchPrivate *priv;
-};
-
-struct _GtkhtmlColorSwatchClass {
-	GtkBinClass parent_class;
-};
-
-GType		gtkhtml_color_swatch_get_type	(void);
 GtkWidget *	gtkhtml_color_swatch_new	(void);
 void		gtkhtml_color_swatch_get_color	(GtkhtmlColorSwatch *swatch,
 						 GdkColor *color);

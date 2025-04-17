@@ -28,12 +28,13 @@ enum {
 	PROP_SHADOW_TYPE
 };
 
-struct _GtkhtmlColorSwatchPrivate {
+struct _GtkhtmlColorSwatch {
+	GtkBin     bin;
 	GtkWidget *drawing_area;
 	GtkWidget *frame;
 };
 
-static gpointer parent_class;
+G_DEFINE_TYPE (GtkhtmlColorSwatch, gtkhtml_color_swatch, GTK_TYPE_BIN);
 
 static gboolean
 color_swatch_draw_cb (GtkWidget *drawing_area,
@@ -106,35 +107,16 @@ color_swatch_get_property (GObject *object,
 }
 
 static void
-color_swatch_dispose (GObject *object)
-{
-	GtkhtmlColorSwatch *swatch = GTKHTML_COLOR_SWATCH (object);
-
-	if (swatch->priv->drawing_area != NULL) {
-		g_object_unref (swatch->priv->drawing_area);
-		swatch->priv->drawing_area = NULL;
-	}
-
-	if (swatch->priv->frame != NULL) {
-		g_object_unref (swatch->priv->frame);
-		swatch->priv->frame = NULL;
-	}
-
-	/* Chain up to parent's dispose() method. */
-	G_OBJECT_CLASS (parent_class)->dispose (object);
-}
-
-static void
 color_swatch_get_preferred_width (GtkWidget *widget,
                                   gint *minimum_width,
                                   gint *natural_width)
 {
-	GtkhtmlColorSwatchPrivate *priv;
+	GtkhtmlColorSwatch *swatch;
 
-	priv = GTKHTML_COLOR_SWATCH (widget)->priv;
+	swatch = GTKHTML_COLOR_SWATCH (widget);
 
 	gtk_widget_get_preferred_width (
-		priv->frame, minimum_width, natural_width);
+		swatch->frame, minimum_width, natural_width);
 }
 
 static void
@@ -142,41 +124,37 @@ color_swatch_get_preferred_height (GtkWidget *widget,
                                    gint *minimum_height,
                                    gint *natural_height)
 {
-	GtkhtmlColorSwatchPrivate *priv;
+	GtkhtmlColorSwatch *swatch;
 
-	priv = GTKHTML_COLOR_SWATCH (widget)->priv;
+	swatch = GTKHTML_COLOR_SWATCH (widget);
 
 	gtk_widget_get_preferred_height (
-		priv->frame, minimum_height, natural_height);
+		swatch->frame, minimum_height, natural_height);
 }
 
 static void
 color_swatch_size_allocate (GtkWidget *widget,
                             GtkAllocation *allocation)
 {
-	GtkhtmlColorSwatchPrivate *priv;
+	GtkhtmlColorSwatch *swatch;
 
-	priv = GTKHTML_COLOR_SWATCH (widget)->priv;
+	swatch = GTKHTML_COLOR_SWATCH (widget);
 
 	gtk_widget_set_allocation (widget, allocation);
-	gtk_widget_size_allocate (priv->frame, allocation);
+	gtk_widget_size_allocate (swatch->frame, allocation);
 }
 
 static void
-color_swatch_class_init (GtkhtmlColorSwatchClass *class)
+gtkhtml_color_swatch_class_init (GtkhtmlColorSwatchClass *klass)
 {
 	GObjectClass *object_class;
 	GtkWidgetClass *widget_class;
 
-	parent_class = g_type_class_peek_parent (class);
-	g_type_class_add_private (class, sizeof (GtkhtmlColorSwatchPrivate));
-
-	object_class = G_OBJECT_CLASS (class);
+	object_class = G_OBJECT_CLASS (klass);
 	object_class->set_property = color_swatch_set_property;
 	object_class->get_property = color_swatch_get_property;
-	object_class->dispose = color_swatch_dispose;
 
-	widget_class = GTK_WIDGET_CLASS (class);
+	widget_class = GTK_WIDGET_CLASS (klass);
 	widget_class->get_preferred_width = color_swatch_get_preferred_width;
 	widget_class->get_preferred_height = color_swatch_get_preferred_height;
 	widget_class->size_allocate = color_swatch_size_allocate;
@@ -204,62 +182,28 @@ color_swatch_class_init (GtkhtmlColorSwatchClass *class)
 }
 
 static void
-color_swatch_init (GtkhtmlColorSwatch *swatch)
+gtkhtml_color_swatch_init (GtkhtmlColorSwatch *swatch)
 {
-	GtkWidget *container;
-	GtkWidget *widget;
+	swatch->frame = gtk_frame_new (NULL);
+	gtk_container_add (GTK_CONTAINER (swatch), swatch->frame);
+	gtk_widget_show (swatch->frame);
 
-	swatch->priv = G_TYPE_INSTANCE_GET_PRIVATE (
-		swatch, GTKHTML_TYPE_COLOR_SWATCH, GtkhtmlColorSwatchPrivate);
-
-	widget = gtk_frame_new (NULL);
-	gtk_container_add (GTK_CONTAINER (swatch), widget);
-	swatch->priv->frame = g_object_ref (widget);
-	gtk_widget_show (widget);
-
-	container = widget;
-
-	widget = gtk_drawing_area_new ();
-	gtk_widget_set_size_request (widget, 16, 16);
-	gtk_container_add (GTK_CONTAINER (container), widget);
-	swatch->priv->drawing_area = g_object_ref (widget);
-	gtk_widget_show (widget);
+	swatch->drawing_area = gtk_drawing_area_new ();
+	gtk_widget_set_size_request (swatch->drawing_area, 16, 16);
+	gtk_container_add (GTK_CONTAINER (swatch->frame), swatch->drawing_area);
+	gtk_widget_show (swatch->drawing_area);
 
 	g_signal_connect (
-		widget, "draw",
+		swatch->drawing_area, "draw",
 		G_CALLBACK (color_swatch_draw_cb), swatch);
 }
 
-GType
-gtkhtml_color_swatch_get_type (void)
-{
-	static GType type = 0;
-
-	if (G_UNLIKELY (type == 0)) {
-		static const GTypeInfo type_info = {
-			sizeof (GtkhtmlColorSwatchClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) color_swatch_class_init,
-			(GClassFinalizeFunc) NULL,
-			NULL,  /* class_data */
-			sizeof (GtkhtmlColorSwatch),
-			0,     /* n_preallocs */
-			(GInstanceInitFunc) color_swatch_init,
-			NULL   /* value_table */
-		};
-
-		type = g_type_register_static (
-			GTK_TYPE_BIN, "GtkhtmlColorSwatch", &type_info, 0);
-	}
-
-	return type;
-}
-
-GtkWidget *
+GtkWidget*
 gtkhtml_color_swatch_new (void)
 {
-	return g_object_new (GTKHTML_TYPE_COLOR_SWATCH, NULL);
+	GtkhtmlColorSwatch *self;
+	self = g_object_new (GTKHTML_TYPE_COLOR_SWATCH, NULL);
+	return GTK_WIDGET(self);
 }
 
 void
@@ -273,7 +217,7 @@ gtkhtml_color_swatch_get_color (GtkhtmlColorSwatch *swatch,
 	g_return_if_fail (GTKHTML_IS_COLOR_SWATCH (swatch));
 	g_return_if_fail (color != NULL);
 
-	drawing_area = swatch->priv->drawing_area;
+	drawing_area = swatch->drawing_area;
 	style_context = gtk_widget_get_style_context (drawing_area);
 	gtk_style_context_get_background_color (style_context, GTK_STATE_FLAG_NORMAL, &rgba);
 
@@ -290,7 +234,7 @@ gtkhtml_color_swatch_set_color (GtkhtmlColorSwatch *swatch,
 
 	g_return_if_fail (GTKHTML_IS_COLOR_SWATCH (swatch));
 
-	drawing_area = swatch->priv->drawing_area;
+	drawing_area = swatch->drawing_area;
 	gtk_widget_modify_bg (drawing_area, GTK_STATE_NORMAL, color);
 
 	g_object_notify (G_OBJECT (swatch), "color");
@@ -303,7 +247,7 @@ gtkhtml_color_swatch_get_shadow_type (GtkhtmlColorSwatch *swatch)
 
 	g_return_val_if_fail (GTKHTML_IS_COLOR_SWATCH (swatch), 0);
 
-	frame = GTK_FRAME (swatch->priv->frame);
+	frame = GTK_FRAME (swatch->frame);
 
 	return gtk_frame_get_shadow_type (frame);
 }
@@ -316,7 +260,7 @@ gtkhtml_color_swatch_set_shadow_type (GtkhtmlColorSwatch *swatch,
 
 	g_return_if_fail (GTKHTML_IS_COLOR_SWATCH (swatch));
 
-	frame = GTK_FRAME (swatch->priv->frame);
+	frame = GTK_FRAME (swatch->frame);
 	gtk_frame_set_shadow_type (frame, shadow_type);
 
 	g_object_notify (G_OBJECT (swatch), "shadow-type");
