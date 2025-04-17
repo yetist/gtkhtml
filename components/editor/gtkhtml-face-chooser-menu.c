@@ -32,7 +32,7 @@ enum {
 	PROP_CURRENT_FACE
 };
 
-static void gtkhtml_face_chooser_menu_iface_init (GtkhtmlFaceChooserIface *iface);
+static void gtkhtml_face_chooser_menu_iface_init (GtkhtmlFaceChooserInterface *iface);
 
 G_DEFINE_TYPE_EXTENDED (GtkhtmlFaceChooserMenu,
 			gtkhtml_face_chooser_menu,
@@ -131,7 +131,7 @@ gtkhtml_face_chooser_menu_class_init (GtkhtmlFaceChooserMenuClass *class)
 }
 
 static void
-gtkhtml_face_chooser_menu_iface_init (GtkhtmlFaceChooserIface *iface)
+gtkhtml_face_chooser_menu_iface_init (GtkhtmlFaceChooserInterface *iface)
 {
 	iface->get_current_face = face_chooser_menu_get_current_face;
 	iface->set_current_face = face_chooser_menu_set_current_face;

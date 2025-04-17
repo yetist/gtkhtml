@@ -235,7 +235,7 @@ face_action_class_init (GtkhtmlFaceActionClass *class)
 }
 
 static void
-face_action_iface_init (GtkhtmlFaceChooserIface *iface)
+face_action_iface_init (GtkhtmlFaceChooserInterface *iface)
 {
 	iface->get_current_face = face_action_get_current_face;
 	iface->set_current_face = face_action_set_current_face;

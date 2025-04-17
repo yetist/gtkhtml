@@ -80,9 +80,10 @@ enum {
 };
 
 static guint signals[LAST_SIGNAL];
+G_DEFINE_INTERFACE (GtkhtmlFaceChooser, gtkhtml_face_chooser, G_TYPE_OBJECT);
 
 static void
-face_chooser_class_init (GtkhtmlFaceChooserIface *iface)
+gtkhtml_face_chooser_default_init (GtkhtmlFaceChooserInterface *iface)
 {
 	g_object_interface_install_property (
 		iface,
@@ -97,44 +98,16 @@ face_chooser_class_init (GtkhtmlFaceChooserIface *iface)
 		"item-activated",
 		G_TYPE_FROM_INTERFACE (iface),
 		G_SIGNAL_RUN_LAST,
-		G_STRUCT_OFFSET (GtkhtmlFaceChooserIface, item_activated),
+		G_STRUCT_OFFSET (GtkhtmlFaceChooserInterface, item_activated),
 		NULL, NULL,
 		g_cclosure_marshal_VOID__VOID,
 		G_TYPE_NONE, 0);
 }
 
-GType
-gtkhtml_face_chooser_get_type (void)
-{
-	static GType type = 0;
-
-	if (G_UNLIKELY (type == 0)) {
-		static const GTypeInfo type_info = {
-			sizeof (GtkhtmlFaceChooserIface),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) face_chooser_class_init,
-			(GClassFinalizeFunc) NULL,
-			NULL,  /* class_data */
-			0,     /* instance_size */
-			0,     /* n_preallocs */
-			NULL,  /* instance_init */
-			NULL   /* value_table */
-		};
-
-		type = g_type_register_static (
-			G_TYPE_INTERFACE, "GtkhtmlFaceChooser", &type_info, 0);
-
-		g_type_interface_add_prerequisite (type, G_TYPE_OBJECT);
-	}
-
-	return type;
-}
-
 GtkhtmlFace *
 gtkhtml_face_chooser_get_current_face (GtkhtmlFaceChooser *chooser)
 {
-	GtkhtmlFaceChooserIface *iface;
+	GtkhtmlFaceChooserInterface *iface;
 
 	g_return_val_if_fail (GTKHTML_IS_FACE_CHOOSER (chooser), NULL);
 
@@ -148,7 +121,7 @@ void
 gtkhtml_face_chooser_set_current_face (GtkhtmlFaceChooser *chooser,
                                        GtkhtmlFace *face)
 {
-	GtkhtmlFaceChooserIface *iface;
+	GtkhtmlFaceChooserInterface *iface;
 
 	g_return_if_fail (GTKHTML_IS_FACE_CHOOSER (chooser));
 

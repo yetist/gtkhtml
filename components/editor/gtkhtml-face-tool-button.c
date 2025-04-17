@@ -59,7 +59,7 @@ struct _GtkhtmlFaceToolButtonPrivate {
 
 static guint signals[LAST_SIGNAL];
 static void face_tool_button_build_popup_window (GtkhtmlFaceToolButton *button);
-static void gtkhtml_face_tool_button_iface_init (GtkhtmlFaceChooserIface *iface);
+static void gtkhtml_face_tool_button_iface_init (GtkhtmlFaceChooserInterface *iface);
 
 G_DEFINE_TYPE_EXTENDED (GtkhtmlFaceToolButton,
 			gtkhtml_face_tool_button,
@@ -574,7 +574,7 @@ gtkhtml_face_tool_button_class_init (GtkhtmlFaceToolButtonClass *class)
 }
 
 static void
-gtkhtml_face_tool_button_iface_init (GtkhtmlFaceChooserIface *iface)
+gtkhtml_face_tool_button_iface_init (GtkhtmlFaceChooserInterface *iface)
 {
 	iface->get_current_face = face_tool_button_get_current_face;
 	iface->set_current_face = face_tool_button_set_current_face;

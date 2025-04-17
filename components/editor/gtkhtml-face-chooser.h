@@ -24,25 +24,12 @@
 #include "gtkhtml-editor-common.h"
 #include "gtkhtml-face.h"
 
-/* Standard GObject macros */
-#define GTKHTML_TYPE_FACE_CHOOSER \
-	(gtkhtml_face_chooser_get_type ())
-#define GTKHTML_FACE_CHOOSER(obj) \
-	(G_TYPE_CHECK_INSTANCE_CAST \
-	((obj), GTKHTML_TYPE_FACE_CHOOSER, GtkhtmlFaceChooser))
-#define GTKHTML_IS_FACE_CHOOSER(obj) \
-	(G_TYPE_CHECK_INSTANCE_TYPE \
-	((obj), GTKHTML_TYPE_FACE_CHOOSER))
-#define GTKHTML_FACE_CHOOSER_GET_IFACE(obj) \
-	(G_TYPE_INSTANCE_GET_INTERFACE \
-	((obj), GTKHTML_TYPE_FACE_CHOOSER, GtkhtmlFaceChooserIface))
-
 G_BEGIN_DECLS
 
-typedef struct _GtkhtmlFaceChooser GtkhtmlFaceChooser;
-typedef struct _GtkhtmlFaceChooserIface GtkhtmlFaceChooserIface;
+#define GTKHTML_TYPE_FACE_CHOOSER gtkhtml_face_chooser_get_type ()
+G_DECLARE_INTERFACE (GtkhtmlFaceChooser, gtkhtml_face_chooser, GTKHTML, FACE_CHOOSER, GObject)
 
-struct _GtkhtmlFaceChooserIface {
+struct _GtkhtmlFaceChooserInterface {
 	GTypeInterface parent_iface;
 
 	/* Methods */
@@ -54,7 +41,6 @@ struct _GtkhtmlFaceChooserIface {
 	void		(*item_activated)	(GtkhtmlFaceChooser *chooser);
 };
 
-GType		gtkhtml_face_chooser_get_type	(void);
 GtkhtmlFace *	gtkhtml_face_chooser_get_current_face
 						(GtkhtmlFaceChooser *chooser);
 void		gtkhtml_face_chooser_set_current_face
