@@ -26,9 +26,6 @@
 #include "gtkhtml-embedded.h"
 #include "htmlengine.h"
 
-static void gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *class);
-static void gtk_html_embedded_init       (GtkHTMLEmbedded *gspaper);
-
 static void gtk_html_embedded_get_preferred_width (GtkWidget *widget, gint *minimum_width, gint *natural_width);
 static void gtk_html_embedded_get_preferred_height (GtkWidget *widget, gint *minimum_height, gint *natural_height);
 static void gtk_html_embedded_size_allocate (GtkWidget *widget, GtkAllocation *allocation);
@@ -36,8 +33,6 @@ static void gtk_html_embedded_size_allocate (GtkWidget *widget, GtkAllocation *a
 /* saved parent calls */
 static void (*old_add)(GtkContainer *container, GtkWidget *child);
 static void (*old_remove)(GtkContainer *container, GtkWidget *child);
-
-static GtkBin *parent_class;
 
 enum {
 	DRAW_GDK,
@@ -47,31 +42,7 @@ enum {
 };
 
 static guint signals[LAST_SIGNAL] = { 0 };
-
-GType
-gtk_html_embedded_get_type (void)
-{
-	static GType embedded_type = 0;
-
-	if (!embedded_type) {
-		static const GTypeInfo embedded_info =
-			{
-				sizeof (GtkHTMLEmbeddedClass),
-				NULL,           /* base_init */
-				NULL,           /* base_finalize */
-				(GClassInitFunc) gtk_html_embedded_class_init,
-				NULL,           /* class_finalize */
-				NULL,           /* class_data */
-				sizeof (GtkHTMLEmbedded),
-				4,              /* n_preallocs */
-				(GInstanceInitFunc) gtk_html_embedded_init,
-			};
-
-		embedded_type = g_type_register_static (GTK_TYPE_BIN, "GtkHTMLEmbedded", &embedded_info, 0);
-	}
-
-	return embedded_type;
-}
+G_DEFINE_TYPE (GtkHTMLEmbedded, gtk_html_embedded, GTK_TYPE_BIN);
 
 static void
 free_param (gpointer key,
@@ -92,7 +63,7 @@ gtk_html_embedded_finalize (GObject *object)
 	g_free (eb->classid);
 	g_free (eb->type);
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (gtk_html_embedded_parent_class)->finalize (object);
 }
 
 static void
@@ -159,17 +130,17 @@ draw_gdk_signal_marshaller (GClosure *closure,
 }
 
 static void
-gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *class)
+gtk_html_embedded_class_init (GtkHTMLEmbeddedClass *klass)
 {
 	GObjectClass *object_class;
 	GtkWidgetClass *widget_class;
 	GtkContainerClass *container_class;
 
-	object_class = G_OBJECT_CLASS (class);
-	widget_class = GTK_WIDGET_CLASS (class);
-	container_class = GTK_CONTAINER_CLASS (class);
+	object_class = G_OBJECT_CLASS (klass);
+	widget_class = GTK_WIDGET_CLASS (klass);
+	container_class = GTK_CONTAINER_CLASS (klass);
 
-	parent_class = g_type_class_peek_parent (class);
+	gtk_html_embedded_parent_class = g_type_class_peek_parent (klass);
 
 	signals[CHANGED] =
 		g_signal_new ("changed",

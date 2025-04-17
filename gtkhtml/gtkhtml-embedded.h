@@ -27,6 +27,8 @@
 
 #include "gtkhtml-types.h"
 
+G_BEGIN_DECLS
+
 #define GTK_TYPE_HTML_EMBEDDED         (gtk_html_embedded_get_type ())
 #define GTK_HTML_EMBEDDED(obj)         G_TYPE_CHECK_INSTANCE_CAST (obj, GTK_TYPE_HTML_EMBEDDED, GtkHTMLEmbedded)
 #define GTK_HTML_EMBEDDED_CLASS(klass) G_TYPE_CHECK_CLASS_CAST (klass, GTK_TYPE_HTML_EMBEDDED, GtkHTMLEmbeddedClass)
@@ -68,5 +70,7 @@ GtkWidget	*gtk_html_embedded_new (gchar *classid, gchar *name, gchar *type, gcha
 void gtk_html_embedded_set_parameter (GtkHTMLEmbedded *ge, gchar *param, gchar *value);
 gchar *gtk_html_embedded_get_parameter (GtkHTMLEmbedded *ge, gchar *param);
 void gtk_html_embedded_set_descent (GtkHTMLEmbedded *ge, gint descent);
+
+G_END_DECLS
 
 #endif /* _GTK_HTML_EMBEDDED_H */
