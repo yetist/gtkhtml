@@ -41,7 +41,7 @@ struct _GtkhtmlComboBoxPrivate {
 	guint group_visible_handler_id;		/* action-group::visible */
 };
 
-static gpointer parent_class;
+G_DEFINE_TYPE_WITH_PRIVATE (GtkhtmlComboBox, gtkhtml_combo_box, GTK_TYPE_COMBO_BOX);
 
 static void
 combo_box_action_changed_cb (GtkRadioAction *action,
@@ -53,9 +53,11 @@ combo_box_action_changed_cb (GtkRadioAction *action,
 	GtkTreePath *path;
 	GtkTreeIter iter;
 	gboolean valid;
+	GtkhtmlComboBoxPrivate *priv;
 
+	priv = gtkhtml_combo_box_get_instance_private (combo_box);
 	reference = g_hash_table_lookup (
-		combo_box->priv->index, GINT_TO_POINTER (
+		priv->index, GINT_TO_POINTER (
 		gtk_radio_action_get_current_value (current)));
 	g_return_if_fail (reference != NULL);
 
@@ -158,10 +160,12 @@ combo_box_update_model (GtkhtmlComboBox *combo_box)
 {
 	GtkListStore *list_store;
 	GSList *list;
+	GtkhtmlComboBoxPrivate *priv;
 
-	g_hash_table_remove_all (combo_box->priv->index);
+	priv = gtkhtml_combo_box_get_instance_private (combo_box);
+	g_hash_table_remove_all (priv->index);
 
-	if (combo_box->priv->action == NULL) {
+	if (priv->action == NULL) {
 		gtk_combo_box_set_model (GTK_COMBO_BOX (combo_box), NULL);
 		return;
 	}
@@ -169,7 +173,7 @@ combo_box_update_model (GtkhtmlComboBox *combo_box)
 	list_store = gtk_list_store_new (
 		2, GTK_TYPE_RADIO_ACTION, G_TYPE_INT);
 
-	list = gtk_radio_action_get_group (combo_box->priv->action);
+	list = gtk_radio_action_get_group (priv->action);
 
 	while (list != NULL) {
 		GtkTreeRowReference *reference;
@@ -189,7 +193,7 @@ combo_box_update_model (GtkhtmlComboBox *combo_box)
 		reference = gtk_tree_row_reference_new (
 			GTK_TREE_MODEL (list_store), path);
 		g_hash_table_insert (
-			combo_box->priv->index,
+			priv->index,
 			GINT_TO_POINTER (value), reference);
 		gtk_tree_path_free (path);
 
@@ -203,8 +207,8 @@ combo_box_update_model (GtkhtmlComboBox *combo_box)
 		GTK_COMBO_BOX (combo_box), GTK_TREE_MODEL (list_store));
 
 	combo_box_action_changed_cb (
-		combo_box->priv->action,
-		combo_box->priv->action,
+		priv->action,
+		priv->action,
 		combo_box);
 }
 
@@ -245,7 +249,11 @@ combo_box_get_property (GObject *object,
 static void
 combo_box_dispose (GObject *object)
 {
-	GtkhtmlComboBoxPrivate *priv = GTKHTML_COMBO_BOX (object)->priv;
+	GtkhtmlComboBox *combo_box;
+	GtkhtmlComboBoxPrivate *priv;
+
+	combo_box = GTKHTML_COMBO_BOX (object);
+	priv = gtkhtml_combo_box_get_instance_private (combo_box);
 
 	if (priv->action != NULL) {
 		g_object_unref (priv->action);
@@ -260,18 +268,22 @@ combo_box_dispose (GObject *object)
 	g_hash_table_remove_all (priv->index);
 
 	/* Chain up to parent's dispose() method. */
-	G_OBJECT_CLASS (parent_class)->dispose (object);
+	G_OBJECT_CLASS (gtkhtml_combo_box_parent_class)->dispose (object);
 }
 
 static void
 combo_box_finalize (GObject *object)
 {
-	GtkhtmlComboBoxPrivate *priv = GTKHTML_COMBO_BOX (object)->priv;
+	GtkhtmlComboBox *combo_box;
+	GtkhtmlComboBoxPrivate *priv;
+
+	combo_box = GTKHTML_COMBO_BOX (object);
+	priv = gtkhtml_combo_box_get_instance_private (combo_box);
 
 	g_hash_table_destroy (priv->index);
 
 	/* Chain up to parent's finalize() method. */
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (gtkhtml_combo_box_parent_class)->finalize (object);
 }
 
 static void
@@ -283,7 +295,7 @@ combo_box_constructed (GObject *object)
 	combo_box = GTK_COMBO_BOX (object);
 
 	/* Chain up to parent's method. */
-	G_OBJECT_CLASS (parent_class)->constructed (object);
+	G_OBJECT_CLASS (gtkhtml_combo_box_parent_class)->constructed (object);
 
 	/* This needs to happen after constructor properties are set
 	 * so that GtkCellLayout.get_area() returns something valid. */
@@ -325,13 +337,12 @@ combo_box_changed (GtkComboBox *combo_box)
 }
 
 static void
-combo_box_class_init (GtkhtmlComboBoxClass *class)
+gtkhtml_combo_box_class_init (GtkhtmlComboBoxClass *class)
 {
 	GObjectClass *object_class;
 	GtkComboBoxClass *combo_box_class;
 
-	parent_class = g_type_class_peek_parent (class);
-	g_type_class_add_private (class, sizeof (GtkhtmlComboBoxPrivate));
+	gtkhtml_combo_box_parent_class = g_type_class_peek_parent (class);
 
 	object_class = G_OBJECT_CLASS (class);
 	object_class->set_property = combo_box_set_property;
@@ -355,42 +366,15 @@ combo_box_class_init (GtkhtmlComboBoxClass *class)
 }
 
 static void
-combo_box_init (GtkhtmlComboBox *combo_box)
+gtkhtml_combo_box_init (GtkhtmlComboBox *combo_box)
 {
-	combo_box->priv = G_TYPE_INSTANCE_GET_PRIVATE (
-		combo_box, GTKHTML_TYPE_COMBO_BOX, GtkhtmlComboBoxPrivate);
+	GtkhtmlComboBoxPrivate *priv;
+	priv = gtkhtml_combo_box_get_instance_private (combo_box);
 
-	combo_box->priv->index = g_hash_table_new_full (
+	priv->index = g_hash_table_new_full (
 		g_direct_hash, g_direct_equal,
 		(GDestroyNotify) NULL,
 		(GDestroyNotify) gtk_tree_row_reference_free);
-}
-
-GType
-gtkhtml_combo_box_get_type (void)
-{
-	static GType type = 0;
-
-	if (G_UNLIKELY (type == 0)) {
-		static const GTypeInfo type_info = {
-			sizeof (GtkhtmlComboBoxClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) combo_box_class_init,
-			(GClassFinalizeFunc) NULL,
-			NULL,  /* class_data */
-			sizeof (GtkhtmlComboBox),
-			0,     /* n_preallocs */
-			(GInstanceInitFunc) combo_box_init,
-			NULL   /* value_table */
-		};
-
-		type = g_type_register_static (
-			GTK_TYPE_COMBO_BOX, "GtkhtmlComboBox",
-			&type_info, 0);
-	}
-
-	return type;
 }
 
 GtkWidget *
@@ -408,60 +392,67 @@ gtkhtml_combo_box_new_with_action (GtkRadioAction *action)
 GtkRadioAction *
 gtkhtml_combo_box_get_action (GtkhtmlComboBox *combo_box)
 {
+	GtkhtmlComboBoxPrivate *priv;
 	g_return_val_if_fail (GTKHTML_IS_COMBO_BOX (combo_box), NULL);
 
-	return combo_box->priv->action;
+	priv = gtkhtml_combo_box_get_instance_private (combo_box);
+
+	return priv->action;
 }
 
 void
 gtkhtml_combo_box_set_action (GtkhtmlComboBox *combo_box,
                               GtkRadioAction *action)
 {
+	GtkhtmlComboBoxPrivate *priv;
+
 	g_return_if_fail (GTKHTML_IS_COMBO_BOX (combo_box));
+
+	priv = gtkhtml_combo_box_get_instance_private (combo_box);
 
 	if (action != NULL)
 		g_return_if_fail (GTK_IS_RADIO_ACTION (action));
 
-	if (combo_box->priv->action != NULL) {
+	if (priv->action != NULL) {
 		g_signal_handler_disconnect (
-			combo_box->priv->action,
-			combo_box->priv->changed_handler_id);
-		g_object_unref (combo_box->priv->action);
+			priv->action,
+			priv->changed_handler_id);
+		g_object_unref (priv->action);
 	}
 
-	if (combo_box->priv->action_group != NULL) {
+	if (priv->action_group != NULL) {
 		g_signal_handler_disconnect (
-			combo_box->priv->action_group,
-			combo_box->priv->group_sensitive_handler_id);
+			priv->action_group,
+			priv->group_sensitive_handler_id);
 		g_signal_handler_disconnect (
-			combo_box->priv->action_group,
-			combo_box->priv->group_visible_handler_id);
-		g_object_unref (combo_box->priv->action_group);
-		combo_box->priv->action_group = NULL;
+			priv->action_group,
+			priv->group_visible_handler_id);
+		g_object_unref (priv->action_group);
+		priv->action_group = NULL;
 	}
 
 	if (action != NULL)
 		g_object_get (
 			g_object_ref (action), "action-group",
-			&combo_box->priv->action_group, NULL);
-	combo_box->priv->action = action;
+			&priv->action_group, NULL);
+	priv->action = action;
 	combo_box_update_model (combo_box);
 
-	if (combo_box->priv->action != NULL)
-		combo_box->priv->changed_handler_id = g_signal_connect (
-			combo_box->priv->action, "changed",
+	if (priv->action != NULL)
+		priv->changed_handler_id = g_signal_connect (
+			priv->action, "changed",
 			G_CALLBACK (combo_box_action_changed_cb), combo_box);
 
-	if (combo_box->priv->action_group != NULL) {
-		combo_box->priv->group_sensitive_handler_id =
+	if (priv->action_group != NULL) {
+		priv->group_sensitive_handler_id =
 			g_signal_connect (
-				combo_box->priv->action_group,
+				priv->action_group,
 				"notify::sensitive",
 				G_CALLBACK (combo_box_action_group_notify_cb),
 				combo_box);
-		combo_box->priv->group_visible_handler_id =
+		priv->group_visible_handler_id =
 			g_signal_connect (
-				combo_box->priv->action_group,
+				priv->action_group,
 				"notify::visible",
 				G_CALLBACK (combo_box_action_group_notify_cb),
 				combo_box);
@@ -471,19 +462,25 @@ gtkhtml_combo_box_set_action (GtkhtmlComboBox *combo_box,
 gint
 gtkhtml_combo_box_get_current_value (GtkhtmlComboBox *combo_box)
 {
+	GtkhtmlComboBoxPrivate *priv;
 	g_return_val_if_fail (GTKHTML_IS_COMBO_BOX (combo_box), 0);
-	g_return_val_if_fail (combo_box->priv->action != NULL, 0);
 
-	return gtk_radio_action_get_current_value (combo_box->priv->action);
+	priv = gtkhtml_combo_box_get_instance_private (combo_box);
+	g_return_val_if_fail (priv->action != NULL, 0);
+
+	return gtk_radio_action_get_current_value (priv->action);
 }
 
 void
 gtkhtml_combo_box_set_current_value (GtkhtmlComboBox *combo_box,
                                      gint current_value)
 {
+	GtkhtmlComboBoxPrivate *priv;
 	g_return_if_fail (GTKHTML_IS_COMBO_BOX (combo_box));
-	g_return_if_fail (combo_box->priv->action != NULL);
+
+	priv = gtkhtml_combo_box_get_instance_private (combo_box);
+	g_return_if_fail (priv->action != NULL);
 
 	gtk_radio_action_set_current_value (
-		combo_box->priv->action, current_value);
+		priv->action, current_value);
 }
