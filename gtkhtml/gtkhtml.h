@@ -31,6 +31,8 @@
 /* FIXME we should remove html dep */
 #include "htmltypes.h"
 
+G_BEGIN_DECLS
+
 #define GTK_TYPE_HTML                  (gtk_html_get_type ())
 #define GTK_HTML(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), GTK_TYPE_HTML, GtkHTML))
 #define GTK_HTML_CLASS(klass)          (G_TYPE_CHECK_CLASS_CAST ((klass), GTK_TYPE_HTML, GtkHTMLClass))
@@ -358,5 +360,7 @@ GtkHTMLStream             *gtk_html_begin_content                 (GtkHTML      
 void                       gtk_html_drag_dest_set                 (GtkHTML                   *html);
 
 #endif
+
+G_END_DECLS
 
 #endif /* _GTKHTML_H_ */

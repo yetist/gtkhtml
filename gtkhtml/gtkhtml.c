@@ -126,8 +126,6 @@ struct _ClipboardContents {
 #define d_s(x)
 #define D_IM(x)
 
-static GtkLayoutClass *parent_class = NULL;
-
 enum {
 	TITLE_CHANGED,
 	URL_REQUESTED,
@@ -172,6 +170,7 @@ static void     gtk_html_set_property  (GObject *object, guint prop_id, const GV
 #endif
 
 static guint signals[LAST_SIGNAL] = { 0 };
+G_DEFINE_TYPE_WITH_PRIVATE (GtkHTML, gtk_html, GTK_TYPE_LAYOUT);
 
 static void
 gtk_html_update_scrollbars_on_resize (GtkHTML *html,
@@ -859,7 +858,7 @@ dispose (GObject *object)
 	}
 
 	/* Chain up to parent's dispose() method. */
-	G_OBJECT_CLASS (parent_class)->dispose (object);
+	G_OBJECT_CLASS (gtk_html_parent_class)->dispose (object);
 }
 
 GtkHTML *
@@ -1056,7 +1055,7 @@ key_press_event (GtkWidget *widget,
 
 	if (!html->binding_handled) {
 		html->priv->in_key_binding = TRUE;
-		retval = GTK_WIDGET_CLASS (parent_class)->key_press_event (widget, event);
+		retval = GTK_WIDGET_CLASS (gtk_html_parent_class)->key_press_event (widget, event);
 		html->priv->in_key_binding = FALSE;
 	}
 
@@ -1120,7 +1119,7 @@ key_release_event (GtkWidget *widget,
 		}
 	}
 
-	return GTK_WIDGET_CLASS (parent_class)->key_release_event (widget, event);
+	return GTK_WIDGET_CLASS (gtk_html_parent_class)->key_release_event (widget, event);
 }
 
 void
@@ -1152,8 +1151,8 @@ realize (GtkWidget *widget)
 	hadjustment = gtk_layout_get_hadjustment (GTK_LAYOUT (widget));
 	vadjustment = gtk_layout_get_vadjustment (GTK_LAYOUT (widget));
 
-	if (GTK_WIDGET_CLASS (parent_class)->realize)
-		(* GTK_WIDGET_CLASS (parent_class)->realize) (widget);
+	if (GTK_WIDGET_CLASS (gtk_html_parent_class)->realize)
+		GTK_WIDGET_CLASS (gtk_html_parent_class)->realize (widget);
 
 	window = gtk_widget_get_window (widget);
 	bin_window = gtk_layout_get_bin_window (&html->layout);
@@ -1207,8 +1206,8 @@ unrealize (GtkWidget *widget)
 
 	html_image_factory_stop_animations (html->engine->image_factory);
 
-	if (GTK_WIDGET_CLASS (parent_class)->unrealize)
-		(* GTK_WIDGET_CLASS (parent_class)->unrealize) (widget);
+	if (GTK_WIDGET_CLASS (gtk_html_parent_class)->unrealize)
+		GTK_WIDGET_CLASS (gtk_html_parent_class)->unrealize (widget);
 }
 
 static gboolean
@@ -1217,8 +1216,8 @@ draw (GtkWidget *widget,
 {
 	html_engine_draw_cb (GTK_HTML (widget)->engine, cr);
 
-	if (GTK_WIDGET_CLASS (parent_class)->draw)
-		(* GTK_WIDGET_CLASS (parent_class)->draw) (widget, cr);
+	if (GTK_WIDGET_CLASS (gtk_html_parent_class)->draw)
+		GTK_WIDGET_CLASS (gtk_html_parent_class)->draw (widget, cr);
 
 	return FALSE;
 }
@@ -2472,7 +2471,7 @@ set_focus_child (GtkContainer *containter,
 	if (o && !html_object_is_frame (o))
 		html_engine_set_focus_object (GTK_HTML (containter)->engine, o, 0);
 
-	(*GTK_CONTAINER_CLASS (parent_class)->set_focus_child) (containter, w);
+	GTK_CONTAINER_CLASS (gtk_html_parent_class)->set_focus_child (containter, w);
 }
 
 static gboolean
@@ -2484,7 +2483,7 @@ focus (GtkWidget *w,
 	if (html_engine_get_editable (e)) {
 		gboolean rv;
 
-		rv = (*GTK_WIDGET_CLASS (parent_class)->focus) (w, direction);
+		rv = GTK_WIDGET_CLASS (gtk_html_parent_class)->focus (w, direction);
 		html_engine_set_focus (GTK_HTML (w)->engine, rv);
 		return rv;
 	}
@@ -2916,7 +2915,7 @@ gtk_html_direction_changed (GtkWidget *widget,
 			html_engine_schedule_update (html->engine);
 	}
 
-	GTK_WIDGET_CLASS (parent_class)->direction_changed (widget, previous_dir);
+	GTK_WIDGET_CLASS (gtk_html_parent_class)->direction_changed (widget, previous_dir);
 }
 
 static void
@@ -2929,14 +2928,12 @@ gtk_html_class_init (GtkHTMLClass *klass)
 	gchar *filename;
 	GSettings *settings;
 
-	g_type_class_add_private (klass, sizeof (GtkHTMLPrivate));
-
 	html_class = (GtkHTMLClass *) klass;
 	object_class = (GObjectClass *) klass;
 	widget_class = (GtkWidgetClass *) klass;
 	container_class = (GtkContainerClass *) klass;
 
-	parent_class = g_type_class_peek_parent (klass);
+	gtk_html_parent_class = g_type_class_peek_parent (klass);
 
 	signals[TITLE_CHANGED] =
 		g_signal_new ("title_changed",
@@ -3556,8 +3553,7 @@ gtk_html_init (GtkHTML *html)
 	html->in_selection = FALSE;
 	html->in_selection_drag = FALSE;
 
-	html->priv = G_TYPE_INSTANCE_GET_PRIVATE (
-		html, GTK_TYPE_HTML, GtkHTMLPrivate);
+	html->priv = gtk_html_get_instance_private (html);
 
 	html->priv->idle_handler_id = 0;
 	html->priv->scroll_timeout_id = 0;
@@ -3626,30 +3622,6 @@ gtk_html_init (GtkHTML *html)
 	html->priv->desktop_interface = settings;
 
 	gtk_html_construct (html);
-}
-
-GType
-gtk_html_get_type (void)
-{
-	static GType html_type = 0;
-
-	if (!html_type) {
-		static const GTypeInfo html_info = {
-			sizeof (GtkHTMLClass),
-			NULL,           /* base_init */
-			NULL,           /* base_finalize */
-			(GClassInitFunc) gtk_html_class_init,
-			NULL,           /* class_finalize */
-			NULL,           /* class_data */
-			sizeof (GtkHTML),
-			1,              /* n_preallocs */
-			(GInstanceInitFunc) gtk_html_init,
-		};
-
-		html_type = g_type_register_static (GTK_TYPE_LAYOUT, "GtkHTML", &html_info, 0);
-	}
-
-	return html_type;
 }
 
 /**
