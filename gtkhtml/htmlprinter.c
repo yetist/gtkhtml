@@ -34,11 +34,10 @@
 /* #define PRINTER_DEBUG */
 
 
-static gpointer parent_class = NULL;
-
-
 /* The size of a pixel in the printed output, in points.  */
 #define PIXEL_SIZE .5
+
+G_DEFINE_TYPE (HTMLPrinter, html_printer, HTML_TYPE_PAINTER);
 
 static gdouble
 printer_get_page_height (HTMLPrinter *printer)
@@ -80,7 +79,7 @@ finalize (GObject *object)
 		printer->context = NULL;
 	}
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (html_printer_parent_class)->finalize (object);
 }
 
 
@@ -645,17 +644,17 @@ html_printer_init (HTMLPrinter *printer)
 }
 
 static void
-html_printer_class_init (HTMLPrinterClass *class)
+html_printer_class_init (HTMLPrinterClass *klass)
 {
 	GObjectClass *object_class;
 	HTMLPainterClass *painter_class;
 
-	parent_class = g_type_class_peek_parent (class);
+	html_printer_parent_class = g_type_class_peek_parent (klass);
 
-	object_class = G_OBJECT_CLASS (class);
+	object_class = G_OBJECT_CLASS (klass);
 	object_class->finalize = finalize;
 
-	painter_class = HTML_PAINTER_CLASS (class);
+	painter_class = HTML_PAINTER_CLASS (klass);
 	painter_class->begin = begin;
 	painter_class->end = end;
 	painter_class->alloc_color = alloc_color;
@@ -676,32 +675,6 @@ html_printer_class_init (HTMLPrinterClass *class)
 	painter_class->draw_embedded = draw_embedded;
 	painter_class->get_page_width = get_page_width;
 	painter_class->get_page_height = get_page_height;
-}
-
-GType
-html_printer_get_type (void)
-{
-	static GType type = 0;
-
-	if (G_UNLIKELY (type == 0)) {
-		static const GTypeInfo type_info = {
-			sizeof (HTMLPrinterClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) html_printer_class_init,
-			(GClassFinalizeFunc) NULL,
-			NULL,  /* class_data */
-			sizeof (HTMLPrinter),
-			0,     /* n_preallocs */
-			(GInstanceInitFunc) html_printer_init,
-			NULL   /* value_table */
-		};
-
-		type = g_type_register_static (
-			HTML_TYPE_PAINTER, "HTMLPrinter", &type_info, 0);
-	}
-
-	return type;
 }
 
 HTMLPainter *

@@ -25,6 +25,8 @@
 #include <gtk/gtk.h>
 #include "htmlpainter.h"
 
+G_BEGIN_DECLS
+
 #define HTML_TYPE_PRINTER                 (html_printer_get_type ())
 #define HTML_PRINTER(obj)                 (G_TYPE_CHECK_INSTANCE_CAST((obj), HTML_TYPE_PRINTER, HTMLPrinter))
 #define HTML_PRINTER_CLASS(klass)         (G_TYPE_CHECK_CLASS_CAST ((klass), HTML_TYPE_PRINTER, HTMLPrinterClass))
@@ -57,5 +59,7 @@ gdouble      html_printer_scale_to_gnome_print        (HTMLPrinter       *printe
 						       gint               x);
 void         html_printer_set_scale                   (HTMLPrinter       *printer,
 						       gdouble            scale);
+
+G_END_DECLS
 
 #endif /* _HTMLPRINTER_H */
