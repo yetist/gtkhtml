@@ -28,6 +28,8 @@
 #include <glib-object.h>
 #include "htmltypes.h"
 
+G_BEGIN_DECLS
+
 #define TAG_ESCAPE 13
 #define TAB_SIZE 8
 
@@ -37,11 +39,10 @@
 #define HTML_IS_TOKENIZER(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), HTML_TYPE_TOKENIZER))
 #define HTML_IS_TOKENIZER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), HTML_TYPE_TOKENIZER))
 
-struct _HTMLTokenizerPrivate;
+typedef struct _HTMLTokenizerPrivate HTMLTokenizerPrivate;
 
 struct _HTMLTokenizer {
 	GObject parent;
-	struct _HTMLTokenizerPrivate *priv;
 };
 
 struct _HTMLTokenizerClass {
@@ -99,4 +100,7 @@ GIConv     generate_iconv_to (const gchar * content_type);
 gchar *     convert_text_encoding (const GIConv iconv_cd, const gchar * token);
 /*validate result g_iconv_open*/
 gboolean   is_valid_g_iconv (const GIConv iconv_cd);
+
+G_END_DECLS
+
 #endif /* _HTMLTOKENIZER_H_ */

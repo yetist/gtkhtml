@@ -176,14 +176,12 @@ gboolean				  is_need_convert (const gchar * token);
 
 gchar *					  html_tokenizer_convert_entity (gchar * token);
 
-static GObjectClass *parent_class = NULL;
+G_DEFINE_TYPE_WITH_PRIVATE (HTMLTokenizer, html_tokenizer, G_TYPE_OBJECT);
 
 static void
 html_tokenizer_class_init (HTMLTokenizerClass *klass)
 {
 	GObjectClass *object_class = (GObjectClass *) klass;
-
-	parent_class = g_type_class_ref (G_TYPE_OBJECT);
 
 	html_tokenizer_signals[HTML_TOKENIZER_CHANGECONTENT_SIGNAL] =
 		g_signal_new ("change",
@@ -244,9 +242,9 @@ html_tokenizer_class_init (HTMLTokenizerClass *klass)
 static void
 html_tokenizer_init (HTMLTokenizer *t)
 {
-	struct _HTMLTokenizerPrivate *p;
+	HTMLTokenizerPrivate *p;
 
-	t->priv = p = g_new0 (struct _HTMLTokenizerPrivate, 1);
+	p = html_tokenizer_get_instance_private (t);
 
 	p->token_buffers = NULL;
 	p->read_cur  = NULL;
@@ -295,43 +293,19 @@ html_tokenizer_init (HTMLTokenizer *t)
 static void
 html_tokenizer_finalize (GObject *obj)
 {
+	HTMLTokenizerPrivate *priv;
 	HTMLTokenizer *t = HTML_TOKENIZER (obj);
 
 	html_tokenizer_reset (t);
+	priv = html_tokenizer_get_instance_private (t);
 
-	if (is_valid_g_iconv (t->priv->iconv_cd))
-		g_iconv_close (t->priv->iconv_cd);
+	if (is_valid_g_iconv (priv->iconv_cd))
+		g_iconv_close (priv->iconv_cd);
 
-	if (t->priv->content_type)
-		g_free (t->priv->content_type);
+	if (priv->content_type)
+		g_free (priv->content_type);
 
-	g_free (t->priv);
-	t->priv = NULL;
-
-    G_OBJECT_CLASS (parent_class)->finalize (obj);
-}
-
-GType
-html_tokenizer_get_type (void)
-{
-	static GType html_tokenizer_type = 0;
-
-	if (!html_tokenizer_type) {
-		static const GTypeInfo html_tokenizer_info = {
-			sizeof (HTMLTokenizerClass),
-			NULL,
-			NULL,
-			(GClassInitFunc) html_tokenizer_class_init,
-			NULL,
-			NULL,
-			sizeof (HTMLTokenizer),
-			1,
-			(GInstanceInitFunc) html_tokenizer_init,
-		};
-		html_tokenizer_type = g_type_register_static (G_TYPE_OBJECT, "HTMLTokenizer", &html_tokenizer_info, 0);
-	}
-
-	return html_tokenizer_type;
+    G_OBJECT_CLASS (html_tokenizer_parent_class)->finalize (obj);
 }
 
 static HTMLTokenBuffer *
@@ -392,9 +366,10 @@ html_tokenizer_destroy (HTMLTokenizer *t)
 static gchar *
 html_tokenizer_real_peek_token (HTMLTokenizer *t)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
 	gchar *token;
+	HTMLTokenizerPrivate *p;
 
+	p = html_tokenizer_get_instance_private (t);
 	g_assert (p->read_buf);
 
 	if (p->read_buf->used > p->read_pos) {
@@ -551,8 +526,9 @@ static gchar *
 html_tokenizer_converted_token (HTMLTokenizer *t,
                                 const gchar *token)
 {
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 	if (token != NULL) {
-		struct _HTMLTokenizerPrivate *p = t->priv;
 		return html_tokenizer_convert_entity (convert_text_encoding (p->iconv_cd, token));
 	}
 
@@ -562,7 +538,8 @@ html_tokenizer_converted_token (HTMLTokenizer *t,
 static const gchar *
 html_tokenizer_real_get_content_type (HTMLTokenizer *t)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 
 	if (p->content_type)
 		return p->content_type;
@@ -573,7 +550,8 @@ html_tokenizer_real_get_content_type (HTMLTokenizer *t)
 static gboolean
 html_tokenizer_real_get_engine_type (HTMLTokenizer *t)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 
 	return p->enableconvert;
 }
@@ -581,9 +559,10 @@ html_tokenizer_real_get_engine_type (HTMLTokenizer *t)
 static gchar *
 html_tokenizer_real_next_token (HTMLTokenizer *t)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
 	gchar *token;
 
+	p = html_tokenizer_get_instance_private (t);
 	g_assert (p->read_buf);
 
 	/* token is in current read_buf */
@@ -623,7 +602,9 @@ html_tokenizer_real_next_token (HTMLTokenizer *t)
 static gboolean
 html_tokenizer_real_has_more_tokens (HTMLTokenizer *t)
 {
-	return t->priv->tokens_num > 0;
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
+	return p->tokens_num > 0;
 }
 
 static HTMLTokenizer *
@@ -635,8 +616,11 @@ html_tokenizer_real_clone (HTMLTokenizer *t)
 static void
 html_tokenizer_reset (HTMLTokenizer *t)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
-	GList *cur = p->token_buffers;
+	HTMLTokenizerPrivate *p;
+	GList *cur;
+
+	p = html_tokenizer_get_instance_private (t);
+	cur = p->token_buffers;
 
 	/* free remaining token buffers */
 	while (cur) {
@@ -724,8 +708,8 @@ static void
 html_tokenizer_real_engine_type (HTMLTokenizer *t,
                                  gboolean engine_type)
 {
-	struct _HTMLTokenizerPrivate *p;
-	p = t->priv;
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 
 	p->enableconvert = engine_type;
 }
@@ -734,11 +718,11 @@ static void
 html_tokenizer_real_change (HTMLTokenizer *t,
                             const gchar *content_type)
 {
-	struct _HTMLTokenizerPrivate *p;
+	HTMLTokenizerPrivate *p;
 	if (!is_text (content_type))
 		return;
 
-	p = t->priv;
+	p = html_tokenizer_get_instance_private (t);
 
 	if (!p->enableconvert)
 		return;
@@ -765,7 +749,8 @@ static void
 html_tokenizer_real_begin (HTMLTokenizer *t,
                            const gchar *content_type)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 
 	html_tokenizer_reset (t);
 
@@ -800,7 +785,8 @@ destroy_blocking (gpointer data,
 static void
 html_tokenizer_real_end (HTMLTokenizer *t)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 
 	if (p->buffer == 0)
 		return;
@@ -828,7 +814,8 @@ html_tokenizer_append_token (HTMLTokenizer *t,
                              const gchar *string,
                              gint len)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 
 	if (len < 1)
 		return;
@@ -863,7 +850,8 @@ static void
 add_char (HTMLTokenizer *t,
           gchar c)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 	if (c != '\0')
 	{
 		*(p->dest) = c;
@@ -876,13 +864,15 @@ static void
 html_tokenizer_append_token_buffer (HTMLTokenizer *t,
                                     gint min_size)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
 	HTMLTokenBuffer *nb;
+
 	gint size = TOKEN_BUFFER_SIZE;
 
 	if (min_size > size)
 		size = min_size + (min_size >> 2);
 
+	p = html_tokenizer_get_instance_private (t);
 	/* create new buffer and add it to list */
 	nb = html_token_buffer_new (size);
 	p->token_buffers = g_list_append (p->token_buffers, nb);
@@ -901,7 +891,8 @@ html_tokenizer_append_token_buffer (HTMLTokenizer *t,
 static void
 html_tokenizer_add_pending (HTMLTokenizer *t)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 
 	if (p->tag || p->select) {
 		add_char (t, ' ');
@@ -945,7 +936,8 @@ html_tokenizer_add_pending (HTMLTokenizer *t)
 static void
 prepare_enough_space (HTMLTokenizer *t)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 
 	if ((p->dest - p->buffer + 32) > p->size) {
 		guint off = p->dest - p->buffer;
@@ -960,7 +952,8 @@ static void
 in_comment (HTMLTokenizer *t,
             const gchar **src)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 
 	if (**src == '-') {		     /* Look for "-->" */
 		if (p->searchCount < 2)
@@ -989,7 +982,8 @@ static inline void
 extension_one_char (HTMLTokenizer *t,
                     const gchar **src)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 
 	p->extension = FALSE;
 	html_tokenizer_tokenize_one_char (t, src);
@@ -1000,7 +994,8 @@ static void
 in_extension (HTMLTokenizer *t,
               const gchar **src)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 
 	/* check for "-->" */
 	if (!p->tquote && **src == '-') {
@@ -1029,7 +1024,8 @@ static void
 in_script_or_style (HTMLTokenizer *t,
                     const gchar **src)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 
 	/* Allocate memory to store the script or style */
 	if (p->scriptCodeSize + 11 > p->scriptCodeMaxSize)
@@ -1098,7 +1094,8 @@ static void
 in_tag (HTMLTokenizer *t,
         const gchar **src)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 
 	p->startTag = FALSE;
 	if (**src == '/') {
@@ -1142,18 +1139,21 @@ static void
 start_tag (HTMLTokenizer *t,
            const gchar **src)
 {
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 	(*src)++;
-	t->priv->startTag = TRUE;
-	t->priv->discard  = NoneDiscard;
+	p->startTag = TRUE;
+	p->discard  = NoneDiscard;
 }
 
 static void
 end_tag (HTMLTokenizer *t,
          const gchar **src)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
 	gchar *ptr;
 
+	p = html_tokenizer_get_instance_private (t);
 	p->searchCount = 0; /* Stop looking for <!-- sequence */
 
 	add_char (t, '>');
@@ -1239,7 +1239,8 @@ static void
 in_crlf (HTMLTokenizer *t,
          const gchar **src)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 
 	if (p->tquote) {
 		if (p->discard == NoneDiscard)
@@ -1282,25 +1283,28 @@ static void
 in_space_or_tab (HTMLTokenizer *t,
                  const gchar **src)
 {
-	if (t->priv->tquote) {
-		if (t->priv->discard == NoneDiscard)
-			t->priv->pending = SpacePending;
+	HTMLTokenizerPrivate *priv;
+	priv = html_tokenizer_get_instance_private (t);
+
+	if (priv->tquote) {
+		if (priv->discard == NoneDiscard)
+			priv->pending = SpacePending;
 	}
-	else if (t->priv->tag) {
-		t->priv->searchCount = 0; /* Stop looking for <!-- sequence */
-		if (t->priv->discard == NoneDiscard)
-			t->priv->pending = SpacePending;
+	else if (priv->tag) {
+		priv->searchCount = 0; /* Stop looking for <!-- sequence */
+		if (priv->discard == NoneDiscard)
+			priv->pending = SpacePending;
 	}
-	else if (t->priv->pre || t->priv->textarea) {
-		if (t->priv->pending)
+	else if (priv->pre || priv->textarea) {
+		if (priv->pending)
 			html_tokenizer_add_pending (t);
 		if (**src == ' ')
-			t->priv->pending = SpacePending;
+			priv->pending = SpacePending;
 		else
-			t->priv->pending = TabPending;
+			priv->pending = TabPending;
 	}
 	else {
-		t->priv->pending = SpacePending;
+		priv->pending = SpacePending;
 	}
 	(*src)++;
 }
@@ -1309,29 +1313,31 @@ static void
 in_quoted (HTMLTokenizer *t,
            const gchar **src)
 {
+	HTMLTokenizerPrivate *priv;
+	priv = html_tokenizer_get_instance_private (t);
 	/* We treat ' and " the same in tags " */
-	t->priv->discard = NoneDiscard;
-	if (t->priv->tag) {
-		t->priv->searchCount = 0; /* Stop looking for <!-- sequence */
-		if ((t->priv->tquote == SINGLE_QUOTE && **src == '\"') /* match " */
-		    || (t->priv->tquote == DOUBLE_QUOTE && **src == '\'')) {
+	priv->discard = NoneDiscard;
+	if (priv->tag) {
+		priv->searchCount = 0; /* Stop looking for <!-- sequence */
+		if ((priv->tquote == SINGLE_QUOTE && **src == '\"') /* match " */
+		    || (priv->tquote == DOUBLE_QUOTE && **src == '\'')) {
 			add_char (t, **src);
 			(*src)++;
-		} else if (*(t->priv->dest - 1) == '=' && !t->priv->tquote) {
-			t->priv->discard = SpaceDiscard;
-			t->priv->pending = NonePending;
+		} else if (*(priv->dest - 1) == '=' && !priv->tquote) {
+			priv->discard = SpaceDiscard;
+			priv->pending = NonePending;
 
 			if (**src == '\"') /* match " */
-				t->priv->tquote = DOUBLE_QUOTE;
+				priv->tquote = DOUBLE_QUOTE;
 			else
-				t->priv->tquote = SINGLE_QUOTE;
+				priv->tquote = SINGLE_QUOTE;
 			add_char (t, **src);
 			(*src)++;
 		}
-		else if (t->priv->tquote) {
-			t->priv->tquote = NO_QUOTE;
+		else if (priv->tquote) {
+			priv->tquote = NO_QUOTE;
 			add_byte (t, src);
-			t->priv->pending = SpacePending;
+			priv->pending = SpacePending;
 		}
 		else {
 			/* Ignore stray "\'" */
@@ -1339,7 +1345,7 @@ in_quoted (HTMLTokenizer *t,
 		}
 	}
 	else {
-		if (t->priv->pending)
+		if (priv->pending)
 			html_tokenizer_add_pending (t);
 
 		add_byte (t, src);
@@ -1350,17 +1356,19 @@ static void
 in_assignment (HTMLTokenizer *t,
                const gchar **src)
 {
-	t->priv->discard = NoneDiscard;
-	if (t->priv->tag) {
-		t->priv->searchCount = 0; /* Stop looking for <!-- sequence */
+	HTMLTokenizerPrivate *priv;
+	priv = html_tokenizer_get_instance_private (t);
+	priv->discard = NoneDiscard;
+	if (priv->tag) {
+		priv->searchCount = 0; /* Stop looking for <!-- sequence */
 		add_char (t, '=');
-		if (!t->priv->tquote) {
-			t->priv->pending = NonePending;
-			t->priv->discard = SpaceDiscard;
+		if (!priv->tquote) {
+			priv->pending = NonePending;
+			priv->discard = SpaceDiscard;
 		}
 	}
 	else {
-		if (t->priv->pending)
+		if (priv->pending)
 			html_tokenizer_add_pending (t);
 
 		add_char (t, '=');
@@ -1372,7 +1380,8 @@ inline static void
 in_plain (HTMLTokenizer *t,
           const gchar **src)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 
 	p->discard = NoneDiscard;
 	if (p->pending)
@@ -1404,7 +1413,8 @@ static void
 html_tokenizer_tokenize_one_char (HTMLTokenizer *t,
                                   const gchar **src)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 
 	prepare_enough_space (t);
 
@@ -1451,7 +1461,9 @@ html_tokenizer_real_write (HTMLTokenizer *t,
 static const gchar *
 html_tokenizer_blocking_get_name (HTMLTokenizer *t)
 {
-	switch (GPOINTER_TO_INT (t->priv->blocking->data)) {
+	HTMLTokenizerPrivate *priv;
+	priv = html_tokenizer_get_instance_private (t);
+	switch (GPOINTER_TO_INT (priv->blocking->data)) {
 	case Table:
 		return "</tabledkdk";
 	}
@@ -1463,7 +1475,8 @@ static void
 html_tokenizer_blocking_push (HTMLTokenizer *t,
                               HTMLTokenType tt)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 
 	/* block tokenizer - we must block last token in buffers as it was already added */
 	if (!p->blocking) {
@@ -1476,7 +1489,8 @@ html_tokenizer_blocking_push (HTMLTokenizer *t,
 static void
 html_tokenizer_blocking_pop (HTMLTokenizer *t)
 {
-	struct _HTMLTokenizerPrivate *p = t->priv;
+	HTMLTokenizerPrivate *p;
+	p = html_tokenizer_get_instance_private (t);
 
 	p->blocking = g_list_remove (p->blocking, p->blocking->data);
 
