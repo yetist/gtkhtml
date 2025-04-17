@@ -60,8 +60,9 @@ struct _GtkhtmlSpellDialogPrivate {
 	gchar *word;
 };
 
-static gpointer parent_class;
 static guint signals[LAST_SIGNAL];
+
+G_DEFINE_TYPE_WITH_PRIVATE (GtkhtmlSpellDialog, gtkhtml_spell_dialog, GTK_TYPE_DIALOG);
 
 static void
 spell_dialog_render_checker (GtkCellLayout *cell_layout,
@@ -87,11 +88,14 @@ static void
 spell_dialog_update_buttons (GtkhtmlSpellDialog *dialog)
 {
 	gboolean sensitive;
+	GtkhtmlSpellDialogPrivate *priv;
+
+	priv = gtkhtml_spell_dialog_get_instance_private (dialog);
 
 	/* Update "Add Word" and "Ignore" button sensitivity. */
 	sensitive = (gtkhtml_spell_dialog_get_word (dialog) != NULL);
-	gtk_widget_set_sensitive (dialog->priv->add_word_button, sensitive);
-	gtk_widget_set_sensitive (dialog->priv->ignore_button, sensitive);
+	gtk_widget_set_sensitive (priv->add_word_button, sensitive);
+	gtk_widget_set_sensitive (priv->ignore_button, sensitive);
 }
 
 static void
@@ -101,8 +105,10 @@ spell_dialog_update_suggestion_label (GtkhtmlSpellDialog *dialog)
 	const gchar *word;
 	gchar *markup;
 	gchar *text;
+	GtkhtmlSpellDialogPrivate *priv;
 
-	label = GTK_LABEL (dialog->priv->suggestion_label);
+	priv = gtkhtml_spell_dialog_get_instance_private (dialog);
+	label = GTK_LABEL (priv->suggestion_label);
 	word = gtkhtml_spell_dialog_get_word (dialog);
 
 	/* Handle the simple case and get out. */
@@ -130,8 +136,10 @@ spell_dialog_update_tree_view (GtkhtmlSpellDialog *dialog)
 	GtkTreePath *path;
 	const gchar *word;
 	GList *list = NULL;
+	GtkhtmlSpellDialogPrivate *priv;
 
-	tree_view = GTK_TREE_VIEW (dialog->priv->tree_view);
+	priv = gtkhtml_spell_dialog_get_instance_private (dialog);
+	tree_view = GTK_TREE_VIEW (priv->tree_view);
 	selection = gtk_tree_view_get_selection (tree_view);
 	checker = gtkhtml_spell_dialog_get_active_checker (dialog);
 	word = gtkhtml_spell_dialog_get_word (dialog);
@@ -199,14 +207,16 @@ spell_dialog_selection_changed_cb (GtkhtmlSpellDialog *dialog)
 	GtkTreeSelection *selection;
 	GtkTreeView *tree_view;
 	gboolean selected;
+	GtkhtmlSpellDialogPrivate *priv;
 
-	tree_view = GTK_TREE_VIEW (dialog->priv->tree_view);
+	priv = gtkhtml_spell_dialog_get_instance_private (dialog);
+	tree_view = GTK_TREE_VIEW (priv->tree_view);
 	selection = gtk_tree_view_get_selection (tree_view);
 
 	/* Update "Replace" and "Replace All" button sensitivity. */
 	selected = gtk_tree_selection_get_selected (selection, NULL, NULL);
-	gtk_widget_set_sensitive (dialog->priv->replace_button, selected);
-	gtk_widget_set_sensitive (dialog->priv->replace_all_button, selected);
+	gtk_widget_set_sensitive (priv->replace_button, selected);
+	gtk_widget_set_sensitive (priv->replace_all_button, selected);
 }
 
 static void
@@ -273,8 +283,10 @@ static void
 spell_dialog_dispose (GObject *object)
 {
 	GtkhtmlSpellDialogPrivate *priv;
+	GtkhtmlSpellDialog *dialog;
 
-	priv = GTKHTML_SPELL_DIALOG (object)->priv;
+	dialog = GTKHTML_SPELL_DIALOG (object);
+	priv = gtkhtml_spell_dialog_get_instance_private (dialog);
 
 	if (priv->add_word_button != NULL) {
 		g_object_unref (priv->add_word_button);
@@ -317,29 +329,30 @@ spell_dialog_dispose (GObject *object)
 	}
 
 	/* Chain up to parent's dispose() method. */
-	G_OBJECT_CLASS (parent_class)->dispose (object);
+	G_OBJECT_CLASS (gtkhtml_spell_dialog_parent_class)->dispose (object);
 }
 
 static void
 spell_dialog_finalize (GObject *object)
 {
 	GtkhtmlSpellDialogPrivate *priv;
+	GtkhtmlSpellDialog *dialog;
 
-	priv = GTKHTML_SPELL_DIALOG (object)->priv;
+	dialog = GTKHTML_SPELL_DIALOG (object);
+	priv = gtkhtml_spell_dialog_get_instance_private (dialog);
 
 	g_free (priv->word);
 
 	/* Chain up to parent's finalize() method. */
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (gtkhtml_spell_dialog_parent_class)->finalize (object);
 }
 
 static void
-spell_dialog_class_init (GtkhtmlSpellDialogClass *class)
+gtkhtml_spell_dialog_class_init (GtkhtmlSpellDialogClass *class)
 {
 	GObjectClass *object_class;
 
-	parent_class = g_type_class_peek_parent (class);
-	g_type_class_add_private (class, sizeof (GtkhtmlSpellDialogPrivate));
+	gtkhtml_spell_dialog_parent_class = g_type_class_peek_parent (class);
 
 	object_class = G_OBJECT_CLASS (class);
 	object_class->set_property = spell_dialog_set_property;
@@ -409,7 +422,7 @@ spell_dialog_class_init (GtkhtmlSpellDialogClass *class)
 }
 
 static void
-spell_dialog_init (GtkhtmlSpellDialog *dialog)
+gtkhtml_spell_dialog_init (GtkhtmlSpellDialog *dialog)
 {
 	GtkTreeSelection *selection;
 	GtkTreeViewColumn *column;
@@ -419,9 +432,9 @@ spell_dialog_init (GtkhtmlSpellDialog *dialog)
 	GtkWidget *table;
 	GtkWidget *widget;
 	gchar *markup;
+	GtkhtmlSpellDialogPrivate *priv;
 
-	dialog->priv = G_TYPE_INSTANCE_GET_PRIVATE (
-		dialog, GTKHTML_TYPE_SPELL_DIALOG, GtkhtmlSpellDialogPrivate);
+	priv = gtkhtml_spell_dialog_get_instance_private (dialog);
 
 	g_signal_connect (
 		dialog, "notify::word", G_CALLBACK (
@@ -463,7 +476,7 @@ spell_dialog_init (GtkhtmlSpellDialog *dialog)
 	gtk_table_attach (
 		GTK_TABLE (table), widget, 0, 2, 0, 1,
 		GTK_EXPAND | GTK_FILL, 0, 0, 0);
-	dialog->priv->suggestion_label = g_object_ref (widget);
+	priv->suggestion_label = g_object_ref (widget);
 	gtk_widget_show (widget);
 
 	/* Scrolled Window */
@@ -491,7 +504,7 @@ spell_dialog_init (GtkhtmlSpellDialog *dialog)
 	gtk_tree_view_append_column (GTK_TREE_VIEW (widget), column);
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (widget), FALSE);
 	gtk_label_set_mnemonic_widget (
-		GTK_LABEL (dialog->priv->suggestion_label), widget);
+		GTK_LABEL (priv->suggestion_label), widget);
 	g_signal_connect_swapped (
 		widget, "row-activated",
 		G_CALLBACK (spell_dialog_replace_cb), dialog);
@@ -499,7 +512,7 @@ spell_dialog_init (GtkhtmlSpellDialog *dialog)
 		selection, "changed",
 		G_CALLBACK (spell_dialog_selection_changed_cb), dialog);
 	gtk_container_add (GTK_CONTAINER (container), widget);
-	dialog->priv->tree_view = g_object_ref (widget);
+	priv->tree_view = g_object_ref (widget);
 	gtk_widget_show (widget);
 
 	/* Vertical Button Box */
@@ -523,7 +536,7 @@ spell_dialog_init (GtkhtmlSpellDialog *dialog)
 		widget, "clicked",
 		G_CALLBACK (spell_dialog_replace_cb), dialog);
 	gtk_box_pack_start (GTK_BOX (container), widget, TRUE, TRUE, 0);
-	dialog->priv->replace_button = g_object_ref (widget);
+	priv->replace_button = g_object_ref (widget);
 	gtk_widget_set_sensitive (widget, FALSE);
 	gtk_widget_show (widget);
 
@@ -537,7 +550,7 @@ spell_dialog_init (GtkhtmlSpellDialog *dialog)
 		widget, "clicked",
 		G_CALLBACK (spell_dialog_replace_all_cb), dialog);
 	gtk_box_pack_start (GTK_BOX (container), widget, TRUE, TRUE, 0);
-	dialog->priv->replace_all_button = g_object_ref (widget);
+	priv->replace_all_button = g_object_ref (widget);
 	gtk_widget_set_sensitive (widget, FALSE);
 	gtk_widget_show (widget);
 
@@ -551,7 +564,7 @@ spell_dialog_init (GtkhtmlSpellDialog *dialog)
 		widget, "clicked",
 		G_CALLBACK (spell_dialog_ignore_cb), dialog);
 	gtk_box_pack_start (GTK_BOX (container), widget, TRUE, TRUE, 0);
-	dialog->priv->ignore_button = g_object_ref (widget);
+	priv->ignore_button = g_object_ref (widget);
 	gtk_widget_set_sensitive (widget, FALSE);
 	gtk_widget_show (widget);
 
@@ -565,7 +578,7 @@ spell_dialog_init (GtkhtmlSpellDialog *dialog)
 		widget, "clicked",
 		G_CALLBACK (gtkhtml_spell_dialog_next_word), dialog);
 	gtk_box_pack_start (GTK_BOX (container), widget, TRUE, TRUE, 0);
-	dialog->priv->skip_button = g_object_ref (widget);
+	priv->skip_button = g_object_ref (widget);
 	gtk_widget_show (widget);
 
 	/* Back Button */
@@ -578,7 +591,7 @@ spell_dialog_init (GtkhtmlSpellDialog *dialog)
 		widget, "clicked",
 		G_CALLBACK (gtkhtml_spell_dialog_prev_word), dialog);
 	gtk_box_pack_start (GTK_BOX (container), widget, TRUE, TRUE, 0);
-	dialog->priv->back_button = g_object_ref (widget);
+	priv->back_button = g_object_ref (widget);
 	gtk_widget_show (widget);
 
 	/* Dictionary Label */
@@ -607,7 +620,7 @@ spell_dialog_init (GtkhtmlSpellDialog *dialog)
 	gtk_table_attach (
 		GTK_TABLE (table), widget, 0, 1, 3, 4,
 		GTK_EXPAND | GTK_FILL, 0, 0, 0);
-	dialog->priv->dictionary_combo = g_object_ref (widget);
+	priv->dictionary_combo = g_object_ref (widget);
 	gtk_widget_show (widget);
 
 	/* Add Word Button */
@@ -622,34 +635,8 @@ spell_dialog_init (GtkhtmlSpellDialog *dialog)
 	gtk_table_attach (
 		GTK_TABLE (table), widget, 1, 2, 3, 4,
 		GTK_FILL, 0, 0, 0);
-	dialog->priv->add_word_button = g_object_ref (widget);
+	priv->add_word_button = g_object_ref (widget);
 	gtk_widget_show (widget);
-}
-
-GType
-gtkhtml_spell_dialog_get_type (void)
-{
-	static GType type = 0;
-
-	if (G_UNLIKELY (type == 0)) {
-		static const GTypeInfo type_info = {
-			sizeof (GtkhtmlSpellDialogClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) spell_dialog_class_init,
-			(GClassFinalizeFunc) NULL,
-			NULL,  /* class_data */
-			sizeof (GtkhtmlSpellDialog),
-			0,     /* n_preallocs */
-			(GInstanceInitFunc) spell_dialog_init,
-			NULL   /* value_table */
-		};
-
-		type = g_type_register_static (
-			GTK_TYPE_DIALOG, "GtkhtmlSpellDialog", &type_info, 0);
-	}
-
-	return type;
 }
 
 GtkWidget *
@@ -670,24 +657,28 @@ gtkhtml_spell_dialog_close (GtkhtmlSpellDialog *dialog)
 const gchar *
 gtkhtml_spell_dialog_get_word (GtkhtmlSpellDialog *dialog)
 {
+	GtkhtmlSpellDialogPrivate *priv;
 	g_return_val_if_fail (GTKHTML_IS_SPELL_DIALOG (dialog), NULL);
 
-	return dialog->priv->word;
+	priv = gtkhtml_spell_dialog_get_instance_private (dialog);
+	return priv->word;
 }
 
 void
 gtkhtml_spell_dialog_set_word (GtkhtmlSpellDialog *dialog,
                                const gchar *word)
 {
+	GtkhtmlSpellDialogPrivate *priv;
 	g_return_if_fail (GTKHTML_IS_SPELL_DIALOG (dialog));
 
+	priv = gtkhtml_spell_dialog_get_instance_private (dialog);
 	/* Do not emit signals if the word is unchanged. */
-	if (word != NULL && dialog->priv->word != NULL)
-		if (g_str_equal (word, dialog->priv->word))
+	if (word != NULL && priv->word != NULL)
+		if (g_str_equal (word, priv->word))
 			return;
 
-	g_free (dialog->priv->word);
-	dialog->priv->word = g_strdup (word);
+	g_free (priv->word);
+	priv->word = g_strdup (word);
 
 	g_object_notify (G_OBJECT (dialog), "word");
 }
@@ -707,9 +698,12 @@ gtkhtml_spell_dialog_prev_word (GtkhtmlSpellDialog *dialog)
 GList *
 gtkhtml_spell_dialog_get_spell_checkers (GtkhtmlSpellDialog *dialog)
 {
+	GtkhtmlSpellDialogPrivate *priv;
 	g_return_val_if_fail (GTKHTML_IS_SPELL_DIALOG (dialog), NULL);
 
-	return g_list_copy (dialog->priv->spell_checkers);
+	priv = gtkhtml_spell_dialog_get_instance_private (dialog);
+
+	return g_list_copy (priv->spell_checkers);
 }
 
 void
@@ -719,13 +713,15 @@ gtkhtml_spell_dialog_set_spell_checkers (GtkhtmlSpellDialog *dialog,
 	GtkComboBox *combo_box;
 	GtkListStore *store;
 	GList *list;
+	GtkhtmlSpellDialogPrivate *priv;
 
 	g_return_if_fail (GTKHTML_IS_SPELL_DIALOG (dialog));
 
-	combo_box = GTK_COMBO_BOX (dialog->priv->dictionary_combo);
+	priv = gtkhtml_spell_dialog_get_instance_private (dialog);
+	combo_box = GTK_COMBO_BOX (priv->dictionary_combo);
 
 	/* Free the old list of spell checkers. */
-	list = dialog->priv->spell_checkers;
+	list = priv->spell_checkers;
 	g_list_free_full (g_steal_pointer (&list), g_object_unref);
 	g_list_free (list);
 
@@ -733,8 +729,8 @@ gtkhtml_spell_dialog_set_spell_checkers (GtkhtmlSpellDialog *dialog,
 	list = g_list_sort (
 		g_list_copy (spell_checkers),
 		(GCompareFunc) gtkhtml_spell_checker_compare);
-	g_list_foreach (list, (GFunc) g_object_ref, NULL);
-	dialog->priv->spell_checkers = list;
+	g_list_free_full (g_steal_pointer (&list), g_object_unref);
+	priv->spell_checkers = list;
 
 	/* Populate a list store for the combo box. */
 
@@ -766,10 +762,12 @@ gtkhtml_spell_dialog_get_active_checker (GtkhtmlSpellDialog *dialog)
 	GtkComboBox *combo_box;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
+	GtkhtmlSpellDialogPrivate *priv;
 
 	g_return_val_if_fail (GTKHTML_IS_SPELL_DIALOG (dialog), NULL);
 
-	combo_box = GTK_COMBO_BOX (dialog->priv->dictionary_combo);
+	priv = gtkhtml_spell_dialog_get_instance_private (dialog);
+	combo_box = GTK_COMBO_BOX (priv->dictionary_combo);
 	model = gtk_combo_box_get_model (combo_box);
 
 	if (!gtk_combo_box_get_active_iter (combo_box, &iter))
@@ -788,10 +786,12 @@ gtkhtml_spell_dialog_get_active_suggestion (GtkhtmlSpellDialog *dialog)
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	gchar *word;
+	GtkhtmlSpellDialogPrivate *priv;
 
 	g_return_val_if_fail (GTKHTML_IS_SPELL_DIALOG (dialog), NULL);
 
-	tree_view = GTK_TREE_VIEW (dialog->priv->tree_view);
+	priv = gtkhtml_spell_dialog_get_instance_private (dialog);
+	tree_view = GTK_TREE_VIEW (priv->tree_view);
 	selection = gtk_tree_view_get_selection (tree_view);
 
 	/* If nothing is selected, return NULL. */
