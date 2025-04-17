@@ -33,13 +33,24 @@ enum {
 	PROP_CURRENT_FACE
 };
 
-static gpointer parent_class;
+static void gtkhtml_face_action_iface_init (GtkhtmlFaceChooserInterface *iface);
+
+G_DEFINE_TYPE_EXTENDED (GtkhtmlFaceAction,
+			gtkhtml_face_action,
+			GTK_TYPE_ACTION,
+			0,
+			G_ADD_PRIVATE (GtkhtmlFaceAction)
+			G_IMPLEMENT_INTERFACE (GTKHTML_TYPE_FACE_CHOOSER,
+			  gtkhtml_face_action_iface_init));
 
 static void
 face_action_proxy_item_activated_cb (GtkhtmlFaceAction *action,
                                      GtkhtmlFaceChooser *chooser)
 {
-	action->priv->current_chooser = chooser;
+	GtkhtmlFaceActionPrivate *priv;
+
+	priv = gtkhtml_face_action_get_instance_private (action);
+	priv->current_chooser = chooser;
 
 	g_signal_emit_by_name (action, "item-activated");
 }
@@ -82,21 +93,25 @@ static void
 face_action_finalize (GObject *object)
 {
 	GtkhtmlFaceActionPrivate *priv;
+	GtkhtmlFaceAction *action;
 
-	priv = GTKHTML_FACE_ACTION (object)->priv;
+	action = GTKHTML_FACE_ACTION(object);
+	priv = gtkhtml_face_action_get_instance_private (action);
 
 	g_list_free (priv->choosers);
 
 	/* Chain up to parent's finalize() method. */
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (gtkhtml_face_action_parent_class)->finalize (object);
 }
 
 static void
 face_action_activate (GtkAction *action)
 {
 	GtkhtmlFaceActionPrivate *priv;
+	GtkhtmlFaceAction *face_action;
 
-	priv = GTKHTML_FACE_ACTION (action)->priv;
+	face_action = GTKHTML_FACE_ACTION(action);
+	priv = gtkhtml_face_action_get_instance_private (face_action);
 
 	priv->current_chooser = NULL;
 }
@@ -126,9 +141,10 @@ face_action_connect_proxy (GtkAction *action,
                            GtkWidget *proxy)
 {
 	GtkhtmlFaceActionPrivate *priv;
+	GtkhtmlFaceAction *face_action;
 
-	priv = GTKHTML_FACE_ACTION (action)->priv;
-
+	face_action = GTKHTML_FACE_ACTION(action);
+	priv = gtkhtml_face_action_get_instance_private (face_action);
 	if (!GTKHTML_IS_FACE_CHOOSER (proxy))
 		goto chainup;
 
@@ -141,7 +157,7 @@ face_action_connect_proxy (GtkAction *action,
 
 chainup:
 	/* Chain up to parent's connect_proxy() method. */
-	GTK_ACTION_CLASS (parent_class)->connect_proxy (action, proxy);
+	GTK_ACTION_CLASS (gtkhtml_face_action_parent_class)->connect_proxy (action, proxy);
 }
 
 static void
@@ -149,13 +165,14 @@ face_action_disconnect_proxy (GtkAction *action,
                               GtkWidget *proxy)
 {
 	GtkhtmlFaceActionPrivate *priv;
+	GtkhtmlFaceAction *face_action;
 
-	priv = GTKHTML_FACE_ACTION (action)->priv;
-
+	face_action = GTKHTML_FACE_ACTION(action);
+	priv = gtkhtml_face_action_get_instance_private (face_action);
 	priv->choosers = g_list_remove (priv->choosers, proxy);
 
 	/* Chain up to parent's disconnect_proxy() method. */
-	GTK_ACTION_CLASS (parent_class)->disconnect_proxy (action, proxy);
+	GTK_ACTION_CLASS (gtkhtml_face_action_parent_class)->disconnect_proxy (action, proxy);
 }
 
 static GtkWidget *
@@ -163,8 +180,10 @@ face_action_create_menu (GtkAction *action)
 {
 	GtkhtmlFaceActionPrivate *priv;
 	GtkWidget *widget;
+	GtkhtmlFaceAction *face_action;
 
-	priv = GTKHTML_FACE_ACTION (action)->priv;
+	face_action = GTKHTML_FACE_ACTION(action);
+	priv = gtkhtml_face_action_get_instance_private (face_action);
 
 	widget = gtkhtml_face_chooser_menu_new ();
 
@@ -182,8 +201,10 @@ face_action_get_current_face (GtkhtmlFaceChooser *chooser)
 {
 	GtkhtmlFaceActionPrivate *priv;
 	GtkhtmlFace *face = NULL;
+	GtkhtmlFaceAction *action;
 
-	priv = GTKHTML_FACE_ACTION (chooser)->priv;
+	action = GTKHTML_FACE_ACTION(chooser);
+	priv = gtkhtml_face_action_get_instance_private (action);
 
 	if (priv->current_chooser != NULL)
 		face = gtkhtml_face_chooser_get_current_face (
@@ -198,8 +219,10 @@ face_action_set_current_face (GtkhtmlFaceChooser *chooser,
 {
 	GtkhtmlFaceActionPrivate *priv;
 	GList *iter;
+	GtkhtmlFaceAction *action;
 
-	priv = GTKHTML_FACE_ACTION (chooser)->priv;
+	action = GTKHTML_FACE_ACTION(chooser);
+	priv = gtkhtml_face_action_get_instance_private (action);
 
 	for (iter = priv->choosers; iter != NULL; iter = iter->next) {
 		GtkhtmlFaceChooser *proxy_chooser = iter->data;
@@ -209,13 +232,12 @@ face_action_set_current_face (GtkhtmlFaceChooser *chooser,
 }
 
 static void
-face_action_class_init (GtkhtmlFaceActionClass *class)
+gtkhtml_face_action_class_init (GtkhtmlFaceActionClass *class)
 {
 	GObjectClass *object_class;
 	GtkActionClass *action_class;
 
-	parent_class = g_type_class_peek_parent (class);
-	g_type_class_add_private (class, sizeof (GtkhtmlFaceAction));
+	gtkhtml_face_action_parent_class = g_type_class_peek_parent (class);
 
 	object_class = G_OBJECT_CLASS (class);
 	object_class->set_property = face_action_set_property;
@@ -235,52 +257,15 @@ face_action_class_init (GtkhtmlFaceActionClass *class)
 }
 
 static void
-face_action_iface_init (GtkhtmlFaceChooserInterface *iface)
+gtkhtml_face_action_iface_init (GtkhtmlFaceChooserInterface *iface)
 {
 	iface->get_current_face = face_action_get_current_face;
 	iface->set_current_face = face_action_set_current_face;
 }
 
 static void
-face_action_init (GtkhtmlFaceAction *action)
+gtkhtml_face_action_init (GtkhtmlFaceAction *action)
 {
-	action->priv = G_TYPE_INSTANCE_GET_PRIVATE (
-		action, GTKHTML_TYPE_FACE_ACTION, GtkhtmlFaceActionPrivate);
-}
-
-GType
-gtkhtml_face_action_get_type (void)
-{
-	static GType type = 0;
-
-	if (G_UNLIKELY (type == 0)) {
-		static const GTypeInfo type_info = {
-			sizeof (GtkhtmlFaceActionClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) face_action_class_init,
-			(GClassFinalizeFunc) NULL,
-			NULL,  /* class_data */
-			sizeof (GtkhtmlFaceAction),
-			0,     /* n_preallocs */
-			(GInstanceInitFunc) face_action_init,
-			NULL   /* value_table */
-		};
-
-		static const GInterfaceInfo iface_info = {
-			(GInterfaceInitFunc) face_action_iface_init,
-			(GInterfaceFinalizeFunc) NULL,
-			NULL  /* interface_data */
-		};
-
-		type = g_type_register_static (
-			GTK_TYPE_ACTION, "GtkhtmlFaceAction", &type_info, 0);
-
-		g_type_add_interface_static (
-			type, GTKHTML_TYPE_FACE_CHOOSER, &iface_info);
-	}
-
-	return type;
 }
 
 GtkAction *
