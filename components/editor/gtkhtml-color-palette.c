@@ -37,11 +37,11 @@ struct _GtkhtmlColorPalettePrivate {
 	GSList *list;
 };
 
-static gpointer parent_class;
 static guint signals[LAST_SIGNAL];
 
+G_DEFINE_TYPE_WITH_PRIVATE (GtkhtmlColorPalette, gtkhtml_color_palette, G_TYPE_OBJECT);
 static void
-color_palette_finalize (GObject *object)
+gtkhtml_color_palette_finalize (GObject *object)
 {
 	GtkhtmlColorPalettePrivate *priv;
 
@@ -51,19 +51,18 @@ color_palette_finalize (GObject *object)
 	g_slist_free (priv->list);
 
 	/* Chain up to parent's finalize() method. */
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (gtkhtml_color_palette_parent_class)->finalize (object);
 }
 
 static void
-color_palette_class_init (GtkhtmlColorPaletteClass *class)
+gtkhtml_color_palette_class_init (GtkhtmlColorPaletteClass *klass)
 {
 	GObjectClass *object_class;
 
-	parent_class = g_type_class_peek_parent (class);
-	g_type_class_add_private (class, sizeof (GtkhtmlColorPalettePrivate));
+	gtkhtml_color_palette_parent_class = g_type_class_peek_parent (klass);
 
-	object_class = G_OBJECT_CLASS (class);
-	object_class->finalize = color_palette_finalize;
+	object_class = G_OBJECT_CLASS (klass);
+	object_class->finalize = gtkhtml_color_palette_finalize;
 
 	signals[CHANGED] = g_signal_new (
 		"changed",
@@ -75,7 +74,7 @@ color_palette_class_init (GtkhtmlColorPaletteClass *class)
 }
 
 static void
-color_palette_init (GtkhtmlColorPalette *palette)
+gtkhtml_color_palette_init (GtkhtmlColorPalette *palette)
 {
 	GHashTable *index;
 
@@ -85,36 +84,8 @@ color_palette_init (GtkhtmlColorPalette *palette)
 		(GDestroyNotify) gdk_color_free,
 		(GDestroyNotify) NULL);
 
-	palette->priv = G_TYPE_INSTANCE_GET_PRIVATE (
-		palette, GTKHTML_TYPE_COLOR_PALETTE,
-		GtkhtmlColorPalettePrivate);
+	palette->priv = gtkhtml_color_palette_get_instance_private (palette);
 	palette->priv->index = index;
-}
-
-GType
-gtkhtml_color_palette_get_type (void)
-{
-	static GType type = 0;
-
-	if (G_UNLIKELY (type == 0)) {
-		static const GTypeInfo type_info = {
-			sizeof (GtkhtmlColorPaletteClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) color_palette_class_init,
-			(GClassFinalizeFunc) NULL,
-			NULL,  /* class_data */
-			sizeof (GtkhtmlColorPalette),
-			0,     /* n_preallocs */
-			(GInstanceInitFunc) color_palette_init,
-			NULL   /* value_table */
-		};
-
-		type = g_type_register_static (
-			G_TYPE_OBJECT, "GtkhtmlColorPalette", &type_info, 0);
-	}
-
-	return type;
 }
 
 GtkhtmlColorPalette *
