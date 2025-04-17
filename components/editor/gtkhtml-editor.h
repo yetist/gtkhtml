@@ -59,7 +59,6 @@ typedef struct _GtkhtmlEditorPrivate GtkhtmlEditorPrivate;
 
 struct _GtkhtmlEditor {
 	GtkWindow parent;
-	GtkWidget *vbox;
 	GtkhtmlEditorPrivate *priv;
 };
 

@@ -24,6 +24,7 @@
 #include <gtkhtml-editor.h>
 
 #include <glib/gi18n-lib.h>
+#include <stdlib.h>
 
 #ifdef HAVE_XFREE
 #include <X11/XF86keysym.h>
@@ -83,6 +84,42 @@
 	if ((obj) != NULL) { g_object_unref (obj); (obj) = NULL; } \
 	} G_STMT_END
 
+/* Regular expressions */
+#define CTL	"\\x00-\\x1f\\x7f"
+#define SEP	"\\x09\\x20\\(\\)<>@,;:\\\\\"/\\[\\]\\?=\\{\\}"
+#define TOKEN	"[^" CTL SEP "]+"
+
+/* Fatal error message given when a data file is not found. */
+#define DATA_FILE_NOT_FOUND_MESSAGE \
+"\n*** FATAL ERROR ***\n\n" \
+PACKAGE " could not find the required file \"%s\" in any of\n" \
+"the system-wide data directories given by the XDG_DATA_DIRS environment\n" \
+"variable.  " PACKAGE " looked for:\n\n"
+
+#define MORE_INFORMATION_MESSAGE \
+"\nSee http://www.freedesktop.org/Standards/basedir-spec for more\n" \
+"information about standard base directories.\n\n"
+
+/* This controls how spelling suggestions are divided between the primary
+ * context menu and a secondary menu.  The idea is to prevent the primary
+ * menu from growing too long.
+ *
+ * The constants below are used as follows:
+ *
+ * if TOTAL_SUGGESTIONS <= MAX_LEVEL1_SUGGETIONS:
+ *     LEVEL1_SUGGESTIONS = TOTAL_SUGGESTIONS
+ * elif TOTAL_SUGGESTIONS - MAX_LEVEL1_SUGGESTIONS < MIN_LEVEL2_SUGGESTIONS:
+ *     LEVEL1_SUGGESTIONS = TOTAL_SUGGESTIONS
+ * else
+ *     LEVEL1_SUGGESTIONS = MAX_LEVEL1_SUGGETIONS
+ *
+ * LEVEL2_SUGGESTIONS = TOTAL_SUGGESTIONS - LEVEL1_SUGGESTIONS
+ *
+ * Note that MAX_LEVEL1_SUGGETIONS is not a hard maximum.
+ */
+#define MAX_LEVEL1_SUGGESTIONS	4
+#define MIN_LEVEL2_SUGGESTIONS	3
+
 G_BEGIN_DECLS
 
 typedef struct _GtkhtmlEditorRequest GtkhtmlEditorRequest;
@@ -126,7 +163,7 @@ struct _GtkhtmlEditorPrivate {
 	guint spell_suggestions_merge_id;
 
 	/*** Main Window Widgets ***/
-
+	GtkWidget *vbox;
 	GtkWidget *main_menu;
 	GtkWidget *main_toolbar;
 	GtkWidget *edit_toolbar;
@@ -194,7 +231,6 @@ void		gtkhtml_editor_private_constructed
 						(GtkhtmlEditor *editor);
 void		gtkhtml_editor_private_dispose	(GtkhtmlEditor *editor);
 void		gtkhtml_editor_private_finalize	(GtkhtmlEditor *editor);
-
 /* Private Utilities */
 
 void		gtkhtml_editor_actions_init	(GtkhtmlEditor *editor);

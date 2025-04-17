@@ -38,7 +38,6 @@ libgtkhtml_editor_4_0_la_SOURCES = \
 	gtkhtml-combo-box.h			\
 	gtkhtml-editor.c			\
 	gtkhtml-editor-actions.c		\
-	gtkhtml-editor-private.c		\
 	gtkhtml-editor-private.h		\
 	gtkhtml-editor-signals.c		\
 	gtkhtml-face.c				\
