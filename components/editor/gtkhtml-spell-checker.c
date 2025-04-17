@@ -44,9 +44,9 @@ struct _GtkhtmlSpellCheckerPrivate {
 	const GtkhtmlSpellLanguage *language;
 };
 
-static gpointer parent_class;
 static guint signals[LAST_SIGNAL];
 
+G_DEFINE_TYPE_WITH_PRIVATE (GtkhtmlSpellChecker, gtkhtml_spell_checker, G_TYPE_OBJECT);
 static gboolean
 spell_checker_is_digit (const gchar *text,
                         gssize length)
@@ -88,7 +88,7 @@ spell_checker_request_dict (GtkhtmlSpellChecker *checker)
 	 * occasionally be needed.  That way we can create as many
 	 * instances as we want without a huge performance penalty. */
 
-	priv = checker->priv;
+	priv = gtkhtml_spell_checker_get_instance_private (checker);
 
 	if (priv->dict != NULL)
 		return priv->dict;
@@ -115,7 +115,7 @@ spell_checker_constructor (GType type,
 	GObject *object;
 
 	/* Chain up to parent's constructor() method. */
-	object = G_OBJECT_CLASS (parent_class)->constructor (
+	object = G_OBJECT_CLASS (gtkhtml_spell_checker_parent_class)->constructor (
 		type, n_construct_properties, construct_properties);
 
 	gtkhtml_spell_checker_clear_session (GTKHTML_SPELL_CHECKER (object));
@@ -130,8 +130,10 @@ spell_checker_set_property (GObject *object,
                             GParamSpec *pspec)
 {
 	GtkhtmlSpellCheckerPrivate *priv;
+	GtkhtmlSpellChecker *checker;
 
-	priv = GTKHTML_SPELL_CHECKER (object)->priv;
+	checker = GTKHTML_SPELL_CHECKER (object);
+	priv = gtkhtml_spell_checker_get_instance_private (checker);
 
 	switch (property_id) {
 		case PROP_LANGUAGE:
@@ -163,26 +165,27 @@ static void
 spell_checker_finalize (GObject *object)
 {
 	GtkhtmlSpellCheckerPrivate *priv;
+	GtkhtmlSpellChecker *checker;
 
-	priv = GTKHTML_SPELL_CHECKER (object)->priv;
+	checker = GTKHTML_SPELL_CHECKER (object);
+	priv = gtkhtml_spell_checker_get_instance_private (checker);
 
 	if (priv->dict != NULL)
 		enchant_broker_free_dict (priv->broker, priv->dict);
 	enchant_broker_free (priv->broker);
 
 	/* Chain up to parent's finalize() method. */
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (gtkhtml_spell_checker_parent_class)->finalize (object);
 }
 
 static void
-spell_checker_class_init (GtkhtmlSpellCheckerClass *class)
+gtkhtml_spell_checker_class_init (GtkhtmlSpellCheckerClass *klass)
 {
 	GObjectClass *object_class;
 
-	parent_class = g_type_class_peek_parent (class);
-	g_type_class_add_private (class, sizeof (GtkhtmlSpellCheckerPrivate));
+	gtkhtml_spell_checker_parent_class = g_type_class_peek_parent (klass);
 
-	object_class = G_OBJECT_CLASS (class);
+	object_class = G_OBJECT_CLASS (klass);
 	object_class->constructor = spell_checker_constructor;
 	object_class->set_property = spell_checker_set_property;
 	object_class->get_property = spell_checker_get_property;
@@ -235,39 +238,12 @@ spell_checker_class_init (GtkhtmlSpellCheckerClass *class)
 }
 
 static void
-spell_checker_init (GtkhtmlSpellChecker *checker)
+gtkhtml_spell_checker_init (GtkhtmlSpellChecker *checker)
 {
-	checker->priv = G_TYPE_INSTANCE_GET_PRIVATE (
-		checker, GTKHTML_TYPE_SPELL_CHECKER,
-		GtkhtmlSpellCheckerPrivate);
+	GtkhtmlSpellCheckerPrivate *priv;
 
-	checker->priv->broker = enchant_broker_init ();
-}
-
-GType
-gtkhtml_spell_checker_get_type (void)
-{
-	static GType type = 0;
-
-	if (G_UNLIKELY (type == 0)) {
-		static const GTypeInfo type_info = {
-			sizeof (GtkhtmlSpellCheckerClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) spell_checker_class_init,
-			(GClassFinalizeFunc) NULL,
-			NULL,  /* class_data */
-			sizeof (GtkhtmlSpellChecker),
-			0,     /* n_preallocs */
-			(GInstanceInitFunc) spell_checker_init,
-			NULL   /* value_table */
-		};
-
-		type = g_type_register_static (
-			G_TYPE_OBJECT, "GtkhtmlSpellChecker", &type_info, 0);
-	}
-
-	return type;
+	priv = gtkhtml_spell_checker_get_instance_private (checker);
+	priv->broker = enchant_broker_init ();
 }
 
 GtkhtmlSpellChecker *
@@ -280,9 +256,12 @@ gtkhtml_spell_checker_new (const GtkhtmlSpellLanguage *language)
 const GtkhtmlSpellLanguage *
 gtkhtml_spell_checker_get_language (GtkhtmlSpellChecker *checker)
 {
-	g_return_val_if_fail (GTKHTML_IS_SPELL_CHECKER (checker), NULL);
+	GtkhtmlSpellCheckerPrivate *priv;
 
-	return checker->priv->language;
+	g_return_val_if_fail (GTKHTML_IS_SPELL_CHECKER (checker), NULL);
+	priv = gtkhtml_spell_checker_get_instance_private (checker);
+
+	return priv->language;
 }
 
 gboolean
@@ -402,8 +381,7 @@ gtkhtml_spell_checker_clear_session (GtkhtmlSpellChecker *checker)
 
 	g_return_if_fail (GTKHTML_IS_SPELL_CHECKER (checker));
 
-	priv = checker->priv;
-
+	priv = gtkhtml_spell_checker_get_instance_private (checker);
 	if (priv->dict != NULL) {
 		enchant_broker_free_dict (priv->broker, priv->dict);
 		priv->dict = NULL;
