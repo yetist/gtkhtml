@@ -31,6 +31,7 @@
 #include "htmlenums.h"
 #include "htmlcursor.h"
 
+G_BEGIN_DECLS
 
 #define HTML_TYPE_ENGINE                 (html_engine_get_type ())
 #define HTML_ENGINE(obj)                 (G_TYPE_CHECK_INSTANCE_CAST ((obj), HTML_TYPE_ENGINE, HTMLEngine))
@@ -500,4 +501,5 @@ void html_engine_refresh_fonts (HTMLEngine *e);
 
 void html_engine_emit_undo_changed (HTMLEngine *e);
 
+G_END_DECLS
 #endif /* _HTMLENGINE_H_ */

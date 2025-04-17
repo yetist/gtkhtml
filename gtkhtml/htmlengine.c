@@ -98,8 +98,6 @@
 
 /* #define CHECK_CURSOR */
 
-static void      html_engine_class_init       (HTMLEngineClass     *klass);
-static void      html_engine_init             (HTMLEngine          *engine);
 static gboolean  html_engine_timer_event      (HTMLEngine          *e);
 static gboolean  html_engine_update_event     (HTMLEngine          *e);
 static void      html_engine_queue_redraw_all (HTMLEngine *e);
@@ -134,8 +132,6 @@ static void      clear_pending_expose (HTMLEngine *e);
 static void      push_clue (HTMLEngine *e, HTMLObject *clue);
 static void      pop_clue (HTMLEngine *e);
 
-static GtkLayoutClass *parent_class = NULL;
-
 enum {
 	SET_BASE_TARGET,
 	SET_BASE,
@@ -151,6 +147,8 @@ enum {
 };
 
 static guint signals[LAST_SIGNAL] = { 0 };
+
+G_DEFINE_TYPE (HTMLEngine, html_engine, G_TYPE_OBJECT);
 
 #define TIMER_INTERVAL 300
 #define DT(x);
@@ -4196,30 +4194,6 @@ parse_one_token (HTMLEngine *e,
 	g_free (name);
 }
 
-
-GType
-html_engine_get_type (void)
-{
-	static GType html_engine_type = 0;
-
-	if (html_engine_type == 0) {
-		static const GTypeInfo html_engine_info = {
-			sizeof (HTMLEngineClass),
-			NULL,
-			NULL,
-			(GClassInitFunc) html_engine_class_init,
-			NULL,
-			NULL,
-			sizeof (HTMLEngine),
-			1,
-			(GInstanceInitFunc) html_engine_init,
-		};
-		html_engine_type = g_type_register_static (G_TYPE_OBJECT, "HTMLEngine", &html_engine_info, 0);
-	}
-
-	return html_engine_type;
-}
-
 static void
 clear_selection (HTMLEngine *e)
 {
@@ -4292,11 +4266,6 @@ html_engine_finalize (GObject *object)
 	if (engine->mark) {
 		html_cursor_destroy (engine->mark);
 		engine->mark = NULL;
-	}
-
-	if (engine->ht) {
-		html_tokenizer_destroy (engine->ht);
-		engine->ht = NULL;
 	}
 
 	if (engine->st) {
@@ -4424,7 +4393,7 @@ html_engine_finalize (GObject *object)
 		engine->insertion_target = NULL;
 	}
 
-	G_OBJECT_CLASS (parent_class)->finalize (object);
+	G_OBJECT_CLASS (html_engine_parent_class)->finalize (object);
 
 	/* just note when will be engine finalized before all the streams are closed */
 	g_return_if_fail (opened_streams == 0);
@@ -4456,8 +4425,6 @@ html_engine_class_init (HTMLEngineClass *klass)
 	GParamSpec *pspec;
 
 	object_class = G_OBJECT_CLASS (klass);
-
-	parent_class = g_type_class_ref (G_TYPE_OBJECT);
 
 	signals[SET_BASE] =
 		g_signal_new ("set_base",
@@ -5784,8 +5751,9 @@ html_engine_set_tokenizer (HTMLEngine *engine,
 	g_return_if_fail (engine && HTML_IS_ENGINE (engine));
 	g_return_if_fail (tok && HTML_IS_TOKENIZER (tok));
 
-	g_object_ref (G_OBJECT (tok));
-	g_object_unref (G_OBJECT (engine->ht));
+	if (engine->ht != NULL) {
+		html_tokenizer_destroy (engine->ht);
+	}
 	engine->ht = tok;
 }
 
