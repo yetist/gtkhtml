@@ -559,7 +559,7 @@ current_row_align (HTMLEngine *e)
 	GList *item;
 	HTMLHAlignType rv = HTML_HALIGN_NONE;
 
-	g_return_val_if_fail (HTML_IS_ENGINE (e), HTML_VALIGN_TOP);
+	g_return_val_if_fail (HTML_IS_ENGINE (e), HTML_HALIGN_LEFT);
 
 	if (!html_stack_top (e->table_stack)) {
 		DT (g_warning ("missing table");)
