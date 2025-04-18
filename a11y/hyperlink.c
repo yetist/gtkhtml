@@ -30,8 +30,19 @@
 #include "html.h"
 #include "hyperlink.h"
 
-static void html_a11y_hyper_link_class_init    (HTMLA11YHyperLinkClass *klass);
-static void html_a11y_hyper_link_init          (HTMLA11YHyperLink *a11y_hyper_link);
+struct _HTMLA11YHyperLink {
+	AtkHyperlink atk_hyper_link;
+
+	/* use the union for valid type-punning */
+	union {
+		HTMLA11Y *object;
+		gpointer weakref;
+	} a11y;
+	gint num;
+	gint offset;
+	gchar *description;
+};
+
 
 static void atk_action_interface_init (AtkActionIface *iface);
 
@@ -41,39 +52,12 @@ static const gchar * html_a11y_hyper_link_get_description (AtkAction *action, gi
 static const gchar * html_a11y_hyper_link_get_name (AtkAction *action, gint i);
 static gboolean html_a11y_hyper_link_set_description (AtkAction *action, gint i, const gchar *description);
 
-static AtkObjectClass *parent_class = NULL;
-
-GType
-html_a11y_hyper_link_get_type (void)
-{
-	static GType type = 0;
-
-	if (!type) {
-		static const GTypeInfo tinfo = {
-			sizeof (HTMLA11YHyperLinkClass),
-			NULL,                                                      /* base init */
-			NULL,                                                      /* base finalize */
-			(GClassInitFunc) html_a11y_hyper_link_class_init,                /* class init */
-			NULL,                                                      /* class finalize */
-			NULL,                                                      /* class data */
-			sizeof (HTMLA11YHyperLink),                                     /* instance size */
-			0,                                                         /* nb preallocs */
-			(GInstanceInitFunc) html_a11y_hyper_link_init,                   /* instance init */
-			NULL                                                       /* value table */
-		};
-
-		static const GInterfaceInfo atk_action_info = {
-			(GInterfaceInitFunc) atk_action_interface_init,
-			(GInterfaceFinalizeFunc) NULL,
-			NULL
-		};
-
-		type = g_type_register_static (ATK_TYPE_HYPERLINK, "HTMLA11YHyperLink", &tinfo, 0);
-		g_type_add_interface_static (type, ATK_TYPE_ACTION, &atk_action_info);
-	}
-
-	return type;
-}
+G_DEFINE_TYPE_EXTENDED (HTMLA11YHyperLink,
+                       html_a11y_hyper_link,
+                       ATK_TYPE_HYPERLINK,
+                       0,
+                       G_IMPLEMENT_INTERFACE (ATK_TYPE_ACTION,
+                         atk_action_interface_init));
 
 static void
 atk_action_interface_init (AtkActionIface *iface)
@@ -96,7 +80,7 @@ html_a11y_hyper_link_finalize (GObject *obj)
 		g_object_remove_weak_pointer (G_OBJECT (hl->a11y.object),
 					      &hl->a11y.weakref);
 
-	G_OBJECT_CLASS (parent_class)->finalize (obj);
+	G_OBJECT_CLASS (html_a11y_hyper_link_parent_class)->finalize (obj);
 }
 
 static gint
@@ -121,7 +105,7 @@ html_a11y_hyper_link_class_init (HTMLA11YHyperLinkClass *klass)
 {
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	AtkHyperlinkClass *atk_hyperlink_class = ATK_HYPERLINK_CLASS (klass);
-	parent_class = g_type_class_peek_parent (klass);
+	html_a11y_hyper_link_parent_class = g_type_class_peek_parent (klass);
 
 	atk_hyperlink_class->get_start_index = html_a11y_hyper_link_get_start_index;
 	atk_hyperlink_class->get_end_index = html_a11y_hyper_link_get_end_index;

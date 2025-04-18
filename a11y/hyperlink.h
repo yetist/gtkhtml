@@ -25,40 +25,13 @@
 #define __HTML_A11Y_HYPER_LINK_H__
 
 #include "text.h"
+
+G_BEGIN_DECLS
+
 #define G_TYPE_HTML_A11Y_HYPER_LINK            (html_a11y_hyper_link_get_type ())
-#define HTML_A11Y_HYPER_LINK(obj)              (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
-									   G_TYPE_HTML_A11Y_HYPER_LINK, \
-									   HTMLA11YHyperLink))
-#define HTML_A11Y_HYPER_LINK_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST ((klass), \
-									G_TYPE_HTML_A11Y_HYPER_LINK, \
-									HTMLA11YHyperLinkClass))
-#define G_IS_HTML_A11Y_HYPER_LINK(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), G_TYPE_HTML_A11Y_HYPER_LINK))
-#define G_IS_HTML_A11Y_HYPER_LINK_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), G_TYPE_HTML_A11Y_HYPER_LINK))
-#define HTML_A11Y_HYPER_LINK_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), G_TYPE_HTML_A11Y_HYPER_LINK, \
-									  HTMLA11YHyperLinkClass))
-
-typedef struct _HTMLA11YHyperLink      HTMLA11YHyperLink;
-typedef struct _HTMLA11YHyperLinkClass HTMLA11YHyperLinkClass;
-
-struct _HTMLA11YHyperLink {
-	AtkHyperlink atk_hyper_link;
-
-	/* use the union for valid type-punning */
-	union {
-		HTMLA11Y *object;
-		gpointer weakref;
-	} a11y;
-	gint num;
-	gint offset;
-	gchar *description;
-};
-
-GType html_a11y_hyper_link_get_type (void);
-
-struct _HTMLA11YHyperLinkClass {
-	AtkHyperlinkClass parent_class;
-};
+G_DECLARE_FINAL_TYPE (HTMLA11YHyperLink, html_a11y_hyper_link, HTML, A11Y_HYPER_LINK, AtkHyperlink)
 
 AtkHyperlink * html_a11y_hyper_link_new (HTMLA11Y *a11y, gint link_index);
+G_END_DECLS
 
 #endif
