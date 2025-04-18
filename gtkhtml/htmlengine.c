@@ -6984,7 +6984,8 @@ draw_focus_object (HTMLEngine *e,
 
 static void
 reset_focus_object_forall (HTMLObject *o,
-                           HTMLEngine *e)
+                           HTMLEngine *e,
+                           gpointer data G_GNUC_UNUSED)
 {
 	g_return_if_fail (HTML_IS_ENGINE (e));
 
@@ -7010,7 +7011,7 @@ reset_focus_object (HTMLEngine *e)
 	e_top = html_engine_get_top_html_engine (e);
 
 	if (e_top && e_top->clue) {
-		reset_focus_object_forall (NULL, e_top);
+		reset_focus_object_forall (NULL, e_top, NULL);
 		html_object_forall (e_top->clue, e_top, (HTMLObjectForallFunc) reset_focus_object_forall, NULL);
 	}
 }
