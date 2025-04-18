@@ -95,29 +95,28 @@ reset (HTMLEmbedded *e)
 struct EmbeddedSelectionInfo {
 	HTMLEmbedded *embedded;
 	GString *string;
+	gchar *codepage;
 };
 
 static void
 add_selected (GtkTreeModel *model,
               GtkTreePath *path,
               GtkTreeIter *iter,
-              struct EmbeddedSelectionInfo *info,
-              const gchar *codepage)
+              struct EmbeddedSelectionInfo *info)
 {
 	gchar *value, *encoded;
-
 	gtk_tree_model_get (model, iter, 0, &value, -1);
 
 	if (info->string->len)
 		g_string_append_c (info->string, '&');
 
-	encoded = html_embedded_encode_string (info->embedded->name, codepage);
+	encoded = html_embedded_encode_string (info->embedded->name, info->codepage);
 	g_string_append (info->string, encoded);
 	g_free (encoded);
 
 	g_string_append_c (info->string, '=');
 
-	encoded = html_embedded_encode_string (value, codepage);
+	encoded = html_embedded_encode_string (value, info->codepage);
 	g_string_append (info->string, encoded);
 	g_free (encoded);
 
@@ -134,22 +133,23 @@ encode (HTMLEmbedded *e,
 
 	info.embedded = e;
 	info.string = g_string_sized_new (128);
+	info.codepage = g_strdup(codepage);
 
 	if (e->name != NULL && *e->name != '\0') {
 		if (s->size > 1) {
 			gtk_tree_selection_selected_foreach (
-				gtk_tree_view_get_selection (
-				GTK_TREE_VIEW (s->view)),
-				(GtkTreeSelectionForeachFunc)
-				add_selected, &info);
+				gtk_tree_view_get_selection ( GTK_TREE_VIEW (s->view)),
+				(GtkTreeSelectionForeachFunc) add_selected,
+				&info);
 		} else {
 			GtkComboBox *combo_box;
 
 			combo_box = GTK_COMBO_BOX (e->widget);
 			if (gtk_combo_box_get_active_iter (combo_box, &iter))
-				add_selected (s->model, NULL, &iter, &info, codepage);
+				add_selected (s->model, NULL, &iter, &info);
 		}
 	}
+	g_free(info.codepage);
 
 	return g_string_free (info.string, FALSE);
 }
