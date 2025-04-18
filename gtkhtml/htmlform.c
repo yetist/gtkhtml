@@ -40,7 +40,7 @@ html_form_new (HTMLEngine *engine,
 	new->hidden = NULL;
 	html_form_set_engine (new, engine);
 
-	new->radio_group = g_hash_table_new (g_str_hash, g_str_equal);
+	new->radio_group = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
 
 	return new;
 }
@@ -98,14 +98,6 @@ destroy_hidden (gpointer o,
 }
 
 static void
-destroy_radio (gchar *key,
-               gpointer *master)
-{
-	g_free (key);
-	g_object_unref (master);
-}
-
-static void
 reset_element (gpointer o,
                gpointer data)
 {
@@ -119,7 +111,6 @@ html_form_destroy (HTMLForm *form)
 	g_list_free (form->elements);
 	g_list_free (form->hidden);
 
-	g_hash_table_foreach (form->radio_group, (GHFunc) destroy_radio, NULL);
 	g_hash_table_destroy (form->radio_group);
 
 	g_free (form->action);
