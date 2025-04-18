@@ -412,7 +412,7 @@ html_engine_save_plain (HTMLEngine *engine,
 static gboolean
 html_engine_save_buffer_receiver (const HTMLEngine *engine,
                                   const gchar *data,
-                                  guint len,
+                                  gsize len,
                                   gpointer user_data)
 {
 	g_string_append ((GString *) user_data, (gchar *) data);

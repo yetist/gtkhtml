@@ -158,7 +158,7 @@ save_dialog (GtkhtmlEditor *editor)
 static gboolean
 view_source_dialog_receiver (HTMLEngine *engine,
                              const gchar *data,
-                             guint length,
+                             gsize length,
                              GString *string)
 {
 	g_string_append_len (string, data, length);

@@ -1348,7 +1348,7 @@ gtkhtml_editor_set_spell_languages (GtkhtmlEditor *editor,
 static gboolean
 editor_save_receiver (HTMLEngine *engine,
                       const gchar *data,
-                      guint length,
+                      gsize length,
                       GString *contents)
 {
 	g_string_append_len (contents, data, length);

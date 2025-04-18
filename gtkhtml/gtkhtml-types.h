@@ -27,6 +27,7 @@
 #include <gtk/gtk.h>
 
 typedef struct _GtkHTML GtkHTML;
+typedef struct _HTMLEngine HTMLEngine;
 typedef struct _GtkHTMLClass GtkHTMLClass;
 typedef struct _GtkHTMLClassProperties GtkHTMLClassProperties;
 typedef struct _GtkHTMLEditorAPI GtkHTMLEditorAPI;
@@ -47,7 +48,7 @@ typedef void   (* GtkHTMLStreamWriteFunc) (GtkHTMLStream *stream,
 					   gpointer user_data);
 
 /* FIXME 1st param should be Engine */
-typedef gboolean (* GtkHTMLSaveReceiverFn)   (gpointer     engine,
+typedef gboolean (* GtkHTMLSaveReceiverFn)   (const HTMLEngine *engine,
 					      const gchar *data,
 					      gsize       len,
 					      gpointer     user_data);
