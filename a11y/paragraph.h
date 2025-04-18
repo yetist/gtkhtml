@@ -26,31 +26,13 @@
 
 #include "html.h"
 
+G_BEGIN_DECLS
+
 #define G_TYPE_HTML_A11Y_PARAGRAPH            (html_a11y_paragraph_get_type ())
-#define HTML_A11Y_PARAGRAPH(obj)              (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
-									   G_TYPE_HTML_A11Y_PARAGRAPH, \
-									   HTMLA11YParagraph))
-#define HTML_A11Y_PARAGRAPH_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST ((klass), \
-									G_TYPE_HTML_A11Y_PARAGRAPH, \
-									HTMLA11YParagraphClass))
-#define G_IS_HTML_A11Y_PARAGRAPH(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), G_TYPE_HTML_A11Y_PARAGRAPH))
-#define G_IS_HTML_A11Y_PARAGRAPH_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), G_TYPE_HTML_A11Y_PARAGRAPH))
-#define HTML_A11Y_PARAGRAPH_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), G_TYPE_HTML_A11Y_PARAGRAPH, \
-									  HTMLA11YParagraphClass))
-
-typedef struct _HTMLA11YParagraph      HTMLA11YParagraph;
-typedef struct _HTMLA11YParagraphClass HTMLA11YParagraphClass;
-
-struct _HTMLA11YParagraph {
-	HTMLA11Y html_a11y_object;
-};
-
-GType html_a11y_paragraph_get_type (void);
-
-struct _HTMLA11YParagraphClass {
-	HTMLA11YClass parent_class;
-};
+G_DECLARE_FINAL_TYPE (HTMLA11YParagraph, html_a11y_paragraph, HTML, A11Y_PARAGRAPH, HTMLA11Y)
 
 AtkObject * html_a11y_paragraph_new (HTMLObject *o);
+
+G_END_DECLS
 
 #endif

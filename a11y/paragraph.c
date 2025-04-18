@@ -24,40 +24,16 @@
 #include "htmlclueflow.h"
 #include "paragraph.h"
 
-static void html_a11y_paragraph_class_init (HTMLA11YParagraphClass *klass);
-static void html_a11y_paragraph_init       (HTMLA11YParagraph *a11y_paragraph);
+struct _HTMLA11YParagraph {
+	HTMLA11Y html_a11y_object;
+};
 
-static AtkObjectClass *parent_class = NULL;
-
-GType
-html_a11y_paragraph_get_type (void)
-{
-	static GType type = 0;
-
-	if (!type) {
-		static const GTypeInfo tinfo = {
-			sizeof (HTMLA11YParagraphClass),
-			NULL,                                                      /* base init */
-			NULL,                                                      /* base finalize */
-			(GClassInitFunc) html_a11y_paragraph_class_init,           /* class init */
-			NULL,                                                      /* class finalize */
-			NULL,                                                      /* class data */
-			sizeof (HTMLA11YParagraph),                                /* instance size */
-			0,                                                         /* nb preallocs */
-			(GInstanceInitFunc) html_a11y_paragraph_init,              /* instance init */
-			NULL                                                       /* value table */
-		};
-
-		type = g_type_register_static (G_TYPE_HTML_A11Y, "HTMLA11YParagraph", &tinfo, 0);
-	}
-
-	return type;
-}
+G_DEFINE_TYPE (HTMLA11YParagraph, html_a11y_paragraph, G_TYPE_HTML_A11Y);
 
 static void
 html_a11y_paragraph_finalize (GObject *obj)
 {
-	G_OBJECT_CLASS (parent_class)->finalize (obj);
+	G_OBJECT_CLASS (html_a11y_paragraph_parent_class)->finalize (obj);
 }
 
 static void
@@ -66,8 +42,8 @@ html_a11y_paragraph_initialize (AtkObject *obj,
 {
 	/* printf ("html_a11y_paragraph_initialize\n"); */
 
-	if (ATK_OBJECT_CLASS (parent_class)->initialize)
-		ATK_OBJECT_CLASS (parent_class)->initialize (obj, data);
+	if (ATK_OBJECT_CLASS (html_a11y_paragraph_parent_class)->initialize)
+		ATK_OBJECT_CLASS (html_a11y_paragraph_parent_class)->initialize (obj, data);
 }
 
 static void
@@ -76,7 +52,7 @@ html_a11y_paragraph_class_init (HTMLA11YParagraphClass *klass)
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	AtkObjectClass *atk_class = ATK_OBJECT_CLASS (klass);
 
-	parent_class = g_type_class_peek_parent (klass);
+	html_a11y_paragraph_parent_class = g_type_class_peek_parent (klass);
 
 	atk_class->initialize = html_a11y_paragraph_initialize;
 	gobject_class->finalize = html_a11y_paragraph_finalize;
