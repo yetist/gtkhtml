@@ -350,6 +350,12 @@ gtkhtml_spell_language_get_type (void)
 	return type;
 }
 
+static gint
+compare_data (gconstpointer a, gconstpointer b, gpointer user_data)
+{
+	return g_strcmp0(a, b);
+}
+
 const GList *
 gtkhtml_spell_language_get_available (void)
 {
@@ -387,7 +393,7 @@ gtkhtml_spell_language_get_available (void)
 #endif
 
 	tree = g_tree_new_full (
-		(GCompareDataFunc) strcmp, NULL,
+		compare_data, NULL,
 		(GDestroyNotify) g_free,
 		(GDestroyNotify) g_free);
 
