@@ -26,31 +26,13 @@
 
 #include "html.h"
 
+G_BEGIN_DECLS
+
 #define G_TYPE_HTML_A11Y_CELL            (html_a11y_cell_get_type ())
-#define HTML_A11Y_CELL(obj)              (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
-									   G_TYPE_HTML_A11Y_CELL, \
-									   HTMLA11YCell))
-#define HTML_A11Y_CELL_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST ((klass), \
-									G_TYPE_HTML_A11Y_CELL, \
-									HTMLA11YCellClass))
-#define G_IS_HTML_A11Y_CELL(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), G_TYPE_HTML_A11Y_CELL))
-#define G_IS_HTML_A11Y_CELL_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), G_TYPE_HTML_A11Y_CELL))
-#define HTML_A11Y_CELL_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), G_TYPE_HTML_A11Y_CELL, \
-									  HTMLA11YCellClass))
-
-typedef struct _HTMLA11YCell      HTMLA11YCell;
-typedef struct _HTMLA11YCellClass HTMLA11YCellClass;
-
-struct _HTMLA11YCell {
-	HTMLA11Y html_a11y_object;
-};
-
-GType html_a11y_cell_get_type (void);
-
-struct _HTMLA11YCellClass {
-	HTMLA11YClass parent_class;
-};
+G_DECLARE_FINAL_TYPE (HTMLA11YCell, html_a11y_cell, HTML, A11Y_CELL, HTMLA11Y)
 
 AtkObject * html_a11y_cell_new (HTMLObject *o);
+
+G_END_DECLS
 
 #endif
