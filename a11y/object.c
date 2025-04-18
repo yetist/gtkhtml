@@ -33,12 +33,21 @@
 #include "text.h"
 #include <glib/gi18n-lib.h>
 
-static void gtk_html_a11y_class_init (GtkHTMLA11YClass *klass);
-static void gtk_html_a11y_init       (GtkHTMLA11Y *a11y);
+struct _GtkHTMLA11Y
+{
+	GtkContainerAccessible parent;
+};
+
 static void gtk_html_a11y_initialize (AtkObject *obj,
                                       gpointer data);
+static void atk_action_interface_init (AtkActionIface *iface);
 
-static GtkContainerAccessibleClass *parent_class = NULL;
+G_DEFINE_TYPE_EXTENDED (GtkHTMLA11Y,
+                       gtk_html_a11y,
+                       GTK_TYPE_CONTAINER_ACCESSIBLE,
+                       0,
+                       G_IMPLEMENT_INTERFACE (ATK_TYPE_ACTION,
+                         atk_action_interface_init));
 
 static gint
 get_n_actions (AtkAction *action)
@@ -88,6 +97,7 @@ do_action (AtkAction *action,
 	switch (i) {
 	case 0:
 		gtk_widget_grab_focus (widget);
+		G_GNUC_FALLTHROUGH;
 	default:
 		return_value = FALSE;
 		break;
@@ -106,43 +116,10 @@ atk_action_interface_init (AtkActionIface *iface)
 	iface->get_name = action_get_name;
 }
 
-GType
-gtk_html_a11y_get_type (void)
-{
-	static GType type = 0;
-
-	if (!type) {
-		static GTypeInfo tinfo = {
-			sizeof (GtkHTMLA11YClass),
-			NULL,                                            /* base init */
-			NULL,                                            /* base finalize */
-			(GClassInitFunc) gtk_html_a11y_class_init,       /* class init */
-			NULL,                                            /* class finalize */
-			NULL,                                            /* class data */
-			sizeof (GtkHTMLA11Y),                            /* instance size */
-			0,                                               /* nb preallocs */
-			(GInstanceInitFunc) gtk_html_a11y_init,          /* instance init */
-			NULL                                             /* value table */
-		};
-
-		static const GInterfaceInfo atk_action_info = {
-			(GInterfaceInitFunc) atk_action_interface_init,
-			(GInterfaceFinalizeFunc) NULL,
-			NULL
-		};
-
-		type = g_type_register_static (GTK_TYPE_CONTAINER_ACCESSIBLE, "GtkHTMLA11Y", &tinfo, 0);
-
-		g_type_add_interface_static (type, ATK_TYPE_ACTION, &atk_action_info);
-	}
-
-	return type;
-}
-
 static void
 gtk_html_a11y_finalize (GObject *obj)
 {
-	G_OBJECT_CLASS (parent_class)->finalize (obj);
+	G_OBJECT_CLASS (gtk_html_a11y_parent_class)->finalize (obj);
 }
 
 static gint
@@ -240,7 +217,7 @@ gtk_html_a11y_class_init (GtkHTMLA11YClass *klass)
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	AtkObjectClass *atk_class = ATK_OBJECT_CLASS (klass);
 
-	parent_class = g_type_class_peek_parent (klass);
+	gtk_html_a11y_parent_class = g_type_class_peek_parent (klass);
 
 	atk_class->initialize = gtk_html_a11y_initialize;
 	atk_class->get_n_children = gtk_html_a11y_get_n_children;
@@ -373,8 +350,8 @@ gtk_html_a11y_initialize (AtkObject *obj,
 
 	/* printf ("gtk_html_a11y_initialize\n"); */
 
-	if (ATK_OBJECT_CLASS (parent_class)->initialize)
-		ATK_OBJECT_CLASS (parent_class)->initialize (obj, data);
+	if (ATK_OBJECT_CLASS (gtk_html_a11y_parent_class)->initialize)
+		ATK_OBJECT_CLASS (gtk_html_a11y_parent_class)->initialize (obj, data);
 
 	g_object_set_data (G_OBJECT (obj), GTK_HTML_ID, data);
 
