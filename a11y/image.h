@@ -26,31 +26,13 @@
 
 #include "html.h"
 
+G_BEGIN_DECLS
+
 #define G_TYPE_HTML_A11Y_IMAGE            (html_a11y_image_get_type ())
-#define HTML_A11Y_IMAGE(obj)              (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
-									   G_TYPE_HTML_A11Y_IMAGE, \
-									   HTMLA11YImage))
-#define HTML_A11Y_IMAGE_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST ((klass), \
-									G_TYPE_HTML_A11Y_IMAGE, \
-									HTMLA11YImageClass))
-#define G_IS_HTML_A11Y_IMAGE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), G_TYPE_HTML_A11Y_IMAGE))
-#define G_IS_HTML_A11Y_IMAGE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), G_TYPE_HTML_A11Y_IMAGE))
-#define HTML_A11Y_IMAGE_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), G_TYPE_HTML_A11Y_IMAGE, \
-									  HTMLA11YImageClass))
-
-typedef struct _HTMLA11YImage      HTMLA11YImage;
-typedef struct _HTMLA11YImageClass HTMLA11YImageClass;
-
-struct _HTMLA11YImage {
-	HTMLA11Y html_a11y_object;
-};
-
-GType html_a11y_image_get_type (void);
-
-struct _HTMLA11YImageClass {
-	HTMLA11YClass parent_class;
-};
+G_DECLARE_FINAL_TYPE (HTMLA11YImage, html_a11y_image, HTML, A11Y_IMAGE, HTMLA11Y)
 
 AtkObject * html_a11y_image_new (HTMLObject *o);
+
+G_END_DECLS
 
 #endif
