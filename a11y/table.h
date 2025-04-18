@@ -26,31 +26,13 @@
 
 #include "html.h"
 
+G_BEGIN_DECLS
+
 #define G_TYPE_HTML_A11Y_TABLE            (html_a11y_table_get_type ())
-#define HTML_A11Y_TABLE(obj)              (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
-									   G_TYPE_HTML_A11Y_TABLE, \
-									   HTMLA11YTable))
-#define HTML_A11Y_TABLE_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST ((klass), \
-									G_TYPE_HTML_A11Y_TABLE, \
-									HTMLA11YTableClass))
-#define G_IS_HTML_A11Y_TABLE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), G_TYPE_HTML_A11Y_TABLE))
-#define G_IS_HTML_A11Y_TABLE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), G_TYPE_HTML_A11Y_TABLE))
-#define HTML_A11Y_TABLE_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), G_TYPE_HTML_A11Y_TABLE, \
-									  HTMLA11YTableClass))
-
-typedef struct _HTMLA11YTable      HTMLA11YTable;
-typedef struct _HTMLA11YTableClass HTMLA11YTableClass;
-
-struct _HTMLA11YTable {
-	HTMLA11Y html_a11y_object;
-};
-
-GType html_a11y_table_get_type (void);
-
-struct _HTMLA11YTableClass {
-	HTMLA11YClass parent_class;
-};
+G_DECLARE_FINAL_TYPE (HTMLA11YTable, html_a11y_table, HTML, A11Y_TABLE, HTMLA11Y)
 
 AtkObject * html_a11y_table_new (HTMLObject *o);
+
+G_END_DECLS
 
 #endif

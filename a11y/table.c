@@ -34,8 +34,10 @@
 #include "table.h"
 #include "utils.h"
 
-static void html_a11y_table_class_init    (HTMLA11YTableClass *klass);
-static void html_a11y_table_init          (HTMLA11YTable *a11y_table);
+struct _HTMLA11YTable {
+	HTMLA11Y html_a11y_object;
+};
+
 static void atk_table_interface_init      (AtkTableIface *iface);
 
 static AtkObject * html_a11y_table_ref_at (AtkTable *table, gint row, gint column);
@@ -49,39 +51,12 @@ static gint html_a11y_table_get_row_extent_at (AtkTable *table, gint row, gint c
 static AtkObject * html_a11y_table_get_column_header (AtkTable *table, gint column);
 static AtkObject * html_a11y_table_get_row_header (AtkTable *table, gint row);
 
-static AtkObjectClass *parent_class = NULL;
-
-GType
-html_a11y_table_get_type (void)
-{
-	static GType type = 0;
-
-	if (!type) {
-		static const GTypeInfo tinfo = {
-			sizeof (HTMLA11YTableClass),
-			NULL,                                                      /* base init */
-			NULL,                                                      /* base finalize */
-			(GClassInitFunc) html_a11y_table_class_init,           /* class init */
-			NULL,                                                      /* class finalize */
-			NULL,                                                      /* class data */
-			sizeof (HTMLA11YTable),                                /* instance size */
-			0,                                                         /* nb preallocs */
-			(GInstanceInitFunc) html_a11y_table_init,              /* instance init */
-			NULL                                                       /* value table */
-		};
-
-		static const GInterfaceInfo atk_table_info = {
-			(GInterfaceInitFunc) atk_table_interface_init,
-			(GInterfaceFinalizeFunc) NULL,
-			NULL
-		};
-
-		type = g_type_register_static (G_TYPE_HTML_A11Y, "HTMLA11YTable", &tinfo, 0);
-		g_type_add_interface_static (type, ATK_TYPE_TABLE, &atk_table_info);
-	}
-
-	return type;
-}
+G_DEFINE_TYPE_EXTENDED (HTMLA11YTable,
+                       html_a11y_table,
+                       ATK_TYPE_OBJECT,
+                       0,
+                       G_IMPLEMENT_INTERFACE (ATK_TYPE_TABLE,
+                         atk_table_interface_init));
 
 static void
 atk_table_interface_init (AtkTableIface *iface)
@@ -103,7 +78,7 @@ atk_table_interface_init (AtkTableIface *iface)
 static void
 html_a11y_table_finalize (GObject *obj)
 {
-	G_OBJECT_CLASS (parent_class)->finalize (obj);
+	G_OBJECT_CLASS (html_a11y_table_parent_class)->finalize (obj);
 }
 
 static void
@@ -112,8 +87,8 @@ html_a11y_table_initialize (AtkObject *obj,
 {
 	/* printf ("html_a11y_table_initialize\n"); */
 
-	if (ATK_OBJECT_CLASS (parent_class)->initialize)
-		ATK_OBJECT_CLASS (parent_class)->initialize (obj, data);
+	if (ATK_OBJECT_CLASS (html_a11y_table_parent_class)->initialize)
+		ATK_OBJECT_CLASS (html_a11y_table_parent_class)->initialize (obj, data);
 }
 
 static void
@@ -122,7 +97,7 @@ html_a11y_table_class_init (HTMLA11YTableClass *klass)
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	AtkObjectClass *atk_class = ATK_OBJECT_CLASS (klass);
 
-	parent_class = g_type_class_peek_parent (klass);
+	html_a11y_table_parent_class = g_type_class_peek_parent (klass);
 
 	atk_class->initialize = html_a11y_table_initialize;
 	gobject_class->finalize = html_a11y_table_finalize;
