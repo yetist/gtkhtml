@@ -44,10 +44,9 @@
 #include "text.h"
 #include "hyperlink.h"
 
-static void html_a11y_text_class_init    (HTMLA11YTextClass *klass);
-static void html_a11y_text_init          (HTMLA11YText *a11y_text);
 static void atk_component_interface_init (AtkComponentIface *iface);
 static void atk_text_interface_init      (AtkTextIface *iface);
+static void atk_action_interface_init (AtkActionIface *iface);
 
 static void html_a11y_text_get_extents   (AtkComponent *component,
 					  gint *x, gint *y, gint *width, gint *height, AtkCoordType coord_type);
@@ -110,7 +109,22 @@ static AtkAttributeSet * html_a11y_text_get_run_attributes	(AtkText *text,
 								 gint *start_offset,
 								 gint *end_offset);
 
-static AtkObjectClass *parent_class = NULL;
+
+G_DEFINE_TYPE_EXTENDED (HTMLA11YText,
+                       html_a11y_text,
+                       G_TYPE_HTML_A11Y,
+                       0,
+                       G_IMPLEMENT_INTERFACE (ATK_TYPE_COMPONENT,
+                         atk_component_interface_init)
+                       G_IMPLEMENT_INTERFACE (ATK_TYPE_TEXT,
+                         atk_text_interface_init)
+                       G_IMPLEMENT_INTERFACE (ATK_TYPE_EDITABLE_TEXT,
+                         atk_editable_text_interface_init)
+                       G_IMPLEMENT_INTERFACE (ATK_TYPE_ACTION,
+                         atk_action_interface_init)
+                       G_IMPLEMENT_INTERFACE (ATK_TYPE_HYPERTEXT,
+                         atk_hyper_text_interface_init));
+
 
 static gint
 get_n_actions (AtkAction *action)
@@ -148,67 +162,6 @@ atk_action_interface_init (AtkActionIface *iface)
 	iface->do_action = do_action;
 	iface->get_n_actions = get_n_actions;
 	iface->get_name = action_get_name;
-}
-
-GType
-html_a11y_text_get_type (void)
-{
-	static GType type = 0;
-
-	if (!type) {
-		static const GTypeInfo tinfo = {
-			sizeof (HTMLA11YTextClass),
-			NULL,                                                      /* base init */
-			NULL,                                                      /* base finalize */
-			(GClassInitFunc) html_a11y_text_class_init,                /* class init */
-			NULL,                                                      /* class finalize */
-			NULL,                                                      /* class data */
-			sizeof (HTMLA11YText),                                     /* instance size */
-			0,                                                         /* nb preallocs */
-			(GInstanceInitFunc) html_a11y_text_init,                   /* instance init */
-			NULL                                                       /* value table */
-		};
-
-		static const GInterfaceInfo atk_component_info = {
-			(GInterfaceInitFunc) atk_component_interface_init,
-			(GInterfaceFinalizeFunc) NULL,
-			NULL
-		};
-
-		static const GInterfaceInfo atk_text_info = {
-			(GInterfaceInitFunc) atk_text_interface_init,
-			(GInterfaceFinalizeFunc) NULL,
-			NULL
-		};
-
-		static const GInterfaceInfo atk_editable_text_info =
-		{
-			(GInterfaceInitFunc) atk_editable_text_interface_init,
-			(GInterfaceFinalizeFunc) NULL,
-			NULL
-		};
-
-		static const GInterfaceInfo atk_action_info = {
-			(GInterfaceInitFunc) atk_action_interface_init,
-			(GInterfaceFinalizeFunc) NULL,
-			NULL
-		};
-
-		static const GInterfaceInfo atk_hyper_text_info = {
-			(GInterfaceInitFunc) atk_hyper_text_interface_init,
-			(GInterfaceFinalizeFunc) NULL,
-			NULL
-		};
-
-		type = g_type_register_static (G_TYPE_HTML_A11Y, "HTMLA11YText", &tinfo, 0);
-		g_type_add_interface_static (type, ATK_TYPE_COMPONENT, &atk_component_info);
-		g_type_add_interface_static (type, ATK_TYPE_TEXT, &atk_text_info);
-		g_type_add_interface_static (type, ATK_TYPE_EDITABLE_TEXT, &atk_editable_text_info);
-		g_type_add_interface_static (type, ATK_TYPE_ACTION, &atk_action_info);
-		g_type_add_interface_static (type, ATK_TYPE_HYPERTEXT, &atk_hyper_text_info);
-	}
-
-	return type;
 }
 
 static void
@@ -254,7 +207,7 @@ html_a11y_text_finalize (GObject *obj)
 		ato->util = NULL;
 	}
 
-	G_OBJECT_CLASS (parent_class)->finalize (obj);
+	G_OBJECT_CLASS (html_a11y_text_parent_class)->finalize (obj);
 }
 
 static void
@@ -267,8 +220,8 @@ html_a11y_text_initialize (AtkObject *obj,
 
 	/* printf ("html_a11y_text_initialize\n"); */
 
-	if (ATK_OBJECT_CLASS (parent_class)->initialize)
-		ATK_OBJECT_CLASS (parent_class)->initialize (obj, data);
+	if (ATK_OBJECT_CLASS (html_a11y_text_parent_class)->initialize)
+		ATK_OBJECT_CLASS (html_a11y_text_parent_class)->initialize (obj, data);
 
 	to = HTML_TEXT (data);
 	ato = HTML_A11Y_TEXT (obj);
@@ -286,7 +239,7 @@ html_a11y_text_class_init (HTMLA11YTextClass *klass)
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	AtkObjectClass *atk_class = ATK_OBJECT_CLASS (klass);
 
-	parent_class = g_type_class_peek_parent (klass);
+	html_a11y_text_parent_class = g_type_class_peek_parent (klass);
 
 	atk_class->initialize = html_a11y_text_initialize;
 	atk_class->ref_state_set = html_a11y_text_ref_state_set;
@@ -327,7 +280,7 @@ html_a11y_text_ref_state_set (AtkObject *accessible)
 	GtkHTML * html;
 	GtkHTMLA11Y *html_a11y;
 
-	state_set = ATK_OBJECT_CLASS (parent_class)->ref_state_set (accessible);
+	state_set = ATK_OBJECT_CLASS (html_a11y_text_parent_class)->ref_state_set (accessible);
 	html_a11y = html_a11y_get_gtkhtml_parent (HTML_A11Y (accessible));
 	if (!html_a11y)
 		return state_set;

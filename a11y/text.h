@@ -27,20 +27,12 @@
 #include <libgail-util/gail-util.h>
 #include "html.h"
 
-#define G_TYPE_HTML_A11Y_TEXT            (html_a11y_text_get_type ())
-#define HTML_A11Y_TEXT(obj)              (G_TYPE_CHECK_INSTANCE_CAST ((obj), \
-									   G_TYPE_HTML_A11Y_TEXT, \
-									   HTMLA11YText))
-#define HTML_A11Y_TEXT_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST ((klass), \
-									G_TYPE_HTML_A11Y_TEXT, \
-									HTMLA11YTextClass))
-#define G_IS_HTML_A11Y_TEXT(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), G_TYPE_HTML_A11Y_TEXT))
-#define G_IS_HTML_A11Y_TEXT_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), G_TYPE_HTML_A11Y_TEXT))
-#define HTML_A11Y_TEXT_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), G_TYPE_HTML_A11Y_TEXT, \
-									  HTMLA11YTextClass))
+G_BEGIN_DECLS
 
-typedef struct _HTMLA11YText      HTMLA11YText;
-typedef struct _HTMLA11YTextClass HTMLA11YTextClass;
+#define G_TYPE_HTML_A11Y_TEXT            (html_a11y_text_get_type ())
+#define G_IS_HTML_A11Y_TEXT(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), G_TYPE_HTML_A11Y_TEXT))
+
+G_DECLARE_FINAL_TYPE (HTMLA11YText, html_a11y_text, HTML, A11Y_TEXT, HTMLA11Y)
 
 struct _HTMLA11YText {
 	HTMLA11Y html_a11y_object;
@@ -48,12 +40,8 @@ struct _HTMLA11YText {
 	GailTextUtil *util;
 };
 
-GType html_a11y_text_get_type (void);
-
-struct _HTMLA11YTextClass {
-	HTMLA11YClass parent_class;
-};
-
 AtkObject * html_a11y_text_new (HTMLObject *o);
+
+G_END_DECLS
 
 #endif
