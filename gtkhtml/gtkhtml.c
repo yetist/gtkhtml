@@ -4515,10 +4515,7 @@ gtk_html_toggle_font_style (GtkHTML *html,
 GtkHTMLParagraphAlignment
 gtk_html_get_paragraph_alignment (GtkHTML *html)
 {
-	/* This makes the function return a HTMLHalignType. Should the below
-	 * call really be html_alignment_to_paragraph()? */
-
-	return paragraph_alignment_to_html (html_engine_get_current_clueflow_alignment (html->engine));
+	return html_alignment_to_paragraph (html_engine_get_current_clueflow_alignment (html->engine));
 }
 
 void
