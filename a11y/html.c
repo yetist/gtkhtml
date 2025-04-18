@@ -33,9 +33,6 @@
 #include "object.h"
 #include "utils.h"
 
-static void html_a11y_class_init (HTMLA11YClass *klass);
-static void html_a11y_init       (HTMLA11Y *a11y_paragraph);
-
 static void atk_component_interface_init (AtkComponentIface *iface);
 static AtkObject *  html_a11y_get_parent (AtkObject *accessible);
 static gint html_a11y_get_index_in_parent (AtkObject *accessible);
@@ -43,39 +40,12 @@ static AtkStateSet * html_a11y_ref_state_set (AtkObject *accessible);
 static gint html_a11y_get_n_children (AtkObject *accessible);
 static AtkObject * html_a11y_ref_child (AtkObject *accessible, gint index);
 
-static AtkObjectClass *parent_class = NULL;
-
-GType
-html_a11y_get_type (void)
-{
-	static GType type = 0;
-
-	if (!type) {
-		static const GTypeInfo tinfo = {
-			sizeof (HTMLA11YClass),
-			NULL,                                                      /* base init */
-			NULL,                                                      /* base finalize */
-			(GClassInitFunc) html_a11y_class_init,                     /* class init */
-			NULL,                                                      /* class finalize */
-			NULL,                                                      /* class data */
-			sizeof (HTMLA11Y),                                         /* instance size */
-			0,                                                         /* nb preallocs */
-			(GInstanceInitFunc) html_a11y_init,                        /* instance init */
-			NULL                                                       /* value table */
-		};
-
-		static const GInterfaceInfo atk_component_info = {
-			(GInterfaceInitFunc) atk_component_interface_init,
-			(GInterfaceFinalizeFunc) NULL,
-			NULL
-		};
-
-		type = g_type_register_static (ATK_TYPE_OBJECT, "HTMLA11Y", &tinfo, 0);
-		g_type_add_interface_static (type, ATK_TYPE_COMPONENT, &atk_component_info);
-	}
-
-	return type;
-}
+G_DEFINE_TYPE_EXTENDED (HTMLA11Y,
+			html_a11y,
+			ATK_TYPE_OBJECT,
+			0,
+			G_IMPLEMENT_INTERFACE (ATK_TYPE_COMPONENT,
+			  atk_component_interface_init));
 
 static void
 atk_component_interface_init (AtkComponentIface *iface)
@@ -100,7 +70,7 @@ atk_component_interface_init (AtkComponentIface *iface)
 static void
 html_a11y_finalize (GObject *obj)
 {
-	G_OBJECT_CLASS (parent_class)->finalize (obj);
+	G_OBJECT_CLASS (html_a11y_parent_class)->finalize (obj);
 }
 
 static void
@@ -111,8 +81,8 @@ html_a11y_initialize (AtkObject *obj,
 
 	g_object_set_data (G_OBJECT (obj), HTML_ID, data);
 
-	if (ATK_OBJECT_CLASS (parent_class)->initialize)
-		ATK_OBJECT_CLASS (parent_class)->initialize (obj, data);
+	if (ATK_OBJECT_CLASS (html_a11y_parent_class)->initialize)
+		ATK_OBJECT_CLASS (html_a11y_parent_class)->initialize (obj, data);
 }
 
 static void
@@ -121,7 +91,7 @@ html_a11y_class_init (HTMLA11YClass *klass)
 	GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
 	AtkObjectClass *atk_class = ATK_OBJECT_CLASS (klass);
 
-	parent_class = g_type_class_peek_parent (klass);
+	html_a11y_parent_class = g_type_class_peek_parent (klass);
 
 	atk_class->initialize = html_a11y_initialize;
 	atk_class->get_parent = html_a11y_get_parent;
@@ -195,8 +165,8 @@ html_a11y_ref_state_set (AtkObject *accessible)
 {
 	AtkStateSet *state_set = NULL;
 
-	if (ATK_OBJECT_CLASS (parent_class)->ref_state_set)
-		state_set = ATK_OBJECT_CLASS (parent_class)->ref_state_set (accessible);
+	if (ATK_OBJECT_CLASS (html_a11y_parent_class)->ref_state_set)
+		state_set = ATK_OBJECT_CLASS (html_a11y_parent_class)->ref_state_set (accessible);
 	if (!state_set)
 		state_set = atk_state_set_new ();
 
