@@ -64,10 +64,11 @@ static gpointer parent_class;
 static guint signals[LAST_SIGNAL];
 
 static void
-spell_dialog_render_checker (GtkComboBox *combo_box,
+spell_dialog_render_checker (GtkCellLayout *cell_layout,
                              GtkCellRenderer *renderer,
                              GtkTreeModel *model,
-                             GtkTreeIter *iter)
+                             GtkTreeIter *iter,
+                             gpointer data)
 {
 	const GtkhtmlSpellLanguage *language;
 	GtkhtmlSpellChecker *checker;
@@ -598,7 +599,7 @@ spell_dialog_init (GtkhtmlSpellDialog *dialog)
 		GTK_CELL_LAYOUT (widget), renderer, TRUE);
 	gtk_cell_layout_set_cell_data_func (
 		GTK_CELL_LAYOUT (widget), renderer,
-		(GtkCellLayoutDataFunc) spell_dialog_render_checker,
+		spell_dialog_render_checker,
 		NULL, NULL);
 	g_signal_connect_swapped (
 		widget, "changed",
