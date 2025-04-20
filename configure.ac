@@ -140,7 +140,7 @@ AC_SUBST(GAIL_MODULES)
 dnl **********************************
 dnl GTKHTML modules
 dnl **********************************
-GTKHTML_MODULES="gtk+-3.0 >= gtk_minimum_version enchant-2 >= enchant_minimum_version gsettings-desktop-schemas iso-codes cairo >= cairo_minimum_version"
+GTKHTML_MODULES="gtk+-3.0 >= gtk_minimum_version enchant-2 >= enchant_minimum_version iso-codes cairo >= cairo_minimum_version"
 PKG_CHECK_MODULES(GTKHTML, $GTKHTML_MODULES)
 AC_SUBST(GTKHTML_CFLAGS)
 AC_SUBST(GTKHTML_LIBS)

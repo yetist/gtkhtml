@@ -33,11 +33,10 @@ Requirements
 ------------
 
 In order to compile GtkHTML, you need:
-       gail >= 1.1
-       GTK+ >= 2.16
+       gail >= 3.2
+       GTK+ >= 3.2
        enchant >= 2.2.0
        iso-codes >= 0.49
-       gnome-icon-theme >= 2.22
 
 If you want to try the test program `testgtkhtml', you also need
 libsoup-2.4 or later.
