@@ -2,8 +2,8 @@ dnl Initialization
 AC_PREREQ(2.62)
 
 m4_define([gtk_html_major_version], [4])
-m4_define([gtk_html_minor_version], [11])
-m4_define([gtk_html_micro_version], [1])
+m4_define([gtk_html_minor_version], [12])
+m4_define([gtk_html_micro_version], [0])
 m4_define([gtk_html_interface_age], [0])
 m4_define([gtk_html_binary_age], [m4_eval(100 * gtk_html_minor_version + gtk_html_micro_version)])
 m4_define([gtk_html_version], [gtk_html_major_version.gtk_html_minor_version.gtk_html_micro_version])
