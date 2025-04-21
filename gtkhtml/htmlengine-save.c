@@ -3,6 +3,7 @@
  *
  *  Copyright (C) 1998 World Wide Web Consortium
  *  Copyright (C) 2000 Helix Code, Inc.
+ *  Copyright 2025 Xiaotian Wu <yetist@gmail.com>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public

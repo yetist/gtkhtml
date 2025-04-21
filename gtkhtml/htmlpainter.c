@@ -5,6 +5,7 @@
  * Copyright (C) 1997 Torben Weis (weis@kde.org)
  * Copyright (C) 1999, 2000 Helix Code, Inc.
  * Copyright (C) 2000, 2001, 2002, 2003 Ximian, Inc.
+ * Copyright 2025 Xiaotian Wu <yetist@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public

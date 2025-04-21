@@ -2,6 +2,7 @@
 /* gtkhtml-editor.h
  *
  * Copyright (C) 2008 Novell, Inc.
+ * Copyright (C) 2025 yetist <yetist@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of version 2 of the GNU Lesser General Public

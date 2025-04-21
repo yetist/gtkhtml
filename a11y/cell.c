@@ -1,6 +1,7 @@
 /*  This file is part of the GtkHTML library.
  *
  *  Copyright 2002 Ximian, Inc.
+ *  Copyright 2025 Xiaotian Wu <yetist@gmail.com>
  *
  *  Author: Radek Doulik
  *

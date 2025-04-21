@@ -2,6 +2,7 @@
 /* This file is part of the GtkHTML library
  *
  * Copyright (C) 2000 Helix Code, Inc.
+ * Copyright 2025 Xiaotian Wu <yetist@gmail.com>
  * Author:            Radek Doulik <rodo@helixcode.com>
  *
  * This library is free software; you can redistribute it and/or

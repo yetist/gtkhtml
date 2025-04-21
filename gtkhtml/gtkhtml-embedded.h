@@ -1,5 +1,6 @@
 /*
  *  Copyright (C) 2000 Helix Code Inc.
+ *  Copyright 2025 Xiaotian Wu <yetist@gmail.com>
  *
  *  Authors: Michael Zucchi <notzed@helixcode.com>
  *
