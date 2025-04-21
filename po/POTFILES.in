@@ -9,7 +9,6 @@ components/editor/gtkhtml-color-swatch.c
 components/editor/gtkhtml-combo-box.c
 components/editor/gtkhtml-face-chooser.c
 components/editor/gtkhtml-editor-actions.c
-components/editor/gtkhtml-editor-private.c
 components/editor/gtkhtml-editor.c
 [type: gettext/glade]components/editor/gtkhtml-editor-builder.ui
 components/editor/gtkhtml-face-chooser.c
