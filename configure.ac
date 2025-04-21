@@ -294,11 +294,14 @@ docs/Makefile
 docs/reference/Makefile
 docs/reference/version.xml
 ])
-AC_OUTPUT
 
-echo "
+AC_OUTPUT
+AC_MSG_RESULT([
 Configuration:
 
-	Cookies support in soup :		${HAVE_NEWSOUP}
-	Editor component type   :		${GNOME_GTKHTML_EDITOR_TYPE}
-"
+  Version                 : ${VERSION}
+  Install prefix          : ${prefix}
+  Cookies support in soup : ${HAVE_NEWSOUP}
+  Editor component type   : ${GNOME_GTKHTML_EDITOR_TYPE}
+  Build document          : ${enable_gtk_doc}
+])
