@@ -4,101 +4,75 @@
 DOC_MODULE=gtkhtml
 
 # The top-level SGML file.
-DOC_MAIN_SGML_FILE=gtkhtml.sgml
+DOC_MAIN_SGML_FILE=$(DOC_MODULE)-docs.xml
 
 # The directory containing the source code (if it contains documentation).
-DOC_SOURCE_DIR=$(top_srcdir)/src
 
-CFLAGS += $(EXTRA_GNOME_CFLAGS)
-LDFLAGS += $(EXTRA_GNOME_LIBS)
+DOC_SOURCE_DIR=$(top_srcdir)/gtkhtml
 
-HTML_DIR=$(datadir)/gnome/html
+# Extra options to pass to gtkdoc-scangobj. Not normally needed.
+SCANGOBJ_OPTIONS=
 
-TARGET_DIR=$(HTML_DIR)/$(DOC_MODULE)
+# Extra options to supply to gtkdoc-scan.
+# e.g. SCAN_OPTIONS=--deprecated-guards="GTK_DISABLE_DEPRECATED" 
+SCAN_OPTIONS=--deprecated-guards="GLIB_DEPRECATED"
 
-tmpl_sources =				\
-	tmpl/gtkhtml.sgml		\
-	tmpl/gtkhtml-types.sgml		\
-	tmpl/gtkhtml-enums.sgml		\
-	tmpl/gtkhtml-embedded.sgml	\
-	tmpl/gtkhtml-stream.sgml
+# Extra options to supply to gtkdoc-mkdb.
+MKDB_OPTIONS=--xml-mode --output-format=xml
 
+# Extra options to supply to gtkdoc-mktmpl
+# e.g. MKTMPL_OPTIONS=--only-section-tmpl
+MKTMPL_OPTIONS=
 
-gtkhtml_docdir = $(HTML_DIR)
-gtkhtml_doc_DATA =			\
-	$(DOC_MAIN_SGML_FILE)		\
-	gtkhtml.hierarchy		\
-	gtkhtml.types			\
-	gtkhtml-decl.txt		\
-	gtkhtml-sections.txt
+# Extra options to supply to gtkdoc-fixref. Not normally needed.
+# e.g. FIXXREF_OPTIONS=--extra-dir=../gdk-pixbuf/html --extra-dir=../gdk/html
+FIXXREF_OPTIONS=
 
-content_files =				\
-	gtkhtml.sgml
+# Used for dependencies. The docs will be rebuilt if any of these change.
+HFILE_GLOB=$(top_srcdir)/gtkhtml/*.h
+CFILE_GLOB=$(top_srcdir)/gtkhtml/*.c
 
-EXTRA_DIST = 				\
-	$(gtkhtml_doc_DATA)		\
-	$(content_files)
+# Extra header to include when scanning, which are not under DOC_SOURCE_DIR
+# # e.g. EXTRA_HFILES=$(top_srcdir}/contrib/extra.h
+EXTRA_HFILES=
+
+IGNORE_HFILES=
+
+# Images to copy into HTML directory.
+HTML_IMAGES=
+
+# Extra files that are included by $(DOC_MAIN_SGML_FILE).
+# e.g. content_files=running.xml building.xml changes-2.0.xml
+content_files=
+
+# Files where gtk-doc abbrevations (#GtkWidget) are expanded
+# e.g. expand_content_files=running.xml
+expand_content_files=
+
+# CFLAGS and LDFLAGS for compiling gtkdoc-scangobj with your library.
+# Only needed if you are using gtkdoc-scangobj to dynamically query widget
+# signals and properties.
+#
+GTKDOC_CFLAGS = \
+		$(GTKHTML_CFLAGS)	\
+		-I$(top_srcdir)/gtkhtml                        \
+		-I$(top_builddir)/gtkhtml
+
+GTKDOC_LIBS = \
+        $(top_builddir)/gtkhtml/libgtkhtml-4.0.la \
+	$(GAIL_LIBS)				\
+	$(REGEX_LIBS)				\
+	$(LIBM)	\
+	$(GTKHTML_LIBS)
+
+# This includes the standard gtk-doc make rules, copied by gtkdocize.
+include $(top_srcdir)/gtk-doc.make
 
 if ENABLE_GTK_DOC
-all:	html/index.html
-else
-all:
+TESTS_ENVIRONMENT = \
+  DOC_MODULE=$(DOC_MODULE) DOC_MAIN_SGML_FILE=$(DOC_MAIN_SGML_FILE) \
+  SRCDIR=$(abs_srcdir) BUILDDIR=$(abs_builddir)
+TESTS = $(GTKDOC_CHECK)
 endif
-
-html/index.html: sgml/gtkhtml-doc.bottom $(content_files)
-	$(MAKE) html
-
-sgml/gtkhtml-doc.bottom: $(tmpl_sources)
-	$(MAKE) sgml
-
-scan:
-	-(cd $(srcdir) \
-	&& env CFLAGS="$(CFLAGS) -I$(top_srcdir)/src" LDFLAGS="$(LDFLAGS) -L$(top_srcdir) -lgtkhtml" \
-		 gtkdoc-scanobj --module=$(DOC_MODULE) \
-	&& gtkdoc-scan --module=$(DOC_MODULE) --source-dir=$(DOC_SOURCE_DIR) --ignore-headers="")
-
-templates: scan
-	cd $(srcdir) && gtkdoc-mktmpl --module=$(DOC_MODULE)
-
-sgml:
-	cd $(srcdir) \
-	&& gtkdoc-mkdb --module=$(DOC_MODULE) --source-dir=$(DOC_SOURCE_DIR)
-
-html:
-	test -d $(srcdir)/html || mkdir $(srcdir)/html
-	-cd $(srcdir)/html && gtkdoc-mkhtml $(DOC_MODULE) ../$(DOC_MAIN_SGML_FILE)
-
-clean-local:
-	rm -f *~ *.bak *.signals *-unused.txt
-
-maintainer-clean-local: clean
-	cd $(srcdir) && rm -rf sgml html $(DOC_MODULE)-decl-list.txt $(DOC_MODULE)-decl.txt
-
-install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(TARGET_DIR)
-	(installfiles=`echo $(srcdir)/html/*.html`; \
-	if test "$$installfiles" = '$(srcdir)/html/*.html'; \
-	then echo '-- Nothing to install' ; \
-	else \
-	  for i in $$installfiles; do \
-	    echo '-- Installing '$$i ; \
-	    $(INSTALL_DATA) $$i $(DESTDIR)$(TARGET_DIR); \
-	  done; \
-	  echo '-- Installing $(srcdir)/html/index.sgml' ; \
-	  $(INSTALL_DATA) $(srcdir)/html/index.sgml $(DESTDIR)$(TARGET_DIR); \
-	  echo '-- Fixing Crossreferences' ; \
-	  gtkdoc-fixxref --module=$(DOC_MODULE) --html-dir=$(HTML_DIR)|| true; \
-	fi)
-
-dist-hook:
-	mkdir $(distdir)/html
-	mkdir $(distdir)/sgml
-	mkdir $(distdir)/tmpl
-	-cp $(srcdir)/html/*.html $(srcdir)/html/*.css $(distdir)/html
-	-cp $(srcdir)/tmpl/*.sgml $(distdir)/tmpl
-	-cp $(srcdir)/sgml/*.sgml $(distdir)/sgml
-	-cp $(srcdir)/sgml/*.bottom $(srcdir)/sgml/*.top $(distdir)/sgml
-
-.PHONY : html sgml templates scan
 
 -include $(top_srcdir)/git.mk

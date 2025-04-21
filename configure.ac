@@ -38,6 +38,8 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 AM_MAINTAINER_MODE([enable])
 
+GTK_DOC_CHECK([1.0],[--flavour=no-tmpl])
+
 dnl ************
 dnl I18N stuff
 dnl ************
@@ -288,6 +290,9 @@ components/editor/gtkhtml-editor.pc
 gtkhtml/Makefile
 gtkhtml/libgtkhtml.pc
 po/Makefile.in
+docs/Makefile
+docs/reference/Makefile
+docs/reference/version.xml
 ])
 AC_OUTPUT
 

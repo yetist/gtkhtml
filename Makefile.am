@@ -8,7 +8,8 @@ SUBDIRS =					\
 	components				\
 	art					\
 	icons					\
-	po
+	po					\
+	docs
 
 CLEANFILES =					\
 	po/.intltool-merge-cache
