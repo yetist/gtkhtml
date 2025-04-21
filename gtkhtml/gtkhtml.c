@@ -69,6 +69,18 @@
 #include "gtkhtml-properties.h"
 #include "math.h"
 
+/**
+ * SECTION: gtkhtml
+ * @Short_description: widget for rendering HTML
+ * @include: gtkhtml/gtkhtml.h
+ * @Title: GtkHTML widget
+ *
+ * GtkHTML widget is lightweight HTML viewer / container. It provides an easy way for
+ * viewing HTML documents in your application and for layout UI of your
+ * application through HTML.
+ */
+
+
 enum DndTargetType {
 	DND_TARGET_TYPE_TEXT_URI_LIST,
 	DND_TARGET_TYPE_MOZILLA_URL,

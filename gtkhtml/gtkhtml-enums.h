@@ -21,6 +21,14 @@
  *
 */
 
+/**
+ * SECTION: gtkhtml-enums
+ * @Short_description: List of enums
+ * @Title: Enums
+ *
+ * List of GtkHTML enums.
+ */
+
 #ifndef _GTK_HTML_ENUMS_H
 #define _GTK_HTML_ENUMS_H
 

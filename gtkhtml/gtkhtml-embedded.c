@@ -26,6 +26,17 @@
 #include "gtkhtml-embedded.h"
 #include "htmlengine.h"
 
+/**
+ * SECTION: gtkhtml-embedded
+ * @Short_description: Container for widgets embedded in the document.
+ * @include: gtkhtml/gtkhtml-embedded.h
+ * @Title: GtkHTMLEmbedded widget
+ * @stability: Stable
+ *
+ * The GtkHTML Embedded widget is simple container designed to hold
+ * widgets embedded by using &lt;object&gt; elements.
+ */
+
 static void gtk_html_embedded_get_preferred_width (GtkWidget *widget, gint *minimum_width, gint *natural_width);
 static void gtk_html_embedded_get_preferred_height (GtkWidget *widget, gint *minimum_height, gint *natural_height);
 static void gtk_html_embedded_size_allocate (GtkWidget *widget, GtkAllocation *allocation);

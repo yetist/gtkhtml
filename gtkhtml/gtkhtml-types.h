@@ -26,6 +26,15 @@
 #include "gtkhtml-enums.h"
 #include <gtk/gtk.h>
 
+/**
+ * SECTION: gtkhtml-types
+ * @Short_description: List of types
+ * @Title: Types
+ *
+ * List of GtkHtml types.
+ */
+
+
 typedef struct _GtkHTML GtkHTML;
 typedef struct _HTMLEngine HTMLEngine;
 typedef struct _GtkHTMLClass GtkHTMLClass;

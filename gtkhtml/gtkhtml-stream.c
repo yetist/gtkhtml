@@ -29,7 +29,14 @@
 #include "gtkhtml-compat.h"
 #include "gtkhtml-stream.h"
 
-
+/**
+ * SECTION: gtkhtml-stream
+ * @Short_description: data stream for loading HTML contents into GtkHTML widget.
+ * @Title: GtkHTML stream
+ *
+ * GtkHTML stream
+ */
+
 GtkHTMLStream *
 gtk_html_stream_new (GtkHTML *html,
                      GtkHTMLStreamTypesFunc types_func,
