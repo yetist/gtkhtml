@@ -56,8 +56,6 @@ GtkHTMLStreamStatus
 gtk_html_stream_new
 gtk_html_stream_write
 gtk_html_stream_destroy
-gtk_html_stream_ref
-gtk_html_stream_unref
 </SECTION>
 
 <SECTION>
