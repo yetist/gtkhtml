@@ -1,7 +1,7 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*  This file is part of the GtkHTML library.
  *
- *  Copyright (C) 2000 Jonas Borgström <jonas_b@bitsmart.com>.
+ *  Copyright (C) 2000 Jonas BorgstrÃ¶m <jonas_b@bitsmart.com>.
  *  Copyright (C) 2000, 2001, 2002 Ximian, Inc.
  *
  *  This library is free software; you can redistribute it and/or
