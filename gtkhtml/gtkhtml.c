@@ -3638,7 +3638,6 @@ gtk_html_init (GtkHTML *html)
 
 /**
  * gtk_html_new:
- * @void:
  *
  * GtkHTML widget contructor. It creates an empty GtkHTML widget.
  *
@@ -3657,6 +3656,7 @@ gtk_html_new (void)
 
 /**
  * gtk_html_new_from_string:
+ *
  * @str: A string containing HTML source.
  * @len: A length of @str, if @len == -1 then it will be computed using strlen.
  *
@@ -3948,6 +3948,7 @@ gtk_html_save (GtkHTML *html,
 
 /**
  * gtk_html_export:
+ *
  * @html: the GtkHTML widget
  * @content_type: the expected content_type
  * @receiver:
