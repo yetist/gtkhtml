@@ -2103,16 +2103,12 @@ gtkhtml_editor_actions_init (GtkhtmlEditor *editor)
 	GtkAction *action;
 	GtkActionGroup *action_group;
 	GtkUIManager *manager;
-	GtkIconTheme *icon_theme;
 	const gchar *domain;
 
 	g_return_if_fail (GTKHTML_IS_EDITOR (editor));
 
 	manager = gtkhtml_editor_get_ui_manager (editor);
 	domain = GETTEXT_PACKAGE;
-
-	icon_theme = gtk_icon_theme_get_default ();
-	gtk_icon_theme_append_search_path (icon_theme, ICONDIR);
 
 	/* Core Actions */
 	action_group = editor->priv->core_actions;
