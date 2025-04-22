@@ -69,7 +69,7 @@ libgtkhtml_editor_4_0_la_LIBADD = \
 	@GTKHTML_LIBS@				\
 	$(top_builddir)/gtkhtml/libgtkhtml-@GTKHTML_API_VERSION@.la
 
-libgtkhtml_editor_4_0_la_LDFLAGS = -no-undefined
+libgtkhtml_editor_4_0_la_LDFLAGS = -version-info $(LT_VERSION_INFO) -no-undefined
 
 gtkhtml_editor_test_SOURCES = main.c
 

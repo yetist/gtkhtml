@@ -1,0 +1,113 @@
+/*
+ * Copyright (C) 2025 Xiaotian Wu <yetist@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * */
+
+#pragma once
+
+#include <glib.h>
+
+G_BEGIN_DECLS
+
+/**
+ * GTK_HTML_MAJOR_VERSION:
+ *
+ * The major version number of the GtkHTML library
+ * (e.g. in version 4.10.0 this is 2).
+ *
+ * Since: 4.12.0
+ */
+#define GTK_HTML_MAJOR_VERSION	@GTK_HTML_MAJOR_VERSION@
+
+/**
+ * GTK_HTML_MINOR_VERSION:
+ *
+ * The minor version number of the GtkHTML library
+ * (e.g. in version 4.10.0 this is 4).
+ *
+ * Since: 4.12.0
+ */
+#define GTK_HTML_MINOR_VERSION	@GTK_HTML_MINOR_VERSION@
+
+/**
+ * GTK_HTML_MICRO_VERSION:
+ *
+ * The macro version number of the GtkHTML library
+ * (e.g. in version 4.10.0 this is 10).
+ *
+ * Since: 4.12.0
+ */
+#define GTK_HTML_MICRO_VERSION	@GTK_HTML_MICRO_VERSION@
+
+/**
+ * gtk_html_major_version:
+ *
+ * The major version number of the GtkHTML library
+ * (e.g. in version 4.10.0 this is 4). Used for runtime.
+ *
+ * Since: 4.12.0
+ */
+extern const guint gtk_html_major_version;
+
+/**
+ * gtk_html_minor_version:
+ *
+ * The minor version number of the GtkHTML library
+ * (e.g. in version 4.10.0 this is 10). Used for runtime.
+ *
+ * Since: 4.12.0
+ */
+extern const guint gtk_html_minor_version;
+
+/**
+ * gtk_html_micro_version:
+ *
+ * The micro version number of the GtkHTML library
+ * (e.g. in version 4.10.0 this is 0). Used for runtime.
+ *
+ * Since: 4.12.0
+ */
+extern const guint gtk_html_micro_version;
+
+const gchar * gtk_html_check_version (guint required_major,
+		guint required_minor,
+		guint required_micro);
+
+/**
+ * GTK_HTML_CHECK_VERSION:
+ * @major: required major version
+ * @minor: required minor version
+ * @micro: required micro version
+ *
+ * Checks the version of the GtkHTML library.
+ *
+ * Checking the version of the GtkHTML library:
+ * |[
+ *   if (!GTK_HTML_CHECK_VERSION (4, 10, 0))
+ *       g_error ("GtkHTML version 4.10.0 or above is needed");
+ * ]|
+ *
+ * Returns: %TRUE if the version of the GtkHTML header files is the same
+ * as or newer than the passed-in version.
+ *
+ * Since: 4.12.0
+ */
+#define GTK_HTML_CHECK_VERSION(major,minor,micro)    \
+  (GTK_HTML_MAJOR_VERSION > (major) || \
+   (GTK_HTML_MAJOR_VERSION == (major) && GTK_HTML_MINOR_VERSION > (minor)) || \
+   (GTK_HTML_MAJOR_VERSION == (major) && GTK_HTML_MINOR_VERSION == (minor) && \
+    GTK_HTML_MICRO_VERSION >= (micro)))
+
+G_END_DECLS

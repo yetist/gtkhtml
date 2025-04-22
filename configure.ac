@@ -1,10 +1,51 @@
 dnl Initialization
-AC_PREREQ(2.58)
-AC_INIT([gtkhtml], [4.11.1], [http://bugzilla.gnome.org/enter_bug.cgi?product=GtkHtml])
+AC_PREREQ(2.62)
+
+m4_define([gtk_html_major_version], [4])
+m4_define([gtk_html_minor_version], [11])
+m4_define([gtk_html_micro_version], [1])
+m4_define([gtk_html_interface_age], [0])
+m4_define([gtk_html_binary_age], [m4_eval(100 * gtk_html_minor_version + gtk_html_micro_version)])
+m4_define([gtk_html_version], [gtk_html_major_version.gtk_html_minor_version.gtk_html_micro_version])
+
+m4_define([gtk_html_lt_current],
+	  [m4_eval(100 * gtk_html_minor_version + gtk_html_micro_version - gtk_html_interface_age)])
+m4_define([gtk_html_lt_revision], [gtk_html_interface_age])
+m4_define([gtk_html_lt_age], [m4_eval(gtk_html_binary_age - gtk_html_interface_age)])
+
+AC_INIT(gtkhtml, gtk_html_version, [https://github.com/yetist/gtkhtml/issues/new])
+AC_COPYRIGHT([Copyright (C) 2025 yetist@gmail.com])
 AM_INIT_AUTOMAKE([gnu 1.9 dist-xz no-dist-gzip -Wno-portability])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS(config.h)
 AC_CONFIG_SRCDIR(README)
+
+LT_VERSION_INFO="gtk_html_lt_current:gtk_html_lt_revision:gtk_html_lt_age"
+LT_CURRENT_MINUS_AGE=m4_eval(gtk_html_lt_current - gtk_html_lt_age)
+AC_SUBST(LT_VERSION_INFO)
+AC_SUBST(LT_CURRENT_MINUS_AGE)
+
+GTK_HTML_VERSION=gtk_html_version
+GTK_HTML_BINARY_AGE=gtk_html_binary_age
+AC_SUBST(GTK_HTML_VERSION)
+AC_SUBST(GTK_HTML_BINARY_AGE)
+
+GTK_HTML_MAJOR_VERSION=gtk_html_major_version
+GTK_HTML_MINOR_VERSION=gtk_html_minor_version
+GTK_HTML_MICRO_VERSION=gtk_html_micro_version
+
+AC_SUBST(GTK_HTML_MAJOR_VERSION)
+AC_SUBST(GTK_HTML_MINOR_VERSION)
+AC_SUBST(GTK_HTML_MICRO_VERSION)
+
+AC_DEFINE(GTK_HTML_MAJOR_VERSION, [gtk_html_major_version],
+	  [Define to the GTK_HTML major version])
+AC_DEFINE(GTK_HTML_MINOR_VERSION, [gtk_html_minor_version],
+	  [Define to the GTK_HTML minor version])
+AC_DEFINE(GTK_HTML_MICRO_VERSION, [gtk_html_micro_version],
+	  [Define to the GTK_HTML micro version])
+AC_DEFINE(GTK_HTML_BINARY_AGE, [gtk_html_binary_age],
+	  [Define to the GTK_HTML binary age])
 
 PACKAGE=gtkhtml
 
@@ -33,18 +74,20 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Package name for gettex
 I18N_LIB_CFLAGS="-DGNOME_EXPLICIT_TRANSLATION_DOMAIN=\\\"${GTKHTML_RELEASE_STRING}\\\""
 AC_SUBST(I18N_LIB_CFLAGS)
 
-dnl Automake 1.11 - Silent Build Rules
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 AM_MAINTAINER_MODE([enable])
 
-GTK_DOC_CHECK([1.0],[--flavour=no-tmpl])
+AC_PROG_CC
+AC_ISC_POSIX
+AC_HEADER_STDC
 
-dnl ************
-dnl I18N stuff
-dnl ************
+AC_PROG_INSTALL
+AC_PROG_LIBTOOL
 IT_PROG_INTLTOOL([0.36.3])
 AM_GLIB_GNU_GETTEXT
+
+GTK_DOC_CHECK([1.0],[--flavour=no-tmpl])
 
 dnl **********************************
 dnl Compiler Warning Flags
@@ -97,12 +140,6 @@ dnl XXX This really belongs in AM_CFLAGS.
 if test "x${GCC}" = "xyes"; then
 	CFLAGS="$CFLAGS -fno-strict-aliasing"
 fi
-
-dnl *****************
-dnl libtool
-dnl *****************
-LT_PREREQ(2.2)
-LT_INIT(disable-static win32-dll)
 
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 
@@ -160,10 +197,6 @@ if test "x$glade_catalog" = "xyes"; then
 	PKG_CHECK_MODULES(GLADEUI, gladeui-2.0)
 fi
 AM_CONDITIONAL(GLADE_CATALOG, test x$glade_catalog = xyes)
-
-dnl These are still needed for 'dist' targets.
-ORBIT_IDL="`$PKG_CONFIG --variable=orbit_idl ORBit-2.0`"
-AC_SUBST(ORBIT_IDL)
 
 dnl **********************************
 dnl soup for testgtkhtml
@@ -254,31 +287,6 @@ fi
 AC_SUBST(GNOME_GTKHTML_EDITOR_TYPE)
 AM_CONDITIONAL(EDITOR_SHLIB, test x$enable_shlib_factory = xyes)
 
-dnl **********************************
-dnl Library version information.
-dnl **********************************
-
-dnl Increment the following if the interface has additions, changes,
-dnl removals.
-GTKHTML_CURRENT=0
-
-dnl Increment any time the source changes; set to 0 if you
-dnl increment CURRENT.
-GTKHTML_REVISION=0
-
-dnl Increment if any interfaces have been added; set to 0
-dnl if any interfaces have been removed. removal has 
-dnl precedence over adding, so set to 0 if both happened.
-GTKHTML_AGE=0
-
-AC_SUBST(GTKHTML_CURRENT)
-AC_SUBST(GTKHTML_REVISION)
-AC_SUBST(GTKHTML_AGE)
-
-dnl **************
-dnl Done.
-dnl **************
-
 AC_CONFIG_FILES([
 Makefile
 a11y/Makefile
@@ -287,8 +295,9 @@ icons/Makefile
 components/Makefile
 components/editor/Makefile
 components/editor/gtkhtml-editor.pc
-gtkhtml/Makefile
+gtkhtml/gtkhtml-version.h
 gtkhtml/libgtkhtml.pc
+gtkhtml/Makefile
 po/Makefile.in
 docs/Makefile
 docs/reference/Makefile

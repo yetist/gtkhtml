@@ -43,6 +43,7 @@ libgtkhtml_HEADERS =				\
 	gtkhtml-search.h			\
 	gtkhtml-stream.h			\
 	gtkhtml-types.h				\
+	gtkhtml-version.h				\
 	gtkhtml.h				\
 	htmltypes.h				\
 	htmlenums.h				\
@@ -54,6 +55,7 @@ libgtkhtml_4_0_la_SOURCES =			\
 	gtkhtml-properties.c			\
 	gtkhtml-search.c			\
 	gtkhtml-stream.c			\
+	gtkhtml-version.c			\
 	gtkhtml.c				\
 	gtkhtmldebug.c				\
 	gtkhtmlfontstyle.c			\
@@ -203,7 +205,7 @@ libgtkhtml_4_0_la_SOURCES =			\
 	$(PLATFORM_DEP_SOURCES)			\
 	$(NULL)
 
-libgtkhtml_4_0_la_LDFLAGS = -version-info $(GTKHTML_CURRENT):$(GTKHTML_REVISION):$(GTKHTML_AGE) -no-undefined
+libgtkhtml_4_0_la_LDFLAGS = -version-info $(LT_VERSION_INFO) -no-undefined
 
 libgtkhtml_4_0_la_LIBADD =			\
 	$(GTKHTML_LIBS)				\
