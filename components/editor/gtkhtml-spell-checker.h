@@ -20,43 +20,18 @@
 
 /* Based on Marco Barisione's GSpellChecker. */
 
-#ifndef GTKHTML_SPELL_CHECKER_H
-#define GTKHTML_SPELL_CHECKER_H
+#pragma once
 
-#include <gtkhtml-editor-common.h>
 #include <gtkhtml-spell-language.h>
-
-/* Standard GObject macros */
-#define GTKHTML_TYPE_SPELL_CHECKER \
-	(gtkhtml_spell_checker_get_type ())
-#define GTKHTML_SPELL_CHECKER(obj) \
-	(G_TYPE_CHECK_INSTANCE_CAST \
-	((obj), GTKHTML_TYPE_SPELL_CHECKER, GtkhtmlSpellChecker))
-#define GTKHTML_SPELL_CHECKER_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_CAST \
-	((cls), GTKHTML_TYPE_SPELL_CHECKER, GtkhtmlSpellCheckerClass))
-#define GTKHTML_IS_SPELL_CHECKER(obj) \
-	(G_TYPE_CHECK_INSTANCE_TYPE \
-	((obj), GTKHTML_TYPE_SPELL_CHECKER))
-#define GTKHTML_IS_SPELL_CHECKER_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_TYPE \
-	((cls), GTKHTML_TYPE_SPELL_CHECKER))
-#define GTKHTML_SPELL_CHECKER_GET_CLASS(obj) \
-	(G_TYPE_INSTANCE_GET_CLASS \
-	((obj), GTKHTML_TYPE_SPELL_CHECKER, GtkhtmlSpellCheckerClass))
 
 G_BEGIN_DECLS
 
-typedef struct _GtkhtmlSpellChecker GtkhtmlSpellChecker;
-typedef struct _GtkhtmlSpellCheckerClass GtkhtmlSpellCheckerClass;
-typedef struct _GtkhtmlSpellCheckerPrivate GtkhtmlSpellCheckerPrivate;
+#define GTKHTML_TYPE_SPELL_CHECKER              (gtkhtml_spell_checker_get_type ())
 
-struct _GtkhtmlSpellChecker {
-	GObject parent;
-	GtkhtmlSpellCheckerPrivate *priv;
-};
+G_DECLARE_DERIVABLE_TYPE (GtkhtmlSpellChecker, gtkhtml_spell_checker, GTKHTML, SPELL_CHECKER, GObject)
 
-struct _GtkhtmlSpellCheckerClass {
+struct _GtkhtmlSpellCheckerClass
+{
 	GObjectClass parent;
 
 	void	(*added)		(GtkhtmlSpellChecker *checker,
@@ -68,7 +43,6 @@ struct _GtkhtmlSpellCheckerClass {
 	void	(*session_cleared)	(GtkhtmlSpellChecker *checker);
 };
 
-GType		gtkhtml_spell_checker_get_type	(void);
 GtkhtmlSpellChecker *
 		gtkhtml_spell_checker_new
 					(const GtkhtmlSpellLanguage *language);
@@ -104,5 +78,3 @@ gint		gtkhtml_spell_checker_compare
 					 GtkhtmlSpellChecker *checker_b);
 
 G_END_DECLS
-
-#endif /* GTKHTML_SPELL_CHECKER_H */

@@ -19,12 +19,14 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "gtkhtml-spell-checker.h"
+#ifdef HAVE_CONFIG_H
+#  include "config.h"
+#endif
 
 #include <string.h>
 #include <glib/gi18n-lib.h>
 #include <enchant.h>
-
+#include "gtkhtml-spell-checker.h"
 #include "gtkhtml-spell-marshal.h"
 
 enum {
@@ -39,15 +41,16 @@ enum {
 	LAST_SIGNAL
 };
 
-struct _GtkhtmlSpellCheckerPrivate {
+typedef struct _GtkhtmlSpellCheckerPrivate {
 	EnchantDict *dict;
 	EnchantBroker *broker;
 	const GtkhtmlSpellLanguage *language;
-};
+} GtkhtmlSpellCheckerPrivate;
 
 static guint signals[LAST_SIGNAL];
 
 G_DEFINE_TYPE_WITH_PRIVATE (GtkhtmlSpellChecker, gtkhtml_spell_checker, G_TYPE_OBJECT);
+
 static gboolean
 spell_checker_is_digit (const gchar *text,
                         gssize length)
@@ -183,8 +186,6 @@ static void
 gtkhtml_spell_checker_class_init (GtkhtmlSpellCheckerClass *klass)
 {
 	GObjectClass *object_class;
-
-	gtkhtml_spell_checker_parent_class = g_type_class_peek_parent (klass);
 
 	object_class = G_OBJECT_CLASS (klass);
 	object_class->constructor = spell_checker_constructor;
