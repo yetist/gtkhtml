@@ -25,8 +25,10 @@
 
 typedef struct _Context Context;
 
-struct _GtkhtmlImageChooserDialogPrivate {
-	GCancellable *cancellable;
+struct _GtkhtmlImageChooserDialog
+{
+	GtkFileChooserDialog  parent;
+	GCancellable         *cancellable;
 };
 
 struct _Context {
@@ -34,10 +36,9 @@ struct _Context {
 	GCancellable *cancellable;
 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (
-	GtkhtmlImageChooserDialog,
-	gtkhtml_image_chooser_dialog,
-	GTK_TYPE_FILE_CHOOSER_DIALOG)
+G_DEFINE_TYPE (GtkhtmlImageChooserDialog,
+	       gtkhtml_image_chooser_dialog,
+	       GTK_TYPE_FILE_CHOOSER_DIALOG)
 
 static void
 context_free (Context *context)
@@ -92,22 +93,20 @@ exit:
 static void
 image_chooser_dialog_update_preview (GtkFileChooser *file_chooser)
 {
-	GtkhtmlImageChooserDialogPrivate *priv;
 	GtkhtmlImageChooserDialog *dialog;
 	GtkWidget *preview_widget;
 	GFile *preview_file;
 	Context *context;
 
 	dialog = GTKHTML_IMAGE_CHOOSER_DIALOG (file_chooser);
-	priv = gtkhtml_image_chooser_dialog_get_instance_private (dialog);
 
 	preview_file = gtk_file_chooser_get_preview_file (file_chooser);
 	preview_widget = gtk_file_chooser_get_preview_widget (file_chooser);
 
-	if (priv->cancellable != NULL) {
-		g_cancellable_cancel (priv->cancellable);
-		g_object_unref (priv->cancellable);
-		priv->cancellable = NULL;
+	if (dialog->cancellable != NULL) {
+		g_cancellable_cancel (dialog->cancellable);
+		g_object_unref (dialog->cancellable);
+		dialog->cancellable = NULL;
 	}
 
 	gtk_image_clear (GTK_IMAGE (preview_widget));
@@ -116,15 +115,15 @@ image_chooser_dialog_update_preview (GtkFileChooser *file_chooser)
 	if (preview_file == NULL)
 		return;
 
-	priv->cancellable = g_cancellable_new ();
+	dialog->cancellable = g_cancellable_new ();
 
 	context = g_slice_new0 (Context);
 	context->file_chooser = g_object_ref (file_chooser);
-	context->cancellable = g_object_ref (priv->cancellable);
+	context->cancellable = g_object_ref (dialog->cancellable);
 
 	g_file_read_async (
 		preview_file, G_PRIORITY_LOW,
-		priv->cancellable, (GAsyncReadyCallback)
+		dialog->cancellable, (GAsyncReadyCallback)
 		image_chooser_dialog_read_cb, context);
 
 	g_object_unref (preview_file);
@@ -133,16 +132,14 @@ image_chooser_dialog_update_preview (GtkFileChooser *file_chooser)
 static void
 image_chooser_dialog_dispose (GObject *object)
 {
-	GtkhtmlImageChooserDialogPrivate *priv;
 	GtkhtmlImageChooserDialog *file_chooser;
 
 	file_chooser = GTKHTML_IMAGE_CHOOSER_DIALOG (object);
-	priv = gtkhtml_image_chooser_dialog_get_instance_private (file_chooser);
 
-	if (priv->cancellable != NULL) {
-		g_cancellable_cancel (priv->cancellable);
-		g_object_unref (priv->cancellable);
-		priv->cancellable = NULL;
+	if (file_chooser->cancellable != NULL) {
+		g_cancellable_cancel (file_chooser->cancellable);
+		g_object_unref (file_chooser->cancellable);
+		file_chooser->cancellable = NULL;
 	}
 
 	/* Chain up to parent's dispose() method. */
@@ -221,4 +218,3 @@ gtkhtml_image_chooser_dialog_run (GtkhtmlImageChooserDialog *dialog)
 
 	return gtk_file_chooser_get_file (file_chooser);
 }
-

@@ -16,47 +16,16 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef GTKHTML_IMAGE_CHOOSER_DIALOG_H
-#define GTKHTML_IMAGE_CHOOSER_DIALOG_H
+#pragma once
 
-#include "gtkhtml-editor-common.h"
-
-/* Standard GObject macros */
-#define GTKHTML_TYPE_IMAGE_CHOOSER_DIALOG \
-	(gtkhtml_image_chooser_dialog_get_type ())
-#define GTKHTML_IMAGE_CHOOSER_DIALOG(obj) \
-	(G_TYPE_CHECK_INSTANCE_CAST \
-	((obj), GTKHTML_TYPE_IMAGE_CHOOSER_DIALOG, GtkhtmlImageChooserDialog))
-#define GTKHTML_IMAGE_CHOOSER_DIALOG_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_CAST \
-	((cls), GTKHTML_TYPE_IMAGE_CHOOSER_DIALOG, GtkhtmlImageChooserDialogClass))
-#define GTKHTML_IS_IMAGE_CHOOSER_DIALOG(obj) \
-	(G_TYPE_CHECK_INSTANCE_TYPE \
-	((obj), GTKHTML_TYPE_IMAGE_CHOOSER_DIALOG))
-#define GTKHTML_IS_IMAGE_CHOOSER_DIALOG_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_TYPE \
-	((cls), GTKHTML_TYPE_IMAGE_CHOOSER_DIALOG))
-#define GTKHTML_IMAGE_CHOOSER_DIALOG_GET_CLASS(obj) \
-	(G_TYPE_INSTANCE_GET_CLASS \
-	((obj), GTKHTML_TYPE_IMAGE_CHOOSER_DIALOG, GtkhtmlImageChooserDialogClass))
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
-typedef struct _GtkhtmlImageChooserDialog GtkhtmlImageChooserDialog;
-typedef struct _GtkhtmlImageChooserDialogClass GtkhtmlImageChooserDialogClass;
-typedef struct _GtkhtmlImageChooserDialogPrivate GtkhtmlImageChooserDialogPrivate;
+#define GTKHTML_TYPE_IMAGE_CHOOSER_DIALOG              (gtkhtml_image_chooser_dialog_get_type ())
 
-struct _GtkhtmlImageChooserDialog {
-	GtkFileChooserDialog parent;
-	GtkhtmlImageChooserDialogPrivate *priv;
-};
+G_DECLARE_FINAL_TYPE (GtkhtmlImageChooserDialog, gtkhtml_image_chooser_dialog, GTKHTML, IMAGE_CHOOSER_DIALOG, GtkFileChooserDialog)
 
-struct _GtkhtmlImageChooserDialogClass {
-	GtkFileChooserDialogClass parent_class;
-};
-
-GType		gtkhtml_image_chooser_dialog_get_type
-					(void) G_GNUC_CONST;
 GtkWidget *	gtkhtml_image_chooser_dialog_new
 					(const gchar *title,
 					 GtkWindow *parent);
@@ -64,5 +33,3 @@ GFile *		gtkhtml_image_chooser_dialog_run
 					(GtkhtmlImageChooserDialog *dialog);
 
 G_END_DECLS
-
-#endif /* GTKHTML_IMAGE_CHOOSER_DIALOG_H */
