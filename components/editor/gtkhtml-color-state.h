@@ -18,52 +18,21 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef GTKHTML_COLOR_STATE_H
-#define GTKHTML_COLOR_STATE_H
+#pragma once
 
 /* GtkhtmlColorState is for sharing state between multiple GtkhtmlColorCombo
  * widgets. This makes it easier to manage the same color value from various
  * points in a user interface. It embeds a GtkhtmlColorPalette so that
  * multiple color state objects can share a custom color palette. */
 
-#include "gtkhtml-editor-common.h"
 #include "gtkhtml-color-palette.h"
-
-/* Standard GObject macros */
-#define GTKHTML_TYPE_COLOR_STATE \
-	(gtkhtml_color_state_get_type ())
-#define GTKHTML_COLOR_STATE(obj) \
-	(G_TYPE_CHECK_INSTANCE_CAST \
-	((obj), GTKHTML_TYPE_COLOR_STATE, GtkhtmlColorState))
-#define GTKHTML_COLOR_STATE_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_CAST \
-	((cls), GTKHTML_TYPE_COLOR_STATE, GtkhtmlColorStateClass))
-#define GTKHTML_IS_COLOR_STATE(obj) \
-	(G_TYPE_CHECK_INSTANCE_TYPE \
-	((obj), GTKHTML_TYPE_COLOR_STATE))
-#define GTKHTML_IS_COLOR_STATE_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_TYPE \
-	((cls), GTKHTML_TYPE_COLOR_STATE))
-#define GTKHTML_COLOR_STATE_GET_CLASS(obj) \
-	(G_TYPE_INSTANCE_GET_CLASS \
-	((obj), GTKHTML_TYPE_COLOR_STATE, GtkhtmlColorStateClass))
 
 G_BEGIN_DECLS
 
-typedef struct _GtkhtmlColorState GtkhtmlColorState;
-typedef struct _GtkhtmlColorStateClass GtkhtmlColorStateClass;
-typedef struct _GtkhtmlColorStatePrivate GtkhtmlColorStatePrivate;
+#define GTKHTML_TYPE_COLOR_STATE              (gtkhtml_color_state_get_type ())
 
-struct _GtkhtmlColorState {
-	GObject parent;
-	GtkhtmlColorStatePrivate *priv;
-};
+G_DECLARE_FINAL_TYPE (GtkhtmlColorState, gtkhtml_color_state, GTKHTML, COLOR_STATE, GObject)
 
-struct _GtkhtmlColorStateClass {
-	GObjectClass parent_class;
-};
-
-GType		gtkhtml_color_state_get_type	(void);
 GtkhtmlColorState *
 		gtkhtml_color_state_new		(void);
 GtkhtmlColorState *
@@ -97,5 +66,3 @@ void		gtkhtml_color_state_set_palette (GtkhtmlColorState *state,
 						 GtkhtmlColorPalette *palette);
 
 G_END_DECLS
-
-#endif /* GTKHTML_COLOR_STATE_H */
