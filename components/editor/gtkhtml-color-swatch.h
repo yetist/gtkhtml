@@ -19,14 +19,14 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef GTKHTML_COLOR_SWATCH_H
-#define GTKHTML_COLOR_SWATCH_H
+#pragma once
 
-#include "gtkhtml-editor-common.h"
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
 #define GTKHTML_TYPE_COLOR_SWATCH              (gtkhtml_color_swatch_get_type ())
+
 G_DECLARE_FINAL_TYPE (GtkhtmlColorSwatch, gtkhtml_color_swatch, GTKHTML, COLOR_SWATCH, GtkBin)
 
 GtkWidget *	gtkhtml_color_swatch_new	(void);
@@ -41,5 +41,3 @@ void		gtkhtml_color_swatch_set_shadow_type
 						 GtkShadowType shadow_type);
 
 G_END_DECLS
-
-#endif /* GTKHTML_COLOR_SWATCH_H */
