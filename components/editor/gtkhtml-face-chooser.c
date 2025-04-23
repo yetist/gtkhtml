@@ -19,9 +19,12 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "gtkhtml-face-chooser.h"
+#ifdef HAVE_CONFIG_H
+#  include "config.h"
+#endif
 
 #include <glib/gi18n-lib.h>
+#include "gtkhtml-face-chooser.h"
 
 /* Constant version of GtkhtmlFace. */
 typedef struct {

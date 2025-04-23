@@ -19,15 +19,14 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef GTKHTML_FACE_CHOOSER_H
-#define GTKHTML_FACE_CHOOSER_H
+#pragma once
 
-#include "gtkhtml-editor-common.h"
 #include "gtkhtml-face.h"
 
 G_BEGIN_DECLS
 
 #define GTKHTML_TYPE_FACE_CHOOSER gtkhtml_face_chooser_get_type ()
+
 G_DECLARE_INTERFACE (GtkhtmlFaceChooser, gtkhtml_face_chooser, GTKHTML, FACE_CHOOSER, GObject)
 
 struct _GtkhtmlFaceChooserInterface {
@@ -52,5 +51,3 @@ void		gtkhtml_face_chooser_item_activated
 GList *		gtkhtml_face_chooser_get_items	(GtkhtmlFaceChooser *chooser);
 
 G_END_DECLS
-
-#endif /* GTKHTML_FACE_CHOOSER_H */
