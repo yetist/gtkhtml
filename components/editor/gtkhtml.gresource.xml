@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+	<gresource prefix="/gtkhtml/icons">
+		<file alias="scalable/actions/stock_insert-rule-symbolic.svg" compressed="true" preprocess="xml-stripblanks">../../icons/hicolor_actions_scalable_stock_insert-rule-symbolic.svg</file>
+		<file alias="scalable/actions/stock_insert-table-symbolic.svg" compressed="true" preprocess="xml-stripblanks">../../icons/hicolor_actions_scalable_stock_insert-table-symbolic.svg</file>
+		<file alias="scalable/actions/stock_text-monospaced-symbolic.svg" compressed="true" preprocess="xml-stripblanks">../../icons/hicolor_actions_scalable_stock_text-monospaced.svg</file>
+		<file alias="16x16/actions/stock_insert-rule.png">../../icons/hicolor_actions_16x16_stock_insert-rule.png</file>
+		<file alias="16x16/actions/stock_insert-table.png">../../icons/hicolor_actions_16x16_stock_insert-table.png</file>
+		<file alias="16x16/actions/stock_text-monospaced.png">../../icons/hicolor_actions_16x16_stock_text-monospaced.png</file>
+		<file alias="24x24/actions/stock_insert-rule.png">../../icons/hicolor_actions_24x24_stock_insert-rule.png</file>
+		<file alias="24x24/actions/stock_insert-table.png">../../icons/hicolor_actions_24x24_stock_insert-table.png</file>
+		<file alias="24x24/actions/stock_text-monospaced.png">../../icons/hicolor_actions_24x24_stock_text-monospaced.png</file>
+	</gresource>
+</gresources>
