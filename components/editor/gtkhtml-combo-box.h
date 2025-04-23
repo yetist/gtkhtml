@@ -18,49 +18,16 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef GTKHTML_COMBO_BOX_H
-#define GTKHTML_COMBO_BOX_H
+#pragma once
 
-/* This is a GtkComboBox that is driven by a group of GtkRadioActions.
- * Just plug in a GtkRadioAction and the widget will handle the rest. */
-
-#include "gtkhtml-editor-common.h"
-
-/* Standard GObject macros */
-#define GTKHTML_TYPE_COMBO_BOX \
-	(gtkhtml_combo_box_get_type ())
-#define GTKHTML_COMBO_BOX(obj) \
-	(G_TYPE_CHECK_INSTANCE_CAST \
-	((obj), GTKHTML_TYPE_COMBO_BOX, GtkhtmlComboBox))
-#define GTKHTML_COMBO_BOX_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_CAST \
-	((cls), GTKHTML_TYPE_COMBO_BOX, GtkhtmlComboBoxClass))
-#define GTKHTML_IS_COMBO_BOX(obj) \
-	(G_TYPE_CHECK_INSTANCE_TYPE \
-	((obj), GTKHTML_TYPE_COMBO_BOX))
-#define GTKHTML_IS_COMBO_BOX_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_TYPE \
-	((cls), GTKHTML_TYPE_COMBO_BOX))
-#define GTKHTML_COMBO_BOX_GET_CLASS(obj) \
-	(G_TYPE_INSTANCE_GET_CLASS \
-	((obj), GTKHTML_TYPE_COMBO_BOX, GtkhtmlComboBoxClass))
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
-typedef struct _GtkhtmlComboBox GtkhtmlComboBox;
-typedef struct _GtkhtmlComboBoxClass GtkhtmlComboBoxClass;
-typedef struct _GtkhtmlComboBoxPrivate GtkhtmlComboBoxPrivate;
+#define GTKHTML_TYPE_COMBO_BOX              (gtkhtml_combo_box_get_type ())
 
-struct _GtkhtmlComboBox {
-	GtkComboBox parent;
-	GtkhtmlComboBoxPrivate *priv;
-};
+G_DECLARE_FINAL_TYPE (GtkhtmlComboBox, gtkhtml_combo_box, GTKHTML, COMBO_BOX, GtkComboBox)
 
-struct _GtkhtmlComboBoxClass {
-	GtkComboBoxClass parent_class;
-};
-
-GType		gtkhtml_combo_box_get_type	(void);
 GtkWidget *	gtkhtml_combo_box_new		(void);
 GtkWidget *	gtkhtml_combo_box_new_with_action
 						(GtkRadioAction *action);
@@ -74,5 +41,3 @@ void		gtkhtml_combo_box_set_current_value
 						 gint current_value);
 
 G_END_DECLS
-
-#endif /* GTKHTML_COMBO_BOX_H */
