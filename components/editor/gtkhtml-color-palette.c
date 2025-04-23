@@ -19,37 +19,42 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "gtkhtml-color-palette.h"
-
 /* XXX GtkhtmlColorPalette has a minimal API specifically designed for
  *     use with GtkhtmlColorCombo, but there's plenty of room to grow if
  *     this proves useful elsewhere. */
 
+#ifdef HAVE_CONFIG_H
+#  include "config.h"
+#endif
 #include <string.h>
 #include <glib/gi18n-lib.h>
+#include "gtkhtml-color-palette.h"
 
 enum {
 	CHANGED,
 	LAST_SIGNAL
 };
 
-struct _GtkhtmlColorPalettePrivate {
+struct _GtkhtmlColorPalette
+{
+	GObject     parent;
 	GHashTable *index;
-	GSList *list;
+	GSList     *list;
 };
 
 static guint signals[LAST_SIGNAL];
 
-G_DEFINE_TYPE_WITH_PRIVATE (GtkhtmlColorPalette, gtkhtml_color_palette, G_TYPE_OBJECT);
+G_DEFINE_TYPE (GtkhtmlColorPalette, gtkhtml_color_palette, G_TYPE_OBJECT);
+
 static void
 gtkhtml_color_palette_finalize (GObject *object)
 {
-	GtkhtmlColorPalettePrivate *priv;
+	GtkhtmlColorPalette *palette;
 
-	priv = GTKHTML_COLOR_PALETTE (object)->priv;
+	palette = GTKHTML_COLOR_PALETTE (object);
 
-	g_hash_table_destroy (priv->index);
-	g_slist_free (priv->list);
+	g_hash_table_destroy (palette->index);
+	g_slist_free (palette->list);
 
 	/* Chain up to parent's finalize() method. */
 	G_OBJECT_CLASS (gtkhtml_color_palette_parent_class)->finalize (object);
@@ -59,8 +64,6 @@ static void
 gtkhtml_color_palette_class_init (GtkhtmlColorPaletteClass *klass)
 {
 	GObjectClass *object_class;
-
-	gtkhtml_color_palette_parent_class = g_type_class_peek_parent (klass);
 
 	object_class = G_OBJECT_CLASS (klass);
 	object_class->finalize = gtkhtml_color_palette_finalize;
@@ -85,8 +88,7 @@ gtkhtml_color_palette_init (GtkhtmlColorPalette *palette)
 		(GDestroyNotify) gdk_color_free,
 		(GDestroyNotify) NULL);
 
-	palette->priv = gtkhtml_color_palette_get_instance_private (palette);
-	palette->priv->index = index;
+	palette->index = index;
 }
 
 GtkhtmlColorPalette *
@@ -104,16 +106,16 @@ gtkhtml_color_palette_add_color (GtkhtmlColorPalette *palette,
 	g_return_if_fail (GTKHTML_IS_COLOR_PALETTE (palette));
 	g_return_if_fail (color != NULL);
 
-	list = palette->priv->list;
-	link = g_hash_table_lookup (palette->priv->index, color);
+	list = palette->list;
+	link = g_hash_table_lookup (palette->index, color);
 	if (link == NULL) {
 		list = g_slist_prepend (list, gdk_color_copy (color));
-		g_hash_table_insert (palette->priv->index, list->data, list);
+		g_hash_table_insert (palette->index, list->data, list);
 	} else {
 		list = g_slist_remove_link (list, link);
 		list = g_slist_concat (link, list);
 	}
-	palette->priv->list = list;
+	palette->list = list;
 
 	g_signal_emit (G_OBJECT (palette), signals[CHANGED], 0);
 }
@@ -125,7 +127,7 @@ gtkhtml_color_palette_list_colors (GtkhtmlColorPalette *palette)
 
 	g_return_val_if_fail (GTKHTML_IS_COLOR_PALETTE (palette), NULL);
 
-	list = g_slist_copy (palette->priv->list);
+	list = g_slist_copy (palette->list);
 
 	for (iter = list; iter != NULL; iter = iter->next)
 		iter->data = gdk_color_copy (iter->data);

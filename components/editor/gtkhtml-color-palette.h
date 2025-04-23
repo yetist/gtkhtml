@@ -18,54 +18,18 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef GTKHTML_COLOR_PALETTE_H
-#define GTKHTML_COLOR_PALETTE_H
+#pragma once
 
-#include "gtkhtml-editor-common.h"
-
-/* Standard GObject macros */
-#define GTKHTML_TYPE_COLOR_PALETTE \
-	(gtkhtml_color_palette_get_type ())
-#define GTKHTML_COLOR_PALETTE(obj) \
-	(G_TYPE_CHECK_INSTANCE_CAST \
-	((obj), GTKHTML_TYPE_COLOR_PALETTE, GtkhtmlColorPalette))
-#define GTKHTML_COLOR_PALETTE_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_CAST \
-	((cls), GTKHTML_TYPE_COLOR_PALETTE, GtkhtmlColorPaletteClass))
-#define GTKHTML_IS_COLOR_PALETTE(obj) \
-	(G_TYPE_CHECK_INSTANCE_TYPE \
-	((obj), GTKHTML_TYPE_COLOR_PALETTE))
-#define GTKHTML_IS_COLOR_PALETTE_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_TYPE \
-	((cls), GTKHTML_TYPE_COLOR_PALETTE))
-#define GTKHTML_COLOR_PALETTE_GET_CLASS(obj) \
-	(G_TYPE_INSTANCE_GET_CLASS \
-	((obj), GTKHTML_TYPE_COLOR_PALETTE, GtkhtmlColorPaletteClass))
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
-typedef struct _GtkhtmlColorPalette GtkhtmlColorPalette;
-typedef struct _GtkhtmlColorPaletteClass GtkhtmlColorPaletteClass;
-typedef struct _GtkhtmlColorPalettePrivate GtkhtmlColorPalettePrivate;
+#define GTKHTML_TYPE_COLOR_PALETTE              (gtkhtml_color_palette_get_type ())
 
-struct _GtkhtmlColorPalette {
-	GObject parent;
-	GtkhtmlColorPalettePrivate *priv;
-};
+G_DECLARE_FINAL_TYPE (GtkhtmlColorPalette, gtkhtml_color_palette, GTKHTML, COLOR_PALETTE, GObject)
 
-struct _GtkhtmlColorPaletteClass {
-	GObjectClass parent_class;
-};
-
-GType		gtkhtml_color_palette_get_type	(void);
-GtkhtmlColorPalette *
-		gtkhtml_color_palette_new	(void);
-void		gtkhtml_color_palette_add_color
-						(GtkhtmlColorPalette *palette,
-						 const GdkColor *color);
-GSList *	gtkhtml_color_palette_list_colors
-						(GtkhtmlColorPalette *palette);
+GtkhtmlColorPalette* gtkhtml_color_palette_new	       (void);
+void		     gtkhtml_color_palette_add_color   (GtkhtmlColorPalette *palette, const GdkColor *color);
+GSList *	     gtkhtml_color_palette_list_colors (GtkhtmlColorPalette *palette);
 
 G_END_DECLS
-
-#endif /* GTKHTML_COLOR_PALETTE_H */
