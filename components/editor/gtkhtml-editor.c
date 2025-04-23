@@ -990,6 +990,8 @@ gtkhtml_editor_init (GtkhtmlEditor *editor)
 	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 
+	gtk_icon_theme_add_resource_path (gtk_icon_theme_get_default (),
+				   "/gtkhtml/icons/");
 	editor->priv = priv;
 	gtkhtml_editor_private_init (editor);
 }

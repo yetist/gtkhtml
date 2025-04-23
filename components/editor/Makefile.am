@@ -19,6 +19,8 @@ AM_CFLAGS = \
 BUILT_SOURCES = \
 	gtkhtml-editor-marshal.c		\
 	gtkhtml-editor-marshal.h		\
+        gtkhtml-resources.h			\
+        gtkhtml-resources.c			\
 	gtkhtml-spell-marshal.c			\
 	gtkhtml-spell-marshal.h
 
@@ -92,6 +94,12 @@ gtkhtml-spell-marshal.c: gtkhtml-spell-marshal.list $(GLIB_GENMARSHAL)
 	echo "#include \"gtkhtml-spell-marshal.h\"" > $@ && \
 	$(GLIB_GENMARSHAL) $< --body --prefix=gtkhtml_spell_marshal >> $@
 
+gtkhtml-resources.c: gtkhtml.gresource.xml $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(srcdir) --generate-dependencies $(srcdir)/gtkhtml.gresource.xml)
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --sourcedir=$(srcdir) --target=$@ --generate-source --c-name gtkhtml $(srcdir)/gtkhtml.gresource.xml
+
+gtkhtml-resources.h: gtkhtml.gresource.xml $(shell $(GLIB_COMPILE_RESOURCES) --sourcedir=$(srcdir) --generate-dependencies $(srcdir)/gtkhtml.gresource.xml)
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --sourcedir=$(srcdir) --target=$@ --generate-header --c-name gtkhtml $(srcdir)/gtkhtml.gresource.xml
+
 %-$(EDITOR_API_VERSION).pc: %.pc
 	cp $< $@
 
@@ -109,6 +117,7 @@ EXTRA_DIST = \
 	$(ui_DATA)				\
 	gtkhtml-editor-marshal.list		\
 	gtkhtml-spell-marshal.list		\
+	gtkhtml.gresource.xml			\
 	gtkhtml-editor.xml
 
 CLEANFILES = $(BUILT_SOURCES)

@@ -89,6 +89,7 @@ AM_GLIB_GNU_GETTEXT
 
 GTK_DOC_CHECK([1.0],[--flavour=no-tmpl])
 
+AC_PATH_PROG(GLIB_COMPILE_RESOURCES, glib-compile-resources)
 dnl **********************************
 dnl Compiler Warning Flags
 dnl **********************************
