@@ -19,13 +19,17 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#ifdef HAVE_CONFIG_H
+#  include "config.h"
+#endif
+
+#include <glib/gi18n-lib.h>
 #include "gtkhtml-face-chooser.h"
 #include "gtkhtml-face-chooser-menu.h"
 
-#include <glib/gi18n-lib.h>
-
-struct _GtkhtmlFaceChooserMenuPrivate {
-	gint dummy;
+struct _GtkhtmlFaceChooserMenu
+{
+	GtkMenu     parent;
 };
 
 enum {
@@ -39,7 +43,6 @@ G_DEFINE_TYPE_EXTENDED (GtkhtmlFaceChooserMenu,
 			gtkhtml_face_chooser_menu,
 			GTK_TYPE_MENU,
 			0,
-			G_ADD_PRIVATE (GtkhtmlFaceChooserMenu)
 			G_IMPLEMENT_INTERFACE (GTKHTML_TYPE_FACE_CHOOSER,
 			  gtkhtml_face_chooser_menu_iface_init));
 
@@ -120,8 +123,6 @@ static void
 gtkhtml_face_chooser_menu_class_init (GtkhtmlFaceChooserMenuClass *class)
 {
 	GObjectClass *object_class;
-
-	gtkhtml_face_chooser_menu_parent_class = g_type_class_peek_parent (class);
 
 	object_class = G_OBJECT_CLASS (class);
 	object_class->set_property = face_chooser_menu_set_property;

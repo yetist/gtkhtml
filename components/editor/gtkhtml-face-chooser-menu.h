@@ -18,49 +18,16 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef GTKHTML_FACE_CHOOSER_MENU_H
-#define GTKHTML_FACE_CHOOSER_MENU_H
+#pragma once
 
-#include "gtkhtml-editor-common.h"
 #include "gtkhtml-face-chooser.h"
-
-/* Standard GObject macros */
-#define GTKHTML_TYPE_FACE_CHOOSER_MENU \
-	(gtkhtml_face_chooser_menu_get_type ())
-#define GTKHTML_FACE_CHOOSER_MENU(obj) \
-	(G_TYPE_CHECK_INSTANCE_CAST \
-	((obj), GTKHTML_TYPE_FACE_CHOOSER_MENU, GtkhtmlFaceChooserMenu))
-#define GTKHTML_FACE_CHOOSER_MENU_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_CAST \
-	((cls), GTKHTML_TYPE_FACE_CHOOSER_MENU, GtkhtmlFaceChooserMenuClass))
-#define GTKHTML_IS_FACE_CHOOSER_MENU(obj) \
-	(G_TYPE_CHECK_INSTANCE_TYPE \
-	((obj), GTKHTML_TYPE_FACE_CHOOSER_MENU))
-#define GTKHTML_IS_FACE_CHOOSER_MENU_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_TYPE \
-	((cls), GTKHTML_TYPE_FACE_CHOOSER_MENU))
-#define GTKHTML_FACE_CHOOSER_MENU_GET_CLASS(obj) \
-	(G_TYPE_INSTANCE_GET_CLASS \
-	((obj), GTKHTML_TYPE_FACE_CHOOSER_MENU, GtkhtmlFaceChooserMenuClass))
 
 G_BEGIN_DECLS
 
-typedef struct _GtkhtmlFaceChooserMenu GtkhtmlFaceChooserMenu;
-typedef struct _GtkhtmlFaceChooserMenuClass GtkhtmlFaceChooserMenuClass;
-typedef struct _GtkhtmlFaceChooserMenuPrivate GtkhtmlFaceChooserMenuPrivate;
+#define GTKHTML_TYPE_FACE_CHOOSER_MENU           (gtkhtml_face_chooser_menu_get_type ())
 
-struct _GtkhtmlFaceChooserMenu {
-	GtkMenu parent;
-	GtkhtmlFaceChooserMenuPrivate *priv;
-};
+G_DECLARE_FINAL_TYPE (GtkhtmlFaceChooserMenu, gtkhtml_face_chooser_menu, GTKHTML, FACE_CHOOSER_MENU, GtkMenu)
 
-struct _GtkhtmlFaceChooserMenuClass {
-	GtkMenuClass parent_class;
-};
-
-GType		gtkhtml_face_chooser_menu_get_type	(void);
 GtkWidget *	gtkhtml_face_chooser_menu_new		(void);
 
 G_END_DECLS
-
-#endif /* GTKHTML_FACE_CHOOSER_MENU_H */
