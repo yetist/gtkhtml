@@ -64,10 +64,12 @@ cell_properties_set_column (GtkhtmlEditor *editor,
 	HTMLObject *parent;
 	HTMLTableCell *cell;
 	HTMLTableCell *iter;
+	GtkhtmlEditorPrivate* priv;
 
 	html = gtkhtml_editor_get_html (editor);
-	cell = HTML_TABLE_CELL (editor->priv->cell_object);
-	parent = editor->priv->cell_parent;
+	priv = gtkhtml_editor_get_private(editor);
+	cell = HTML_TABLE_CELL (priv->cell_object);
+	parent = priv->cell_parent;
 
 	iter = html_engine_get_table_cell (html->engine);
 
@@ -89,10 +91,12 @@ cell_properties_set_row (GtkhtmlEditor *editor,
 	HTMLObject *parent;
 	HTMLTableCell *cell;
 	HTMLTableCell *iter;
+	GtkhtmlEditorPrivate* priv;
 
 	html = gtkhtml_editor_get_html (editor);
-	cell = HTML_TABLE_CELL (editor->priv->cell_object);
-	parent = editor->priv->cell_parent;
+	priv = gtkhtml_editor_get_private(editor);
+	cell = HTML_TABLE_CELL (priv->cell_object);
+	parent = priv->cell_parent;
 
 	iter = html_engine_get_table_cell (html->engine);
 
@@ -112,9 +116,11 @@ cell_properties_set_table (GtkhtmlEditor *editor,
 	GtkHTML *html;
 	HTMLObject *parent;
 	HTMLTableCell *iter;
+	GtkhtmlEditorPrivate* priv;
 
 	html = gtkhtml_editor_get_html (editor);
-	parent = editor->priv->cell_parent;
+	priv = gtkhtml_editor_get_private(editor);
+	parent = priv->cell_parent;
 
 	iter = html_engine_get_table_cell (html->engine);
 
@@ -135,14 +141,16 @@ cell_properties_set (GtkhtmlEditor *editor,
 	HTMLTable *table;
 	HTMLTableCell *cell;
 	guint position;
+	GtkhtmlEditorPrivate* priv;
 
 	html = gtkhtml_editor_get_html (editor);
-	table = HTML_TABLE (editor->priv->cell_parent);
-	cell = HTML_TABLE_CELL (editor->priv->cell_object);
+	priv = gtkhtml_editor_get_private(editor);
+	table = HTML_TABLE (priv->cell_parent);
+	cell = HTML_TABLE_CELL (priv->cell_object);
 
 	position = html->engine->cursor->position;
 
-	switch (editor->priv->cell_scope) {
+	switch (priv->cell_scope) {
 		case TABLE_CELL_SCOPE_CELL:
 			callback (editor, cell, widget);
 			break;
@@ -416,23 +424,25 @@ gtkhtml_editor_cell_properties_scope_toggled_cb (GtkWidget *window,
                                                  GtkWidget *button))
 {
 	GtkhtmlEditor *editor;
+	GtkhtmlEditorPrivate* priv;
 
 	if (!gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (button)))
 		return;
 
 	editor = extract_gtkhtml_editor (window);
+	priv = gtkhtml_editor_get_private(editor);
 
 	if (button == WIDGET (CELL_PROPERTIES_CELL_RADIO_BUTTON))
-		editor->priv->cell_scope = TABLE_CELL_SCOPE_CELL;
+		priv->cell_scope = TABLE_CELL_SCOPE_CELL;
 
 	else if (button == WIDGET (CELL_PROPERTIES_ROW_RADIO_BUTTON))
-		editor->priv->cell_scope = TABLE_CELL_SCOPE_ROW;
+		priv->cell_scope = TABLE_CELL_SCOPE_ROW;
 
 	else if (button == WIDGET (CELL_PROPERTIES_COLUMN_RADIO_BUTTON))
-		editor->priv->cell_scope = TABLE_CELL_SCOPE_COLUMN;
+		priv->cell_scope = TABLE_CELL_SCOPE_COLUMN;
 
 	else if (button == WIDGET (CELL_PROPERTIES_TABLE_RADIO_BUTTON))
-		editor->priv->cell_scope = TABLE_CELL_SCOPE_TABLE;
+		priv->cell_scope = TABLE_CELL_SCOPE_TABLE;
 
 	g_object_unref (editor);
 }
@@ -446,16 +456,18 @@ gtkhtml_editor_cell_properties_show_window_cb (GtkWidget *window))
 	GtkHTML *html;
 	gdouble value;
 	gint active;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
+	priv = gtkhtml_editor_get_private(editor);
 	html = gtkhtml_editor_get_html (editor);
 
 	cell = html_engine_get_table_cell (html->engine);
-	editor->priv->cell_object = HTML_OBJECT (cell);
+	priv->cell_object = HTML_OBJECT (cell);
 	g_assert (HTML_IS_TABLE_CELL (cell));
 
-	editor->priv->cell_parent = editor->priv->cell_object->parent;
-	g_assert (HTML_IS_TABLE (editor->priv->cell_parent));
+	priv->cell_parent = priv->cell_object->parent;
+	g_assert (HTML_IS_TABLE (priv->cell_parent));
 
 	/* Select 'cell' scope. */
 	widget = WIDGET (CELL_PROPERTIES_CELL_RADIO_BUTTON);
@@ -681,9 +693,11 @@ gtkhtml_editor_image_properties_alignment_changed_cb (GtkWidget *window))
 	HTMLImage *image;
 	HTMLVAlignType valign;
 	gint active;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
-	image = HTML_IMAGE (editor->priv->image_object);
+	priv = gtkhtml_editor_get_private(editor);
+	image = HTML_IMAGE (priv->image_object);
 
 	widget = WIDGET (IMAGE_PROPERTIES_ALIGNMENT_COMBO_BOX);
 	active = gtk_combo_box_get_active (GTK_COMBO_BOX (widget));
@@ -701,9 +715,11 @@ gtkhtml_editor_image_properties_border_changed_cb (GtkWidget *window))
 	GtkWidget *widget;
 	HTMLImage *image;
 	gint border;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
-	image = HTML_IMAGE (editor->priv->image_object);
+	priv = gtkhtml_editor_get_private(editor);
+	image = HTML_IMAGE (priv->image_object);
 
 	widget = WIDGET (IMAGE_PROPERTIES_BORDER_SPIN_BUTTON);
 	border = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (widget));
@@ -720,9 +736,11 @@ gtkhtml_editor_image_properties_description_changed_cb (GtkWidget *window))
 	GtkWidget *widget;
 	HTMLImage *image;
 	const gchar *text;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
-	image = HTML_IMAGE (editor->priv->image_object);
+	priv = gtkhtml_editor_get_private(editor);
+	image = HTML_IMAGE (priv->image_object);
 
 	widget = WIDGET (IMAGE_PROPERTIES_DESCRIPTION_ENTRY);
 	text = gtk_entry_get_text (GTK_ENTRY (widget));
@@ -744,9 +762,11 @@ gtkhtml_editor_image_properties_padding_changed_cb (GtkWidget *window))
 	HTMLImage *image;
 	gint hspace;
 	gint vspace;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
-	image = HTML_IMAGE (editor->priv->image_object);
+	priv = gtkhtml_editor_get_private(editor);
+	image = HTML_IMAGE (priv->image_object);
 
 	widget = WIDGET (IMAGE_PROPERTIES_X_PADDING_SPIN_BUTTON);
 	hspace = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (widget));
@@ -769,16 +789,18 @@ gtkhtml_editor_image_properties_show_window_cb (GtkWidget *window))
 	GtkHTML *html;
 	gdouble value;
 	gint active;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
 	html = gtkhtml_editor_get_html (editor);
+	priv = gtkhtml_editor_get_private(editor);
 
-	editor->priv->image_object = html->engine->cursor->object;
-	image = HTML_IMAGE (editor->priv->image_object);
+	priv->image_object = html->engine->cursor->object;
+	image = HTML_IMAGE (priv->image_object);
 	g_assert (HTML_IS_IMAGE (image));
 
 	widget = WIDGET (IMAGE_PROPERTIES_SOURCE_FILE_CHOOSER);
-	parent = editor->priv->image_object->parent;
+	parent = priv->image_object->parent;
 	if ((parent == NULL
 		|| html_object_get_data (parent, "template_image") == NULL)
 		&& image->image_ptr->url != NULL) {
@@ -896,9 +918,11 @@ gtkhtml_editor_image_properties_size_changed_cb (GtkWidget *window))
 	gint width_units;
 	gint height;
 	gint width;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
-	image = HTML_IMAGE (editor->priv->image_object);
+	priv = gtkhtml_editor_get_private(editor);
+	image = HTML_IMAGE (priv->image_object);
 
 	widget = WIDGET (IMAGE_PROPERTIES_WIDTH_COMBO_BOX);
 	width_units = gtk_combo_box_get_active (GTK_COMBO_BOX (widget));
@@ -932,9 +956,11 @@ gtkhtml_editor_image_properties_source_file_set_cb (GtkWidget *window))
 	HTMLImage *image;
 	gchar *filename;
 	gchar *url = NULL;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
-	image = HTML_IMAGE (editor->priv->image_object);
+	priv = gtkhtml_editor_get_private(editor);
+	image = HTML_IMAGE (priv->image_object);
 
 	widget = WIDGET (IMAGE_PROPERTIES_SOURCE_FILE_CHOOSER);
 	filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (widget));
@@ -979,9 +1005,11 @@ gtkhtml_editor_image_properties_url_entry_changed_cb (GtkWidget *window))
 	gchar **parts;
 	guint length;
 	const gchar *text;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
 	html = gtkhtml_editor_get_html (editor);
+	priv = gtkhtml_editor_get_private(editor);
 	color_set = html->engine->settings->color_set;
 
 	widget = WIDGET (IMAGE_PROPERTIES_URL_ENTRY);
@@ -1000,7 +1028,7 @@ gtkhtml_editor_image_properties_url_entry_changed_cb (GtkWidget *window))
 	length = g_strv_length (parts);
 
 	html_object_set_link (
-		editor->priv->image_object, color,
+		priv->image_object, color,
 		(length > 0) ? parts[0] : NULL,
 		(length > 1) ? parts[1] : NULL);
 
@@ -1038,18 +1066,20 @@ gtkhtml_editor_link_properties_description_changed_cb (GtkWidget *window))
 	GtkWidget *url_entry;
 	GtkHTML *html;
 	gchar *text;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
 	html = gtkhtml_editor_get_html (editor);
+	priv = gtkhtml_editor_get_private(editor);
 
 	dsc_entry = WIDGET (LINK_PROPERTIES_DESCRIPTION_ENTRY);
 	url_entry = WIDGET (LINK_PROPERTIES_URL_ENTRY);
 
 	text = sanitize_description_text (gtk_entry_get_text (GTK_ENTRY (dsc_entry)));
 
-	editor->priv->link_custom_description = (*text != '\0');
+	priv->link_custom_description = (*text != '\0');
 
-	if (editor->priv->link_custom_description) {
+	if (priv->link_custom_description) {
 		glong length;
 		Link *link;
 
@@ -1090,9 +1120,11 @@ gtkhtml_editor_link_properties_url_changed_cb (GtkWidget *window))
 	GtkWidget *url_entry;
 	GtkHTML *html;
 	gchar *text;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
 	html = gtkhtml_editor_get_html (editor);
+	priv = gtkhtml_editor_get_private(editor);
 
 	dsc_entry = WIDGET (LINK_PROPERTIES_DESCRIPTION_ENTRY);
 	url_entry = WIDGET (LINK_PROPERTIES_URL_ENTRY);
@@ -1104,11 +1136,11 @@ gtkhtml_editor_link_properties_url_changed_cb (GtkWidget *window))
 
 	if (html_engine_is_selection_active (html->engine)) {
 		html_engine_set_link (html->engine, text);
-	} else if (!editor->priv->link_custom_description) {
+	} else if (!priv->link_custom_description) {
 		gchar *descr = sanitize_description_text (text);
 		gtk_entry_set_text (GTK_ENTRY (dsc_entry), descr);
 		g_free (descr);
-		editor->priv->link_custom_description = FALSE;
+		priv->link_custom_description = FALSE;
 	} else {
 		glong length;
 		Link *link;
@@ -1152,14 +1184,16 @@ gtkhtml_editor_link_properties_show_window_cb (GtkWidget *window))
 	gchar *url = NULL, *dsc = NULL;
 	gboolean sensitive;
 	HTMLCursor *cursor;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
 	html = gtkhtml_editor_get_html (editor);
+	priv = gtkhtml_editor_get_private(editor);
 
 	dsc_entry = WIDGET (LINK_PROPERTIES_DESCRIPTION_ENTRY);
 	url_entry = WIDGET (LINK_PROPERTIES_URL_ENTRY);
 
-	editor->priv->link_custom_description = FALSE;
+	priv->link_custom_description = FALSE;
 
 	cursor = html->engine->cursor;
 
@@ -1176,7 +1210,7 @@ gtkhtml_editor_link_properties_show_window_cb (GtkWidget *window))
 				cursor->offset);
 			if (link != NULL) {
 				dsc = html_text_get_link_text (HTML_TEXT (cursor->object), cursor->offset);
-				editor->priv->link_custom_description = dsc && !g_str_equal (dsc, url);
+				priv->link_custom_description = dsc && !g_str_equal (dsc, url);
 			}
 		}
 	}
@@ -1480,9 +1514,11 @@ gtkhtml_editor_page_properties_text_color_changed_cb (GtkWidget *window,
 	GtkhtmlEditor *editor;
 	GdkColor color;
 	GtkHTML *html;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
 	html = gtkhtml_editor_get_html (editor);
+	priv = gtkhtml_editor_get_private(editor);
 
 	if (!gtkhtml_color_combo_get_current_color (combo, &color))
 		color = html_colorset_get_color (
@@ -1490,7 +1526,7 @@ gtkhtml_editor_page_properties_text_color_changed_cb (GtkWidget *window,
 			color_id)->color;
 
 	gtkhtml_color_state_set_default_color (
-		editor->priv->text_color, &color);
+		priv->text_color, &color);
 
 	html_colorset_set_color (
 		html->engine->settings->color_set, &color, color_id);
@@ -1529,10 +1565,12 @@ gtkhtml_editor_rule_properties_alignment_changed_cb (GtkWidget *window,
 	HTMLHAlignType align;
 	GtkHTML *html;
 	HTMLRule *rule;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
+	priv = gtkhtml_editor_get_private(editor);
 	html = gtkhtml_editor_get_html (editor);
-	rule = HTML_RULE (editor->priv->rule_object);
+	rule = HTML_RULE (priv->rule_object);
 
 	align = HTML_HALIGN_LEFT + gtk_combo_box_get_active (combo_box);
 	html_rule_set_align (rule, html->engine, align);
@@ -1548,10 +1586,12 @@ gtkhtml_editor_rule_properties_shaded_toggled_cb (GtkWidget *window,
 	GtkHTML *html;
 	HTMLRule *rule;
 	gboolean active;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
+	priv = gtkhtml_editor_get_private(editor);
 	html = gtkhtml_editor_get_html (editor);
-	rule = HTML_RULE (editor->priv->rule_object);
+	rule = HTML_RULE (priv->rule_object);
 
 	active = gtk_toggle_button_get_active (button);
 	html_rule_set_shade (rule, html->engine, active);
@@ -1567,10 +1607,12 @@ gtkhtml_editor_rule_properties_size_changed_cb (GtkWidget *window,
 	GtkHTML *html;
 	HTMLRule *rule;
 	gint value;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
 	html = gtkhtml_editor_get_html (editor);
-	rule = HTML_RULE (editor->priv->rule_object);
+	priv = gtkhtml_editor_get_private(editor);
+	rule = HTML_RULE (priv->rule_object);
 
 	value = gtk_spin_button_get_value_as_int (button);
 	html_rule_set_size (rule, html->engine, value);
@@ -1587,16 +1629,18 @@ gtkhtml_editor_rule_properties_show_window_cb (GtkWidget *window))
 	GtkHTML *html;
 	gdouble value;
 	gint active;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
 	html = gtkhtml_editor_get_html (editor);
+	priv = gtkhtml_editor_get_private(editor);
 
-	editor->priv->rule_object = html->engine->cursor->object;
-	rule = HTML_RULE (editor->priv->rule_object);
+	priv->rule_object = html->engine->cursor->object;
+	rule = HTML_RULE (priv->rule_object);
 	g_assert (HTML_IS_RULE (rule));
 
-	if (editor->priv->rule_object->percent > 0) {
-		value = (gdouble) editor->priv->rule_object->percent;
+	if (priv->rule_object->percent > 0) {
+		value = (gdouble) priv->rule_object->percent;
 		active = SIZE_UNIT_PERCENT;
 	} else {
 		value = (gdouble) rule->length;
@@ -1634,10 +1678,12 @@ gtkhtml_editor_rule_properties_width_changed_cb (GtkWidget *window))
 	HTMLRule *rule;
 	gdouble value;
 	gint active;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
 	html = gtkhtml_editor_get_html (editor);
-	rule = HTML_RULE (editor->priv->rule_object);
+	priv = gtkhtml_editor_get_private(editor);
+	rule = HTML_RULE (priv->rule_object);
 
 	widget = WIDGET (RULE_PROPERTIES_WIDTH_COMBO_BOX);
 	active = gtk_combo_box_get_active (GTK_COMBO_BOX (widget));
@@ -1695,10 +1741,12 @@ gtkhtml_editor_table_properties_alignment_changed_cb (GtkWidget *window,
 	HTMLHAlignType align;
 	GtkHTML *html;
 	HTMLTable *table;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
 	html = gtkhtml_editor_get_html (editor);
-	table = HTML_TABLE (editor->priv->table_object);
+	priv = gtkhtml_editor_get_private(editor);
+	table = HTML_TABLE (priv->table_object);
 
 	html_cursor_forward (html->engine->cursor, html->engine);
 
@@ -1716,10 +1764,12 @@ gtkhtml_editor_table_properties_border_changed_cb (GtkWidget *window,
 	HTMLTable *table;
 	GtkHTML *html;
 	gint value;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
 	html = gtkhtml_editor_get_html (editor);
-	table = HTML_TABLE (editor->priv->table_object);
+	priv = gtkhtml_editor_get_private(editor);
+	table = HTML_TABLE (priv->table_object);
 
 	html_cursor_forward (html->engine->cursor, html->engine);
 
@@ -1738,10 +1788,12 @@ gtkhtml_editor_table_properties_color_changed_cb (GtkWidget *window,
 	GtkHTML *html;
 	GdkColor color;
 	gboolean got_color;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
 	html = gtkhtml_editor_get_html (editor);
-	table = HTML_TABLE (editor->priv->table_object);
+	priv = gtkhtml_editor_get_private(editor);
+	table = HTML_TABLE (priv->table_object);
 
 	/* The default table color is transparent. */
 	got_color = gtkhtml_color_combo_get_current_color (combo, &color);
@@ -1757,13 +1809,15 @@ gtkhtml_editor_table_properties_cols_changed_cb (GtkWidget *window,
 	GtkhtmlEditor *editor;
 	GtkHTML *html;
 	gint value;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
 	html = gtkhtml_editor_get_html (editor);
+	priv = gtkhtml_editor_get_private(editor);
 
 	html_cursor_jump_to (
 		html->engine->cursor, html->engine,
-		editor->priv->table_object, 1);
+		priv->table_object, 1);
 	html_cursor_backward (html->engine->cursor, html->engine);
 
 	value = gtk_spin_button_get_value_as_int (button);
@@ -1780,10 +1834,12 @@ gtkhtml_editor_table_properties_image_changed_cb (GtkWidget *window,
 	HTMLTable *table;
 	GtkHTML *html;
 	gchar *uri;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
 	html = gtkhtml_editor_get_html (editor);
-	table = HTML_TABLE (editor->priv->table_object);
+	priv = gtkhtml_editor_get_private(editor);
+	table = HTML_TABLE (priv->table_object);
 
 	html_cursor_forward (html->engine->cursor, html->engine);
 
@@ -1802,10 +1858,12 @@ gtkhtml_editor_table_properties_padding_changed_cb (GtkWidget *window,
 	HTMLTable *table;
 	GtkHTML *html;
 	gint value;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
 	html = gtkhtml_editor_get_html (editor);
-	table = HTML_TABLE (editor->priv->table_object);
+	priv = gtkhtml_editor_get_private(editor);
+	table = HTML_TABLE (priv->table_object);
 
 	html_cursor_forward (html->engine->cursor, html->engine);
 
@@ -1823,10 +1881,13 @@ gtkhtml_editor_table_properties_spacing_changed_cb (GtkWidget *window,
 	HTMLTable *table;
 	GtkHTML *html;
 	gint value;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
 	html = gtkhtml_editor_get_html (editor);
-	table = HTML_TABLE (editor->priv->table_object);
+
+	priv = gtkhtml_editor_get_private(editor);
+	table = HTML_TABLE (priv->table_object);
 
 	html_cursor_forward (html->engine->cursor, html->engine);
 
@@ -1843,13 +1904,16 @@ gtkhtml_editor_table_properties_rows_changed_cb (GtkWidget *window,
 	GtkhtmlEditor *editor;
 	GtkHTML *html;
 	gint value;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
 	html = gtkhtml_editor_get_html (editor);
 
+	priv = gtkhtml_editor_get_private(editor);
+
 	html_cursor_jump_to (
 		html->engine->cursor, html->engine,
-		editor->priv->table_object, 1);
+		priv->table_object, 1);
 	html_cursor_backward (html->engine->cursor, html->engine);
 
 	value = gtk_spin_button_get_value_as_int (button);
@@ -1868,12 +1932,14 @@ gtkhtml_editor_table_properties_show_window_cb (GtkWidget *window))
 	GtkHTML *html;
 	gdouble value;
 	gint active;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
 	html = gtkhtml_editor_get_html (editor);
+	priv = gtkhtml_editor_get_private(editor);
 
 	table = html_engine_get_table (html->engine);
-	editor->priv->table_object = HTML_OBJECT (table);
+	priv->table_object = HTML_OBJECT (table);
 	g_assert (HTML_IS_TABLE (table));
 
 	value = (gdouble) table->totalRows;
@@ -1884,8 +1950,8 @@ gtkhtml_editor_table_properties_show_window_cb (GtkWidget *window))
 	widget = WIDGET (TABLE_PROPERTIES_COLS_SPIN_BUTTON);
 	gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget), value);
 
-	if (editor->priv->table_object->percent > 0) {
-		value = (gdouble) editor->priv->table_object->percent;
+	if (priv->table_object->percent > 0) {
+		value = (gdouble) priv->table_object->percent;
 		active = SIZE_UNIT_PERCENT;
 	} else if (table->specified_width > 0) {
 		value = (gdouble) table->specified_width;
@@ -1905,7 +1971,7 @@ gtkhtml_editor_table_properties_show_window_cb (GtkWidget *window))
 	widget = WIDGET (TABLE_PROPERTIES_WIDTH_CHECK_BUTTON);
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), active);
 
-	clue = HTML_CLUE (editor->priv->table_object->parent);
+	clue = HTML_CLUE (priv->table_object->parent);
 	active = clue->halign - HTML_HALIGN_LEFT;
 	if (active == HTML_HALIGN_NONE)
 		active = HTML_HALIGN_LEFT;
@@ -1960,10 +2026,12 @@ gtkhtml_editor_table_properties_width_changed_cb (GtkWidget *window))
 	gboolean sensitive;
 	gdouble value;
 	gint active;
+	GtkhtmlEditorPrivate* priv;
 
 	editor = extract_gtkhtml_editor (window);
 	html = gtkhtml_editor_get_html (editor);
-	table = HTML_TABLE (editor->priv->table_object);
+	priv = gtkhtml_editor_get_private(editor);
+	table = HTML_TABLE (priv->table_object);
 
 	widget = WIDGET (TABLE_PROPERTIES_WIDTH_CHECK_BUTTON);
 	sensitive = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
