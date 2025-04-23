@@ -18,10 +18,9 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef GTKHTML_FACE_H
-#define GTKHTML_FACE_H
+#pragma once
 
-#include "gtkhtml-editor-common.h"
+#include <gtk/gtk.h>
 
 #define GTKHTML_TYPE_FACE \
 	(gtkhtml_face_get_type ())
@@ -43,5 +42,3 @@ GtkhtmlFace *	gtkhtml_face_copy		(GtkhtmlFace *face);
 void		gtkhtml_face_free		(GtkhtmlFace *face);
 
 G_END_DECLS
-
-#endif /* GTKHTML_FACE_H */
