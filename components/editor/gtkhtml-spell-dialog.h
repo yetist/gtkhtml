@@ -18,47 +18,16 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef GTKHTML_SPELL_DIALOG_H
-#define GTKHTML_SPELL_DIALOG_H
+#pragma once
 
-#include <gtkhtml-editor-common.h>
-#include <gtkhtml-spell-checker.h>
-
-/* Standard GObject macros */
-#define GTKHTML_TYPE_SPELL_DIALOG \
-	(gtkhtml_spell_dialog_get_type ())
-#define GTKHTML_SPELL_DIALOG(obj) \
-	(G_TYPE_CHECK_INSTANCE_CAST \
-	((obj), GTKHTML_TYPE_SPELL_DIALOG, GtkhtmlSpellDialog))
-#define GTKHTML_SPELL_DIALOG_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_CAST \
-	((cls), GTKHTML_TYPE_SPELL_DIALOG, GtkhtmlSpellDialogClass))
-#define GTKHTML_IS_SPELL_DIALOG(obj) \
-	(G_TYPE_CHECK_INSTANCE_TYPE \
-	((obj), GTKHTML_TYPE_SPELL_DIALOG))
-#define GTKHTML_IS_SPELL_DIALOG_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_TYPE \
-	((cls), GTKHTML_TYPE_SPELL_DIALOG))
-#define GTKHTML_SPELL_DIALOG_GET_CLASS(obj) \
-	(G_TYPE_INSTANCE_GET_CLASS \
-	((obj), GTKHTML_TYPE_SPELL_DIALOG, GtkhtmlSpellDialogClass))
+#include "gtkhtml-spell-checker.h"
 
 G_BEGIN_DECLS
 
-typedef struct _GtkhtmlSpellDialog GtkhtmlSpellDialog;
-typedef struct _GtkhtmlSpellDialogClass GtkhtmlSpellDialogClass;
-typedef struct _GtkhtmlSpellDialogPrivate GtkhtmlSpellDialogPrivate;
+#define GTKHTML_TYPE_SPELL_DIALOG              (gtkhtml_spell_dialog_get_type ())
 
-struct _GtkhtmlSpellDialog {
-	GtkDialog parent;
-	GtkhtmlSpellDialogPrivate *priv;
-};
+G_DECLARE_FINAL_TYPE (GtkhtmlSpellDialog, gtkhtml_spell_dialog, GTKHTML, SPELL_DIALOG, GtkDialog)
 
-struct _GtkhtmlSpellDialogClass {
-	GtkDialogClass parent_class;
-};
-
-GType		gtkhtml_spell_dialog_get_type	(void);
 GtkWidget *	gtkhtml_spell_dialog_new	(GtkWindow *parent);
 void		gtkhtml_spell_dialog_close	(GtkhtmlSpellDialog *dialog);
 const gchar *	gtkhtml_spell_dialog_get_word	(GtkhtmlSpellDialog *dialog);
@@ -78,5 +47,3 @@ gchar *		gtkhtml_spell_dialog_get_active_suggestion
 						(GtkhtmlSpellDialog *dialog);
 
 G_END_DECLS
-
-#endif /* GTKHTML_SPELL_DIALOG_H */
