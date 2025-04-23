@@ -19,14 +19,17 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "gtkhtml-color-combo.h"
 
 /* XXX The "combo" aspects of this widget are based heavily on the
  *     GtkComboBox tree-view implementation.  Consider splitting it
  *     into a reusable "combo-with-an-empty-window" widget. */
+#ifdef HAVE_CONFIG_H
+#  include "config.h"
+#endif
 
 #include <glib/gi18n-lib.h>
 #include <gdk/gdkkeysyms.h>
+#include "gtkhtml-color-combo.h"
 #include "gtkhtml-color-swatch.h"
 
 #define NUM_CUSTOM_COLORS	8
@@ -49,7 +52,7 @@ enum {
 	LAST_SIGNAL
 };
 
-struct _GtkhtmlColorComboPrivate {
+typedef struct _GtkhtmlColorComboPrivate {
 	GtkWidget *color_button;
 	GtkWidget *default_button;
 	GtkWidget *toggle_button;
@@ -64,7 +67,7 @@ struct _GtkhtmlColorComboPrivate {
 	guint popup_in_progress	: 1;
 	GdkDevice *grab_keyboard;
 	GdkDevice *grab_mouse;
-};
+} GtkhtmlColorComboPrivate;
 
 static guint signals[LAST_SIGNAL];
 static GdkColor black = { 0, 0, 0, 0 };
@@ -778,8 +781,6 @@ gtkhtml_color_combo_class_init (GtkhtmlColorComboClass *klass)
 {
 	GObjectClass *object_class;
 	GtkWidgetClass *widget_class;
-
-	gtkhtml_color_combo_parent_class = g_type_class_peek_parent (klass);
 
 	object_class = G_OBJECT_CLASS (klass);
 	object_class->set_property = color_combo_set_property;

@@ -18,42 +18,16 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef GTKHTML_COLOR_COMBO_H
-#define GTKHTML_COLOR_COMBO_H
+#pragma once
 
-#include "gtkhtml-editor-common.h"
 #include "gtkhtml-color-palette.h"
 #include "gtkhtml-color-state.h"
 
-/* Standard GObject macros */
-#define GTKHTML_TYPE_COLOR_COMBO \
-	(gtkhtml_color_combo_get_type ())
-#define GTKHTML_COLOR_COMBO(obj) \
-	(G_TYPE_CHECK_INSTANCE_CAST \
-	((obj), GTKHTML_TYPE_COLOR_COMBO, GtkhtmlColorCombo))
-#define GTKHTML_COLOR_COMBO_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_CAST \
-	((cls), GTKHTML_TYPE_COLOR_COMBO, GtkhtmlColorComboClass))
-#define GTKHTML_IS_COLOR_COMBO(obj) \
-	(G_TYPE_CHECK_INSTANCE_TYPE \
-	((obj), GTKHTML_TYPE_COLOR_COMBO))
-#define GTKHTML_IS_COLOR_COMBO_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_TYPE \
-	((cls), GTKHTML_TYPE_COLOR_COMBO))
-#define GTKHTML_COLOR_COMBO_GET_CLASS(obj) \
-	(G_TYPE_INSTANCE_GET_CLASS \
-	((obj), GTKHTML_TYPE_COLOR_COMBO, GtkhtmlColorComboClass))
-
 G_BEGIN_DECLS
 
-typedef struct _GtkhtmlColorCombo GtkhtmlColorCombo;
-typedef struct _GtkhtmlColorComboClass GtkhtmlColorComboClass;
-typedef struct _GtkhtmlColorComboPrivate GtkhtmlColorComboPrivate;
+#define GTKHTML_TYPE_COLOR_COMBO              (gtkhtml_color_combo_get_type ())
 
-struct _GtkhtmlColorCombo {
-	GtkBin parent;
-	GtkhtmlColorComboPrivate *priv;
-};
+G_DECLARE_DERIVABLE_TYPE (GtkhtmlColorCombo, gtkhtml_color_combo, GTKHTML, COLOR_COMBO, GtkBin)
 
 struct _GtkhtmlColorComboClass {
 	GtkBinClass parent_class;
@@ -62,7 +36,6 @@ struct _GtkhtmlColorComboClass {
 	void		(*popdown)		(GtkhtmlColorCombo *combo);
 };
 
-GType		gtkhtml_color_combo_get_type	(void);
 GtkWidget *	gtkhtml_color_combo_new		(void);
 GtkWidget *	gtkhtml_color_combo_new_defaults
 						(GdkColor *default_color,
@@ -101,5 +74,3 @@ void		gtkhtml_color_combo_set_state	(GtkhtmlColorCombo *combo,
 						 GtkhtmlColorState *state);
 
 G_END_DECLS
-
-#endif /* GTKHTML_COLOR_COMBO_H */
