@@ -17,54 +17,26 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
+#pragma once
 
-#ifndef GTKHTML_FACE_TOOL_BUTTON_H
-#define GTKHTML_FACE_TOOL_BUTTON_H
-
-#include "gtkhtml-editor-common.h"
-
-/* Standard GObject macros */
-#define GTKHTML_TYPE_FACE_TOOL_BUTTON \
-	(gtkhtml_face_tool_button_get_type ())
-#define GTKHTML_FACE_TOOL_BUTTON(obj) \
-	(G_TYPE_CHECK_INSTANCE_CAST \
-	((obj), GTKHTML_TYPE_FACE_TOOL_BUTTON, GtkhtmlFaceToolButton))
-#define GTKHTML_FACE_TOOL_BUTTON_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_CAST \
-	((cls), GTKHTML_TYPE_FACE_TOOL_BUTTON, GtkhtmlFaceToolButtonClass))
-#define GTKHTML_IS_FACE_TOOL_BUTTON(obj) \
-	(G_TYPE_CHECK_INSTANCE_TYPE \
-	((obj), GTKHTML_TYPE_FACE_TOOL_BUTTON))
-#define GTKHTML_IS_FACE_TOOL_BUTTON_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_TYPE \
-	((cls), GTKHTML_TYPE_FACE_TOOL_BUTTON))
-#define GTKHTML_FACE_TOOL_BUTTON_GET_CLASS(obj) \
-	(G_TYPE_INSTANCE_GET_CLASS \
-	((obj), GTKHTML_TYPE_FACE_TOOL_BUTTON, GtkhtmlFaceToolButtonClass))
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
-typedef struct _GtkhtmlFaceToolButton GtkhtmlFaceToolButton;
-typedef struct _GtkhtmlFaceToolButtonClass GtkhtmlFaceToolButtonClass;
-typedef struct _GtkhtmlFaceToolButtonPrivate GtkhtmlFaceToolButtonPrivate;
+#define GTKHTML_TYPE_FACE_TOOL_BUTTON              (gtkhtml_face_tool_button_get_type ())
 
-struct _GtkhtmlFaceToolButton {
-	GtkToggleToolButton parent;
-	GtkhtmlFaceToolButtonPrivate *priv;
+G_DECLARE_DERIVABLE_TYPE (GtkhtmlFaceToolButton, gtkhtml_face_tool_button, GTKHTML, FACE_TOOL_BUTTON, GtkToggleToolButton)
+
+struct _GtkhtmlFaceToolButtonClass
+{
+    GtkToggleToolButtonClass parent_class;
+
+    void	(*popup)		(GtkhtmlFaceToolButton *button);
+    void	(*popdown)		(GtkhtmlFaceToolButton *button);
 };
 
-struct _GtkhtmlFaceToolButtonClass {
-	GtkToggleToolButtonClass parent_class;
-
-	void	(*popup)		(GtkhtmlFaceToolButton *button);
-	void	(*popdown)		(GtkhtmlFaceToolButton *button);
-};
-
-GType		gtkhtml_face_tool_button_get_type	(void);
 GtkToolItem *	gtkhtml_face_tool_button_new		(void);
 void		gtkhtml_face_tool_button_popup		(GtkhtmlFaceToolButton *button);
 void		gtkhtml_face_tool_button_popdown	(GtkhtmlFaceToolButton *button);
 
 G_END_DECLS
-
-#endif /* GTKHTML_FACE_TOOL_BUTTON_H */

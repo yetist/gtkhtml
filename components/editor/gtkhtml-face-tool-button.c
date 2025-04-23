@@ -19,17 +19,19 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "gtkhtml-face-tool-button.h"
 
 /* XXX The "button" aspects of this widget are based heavily on the
  *     GtkComboBox tree-view implementation.  Consider splitting it
  *     into a reusable "button-with-an-empty-window" widget. */
 
+#ifdef HAVE_CONFIG_H
+#  include "config.h"
+#endif
 #include <string.h>
 #include <glib/gi18n-lib.h>
 #include <gdk/gdkkeysyms.h>
-
 #include "gtkhtml-face-chooser.h"
+#include "gtkhtml-face-tool-button.h"
 
 /* XXX Should calculate this dynamically. */
 #define NUM_ROWS	7
@@ -47,7 +49,7 @@ enum {
 	LAST_SIGNAL
 };
 
-struct _GtkhtmlFaceToolButtonPrivate {
+typedef struct _GtkhtmlFaceToolButtonPrivate {
 	GtkWidget *active_button;  /* not referenced */
 	GtkWidget *table;
 	GtkWidget *window;
@@ -56,7 +58,7 @@ struct _GtkhtmlFaceToolButtonPrivate {
 	guint popup_in_progress	: 1;
 	GdkDevice *grab_keyboard;
 	GdkDevice *grab_mouse;
-};
+} GtkhtmlFaceToolButtonPrivate;
 
 static guint signals[LAST_SIGNAL];
 static void face_tool_button_build_popup_window (GtkhtmlFaceToolButton *button);
@@ -508,8 +510,6 @@ gtkhtml_face_tool_button_class_init (GtkhtmlFaceToolButtonClass *class)
 	GObjectClass *object_class;
 	GtkWidgetClass *widget_class;
 	GtkToggleToolButtonClass *toggle_tool_button_class;
-
-	gtkhtml_face_tool_button_parent_class = g_type_class_peek_parent (class);
 
 	object_class = G_OBJECT_CLASS (class);
 	object_class->set_property = face_tool_button_set_property;
