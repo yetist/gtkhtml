@@ -19,11 +19,15 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "gtkhtml-spell-language.h"
+
+#ifdef HAVE_CONFIG_H
+#  include "config.h"
+#endif
 
 #include <string.h>
 #include <glib/gi18n-lib.h>
 #include <enchant.h>
+#include "gtkhtml-spell-language.h"
 
 #define ISO_639_DOMAIN	"iso_639"
 #define ISO_3166_DOMAIN	"iso_3166"
@@ -36,6 +40,11 @@ struct _GtkhtmlSpellLanguage {
 
 static GHashTable *iso_639_table = NULL;
 static GHashTable *iso_3166_table = NULL;
+
+static GtkhtmlSpellLanguage* spell_language_copy (GtkhtmlSpellLanguage *language);
+static void spell_language_free (GtkhtmlSpellLanguage *language);
+
+G_DEFINE_BOXED_TYPE (GtkhtmlSpellLanguage, gtkhtml_spell_language, spell_language_copy, spell_language_free)
 
 #ifdef HAVE_ISO_CODES
 
@@ -213,11 +222,7 @@ iso_codes_parse (const GMarkupParser *parser,
 		g_markup_parse_context_parse (
 			context, contents, length, &error);
 		g_markup_parse_context_free (context);
-#if GLIB_CHECK_VERSION(2,21,3)
 		g_mapped_file_unref (mapped_file);
-#else
-		g_mapped_file_free (mapped_file);
-#endif
 	}
 
 	if (error != NULL) {
@@ -281,14 +286,14 @@ exit:
 	g_tree_replace (tree, g_strdup (language_code), language_name);
 }
 
-static const GtkhtmlSpellLanguage *
-spell_language_copy (const GtkhtmlSpellLanguage *language)
+static GtkhtmlSpellLanguage *
+spell_language_copy (GtkhtmlSpellLanguage *language)
 {
 	return language;
 }
 
 static void
-spell_language_free (const GtkhtmlSpellLanguage *language)
+spell_language_free (GtkhtmlSpellLanguage *language)
 {
 	/* do nothing */
 }
@@ -335,20 +340,6 @@ spell_language_traverse_cb (const gchar *code,
 		(GCompareFunc) gtkhtml_spell_language_compare);
 
 	return FALSE;
-}
-
-GType
-gtkhtml_spell_language_get_type (void)
-{
-	static GType type = 0;
-
-	if (G_UNLIKELY (type == 0))
-		type = g_boxed_type_register_static (
-			"GtkhtmlSpellLanguage",
-			(GBoxedCopyFunc) spell_language_copy,
-			(GBoxedFreeFunc) spell_language_free);
-
-	return type;
 }
 
 static gint

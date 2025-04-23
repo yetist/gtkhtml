@@ -20,19 +20,17 @@
 
 /* Based on Marco Barisione's GSpellLanguage. */
 
-#ifndef GTKHTML_SPELL_LANGUAGE_H
-#define GTKHTML_SPELL_LANGUAGE_H
+#pragma once
 
-#include <gtkhtml-editor-common.h>
+#include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
 typedef struct _GtkhtmlSpellLanguage GtkhtmlSpellLanguage;
 
-#define GTKHTML_TYPE_SPELL_LANGUAGE \
-	(gtkhtml_spell_language_get_type ())
+#define GTKHTML_TYPE_SPELL_LANGUAGE (gtkhtml_spell_language_get_type ())
 
-GType		gtkhtml_spell_language_get_type		(void);
+GType		gtkhtml_spell_language_get_type		(void) G_GNUC_CONST;
 const GList *	gtkhtml_spell_language_get_available	(void);
 
 const GtkhtmlSpellLanguage *
@@ -47,5 +45,3 @@ gint		gtkhtml_spell_language_compare
 					 const GtkhtmlSpellLanguage *language_b);
 
 G_END_DECLS
-
-#endif /* GTKHTML_SPELL_LANGUAGE_H */
