@@ -20,7 +20,6 @@
  */
 
 #include "gtkhtml-face-action.h"
-
 #include "gtkhtml-face-chooser-menu.h"
 #include "gtkhtml-face-tool-button.h"
 
@@ -237,8 +236,6 @@ gtkhtml_face_action_class_init (GtkhtmlFaceActionClass *class)
 {
 	GObjectClass *object_class;
 	GtkActionClass *action_class;
-
-	gtkhtml_face_action_parent_class = g_type_class_peek_parent (class);
 
 	object_class = G_OBJECT_CLASS (class);
 	object_class->set_property = face_action_set_property;

@@ -21,7 +21,7 @@
 #ifndef GTKHTML_FACE_ACTION_H
 #define GTKHTML_FACE_ACTION_H
 
-#include "gtkhtml-editor-common.h"
+#include <gtk/gtk.h>
 
 /* Standard GObject macros */
 #define GTKHTML_TYPE_FACE_ACTION \
@@ -50,7 +50,6 @@ typedef struct _GtkhtmlFaceActionPrivate GtkhtmlFaceActionPrivate;
 
 struct _GtkhtmlFaceAction {
 	GtkAction parent;
-	GtkhtmlFaceActionPrivate *priv;
 };
 
 struct _GtkhtmlFaceActionClass {
