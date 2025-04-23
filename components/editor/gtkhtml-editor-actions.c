@@ -250,8 +250,10 @@ action_bold_cb (GtkToggleAction *action,
                 GtkhtmlEditor *editor)
 {
 	const gchar *command;
+	GtkhtmlEditorPrivate* priv;
 
-	if (editor->priv->ignore_style_change)
+	priv = gtkhtml_editor_get_private(editor);
+	if (priv->ignore_style_change)
 		return;
 
 	if (gtk_toggle_action_get_active (action))
@@ -393,6 +395,8 @@ action_context_spell_add_cb (GtkAction *action,
 	GList *active_spell_checkers;
 	const gchar *action_name;
 	gchar *word;
+	GtkhtmlEditorPrivate* priv;
+
 
 	/* XXX This is messy.  We have to extract the language code from
 	 *     the action's name to know which dictionary to add the word
@@ -401,7 +405,8 @@ action_context_spell_add_cb (GtkAction *action,
 
 	html = gtkhtml_editor_get_html (editor);
 	action_name = gtk_action_get_name (action);
-	active_spell_checkers = editor->priv->active_spell_checkers;
+	priv = gtkhtml_editor_get_private(editor);
+	active_spell_checkers = priv->active_spell_checkers;
 	g_return_if_fail (active_spell_checkers != NULL);
 
 	/* Note: len("context-spell-add-") == 18 */
@@ -409,7 +414,7 @@ action_context_spell_add_cb (GtkAction *action,
 		const gchar *language_code = action_name + 18;
 
 		checker = g_hash_table_lookup (
-			editor->priv->available_spell_checkers,
+			priv->available_spell_checkers,
 			gtkhtml_spell_language_lookup (language_code));
 	} else
 		checker = active_spell_checkers->data;
@@ -428,6 +433,7 @@ static void
 action_context_spell_ignore_cb (GtkAction *action,
                                 GtkhtmlEditor *editor)
 {
+	GtkhtmlEditorPrivate* priv;
 	GtkhtmlSpellChecker *checker;
 	GList *active_spell_checkers;
 	GtkHTML *html;
@@ -440,7 +446,9 @@ action_context_spell_ignore_cb (GtkAction *action,
 	 *     is to first see if the dictionary for the current locale is
 	 *     enabled.  If not, then pick the first enabled dictionary. */
 
-	active_spell_checkers = editor->priv->active_spell_checkers;
+
+	priv = gtkhtml_editor_get_private(editor);
+	active_spell_checkers = priv->active_spell_checkers;
 	g_return_if_fail (active_spell_checkers != NULL);
 
 	/* Find a spell checker to add the word to. */
@@ -448,7 +456,7 @@ action_context_spell_ignore_cb (GtkAction *action,
 		checker = active_spell_checkers->data;
 	else {
 		checker = g_hash_table_lookup (
-			editor->priv->available_spell_checkers,
+			priv->available_spell_checkers,
 			gtkhtml_spell_language_lookup (NULL));
 		if (g_list_find (active_spell_checkers, checker) == NULL)
 			checker = active_spell_checkers->data;
@@ -709,8 +717,10 @@ action_italic_cb (GtkToggleAction *action,
                   GtkhtmlEditor *editor)
 {
 	const gchar *command;
+	GtkhtmlEditorPrivate* priv;
 
-	if (editor->priv->ignore_style_change)
+	priv = gtkhtml_editor_get_private(editor);
+	if (priv->ignore_style_change)
 		return;
 
 	if (gtk_toggle_action_get_active (action))
@@ -759,17 +769,19 @@ action_language_cb (GtkToggleAction *action,
 	guint length;
 	gchar *action_name;
 	gboolean active;
+	GtkhtmlEditorPrivate* priv;
 
 	active = gtk_toggle_action_get_active (GTK_TOGGLE_ACTION (action));
 	language_code = gtk_action_get_name (GTK_ACTION (action));
 	language = gtkhtml_spell_language_lookup (language_code);
+	priv = gtkhtml_editor_get_private(editor);
 
 	checker = g_hash_table_lookup (
-		editor->priv->available_spell_checkers, language);
+		priv->available_spell_checkers, language);
 	g_return_if_fail (checker != NULL);
 
 	/* Update the list of active spell checkers. */
-	list = editor->priv->active_spell_checkers;
+	list = priv->active_spell_checkers;
 	if (active)
 		list = g_list_insert_sorted (
 			list, g_object_ref (checker),
@@ -782,7 +794,7 @@ action_language_cb (GtkToggleAction *action,
 		list = g_list_delete_link (list, link);
 		g_object_unref (checker);
 	}
-	editor->priv->active_spell_checkers = list;
+	priv->active_spell_checkers = list;
 	length = g_list_length (list);
 
 	/* Update "Add Word To" context menu item visibility. */
@@ -814,23 +826,26 @@ action_mode_cb (GtkRadioAction *action,
 	GtkHTML *html;
 	EditorMode mode;
 	gboolean html_mode;
+	GtkhtmlEditorPrivate* priv;
+
 
 	html = gtkhtml_editor_get_html (editor);
 	mode = gtk_radio_action_get_current_value (current);
 	html_mode = (mode == EDITOR_MODE_HTML);
+	priv = gtkhtml_editor_get_private(editor);
 
-	action_group = editor->priv->html_actions;
+	action_group = priv->html_actions;
 	gtk_action_group_set_sensitive (action_group, html_mode);
 
-	action_group = editor->priv->html_context_actions;
+	action_group = priv->html_context_actions;
 	gtk_action_group_set_visible (action_group, html_mode);
 
-	gtk_widget_set_sensitive (editor->priv->color_combo_box, html_mode);
+	gtk_widget_set_sensitive (priv->color_combo_box, html_mode);
 
 	if (html_mode)
-		gtk_widget_show (editor->priv->html_toolbar);
+		gtk_widget_show (priv->html_toolbar);
 	else
-		gtk_widget_hide (editor->priv->html_toolbar);
+		gtk_widget_hide (priv->html_toolbar);
 
 	/* Certain paragraph styles are HTML-only. */
 	gtk_action_set_sensitive (ACTION (STYLE_H1), html_mode);
@@ -844,11 +859,11 @@ action_mode_cb (GtkRadioAction *action,
 	/* Swap painters. */
 
 	if (html_mode) {
-		new_painter = editor->priv->html_painter;
-		old_painter = editor->priv->plain_painter;
+		new_painter = priv->html_painter;
+		old_painter = priv->plain_painter;
 	} else {
-		new_painter = editor->priv->plain_painter;
-		old_painter = editor->priv->html_painter;
+		new_painter = priv->plain_painter;
+		old_painter = priv->html_painter;
 	}
 
 	/* Might be true during initialization. */
@@ -883,8 +898,10 @@ action_monospaced_cb (GtkToggleAction *action,
 	GtkHTML *html;
 	GtkHTMLFontStyle and_mask;
 	GtkHTMLFontStyle or_mask;
+	GtkhtmlEditorPrivate* priv;
 
-	if (editor->priv->ignore_style_change)
+	priv = gtkhtml_editor_get_private(editor);
+	if (priv->ignore_style_change)
 		return;
 
 	if (gtk_toggle_action_get_active (action)) {
@@ -982,8 +999,10 @@ action_style_cb (GtkRadioAction *action,
                  GtkhtmlEditor *editor)
 {
 	const gchar *command = NULL;
+	GtkhtmlEditorPrivate* priv;
 
-	if (editor->priv->ignore_style_change)
+	priv = gtkhtml_editor_get_private(editor);
+	if (priv->ignore_style_change)
 		return;
 
 	switch (gtk_radio_action_get_current_value (current)) {
@@ -1071,8 +1090,10 @@ action_size_cb (GtkRadioAction *action,
                 GtkhtmlEditor *editor)
 {
 	const gchar *command = NULL;
+	GtkhtmlEditorPrivate* priv;
 
-	if (editor->priv->ignore_style_change)
+	priv = gtkhtml_editor_get_private(editor);
+	if (priv->ignore_style_change)
 		return;
 
 	switch (gtk_radio_action_get_current_value (current)) {
@@ -1114,8 +1135,10 @@ action_strikethrough_cb (GtkToggleAction *action,
                          GtkhtmlEditor *editor)
 {
 	const gchar *command;
+	GtkhtmlEditorPrivate* priv;
 
-	if (editor->priv->ignore_style_change)
+	priv = gtkhtml_editor_get_private(editor);
+	if (priv->ignore_style_change)
 		return;
 
 	if (gtk_toggle_action_get_active (action))
@@ -1148,8 +1171,10 @@ action_underline_cb (GtkToggleAction *action,
                      GtkhtmlEditor *editor)
 {
 	const gchar *command;
+	GtkhtmlEditorPrivate* priv;
 
-	if (editor->priv->ignore_style_change)
+	priv = gtkhtml_editor_get_private(editor);
+	if (priv->ignore_style_change)
 		return;
 
 	if (gtk_toggle_action_get_active (action))
@@ -1980,9 +2005,11 @@ editor_actions_setup_languages_menu (GtkhtmlEditor *editor)
 	GtkActionGroup *action_group;
 	const GList *available_languages;
 	guint merge_id;
+	GtkhtmlEditorPrivate* priv;
 
-	manager = editor->priv->manager;
-	action_group = editor->priv->language_actions;
+	priv = gtkhtml_editor_get_private(editor);
+	manager = priv->manager;
+	action_group = priv->language_actions;
 	available_languages = gtkhtml_spell_language_get_available ();
 	merge_id = gtk_ui_manager_new_merge_id (manager);
 
@@ -1994,7 +2021,7 @@ editor_actions_setup_languages_menu (GtkhtmlEditor *editor)
 		checker = gtkhtml_spell_checker_new (language);
 
 		g_hash_table_insert (
-			editor->priv->available_spell_checkers,
+			priv->available_spell_checkers,
 			language, checker);
 
 		action = gtk_toggle_action_new (
@@ -2029,9 +2056,11 @@ editor_actions_setup_spell_check_menu (GtkhtmlEditor *editor)
 	GtkActionGroup *action_group;
 	const GList *available_languages;
 	guint merge_id;
+	GtkhtmlEditorPrivate* priv;
 
-	manager = editor->priv->manager;
-	action_group = editor->priv->spell_check_actions;;
+	priv = gtkhtml_editor_get_private(editor);
+	manager = priv->manager;
+	action_group = priv->spell_check_actions;;
 	available_languages = gtkhtml_spell_language_get_available ();
 	merge_id = gtk_ui_manager_new_merge_id (manager);
 
@@ -2105,14 +2134,16 @@ gtkhtml_editor_actions_init (GtkhtmlEditor *editor)
 	GtkActionGroup *action_group;
 	GtkUIManager *manager;
 	const gchar *domain;
+	GtkhtmlEditorPrivate* priv;
 
 	g_return_if_fail (GTKHTML_IS_EDITOR (editor));
 
 	manager = gtkhtml_editor_get_ui_manager (editor);
 	domain = GETTEXT_PACKAGE;
+	priv = gtkhtml_editor_get_private(editor);
 
 	/* Core Actions */
-	action_group = editor->priv->core_actions;
+	action_group = priv->core_actions;
 	gtk_action_group_set_translation_domain (action_group, domain);
 	gtk_action_group_add_actions (
 		action_group, core_entries,
@@ -2146,7 +2177,7 @@ gtkhtml_editor_actions_init (GtkhtmlEditor *editor)
 	g_object_unref (action);
 
 	/* Core Actions (HTML only) */
-	action_group = editor->priv->html_actions;
+	action_group = priv->html_actions;
 	gtk_action_group_set_translation_domain (action_group, domain);
 	gtk_action_group_add_actions (
 		action_group, html_entries,
@@ -2162,7 +2193,7 @@ gtkhtml_editor_actions_init (GtkhtmlEditor *editor)
 	gtk_ui_manager_insert_action_group (manager, action_group, 0);
 
 	/* Context Menu Actions */
-	action_group = editor->priv->context_actions;
+	action_group = priv->context_actions;
 	gtk_action_group_set_translation_domain (action_group, domain);
 	gtk_action_group_add_actions (
 		action_group, context_entries,
@@ -2170,7 +2201,7 @@ gtkhtml_editor_actions_init (GtkhtmlEditor *editor)
 	gtk_ui_manager_insert_action_group (manager, action_group, 0);
 
 	/* Context Menu Actions (HTML only) */
-	action_group = editor->priv->html_context_actions;
+	action_group = priv->html_context_actions;
 	gtk_action_group_set_translation_domain (action_group, domain);
 	gtk_action_group_add_actions (
 		action_group, html_context_entries,
@@ -2178,7 +2209,7 @@ gtkhtml_editor_actions_init (GtkhtmlEditor *editor)
 	gtk_ui_manager_insert_action_group (manager, action_group, 0);
 
 	/* Context Menu Actions (spell check only) */
-	action_group = editor->priv->spell_check_actions;
+	action_group = priv->spell_check_actions;
 	gtk_action_group_set_translation_domain (action_group, domain);
 	gtk_action_group_add_actions (
 		action_group, spell_context_entries,
@@ -2187,11 +2218,11 @@ gtkhtml_editor_actions_init (GtkhtmlEditor *editor)
 
 	/* Language actions are generated dynamically. */
 	editor_actions_setup_languages_menu (editor);
-	action_group = editor->priv->language_actions;
+	action_group = priv->language_actions;
 	gtk_ui_manager_insert_action_group (manager, action_group, 0);
 
 	/* Some spell check actions are generated dynamically. */
-	action_group = editor->priv->suggestion_actions;
+	action_group = priv->suggestion_actions;
 	editor_actions_setup_spell_check_menu (editor);
 	gtk_ui_manager_insert_action_group (manager, action_group, 0);
 
