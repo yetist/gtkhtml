@@ -19,10 +19,12 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "gtkhtml-editor.h"
+#ifdef HAVE_CONFIG_H
+#  include "config.h"
+#endif
 
 #include <string.h>
-
+#include "gtkhtml-editor.h"
 #include "gtkhtml-editor-private.h"
 
 enum {
@@ -815,8 +817,6 @@ gtkhtml_editor_class_init (GtkhtmlEditorClass *class)
 	GObjectClass *object_class;
 	GtkWidgetClass *widget_class;
 
-	gtkhtml_editor_parent_class = g_type_class_peek_parent (class);
-
 	object_class = G_OBJECT_CLASS (class);
 	object_class->constructor = editor_constructor;
 	object_class->set_property = editor_set_property;
@@ -993,7 +993,7 @@ gtkhtml_editor_init (GtkhtmlEditor *editor)
 
 	gtk_icon_theme_add_resource_path (gtk_icon_theme_get_default (),
 				   "/gtkhtml/icons/");
-	editor->priv = priv;
+//	editor->priv = priv;
 	gtkhtml_editor_private_init (editor);
 }
 
@@ -2735,4 +2735,13 @@ gtkhtml_editor_update_context (GtkhtmlEditor *editor)
 
 	/* Add actions and context menu content for active languages. */
 	g_list_foreach (list, (GFunc) editor_spell_checkers_foreach, editor);
+}
+
+GtkhtmlEditorPrivate*
+gtkhtml_editor_get_private (GtkhtmlEditor *editor)
+{
+	GtkhtmlEditorPrivate *priv;
+
+	priv = gtkhtml_editor_get_instance_private (editor);
+	return priv;
 }

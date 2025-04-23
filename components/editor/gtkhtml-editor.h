@@ -19,12 +19,10 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef GTKHTML_EDITOR_H
-#define GTKHTML_EDITOR_H
+#pragma once
 
 #include <gtkhtml/gtkhtml.h>
 
-#include <gtkhtml-editor-common.h>
 #include <gtkhtml-editor-actions.h>
 #include <gtkhtml-editor-widgets.h>
 
@@ -33,37 +31,14 @@
 
 #include <stdarg.h>
 
-/* Standard GObject macros */
-#define GTKHTML_TYPE_EDITOR \
-	(gtkhtml_editor_get_type ())
-#define GTKHTML_EDITOR(obj) \
-	(G_TYPE_CHECK_INSTANCE_CAST \
-	((obj), GTKHTML_TYPE_EDITOR, GtkhtmlEditor))
-#define GTKHTML_EDITOR_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_CAST \
-	((cls), GTKHTML_TYPE_EDITOR, GtkhtmlEditorClass))
-#define GTKHTML_IS_EDITOR(obj) \
-	(G_TYPE_CHECK_INSTANCE_TYPE \
-	((obj), GTKHTML_TYPE_EDITOR))
-#define GTKHTML_IS_EDITOR_CLASS(cls) \
-	(G_TYPE_CHECK_CLASS_TYPE \
-	((cls), GTKHTML_TYPE_EDITOR))
-#define GTKHTML_EDITOR_GET_CLASS(obj) \
-	(G_TYPE_INSTANCE_GET_CLASS \
-	((obj), GTKHTML_TYPE_EDITOR, GtkhtmlEditorClass))
-
 G_BEGIN_DECLS
 
-typedef struct _GtkhtmlEditor GtkhtmlEditor;
-typedef struct _GtkhtmlEditorClass GtkhtmlEditorClass;
-typedef struct _GtkhtmlEditorPrivate GtkhtmlEditorPrivate;
+#define GTKHTML_TYPE_EDITOR              (gtkhtml_editor_get_type ())
 
-struct _GtkhtmlEditor {
-	GtkWindow parent;
-	GtkhtmlEditorPrivate *priv;
-};
+G_DECLARE_DERIVABLE_TYPE (GtkhtmlEditor, gtkhtml_editor, GTKHTML, EDITOR, GtkWindow)
 
-struct _GtkhtmlEditorClass {
+struct _GtkhtmlEditorClass
+{
 	GtkWindowClass parent_class;
 
 	void		(*cut_clipboard)	(GtkhtmlEditor *editor);
@@ -86,7 +61,6 @@ struct _GtkhtmlEditorClass {
 						 GtkHTMLStream *stream);
 };
 
-GType		gtkhtml_editor_get_type		(void);
 GtkWidget *	gtkhtml_editor_new		(void);
 GtkHTML *	gtkhtml_editor_get_html		(GtkhtmlEditor *editor);
 GtkBuilder *	gtkhtml_editor_get_builder	(GtkhtmlEditor *editor);
@@ -177,5 +151,3 @@ gboolean	gtkhtml_editor_has_undo		(GtkhtmlEditor *editor);
 void		gtkhtml_editor_drop_undo	(GtkhtmlEditor *editor);
 
 G_END_DECLS
-
-#endif /* GTKHTML_EDITOR_H */

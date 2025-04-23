@@ -19,9 +19,11 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#ifndef GTKHTML_EDITOR_PRIVATE_H
-#define GTKHTML_EDITOR_PRIVATE_H
+#pragma once
 
+#ifdef HAVE_CONFIG_H
+#  include "config.h"
+#endif
 #include <gtkhtml-editor.h>
 
 #include <glib/gi18n-lib.h>
@@ -124,6 +126,7 @@ PACKAGE " could not find the required file \"%s\" in any of\n" \
 G_BEGIN_DECLS
 
 typedef struct _GtkhtmlEditorRequest GtkhtmlEditorRequest;
+typedef struct _GtkhtmlEditorPrivate GtkhtmlEditorPrivate;
 
 typedef enum {
 	EDITOR_MODE_HTML,
@@ -249,7 +252,7 @@ gboolean	gtkhtml_editor_prev_spell_error	(GtkhtmlEditor *editor);
 void		gtkhtml_editor_update_context	(GtkhtmlEditor *editor);
 void		gtkthtml_editor_emit_spell_languages_changed
 						(GtkhtmlEditor *editor);
+GtkhtmlEditorPrivate*
+                gtkhtml_editor_get_private	(GtkhtmlEditor *editor);
 
 G_END_DECLS
-
-#endif /* GTKHTML_EDITOR_PRIVATE_H */
