@@ -268,9 +268,6 @@ struct _HTMLEngine {
 	HTMLObject *parser_clue;  /* the root of the currently parsed block */
 };
 
-/* must be forward referenced *sigh* */
-struct _HTMLEmbedded;
-
 struct _HTMLEngineClass {
 	GObjectClass parent_class;
 
