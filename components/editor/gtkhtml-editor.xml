@@ -1,22 +1,29 @@
-<glade-catalog name="gtkhtml-editor" library="glade-gtkhtml-editor" depends="gtk+">
+<glade-catalog name="gtkhtml-editor"
+	version="4.12"
+	library="glade-gtkhtml-editor"
+	depends="gtk+">
 
   <glade-widget-classes>
+
     <glade-widget-class name="GtkhtmlColorCombo" generic-name="color-combo" title="Color Combo Box">
       <properties>
         <property id="color"/>
         <property id="popup-shown"/>
       </properties>
     </glade-widget-class>
+
     <glade-widget-class name="GtkhtmlColorSwatch" generic-name="color-swatch" title="Color Swatch">
       <properties>
         <property id="color"/>
       </properties>
     </glade-widget-class>
+
     <glade-widget-class name="GtkhtmlComboBox" generic-name="combo-box" title="Radio Action Combo Box">
       <properties>
         <property id="action"/>
       </properties>
     </glade-widget-class>
+
   </glade-widget-classes>
 
   <glade-widget-group name="widgets" title="GtkHTML Editor">
