@@ -19,8 +19,8 @@ AM_CFLAGS = \
 BUILT_SOURCES = \
 	gtkhtml-editor-marshal.c		\
 	gtkhtml-editor-marshal.h		\
-        gtkhtml-resources.h			\
-        gtkhtml-resources.c			\
+	gtkhtml-resources.h			\
+	gtkhtml-resources.c			\
 	gtkhtml-spell-marshal.c			\
 	gtkhtml-spell-marshal.h
 
@@ -62,7 +62,6 @@ libgtkhtml_editor_4_0_la_SOURCES = \
 libgtkhtml_editor_HEADERS = \
 	gtkhtml-editor.h			\
 	gtkhtml-editor-actions.h		\
-	gtkhtml-editor-common.h			\
 	gtkhtml-editor-widgets.h		\
 	gtkhtml-spell-checker.h			\
 	gtkhtml-spell-language.h
