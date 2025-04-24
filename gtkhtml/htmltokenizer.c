@@ -45,6 +45,7 @@ static guint html_tokenizer_signals[HTML_TOKENIZER_LAST_SIGNAL] = { 0 };
 
 #define dt(x)
 
+typedef struct _HTMLTokenizerPrivate HTMLTokenizerPrivate;
 typedef struct _HTMLBlockingToken HTMLBlockingToken;
 typedef struct _HTMLTokenBuffer   HTMLTokenBuffer;
 typedef	enum { Table }            HTMLTokenType;

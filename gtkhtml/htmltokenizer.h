@@ -23,8 +23,7 @@
  * Boston, MA 02110-1301, USA.
 */
 
-#ifndef _HTMLTOKENIZER_H_
-#define _HTMLTOKENIZER_H_
+#pragma once
 
 #include <glib-object.h>
 #include "htmltypes.h"
@@ -34,19 +33,12 @@ G_BEGIN_DECLS
 #define TAG_ESCAPE 13
 #define TAB_SIZE 8
 
-#define HTML_TYPE_TOKENIZER        (html_tokenizer_get_type ())
-#define HTML_TOKENIZER(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), HTML_TYPE_TOKENIZER, HTMLTokenizer))
-#define HTML_TOKENIZER_CLASS(k)    (G_TYPE_CHECK_CLASS_CAST ((k), HTML_TYPE_TOKENIZER, HTMLTokenizerClass))
-#define HTML_IS_TOKENIZER(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), HTML_TYPE_TOKENIZER))
-#define HTML_IS_TOKENIZER_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), HTML_TYPE_TOKENIZER))
+#define HTML_TYPE_TOKENIZER              (html_tokenizer_get_type ())
 
-typedef struct _HTMLTokenizerPrivate HTMLTokenizerPrivate;
+G_DECLARE_DERIVABLE_TYPE (HTMLTokenizer, html_tokenizer, HTML, TOKENIZER, GObject)
 
-struct _HTMLTokenizer {
-	GObject parent;
-};
-
-struct _HTMLTokenizerClass {
+struct _HTMLTokenizerClass
+{
 	GObjectClass parent_class;
 
 	/* signals */
@@ -65,8 +57,6 @@ struct _HTMLTokenizerClass {
 
 	HTMLTokenizer *(*clone)      (HTMLTokenizer *);
 };
-
-GType          html_tokenizer_get_type        (void);
 
 HTMLTokenizer *html_tokenizer_new             (void);
 void           html_tokenizer_destroy         (HTMLTokenizer *tokenizer);
@@ -103,5 +93,3 @@ gchar *     convert_text_encoding (const GIConv iconv_cd, const gchar * token);
 gboolean   is_valid_g_iconv (const GIConv iconv_cd);
 
 G_END_DECLS
-
-#endif /* _HTMLTOKENIZER_H_ */
